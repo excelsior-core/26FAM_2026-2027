@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>КОНСПЕКТЫ ФПМ — Интеллектуальный академический архив</title>
-  <meta name="description" content="Студенческий сборник конспектов и рукописей · ФПМ ВШЭ · 1 курс (2026–2027)">
+  <meta name="description" content="Студенческий сборник конспектов и оригиналов лекторов · ФПМ ВШЭ · 1 курс (2026–2027)">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="styles/main.css?v=5.0">
   <link rel="stylesheet" href="styles/components.css?v=5.0">
@@ -19,6 +19,22 @@
 
   <!-- 1. Экран авторизации (The Vault Gate) -->
   <div id="auth-view" class="auth-wrapper">
+    <!-- Астрономическая сфера небесной механики на фоне -->
+    <div class="auth-celestial-canvas">
+      <svg viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="600" cy="600" r="180" stroke="var(--gold-antique)" stroke-width="1" fill="none" opacity="0.18"/>
+        <circle cx="600" cy="600" r="280" stroke="var(--gold-antique)" stroke-width="0.8" stroke-dasharray="3 6" fill="none" opacity="0.22"/>
+        <circle cx="600" cy="600" r="390" stroke="var(--gold-antique)" stroke-width="1.2" fill="none" opacity="0.14"/>
+        <circle cx="600" cy="600" r="500" stroke="var(--gold-antique)" stroke-width="1" stroke-dasharray="2 8" fill="none" opacity="0.25"/>
+        <circle cx="600" cy="600" r="580" stroke="var(--gold-antique)" stroke-width="1.5" fill="none" opacity="0.1"/>
+        <line x1="600" y1="40" x2="600" y2="1160" stroke="var(--gold-antique)" stroke-width="0.8" opacity="0.16"/>
+        <line x1="40" y1="600" x2="1160" y2="600" stroke="var(--gold-antique)" stroke-width="0.8" opacity="0.16"/>
+        <line x1="200" y1="200" x2="1000" y2="1000" stroke="var(--gold-antique)" stroke-width="0.5" stroke-dasharray="4 8" opacity="0.12"/>
+        <line x1="1000" y1="200" x2="200" y2="1000" stroke="var(--gold-antique)" stroke-width="0.5" stroke-dasharray="4 8" opacity="0.12"/>
+        <ellipse cx="600" cy="600" rx="520" ry="220" transform="rotate(-28 600 600)" stroke="var(--gold-antique)" stroke-width="1.2" stroke-dasharray="5 7" fill="none" opacity="0.2"/>
+      </svg>
+    </div>
+
     <div class="auth-card">
       <!-- Процедурный 3D WebGL / Canvas артефакт (Астролябия, 4D Тессеракт или Криптекс) -->
       <div id="vault-3d-box" class="vault-3d-box"></div>
@@ -32,7 +48,7 @@
       </div>
 
       <div class="auth-disclaimer">
-        Неофициальный учебный архив ФПМ (НИУ ВШЭ). Все материалы и рукописи защищены сквозным клиентским шифрованием (AES-256-GCM + PBKDF2 600k).
+        Неофициальный учебный архив ФПМ (НИУ ВШЭ). Все материалы и оригиналы лекторов защищены сквозным клиентским шифрованием (AES-256-GCM + PBKDF2 600k).
       </div>
 
       <form id="auth-form" class="auth-form" autocomplete="off">
@@ -136,17 +152,39 @@
 
     <!-- Главная экспозиция -->
     <main class="container">
+      <!-- Архитектурный чертежный фон сакральной геометрии -->
+      <div class="main-architectural-canvas">
+        <svg viewBox="0 0 1920 1200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="archGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="var(--gold-antique)" stroke-width="0.5" opacity="0.04"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#archGrid)" />
+          <!-- Золотая спираль Фибоначчи -->
+          <path d="M 1620,120 A 420,420 0 0,0 1200,540 A 260,260 0 0,0 1460,800 A 160,160 0 0,0 1620,640 A 98,98 0 0,0 1522,542 A 60,60 0 0,0 1462,602" fill="none" stroke="var(--gold-antique)" stroke-width="1.2" stroke-dasharray="3 6" opacity="0.14"/>
+          <!-- Архимедовы дуги циркуля и перспективные оси -->
+          <circle cx="960" cy="-80" r="580" stroke="var(--gold-antique)" stroke-width="1" fill="none" opacity="0.07"/>
+          <circle cx="960" cy="-80" r="880" stroke="var(--gold-antique)" stroke-width="1" stroke-dasharray="4 8" fill="none" opacity="0.06"/>
+          <circle cx="960" cy="-80" r="1180" stroke="var(--gold-antique)" stroke-width="0.8" fill="none" opacity="0.05"/>
+          <line x1="150" y1="0" x2="1770" y2="1200" stroke="var(--gold-antique)" stroke-width="0.5" stroke-dasharray="2 12" opacity="0.06"/>
+          <line x1="1770" y1="0" x2="150" y2="1200" stroke="var(--gold-antique)" stroke-width="0.5" stroke-dasharray="2 12" opacity="0.06"/>
+        </svg>
+      </div>
+
       <!-- Фоновая водяная типографика -->
       <div class="watermark-bg-word" style="top: 140px; right: -40px;">STATUES</div>
+      <div class="watermark-bg-word" style="top: 780px; left: -60px; font-size: clamp(5rem, 12vw, 11rem);">MATHEMATICA</div>
+      <div class="watermark-bg-word" style="top: 1420px; right: -30px; font-size: clamp(5rem, 12vw, 11rem);">ANALYSIS</div>
 
       <!-- Hero-секция -->
       <section class="hero-section">
         <div class="academic-crest">✦ АКАДЕМИЧЕСКИЙ АРХИВ · ПЕРВЫЙ КУРС ✦</div>
         <h2 class="hero-mega-title">
-          ФАКУЛЬТЕТ <span class="highlight">ПРИКЛАДНОЙ МАТЕМАТИКИ</span>
+          FUNDAMENTAL AND <span class="highlight">APPLIED MATH</span>
         </h2>
         <p class="hero-sub-text">
-          Первоклассные конспекты и оригинальные рукописи лекторов по фундаментальным математическим дисциплинам. Полная офлайн-автономия, сквозная криптография и академический перфекционизм.
+          Первоклассные академические конспекты и оригинальные материалы лекторов по фундаментальным дисциплинам. Полная автономность Zero-CDN, сквозная криптография и академический перфекционизм.
         </p>
 
         <!-- Статистика и прогресс освоения -->
@@ -231,7 +269,7 @@
       <!-- Мобильный segmented-switch для переключения на смартфонах -->
       <div class="mobile-segment-switch">
         <button id="seg-btn-note" class="segment-btn active">Конспект</button>
-        <button id="seg-btn-orig" class="segment-btn">Рукопись (PDF)</button>
+        <button id="seg-btn-orig" class="segment-btn">Оригинал (PDF)</button>
       </div>
 
       <div class="reader-actions-area">
@@ -241,7 +279,7 @@
         <button id="reader-marginalia-toggle" class="btn-secondary" title="Личные заметки на полях">
           ✦ Заметки
         </button>
-        <button id="split-toggle-btn" class="btn-secondary" title="Открыть рукопись рядом">
+        <button id="split-toggle-btn" class="btn-secondary" title="Открыть оригинал лектора рядом">
           ⚖️ Оригинал рядом
         </button>
         <button id="reader-new-tab-btn" class="btn-secondary" title="Открыть в новой вкладке">
@@ -270,7 +308,7 @@
       <!-- Правая панель: Оригинал лектора (PDF / Изображение) -->
       <div id="pane-orig" class="reader-pane split-hidden" style="display: none;">
         <div class="pane-label-bar">
-          <span>Оригинал рукописи лектора (PDF)</span>
+          <span>Оригинал лектора (PDF)</span>
           <span id="orig-downloads-span"></span>
         </div>
         <iframe id="reader-orig-iframe"></iframe>

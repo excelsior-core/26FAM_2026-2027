@@ -221,8 +221,46 @@ body::before {
   z-index: 0;
   opacity: 0.45;
   background-image: 
-    radial-gradient(circle at 15% 25%, rgba(212, 175, 55, 0.03) 0%, transparent 45%),
-    radial-gradient(circle at 85% 75%, rgba(181, 52, 31, 0.03) 0%, transparent 45%);
+    radial-gradient(circle at 15% 25%, rgba(212, 175, 55, 0.04) 0%, transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(181, 52, 31, 0.04) 0%, transparent 45%);
+}
+
+/* Мощный сакральный фон экрана авторизации: Небесная астрономическая сфера */
+.auth-celestial-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  opacity: 0.85;
+}
+.auth-celestial-canvas svg {
+  width: 1300px;
+  height: 1300px;
+  max-width: 140vw;
+  max-height: 140vh;
+  animation: celestialSlowSpin 240s linear infinite;
+}
+@keyframes celestialSlowSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Архитектурный чертежный фон основной страницы архива */
+.main-architectural-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0.85;
+}
+.main-architectural-canvas svg {
+  width: 100%;
+  height: 100%;
 }
 
 /* Крупная водяная фоновая типографика сквозь слои дыма («STATUES», «MATHEMATICA») */

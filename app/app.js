@@ -667,21 +667,21 @@ class App {
 
       <div class="folio-pdf-spotlight">
         <div class="pdf-spotlight-header">
-          <span>ОРИГИНАЛ РУКОПИСИ ПРЕПОДАВАТЕЛЯ</span>
+          <span>МАТЕРИАЛЫ И ОРИГИНАЛ ЛЕКТОРА</span>
           <span style="font-family: var(--font-mono); font-size: 0.72rem;">${hasPdf ? 'В АРХИВЕ' : 'ОЖИДАЕТСЯ'}</span>
         </div>
 
         <div class="pdf-spotlight-actions">
           ${hasPdf ? `
             <button class="btn-open-pdf-primary js-open-pdf">
-              📄 ОТКРЫТЬ РУКОПИСЬ (PDF) →
+              📄 ОТКРЫТЬ PDF ЛЕКТОРА →
             </button>
             <button class="btn-open-split-secondary js-open-split">
               ⚖️ СПЛИТ-РИДЕР (БОК О БОК)
             </button>
           ` : `
             <div style="font-size: 0.8rem; color: var(--parchment-muted); text-align: center; padding: 8px;">
-              Рукопись лектора сканируется и будет добавлена в архив.
+              Оригинальный PDF лектора подготавливается и скоро появится в архиве.
             </div>
           `}
           <button class="btn-open-html-tertiary js-open-html">
@@ -734,11 +734,11 @@ class App {
 
       <div class="folio-card-actions">
         ${hasPdf ? `
-          <button class="pdf-quick-badge js-quick-pdf" title="Открыть чистую рукопись лектора в 1 клик">
-            📄 РУКОПИСЬ (PDF)
+          <button class="pdf-quick-badge js-quick-pdf" title="Открыть оригинальный PDF лектора в 1 клик">
+            📄 PDF ЛЕКТОРА
           </button>
         ` : `
-          <span style="font-size: 0.75rem; color: var(--parchment-muted);">Рукопись готовится</span>
+          <span style="font-size: 0.75rem; color: var(--parchment-muted);">PDF готовится</span>
         `}
 
         <div style="display: flex; align-items: center; gap: 10px;">
@@ -779,7 +779,7 @@ class App {
           <th>Предмет</th>
           <th>Дата / №</th>
           <th>Материал</th>
-          <th>Рукопись</th>
+          <th>Оригинал</th>
           <th>Действия</th>
         </tr>
       </thead>
@@ -920,7 +920,7 @@ class App {
 
   toggleSplitView() {
     if (!this.currentLecture?.originals?.length) {
-      alert('Оригинал рукописи лектора для этого материала пока не загружен.');
+      alert('Оригинальный PDF лектора для этого материала пока не загружен.');
       return;
     }
 
@@ -1192,15 +1192,24 @@ class App {
 
     for (let day = 1; day <= totalDays; day++) {
       const cell = document.createElement('div');
-      cell.className = 'cal-day-cell';
-
       const dayStr = `${String(day).padStart(2, '0')}.${String(month + 1).padStart(2, '0')}.${year}`;
       const matchingLectures = lectures.filter(l => l.sessions?.some(s => s.date === dayStr));
+      const hasMultiple = matchingLectures.length > 1;
+
+      cell.className = `cal-day-cell ${matchingLectures.length > 0 ? 'has-classes' : ''} ${hasMultiple ? 'has-multiple' : ''}`;
+
+      const maxDots = 3;
+      const visibleDots = matchingLectures.slice(0, maxDots);
+      const extraCount = matchingLectures.length - maxDots;
 
       cell.innerHTML = `
-        <span style="font-weight: 600;">${day}</span>
+        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+          <span style="font-weight: 600;">${day}</span>
+          ${hasMultiple ? `<span style="font-size: 0.65rem; color: var(--gold-antique); font-family: var(--font-mono); font-weight: 700;">(${matchingLectures.length})</span>` : ''}
+        </div>
         <div class="cal-dots">
-          ${matchingLectures.map(l => `<span class="cal-dot" style="background: ${this.getSubjectColor(l.subject)};"></span>`).join('')}
+          ${visibleDots.map(l => `<span class="cal-dot" style="background: ${this.getSubjectColor(l.subject)};" title="${l.subject}: ${l.title}"></span>`).join('')}
+          ${extraCount > 0 ? `<span style="font-size: 0.62rem; color: var(--gold-antique); font-family: var(--font-mono); font-weight: 700;">+${extraCount}</span>` : ''}
         </div>
       `;
 
@@ -1218,29 +1227,70 @@ class App {
     if (!this.calSelectedDaySchedule) return;
     if (matchingLectures.length === 0) {
       this.calSelectedDaySchedule.innerHTML = `
-        <div style="font-size: 0.85rem; color: var(--parchment-muted);">
-          На дату <strong>${dayStr}</strong> пар в архиве не зафиксировано.
+        <div style="font-size: 0.85rem; color: var(--parchment-muted); text-align: center; padding: 14px;">
+          На дату <strong>${dayStr}</strong> учебных занятий в архиве не зафиксировано.
         </div>
       `;
       return;
     }
 
     this.calSelectedDaySchedule.innerHTML = `
-      <div style="font-weight: 700; margin-bottom: 8px; color: var(--gold-antique);">Занятия на ${dayStr}:</div>
-      <div style="display: flex; flex-direction: column; gap: 8px;">
-        ${matchingLectures.map(l => `
-          <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-surface); padding: 8px 12px; border-radius: 4px;">
-            <span>${l.subject}: <strong>${l.title}</strong></span>
-            <button class="btn-secondary js-open-from-cal" data-id="${l.id}" style="padding: 4px 8px; font-size: 0.74rem;">Открыть →</button>
-          </div>
-        `).join('')}
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px;">
+        <div style="font-weight: 700; color: var(--gold-antique); font-size: 0.95rem;">
+          📅 Занятия на ${dayStr}
+        </div>
+        <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--parchment-muted); background: rgba(255, 255, 255, 0.05); padding: 3px 8px; border-radius: 4px;">
+          Всего материалов: ${matchingLectures.length}
+        </span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px; max-height: 280px; overflow-y: auto;">
+        ${matchingLectures.map((l, idx) => {
+          const hasPdf = l.originals && l.originals.length > 0;
+          const subjColor = this.getSubjectColor(l.subject);
+          const sessionInfo = l.sessions?.find(s => s.date === dayStr);
+          const pairNum = sessionInfo?.number ? `Пара №${sessionInfo.number}` : `Занятие ${idx + 1}`;
+
+          return `
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-left: 3px solid ${subjColor}; border-radius: var(--radius-sm); padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+              <div style="overflow: hidden; flex: 1;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 3px;">
+                  <span style="font-family: var(--font-serif); font-size: 0.78rem; text-transform: uppercase; color: ${subjColor}; font-weight: 700;">
+                    ● ${l.subject}
+                  </span>
+                  <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--gold-dim); background: rgba(212, 175, 55, 0.08); padding: 1px 6px; border-radius: 3px;">
+                    ${pairNum}
+                  </span>
+                  <span style="font-size: 0.7rem; color: var(--parchment-muted);">
+                    ${l.category || 'Лекция'}
+                  </span>
+                </div>
+                <div style="font-weight: 600; color: var(--ivory-parchment); font-size: 0.88rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                  ${l.title}
+                </div>
+              </div>
+              <div style="display: flex; gap: 6px; flex-shrink: 0;">
+                <button class="btn-secondary js-open-from-cal" data-id="${l.id}" data-mode="html" style="padding: 5px 9px; font-size: 0.75rem;">
+                  📝 Конспект
+                </button>
+                ${hasPdf ? `
+                  <button class="pdf-quick-badge js-open-from-cal" data-id="${l.id}" data-mode="pdf" style="padding: 5px 9px; font-size: 0.75rem;">
+                    📄 PDF
+                  </button>
+                  <button class="btn-secondary js-open-from-cal" data-id="${l.id}" data-mode="split" style="padding: 5px 8px; font-size: 0.75rem;" title="Сплит-ридер">
+                    ⚖️
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+          `;
+        }).join('')}
       </div>
     `;
 
     this.calSelectedDaySchedule.querySelectorAll('.js-open-from-cal').forEach(b => {
       b.addEventListener('click', () => {
         this.calendarModal.classList.remove('open');
-        this.openLecture(b.dataset.id);
+        this.openLecture(b.dataset.id, { mode: b.dataset.mode || 'html' });
       });
     });
   }

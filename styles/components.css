@@ -1129,30 +1129,52 @@
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  padding: 6px;
+  padding: 6px 7px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   font-size: 0.8rem;
   cursor: pointer;
+  position: relative;
+  transition: all var(--transition-fast);
 }
 .cal-day-cell:hover {
   border-color: var(--gold-border);
+  background: var(--bg-card-hover);
+  transform: translateY(-1px);
 }
 .cal-day-cell.active-day {
   border-color: var(--gold-antique);
-  background: rgba(212, 175, 55, 0.12);
+  background: rgba(212, 175, 55, 0.14);
+  box-shadow: 0 0 12px var(--gold-shadow);
+}
+.cal-day-cell.has-multiple {
+  border-color: rgba(212, 175, 55, 0.35);
+  background: rgba(212, 175, 55, 0.05);
+}
+.cal-day-cell.has-multiple::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold-antique);
+  box-shadow: 0 0 4px var(--gold-light);
 }
 .cal-dots {
   display: flex;
   gap: 3px;
   flex-wrap: wrap;
+  align-items: center;
 }
 .cal-dot {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--gold-antique);
+  box-shadow: 0 0 4px rgba(212, 175, 55, 0.4);
 }
 
 /* Адаптивность для мобильных экранов */
