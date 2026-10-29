@@ -1,19 +1,22 @@
 /**
  * app/search.js - Разговорный интеллектуальный NLP-поиск и командная палитра (Ctrl+K или /)
  * Особенности:
- * 1. Русский стеммер (отсечение окончаний для поиска по корням)
- * 2. Фильтрация разговорного шума и стоп-слов («где там было про», «как решать», «че на коллоке»)
- * 3. Семантическое распознавание студенческого сленга и намерений («матан», «коллок», «домашка», «первая пара»)
- * 4. Устойчивость к опечаткам (Damerau-Levenshtein distance)
- * 5. Контекстное извлечение сниппетов с точной подсветкой математических терминов и формул
+ * 1. Русский стеммер Портера (поиск по корням слов и морфологическим основам)
+ * 2. Распознавание студенческого сленга («матан», «линал», «дискретка», «аг», «коллок», «первая пара»)
+ * 3. Поиск по оригинальным темам PDF лекторов («метод Гаусса», «комплексные числа», «кольцо вычетов»)
+ * 4. Поиск по датам и месяцам («02.09», «2 сентября», «октябрь», «4 сент»)
+ * 5. Поиск по дедлайнам и коллоквиумам
+ * 6. Фоновый полнотекстовый поиск по содержимому расшифрованных конспектов
  * 100% Zero-Knowledge & Zero-CDN: локально, в памяти, 0 мс задержки.
  */
 
 export class SearchEngine {
   constructor() {
     this.index = [];
+    this.announcements = [];
     this.modal = document.getElementById('palette-modal');
     this.input = document.getElementById('palette-search-input');
+    this.closeBtn = document.getElementById('palette-close-btn');
     this.resultsContainer = document.getElementById('palette-results-list');
     this.selectedIndex = 0;
     this.currentResults = [];
@@ -24,21 +27,37 @@ export class SearchEngine {
       'к', 'ко', 'по', 'мне', 'для', 'ли', 'же', 'да', 'ну', 'у', 'из', 'изо',
       'от', 'ото', 'о', 'об', 'обо', 'и', 'а', 'но', 'или', 'когда', 'если',
       'то', 'бы', 'этот', 'эта', 'это', 'эти', 'будет', 'учить', 'есть', 'какой',
-      'какая', 'какие', 'найти', 'подскажи', 'покажи', 'хочу', 'надо', 'нужно'
+      'какая', 'какие', 'найти', 'подскажи', 'покажи', 'хочу', 'надо', 'нужно',
+      'материал', 'материалы'
     ]);
 
-    // Семантические синонимы и намерения
+    // Канонические предметы ФПМ и их разговорные студенческие синонимы
     this.intentAliases = {
-      // Предметы
-      'матан': { subject: 'Матанализ' },
-      'анализ': { subject: 'Матанализ' },
-      'линал': { subject: 'Линал и Аналит' },
-      'аналит': { subject: 'Линал и Аналит' },
-      'дискретка': { subject: 'Дискретная математика' },
-      'дикра': { subject: 'Дискретная математика' },
-      'прога': { subject: 'Программирование' },
-      'плюсы': { subject: 'Программирование' },
-      'си': { subject: 'Программирование' },
+      // Математический Анализ
+      'матан': { subject: 'Математический Анализ' },
+      'анализ': { subject: 'Математический Анализ' },
+      'матанализ': { subject: 'Математический Анализ' },
+      'математический': { subject: 'Математический Анализ' },
+      'вышмат': { subject: 'Математический Анализ' },
+
+      // Алгебра
+      'линал': { subject: 'Алгебра' },
+      'алгебра': { subject: 'Алгебра' },
+      'алгебре': { subject: 'Алгебра' },
+      'вышка': { subject: 'Алгебра' },
+
+      // Аналитическая Геометрия
+      'аг': { subject: 'Аналитическая Геометрия' },
+      'ангем': { subject: 'Аналитическая Геометрия' },
+      'аналит': { subject: 'Аналитическая Геометрия' },
+      'геометрия': { subject: 'Аналитическая Геометрия' },
+      'геом': { subject: 'Аналитическая Геометрия' },
+
+      // Дискретная Математика
+      'дискретка': { subject: 'Дискретная Математика' },
+      'дикра': { subject: 'Дискретная Математика' },
+      'дискретная': { subject: 'Дискретная Математика' },
+      'дм': { subject: 'Дискретная Математика' },
 
       // Категории
       'коллок': { category: 'коллоквиумы' },
@@ -52,7 +71,8 @@ export class SearchEngine {
       'сем': { category: 'семинары' },
       'семинар': { category: 'семинары' },
       'практика': { category: 'семинары' },
-      'лекция': { category: 'лекции' }
+      'лекция': { category: 'лекции' },
+      'лекции': { category: 'лекции' }
     };
 
     // Парсер номеров пар в разговорной речи
@@ -67,6 +87,21 @@ export class SearchEngine {
       'восьмая': 8, 'восьмой': 8, '8-я': 8, '8-й': 8,
       'девятая': 9, 'девятой': 9, '9-я': 9, '9-й': 9,
       'десятая': 10, 'десятой': 10, '10-я': 10, '10-й': 10
+    };
+
+    this.monthNames = {
+      '01': ['январь', 'января', 'янв'],
+      '02': ['февраль', 'февраля', 'фев'],
+      '03': ['март', 'марта', 'мар'],
+      '04': ['апрель', 'апреля', 'апр'],
+      '05': ['май', 'мая'],
+      '06': ['июнь', 'июня', 'июн'],
+      '07': ['июль', 'июля', 'июл'],
+      '08': ['август', 'августа', 'авг'],
+      '09': ['сентябрь', 'сентября', 'сент'],
+      '10': ['октябрь', 'октября', 'окт'],
+      '11': ['ноябрь', 'ноября', 'нояб'],
+      '12': ['декабрь', 'декабря', 'дек']
     };
 
     this.initEvents();
@@ -97,6 +132,10 @@ export class SearchEngine {
       });
     }
 
+    if (this.closeBtn) {
+      this.closeBtn.addEventListener('click', () => this.close());
+    }
+
     if (this.input) {
       this.input.addEventListener('input', () => this.handleSearch());
       this.input.addEventListener('keydown', (e) => this.handleKeyNavigation(e));
@@ -110,10 +149,12 @@ export class SearchEngine {
   open() {
     if (!this.modal) return;
     this.modal.classList.add('open');
-    this.input.value = '';
+    if (this.input) {
+      this.input.value = '';
+      setTimeout(() => this.input.focus(), 50);
+    }
     this.selectedIndex = 0;
     this.handleSearch();
-    setTimeout(() => this.input.focus(), 50);
   }
 
   close() {
@@ -125,7 +166,7 @@ export class SearchEngine {
    * Стеммер Портера для русского языка (отсекает флексии для поиска по корням)
    */
   stem(word) {
-    if (!word || word.length < 3) return word.toLowerCase();
+    if (!word || word.length < 3) return (word || '').toLowerCase();
     word = word.toLowerCase().replace(/ё/g, 'е');
 
     const m = word.match(/^(.*?[аеиоуыэюя])(.*)$/);
@@ -133,7 +174,6 @@ export class SearchEngine {
     const start = m[1];
     let rv = m[2];
 
-    // Шаг 1: отсечение окончаний причастий, деепричастий, прилагательных, глаголов, существительных
     let match = rv.match(/((ив|ивши|ившись|ыв|ывши|ывшись)|((?<=[ая])(в|вши|вшись)))$/);
     if (match) {
       rv = rv.slice(0, -match[0].length);
@@ -168,6 +208,7 @@ export class SearchEngine {
    * Нечеткое расстояние Левенштейна (прощение опечаток в 1-2 символа)
    */
   isFuzzyMatch(a, b, maxDist = 1) {
+    if (!a || !b) return false;
     if (Math.abs(a.length - b.length) > maxDist) return false;
     if (a === b) return true;
     if (a.length < 4 || b.length < 4) return a === b;
@@ -192,28 +233,6 @@ export class SearchEngine {
     return dp[lenA][lenB] <= maxDist;
   }
 
-  buildIndex(metadata, decryptedTexts = new Map()) {
-    this.index = [];
-    for (const lec of metadata.lectures || []) {
-      const plainContent = decryptedTexts.get(lec.id) || '';
-      const tokens = this.tokenizeAndStem(`${lec.title} ${lec.subject} ${lec.category || ''} ${(lec.tags || []).join(' ')} ${lec.description || ''}`);
-
-      this.index.push({
-        id: lec.id,
-        subject: lec.subject || '',
-        category: (lec.category || 'лекции').toLowerCase(),
-        title: lec.title || '',
-        description: lec.description || '',
-        tags: lec.tags || [],
-        module: lec.module || '',
-        sessions: lec.sessions || [],
-        content: plainContent,
-        hasPdf: (lec.originals && lec.originals.length > 0),
-        tokens: tokens
-      });
-    }
-  }
-
   tokenizeAndStem(text) {
     if (!text) return [];
     const rawTokens = text.toLowerCase().split(/[^a-zа-яё0-9_]+/i).filter(Boolean);
@@ -226,28 +245,148 @@ export class SearchEngine {
     return result;
   }
 
+  /**
+   * Построение поискового индекса.
+   * Безопасно принимает как полный объект metadata, так и массив metadata.lectures.
+   */
+  buildIndex(metadataOrLectures, decryptedTexts = new Map()) {
+    this.index = [];
+    const lectures = Array.isArray(metadataOrLectures)
+      ? metadataOrLectures
+      : (metadataOrLectures?.lectures || []);
+
+    const announcements = (!Array.isArray(metadataOrLectures) && metadataOrLectures?.announcements)
+      ? metadataOrLectures.announcements
+      : [];
+
+    this.announcements = announcements;
+
+    // 1. Индексация объявлений и дедлайнов (коллоквиумы, домашние задания)
+    for (const ann of announcements) {
+      const annText = `${ann.title || ''} ${ann.subject || ''} ${ann.text || ''}`.trim();
+      const tokens = this.tokenizeAndStem(annText);
+      const isColloq = (ann.title || '').toLowerCase().includes('коллок') || (ann.text || '').toLowerCase().includes('коллок');
+
+      this.index.push({
+        id: ann.id,
+        type: 'announcement',
+        subject: ann.subject || 'Дедлайн',
+        category: isColloq ? 'коллоквиумы' : 'дедлайны',
+        title: ann.title || '',
+        description: ann.text || '',
+        folder: '',
+        tags: [],
+        module: '',
+        sessions: [],
+        sessionNumbers: [],
+        origTitles: '',
+        dateStrings: ann.datetime ? [new Date(ann.datetime).toLocaleDateString('ru-RU')] : [],
+        content: ann.text || '',
+        hasPdf: false,
+        tokens: [...new Set(tokens)],
+        rawTextLower: annText.toLowerCase(),
+        firstSessionNumber: 0
+      });
+    }
+
+    // 2. Индексация учебных материалов
+    for (const lec of lectures) {
+      const plainContent = decryptedTexts.get(lec.id) || '';
+
+      // Темы из оригинальных PDF лекторов (например: «Комплексные числа», «метод Гаусса»)
+      const origTitles = (lec.originals || []).map(o => (o.name || '').replace(/\.pdf$/i, '').replace(/[()_]/g, ' ')).join(' ');
+      const fileTitles = (lec.files || []).map(f => (f.name || '').replace(/\.[a-z0-9]+$/i, '').replace(/[()_]/g, ' ')).join(' ');
+
+      // Извлечение номеров пар и дат занятий в разных форматах
+      const dateStrings = [];
+      const sessionNumbers = (lec.sessions || []).map(s => s.number).filter(n => typeof n === 'number');
+
+      for (const s of lec.sessions || []) {
+        if (s.date) {
+          dateStrings.push(s.date);
+          const parts = s.date.split('.');
+          if (parts.length >= 2) {
+            const day = parseInt(parts[0], 10);
+            const month = parts[1];
+            dateStrings.push(`${day}.${parts[1]}`, `${parts[0]}.${parts[1]}`);
+            const mNames = this.monthNames[month] || [];
+            dateStrings.push(...mNames);
+            if (mNames[1]) {
+              dateStrings.push(`${day} ${mNames[1]}`);
+              dateStrings.push(`${day} ${mNames[2] || mNames[0]}`);
+            }
+          }
+        }
+      }
+
+      const allSearchableText = [
+        lec.title || '',
+        lec.subject || '',
+        lec.category || '',
+        lec.folder || '',
+        (lec.tags || []).join(' '),
+        lec.description || '',
+        origTitles,
+        fileTitles,
+        dateStrings.join(' '),
+        plainContent
+      ].join(' ');
+
+      const tokens = this.tokenizeAndStem(allSearchableText);
+
+      this.index.push({
+        id: lec.id,
+        type: 'lecture',
+        subject: lec.subject || '',
+        category: (lec.category || 'лекции').toLowerCase(),
+        title: lec.title || '',
+        description: lec.description || '',
+        folder: lec.folder || '',
+        tags: lec.tags || [],
+        module: lec.module || '',
+        sessions: lec.sessions || [],
+        sessionNumbers: sessionNumbers,
+        origTitles: origTitles,
+        dateStrings: dateStrings,
+        content: plainContent,
+        hasPdf: (lec.originals && lec.originals.length > 0),
+        tokens: [...new Set(tokens)],
+        rawTextLower: allSearchableText.toLowerCase(),
+        firstSessionNumber: sessionNumbers.length > 0 ? Math.min(...sessionNumbers) : 999
+      });
+    }
+  }
+
+  /**
+   * Обновление текста лекции после фоновой расшифровки HTML-конспекта
+   */
   updateLectureContent(lectureId, htmlContent) {
-    const item = this.index.find(i => i.id === lectureId);
+    const item = this.index.find(i => i.id === lectureId && i.type === 'lecture');
     if (item) {
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = htmlContent;
-      item.content = tempDiv.textContent || tempDiv.innerText || '';
-      const contentTokens = this.tokenizeAndStem(item.content);
+      const cleanText = (tempDiv.textContent || tempDiv.innerText || '').replace(/\s+/g, ' ');
+      item.content = cleanText;
+      item.rawTextLower += ' ' + cleanText.toLowerCase();
+      const contentTokens = this.tokenizeAndStem(cleanText);
       item.tokens = [...new Set([...item.tokens, ...contentTokens])];
     }
   }
 
   handleSearch() {
+    if (!this.input) return;
     const rawQuery = this.input.value.trim().toLowerCase();
+
+    // Если поисковая строка пуста — показываем актуальные материалы (лекции и объявления)
     if (!rawQuery) {
-      this.currentResults = this.index.slice(0, 8);
+      this.currentResults = this.index.filter(i => i.type === 'lecture').slice(0, 8);
       this.selectedIndex = 0;
       this.renderResults(rawQuery);
       return;
     }
 
     // 1. Извлечение семантических намерений (Intent Parsing)
-    const rawTokens = rawQuery.split(/[^a-zа-яё0-9_]+/i).filter(Boolean);
+    const rawTokens = rawQuery.split(/[^a-zа-яё0-9_.-]+/i).filter(Boolean);
     let targetSubject = null;
     let targetCategory = null;
     let targetSessionNumber = null;
@@ -256,26 +395,37 @@ export class SearchEngine {
     for (let i = 0; i < rawTokens.length; i++) {
       const t = rawTokens[i];
 
-      // Проверка на номера пар (например, "первая пара", "1 пара")
+      // Номера пар словами («первая пара», «вторая»)
       if (this.sessionWords[t]) {
         targetSessionNumber = this.sessionWords[t];
         continue;
       }
-      if (/^\d{1,2}$/.test(t) && (rawTokens[i + 1] === 'пара' || rawTokens[i - 1] === 'пара')) {
-        targetSessionNumber = parseInt(t, 10);
+
+      // Номера пар цифрами («1 пара», «пара 2», «лекция 3», «№ 4», или одиночная цифра при коротком запросе)
+      if (/^\d{1,3}$/.test(t)) {
+        const prev = rawTokens[i - 1] || '';
+        const next = rawTokens[i + 1] || '';
+        const isSessionMarker = ['пара', 'пары', 'лекция', 'лекции', 'зан', 'занятие', '№', 'ном'].some(m => prev.includes(m) || next.includes(m));
+        if (isSessionMarker || rawTokens.length <= 2) {
+          targetSessionNumber = parseInt(t, 10);
+          continue;
+        }
+      }
+
+      // Алиасы предметов («матан», «линал», «дискретка», «аг»)
+      if (this.intentAliases[t] && this.intentAliases[t].subject) {
+        targetSubject = this.intentAliases[t].subject;
         continue;
       }
 
-      // Проверка на алиасы предметов и категорий
-      if (this.intentAliases[t]) {
-        const alias = this.intentAliases[t];
-        if (alias.subject) targetSubject = alias.subject;
-        if (alias.category) targetCategory = alias.category;
+      // Алиасы категорий («коллок», «билеты», «экзамен»)
+      if (this.intentAliases[t] && this.intentAliases[t].category) {
+        targetCategory = this.intentAliases[t].category;
         continue;
       }
 
       // Фильтрация стоп-слов
-      if (!this.stopWords.has(t)) {
+      if (!this.stopWords.has(t) && !['пара', 'пары', 'лекция', 'лекции', 'занятие'].includes(t)) {
         meaningfulTokens.push(t);
       }
     }
@@ -288,41 +438,68 @@ export class SearchEngine {
     for (const item of this.index) {
       let score = 0;
 
-      // Бонус за совпадение семантического намерения по предмету
-      if (targetSubject && item.subject.toLowerCase() === targetSubject.toLowerCase()) {
-        score += 80;
+      // Точное совпадение всей строки запроса
+      if (item.rawTextLower.includes(rawQuery)) {
+        score += 85;
       }
 
-      // Бонус за совпадение намерения по категории (коллоквиумы, семинары)
-      if (targetCategory && item.category.toLowerCase() === targetCategory.toLowerCase()) {
-        score += 70;
+      // Бонус за предмет
+      if (targetSubject) {
+        if (item.subject.toLowerCase() === targetSubject.toLowerCase()) {
+          score += 75;
+        } else if (item.type === 'lecture') {
+          // Если пользователь явно искал «матан», материалы по алгебре штрафуются
+          score -= 40;
+        }
       }
 
-      // Бонус за совпадение номера пары
-      if (targetSessionNumber) {
-        const hasSession = item.sessions.some(s => s.number === targetSessionNumber);
-        if (hasSession) score += 90;
+      // Бонус за категорию (коллоквиумы, семинары, экзамены)
+      if (targetCategory && item.category === targetCategory) {
+        score += 65;
+      }
+
+      // Бонус за номер пары / лекции
+      if (targetSessionNumber !== null) {
+        if (item.sessionNumbers.includes(targetSessionNumber)) {
+          score += 120;
+        } else if (item.title.includes(String(targetSessionNumber))) {
+          score += 45;
+        } else {
+          // Если искали конкретный номер занятия, материалы без этого номера штрафуются
+          score -= 100;
+        }
       }
 
       // Оценка по стеммированным токенам
       const titleLower = item.title.toLowerCase();
       const descLower = item.description.toLowerCase();
       const contentLower = item.content.toLowerCase();
+      const origTitlesLower = item.origTitles.toLowerCase();
 
       for (let i = 0; i < meaningfulTokens.length; i++) {
         const rawToken = meaningfulTokens[i];
         const stemToken = stemmedQueryTokens[i];
 
-        // Точное совпадение подстроки в заголовке
+        // Совпадение в заголовке
         if (titleLower.includes(rawToken)) {
-          score += 60;
+          score += 55;
         } else if (item.tokens.some(t => t === stemToken || this.isFuzzyMatch(t, stemToken))) {
-          score += 40;
+          score += 35;
         }
 
-        // Совпадение в тегах
-        if (item.tags.some(tag => tag.toLowerCase().includes(rawToken) || this.stem(tag) === stemToken)) {
-          score += 35;
+        // Совпадение в оригинальной теме PDF лектора (например: «метод Гаусса», «вычеты»)
+        if (origTitlesLower.includes(rawToken)) {
+          score += 60;
+        }
+
+        // Совпадение в датах занятия
+        if (item.dateStrings.some(d => d.toLowerCase().includes(rawToken))) {
+          score += 45;
+        }
+
+        // Совпадение в папке
+        if (item.folder.toLowerCase().includes(rawToken)) {
+          score += 25;
         }
 
         // Совпадение в описании
@@ -332,11 +509,11 @@ export class SearchEngine {
 
         // Совпадение в полном тексте конспекта
         if (contentLower.includes(rawToken)) {
-          score += 12;
+          score += 20;
         }
       }
 
-      if (score > 0) {
+      if (score > 15) {
         scored.push({
           item,
           score,
@@ -345,41 +522,64 @@ export class SearchEngine {
       }
     }
 
-    scored.sort((a, b) => b.score - a.score);
-    this.currentResults = scored.map(s => ({ ...s.item, snippet: s.snippet }));
+    // Сортировка: релевантность -> хронологический порядок
+    scored.sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return (a.item.firstSessionNumber || 0) - (b.item.firstSessionNumber || 0);
+    });
+
+    const maxScore = scored.length > 0 ? scored[0].score : 0;
+    // Отсекаем шум при наличии сильных совпадений
+    const relevant = scored.filter(s => s.score >= Math.max(25, maxScore * 0.4));
+
+    this.currentResults = relevant.map(s => ({ ...s.item, snippet: s.snippet }));
     this.selectedIndex = 0;
     this.renderResults(rawQuery);
   }
 
   extractSnippet(item, tokens) {
-    const text = item.content || item.description || item.title;
+    if (item.type === 'announcement') {
+      const text = item.description || item.title;
+      return text.length > 130 ? text.slice(0, 130) + '…' : text;
+    }
+
+    const topicHint = item.origTitles ? `Тема из PDF: ${item.origTitles}` : '';
+    const text = item.content || item.description || topicHint || item.folder || '';
     if (!text) return '';
 
     const lower = text.toLowerCase();
     let bestPos = -1;
     for (const t of tokens) {
+      if (!t || t.length < 2) continue;
       const idx = lower.indexOf(t.toLowerCase());
       if (idx !== -1 && (bestPos === -1 || idx < bestPos)) {
         bestPos = idx;
       }
     }
 
-    if (bestPos === -1) return text.slice(0, 120) + '...';
+    if (bestPos === -1) {
+      if (topicHint && topicHint !== text) {
+        return `📌 ${topicHint}` + (text ? ` · ${text.slice(0, 90)}…` : '');
+      }
+      return text.slice(0, 120) + (text.length > 120 ? '…' : '');
+    }
 
-    const start = Math.max(0, bestPos - 45);
-    const end = Math.min(text.length, bestPos + 95);
+    const start = Math.max(0, bestPos - 40);
+    const end = Math.min(text.length, bestPos + 100);
     return (start > 0 ? '…' : '') + text.slice(start, end) + (end < text.length ? '…' : '');
   }
 
   highlightMatches(text, query) {
     if (!query || !text) return text;
-    const tokens = query.split(/[^a-zа-яё0-9_]+/i).filter(t => !this.stopWords.has(t) && t.length > 1);
+    const tokens = query.split(/[^a-zа-яё0-9_.-]+/i).filter(t => !this.stopWords.has(t) && t.length > 1);
     if (tokens.length === 0) return text;
 
     let result = text;
     for (const t of tokens) {
       const stem = this.stem(t);
-      const regex = new RegExp(`(${t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}|${stem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[а-яё]*)`, 'gi');
+      const safeT = t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const safeStem = stem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`(${safeT}|${safeStem}[а-яё]*)`, 'gi');
       result = result.replace(regex, '<mark class="search-highlight">$1</mark>');
     }
     return result;
@@ -399,12 +599,13 @@ export class SearchEngine {
       if (this.currentResults[this.selectedIndex]) {
         const item = this.currentResults[this.selectedIndex];
         this.close();
-        if (this.onSelectCallback) this.onSelectCallback(item.id, e.ctrlKey || e.metaKey);
+        if (this.onSelectCallback) this.onSelectCallback(item, e.ctrlKey || e.metaKey);
       }
     }
   }
 
   updateSelectionVisuals() {
+    if (!this.resultsContainer) return;
     const items = this.resultsContainer.querySelectorAll('.palette-item');
     items.forEach((el, idx) => {
       el.classList.toggle('selected', idx === this.selectedIndex);
@@ -415,13 +616,16 @@ export class SearchEngine {
   }
 
   renderResults(query) {
+    if (!this.resultsContainer) return;
     this.resultsContainer.innerHTML = '';
 
     if (this.currentResults.length === 0) {
       this.resultsContainer.innerHTML = `
         <div class="palette-empty" style="text-align: center; padding: 36px 20px; color: var(--parchment-muted);">
           По запросу <span style="color: var(--gold-antique);">«${query}»</span> ничего не найдено.<br>
-          <span style="font-size: 0.76rem; opacity: 0.7;">Попробуйте спросить: «матрицы на 1 паре», «коллок по матану», «векторные пространства».</span>
+          <span style="font-size: 0.78rem; opacity: 0.7; display: inline-block; margin-top: 8px;">
+            Попробуйте спросить: «матан 1», «метод Гаусса», «комплексные числа», «2 сентября», «коллок».
+          </span>
         </div>
       `;
       return;
@@ -434,12 +638,14 @@ export class SearchEngine {
       const titleHl = this.highlightMatches(item.title, query);
       const snippetHl = this.highlightMatches(item.snippet || item.description || '', query);
       const pdfBadge = item.hasPdf ? `<span class="pdf-tag-mini" style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--gold-light); background: rgba(212, 175, 55, 0.1); border: 1px solid var(--border-subtle); padding: 1px 6px; border-radius: 3px;">📄 PDF</span>` : '';
+      const actionBadge = item.type === 'announcement' ? `<span style="font-family: var(--font-mono); font-size: 0.68rem; background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); padding: 1px 6px; border-radius: 3px;">ДЕЙСТВИЕ</span>` : '';
 
       el.innerHTML = `
         <div class="palette-item-header">
           <div class="palette-item-title">${titleHl}</div>
           <div class="palette-item-badges" style="display: flex; gap: 6px; align-items: center;">
             <span class="palette-item-subject" style="font-family: var(--font-serif); font-size: 0.75rem; text-transform: uppercase; color: var(--gold-antique);">${item.subject}</span>
+            ${actionBadge}
             ${pdfBadge}
           </div>
         </div>
@@ -448,7 +654,7 @@ export class SearchEngine {
 
       el.addEventListener('click', (e) => {
         this.close();
-        if (this.onSelectCallback) this.onSelectCallback(item.id, e.ctrlKey || e.metaKey);
+        if (this.onSelectCallback) this.onSelectCallback(item, e.ctrlKey || e.metaKey);
       });
 
       this.resultsContainer.appendChild(el);

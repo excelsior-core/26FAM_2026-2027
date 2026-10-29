@@ -222,6 +222,18 @@
           </div>
 
           <div class="filters-actions-wrap">
+            <div class="inline-search-wrap" title="Быстрый фильтр по лекциям, темам, датам">
+              <span class="inline-search-icon">🔍</span>
+              <input 
+                type="text" 
+                id="inline-search-input" 
+                class="inline-search-input" 
+                placeholder="Фильтр материалов..." 
+                autocomplete="off"
+              >
+              <button id="inline-search-clear" class="inline-search-clear" title="Очистить фильтр" style="display: none;">✕</button>
+            </div>
+
             <select id="filter-module" class="btn-secondary" style="font-size: 0.8rem;">
               <option value="">Все модули</option>
             </select>
@@ -340,6 +352,7 @@
           placeholder="Поиск по лекциям, темам, формулам и терминам..."
           autocomplete="off"
         >
+        <button id="palette-close-btn" class="palette-close-btn" title="Закрыть (Esc)">✕</button>
       </div>
       <div id="palette-results-list" class="palette-results"></div>
       <div class="palette-footer">

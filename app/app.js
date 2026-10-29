@@ -37,7 +37,8 @@ class App {
       module: '',
       tag: '',
       studiedOnly: false,
-      sort: 'session-date-desc'
+      sort: 'session-date-desc',
+      searchQuery: ''
     };
 
     this.initElements();
@@ -85,6 +86,8 @@ class App {
     this.filterStudiedToggle = document.getElementById('filter-studied-toggle');
     this.sortSelector = document.getElementById('sort-selector');
     this.resetFiltersBtn = document.getElementById('reset-filters-btn');
+    this.inlineSearchInput = document.getElementById('inline-search-input');
+    this.inlineSearchClear = document.getElementById('inline-search-clear');
 
     this.announcementsOpenBtn = document.getElementById('announcements-open-btn');
     this.announcementsCountBadge = document.getElementById('announcements-count-badge');
@@ -242,6 +245,9 @@ class App {
       this.filters.module = '';
       this.filters.tag = '';
       this.filters.studiedOnly = false;
+      this.filters.searchQuery = '';
+      if (this.inlineSearchInput) this.inlineSearchInput.value = '';
+      if (this.inlineSearchClear) this.inlineSearchClear.style.display = 'none';
       this.filterModule.value = '';
       this.filterStudiedToggle.classList.remove('active');
       if (this.categoryTabsContainer) {
@@ -251,6 +257,26 @@ class App {
       this.renderSubjectsTabs();
       this.renderLectures();
     });
+
+    if (this.inlineSearchInput) {
+      this.inlineSearchInput.addEventListener('input', (e) => {
+        const val = e.target.value.trim().toLowerCase();
+        this.filters.searchQuery = val;
+        if (this.inlineSearchClear) {
+          this.inlineSearchClear.style.display = val ? 'inline-block' : 'none';
+        }
+        this.renderLectures();
+      });
+    }
+
+    if (this.inlineSearchClear) {
+      this.inlineSearchClear.addEventListener('click', () => {
+        if (this.inlineSearchInput) this.inlineSearchInput.value = '';
+        this.filters.searchQuery = '';
+        this.inlineSearchClear.style.display = 'none';
+        this.renderLectures();
+      });
+    }
 
     // Модалки
     this.calendarOpenBtn.addEventListener('click', () => {
@@ -274,7 +300,18 @@ class App {
     this.annCloseBtn.addEventListener('click', () => this.announcementsModal.classList.remove('open'));
 
     this.paletteOpenBtn.addEventListener('click', () => this.searchEngine.open());
-    this.searchEngine.setSelectCallback((lecId, openInNewTab) => {
+    this.searchEngine.setSelectCallback((item, openInNewTab) => {
+      const lecId = typeof item === 'object' ? item.id : item;
+      const type = typeof item === 'object' ? item.type : 'lecture';
+
+      if (type === 'announcement') {
+        if (this.announcementsModal) {
+          this.announcementsModal.classList.add('open');
+          this.renderAnnouncements();
+        }
+        return;
+      }
+
       if (openInNewTab) {
         this.openLectureInNewTab(lecId);
       } else {
@@ -624,7 +661,7 @@ class App {
     this.renderLectures();
     this.updateHeroStats();
     if (this.searchEngine) {
-      this.searchEngine.buildIndex(this.metadata.lectures || []);
+      this.searchEngine.buildIndex(this.metadata);
     }
   }
 
@@ -685,6 +722,21 @@ class App {
     if (this.filters.module) list = list.filter(l => l.module === this.filters.module);
     if (this.filters.tag) list = list.filter(l => (l.tags || []).includes(this.filters.tag));
     if (this.filters.studiedOnly) list = list.filter(l => !this.studiedSet.has(l.id));
+
+    if (this.filters.searchQuery) {
+      const sq = this.filters.searchQuery.toLowerCase();
+      list = list.filter(l => {
+        const origNames = (l.originals || []).map(o => o.name).join(' ').toLowerCase();
+        const fileNames = (l.files || []).map(f => f.name).join(' ').toLowerCase();
+        const folder = (l.folder || '').toLowerCase();
+        const title = (l.title || '').toLowerCase();
+        const subject = (l.subject || '').toLowerCase();
+        const desc = (l.description || '').toLowerCase();
+        const dates = (l.sessions || []).map(s => s.date).join(' ').toLowerCase();
+        const nums = (l.sessions || []).map(s => String(s.number)).join(' ');
+        return title.includes(sq) || origNames.includes(sq) || fileNames.includes(sq) || folder.includes(sq) || subject.includes(sq) || desc.includes(sq) || dates.includes(sq) || nums.includes(sq);
+      });
+    }
 
     list.sort((a, b) => {
       if (this.filters.sort === 'session-num-asc') {
@@ -1560,6 +1612,38 @@ class App {
 
   async indexLecturesAsync() {
     this.searchEngine.buildIndex(this.metadata);
+
+    if (!this.metadata || !this.metadata.lectures || !this.cryptoKey) return;
+
+    // Фоновая тихая индексация полного текста конспектов (Zero-CDN, локально в памяти)
+    const scheduleIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 200));
+
+    scheduleIdle(async () => {
+      for (const lec of this.metadata.lectures) {
+        if (!lec.files || lec.files.length === 0) continue;
+        const htmlFile = lec.files.find(f => f.type === 'html' && f.blob);
+        if (!htmlFile) continue;
+
+        try {
+          let htmlText = '';
+          if (this.blobCache.has(htmlFile.blob)) {
+            htmlText = this.blobCache.get(htmlFile.blob);
+          } else {
+            const resp = await fetch(`blobs/${htmlFile.blob}`);
+            if (!resp.ok) continue;
+            const buf = await resp.arrayBuffer();
+            const dec = await VaultCrypto.decryptBlob(buf, this.cryptoKey);
+            htmlText = new TextDecoder().decode(dec);
+            this.blobCache.set(htmlFile.blob, htmlText);
+          }
+          if (htmlText) {
+            this.searchEngine.updateLectureContent(lec.id, htmlText);
+          }
+        } catch (e) {
+          // фоновая индексация выполняется тихо в фоне
+        }
+      }
+    });
   }
 
   getSubjectColor(subjectName) {
