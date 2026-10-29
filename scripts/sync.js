@@ -108,49 +108,153 @@ function getColorForSubject(subjectName, existingSubjects = []) {
   return ROYAL_PALETTE[index];
 }
 
-/**
- * Умный парсер номеров пар и дат из названия папки лекции:
- * Примеры:
- * "10 10.09.2026 11 14.09.2026 Пределы и непрерывность"
- * "Лекция 5 (18.09.2026) Ранг матрицы"
- * "Коллоквиум 1 (25.10.2026) Вопросы к билетам"
- */
-function parseFolderSessions(folderName) {
-  const dates = [];
-  const dateRegex = /\b(\d{2}\.\d{2}\.\d{4})\b/g;
-  let dMatch;
-  while ((dMatch = dateRegex.exec(folderName)) !== null) {
-    dates.push(dMatch[1]);
-  }
+const RUSSIAN_MONTH_MAP = {
+  'янв': 1, 'января': 1, 'январь': 1,
+  'фев': 2, 'февраля': 2, 'февраль': 2,
+  'мар': 3, 'марта': 3, 'март': 3,
+  'апр': 4, 'апреля': 4, 'апрель': 4,
+  'май': 5, 'мая': 5,
+  'июн': 6, 'июня': 6, 'июнь': 6,
+  'июл': 7, 'июля': 7, 'июль': 7,
+  'авг': 8, 'августа': 8, 'август': 8,
+  'сен': 9, 'сент': 9, 'сентября': 9, 'сентябрь': 9,
+  'окт': 10, 'октября': 10, 'октябрь': 10,
+  'ноя': 11, 'нояб': 11, 'ноября': 11, 'ноябрь': 11,
+  'дек': 12, 'декабря': 12, 'декабрь': 12
+};
 
-  const cleanForNums = folderName.replace(/\b\d{2}\.\d{2}\.\d{4}\b/g, ' ');
+/**
+ * Умный высокоточный парсер номеров пар, дат и названий из папок лекций.
+ * Поддерживает любые студенческие паттерны:
+ * - "1-2 4 и 7 сент" -> Пары [1, 2], Даты [04.09.2026, 07.09.2026]
+ * - "3-4 11 и 14 сент" -> Пары [3, 4], Даты [11.09.2026, 14.09.2026]
+ * - "5-7 18 21 25 сент" -> Пары [5, 6, 7], Даты [18.09.2026, 21.09.2026, 25.09.2026]
+ * - "8-9 28 сент 2 окт" -> Пары [8, 9], Даты [28.09.2026, 02.10.2026]
+ * - "10 5 окт" -> Пара [10], Дата [05.10.2026]
+ * - "10-12 5 9 12 окт" -> Пары [10, 11, 12], Даты [05.10.2026, 09.10.2026, 12.10.2026]
+ * - "01 02.09.2026 Введение" -> Пара [1], Дата [02.09.2026], Название "Введение"
+ * - "Лекция 5 (18.09.2026) Ранг матрицы"
+ */
+function parseFolderSessions(folderName, defaultCategory = 'лекции') {
+  const norm = folderName.trim();
+  let remaining = norm;
+
+  // 1. Поиск числовых номеров / диапазонов пар в начале:
+  // "1-2", "3-4", "5-7", "8-9", "10-12", "10", "11", "Лекция 1-2", "Семинар 3", "№ 1-2"
   const nums = [];
-  const numRegex = /\b(?:№|лекци[яи]\s*|пар[аы]\s*|билет\s*)?(\d{1,3})\b/gi;
-  let nMatch;
-  while ((nMatch = numRegex.exec(cleanForNums)) !== null) {
-    const val = parseInt(nMatch[1], 10);
-    if (!isNaN(val) && val > 0 && val < 500) {
-      nums.push(val);
+  const rangeMatch = remaining.match(/^(?:(?:лекци[яи]|пар[аы]|семинар[ы]?|заняти[ея]|коллоквиум)\s*)?(?:№\s*)?(\d{1,3})\s*[-–—]\s*(\d{1,3})(?!\d)/iu);
+  if (rangeMatch) {
+    const start = parseInt(rangeMatch[1], 10);
+    const end = parseInt(rangeMatch[2], 10);
+    if (start <= end && end - start <= 25) {
+      for (let n = start; n <= end; n++) nums.push(n);
+    } else {
+      nums.push(start, end);
+    }
+    remaining = remaining.slice(rangeMatch[0].length).trim();
+  } else {
+    const singleMatch = remaining.match(/^(?:(?:лекци[яи]|пар[аы]|семинар[ы]?|заняти[ея]|коллоквиум)\s*)?(?:№\s*)?(\d{1,3})(?!\d)/iu);
+    if (singleMatch) {
+      nums.push(parseInt(singleMatch[1], 10));
+      remaining = remaining.slice(singleMatch[0].length).trim();
     }
   }
 
+  // 2. Поиск дат
+  const dates = [];
+  const matchedSlices = [];
+
+  // А) Стандартные даты ДД.ММ.ГГГГ или ДД.ММ (например 02.09.2026 или 02.09)
+  const stdDateRegex = /(?<!\d)(\d{1,2})\.(\d{2})(?:\.(\d{4}))?(?!\d)/g;
+  let sMatch;
+  while ((sMatch = stdDateRegex.exec(remaining)) !== null) {
+    const day = sMatch[1].padStart(2, '0');
+    const month = sMatch[2].padStart(2, '0');
+    const year = sMatch[3] || (parseInt(month, 10) >= 8 ? '2026' : '2027');
+    dates.push(`${day}.${month}.${year}`);
+    matchedSlices.push({ start: sMatch.index, end: sMatch.index + sMatch[0].length });
+  }
+
+  // Б) Русские текстовые даты: "4 и 7 сент", "18 21 25 сент", "28 сент 2 окт", "5 окт"
+  const monthNamesPattern = Object.keys(RUSSIAN_MONTH_MAP).sort((a,b) => b.length - a.length).join('|');
+  const monthBlockRegex = new RegExp(`((?:\\b\\d{1,2}\\b[\\s,и\\-–—]*)+)\\s*(${monthNamesPattern})`, 'giu');
+
+  let mbMatch;
+  while ((mbMatch = monthBlockRegex.exec(remaining)) !== null) {
+    const daysChunk = mbMatch[1];
+    const monthWord = mbMatch[2].toLowerCase();
+    const monthNum = RUSSIAN_MONTH_MAP[monthWord];
+    if (!monthNum) continue;
+
+    const monthStr = String(monthNum).padStart(2, '0');
+    const yearStr = monthNum >= 8 ? '2026' : '2027';
+
+    const dayRegex = /(?<!\d)(\d{1,2})(?!\d)/g;
+    let dMatch;
+    const chunkDays = [];
+    while ((dMatch = dayRegex.exec(daysChunk)) !== null) {
+      const d = parseInt(dMatch[1], 10);
+      if (d >= 1 && d <= 31) {
+        chunkDays.push(d);
+      }
+    }
+
+    for (const d of chunkDays) {
+      dates.push(`${String(d).padStart(2, '0')}.${monthStr}.${yearStr}`);
+    }
+
+    matchedSlices.push({ start: mbMatch.index, end: mbMatch.index + mbMatch[0].length });
+  }
+
+  // Удаляем распознанные куски дат из remaining, чтобы получить заголовок темы
+  let titleCandidate = remaining;
+  matchedSlices.sort((a, b) => b.start - a.start);
+  for (const s of matchedSlices) {
+    titleCandidate = titleCandidate.slice(0, s.start) + ' ' + titleCandidate.slice(s.end);
+  }
+
+  // Чистим заголовок: убираем пустые скобки, разделители по краям
+  let cleanTitle = titleCandidate
+    .replace(/[\(\)\[\]]/g, ' ')
+    .replace(/^[\s,;:\-–—\.]+/g, '')
+    .replace(/[\s,;:\-–—\.]+$/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  // Если чистого названия темы в папке не было, формируем красивое читаемое название
+  if (!cleanTitle) {
+    const isPlural = nums.length > 1;
+    let catLabel = 'Лекция';
+    if (defaultCategory === 'семинары') {
+      catLabel = isPlural ? 'Семинары' : 'Семинар';
+    } else if (defaultCategory === 'коллоквиумы') {
+      catLabel = isPlural ? 'Коллоквиумы' : 'Коллоквиум';
+    } else if (defaultCategory === 'экзамены') {
+      catLabel = isPlural ? 'Экзамены' : 'Экзамен';
+    } else {
+      catLabel = isPlural ? 'Лекции' : 'Лекция';
+    }
+
+    if (nums.length > 1) {
+      cleanTitle = `${catLabel} ${nums[0]}–${nums[nums.length - 1]}`;
+    } else if (nums.length === 1) {
+      cleanTitle = `${catLabel} ${nums[0]}`;
+    } else {
+      cleanTitle = folderName;
+    }
+  }
+
+  // 3. Формируем пары (номер, дата)
   const sessions = [];
   const count = Math.max(dates.length, nums.length);
   for (let i = 0; i < count; i++) {
     sessions.push({
-      number: nums[i] || (i + 1),
+      number: nums[i] || (nums.length > 0 ? nums[nums.length - 1] + (i - nums.length + 1) : (i + 1)),
       date: dates[i] || ''
     });
   }
 
-  let cleanTitle = folderName
-    .replace(/\b\d{2}\.\d{2}\.\d{4}\b/g, '')
-    .replace(/\b(?:№|лекци[яи]\s*|пар[аы]\s*|билет\s*)?\d{1,3}\b/gi, '')
-    .replace(/[\(\)\[\]\-—_]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-  return { sessions, cleanTitle: cleanTitle || folderName };
+  return { sessions, cleanTitle };
 }
 
 async function runSync() {
@@ -300,20 +404,24 @@ async function runSync() {
       const cleanFolder = folder.trim();
       const lecId = getLectureId(subj.name, category, cleanFolder);
 
-      const parsed = parseFolderSessions(cleanFolder);
+      const parsed = parseFolderSessions(cleanFolder, category);
       const prev = existingLecturesById.get(lecId);
+
+      const hasPrevDates = prev && Array.isArray(prev.sessions) && prev.sessions.some(s => s.date);
+      const chosenSessions = hasPrevDates ? prev.sessions : parsed.sessions;
+      const chosenTitle = (prev && prev.title && prev.title !== cleanFolder) ? prev.title : parsed.cleanTitle;
 
       let lecData = {
         id: lecId,
         subject: subj.name,
         category: category,
         folder: cleanFolder,
-        title: (prev && prev.title && prev.title !== cleanFolder) ? prev.title : parsed.cleanTitle,
+        title: chosenTitle,
         description: prev ? (prev.description || "") : "",
         tags: prev ? (prev.tags || []) : [],
         module: prev ? (prev.module || "Модуль 1") : "Модуль 1",
         hidden: prev ? !!prev.hidden : false,
-        sessions: (prev && prev.sessions && prev.sessions.length > 0) ? prev.sessions : parsed.sessions,
+        sessions: chosenSessions,
         files: [],
         originals: [],
         addedAt: prev ? (prev.addedAt || nowIso) : nowIso,
