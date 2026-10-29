@@ -1,0 +1,17 @@
+# Local storage with raw notes and lecturer originals (DO NOT COMMIT!)
+Storage/
+/Storage/
+
+# Sync configuration with private keys/passwords
+scripts/sync.json
+
+# Node dependencies (if any installed in future)
+node_modules/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.log

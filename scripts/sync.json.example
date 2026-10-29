@@ -1,0 +1,8 @@
+{
+  "storagePath": "./Storage",
+  "repoUrl": "",
+  "sharedPassword": "fam-students-secret-password",
+  "adminPassword": "fam-admin-secret-password-2026",
+  "branchDeploy": "gh-pages",
+  "branchSource": "main"
+}

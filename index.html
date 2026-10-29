@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>«“конспекты” ФПМ» — Студенческий сборник нейроконспектов</title>
+  <meta name="description" content="Студенческий сборник нейроконспектов · ФПМ НН · 1 курс">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/components.css">
+</head>
+<body>
+  <!-- Фоновый световой градиент -->
+  <div class="hero-glow"></div>
+
+  <!-- 1. Экран авторизации (Виден до расшифровки) -->
+  <div id="auth-view" class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1 class="brand-title">«<span class="quotes">“конспекты”</span> ФПМ»</h1>
+        <div class="tagline">студенческий сборник нейроконспектов · ФПМ НН · 1 курс</div>
+      </div>
+
+      <div class="auth-disclaimer">
+        «“конспекты” ФПМ — неофициальный студенческий сборник конспектов от студентов для студентов (ФПМ, НИУ ВШЭ Нижний Новгород). Сайт не является официальным ресурсом НИУ ВШЭ, не связан с преподавателями и не отражает официальную позицию университета».
+      </div>
+
+      <form id="auth-form" class="auth-form" autocomplete="off">
+        <div class="auth-input-group">
+          <input 
+            type="password" 
+            id="auth-password" 
+            class="auth-input" 
+            placeholder="Введите пароль доступа..." 
+            required 
+            autofocus
+          >
+          <div id="caps-warning" class="caps-warning">Внимание: включен Caps Lock!</div>
+        </div>
+
+        <div id="auth-error" class="auth-error">Неверный пароль доступа</div>
+
+        <label class="auth-remember">
+          <input type="checkbox" id="auth-remember-check">
+          <span>Запомнить на этом устройстве</span>
+        </label>
+
+        <button type="submit" id="auth-submit" class="auth-submit-btn">
+          <span>Войти в хранилище</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Главная страница (После дешифрования) -->
+  <div id="main-view" style="display: none;">
+    <!-- Панель администратора (видна только при вводе админ-пароля на десктопе) -->
+    <aside id="admin-toolbar" class="admin-toolbar">
+      <div class="container admin-toolbar-inner">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <strong>⚡ Режим управления</strong>
+          <span style="color: var(--text-muted); font-size: 0.8rem;">(доступно только с ноутбука)</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button id="admin-new-subject-btn" class="btn-secondary">+ Предмет</button>
+          <button id="admin-new-module-btn" class="btn-secondary">+ Модуль</button>
+          <button id="admin-export-btn" class="action-btn-primary" style="padding: 4px 10px; font-size: 0.8rem;">
+            💾 Экспорт site-metadata.json
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Шапка сайта -->
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand-wrap">
+          <a href="#" class="brand-title" style="font-size: 1.35rem;">
+            «<span class="quotes">“конспекты”</span> ФПМ»
+          </a>
+          <span class="tagline" style="font-size: 0.72rem;">ФПМ НН · 1 курс · 2026–2027</span>
+        </div>
+
+        <div class="header-actions">
+          <button id="palette-open-btn" class="search-trigger-btn" title="Поиск (Ctrl+K)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <span>Поиск по лекциям</span>
+            <kbd class="kbd-badge">Ctrl+K</kbd>
+          </button>
+
+          <select id="theme-selector" class="theme-select" title="Сменить тему оформления">
+            <option value="paper">Бумага (Paper)</option>
+            <option value="dark">Тёмная (Dark)</option>
+            <option value="sepia">Сепия (Sepia)</option>
+            <option value="midnight">Полночь (Midnight)</option>
+          </select>
+
+          <span id="admin-indicator" class="admin-indicator">Админ</span>
+          <button id="logout-btn" class="btn-secondary" title="Заблокировать хранилище">Выйти</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="container">
+      <!-- Баннер-предупреждение ИИ -->
+      <div id="ai-banner" class="alert-banner">
+        <div class="alert-banner-text">
+          ⚠️ <strong>Внимание:</strong> Нейроконспекты сгенерированы ИИ и не являются 100% достоверными. ИИ может ошибаться — сверяйте с оригиналами лекций и официальными материалами.
+        </div>
+        <button id="ai-banner-close" class="alert-close-btn" title="Скрыть предупреждение">&times;</button>
+      </div>
+
+      <!-- Секция "Что нового" -->
+      <section id="new-lectures-section" class="dashboard-section" style="display: none;">
+        <div class="section-title-wrap" data-toggle="new-lectures-content">
+          <h2 class="section-title">✨ Новые лекции с прошлого визита</h2>
+          <span class="section-toggle-icon">▼</span>
+        </div>
+        <div id="new-lectures-content" class="collapsed-content">
+          <div id="new-lectures-grid" class="subjects-grid"></div>
+        </div>
+      </section>
+
+      <!-- Плитки предметов -->
+      <section class="dashboard-section">
+        <div class="section-title-wrap" data-toggle="subjects-content">
+          <h2 class="section-title">📚 Предметы курса</h2>
+          <span class="section-toggle-icon">▼</span>
+        </div>
+        <div id="subjects-content" class="collapsed-content">
+          <div id="subjects-grid" class="subjects-grid"></div>
+        </div>
+      </section>
+
+      <!-- Панель фильтров и сортировки -->
+      <section class="filter-bar">
+        <div class="filter-group">
+          <label style="font-size: 0.82rem; font-weight: 600; color: var(--text-muted);">Фильтр:</label>
+          <select id="filter-subject" class="filter-select">
+            <option value="">Все предметы</option>
+          </select>
+          <select id="filter-module" class="filter-select">
+            <option value="">Все модули</option>
+          </select>
+          <button id="filter-studied-toggle" class="btn-secondary">
+            Неразобранные
+          </button>
+        </div>
+
+        <div class="filter-group">
+          <label style="font-size: 0.82rem; font-weight: 600; color: var(--text-muted);">Сортировка:</label>
+          <select id="sort-selector" class="filter-select">
+            <option value="session-date-desc">По дате пары (сначала новые)</option>
+            <option value="session-date-asc">По дате пары (по порядку)</option>
+            <option value="session-num-asc">По номеру пары (1 → N)</option>
+            <option value="title-asc">Название (А–Я)</option>
+            <option value="title-desc">Название (Я–А)</option>
+            <option value="added-desc">Недавно добавленные</option>
+          </select>
+
+          <button id="view-mode-toggle" class="btn-secondary" title="Переключить вид: Лента / Таймлайн">
+            📅 Таймлайн
+          </button>
+
+          <button id="reset-filters-btn" class="btn-secondary" title="Сбросить все фильтры">
+            Сброс
+          </button>
+        </div>
+      </section>
+
+      <!-- Список лекций -->
+      <section>
+        <div id="lectures-container" class="lectures-list"></div>
+      </section>
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <strong>«“конспекты” ФПМ»</strong> · 2026–2027 · Без внешних серверов и слежки
+          </div>
+          <div style="display: flex; gap: 12px;">
+            <button id="footer-disclaimer-toggle" class="btn-secondary" style="font-size: 0.75rem;">
+              Отказ от ответственности
+            </button>
+          </div>
+        </div>
+
+        <div id="footer-disclaimer-box" class="footer-disclaimers" style="display: none;">
+          <p>«“конспекты” ФПМ — неофициальный студенческий сборник конспектов от студентов для студентов (ФПМ, НИУ ВШЭ Нижний Новгород). Сайт не является официальным ресурсом НИУ ВШЭ, не связан с преподавателями и не отражает официальную позицию университета».</p>
+          <p style="margin-top: 6px;">«Нейроконспекты сгенерированы ИИ и не являются 100% достоверными. ИИ может ошибаться — сверяйте с оригиналами лекций и официальными материалами».</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- 3. Модалка чтения и сплит-режима («Конспект ↔ Оригинал») -->
+  <div id="reader-modal" class="modal-overlay">
+    <div class="reader-modal">
+      <div class="reader-header">
+        <div class="reader-title-wrap">
+          <strong id="reader-title" class="reader-modal-title">Название лекции</strong>
+        </div>
+        <div class="reader-controls">
+          <button id="split-toggle-btn" class="btn-secondary split-view-btn" title="Сплит-режим: открыть оригинал рядом">
+            ⇄ Оригинал рядом
+          </button>
+          <button id="reader-new-tab-btn" class="btn-secondary" title="Открыть конспект в новой вкладке">
+            ↗ В новой вкладке
+          </button>
+          <button id="reader-print-btn" class="btn-secondary" title="Печать конспекта">
+            🖨 Печать
+          </button>
+          <button id="reader-close-btn" class="btn-secondary" style="font-weight: bold;">✕</button>
+        </div>
+      </div>
+
+      <div class="reader-body">
+        <!-- Левая панель: HTML конспект -->
+        <div id="pane-note" class="reader-pane">
+          <div class="pane-label-bar">
+            <span>Нейроконспект (HTML)</span>
+            <span id="note-downloads-span"></span>
+          </div>
+          <iframe id="reader-iframe" sandbox="allow-scripts"></iframe>
+        </div>
+
+        <div id="reader-split-divider" class="split-divider" style="display: none;"></div>
+
+        <!-- Правая панель: Оригинал лектора (PDF / изображение) -->
+        <div id="pane-orig" class="reader-pane split-pane split-hidden">
+          <div class="pane-label-bar">
+            <span>Оригинал лектора (PDF / скан)</span>
+            <span id="orig-downloads-span"></span>
+          </div>
+          <iframe id="reader-orig-iframe"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Командная палитра (Ctrl+K) -->
+  <div id="palette-modal" class="palette-overlay">
+    <div class="palette-container">
+      <div class="palette-input-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input 
+          type="text" 
+          id="palette-search-input" 
+          class="palette-input" 
+          placeholder="Поиск по лекциям, темам, формулам или командам..."
+          autocomplete="off"
+        >
+      </div>
+      <div id="palette-results-list" class="palette-results"></div>
+      <div class="palette-footer">
+        <span>↑↓ Навигация</span>
+        <span>Enter — Открыть</span>
+        <span>Ctrl+Enter — В новой вкладке</span>
+        <span>Esc — Закрыть</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Модалка редактирования лекции (Админ) -->
+  <div id="admin-lecture-modal" class="modal-overlay">
+    <div class="auth-card admin-modal">
+      <h3 style="margin-bottom: 16px;">Редактирование лекции</h3>
+      <form id="admin-lecture-form">
+        <input type="hidden" id="admin-lec-id">
+        <div class="form-group">
+          <label>Название лекции:</label>
+          <input type="text" id="admin-lec-title" required>
+        </div>
+        <div class="form-group">
+          <label>Предмет:</label>
+          <select id="admin-lec-subject" required></select>
+        </div>
+        <div class="form-group">
+          <label>Модуль:</label>
+          <select id="admin-lec-module"></select>
+        </div>
+        <div class="form-group">
+          <label>Номера и даты занятий (через запятую, пример: 10:12.09.2026, 11:15.09.2026):</label>
+          <input type="text" id="admin-lec-sessions" placeholder="10:12.09.2026, 11:14.09.2026">
+        </div>
+        <div class="form-group">
+          <label>Теги (через запятую):</label>
+          <input type="text" id="admin-lec-tags" placeholder="пределы, непрерывность, коши">
+        </div>
+        <div class="form-group">
+          <label>Описание / Краткое содержание:</label>
+          <textarea id="admin-lec-desc" rows="3"></textarea>
+        </div>
+        <div class="form-group" style="flex-direction: row; align-items: center; gap: 8px;">
+          <input type="checkbox" id="admin-lec-hidden">
+          <label for="admin-lec-hidden" style="cursor: pointer;">Скрыть лекцию (черновик, не показывать студентам)</label>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+          <button type="button" id="admin-lec-cancel" class="btn-secondary">Отмена</button>
+          <button type="submit" class="action-btn-primary">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Скрипт инициализации приложения -->
+  <script type="module" src="app/app.js"></script>
+</body>
+</html>
