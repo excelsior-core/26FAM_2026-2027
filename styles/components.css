@@ -1220,3 +1220,300 @@
     border-radius: 0;
   }
 }
+
+
+/* ==========================================================================
+   11. 3D WebGL Vault Gate
+   ========================================================================== */
+.vault-3d-box {
+  width: 100%;
+  height: 260px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  cursor: grab;
+  user-select: none;
+}
+.vault-3d-box:active {
+  cursor: grabbing;
+}
+.vault-3d-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+}
+.artifact-toggle-pill {
+  position: absolute;
+  bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(18, 15, 23, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--secondary-color);
+  cursor: pointer;
+  z-index: 10;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+.artifact-toggle-pill:hover {
+  transform: scale(1.05);
+  border-color: var(--secondary-color);
+}
+.pill-change-hint {
+  opacity: 0.6;
+  font-size: 0.65rem;
+}
+
+/* ==========================================================================
+   12. Holographic / Prismatic Foil & Card Enhancements
+   ========================================================================== */
+.card-holo-foil {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+    rgba(255, 235, 160, 0.3) 0%,
+    rgba(255, 100, 200, 0.2) 25%,
+    rgba(80, 220, 255, 0.25) 50%,
+    rgba(140, 255, 170, 0.15) 75%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 5;
+}
+
+.lecture-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.lecture-card:hover .card-holo-foil {
+  opacity: 0.75;
+}
+
+.card-vintage-index {
+  font-family: var(--font-serif) !important;
+  font-size: 2.2rem !important;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+}
+
+.card-category-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--secondary-color);
+}
+
+/* ==========================================================================
+   13. Category Tabs Bar
+   ========================================================================== */
+.category-tabs-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.category-tabs-bar::-webkit-scrollbar {
+  display: none;
+}
+.category-tab {
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+.category-tab:hover {
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.category-tab.active {
+  background: rgba(212, 163, 115, 0.15);
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
+  box-shadow: 0 0 12px rgba(212, 163, 115, 0.25);
+}
+
+/* ==========================================================================
+   14. Circadian & X-Ray Lens
+   ========================================================================== */
+.circadian-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  color: var(--secondary-color);
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+.xray-lens-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+body.xray-active {
+  cursor: crosshair;
+}
+
+/* ==========================================================================
+   15. Marginalia & Personal Highlighting
+   ========================================================================== */
+.marginalia-popover {
+  position: fixed;
+  z-index: 10001;
+  background: #18151D;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75);
+  animation: popoverFadeIn 0.15s ease-out;
+}
+@keyframes popoverFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.popover-colors {
+  display: flex;
+  gap: 6px;
+  border-right: 1px solid var(--border-subtle);
+  padding-right: 8px;
+}
+.color-btn {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+.color-btn:hover {
+  transform: scale(1.25);
+}
+.color-btn.hl-gold { background: #D4A373; }
+.color-btn.hl-crimson { background: #B5341F; }
+.color-btn.hl-sapphire { background: #1D4E89; }
+
+.add-note-btn {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+.add-note-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.reader-marginalia-pane {
+  width: 280px;
+  background: #0A080E;
+  border-left: 1px solid var(--border-subtle);
+  display: none;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 16px;
+}
+.reader-marginalia-pane.open {
+  display: flex;
+}
+.marginalia-header {
+  font-family: var(--font-serif);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--secondary-color);
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 8px;
+}
+.marginalia-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.marginalia-empty {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  text-align: center;
+  padding: 24px 8px;
+}
+.marginalia-card {
+  background: var(--bg-surface);
+  border-radius: 6px;
+  padding: 10px 12px;
+  border-left: 3px solid var(--secondary-color);
+  font-size: 0.82rem;
+}
+.marginalia-card.card-crimson { border-left-color: #B5341F; }
+.marginalia-card.card-sapphire { border-left-color: #1D4E89; }
+.marginalia-quote {
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  font-size: 0.76rem;
+}
+.marginalia-text {
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+.marginalia-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+.marginalia-del-btn {
+  color: var(--urgent-color);
+  cursor: pointer;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+.marginalia-del-btn:hover {
+  opacity: 1;
+}

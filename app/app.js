@@ -1,12 +1,15 @@
 /**
- * app/app.js - Высокобюджетное ядро «“КОНСПЕКТЫ” ФПМ»
+ * app/app.js - Высокобюджетное ядро «КОНСПЕКТЫ ФПМ»
  * Единый гармонический волновой арт для всех предметов под их цвет,
- * интерактивные табы предметов, календарь, доска дедлайнов и скрытая админка
+ * интерактивный 3D-криптекс/астролябия, личные маргиналии,
+ * голографическая фольга, суточное освещение и скрытая Zero-Leak админка
  */
 
 import { VaultCrypto } from './crypto.js';
 import { SearchEngine } from './search.js';
 import { AdminManager } from './admin.js';
+import { Vault3D } from './vault-3d.js';
+import { MarginaliaManager } from './marginalia.js';
 
 class App {
   constructor() {
@@ -22,12 +25,14 @@ class App {
 
     this.lastVisit = localStorage.getItem('fpm_last_visit') || new Date(0).toISOString();
     this.currentLecture = null;
+    this.lastEscTime = 0;
 
     // Календарь: 2026-2027 учебный год (сентябрь 2026)
     this.calCurrentDate = new Date(2026, 8, 1);
 
     this.filters = {
       subject: '',
+      category: '',
       module: '',
       tag: '',
       studiedOnly: false,
@@ -36,6 +41,10 @@ class App {
 
     this.initElements();
     this.initThemes();
+    this.vault3d = new Vault3D('vault-3d-box');
+    this.marginalia = new MarginaliaManager(this);
+    this.initCircadianLighting();
+
     this.bindEvents();
     this.checkAutoLogin();
     this.registerServiceWorker();
@@ -60,8 +69,12 @@ class App {
 
     this.lecturesContainer = document.getElementById('lectures-container');
     this.subjectsTabsContainer = document.getElementById('subjects-tabs-container');
+    this.categoryTabsContainer = document.getElementById('category-tabs-container');
     this.newLecturesSection = document.getElementById('new-lectures-section');
     this.newLecturesGrid = document.getElementById('new-lectures-grid');
+
+    // Кнопки шапки
+    this.circadianBadge = document.getElementById('circadian-badge');
 
     // Статистика в Hero
     this.statTotalLectures = document.getElementById('stat-total-lectures');
@@ -103,7 +116,7 @@ class App {
     this.adminAnnType = document.getElementById('admin-ann-type');
     this.adminAnnDatetimeGroup = document.getElementById('admin-ann-datetime-group');
 
-    // Ридер
+    // Ридер и Маргиналии
     this.readerModal = document.getElementById('reader-modal');
     this.readerTitle = document.getElementById('reader-title');
     this.readerIframe = document.getElementById('reader-iframe');
@@ -116,6 +129,8 @@ class App {
     this.readerCloseBtn = document.getElementById('reader-close-btn');
     this.noteDownloadsSpan = document.getElementById('note-downloads-span');
     this.origDownloadsSpan = document.getElementById('orig-downloads-span');
+    this.readerMarginaliaToggle = document.getElementById('reader-marginalia-toggle');
+    this.readerMarginaliaPane = document.getElementById('reader-marginalia-pane');
 
     // Палитра
     this.paletteModal = document.getElementById('palette-modal');
@@ -138,7 +153,42 @@ class App {
     localStorage.setItem('fpm_theme', theme);
   }
 
+  initCircadianLighting() {
+    const update = () => {
+      const hour = new Date().getHours();
+      let phase = '';
+      let tint = '';
+
+      if (hour >= 5 && hour < 10) {
+        phase = 'Рассветный архив';
+        tint = 'rgba(120, 160, 220, 0.08)';
+      } else if (hour >= 10 && hour < 17) {
+        phase = 'Дневной зал';
+        tint = 'rgba(230, 200, 140, 0.06)';
+      } else if (hour >= 17 && hour < 22) {
+        phase = 'Сумеречная ложа';
+        tint = 'rgba(215, 110, 60, 0.07)';
+      } else {
+        phase = 'Ночной бархат';
+        tint = 'rgba(160, 50, 100, 0.08)';
+      }
+
+      document.documentElement.style.setProperty('--circadian-tint', tint);
+      if (this.circadianBadge) {
+        const timeStr = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+        this.circadianBadge.innerHTML = `<span>✦ ${timeStr} · ${phase}</span>`;
+      }
+    };
+
+    update();
+    setInterval(update, 60000);
+  }
+
   bindEvents() {
+    this.authPassword.addEventListener('input', () => {
+      if (this.vault3d) this.vault3d.triggerKeyPulse();
+    });
+
     this.authPassword.addEventListener('keyup', (e) => {
       if (e.getModifierState && e.getModifierState('CapsLock')) {
         this.capsWarning.classList.add('visible');
@@ -153,6 +203,23 @@ class App {
     });
 
     this.logoutBtn.addEventListener('click', () => this.handleLogout());
+
+    if (this.readerMarginaliaToggle && this.readerMarginaliaPane) {
+      this.readerMarginaliaToggle.addEventListener('click', () => {
+        this.readerMarginaliaPane.classList.toggle('open');
+      });
+    }
+
+    if (this.categoryTabsContainer) {
+      this.categoryTabsContainer.querySelectorAll('.category-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          this.categoryTabsContainer.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          this.filters.category = tab.dataset.category || '';
+          this.renderLectures();
+        });
+      });
+    }
 
     this.filterModule.addEventListener('change', (e) => {
       this.filters.module = e.target.value;
@@ -172,11 +239,16 @@ class App {
 
     this.resetFiltersBtn.addEventListener('click', () => {
       this.filters.subject = '';
+      this.filters.category = '';
       this.filters.module = '';
       this.filters.tag = '';
       this.filters.studiedOnly = false;
       this.filterModule.value = '';
       this.filterStudiedToggle.classList.remove('active');
+      if (this.categoryTabsContainer) {
+        this.categoryTabsContainer.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+        this.categoryTabsContainer.querySelector('.category-tab[data-category=""]')?.classList.add('active');
+      }
       this.renderSubjectsTabs();
       this.renderLectures();
     });
@@ -237,6 +309,15 @@ class App {
         e.preventDefault();
         this.openPalette();
       } else if (e.key === 'Escape') {
+        const now = Date.now();
+        if (now - this.lastEscTime < 400) {
+          // Двойной Esc — Режим конспирации (Panic Key)
+          this.handleLogout();
+          alert('🔒 Сессия заблокирована режимом конспирации (Panic Key). Ключи удалены из памяти.');
+          return;
+        }
+        this.lastEscTime = now;
+
         this.closeReaderModal();
         this.closePalette();
         this.calendarModal.classList.remove('open');
@@ -281,9 +362,6 @@ class App {
     try {
       this.cryptoKey = await VaultCrypto.importKeyRaw(storedKey);
 
-      // Математически строгая верификация роли админа:
-      // Пытаемся расшифровать admin.bin текущим ключом.
-      // Студенческий ключ (fpm2026) никогда не сможет расшифровать admin.bin!
       let adminUnlocked = false;
       try {
         const adminResp = await fetch('admin.bin');
@@ -316,7 +394,6 @@ class App {
     this.authSubmit.textContent = 'Расшифровка...';
 
     try {
-      // 1. Проверяем студенческий пароль (metadata.bin)
       let metaResp = await fetch('metadata.bin');
       if (metaResp.ok) {
         const metaBuf = await metaResp.arrayBuffer();
@@ -330,7 +407,6 @@ class App {
         } catch (errShared) {}
       }
 
-      // 2. Проверяем админ-пароль (admin.bin)
       let adminResp = await fetch('admin.bin');
       if (adminResp.ok) {
         const adminBuf = await adminResp.arrayBuffer();
@@ -349,7 +425,7 @@ class App {
       this.authError.classList.add('visible');
     } finally {
       this.authSubmit.disabled = false;
-      this.authSubmit.textContent = 'Войти в архив';
+      this.authSubmit.textContent = 'ОТКРЫТЬ АРХИВ →';
     }
   }
 
@@ -368,7 +444,6 @@ class App {
       this.cryptoKey = await VaultCrypto.deriveKey(password, salt);
     }
 
-    // Полный сброс обоих хранилищ во избежание залипания сессий
     localStorage.removeItem('fpm_key');
     localStorage.removeItem('fpm_is_admin');
     sessionStorage.removeItem('fpm_key');
@@ -401,10 +476,10 @@ class App {
   }
 
   unlockApp() {
+    if (this.vault3d) this.vault3d.pause();
     this.authView.style.display = 'none';
     this.mainView.style.display = 'block';
 
-    // Жесткое управление видимостью админ-кнопок
     if (this.isAdmin) {
       this.adminToolbar.classList.add('active');
       this.adminIndicator.classList.add('active');
@@ -518,10 +593,9 @@ class App {
     const lectures = (this.metadata.lectures || []).filter(l => !l.hidden || this.isAdmin);
     const totalCount = lectures.length;
 
-    // Таб "Все материалы"
     const allTab = document.createElement('button');
     allTab.className = `subject-tab-pill ${!this.filters.subject ? 'active' : ''}`;
-    allTab.innerHTML = `<span>ВСЕ МАТЕРИАЛЫ</span><span style="opacity: 0.7;">(${totalCount})</span>`;
+    allTab.innerHTML = `<span>ВСЕ ПРЕДМЕТЫ</span><span style="opacity: 0.7;">(${totalCount})</span>`;
     allTab.addEventListener('click', () => {
       this.filters.subject = '';
       this.renderSubjectsTabs();
@@ -529,7 +603,6 @@ class App {
     });
     this.subjectsTabsContainer.appendChild(allTab);
 
-    // Табы предметов
     for (const subj of this.metadata.subjects || []) {
       const count = lectures.filter(l => l.subject === subj.name).length;
       const tab = document.createElement('button');
@@ -601,11 +674,21 @@ class App {
     }
   }
 
+  getCategoryIcon(cat) {
+    switch ((cat || '').toLowerCase()) {
+      case 'коллоквиумы': return '🏛️';
+      case 'экзамены': return '⚖️';
+      case 'семинары': return '📝';
+      default: return '📚';
+    }
+  }
+
   renderLectures() {
     this.lecturesContainer.innerHTML = '';
     let list = (this.metadata.lectures || []).filter(l => !l.hidden || this.isAdmin);
 
     if (this.filters.subject) list = list.filter(l => l.subject === this.filters.subject);
+    if (this.filters.category) list = list.filter(l => (l.category || 'лекции').toLowerCase() === this.filters.category.toLowerCase());
     if (this.filters.module) list = list.filter(l => l.module === this.filters.module);
     if (this.filters.tag) list = list.filter(l => (l.tags || []).includes(this.filters.tag));
     if (this.filters.studiedOnly) list = list.filter(l => !this.studiedSet.has(l.id));
@@ -627,7 +710,7 @@ class App {
     if (list.length === 0) {
       this.lecturesContainer.innerHTML = `
         <div style="grid-column: 1 / -1; text-align: center; padding: 70px 20px; color: var(--text-muted); background: var(--bg-card); border-radius: var(--radius-md); border: 1px dashed var(--border-subtle);">
-          Ничего не найдено — возможно, папка лекции ещё не добавлена в Storage.
+          Материалы не найдены по выбранным фильтрам.
         </div>
       `;
       return;
@@ -641,10 +724,6 @@ class App {
     this.updateHeroStats();
   }
 
-  /**
-   * Истинный кинематографичный генератор волновых линий (как у матана)
-   * Гармонические синусоиды, варьирующиеся по частоте и фазе, под цвет каждого предмета
-   */
   generateHarmonicWaveSvg(color = '#D65A42', seed = 0) {
     const s = seed % 6;
     let wave1, wave2, wave3, dots;
@@ -710,7 +789,6 @@ class App {
         <rect width="100%" height="100%" fill="#08070A"/>
         <circle cx="200" cy="80" r="140" fill="url(#radialGlow_${seed})"/>
         
-        <!-- Академическая координатная сетка -->
         <g stroke="rgba(255,255,255,0.06)" stroke-width="0.8">
           <line x1="0" y1="80" x2="400" y2="80"/>
           <line x1="0" y1="40" x2="400" y2="40"/>
@@ -720,7 +798,6 @@ class App {
           <line x1="300" y1="0" x2="300" y2="160"/>
         </g>
 
-        <!-- Волновые гармоники под цвет предмета -->
         <path d="${wave1}" fill="none" stroke="url(#waveGlow_${seed})" stroke-width="2.5"/>
         <path d="${wave2}" fill="none" stroke="${color}" stroke-opacity="0.4" stroke-width="1.6"/>
         <path d="${wave3}" fill="none" stroke="${color}" stroke-opacity="0.45" stroke-width="1.2" stroke-dasharray="4,4"/>
@@ -742,8 +819,13 @@ class App {
     const firstNum = (lec.sessions && lec.sessions[0]?.number) ? String(lec.sessions[0].number).padStart(2, '0') : String(index + 1).padStart(2, '0');
     const sessionsChips = (lec.sessions || []).map(s => `№${s.number} · ${s.date}`).join(' | ');
     const tagsHtml = (lec.tags || []).map(t => `<span class="card-tag" data-tag="${t}">#${t}</span>`).join('');
+    const catIcon = this.getCategoryIcon(lec.category);
+    const catLabel = (lec.category || 'лекция').toUpperCase();
+
+    const hasOriginal = lec.originals && lec.originals.length > 0;
 
     card.innerHTML = `
+      <div class="card-holo-foil"></div>
       <div class="card-artwork-frame">
         <div class="card-artwork">
           ${this.generateHarmonicWaveSvg(subjColor, index)}
@@ -757,7 +839,10 @@ class App {
 
       <div class="card-content">
         <div class="card-meta-top">
-          <span class="card-session-index">${sessionsChips || '1 КУРС · 2026–2027'}</span>
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span class="card-category-badge">${catIcon} ${catLabel}</span>
+            <span class="card-session-index">${sessionsChips || '1 КУРС · 2026–2027'}</span>
+          </div>
           ${lec.module ? `<span class="card-module-tag">${lec.module}</span>` : ''}
         </div>
 
@@ -773,9 +858,9 @@ class App {
           </button>
           
           <div style="display: flex; gap: 8px; align-items: center;">
-            ${(lec.originals && lec.originals.length > 0) ? `
-              <button class="btn-icon-subtle btn-open-orig" title="Оригинал лектора (${lec.originals.length} файл.)">
-                📄 PDF
+            ${hasOriginal ? `
+              <button class="btn-icon-subtle btn-open-orig" style="background: rgba(212, 163, 115, 0.15); border: 1px solid var(--secondary-color); color: var(--secondary-color); font-weight: 600;" title="Оригинал рукописи лектора (PDF)">
+                📄 РУКОПИСЬ (PDF)
               </button>
             ` : ''}
             ${this.isAdmin ? `
@@ -790,6 +875,18 @@ class App {
         </div>
       </div>
     `;
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const mx = (e.clientX - rect.left) / rect.width;
+      const my = (e.clientY - rect.top) / rect.height;
+      card.style.setProperty('--mx', mx.toFixed(3));
+      card.style.setProperty('--my', my.toFixed(3));
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.setProperty('--mx', '0.5');
+      card.style.setProperty('--my', '0.5');
+    });
 
     card.querySelector('.card-lecture-title').addEventListener('click', () => this.openLecture(lec.id));
     card.querySelector('.btn-open-note').addEventListener('click', () => this.openLecture(lec.id, false));
@@ -955,7 +1052,6 @@ class App {
 
         ${isDeadline && ann.datetime ? `
           <div class="announcement-countdown" id="countdown-${ann.id}">
-            <!-- Заполняется таймером -->
           </div>
         ` : ''}
       `;
@@ -1055,6 +1151,12 @@ class App {
       this.currentActiveNoteUrl = blobUrl;
       this.readerIframe.src = blobUrl;
 
+      this.readerIframe.onload = () => {
+        if (this.marginalia) {
+          this.marginalia.attachToIframe(this.readerIframe, lec.id);
+        }
+      };
+
       this.noteDownloadsSpan.innerHTML = `
         <a href="${blobUrl}" download="${this.sanitizeFileName(lec.title)} — ${noteFile.name}" class="btn-secondary" style="padding: 2px 8px; font-size: 0.72rem;">
           ↓ Скачать HTML
@@ -1077,7 +1179,7 @@ class App {
           <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 24px; font-family: -apple-system, sans-serif;">
             <p style="margin-bottom: 16px; color: #666; font-size: 15px;">На iOS PDF-оригиналы лекций открываются в нативном просмотрщике Safari:</p>
             <a href="${origBlobUrl}" target="_blank" style="background: #8C2518; color: #fff; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px;">
-              📄 Открыть оригинал лектора
+              📄 Открыть рукопись лектора (PDF)
             </a>
           </div>
         `;
@@ -1217,9 +1319,10 @@ class App {
     for (const match of matches.slice(0, 8)) {
       const item = document.createElement('div');
       item.className = 'palette-item';
+      const catIcon = this.getCategoryIcon(match.lecture.category);
       item.innerHTML = `
         <div class="palette-item-title">
-          <span>${match.lecture.subject} · ${match.lecture.title}</span>
+          <span>${catIcon} ${match.lecture.subject} · ${match.lecture.title}</span>
         </div>
         ${match.snippets.length ? `
           <div class="palette-snippets">${match.snippets.join('<br>')}</div>
@@ -1260,9 +1363,6 @@ class App {
   openAdminLectureModal(lec) {
     document.getElementById('admin-lec-id').value = lec.id;
     document.getElementById('admin-lec-title').value = lec.title;
-    document.getElementById('admin-lec-desc').value = lec.description || '';
-    document.getElementById('admin-lec-tags').value = (lec.tags || []).join(', ');
-    document.getElementById('admin-lec-hidden').checked = !!lec.hidden;
 
     const subjSelect = document.getElementById('admin-lec-subject');
     subjSelect.innerHTML = '';
@@ -1275,7 +1375,7 @@ class App {
     }
 
     const modSelect = document.getElementById('admin-lec-module');
-    modSelect.innerHTML = '<option value="">(Без модуля)</option>';
+    modSelect.innerHTML = '';
     for (const m of this.metadata.modules || []) {
       const opt = document.createElement('option');
       opt.value = m;
@@ -1286,16 +1386,18 @@ class App {
 
     const sessionsStr = (lec.sessions || []).map(s => `${s.number}:${s.date}`).join(', ');
     document.getElementById('admin-lec-sessions').value = sessionsStr;
+    document.getElementById('admin-lec-tags').value = (lec.tags || []).join(', ');
+    document.getElementById('admin-lec-desc').value = lec.description || '';
+    document.getElementById('admin-lec-hidden').checked = !!lec.hidden;
 
     document.getElementById('admin-lecture-modal').classList.add('open');
   }
 
   handleHashChange() {
     const hash = window.location.hash;
-    const match = hash.match(/^#\/lecture\/(.+)$/);
-    if (match && this.metadata) {
-      const lecId = match[1];
-      if (!this.currentLecture || this.currentLecture.id !== lecId) {
+    if (hash.startsWith('#/lecture/')) {
+      const lecId = hash.replace('#/lecture/', '').trim();
+      if (lecId && (!this.currentLecture || this.currentLecture.id !== lecId)) {
         this.openLecture(lecId);
       }
     }
@@ -1312,15 +1414,6 @@ class App {
       return new Date(`${parts[2]}-${parts[1]}-${parts[0]}`).getTime();
     }
     return 0;
-  }
-
-  pluralizeLectures(n) {
-    const abs = Math.abs(n) % 100;
-    const rem = abs % 10;
-    if (abs > 10 && abs < 20) return 'лекций';
-    if (rem > 1 && rem < 5) return 'лекции';
-    if (rem === 1) return 'лекция';
-    return 'лекций';
   }
 
   registerServiceWorker() {

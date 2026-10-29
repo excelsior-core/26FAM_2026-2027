@@ -65,12 +65,11 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, '127.0.0.1', () => {
   const url = `http://localhost:${PORT}`;
   console.log('====================================================');
-  console.log(`🏛️ «“конспекты” ФПМ» запущены локально!`);
+  console.log(`🏛️ КОНСПЕКТЫ ФПМ запущены локально!`);
   console.log(`🌐 Адрес в браузере: ${url}`);
   console.log('   (Нажмите Ctrl+C в этом окне, чтобы остановить сервер)');
   console.log('====================================================\n');
 
-  // Автоматическое открытие в браузере по умолчанию на Windows
   const startCmd = process.platform === 'win32' ? `start ${url}` : `open ${url}`;
   exec(startCmd);
 });

@@ -4,26 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>КОНСПЕКТЫ ФПМ — Интеллектуальный архив 1 курса</title>
-  <meta name="description" content="Студенческий сборник нейроконспектов · ФПМ НН · 1 курс">
-  <link rel="stylesheet" href="styles/main.css?v=3.0">
-  <link rel="stylesheet" href="styles/components.css?v=3.0">
+  <meta name="description" content="Студенческий сборник нейроконспектов · ФПМ ВШЭ · 1 курс">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles/main.css?v=4.1">
+  <link rel="stylesheet" href="styles/components.css?v=4.1">
 </head>
 <body>
   <div class="hero-glow"></div>
+  <div class="smoke-ambient-layer"></div>
 
-  <!-- 1. Экран авторизации (Виден до расшифровки) -->
+  <!-- 1. Экран авторизации (Vault Gate Reveal) -->
   <div id="auth-view" class="auth-wrapper">
     <div class="auth-card">
+      <!-- Процедурный 3D WebGL артефакт (чистый визуал) -->
+      <div id="vault-3d-box" class="vault-3d-box"></div>
+
       <div class="auth-header">
         <div class="academic-crest">✦ ИНТЕЛЛЕКТУАЛЬНЫЙ АРХИВ · ФПМ ВШЭ ✦</div>
-        <h1 class="brand-title" style="font-size: 2.1rem; margin: 12px 0 8px; letter-spacing: -0.03em;">КОНСПЕКТЫ <span style="color: var(--accent-color);">ФПМ</span></h1>
+        <h1 class="brand-title" style="font-size: 2.1rem; margin: 12px 0 8px; letter-spacing: -0.03em;">
+          КОНСПЕКТЫ <span style="color: var(--accent-color);">ФПМ</span>
+        </h1>
         <div class="tagline">1-й курс · 2026–2027 учебный год</div>
       </div>
 
       <div class="auth-disclaimer">
-        Неофициальный учебный архив ФПМ (НИУ ВШЭ НН). Не является ресурсом университета и не связан с преподавателями. Доступ защищён сквозным клиентским шифрованием (AES-256-GCM).
+        Неофициальный учебный архив ФПМ (НИУ ВШЭ). Не является ресурсом университета и не связан с преподавателями. Доступ защищён сквозным клиентским шифрованием (AES-256-GCM + PBKDF2 600k).
       </div>
 
       <form id="auth-form" class="auth-form" autocomplete="off">
@@ -54,7 +61,7 @@
       </form>
 
       <div class="auth-sub-hint">
-        Клиентское дешифрование (AES-256-GCM + PBKDF2) · Без серверов и слежки
+        Zero-Knowledge & Zero-CDN · Без серверов и слежки · 100% Автономность
       </div>
     </div>
   </div>
@@ -90,6 +97,9 @@
         </div>
 
         <div class="header-actions">
+          <!-- Суточный Chiaroscuro индикатор -->
+          <span id="circadian-badge" class="circadian-pill" title="Текущая фаза суточного освещения архива">✦ Ночной бархат</span>
+
           <button id="announcements-open-btn" class="nav-pill-btn" title="Дедлайны и объявления курса">
             <span>📌 Дедлайны</span>
             <span id="announcements-count-badge" class="pulse-badge" style="display: none;">0</span>
@@ -99,7 +109,7 @@
             <span>📅 Календарь пар</span>
           </button>
 
-          <button id="palette-open-btn" class="nav-pill-btn" title="Поиск (Ctrl+K или /)">
+          <button id="palette-open-btn" class="nav-pill-btn" title="Умный поиск (Ctrl+K или /)">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <span>Поиск</span>
             <kbd class="kbd-badge">Ctrl+K</kbd>
@@ -113,7 +123,7 @@
           </select>
 
           <span id="admin-indicator" class="admin-indicator" style="display: none !important;">Админ</span>
-          <button id="logout-btn" class="btn-secondary" title="Заблокировать архив">Выход</button>
+          <button id="logout-btn" class="btn-secondary" title="Заблокировать архив (Panic Key: Esc × 2)">Выход</button>
         </div>
       </div>
     </header>
@@ -129,22 +139,22 @@
         <button id="ai-banner-close" class="alert-close-btn" title="Скрыть примечание">&times;</button>
       </div>
 
-      <!-- Монументальный Hero-блок (в стиле Web Tactics) -->
+      <!-- Монументальный Hero-блок -->
       <section style="margin: 32px 0 24px;">
-        <div class="academic-crest">✦ ИНТЕЛЛЕКТУАЛЬНЫЙ АРХИВ · ФПМ ВШЭ НН ✦</div>
+        <div class="academic-crest">✦ ИНТЕЛЛЕКТУАЛЬНЫЙ АРХИВ · ФПМ ВШЭ ✦</div>
         <h1 class="hero-mega-title">
           ИНТЕЛЛЕКТУАЛЬНЫЙ АРХИВ &<br>
           <span class="highlight">КОНСПЕКТЫ ФПМ</span>
         </h1>
         <p class="hero-sub-text">
-          Защищённый студенческий сборник нейроконспектов, интерактивное расписание модулей и оригиналы лекций 1 курса ФПМ НН.
+          Защищённый студенческий сборник нейроконспектов, интерактивное расписание модулей и оригиналы лекций 1 курса ФПМ ВШЭ.
         </p>
 
         <!-- Сессионный радар прогресса -->
         <div class="hero-stats-bar">
           <div class="stat-item">
             <span id="stat-total-lectures" class="stat-num">0</span>
-            <span class="stat-label">Всего лекций</span>
+            <span class="stat-label">Всего материалов</span>
           </div>
           <div class="stat-item">
             <span id="stat-studied-percent" class="stat-num">0%</span>
@@ -178,8 +188,19 @@
       </section>
 
       <!-- Интерактивные табы предметов -->
-      <section style="margin-bottom: 20px;">
+      <section style="margin-bottom: 12px;">
         <div id="subjects-tabs-container" class="subjects-tabs-bar"></div>
+      </section>
+
+      <!-- Категории материалов -->
+      <section style="margin-bottom: 24px;">
+        <div id="category-tabs-container" class="category-tabs-bar">
+          <button class="category-tab active" data-category="">✦ Все материалы</button>
+          <button class="category-tab" data-category="лекции">📚 Лекции</button>
+          <button class="category-tab" data-category="коллоквиумы">🏛️ Коллоквиумы</button>
+          <button class="category-tab" data-category="экзамены">⚖️ Экзамены</button>
+          <button class="category-tab" data-category="семинары">📝 Семинары</button>
+        </div>
       </section>
 
       <!-- Панель сортировки и вспомогательных фильтров -->
@@ -208,7 +229,7 @@
         </div>
       </section>
 
-      <!-- Сетка лекций (Ultra-Wide 3-4 колонки) -->
+      <!-- Сетка лекций -->
       <section>
         <div id="lectures-container" class="lectures-list"></div>
       </section>
@@ -219,7 +240,7 @@
       <div class="container footer-inner">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
           <div>
-            <strong>“КОНСПЕКТЫ” ФПМ</strong> · 2026–2027 · Клиентское шифрование WebCrypto
+            <strong>КОНСПЕКТЫ ФПМ</strong> · 2026–2027 · Клиентское шифрование WebCrypto (AES-256-GCM)
           </div>
           <div>
             <button id="footer-disclaimer-toggle" class="btn-secondary" style="font-size: 0.75rem;">
@@ -229,7 +250,7 @@
         </div>
 
         <div id="footer-disclaimer-box" class="footer-disclaimers" style="display: none;">
-          <p>Неофициальный студенческий архив ФПМ (НИУ ВШЭ НН). Не является официальным ресурсом НИУ ВШЭ, не связан с преподавателями и не отражает позицию университета.</p>
+          <p>Неофициальный студенческий архив ФПМ (НИУ ВШЭ). Не является официальным ресурсом НИУ ВШЭ, не связан с преподавателями и не отражает позицию университета.</p>
           <p style="margin-top: 6px;">Нейроконспекты сгенерированы моделями ИИ — сверяйте сложные математические выкладки с оригиналами лектора.</p>
         </div>
       </div>
@@ -324,7 +345,7 @@
     </div>
   </div>
 
-  <!-- 6. Модалка чтения и Ultra-Wide Split-View -->
+  <!-- 6. Модалка чтения, Ultra-Wide Split-View и Маргиналии -->
   <div id="reader-modal" class="modal-overlay">
     <div class="reader-modal">
       <div class="reader-header">
@@ -332,6 +353,9 @@
           <strong id="reader-title" class="reader-modal-title">Название лекции</strong>
         </div>
         <div class="reader-controls">
+          <button id="reader-marginalia-toggle" class="btn-secondary" title="Показать/скрыть личные заметки на полях">
+            📝 Заметки на полях
+          </button>
           <button id="split-toggle-btn" class="btn-secondary split-view-btn" title="Открыть оригинал рядом">
             ⇄ Оригинал рядом
           </button>
@@ -351,7 +375,7 @@
             <span>Нейроконспект (HTML)</span>
             <span id="note-downloads-span"></span>
           </div>
-          <iframe id="reader-iframe" sandbox="allow-scripts"></iframe>
+          <iframe id="reader-iframe" sandbox="allow-scripts allow-same-origin"></iframe>
         </div>
 
         <div id="reader-split-divider" class="split-divider" style="display: none;"></div>
@@ -363,11 +387,17 @@
           </div>
           <iframe id="reader-orig-iframe"></iframe>
         </div>
+
+        <!-- Боковая колонка личных зашифрованных заметок -->
+        <div id="reader-marginalia-pane" class="reader-marginalia-pane">
+          <div class="marginalia-header">✦ ЛИЧНЫЕ ЗАМЕТКИ НА ПОЛЯХ</div>
+          <div id="reader-marginalia-list" class="marginalia-list"></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- 7. Командная палитра (Ctrl+K) -->
+  <!-- 7. Командная палитра и Умный поиск (Ctrl+K) -->
   <div id="palette-modal" class="palette-overlay">
     <div class="palette-container">
       <div class="palette-input-wrap">
@@ -376,7 +406,7 @@
           type="text" 
           id="palette-search-input" 
           class="palette-input" 
-          placeholder="Поиск по лекциям, темам, формулам..."
+          placeholder="Умный поиск по лекциям, темам, формулам..."
           autocomplete="off"
         >
       </div>
@@ -432,6 +462,6 @@
     </div>
   </div>
 
-  <script type="module" src="app/app.js?v=3.0"></script>
+  <script type="module" src="app/app.js?v=4.1"></script>
 </body>
 </html>

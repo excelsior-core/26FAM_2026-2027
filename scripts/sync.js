@@ -1,6 +1,6 @@
 /**
- * scripts/sync.js - Движок синхронизации и клиентского шифрования «“конспекты” ФПМ»
- * Сканирование Storage -> Умный парсер номеров/дат -> Gzip -> AES-256-GCM -> Mirror-mode -> GitHub Pages
+ * scripts/sync.js - Движок синхронизации и клиентского шифрования «КОНСПЕКТЫ ФПМ»
+ * Сканирование Storage/HSE -> Auto-Chroma -> Категоризация -> Gzip -> AES-256-GCM -> Mirror-mode -> GitHub Pages
  */
 
 const fs = require('fs');
@@ -16,6 +16,18 @@ const KEY_LEN = 32;
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const CONFIG_FILE = path.join(__dirname, 'sync.json');
+
+const ROYAL_PALETTE = [
+  '#B5341F', // Ruby / Crimson (Матанализ)
+  '#1D4E89', // Sapphire / Cobalt (Линал и Аналит)
+  '#2D6A4F', // Emerald (Дискретная математика)
+  '#7209B7', // Amethyst / Deep Violet (Программирование)
+  '#C87D20', // Venetian Amber
+  '#0E7490', // Deep Aquamarine
+  '#9E2A2B', // Terracotta
+  '#4338CA', // Imperial Indigo
+  '#374151'  // Titanium Slate
+];
 
 function checkPrerequisites() {
   const nodeVer = parseInt(process.versions.node.split('.')[0], 10);
@@ -35,12 +47,12 @@ function checkPrerequisites() {
 function loadConfig() {
   let config;
   if (!fs.existsSync(CONFIG_FILE)) {
-    console.log('⚠️ Файл scripts/sync.json не найден. Создаём из шаблона...');
+    console.log('⚠️ Файл scripts/sync.json не найден. Создаём конфигурацию...');
     config = {
       storagePath: "./Storage",
       repoUrl: "",
-      sharedPassword: "fpm2026",
-      adminPassword: "admin2026",
+      sharedPassword: "famlovesmath",
+      adminPassword: "excelsiorcatharsis",
       vaultSalt: crypto.randomBytes(16).toString('hex'),
       branchDeploy: "gh-pages",
       branchSource: "main"
@@ -84,8 +96,21 @@ function getSha256Hex(buf) {
   return crypto.createHash('sha256').update(buf).digest('hex').slice(0, 16);
 }
 
-function getLectureId(subject, folder) {
-  return crypto.createHash('sha256').update(`${subject}::${folder}`).digest('hex').slice(0, 12);
+function getLectureId(subject, category, folder) {
+  return crypto.createHash('sha256').update(`${subject}::${category}::${folder}`).digest('hex').slice(0, 12);
+}
+
+function getColorForSubject(subjectName, existingSubjects = []) {
+  const existing = existingSubjects.find(s => s.name.toLowerCase() === subjectName.toLowerCase());
+  if (existing && existing.color) return existing.color;
+
+  let hash = 0;
+  for (let i = 0; i < subjectName.length; i++) {
+    hash = (hash << 5) - hash + subjectName.charCodeAt(i);
+    hash |= 0;
+  }
+  const index = Math.abs(hash) % ROYAL_PALETTE.length;
+  return ROYAL_PALETTE[index];
 }
 
 /**
@@ -93,7 +118,7 @@ function getLectureId(subject, folder) {
  * Примеры:
  * "10 10.09.2026 11 14.09.2026 Пределы и непрерывность"
  * "Лекция 5 (18.09.2026) Ранг матрицы"
- * "№12, 13 (20.09.2026, 24.09.2026) Теорема Коши"
+ * "Коллоквиум 1 (25.10.2026) Вопросы к билетам"
  */
 function parseFolderSessions(folderName) {
   const dates = [];
@@ -103,10 +128,9 @@ function parseFolderSessions(folderName) {
     dates.push(dMatch[1]);
   }
 
-  // Очищаем от дат, чтобы цифры годов не распознались как номера лекций
   const cleanForNums = folderName.replace(/\b\d{2}\.\d{2}\.\d{4}\b/g, ' ');
   const nums = [];
-  const numRegex = /\b(?:№|лекци[яи]\s*|пар[аы]\s*)?(\d{1,3})\b/gi;
+  const numRegex = /\b(?:№|лекци[яи]\s*|пар[аы]\s*|билет\s*)?(\d{1,3})\b/gi;
   let nMatch;
   while ((nMatch = numRegex.exec(cleanForNums)) !== null) {
     const val = parseInt(nMatch[1], 10);
@@ -124,10 +148,9 @@ function parseFolderSessions(folderName) {
     });
   }
 
-  // Очищенный эстетичный заголовок
   let cleanTitle = folderName
     .replace(/\b\d{2}\.\d{2}\.\d{4}\b/g, '')
-    .replace(/\b(?:№|лекци[яи]\s*|пар[аы]\s*)?\d{1,3}\b/gi, '')
+    .replace(/\b(?:№|лекци[яи]\s*|пар[аы]\s*|билет\s*)?\d{1,3}\b/gi, '')
     .replace(/[\(\)\[\]\-—_]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
@@ -142,18 +165,24 @@ async function runSync() {
   const args = process.argv.slice(2);
   if (args.includes('--rotate-shared')) {
     const newPass = args[args.indexOf('--rotate-shared') + 1];
-    if (!newPass) process.exit(1);
+    if (!newPass) {
+      console.error('❌ Укажите новый студенческий пароль: --rotate-shared <новый_пароль>');
+      process.exit(1);
+    }
     config.sharedPassword = newPass;
     fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2), 'utf8');
-    console.log('🔑 Общий пароль обновлен в scripts/sync.json.');
+    console.log(`🔑 Студенческий пароль обновлен на: "${newPass}" в scripts/sync.json`);
   }
 
   if (args.includes('--rotate-admin')) {
     const newPass = args[args.indexOf('--rotate-admin') + 1];
-    if (!newPass) process.exit(1);
+    if (!newPass) {
+      console.error('❌ Укажите новый админ-пароль: --rotate-admin <новый_пароль>');
+      process.exit(1);
+    }
     config.adminPassword = newPass;
     fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2), 'utf8');
-    console.log('🔑 Админ-пароль обновлен в scripts/sync.json.');
+    console.log(`🔑 Админ-пароль обновлен на: "${newPass}" в scripts/sync.json`);
   }
 
   const vaultSalt = Buffer.from(config.vaultSalt, 'hex');
@@ -179,7 +208,7 @@ async function runSync() {
       { name: "Матанализ", color: "#B5341F", description: "Дифференциальное и интегральное исчисление" },
       { name: "Линал и Аналит", color: "#1D4E89", description: "Векторные пространства, матрицы, аналитическая геометрия" },
       { name: "Дискретная математика", color: "#2D6A4F", description: "Комбинаторика, теория графов и булевы функции" },
-      { name: "Программирование", color: "#7209B7", description: "Алгоритмы и структуры данных на C++" }
+      { name: "Программирование", color: "#7209B7", description: "Алгоритмы, структуры данных и архитектура C++" }
     ],
     modules: ["Модуль 1", "Модуль 2", "Модуль 3", "Модуль 4"],
     announcements: [],
@@ -190,54 +219,102 @@ async function runSync() {
     try {
       existingMeta = JSON.parse(fs.readFileSync(exportMetaPath, 'utf8'));
     } catch (e) {
-      console.warn('⚠️ Ошибка парсинга site-metadata.json');
-    }
-  }
-
-  for (const subj of existingMeta.subjects || []) {
-    const subjPath = path.join(hseDir, subj.name, 'лекции');
-    if (!fs.existsSync(subjPath)) {
-      fs.mkdirSync(subjPath, { recursive: true });
+      console.warn('⚠️ Ошибка парсинга site-metadata.json, используются дефолтные настройки');
     }
   }
 
   console.log('🔍 Сканирование папок Storage/HSE...');
   const activeBlobHashes = new Set();
 
-  // Словарь предыдущих лекций для сохранения ручных правок админа
   const existingLecturesById = new Map();
   for (const lec of existingMeta.lectures || []) {
     existingLecturesById.set(lec.id, lec);
   }
 
-  const subjects = fs.readdirSync(hseDir).filter(f => {
+  // 1. ДИНАМИЧЕСКИЙ ПОИСК ПРЕДМЕТОВ (Auto-Discovery & Auto-Chroma)
+  const diskSubjectNames = fs.readdirSync(hseDir).filter(f => {
     return fs.statSync(path.join(hseDir, f)).isDirectory() && f !== 'site-metadata.json';
   });
+
+  const finalSubjects = [];
+  const handledSubjectNames = new Set();
+
+  // Сначала сохраняем существующие предметы с их настройками, если папка на диске есть
+  for (const s of existingMeta.subjects || []) {
+    if (diskSubjectNames.includes(s.name)) {
+      finalSubjects.push(s);
+      handledSubjectNames.add(s.name);
+    }
+  }
+
+  // Добавляем новые обнаруженные папки предметов с автоматическим цветом Auto-Chroma
+  for (const name of diskSubjectNames) {
+    if (!handledSubjectNames.has(name)) {
+      const autoColor = getColorForSubject(name, existingMeta.subjects);
+      console.log(` ✨ Обнаружен новый предмет: "${name}" (назначен цвет: ${autoColor})`);
+      finalSubjects.push({
+        name,
+        color: autoColor,
+        description: `Материалы и конспекты курса «${name}»`
+      });
+      handledSubjectNames.add(name);
+    }
+  }
 
   const nowIso = new Date().toISOString();
   const currentLectures = [];
 
-  for (const subjName of subjects) {
-    const subjLecDir = path.join(hseDir, subjName, 'лекции');
-    if (!fs.existsSync(subjLecDir)) continue;
+  const KNOWN_CATEGORIES = ['лекции', 'коллоквиумы', 'экзамены', 'семинары', 'практика'];
 
-    const lectureFolders = fs.readdirSync(subjLecDir).filter(f => {
-      const full = path.join(subjLecDir, f);
-      return fs.statSync(full).isDirectory();
+  for (const subj of finalSubjects) {
+    const subjDir = path.join(hseDir, subj.name);
+    if (!fs.existsSync(subjDir)) continue;
+
+    const subEntries = fs.readdirSync(subjDir).filter(f => {
+      return fs.statSync(path.join(subjDir, f)).isDirectory();
     });
 
-    for (const folder of lectureFolders) {
+    // Определяем: разбиты ли папки по категориям (лекции, коллоквиумы...) или лежат напрямую
+    const scanTargets = [];
+    const hasCategoryDirs = subEntries.some(e => KNOWN_CATEGORIES.includes(e.toLowerCase()));
+
+    if (hasCategoryDirs) {
+      for (const entry of subEntries) {
+        const full = path.join(subjDir, entry);
+        const lower = entry.toLowerCase();
+        const category = KNOWN_CATEGORIES.includes(lower) ? lower : 'лекции';
+        const innerFolders = fs.readdirSync(full).filter(f => fs.statSync(path.join(full, f)).isDirectory());
+        for (const f of innerFolders) {
+          scanTargets.push({
+            category,
+            folder: f,
+            folderPath: path.join(full, f)
+          });
+        }
+      }
+    } else {
+      // Прямые папки лекций внутри предмета
+      for (const f of subEntries) {
+        scanTargets.push({
+          category: 'лекции',
+          folder: f,
+          folderPath: path.join(subjDir, f)
+        });
+      }
+    }
+
+    for (const target of scanTargets) {
+      const { category, folder, folderPath } = target;
       const cleanFolder = folder.trim();
-      const folderPath = path.join(subjLecDir, folder);
-      const lecId = getLectureId(subjName, cleanFolder);
+      const lecId = getLectureId(subj.name, category, cleanFolder);
 
-      // Извлекаем сессии и заголовок из названия папки
       const parsed = parseFolderSessions(cleanFolder);
-
       const prev = existingLecturesById.get(lecId);
+
       let lecData = {
         id: lecId,
-        subject: subjName,
+        subject: subj.name,
+        category: category,
         folder: cleanFolder,
         title: (prev && prev.title && prev.title !== cleanFolder) ? prev.title : parsed.cleanTitle,
         description: prev ? (prev.description || "") : "",
@@ -251,7 +328,7 @@ async function runSync() {
         updatedAt: nowIso
       };
 
-      // 1. Поиск HTML нейроконспектов в папке лекции
+      // 1. Поиск HTML нейроконспектов
       const folderFiles = fs.readdirSync(folderPath);
       for (const file of folderFiles) {
         const filePath = path.join(folderPath, file);
@@ -262,8 +339,7 @@ async function runSync() {
           const blobPath = path.join(blobsDir, blobName);
 
           activeBlobHashes.add(blobName);
-
-          console.log(` 🔒 Шифрование конспекта: [${subjName}] ${folder}/${file}`);
+          console.log(` 🔒 Шифрование конспекта: [${subj.name}/${category}] ${folder}/${file}`);
           const encrypted = encryptWithKey(content, sharedKey, vaultSalt);
           fs.writeFileSync(blobPath, encrypted);
 
@@ -284,9 +360,8 @@ async function runSync() {
         if (fs.statSync(fullItem).isDirectory() && origPossibleNames.includes(item.toLowerCase())) {
           origDirs.push(fullItem);
         } else if (fs.statSync(fullItem).isFile()) {
-          // Если PDF бросили прямо в папку лекции
           const ext = path.extname(item).toLowerCase();
-          if (ext === '.pdf') {
+          if (['.pdf', '.jpg', '.jpeg', '.png'].includes(ext)) {
             const content = fs.readFileSync(fullItem);
             const hash = getSha256Hex(content);
             const blobName = `${hash}.bin`;
@@ -298,7 +373,7 @@ async function runSync() {
 
             lecData.originals.push({
               name: item,
-              type: 'pdf',
+              type: ext === '.pdf' ? 'pdf' : 'image',
               blob: hash
             });
           }
@@ -317,8 +392,7 @@ async function runSync() {
             const blobPath = path.join(blobsDir, blobName);
 
             activeBlobHashes.add(blobName);
-
-            console.log(` 🔒 Шифрование оригинала: [${subjName}] ${folder}/${path.basename(od)}/${file}`);
+            console.log(` 🔒 Шифрование оригинала: [${subj.name}] ${folder}/${path.basename(od)}/${file}`);
             const encrypted = encryptWithKey(content, sharedKey, vaultSalt);
             fs.writeFileSync(blobPath, encrypted);
 
@@ -336,13 +410,12 @@ async function runSync() {
   }
 
   // ИСТИННЫЙ MIRROR-MODE:
-  // finalLectures содержит ТОЛЬКО те лекции, папки которых физически существуют сейчас в Storage!
   const finalLectures = currentLectures;
 
   const finalMeta = {
     schema: 1,
-    subjects: existingMeta.subjects,
-    modules: existingMeta.modules,
+    subjects: finalSubjects,
+    modules: existingMeta.modules || ["Модуль 1", "Модуль 2", "Модуль 3", "Модуль 4"],
     announcements: existingMeta.announcements || [],
     lectures: finalLectures
   };
@@ -374,7 +447,7 @@ async function runSync() {
   fs.writeFileSync(path.join(ROOT_DIR, 'manifest.json'), JSON.stringify(manifestData, null, 2), 'utf8');
 
   // Шифрование метаданных
-  console.log('🔐 Шифрование метаданных каталога...');
+  console.log('🔐 Шифрование метаданных каталога (AES-256-GCM)...');
   const metaJsonBuf = Buffer.from(JSON.stringify(finalMeta), 'utf8');
 
   const encMeta = encryptWithKey(metaJsonBuf, sharedKey, vaultSalt);
@@ -388,7 +461,17 @@ async function runSync() {
   const encAdmin = encryptWithKey(adminJsonBuf, adminKey, vaultSalt);
   fs.writeFileSync(path.join(ROOT_DIR, 'admin.bin'), encAdmin);
 
-  console.log(`✅ Синхронизация завершена: ${finalLectures.length} лекций на сайте, ${activeBlobHashes.size} blobs.`);
+  // Экспорт site-metadata.json в Storage/HSE/
+  fs.writeFileSync(exportMetaPath, JSON.stringify(finalMeta, null, 2), 'utf8');
+
+  console.log(`\n==================================================`);
+  console.log(`✅ СИНХРОНИЗАЦИЯ УСПЕШНО ЗАВЕРШЕНА!`);
+  console.log(`📚 Предметов: ${finalSubjects.length}`);
+  console.log(`📝 Всего материалов: ${finalLectures.length}`);
+  console.log(`📦 Активных шифрованных blobs: ${activeBlobHashes.size}`);
+  console.log(`🔑 Пароль студента: ${config.sharedPassword}`);
+  console.log(`🔑 Пароль админа: ${config.adminPassword}`);
+  console.log(`==================================================\n`);
 
   if (!args.includes('--no-push')) {
     deployToGitHub(config);
@@ -397,7 +480,7 @@ async function runSync() {
 
 function deployToGitHub(config) {
   if (!config.repoUrl) {
-    console.log('ℹ️ repoUrl не указан в scripts/sync.json. Деплой пропущен.');
+    console.log('ℹ️ repoUrl не указан в scripts/sync.json. Публикация на GitHub Pages пропущена.');
     return;
   }
 
