@@ -392,7 +392,7 @@ class App {
 
     try {
       // 1. Попытка дешифрования студенческого каталога metadata.bin
-      let metaResp = await fetch('metadata.bin');
+      let metaResp = await fetch(`metadata.bin?t=${Date.now()}`, { cache: 'no-store' });
       if (metaResp.ok) {
         const metaBuf = await metaResp.arrayBuffer();
         try {
@@ -406,7 +406,7 @@ class App {
       }
 
       // 2. Попытка дешифрования каталога администратора admin.bin
-      let adminResp = await fetch('admin.bin');
+      let adminResp = await fetch(`admin.bin?t=${Date.now()}`, { cache: 'no-store' });
       if (adminResp.ok) {
         const adminBuf = await adminResp.arrayBuffer();
         try {
@@ -459,7 +459,7 @@ class App {
 
   async loadMetadata() {
     const filename = this.isAdmin ? 'admin.bin' : 'metadata.bin';
-    const resp = await fetch(filename);
+    const resp = await fetch(`${filename}?t=${Date.now()}`, { cache: 'no-store' });
     if (!resp.ok) throw new Error('Не найден файл каталога');
     const buf = await resp.arrayBuffer();
     const decryptedBytes = await VaultCrypto.decryptBlob(buf, this.cryptoKey);
