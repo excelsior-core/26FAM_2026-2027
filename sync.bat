@@ -1,39 +1,41 @@
 @echo off
-chcp 65001 > nul
-title «"конспекты" ФПМ» - Синхронизация и деплой
+setlocal
 
-echo =======================================================
-echo   «"конспекты" ФПМ» - Синхронизация лекций и шифрование
-echo =======================================================
-echo.
+set "NODE_CMD="
 
-set "NODE_CMD=node"
-
+REM 1. Check in PATH
 where node >nul 2>nul
-if %ERRORLEVEL% neq 0 (
-    if exist "%LOCALAPPDATA%\Programs\Strata\node\node.exe" (
-        set "NODE_CMD=%LOCALAPPDATA%\Programs\Strata\node\node.exe"
-    ) else if exist "%ProgramFiles%\nodejs\node.exe" (
-        set "NODE_CMD=%ProgramFiles%\nodejs\node.exe"
-    ) else if exist "%ProgramFiles(x86)%\nodejs\node.exe" (
-        set "NODE_CMD=%ProgramFiles(x86)%\nodejs\node.exe"
-    ) else (
-        echo [ОШИБКА] Node.js не найден в системе.
-        echo Пожалуйста, установите Node.js LTS: https://nodejs.org/
-        echo.
-        pause
-        exit /b 1
-    )
+if %ERRORLEVEL% equ 0 (
+    set "NODE_CMD=node"
+    goto :run
 )
 
-"%NODE_CMD%" scripts\sync.js %*
+REM 2. Check Strata node
+if exist "%LOCALAPPDATA%\Programs\Strata\node\node.exe" (
+    set "NODE_CMD=%LOCALAPPDATA%\Programs\Strata\node\node.exe"
+    goto :run
+)
+
+REM 3. Check Program Files
+if exist "%ProgramFiles%\nodejs\node.exe" (
+    set "NODE_CMD=%ProgramFiles%\nodejs\node.exe"
+    goto :run
+)
+
+echo [ERROR] Node.js not found.
+pause
+exit /b 1
+
+:run
+echo Starting sync...
+"%NODE_CMD%" "%~dp0scripts\sync.js" %*
 
 if %ERRORLEVEL% neq 0 (
     echo.
-    echo [!] Произошла ошибка во время синхронизации.
+    echo [ERROR] Sync failed.
     pause
 ) else (
     echo.
-    echo [✓] Синхронизация успешно завершена!
+    echo [SUCCESS] Sync complete!
     timeout /t 3 > nul
 )
