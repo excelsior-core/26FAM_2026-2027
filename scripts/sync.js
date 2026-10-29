@@ -279,6 +279,7 @@ async function runSync() {
     schema: 1,
     subjects: existingMeta.subjects,
     modules: existingMeta.modules,
+    announcements: existingMeta.announcements || [],
     lectures: finalLectures
   };
 

@@ -130,6 +130,45 @@ export class AdminManager {
   }
 
   /**
+   * Добавление / обновление объявления или дедлайна
+   */
+  saveAnnouncement(data) {
+    if (!this.metadata.announcements) this.metadata.announcements = [];
+    if (data.id) {
+      const idx = this.metadata.announcements.findIndex(a => a.id === data.id);
+      if (idx !== -1) {
+        this.metadata.announcements[idx] = {
+          ...this.metadata.announcements[idx],
+          ...data,
+          updatedAt: new Date().toISOString()
+        };
+      }
+    } else {
+      const newAnn = {
+        id: 'ann_' + Date.now().toString(36),
+        type: data.type || 'deadline',
+        title: data.title || 'Новое объявление',
+        subject: data.subject || 'Общее',
+        datetime: data.datetime || '',
+        text: data.text || '',
+        urgent: !!data.urgent,
+        createdAt: new Date().toISOString()
+      };
+      this.metadata.announcements.unshift(newAnn);
+    }
+    this.commitChanges();
+  }
+
+  /**
+   * Удаление объявления
+   */
+  deleteAnnouncement(id) {
+    if (!confirm('Удалить это объявление/дедлайн?')) return;
+    this.metadata.announcements = (this.metadata.announcements || []).filter(a => a.id !== id);
+    this.commitChanges();
+  }
+
+  /**
    * Экспорт site-metadata.json в файл для синхронизации
    */
   exportMetadataJson() {

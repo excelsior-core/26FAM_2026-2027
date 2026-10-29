@@ -1,6 +1,6 @@
 /**
- * styles/components.css - Академический UI без ИИ-шаблонов
- * Точные 1px границы, микро-типографика, адаптивность и поддержка iOS / Safari
+ * styles/components.css - Ultra-Wide UI: Карточки в стиле Web Tactics,
+ * Интерактивный Календарь, Доска Дедлайнов с тикающими таймерами и Сплит-ридер
  */
 
 /* ==========================================================================
@@ -12,16 +12,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 24px;
 }
 
 .auth-card {
   width: 100%;
-  max-width: 440px;
+  max-width: 480px;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 36px 30px;
+  padding: 44px 36px;
   box-shadow: var(--shadow-elevated);
   position: relative;
   z-index: 2;
@@ -29,18 +29,18 @@
 
 .auth-header {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .auth-disclaimer {
   background: var(--bg-surface);
   border-left: 3px solid var(--accent-color);
-  padding: 12px 14px;
-  font-size: 0.8rem;
+  padding: 14px 16px;
+  font-size: 0.82rem;
   color: var(--text-muted);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  margin-bottom: 22px;
-  line-height: 1.45;
+  margin-bottom: 24px;
+  line-height: 1.5;
 }
 
 .auth-form {
@@ -49,21 +49,17 @@
   gap: 16px;
 }
 
-.auth-input-group {
-  position: relative;
-}
-
 .auth-input {
   width: 100%;
   padding: 14px 16px;
-  font-size: 16px; /* Фиксировано 16px для предотвращения бага автозума в Safari на iPhone */
+  font-size: 16px;
   border-radius: var(--radius-md);
   background: var(--bg-surface);
 }
 
 .caps-warning {
   display: none;
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   color: var(--secondary-color);
   margin-top: 6px;
   font-weight: 600;
@@ -75,8 +71,8 @@
 
 .auth-error {
   display: none;
-  color: var(--accent-color);
-  font-size: 0.82rem;
+  color: var(--urgent-color);
+  font-size: 0.85rem;
   font-weight: 600;
   text-align: center;
 }
@@ -96,7 +92,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
   cursor: pointer;
   user-select: none;
@@ -105,15 +101,14 @@
 .auth-submit-btn {
   background: var(--accent-color);
   color: #fff;
-  font-weight: 600;
-  font-size: 0.95rem;
-  padding: 13px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  padding: 14px;
   border-radius: var(--radius-md);
-  transition: background var(--transition-fast), transform var(--transition-fast);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
+  transition: all var(--transition-fast);
 }
 
 .auth-submit-btn:hover {
@@ -121,30 +116,28 @@
   transform: translateY(-1px);
 }
 
-.auth-submit-btn:active {
-  transform: translateY(1px);
-}
-
 .auth-sub-hint {
   text-align: center;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-family: var(--font-mono);
   color: var(--text-muted);
-  margin-top: 20px;
-  opacity: 0.8;
+  margin-top: 24px;
+  opacity: 0.75;
 }
 
 /* ==========================================================================
-   2. Шапка и навигация
+   2. Шапка сайта и Навигация
    ========================================================================== */
 .site-header {
   border-bottom: 1px solid var(--border-subtle);
-  background: var(--bg-card);
+  background: var(--bg-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   position: sticky;
   top: 0;
   z-index: 100;
-  padding: 12px 0;
-  padding-top: max(12px, env(safe-area-inset-top)); /* Отступ под чёлку iPhone */
+  padding: 14px 0;
+  padding-top: max(14px, env(safe-area-inset-top));
 }
 
 .header-inner {
@@ -162,38 +155,51 @@
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
-.search-trigger-btn {
-  display: flex;
+.nav-pill-btn {
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  padding: 7px 12px;
-  border-radius: var(--radius-sm);
-  color: var(--text-muted);
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  color: var(--text-main);
   font-size: 0.85rem;
+  font-weight: 500;
   transition: all var(--transition-fast);
+  position: relative;
 }
 
-.search-trigger-btn:hover {
+.nav-pill-btn:hover {
   border-color: var(--border-strong);
-  color: var(--text-main);
+  background: var(--bg-card-hover);
+  transform: translateY(-1px);
+}
+
+.pulse-badge {
+  background: var(--urgent-color);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 999px;
+  margin-left: 2px;
 }
 
 .kbd-badge {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: 3px;
-  padding: 1px 5px;
+  padding: 2px 6px;
   font-size: 0.7rem;
   font-family: var(--font-mono);
 }
 
 .theme-select {
-  padding: 6px 8px;
+  padding: 7px 10px;
   font-size: 0.82rem;
   background: var(--bg-surface);
   cursor: pointer;
@@ -204,11 +210,11 @@
   background: var(--accent-subtle);
   color: var(--accent-color);
   border: 1px solid var(--accent-color);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 3px 6px;
+  letter-spacing: 0.08em;
+  padding: 4px 8px;
   border-radius: var(--radius-sm);
 }
 
@@ -217,50 +223,83 @@
 }
 
 /* ==========================================================================
-   3. Баннеры и Дашборд
+   3. Hero секция и Сессионный радар
    ========================================================================== */
-.alert-banner {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
-  margin: 18px 0;
+.hero-stats-bar {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
-  font-size: 0.82rem;
+  gap: 24px;
+  padding: 16px 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  margin-bottom: 28px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text-main);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--text-muted);
 }
 
-.alert-banner-text {
+.progress-track-wrap {
   flex: 1;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.alert-close-btn {
-  color: var(--text-muted);
-  padding: 4px;
-  font-size: 1.1rem;
+.progress-track-bg {
+  height: 6px;
+  background: var(--bg-surface);
+  border-radius: 999px;
+  overflow: hidden;
 }
 
+.progress-track-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+/* ==========================================================================
+   4. Сетка предметов и Фильтры
+   ========================================================================== */
 .dashboard-section {
-  margin: 24px 0;
+  margin: 32px 0;
 }
 
 .section-title-wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   cursor: pointer;
   user-select: none;
 }
 
 .section-title {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .section-toggle-icon {
@@ -283,15 +322,15 @@
 
 .subjects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
 }
 
 .subject-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
   cursor: pointer;
   transition: all var(--transition-fast);
   position: relative;
@@ -301,7 +340,7 @@
 .subject-card:hover {
   background: var(--bg-card-hover);
   border-color: var(--border-strong);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-subtle);
 }
 
@@ -320,52 +359,49 @@
 
 .subject-card-title {
   font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   margin-top: 4px;
 }
 
 .subject-card-meta {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
-  margin-top: 6px;
+  margin-top: 8px;
   display: flex;
   justify-content: space-between;
 }
 
-/* ==========================================================================
-   4. Фильтры
-   ========================================================================== */
 .filter-bar {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 12px 16px;
-  margin-bottom: 20px;
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  margin-bottom: 28px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 14px;
 }
 
 .filter-group {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .filter-select {
-  padding: 6px 10px;
-  font-size: 0.82rem;
+  padding: 7px 12px;
+  font-size: 0.85rem;
 }
 
 .btn-secondary {
   border: 1px solid var(--border-subtle);
-  padding: 6px 12px;
+  padding: 7px 14px;
   border-radius: var(--radius-sm);
   background: var(--bg-surface);
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--text-main);
   transition: all var(--transition-fast);
 }
@@ -382,170 +418,385 @@
 }
 
 /* ==========================================================================
-   5. Карточки лекций
+   5. ULTRA-WIDE СЕТКА КАРТОЧЕК ЛЕКЦИЙ (СТИЛЬ WEB TACTICS)
    ========================================================================== */
 .lectures-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 28px;
+  margin-bottom: 60px;
 }
 
 .lecture-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 18px 22px;
-  transition: all var(--transition-fast);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all var(--transition-smooth);
   position: relative;
 }
 
 .lecture-card:hover {
   background: var(--bg-card-hover);
   border-color: var(--border-strong);
-  box-shadow: var(--shadow-subtle);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-elevated);
 }
 
 .lecture-card.studied {
-  border-left: 3px solid var(--secondary-color);
+  border-top: 3px solid var(--secondary-color);
 }
 
-.lecture-top-row {
+/* Процедурный математический арт в шапке карточки */
+.card-artwork {
+  height: 160px;
+  background: #090807;
+  border-bottom: 1px solid var(--border-subtle);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-artwork svg {
+  width: 100%;
+  height: 100%;
+  opacity: 0.75;
+  transition: opacity var(--transition-fast), transform var(--transition-smooth);
+}
+
+.lecture-card:hover .card-artwork svg {
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+.card-content {
+  padding: 22px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-meta-top {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-}
-
-.lecture-title-wrap {
-  flex: 1;
-}
-
-.lecture-meta-badges {
-  display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 6px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
-.subject-badge {
+.card-subject-pill {
+  font-family: var(--font-mono);
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 2px 7px;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
   border-radius: var(--radius-sm);
   color: #fff;
 }
 
-.module-badge {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  background: var(--bg-surface);
-  padding: 2px 7px;
-  border-radius: var(--radius-sm);
-}
-
-.session-chip {
+.card-session-index {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  padding: 1px 6px;
-  border-radius: 3px;
-  color: var(--text-main);
-}
-
-.lecture-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  line-height: 1.35;
-}
-
-.lecture-description {
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
-  margin-top: 4px;
+  letter-spacing: 0.05em;
 }
 
-.lecture-tags {
+.card-lecture-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 8px;
+  cursor: pointer;
+  letter-spacing: -0.015em;
+}
+
+.card-lecture-desc {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  flex: 1;
+  margin-bottom: 16px;
+}
+
+.card-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 8px;
+  margin-bottom: 16px;
 }
 
-.lecture-tag {
+.card-tag {
   font-size: 0.72rem;
   color: var(--text-muted);
   background: var(--bg-surface);
-  padding: 1px 6px;
-  border-radius: 3px;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
 }
 
-.lecture-tag:hover {
+.card-tag:hover {
   color: var(--accent-color);
 }
 
-.lecture-actions {
+.card-bottom-actions {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
-  margin-top: 14px;
-  padding-top: 12px;
+  padding-top: 14px;
   border-top: 1px solid var(--border-subtle);
+  margin-top: auto;
 }
 
-.action-btn-primary {
-  background: var(--accent-color);
-  color: #fff;
-  font-size: 0.82rem;
-  font-weight: 600;
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
+.read-article-link {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-color);
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: background var(--transition-fast);
+  transition: transform var(--transition-fast);
 }
 
-.action-btn-primary:hover {
-  background: var(--accent-hover);
+.read-article-link:hover {
+  transform: translateX(3px);
+  color: var(--accent-hover);
 }
 
-.studied-toggle-btn {
-  font-size: 0.78rem;
+.btn-icon-subtle {
+  font-size: 0.8rem;
   color: var(--text-muted);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-left: auto;
   padding: 4px 8px;
   border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  transition: all var(--transition-fast);
 }
 
-.studied-toggle-btn.active {
+.btn-icon-subtle:hover {
+  border-color: var(--border-strong);
+  color: var(--text-main);
+}
+
+.btn-icon-subtle.studied-active {
   color: var(--secondary-color);
+  border-color: var(--secondary-color);
   font-weight: 600;
 }
 
 /* ==========================================================================
-   6. Модалка чтения и Split-View
+   6. ИНТЕРАКТИВНЫЙ КАЛЕНДАРЬ ПАР (ВЫДВИЖНОЙ / МОДАЛЬНЫЙ)
+   ========================================================================== */
+.calendar-view-modal {
+  max-width: 1100px;
+  width: 92vw;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-elevated);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  max-height: 90dvh;
+  overflow: hidden;
+}
+
+.calendar-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.calendar-month-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.calendar-day-header {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding-bottom: 8px;
+}
+
+.calendar-day-cell {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  min-height: 85px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  position: relative;
+}
+
+.calendar-day-cell:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-card-hover);
+}
+
+.calendar-day-cell.other-month {
+  opacity: 0.35;
+}
+
+.calendar-day-num {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.calendar-lecture-pill {
+  margin-top: 4px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+}
+
+.calendar-day-details {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 16px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* ==========================================================================
+   7. ДОСКА ОБЪЯВЛЕНИЙ И ДЕДЛАЙНОВ С ТАЙМЕРАМИ
+   ========================================================================== */
+.announcements-modal {
+  max-width: 900px;
+  width: 90vw;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-elevated);
+  display: flex;
+  flex-direction: column;
+  max-height: 88vh;
+  max-height: 88dvh;
+  overflow-y: auto;
+}
+
+.announcements-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.announcement-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
+.announcement-card.urgent {
+  border-left: 4px solid var(--urgent-color);
+}
+
+.announcement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.announcement-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+
+.badge-deadline {
+  background: var(--urgent-color);
+  color: #fff;
+}
+
+.badge-info {
+  background: var(--secondary-color);
+  color: #fff;
+}
+
+.announcement-countdown {
+  display: flex;
+  gap: 12px;
+  margin: 8px 0;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  min-width: 60px;
+}
+
+.countdown-digits {
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--accent-color);
+}
+
+.countdown-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   8. Модалка чтения и Ultra-Wide Split-View
    ========================================================================== */
 .modal-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(10, 12, 14, 0.7);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(8, 7, 6, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 1000;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 20px;
 }
 
 .modal-overlay.open {
@@ -553,10 +804,10 @@
 }
 
 .reader-modal {
-  width: 100%;
-  max-width: 1200px;
-  height: 90vh;
-  height: 90dvh;
+  width: 96vw;
+  max-width: 1720px;
+  height: 92vh;
+  height: 92dvh;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
@@ -567,7 +818,7 @@
 }
 
 .reader-header {
-  padding: 10px 18px;
+  padding: 12px 24px;
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
   justify-content: space-between;
@@ -578,12 +829,13 @@
 .reader-title-wrap {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   overflow: hidden;
 }
 
 .reader-modal-title {
-  font-size: 1rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -592,7 +844,7 @@
 .reader-controls {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .reader-body {
@@ -625,11 +877,11 @@
 .pane-label-bar {
   background: var(--bg-surface);
   border-bottom: 1px solid var(--border-subtle);
-  padding: 5px 12px;
-  font-size: 0.72rem;
+  padding: 6px 16px;
+  font-size: 0.74rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   color: var(--text-muted);
   display: flex;
   justify-content: space-between;
@@ -642,15 +894,15 @@
 }
 
 /* ==========================================================================
-   7. Палитра Ctrl+K
+   9. Палитра Ctrl+K
    ========================================================================== */
 .palette-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(10, 12, 14, 0.65);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(8, 7, 6, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 2000;
   align-items: flex-start;
   justify-content: center;
@@ -663,10 +915,10 @@
 
 .palette-container {
   width: 100%;
-  max-width: 600px;
+  max-width: 680px;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-elevated);
   overflow: hidden;
   display: flex;
@@ -674,38 +926,37 @@
 }
 
 .palette-input-wrap {
-  padding: 14px 18px;
+  padding: 18px 24px;
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .palette-input {
   flex: 1;
   border: none;
   background: transparent;
-  font-size: 16px;
+  font-size: 1.1rem;
   outline: none;
   box-shadow: none !important;
   color: var(--text-main);
 }
 
 .palette-results {
-  max-height: 400px;
+  max-height: 440px;
   overflow-y: auto;
-  padding: 6px;
-  -webkit-overflow-scrolling: touch;
+  padding: 8px;
 }
 
 .palette-item {
-  padding: 8px 12px;
+  padding: 10px 16px;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: background var(--transition-fast);
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
 }
 
 .palette-item:hover {
@@ -714,138 +965,83 @@
 
 .palette-item-title {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .palette-snippets {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .palette-snippets mark {
   background: var(--secondary-color);
   color: #fff;
-  padding: 0 2px;
+  padding: 0 3px;
   border-radius: 2px;
 }
 
 .palette-footer {
-  padding: 8px 16px;
+  padding: 10px 20px;
   background: var(--bg-surface);
   border-top: 1px solid var(--border-subtle);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
   display: flex;
   justify-content: space-between;
 }
 
 /* ==========================================================================
-   8. Админ-панель
-   ========================================================================== */
-.admin-toolbar {
-  display: none;
-  background: var(--accent-subtle);
-  border-bottom: 1px solid var(--accent-color);
-  padding: 6px 0;
-  font-size: 0.82rem;
-}
-
-.admin-toolbar.active {
-  display: block;
-}
-
-.admin-toolbar-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.admin-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent-color);
-  display: inline-block;
-}
-
-.admin-modal {
-  max-width: 520px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 12px;
-}
-
-.form-group label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-muted);
-}
-
-/* ==========================================================================
-   9. Подвал (Footer)
+   10. Подвал и Адаптивность
    ========================================================================== */
 .site-footer {
   border-top: 1px solid var(--border-subtle);
-  padding: 28px 0;
-  margin-top: 50px;
-  font-size: 0.82rem;
+  padding: 36px 0;
+  margin-top: 60px;
+  font-size: 0.84rem;
   color: var(--text-muted);
 }
 
 .footer-inner {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
 .footer-disclaimers {
   border-top: 1px dashed var(--border-subtle);
-  padding-top: 14px;
-  font-size: 0.76rem;
+  padding-top: 16px;
+  font-size: 0.78rem;
   line-height: 1.5;
 }
 
-/* ==========================================================================
-   10. Специфика iOS & Mobile (iPhone / iPad)
-   ========================================================================== */
 @media (max-width: 1024px) {
   .split-view-btn, .reader-pane.split-pane {
     display: none !important;
   }
 }
 
-@media (max-width: 720px) {
-  .header-actions .search-trigger-btn span,
+@media (max-width: 768px) {
+  .hero-mega-title {
+    font-size: 2.2rem;
+  }
+  .lectures-list {
+    grid-template-columns: 1fr;
+  }
   .header-actions .kbd-badge {
     display: none;
   }
-  .admin-toolbar-inner {
-    display: none !important; /* По ТЗ админка скрывается на смартфонах */
+  .calendar-grid {
+    gap: 4px;
   }
-  .lecture-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .action-btn-primary, .btn-secondary {
-    text-align: center;
-    justify-content: center;
-  }
-  .studied-toggle-btn {
-    margin-left: 0;
-    justify-content: center;
+  .calendar-day-cell {
+    min-height: 60px;
+    padding: 4px;
   }
   .reader-modal {
+    width: 100vw;
     height: 100vh;
     height: 100dvh;
     border-radius: 0;
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-  .modal-overlay {
-    padding: 0;
   }
 }

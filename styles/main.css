@@ -1,6 +1,6 @@
 /**
- * styles/main.css - Базовые темы, типографика, переменные и адаптивность под iOS / Android
- * Темы: paper (бумага верже), dark (академический бархат), sepia (пергамент), midnight (ночное небо)
+ * styles/main.css - Монументальный Ultra-Wide Editorial & Dark Academia
+ * Поддержка экранов до 1920px+ (95% ширины), 4 темы, сетки, SVG-шум и типографика
  */
 
 @font-face {
@@ -18,21 +18,24 @@
 }
 
 :root {
-  /* Тема 1: Светлая Бумага (Paper) — тактильный теплый оттенок дорогой книжной бумаги */
-  --bg-base: #F7F3E9;
-  --bg-card: #FFFFFF;
-  --bg-card-hover: #FCFAF6;
-  --bg-surface: #EFE8DA;
-  --text-main: #1C1917;
-  --text-muted: #6E655F;
-  --border-subtle: rgba(28, 25, 23, 0.08);
-  --border-strong: rgba(28, 25, 23, 0.22);
-  --accent-color: #8C2518; /* Приглушенный бордовый сургуч */
-  --accent-hover: #731D12;
-  --accent-subtle: rgba(140, 37, 24, 0.07);
-  --secondary-color: #B47834; /* Благородный янтарный */
-  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
-  --shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.08);
+  /* Тема: Dark Academia (По умолчанию) — глубокий ночной бархат, обсидиан и медь */
+  --bg-base: #0B0A09;
+  --bg-card: #151311;
+  --bg-card-hover: #1C1916;
+  --bg-surface: #1E1A17;
+  --bg-glass: rgba(21, 19, 17, 0.85);
+  --text-main: #EDE2D3;
+  --text-muted: #9C8E7D;
+  --border-subtle: rgba(237, 226, 211, 0.08);
+  --border-strong: rgba(237, 226, 211, 0.22);
+  --border-glow: rgba(214, 90, 66, 0.4);
+  --accent-color: #D65A42;
+  --accent-hover: #E86F58;
+  --accent-subtle: rgba(214, 90, 66, 0.12);
+  --secondary-color: #C89248;
+  --urgent-color: #E63946;
+  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-elevated: 0 16px 50px rgba(0, 0, 0, 0.7);
 
   --font-display: 'Unbounded', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-body: 'Golos Text', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -40,63 +43,72 @@
 
   --radius-sm: 4px;
   --radius-md: 8px;
-  --radius-lg: 12px;
+  --radius-lg: 14px;
   --transition-fast: 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-smooth: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Тема 2: Dark Academia (Академический ночной дуб и чернила) */
-[data-theme="dark"] {
-  --bg-base: #141210;
-  --bg-card: #1D1A17;
-  --bg-card-hover: #26221E;
-  --bg-surface: #221E1A;
-  --text-main: #EADDCB;
-  --text-muted: #9C8E7E;
-  --border-subtle: rgba(234, 221, 203, 0.09);
-  --border-strong: rgba(234, 221, 203, 0.24);
-  --accent-color: #D65A42;
-  --accent-hover: #E46F58;
-  --accent-subtle: rgba(214, 90, 66, 0.12);
-  --secondary-color: #C89248;
-  --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.4);
-  --shadow-elevated: 0 12px 36px rgba(0, 0, 0, 0.6);
+/* Светлая книжная бумага (Paper) */
+[data-theme="paper"] {
+  --bg-base: #F7F3E9;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FDFBF7;
+  --bg-surface: #EFE8DA;
+  --bg-glass: rgba(255, 255, 255, 0.88);
+  --text-main: #1A1715;
+  --text-muted: #6B625B;
+  --border-subtle: rgba(26, 23, 21, 0.08);
+  --border-strong: rgba(26, 23, 21, 0.22);
+  --border-glow: rgba(140, 37, 24, 0.3);
+  --accent-color: #8C2518;
+  --accent-hover: #731D12;
+  --accent-subtle: rgba(140, 37, 24, 0.08);
+  --secondary-color: #B47834;
+  --urgent-color: #C1121F;
+  --shadow-subtle: 0 2px 10px rgba(0, 0, 0, 0.04);
+  --shadow-elevated: 0 12px 40px rgba(0, 0, 0, 0.08);
 }
 
-/* Тема 3: Сепия (Старинный университетский архив) */
+/* Сепия (Университетский пергамент) */
 [data-theme="sepia"] {
   --bg-base: #EFE3CE;
-  --bg-card: #F8F0E2;
-  --bg-card-hover: #FCF6EC;
-  --bg-surface: #E4D4BB;
-  --text-main: #332417;
-  --text-muted: #745C47;
-  --border-subtle: rgba(51, 36, 23, 0.09);
-  --border-strong: rgba(51, 36, 23, 0.22);
+  --bg-card: #F9F1E2;
+  --bg-card-hover: #FCF7EC;
+  --bg-surface: #E3D3B8;
+  --bg-glass: rgba(249, 241, 226, 0.88);
+  --text-main: #332315;
+  --text-muted: #735A45;
+  --border-subtle: rgba(51, 35, 21, 0.09);
+  --border-strong: rgba(51, 35, 21, 0.22);
+  --border-glow: rgba(158, 63, 36, 0.35);
   --accent-color: #9E3F24;
   --accent-hover: #823119;
-  --accent-subtle: rgba(158, 63, 36, 0.09);
+  --accent-subtle: rgba(158, 63, 36, 0.1);
   --secondary-color: #A67338;
-  --shadow-subtle: 0 1px 3px rgba(51, 36, 23, 0.05);
-  --shadow-elevated: 0 8px 24px rgba(51, 36, 23, 0.09);
+  --urgent-color: #BC2B1E;
+  --shadow-subtle: 0 2px 10px rgba(51, 35, 21, 0.05);
+  --shadow-elevated: 0 12px 36px rgba(51, 35, 21, 0.1);
 }
 
-/* Тема 4: Midnight (Ночная обсерватория) */
+/* Midnight (Ночная обсерватория) */
 [data-theme="midnight"] {
-  --bg-base: #0B111B;
-  --bg-card: #131C2A;
-  --bg-card-hover: #1A2638;
-  --bg-surface: #182334;
-  --text-main: #DCE5F0;
-  --text-muted: #8295AD;
-  --border-subtle: rgba(220, 229, 240, 0.09);
-  --border-strong: rgba(220, 229, 240, 0.22);
+  --bg-base: #080D14;
+  --bg-card: #0F1826;
+  --bg-card-hover: #162236;
+  --bg-surface: #142032;
+  --bg-glass: rgba(15, 24, 38, 0.88);
+  --text-main: #DDE7F2;
+  --text-muted: #7E94AD;
+  --border-subtle: rgba(221, 231, 242, 0.08);
+  --border-strong: rgba(221, 231, 242, 0.22);
+  --border-glow: rgba(91, 195, 213, 0.4);
   --accent-color: #5BC3D5;
   --accent-hover: #7BD3E3;
   --accent-subtle: rgba(91, 195, 213, 0.12);
   --secondary-color: #C9A765;
-  --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.5);
-  --shadow-elevated: 0 12px 40px rgba(0, 0, 0, 0.7);
+  --urgent-color: #FF5A5F;
+  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-elevated: 0 16px 50px rgba(0, 0, 0, 0.75);
 }
 
 /* Сбросы */
@@ -120,7 +132,7 @@ body {
   font-size: 0.95rem;
   line-height: 1.55;
   min-height: 100vh;
-  min-height: 100dvh; /* Критично для мобильного Safari на iOS */
+  min-height: 100dvh;
   position: relative;
   overflow-x: hidden;
   transition: background-color var(--transition-smooth), color var(--transition-smooth);
@@ -129,62 +141,87 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Текстурный бумажный шум */
+/* Текстурный микро-шум */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.03;
+  opacity: 0.035;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Фоновый градиент лампы */
+/* Атмосферный световой градиент */
 .hero-glow {
   position: absolute;
-  top: -150px;
+  top: -180px;
   left: 50%;
   transform: translateX(-50%);
-  width: 700px;
-  height: 380px;
+  width: 1000px;
+  height: 500px;
   background: radial-gradient(circle, var(--accent-subtle) 0%, transparent 70%);
-  filter: blur(90px);
+  filter: blur(120px);
   pointer-events: none;
   z-index: 0;
 }
 
-/* Типографика */
+/* ULTRA-WIDE КАНВАС НА ПК */
+.container {
+  max-width: 1760px;
+  width: 95vw;
+  margin: 0 auto;
+  padding: 0 28px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Монументальная типографика */
 h1, h2, h3, h4, .brand-title {
   font-family: var(--font-display);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   color: var(--text-main);
+  text-transform: uppercase;
 }
 
-.brand-title {
-  font-size: 1.6rem;
-  line-height: 1.15;
+.hero-mega-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 5vw, 4.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin: 24px 0 12px;
 }
 
-.brand-title .quotes {
+.hero-mega-title .highlight {
   color: var(--accent-color);
+}
+
+.hero-sub-text {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 780px;
+  line-height: 1.6;
+  margin-bottom: 24px;
 }
 
 .academic-crest {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--secondary-color);
-  margin-bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .tagline {
   font-size: 0.8rem;
   color: var(--text-muted);
-  letter-spacing: 0.04em;
-  margin-top: 4px;
+  letter-spacing: 0.05em;
 }
 
 a {
@@ -206,10 +243,9 @@ button {
   user-select: none;
 }
 
-/* 16px на инпутах ОБЯЗАТЕЛЬНО для предотвращения нежелательного зума на iPhone */
 input, select, textarea {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 16px; /* Предотвращает зум на iOS */
   color: var(--text-main);
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
@@ -222,14 +258,6 @@ input, select, textarea {
 input:focus, select:focus, textarea:focus {
   border-color: var(--accent-color);
   box-shadow: 0 0 0 2px var(--accent-subtle);
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  position: relative;
-  z-index: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {

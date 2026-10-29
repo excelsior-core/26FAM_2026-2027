@@ -11,19 +11,18 @@
   <link rel="stylesheet" href="styles/components.css">
 </head>
 <body>
-  <!-- Деликатный световой ореол архива -->
+  <!-- Атмосферный световой градиент -->
   <div class="hero-glow"></div>
 
   <!-- 1. Экран авторизации (Виден до расшифровки) -->
   <div id="auth-view" class="auth-wrapper">
     <div class="auth-card">
       <div class="auth-header">
-        <div class="academic-crest">ФПМ · 2026–2027</div>
-        <h1 class="brand-title">«<span class="quotes">“конспекты”</span> ФПМ»</h1>
-        <div class="tagline">студенческий сборник нейроконспектов · НИУ ВШЭ НН</div>
+        <div class="academic-crest">ФПМ НН · 2026–2027 · 1 КУРС</div>
+        <h1 class="brand-title" style="font-size: 1.8rem; margin: 8px 0;">«<span class="quotes">“конспекты”</span> ФПМ»</h1>
+        <div class="tagline">Защищённый студенческий архив нейроконспектов</div>
       </div>
 
-      <!-- Лаконичный, строгий дисклеймер -->
       <div class="auth-disclaimer">
         Неофициальный студенческий архив ФПМ (НИУ ВШЭ НН). Не является ресурсом университета и не связан с преподавателями. Конспекты подготовлены студентами.
       </div>
@@ -34,7 +33,7 @@
             type="password" 
             id="auth-password" 
             class="auth-input" 
-            placeholder="Пароль доступа..." 
+            placeholder="Введите пароль доступа..." 
             required 
             autofocus
             autocapitalize="off"
@@ -56,14 +55,14 @@
       </form>
 
       <div class="auth-sub-hint">
-        Локальное клиентское дешифрование (AES-256-GCM) · Полный оффлайн
+        Клиентское дешифрование (AES-256-GCM + PBKDF2) · Без серверов и слежки
       </div>
     </div>
   </div>
 
   <!-- 2. Главная страница (После дешифрования) -->
   <div id="main-view" style="display: none;">
-    <!-- Панель администратора (видна только при вводе админ-пароля) -->
+    <!-- Панель администратора -->
     <aside id="admin-toolbar" class="admin-toolbar">
       <div class="container admin-toolbar-inner">
         <div style="display: flex; align-items: center; gap: 10px;">
@@ -73,6 +72,7 @@
         <div style="display: flex; gap: 8px;">
           <button id="admin-new-subject-btn" class="btn-secondary">+ Предмет</button>
           <button id="admin-new-module-btn" class="btn-secondary">+ Модуль</button>
+          <button id="admin-new-announcement-btn" class="btn-secondary" style="color: var(--accent-color);">+ Дедлайн / Новость</button>
           <button id="admin-export-btn" class="action-btn-primary" style="padding: 4px 12px; font-size: 0.8rem;">
             💾 Экспорт site-metadata.json
           </button>
@@ -87,19 +87,31 @@
           <a href="#" class="brand-title" style="font-size: 1.25rem;">
             «<span class="quotes">“конспекты”</span> ФПМ»
           </a>
-          <span class="tagline" style="font-size: 0.7rem;">Архив 1 курса · НИУ ВШЭ НН</span>
+          <span class="tagline" style="font-size: 0.72rem;">ФПМ НН · 1 курс · 2026–2027</span>
         </div>
 
         <div class="header-actions">
-          <button id="palette-open-btn" class="search-trigger-btn" title="Поиск (Ctrl+K или /)">
+          <!-- Кнопка Дедлайнов и Объявлений -->
+          <button id="announcements-open-btn" class="nav-pill-btn" title="Дедлайны и объявления курса">
+            <span>📌 Дедлайны</span>
+            <span id="announcements-count-badge" class="pulse-badge" style="display: none;">0</span>
+          </button>
+
+          <!-- Кнопка Интерактивного Календаря -->
+          <button id="calendar-open-btn" class="nav-pill-btn" title="Интерактивный календарь пар и занятий">
+            <span>📅 Календарь пар</span>
+          </button>
+
+          <!-- Поиск Ctrl+K -->
+          <button id="palette-open-btn" class="nav-pill-btn" title="Поиск (Ctrl+K или /)">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <span>Поиск</span>
             <kbd class="kbd-badge">Ctrl+K</kbd>
           </button>
 
           <select id="theme-selector" class="theme-select" title="Тема оформления">
-            <option value="paper">Бумага (Paper)</option>
             <option value="dark">Академия (Dark)</option>
+            <option value="paper">Бумага (Paper)</option>
             <option value="sepia">Сепия (Sepia)</option>
             <option value="midnight">Полночь (Midnight)</option>
           </select>
@@ -110,7 +122,7 @@
       </div>
     </header>
 
-    <!-- Основной контент -->
+    <!-- Основной контент (Ultra-Wide Canvas) -->
     <main class="container">
       <!-- Баннер-предупреждение ИИ -->
       <div id="ai-banner" class="alert-banner">
@@ -120,10 +132,46 @@
         <button id="ai-banner-close" class="alert-close-btn" title="Скрыть">&times;</button>
       </div>
 
+      <!-- Монументальный Hero-блок (в стиле Web Tactics) -->
+      <section style="margin: 32px 0 20px;">
+        <div class="academic-crest">ИНТЕЛЛЕКТУАЛЬНЫЙ АРХИВ · ФПМ ВШЭ НН</div>
+        <h1 class="hero-mega-title">
+          «КОНСПЕКТЫ» <span class="highlight">ФПМ</span>
+        </h1>
+        <p class="hero-sub-text">
+          Студенческий сборник нейроконспектов, интерактивное расписание модулей и оригиналы лекций в едином защищённом пространстве.
+        </p>
+
+        <!-- Сессионный радар прогресса -->
+        <div class="hero-stats-bar">
+          <div class="stat-item">
+            <span id="stat-total-lectures" class="stat-num">0</span>
+            <span class="stat-label">Всего лекций</span>
+          </div>
+          <div class="stat-item">
+            <span id="stat-studied-percent" class="stat-num">0%</span>
+            <span class="stat-label">Освоено вами</span>
+          </div>
+          <div class="progress-track-wrap">
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted);">
+              <span>Прогресс подготовки к сессии</span>
+              <span id="stat-studied-ratio">0 из 0</span>
+            </div>
+            <div class="progress-track-bg">
+              <div id="stat-progress-bar" class="progress-track-fill" style="width: 0%;"></div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <span id="stat-active-deadlines" class="stat-num" style="color: var(--urgent-color);">0</span>
+            <span class="stat-label">Активных дедлайнов</span>
+          </div>
+        </div>
+      </section>
+
       <!-- Секция "Что нового" -->
       <section id="new-lectures-section" class="dashboard-section" style="display: none;">
         <div class="section-title-wrap" data-toggle="new-lectures-content">
-          <h2 class="section-title">✨ Новое с прошлого визита</h2>
+          <h2 class="section-title">✨ Новые материалы с прошлого визита</h2>
           <span class="section-toggle-icon">▼</span>
         </div>
         <div id="new-lectures-content" class="collapsed-content">
@@ -134,7 +182,7 @@
       <!-- Плитки предметов -->
       <section class="dashboard-section">
         <div class="section-title-wrap" data-toggle="subjects-content">
-          <h2 class="section-title">📚 Предметы</h2>
+          <h2 class="section-title">📚 Предметы курса</h2>
           <span class="section-toggle-icon">▼</span>
         </div>
         <div id="subjects-content" class="collapsed-content">
@@ -158,16 +206,12 @@
 
         <div class="filter-group">
           <select id="sort-selector" class="filter-select">
-            <option value="session-date-desc">По дате (сначала новые)</option>
-            <option value="session-date-asc">По дате (по порядку)</option>
-            <option value="session-num-asc">По номеру пары</option>
+            <option value="session-date-desc">По дате пары (новые сначала)</option>
+            <option value="session-date-asc">По дате пары (по порядку)</option>
+            <option value="session-num-asc">По номеру пары (1 → N)</option>
             <option value="title-asc">Название (А–Я)</option>
             <option value="added-desc">Недавно добавленные</option>
           </select>
-
-          <button id="view-mode-toggle" class="btn-secondary" title="Переключить вид">
-            📅 Таймлайн
-          </button>
 
           <button id="reset-filters-btn" class="btn-secondary" title="Сбросить фильтры">
             Сброс
@@ -175,7 +219,7 @@
         </div>
       </section>
 
-      <!-- Список лекций -->
+      <!-- Сетка лекций (Ultra-Wide 3-4 колонки) -->
       <section>
         <div id="lectures-container" class="lectures-list"></div>
       </section>
@@ -184,9 +228,9 @@
     <!-- Подвал сайта -->
     <footer class="site-footer">
       <div class="container footer-inner">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
           <div>
-            <strong>«“конспекты” ФПМ»</strong> · 2026–2027 · Локальное шифрование
+            <strong>«“конспекты” ФПМ»</strong> · 2026–2027 · Клиентское шифрование WebCrypto
           </div>
           <div>
             <button id="footer-disclaimer-toggle" class="btn-secondary" style="font-size: 0.75rem;">
@@ -203,7 +247,95 @@
     </footer>
   </div>
 
-  <!-- 3. Модалка чтения и сплит-режима («Конспект ↔ Оригинал») -->
+  <!-- 3. Интерактивный Календарь пар (Отдельное окно) -->
+  <div id="calendar-modal" class="modal-overlay">
+    <div class="calendar-view-modal">
+      <div class="calendar-top-bar">
+        <div class="calendar-month-title">
+          <button id="cal-prev-month" class="btn-secondary">←</button>
+          <span id="cal-current-month-label">Октябрь 2026</span>
+          <button id="cal-next-month" class="btn-secondary">→</button>
+        </div>
+        <button id="cal-close-btn" class="btn-secondary" style="font-weight: bold;">✕</button>
+      </div>
+
+      <div class="calendar-grid">
+        <div class="calendar-day-header">Пн</div>
+        <div class="calendar-day-header">Вт</div>
+        <div class="calendar-day-header">Ср</div>
+        <div class="calendar-day-header">Чт</div>
+        <div class="calendar-day-header">Пт</div>
+        <div class="calendar-day-header">Сб</div>
+        <div class="calendar-day-header">Вс</div>
+      </div>
+      <div id="calendar-days-container" class="calendar-grid" style="margin-bottom: 0;"></div>
+
+      <div id="calendar-day-details" class="calendar-day-details" style="display: none;">
+        <h4 id="cal-selected-date-title" style="margin-bottom: 10px; font-size: 0.95rem;">Лекции за день</h4>
+        <div id="cal-selected-date-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Доска объявлений и дедлайнов с тикающими таймерами -->
+  <div id="announcements-modal" class="modal-overlay">
+    <div class="announcements-modal">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <h3 style="font-size: 1.25rem;">📌 Доска объявлений и дедлайнов</h3>
+          <span class="academic-crest">ФПМ 2026–2027</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button id="ann-admin-add-btn" class="action-btn-primary" style="display: none; padding: 6px 12px; font-size: 0.8rem;">+ Новый дедлайн</button>
+          <button id="ann-close-btn" class="btn-secondary" style="font-weight: bold;">✕</button>
+        </div>
+      </div>
+
+      <div id="announcements-list-container" class="announcements-grid"></div>
+    </div>
+  </div>
+
+  <!-- 5. Модалка создания дедлайна/объявления (Админ) -->
+  <div id="admin-announcement-modal" class="modal-overlay">
+    <div class="auth-card admin-modal">
+      <h3 style="margin-bottom: 16px;">Новый дедлайн / Объявление</h3>
+      <form id="admin-ann-form">
+        <div class="form-group">
+          <label>Тип сообщения:</label>
+          <select id="admin-ann-type">
+            <option value="deadline">⏰ Дедлайн (с таймером обратного отсчета)</option>
+            <option value="info">📢 Информационное сообщение</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Заголовок (например: Дедлайн по ДЗ №2 C++):</label>
+          <input type="text" id="admin-ann-title" required>
+        </div>
+        <div class="form-group">
+          <label>Предмет:</label>
+          <select id="admin-ann-subject"></select>
+        </div>
+        <div class="form-group" id="admin-ann-datetime-group">
+          <label>Дата и время дедлайна:</label>
+          <input type="datetime-local" id="admin-ann-datetime">
+        </div>
+        <div class="form-group">
+          <label>Текст сообщения / Подробности:</label>
+          <textarea id="admin-ann-text" rows="3" required></textarea>
+        </div>
+        <div class="form-group" style="flex-direction: row; align-items: center; gap: 8px;">
+          <input type="checkbox" id="admin-ann-urgent">
+          <label for="admin-ann-urgent" style="cursor: pointer;">Срочно / Критичный дедлайн (выделить красным)</label>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+          <button type="button" id="admin-ann-cancel" class="btn-secondary">Отмена</button>
+          <button type="submit" class="action-btn-primary">Опубликовать</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 6. Модалка чтения и Ultra-Wide Split-View -->
   <div id="reader-modal" class="modal-overlay">
     <div class="reader-modal">
       <div class="reader-header">
@@ -225,7 +357,6 @@
       </div>
 
       <div class="reader-body">
-        <!-- Левая панель: HTML конспект -->
         <div id="pane-note" class="reader-pane">
           <div class="pane-label-bar">
             <span>Нейроконспект (HTML)</span>
@@ -236,7 +367,6 @@
 
         <div id="reader-split-divider" class="split-divider" style="display: none;"></div>
 
-        <!-- Правая панель: Оригинал лектора (PDF / изображение) -->
         <div id="pane-orig" class="reader-pane split-pane split-hidden">
           <div class="pane-label-bar">
             <span>Оригинал лектора</span>
@@ -248,7 +378,7 @@
     </div>
   </div>
 
-  <!-- 4. Командная палитра (Ctrl+K) -->
+  <!-- 7. Командная палитра (Ctrl+K) -->
   <div id="palette-modal" class="palette-overlay">
     <div class="palette-container">
       <div class="palette-input-wrap">
@@ -271,7 +401,7 @@
     </div>
   </div>
 
-  <!-- 5. Модалка редактирования лекции (Админ) -->
+  <!-- 8. Модалка редактирования лекции (Админ) -->
   <div id="admin-lecture-modal" class="modal-overlay">
     <div class="auth-card admin-modal">
       <h3 style="margin-bottom: 16px;">Редактирование лекции</h3>

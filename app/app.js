@@ -1,7 +1,7 @@
 /**
- * app/app.js - Основной модуль приложения «“конспекты” ФПМ»
- * Маршрутизация, управление состоянием, WebCrypto-авторизация,
- * рендеринг лекций, поиск, Split-View и администрирование
+ * app/app.js - Ultra-Wide ядро приложения «“конспекты” ФПМ»
+ * WebCrypto-авторизация, процедурный генеративный математический арт,
+ * интерактивный календарь пар, доска дедлайнов с тикающими таймерами и сплит-ридер
  */
 
 import { VaultCrypto } from './crypto.js';
@@ -13,18 +13,19 @@ class App {
     this.metadata = null;
     this.cryptoKey = null;
     this.isAdmin = false;
-    this.blobCache = new Map(); // blobHash -> { url, textContent, mime }
+    this.blobCache = new Map();
     this.searchEngine = new SearchEngine();
     this.adminManager = null;
 
-    // Чек-лист «Разобрано»
+    // Чек-лист «Изучено»
     const savedStudied = localStorage.getItem('fpm_studied');
     this.studiedSet = new Set(savedStudied ? JSON.parse(savedStudied) : []);
 
-    // Дата прошлого визита для блока "Что нового"
     this.lastVisit = localStorage.getItem('fpm_last_visit') || new Date(0).toISOString();
     this.currentLecture = null;
-    this.viewMode = 'grid'; // 'grid' | 'timeline'
+
+    // Календарь: текущий просматриваемый месяц (начинаем с сентября 2026 по ТЗ)
+    this.calCurrentDate = new Date(2026, 8, 1); // 0-based: 8 = Сентябрь 2026
 
     // Фильтры
     this.filters = {
@@ -40,6 +41,9 @@ class App {
     this.bindEvents();
     this.checkAutoLogin();
     this.registerServiceWorker();
+
+    // Запуск тикающего таймера обратного отсчета для дедлайнов
+    setInterval(() => this.updateDeadlineCountdowns(), 1000);
   }
 
   initElements() {
@@ -62,14 +66,50 @@ class App {
     this.newLecturesSection = document.getElementById('new-lectures-section');
     this.newLecturesGrid = document.getElementById('new-lectures-grid');
 
+    // Статистика в Hero
+    this.statTotalLectures = document.getElementById('stat-total-lectures');
+    this.statStudiedPercent = document.getElementById('stat-studied-percent');
+    this.statStudiedRatio = document.getElementById('stat-studied-ratio');
+    this.statProgressBar = document.getElementById('stat-progress-bar');
+    this.statActiveDeadlines = document.getElementById('stat-active-deadlines');
+
     this.filterSubject = document.getElementById('filter-subject');
     this.filterModule = document.getElementById('filter-module');
     this.filterStudiedToggle = document.getElementById('filter-studied-toggle');
     this.sortSelector = document.getElementById('sort-selector');
-    this.viewModeToggle = document.getElementById('view-mode-toggle');
     this.resetFiltersBtn = document.getElementById('reset-filters-btn');
 
-    // Модалка чтения
+    // Кнопки шапки
+    this.announcementsOpenBtn = document.getElementById('announcements-open-btn');
+    this.announcementsCountBadge = document.getElementById('announcements-count-badge');
+    this.calendarOpenBtn = document.getElementById('calendar-open-btn');
+    this.paletteOpenBtn = document.getElementById('palette-open-btn');
+
+    // Модалка Календаря
+    this.calendarModal = document.getElementById('calendar-modal');
+    this.calCloseBtn = document.getElementById('cal-close-btn');
+    this.calPrevMonth = document.getElementById('cal-prev-month');
+    this.calNextMonth = document.getElementById('cal-next-month');
+    this.calCurrentMonthLabel = document.getElementById('cal-current-month-label');
+    this.calendarDaysContainer = document.getElementById('calendar-days-container');
+    this.calendarDayDetails = document.getElementById('calendar-day-details');
+    this.calSelectedDateTitle = document.getElementById('cal-selected-date-title');
+    this.calSelectedDateList = document.getElementById('cal-selected-date-list');
+
+    // Модалка Объявлений и Дедлайнов
+    this.announcementsModal = document.getElementById('announcements-modal');
+    this.annCloseBtn = document.getElementById('ann-close-btn');
+    this.announcementsListContainer = document.getElementById('announcements-list-container');
+    this.annAdminAddBtn = document.getElementById('ann-admin-add-btn');
+
+    // Модалка создания объявления (Админ)
+    this.adminAnnModal = document.getElementById('admin-announcement-modal');
+    this.adminAnnForm = document.getElementById('admin-ann-form');
+    this.adminAnnCancel = document.getElementById('admin-ann-cancel');
+    this.adminAnnType = document.getElementById('admin-ann-type');
+    this.adminAnnDatetimeGroup = document.getElementById('admin-ann-datetime-group');
+
+    // Модалка чтения и сплит-ридер
     this.readerModal = document.getElementById('reader-modal');
     this.readerTitle = document.getElementById('reader-title');
     this.readerIframe = document.getElementById('reader-iframe');
@@ -85,14 +125,12 @@ class App {
 
     // Палитра Ctrl+K
     this.paletteModal = document.getElementById('palette-modal');
-    this.paletteOpenBtn = document.getElementById('palette-open-btn');
     this.paletteInput = document.getElementById('palette-search-input');
     this.paletteResults = document.getElementById('palette-results-list');
   }
 
   initThemes() {
-    const savedTheme = localStorage.getItem('fpm_theme') || 
-      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'paper');
+    const savedTheme = localStorage.getItem('fpm_theme') || 'dark';
     this.setTheme(savedTheme);
     this.themeSelector.value = savedTheme;
 
@@ -107,7 +145,6 @@ class App {
   }
 
   bindEvents() {
-    // Детектор CapsLock
     this.authPassword.addEventListener('keyup', (e) => {
       if (e.getModifierState && e.getModifierState('CapsLock')) {
         this.capsWarning.classList.add('visible');
@@ -116,7 +153,6 @@ class App {
       }
     });
 
-    // Авторизация
     this.authForm.addEventListener('submit', (e) => {
       e.preventDefault();
       this.handleLogin(this.authPassword.value.trim());
@@ -124,7 +160,7 @@ class App {
 
     this.logoutBtn.addEventListener('click', () => this.handleLogout());
 
-    // Фильтры и сортировки
+    // Фильтры
     this.filterSubject.addEventListener('change', (e) => {
       this.filters.subject = e.target.value;
       this.renderLectures();
@@ -157,10 +193,37 @@ class App {
       this.renderLectures();
     });
 
-    this.viewModeToggle.addEventListener('click', () => {
-      this.viewMode = this.viewMode === 'grid' ? 'timeline' : 'grid';
-      this.viewModeToggle.textContent = this.viewMode === 'grid' ? '📅 Таймлайн' : '📋 Список';
-      this.renderLectures();
+    // Модалка Календаря
+    this.calendarOpenBtn.addEventListener('click', () => {
+      this.calendarModal.classList.add('open');
+      this.renderCalendarMonth();
+    });
+    this.calCloseBtn.addEventListener('click', () => this.calendarModal.classList.remove('open'));
+    this.calPrevMonth.addEventListener('click', () => {
+      this.calCurrentDate.setMonth(this.calCurrentDate.getMonth() - 1);
+      this.renderCalendarMonth();
+    });
+    this.calNextMonth.addEventListener('click', () => {
+      this.calCurrentDate.setMonth(this.calCurrentDate.getMonth() + 1);
+      this.renderCalendarMonth();
+    });
+
+    // Модалка Дедлайнов и Объявлений
+    this.announcementsOpenBtn.addEventListener('click', () => {
+      this.announcementsModal.classList.add('open');
+      this.renderAnnouncements();
+    });
+    this.annCloseBtn.addEventListener('click', () => this.announcementsModal.classList.remove('open'));
+
+    // Модалка создания дедлайна (Админ)
+    this.annAdminAddBtn.addEventListener('click', () => this.openAdminAnnModal());
+    this.adminAnnCancel.addEventListener('click', () => this.adminAnnModal.classList.remove('open'));
+    this.adminAnnType.addEventListener('change', (e) => {
+      this.adminAnnDatetimeGroup.style.display = e.target.value === 'deadline' ? 'flex' : 'none';
+    });
+    this.adminAnnForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.handleSaveAnnouncement();
     });
 
     // Сворачиваемые секции
@@ -174,14 +237,10 @@ class App {
     this.readerCloseBtn.addEventListener('click', () => this.closeReaderModal());
     this.splitToggleBtn.addEventListener('click', () => this.toggleSplitView());
     this.readerNewTabBtn.addEventListener('click', () => {
-      if (this.currentActiveNoteUrl) {
-        window.open(this.currentActiveNoteUrl, '_blank');
-      }
+      if (this.currentActiveNoteUrl) window.open(this.currentActiveNoteUrl, '_blank');
     });
     this.readerPrintBtn.addEventListener('click', () => {
-      if (this.readerIframe && this.readerIframe.contentWindow) {
-        this.readerIframe.contentWindow.print();
-      }
+      if (this.readerIframe && this.readerIframe.contentWindow) this.readerIframe.contentWindow.print();
     });
 
     // Палитра Ctrl+K
@@ -199,24 +258,25 @@ class App {
       } else if (e.key === 'Escape') {
         this.closeReaderModal();
         this.closePalette();
-      } else if (!this.readerModal.classList.contains('open') && !this.paletteModal.classList.contains('open')) {
-        if (e.key === 't' || e.key === 'е') { // смена темы
-          const themes = ['paper', 'dark', 'sepia', 'midnight'];
-          const cur = document.documentElement.getAttribute('data-theme') || 'paper';
+        this.calendarModal.classList.remove('open');
+        this.announcementsModal.classList.remove('open');
+        this.adminAnnModal.classList.remove('open');
+      } else if (!this.readerModal.classList.contains('open') && !this.paletteModal.classList.contains('open') && !this.calendarModal.classList.contains('open')) {
+        if (e.key === 't' || e.key === 'е') {
+          const themes = ['dark', 'paper', 'sepia', 'midnight'];
+          const cur = document.documentElement.getAttribute('data-theme') || 'dark';
           const next = themes[(themes.indexOf(cur) + 1) % themes.length];
           this.setTheme(next);
           this.themeSelector.value = next;
-        } else if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+        } else if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
           e.preventDefault();
           this.openPalette();
         }
       }
     });
 
-    // Deep-linking хэш роутер
     window.addEventListener('hashchange', () => this.handleHashChange());
 
-    // Дисклеймер footer
     const discBtn = document.getElementById('footer-disclaimer-toggle');
     const discBox = document.getElementById('footer-disclaimer-box');
     if (discBtn && discBox) {
@@ -225,7 +285,6 @@ class App {
       });
     }
 
-    // AI баннер
     const aiClose = document.getElementById('ai-banner-close');
     if (aiClose) {
       aiClose.addEventListener('click', () => {
@@ -258,7 +317,7 @@ class App {
     this.authSubmit.textContent = 'Расшифровка...';
 
     try {
-      // 1. Сначала пробуем дешифровать metadata.bin (студенческий общий пароль)
+      // 1. Проверяем студенческий пароль (metadata.bin)
       let metaResp = await fetch('metadata.bin');
       if (metaResp.ok) {
         const metaBuf = await metaResp.arrayBuffer();
@@ -270,11 +329,11 @@ class App {
           await this.completeLoginSuccess(password, metaBuf);
           return;
         } catch (errShared) {
-          // Возможно, введен админ-пароль!
+          // Возможно, пароль администратора!
         }
       }
 
-      // 2. Пробуем дешифровать admin.bin (пароль администратора)
+      // 2. Проверяем админ-пароль (admin.bin)
       let adminResp = await fetch('admin.bin');
       if (adminResp.ok) {
         const adminBuf = await adminResp.arrayBuffer();
@@ -295,7 +354,7 @@ class App {
       this.authError.classList.add('visible');
     } finally {
       this.authSubmit.disabled = false;
-      this.authSubmit.textContent = 'Войти в хранилище';
+      this.authSubmit.textContent = 'Войти в архив';
     }
   }
 
@@ -309,13 +368,7 @@ class App {
       for (let i = 0; i < hex.length; i += 2) {
         raw[i / 2] = parseInt(hex.substr(i, 2), 16);
       }
-      this.cryptoKey = await crypto.subtle.importKey(
-        'raw',
-        raw,
-        { name: 'AES-GCM' },
-        true,
-        ['encrypt', 'decrypt']
-      );
+      this.cryptoKey = await crypto.subtle.importKey('raw', raw, { name: 'AES-GCM' }, true, ['encrypt', 'decrypt']);
     } else {
       this.cryptoKey = await VaultCrypto.deriveKey(password, salt);
     }
@@ -347,13 +400,7 @@ class App {
       for (let i = 0; i < hex.length; i += 2) {
         raw[i / 2] = parseInt(hex.substr(i, 2), 16);
       }
-      this.cryptoKey = await crypto.subtle.importKey(
-        'raw',
-        raw,
-        { name: 'AES-GCM' },
-        true,
-        ['encrypt', 'decrypt']
-      );
+      this.cryptoKey = await crypto.subtle.importKey('raw', raw, { name: 'AES-GCM' }, true, ['encrypt', 'decrypt']);
     }
   }
 
@@ -364,6 +411,7 @@ class App {
     if (this.isAdmin) {
       this.adminToolbar.classList.add('active');
       this.adminIndicator.classList.add('active');
+      this.annAdminAddBtn.style.display = 'inline-flex';
       this.initAdmin();
     }
 
@@ -371,14 +419,11 @@ class App {
     this.renderSubjects();
     this.renderNewLectures();
     this.renderLectures();
+    this.updateHeroStats();
+    this.updateAnnouncementsBadge();
 
-    // Фоновая индексация для быстрого поиска
     this.indexLecturesAsync();
-
-    // Проверка deep link
     this.handleHashChange();
-
-    // Запоминаем время визита
     localStorage.setItem('fpm_last_visit', new Date().toISOString());
   }
 
@@ -400,6 +445,9 @@ class App {
       this.populateFilterDropdowns();
       this.renderSubjects();
       this.renderLectures();
+      this.updateHeroStats();
+      this.updateAnnouncementsBadge();
+      this.renderAnnouncements();
     });
 
     document.getElementById('admin-export-btn').addEventListener('click', () => {
@@ -416,7 +464,11 @@ class App {
       if (mod) this.adminManager.saveModule(mod);
     });
 
-    // Модалка лекции
+    document.getElementById('admin-new-announcement-btn').addEventListener('click', () => {
+      this.openAdminAnnModal();
+    });
+
+    // Редактирование лекции
     const lecForm = document.getElementById('admin-lecture-form');
     const lecCancel = document.getElementById('admin-lec-cancel');
     lecCancel.addEventListener('click', () => {
@@ -461,6 +513,39 @@ class App {
       opt.value = mod;
       opt.textContent = mod;
       this.filterModule.appendChild(opt);
+    }
+  }
+
+  updateHeroStats() {
+    const list = (this.metadata.lectures || []).filter(l => !l.hidden || this.isAdmin);
+    const total = list.length;
+    let studiedCount = 0;
+    for (const l of list) {
+      if (this.studiedSet.has(l.id)) studiedCount++;
+    }
+
+    const percent = total > 0 ? Math.round((studiedCount / total) * 100) : 0;
+    this.statTotalLectures.textContent = total;
+    this.statStudiedPercent.textContent = `${percent}%`;
+    this.statStudiedRatio.textContent = `${studiedCount} из ${total}`;
+    this.statProgressBar.style.width = `${percent}%`;
+
+    // Дедлайны
+    const activeDeadlines = (this.metadata.announcements || []).filter(a => {
+      if (a.type !== 'deadline' || !a.datetime) return false;
+      return new Date(a.datetime).getTime() > Date.now();
+    }).length;
+    this.statActiveDeadlines.textContent = activeDeadlines;
+  }
+
+  updateAnnouncementsBadge() {
+    const announcements = this.metadata.announcements || [];
+    const urgentCount = announcements.filter(a => a.urgent || (a.type === 'deadline' && new Date(a.datetime) > new Date())).length;
+    if (urgentCount > 0) {
+      this.announcementsCountBadge.style.display = 'inline-block';
+      this.announcementsCountBadge.textContent = urgentCount;
+    } else {
+      this.announcementsCountBadge.style.display = 'none';
     }
   }
 
@@ -523,21 +608,11 @@ class App {
     this.lecturesContainer.innerHTML = '';
     let list = (this.metadata.lectures || []).filter(l => !l.hidden || this.isAdmin);
 
-    // Фильтрация
-    if (this.filters.subject) {
-      list = list.filter(l => l.subject === this.filters.subject);
-    }
-    if (this.filters.module) {
-      list = list.filter(l => l.module === this.filters.module);
-    }
-    if (this.filters.tag) {
-      list = list.filter(l => (l.tags || []).includes(this.filters.tag));
-    }
-    if (this.filters.studiedOnly) {
-      list = list.filter(l => !this.studiedSet.has(l.id));
-    }
+    if (this.filters.subject) list = list.filter(l => l.subject === this.filters.subject);
+    if (this.filters.module) list = list.filter(l => l.module === this.filters.module);
+    if (this.filters.tag) list = list.filter(l => (l.tags || []).includes(this.filters.tag));
+    if (this.filters.studiedOnly) list = list.filter(l => !this.studiedSet.has(l.id));
 
-    // Сортировка
     list.sort((a, b) => {
       if (this.filters.sort === 'session-num-asc') {
         const numA = (a.sessions && a.sessions[0]?.number) || 0;
@@ -545,10 +620,8 @@ class App {
         return numA - numB;
       }
       if (this.filters.sort === 'title-asc') return a.title.localeCompare(b.title, 'ru');
-      if (this.filters.sort === 'title-desc') return b.title.localeCompare(a.title, 'ru');
       if (this.filters.sort === 'added-desc') return new Date(b.addedAt || 0) - new Date(a.addedAt || 0);
 
-      // session-date-desc (по умолчанию) или session-date-asc
       const dateA = this.parseDate(a.sessions && a.sessions[0]?.date);
       const dateB = this.parseDate(b.sessions && b.sessions[0]?.date);
       return this.filters.sort === 'session-date-asc' ? dateA - dateB : dateB - dateA;
@@ -556,7 +629,7 @@ class App {
 
     if (list.length === 0) {
       this.lecturesContainer.innerHTML = `
-        <div style="text-align: center; padding: 48px; color: var(--text-muted); background: var(--bg-card); border-radius: var(--radius-md); border: 1px dashed var(--border-color);">
+        <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted); background: var(--bg-card); border-radius: var(--radius-md); border: 1px dashed var(--border-subtle);">
           Ничего не найдено — возможно, лекция ещё не в Storage.
         </div>
       `;
@@ -566,6 +639,79 @@ class App {
     for (const lec of list) {
       const card = this.createLectureCard(lec);
       this.lecturesContainer.appendChild(card);
+    }
+
+    this.updateHeroStats();
+  }
+
+  /**
+   * Процедурный генератор математической векторной графики в стиле Web Tactics
+   */
+  generateMathSvg(subjectName, color = '#D65A42') {
+    const s = (subjectName || '').toLowerCase();
+    if (s.includes('матан') || s.includes('анализ')) {
+      // Матанализ: волновые функции, топологические гармоники и интегральные кривые
+      return `
+        <svg viewBox="0 0 400 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="waveGlow" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="${color}" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#C89248" stop-opacity="0.2"/>
+            </linearGradient>
+          </defs>
+          <path d="M0,80 Q50,20 100,80 T200,80 T300,80 T400,80" fill="none" stroke="url(#waveGlow)" stroke-width="2.5"/>
+          <path d="M0,90 Q60,140 120,90 T240,90 T360,90 T400,90" fill="none" stroke="${color}" stroke-opacity="0.3" stroke-width="1.5"/>
+          <path d="M0,70 Q40,30 80,70 T160,70 T240,70 T320,70 T400,70" fill="none" stroke="${color}" stroke-opacity="0.4" stroke-width="1.2" stroke-dasharray="4,4"/>
+          <circle cx="100" cy="80" r="4" fill="${color}"/>
+          <circle cx="200" cy="80" r="4" fill="${color}"/>
+          <circle cx="300" cy="80" r="4" fill="${color}"/>
+        </svg>
+      `;
+    } else if (s.includes('линал') || s.includes('геометр')) {
+      // Линейная алгебра: изометрические плоскости, матричные сетки и ортогональные базисы
+      return `
+        <svg viewBox="0 0 400 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gridGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="${color}" stop-opacity="0.7"/>
+              <stop offset="100%" stop-color="#5BC3D5" stop-opacity="0.1"/>
+            </linearGradient>
+          </defs>
+          <g stroke="url(#gridGrad)" stroke-width="1">
+            <line x1="20" y1="140" x2="200" y2="20"/>
+            <line x1="80" y1="140" x2="260" y2="20"/>
+            <line x1="140" y1="140" x2="320" y2="20"/>
+            <line x1="200" y1="140" x2="380" y2="20"/>
+            <line x1="20" y1="140" x2="380" y2="140"/>
+            <line x1="80" y1="100" x2="380" y2="100"/>
+            <line x1="140" y1="60" x2="380" y2="60"/>
+          </g>
+          <line x1="200" y1="80" x2="280" y2="30" stroke="#fff" stroke-width="2"/>
+          <circle cx="280" cy="30" r="4" fill="#fff"/>
+        </svg>
+      `;
+    } else {
+      // Дискретная математика / Алгоритмы: неоновые графы, узлы и сетки
+      return `
+        <svg viewBox="0 0 400 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="${color}" stroke-opacity="0.35" stroke-width="1.5">
+            <line x1="60" y1="80" x2="140" y2="30"/>
+            <line x1="60" y1="80" x2="140" y2="130"/>
+            <line x1="140" y1="30" x2="240" y2="50"/>
+            <line x1="140" y1="130" x2="240" y2="110"/>
+            <line x1="240" y1="50" x2="340" y2="80"/>
+            <line x1="240" y1="110" x2="340" y2="80"/>
+            <line x1="140" y1="30" x2="140" y2="130"/>
+            <line x1="240" y1="50" x2="240" y2="110"/>
+          </g>
+          <circle cx="60" cy="80" r="5" fill="${color}"/>
+          <circle cx="140" cy="30" r="4" fill="${color}"/>
+          <circle cx="140" cy="130" r="4" fill="${color}"/>
+          <circle cx="240" cy="50" r="5" fill="${color}"/>
+          <circle cx="240" cy="110" r="4" fill="${color}"/>
+          <circle cx="340" cy="80" r="6" fill="#fff"/>
+        </svg>
+      `;
     }
   }
 
@@ -578,51 +724,53 @@ class App {
     const subj = (this.metadata.subjects || []).find(s => s.name === lec.subject);
     const subjColor = subj ? subj.color : 'var(--accent-color)';
 
-    const sessionsHtml = (lec.sessions || []).map(s => `
-      <span class="session-chip">№${s.number} · ${s.date || ''}</span>
-    `).join('');
+    const sessionInfo = lec.sessions && lec.sessions[0]
+      ? `№ / ${lec.sessions[0].number} · ${lec.sessions[0].date}`
+      : '№ / —';
 
-    const tagsHtml = (lec.tags || []).map(t => `
-      <span class="lecture-tag" data-tag="${t}">#${t}</span>
-    `).join('');
+    const tagsHtml = (lec.tags || []).map(t => `<span class="card-tag" data-tag="${t}">#${t}</span>`).join('');
 
     card.innerHTML = `
-      <div class="lecture-top-row">
-        <div class="lecture-title-wrap">
-          <div class="lecture-meta-badges">
-            <span class="subject-badge" style="background-color: ${subjColor};">${lec.subject}</span>
-            ${lec.module ? `<span class="module-badge">${lec.module}</span>` : ''}
-            ${sessionsHtml}
-            ${lec.hidden ? `<span class="module-badge" style="background: var(--accent-subtle); color: var(--accent-color);">Черновик</span>` : ''}
-          </div>
-          <h3 class="lecture-title">${lec.title}</h3>
-          ${lec.description ? `<p class="lecture-description">${lec.description}</p>` : ''}
-          <div class="lecture-tags">${tagsHtml}</div>
-        </div>
+      <div class="card-artwork">
+        ${this.generateMathSvg(lec.subject, subjColor)}
       </div>
 
-      <div class="lecture-actions">
-        <button class="action-btn-primary btn-open-note">
-          📖 Открыть конспект
-        </button>
-        ${(lec.originals && lec.originals.length > 0) ? `
-          <button class="btn-secondary btn-open-orig">
-            📄 Оригинал лектора
+      <div class="card-content">
+        <div class="card-meta-top">
+          <span class="card-subject-pill" style="background-color: ${subjColor};">${lec.subject}</span>
+          <span class="card-session-index">${sessionInfo}</span>
+        </div>
+
+        <h3 class="card-lecture-title">${lec.title}</h3>
+        <p class="card-lecture-desc">${lec.description || 'Теоретический конспект и доказательства лекции.'}</p>
+
+        <div class="card-tags">${tagsHtml}</div>
+
+        <div class="card-bottom-actions">
+          <button class="read-article-link btn-open-note">
+            ЧИТАТЬ КОНСПЕКТ →
           </button>
-        ` : ''}
-        ${this.isAdmin ? `
-          <button class="btn-secondary btn-admin-edit" style="color: var(--accent-color);">
-            ✏️ Редактировать
-          </button>
-        ` : ''}
-        <button class="studied-toggle-btn ${isStudied ? 'active' : ''}">
-          ${isStudied ? '✓ Изучено' : '○ Отметить изученным'}
-        </button>
+          
+          <div style="display: flex; gap: 6px; align-items: center;">
+            ${(lec.originals && lec.originals.length > 0) ? `
+              <button class="btn-icon-subtle btn-open-orig" title="Оригинал лектора">
+                📄 PDF
+              </button>
+            ` : ''}
+            ${this.isAdmin ? `
+              <button class="btn-icon-subtle btn-admin-edit" title="Редактировать">
+                ✏️
+              </button>
+            ` : ''}
+            <button class="btn-icon-subtle studied-toggle-btn ${isStudied ? 'studied-active' : ''}" title="Отметить изученным">
+              ${isStudied ? '✓ Изучено' : '○'}
+            </button>
+          </div>
+        </div>
       </div>
     `;
 
-    // События клика
-    card.querySelector('.lecture-title').addEventListener('click', () => this.openLecture(lec.id));
+    card.querySelector('.card-lecture-title').addEventListener('click', () => this.openLecture(lec.id));
     card.querySelector('.btn-open-note').addEventListener('click', () => this.openLecture(lec.id, false));
 
     const origBtn = card.querySelector('.btn-open-orig');
@@ -632,28 +780,27 @@ class App {
 
     if (this.isAdmin) {
       const editBtn = card.querySelector('.btn-admin-edit');
-      if (editBtn) {
-        editBtn.addEventListener('click', () => this.openAdminLectureModal(lec));
-      }
+      if (editBtn) editBtn.addEventListener('click', () => this.openAdminLectureModal(lec));
     }
 
     const studiedBtn = card.querySelector('.studied-toggle-btn');
     studiedBtn.addEventListener('click', () => {
       if (this.studiedSet.has(lec.id)) {
         this.studiedSet.delete(lec.id);
-        studiedBtn.classList.remove('active');
-        studiedBtn.textContent = '○ Отметить изученным';
+        studiedBtn.classList.remove('studied-active');
+        studiedBtn.textContent = '○';
         card.classList.remove('studied');
       } else {
         this.studiedSet.add(lec.id);
-        studiedBtn.classList.add('active');
+        studiedBtn.classList.add('studied-active');
         studiedBtn.textContent = '✓ Изучено';
         card.classList.add('studied');
       }
       localStorage.setItem('fpm_studied', JSON.stringify([...this.studiedSet]));
+      this.updateHeroStats();
     });
 
-    card.querySelectorAll('.lecture-tag').forEach(tagEl => {
+    card.querySelectorAll('.card-tag').forEach(tagEl => {
       tagEl.addEventListener('click', (e) => {
         this.filters.tag = e.target.dataset.tag;
         this.renderLectures();
@@ -663,6 +810,228 @@ class App {
     return card;
   }
 
+  /* ==========================================================================
+     КАЛЕНДАРЬ ПАР И ЗАНЯТИЙ
+     ========================================================================== */
+  renderCalendarMonth() {
+    const year = this.calCurrentDate.getFullYear();
+    const month = this.calCurrentDate.getMonth();
+
+    const monthNames = [
+      'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+      'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+    ];
+    this.calCurrentMonthLabel.textContent = `${monthNames[month]} ${year}`;
+
+    this.calendarDaysContainer.innerHTML = '';
+    this.calendarDayDetails.style.display = 'none';
+
+    // Индексируем лекции по датам dd.mm.yyyy
+    const lecturesByDate = new Map();
+    for (const lec of this.metadata.lectures || []) {
+      for (const ses of lec.sessions || []) {
+        if (ses.date) {
+          const list = lecturesByDate.get(ses.date) || [];
+          list.push({ lecture: lec, session: ses });
+          lecturesByDate.set(ses.date, list);
+        }
+      }
+    }
+
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+
+    // В России понедельник = 0
+    let startDayOfWeek = firstDay.getDay() - 1;
+    if (startDayOfWeek === -1) startDayOfWeek = 6;
+
+    // Дни предыдущего месяца
+    const prevMonthLastDay = new Date(year, month, 0).getDate();
+    for (let i = startDayOfWeek - 1; i >= 0; i--) {
+      const cell = document.createElement('div');
+      cell.className = 'calendar-day-cell other-month';
+      cell.innerHTML = `<span class="calendar-day-num">${prevMonthLastDay - i}</span>`;
+      this.calendarDaysContainer.appendChild(cell);
+    }
+
+    // Дни текущего месяца
+    for (let day = 1; day <= lastDay.getDate(); day++) {
+      const cell = document.createElement('div');
+      cell.className = 'calendar-day-cell';
+
+      const dStr = String(day).padStart(2, '0');
+      const mStr = String(month + 1).padStart(2, '0');
+      const dateKey = `${dStr}.${mStr}.${year}`;
+
+      cell.innerHTML = `<span class="calendar-day-num">${day}</span>`;
+
+      if (lecturesByDate.has(dateKey)) {
+        const pairs = lecturesByDate.get(dateKey);
+        for (const p of pairs) {
+          const subj = (this.metadata.subjects || []).find(s => s.name === p.lecture.subject);
+          const color = subj ? subj.color : 'var(--accent-color)';
+          const pill = document.createElement('div');
+          pill.className = 'calendar-lecture-pill';
+          pill.style.backgroundColor = color;
+          pill.textContent = `№${p.session.number} ${p.lecture.subject}`;
+          cell.appendChild(pill);
+        }
+
+        cell.addEventListener('click', () => {
+          this.calendarDayDetails.style.display = 'block';
+          this.calSelectedDateTitle.textContent = `Лекции за ${dateKey}:`;
+          this.calSelectedDateList.innerHTML = '';
+          for (const p of pairs) {
+            const row = document.createElement('div');
+            row.style.cssText = 'display: flex; justify-content: space-between; align-items: center; background: var(--bg-surface); padding: 8px 12px; border-radius: 4px;';
+            row.innerHTML = `
+              <span><strong>№${p.session.number} (${p.lecture.subject}):</strong> ${p.lecture.title}</span>
+              <button class="action-btn-primary" style="padding: 4px 10px; font-size: 0.75rem;">Открыть</button>
+            `;
+            row.querySelector('button').addEventListener('click', () => {
+              this.calendarModal.classList.remove('open');
+              this.openLecture(p.lecture.id);
+            });
+            this.calSelectedDateList.appendChild(row);
+          }
+        });
+      }
+
+      this.calendarDaysContainer.appendChild(cell);
+    }
+  }
+
+  /* ==========================================================================
+     ДОСКА ОБЪЯВЛЕНИЙ И ДЕДЛАЙНОВ
+     ========================================================================== */
+  renderAnnouncements() {
+    this.announcementsListContainer.innerHTML = '';
+    const list = this.metadata.announcements || [];
+
+    if (list.length === 0) {
+      this.announcementsListContainer.innerHTML = `
+        <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+          Нет активных дедлайнов или объявлений.
+        </div>
+      `;
+      return;
+    }
+
+    for (const ann of list) {
+      const card = document.createElement('div');
+      card.className = `announcement-card ${ann.urgent ? 'urgent' : ''}`;
+      card.id = `ann-card-${ann.id}`;
+
+      const isDeadline = ann.type === 'deadline';
+
+      card.innerHTML = `
+        <div class="announcement-header">
+          <div>
+            <span class="announcement-badge ${isDeadline ? 'badge-deadline' : 'badge-info'}">
+              ${isDeadline ? '⏰ ДЕДЛАЙН' : '📢 ОБЪЯВЛЕНИЕ'}
+            </span>
+            <span style="font-family: var(--font-mono); font-size: 0.78rem; margin-left: 8px; color: var(--secondary-color);">
+              [${ann.subject || 'Общее'}]
+            </span>
+            <h4 style="font-size: 1.1rem; margin-top: 6px;">${ann.title}</h4>
+          </div>
+          ${this.isAdmin ? `
+            <button class="btn-icon-subtle btn-ann-del" style="color: var(--urgent-color);" title="Удалить">✕</button>
+          ` : ''}
+        </div>
+
+        <p style="font-size: 0.9rem; line-height: 1.5; color: var(--text-main);">${ann.text}</p>
+
+        ${isDeadline && ann.datetime ? `
+          <div class="announcement-countdown" id="countdown-${ann.id}">
+            <!-- Заполняется таймером -->
+          </div>
+        ` : ''}
+      `;
+
+      if (this.isAdmin) {
+        card.querySelector('.btn-ann-del').addEventListener('click', () => {
+          this.adminManager.deleteAnnouncement(ann.id);
+        });
+      }
+
+      this.announcementsListContainer.appendChild(card);
+    }
+
+    this.updateDeadlineCountdowns();
+  }
+
+  updateDeadlineCountdowns() {
+    if (!this.metadata) return;
+    const announcements = this.metadata.announcements || [];
+
+    for (const ann of announcements) {
+      if (ann.type === 'deadline' && ann.datetime) {
+        const wrap = document.getElementById(`countdown-${ann.id}`);
+        if (!wrap) continue;
+
+        const target = new Date(ann.datetime).getTime();
+        const diff = target - Date.now();
+
+        if (diff <= 0) {
+          wrap.innerHTML = `<span style="color: var(--urgent-color); font-weight: bold; font-family: var(--font-mono);">ДЕДЛАЙН ИСТЁК</span>`;
+        } else {
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((diff / (1000 * 60)) % 60);
+          const seconds = Math.floor((diff / 1000) % 60);
+
+          wrap.innerHTML = `
+            <div class="countdown-unit">
+              <span class="countdown-digits">${days}</span>
+              <span class="countdown-label">Дней</span>
+            </div>
+            <div class="countdown-unit">
+              <span class="countdown-digits">${String(hours).padStart(2, '0')}</span>
+              <span class="countdown-label">Часов</span>
+            </div>
+            <div class="countdown-unit">
+              <span class="countdown-digits">${String(minutes).padStart(2, '0')}</span>
+              <span class="countdown-label">Минут</span>
+            </div>
+            <div class="countdown-unit">
+              <span class="countdown-digits">${String(seconds).padStart(2, '0')}</span>
+              <span class="countdown-label">Секунд</span>
+            </div>
+          `;
+        }
+      }
+    }
+  }
+
+  openAdminAnnModal() {
+    const subjSelect = document.getElementById('admin-ann-subject');
+    subjSelect.innerHTML = '<option value="Общее">Общее</option>';
+    for (const s of this.metadata.subjects || []) {
+      const opt = document.createElement('option');
+      opt.value = s.name;
+      opt.textContent = s.name;
+      subjSelect.appendChild(opt);
+    }
+    this.adminAnnModal.classList.add('open');
+  }
+
+  handleSaveAnnouncement() {
+    const type = document.getElementById('admin-ann-type').value;
+    const title = document.getElementById('admin-ann-title').value;
+    const subject = document.getElementById('admin-ann-subject').value;
+    const datetime = document.getElementById('admin-ann-datetime').value;
+    const text = document.getElementById('admin-ann-text').value;
+    const urgent = document.getElementById('admin-ann-urgent').checked;
+
+    this.adminManager.saveAnnouncement({ type, title, subject, datetime, text, urgent });
+    this.adminAnnModal.classList.remove('open');
+    this.adminAnnForm.reset();
+  }
+
+  /* ==========================================================================
+     МОДАЛКА ЧТЕНИЯ И СПЛИТ-РИДЕР
+     ========================================================================== */
   async openLecture(id, openWithOriginal = false) {
     const lec = (this.metadata.lectures || []).find(l => l.id === id);
     if (!lec) return;
@@ -672,14 +1041,12 @@ class App {
     this.readerModal.classList.add('open');
     window.location.hash = `#/lecture/${id}`;
 
-    // Загрузка HTML конспекта
     const noteFile = (lec.files || []).find(f => f.type === 'html');
     if (noteFile && noteFile.blob) {
       const blobUrl = await this.getDecryptedBlobUrl(noteFile.blob, 'text/html');
       this.currentActiveNoteUrl = blobUrl;
       this.readerIframe.src = blobUrl;
 
-      // Кнопка скачивания конспекта
       this.noteDownloadsSpan.innerHTML = `
         <a href="${blobUrl}" download="${this.sanitizeFileName(lec.title)} — ${noteFile.name}" class="btn-secondary" style="padding: 2px 8px; font-size: 0.72rem;">
           ↓ Скачать HTML
@@ -690,16 +1057,14 @@ class App {
       this.noteDownloadsSpan.innerHTML = '';
     }
 
-    // Загрузка оригинала
     const origFile = (lec.originals || [])[0];
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
     if (origFile && origFile.blob) {
       const mime = origFile.type === 'pdf' ? 'application/pdf' : 'image/jpeg';
       const origBlobUrl = await this.getDecryptedBlobUrl(origFile.blob, mime);
-      
+
       if (isIOS && origFile.type === 'pdf') {
-        // На iOS встроенный iframe не листает многостраничные PDF
         this.readerOrigIframe.srcdoc = `
           <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 24px; font-family: -apple-system, sans-serif;">
             <p style="margin-bottom: 16px; color: #666; font-size: 15px;">На iOS PDF-оригиналы лекций открываются в нативном просмотрщике Safari:</p>
@@ -797,29 +1162,33 @@ class App {
   handlePaletteSearch(query) {
     this.paletteResults.innerHTML = '';
     if (!query.trim()) {
-      // Подсказки команд
       this.paletteResults.innerHTML = `
         <div class="palette-item" data-action="theme">
-          <div class="palette-item-title">🎨 Сменить тему оформления (Paper / Dark / Sepia / Midnight)</div>
+          <div class="palette-item-title">🎨 Сменить тему оформления</div>
+        </div>
+        <div class="palette-item" data-action="calendar">
+          <div class="palette-item-title">📅 Открыть календарь пар</div>
+        </div>
+        <div class="palette-item" data-action="deadlines">
+          <div class="palette-item-title">⏰ Посмотреть дедлайны и объявления</div>
         </div>
         <div class="palette-item" data-action="reset">
           <div class="palette-item-title">🔄 Сбросить все фильтры</div>
-        </div>
-        <div class="palette-item" data-action="studied">
-          <div class="palette-item-title">📚 Показать только неразобранные лекции</div>
         </div>
       `;
       this.paletteResults.querySelectorAll('.palette-item').forEach(item => {
         item.addEventListener('click', () => {
           const action = item.dataset.action;
           if (action === 'theme') {
-            const themes = ['paper', 'dark', 'sepia', 'midnight'];
-            const cur = document.documentElement.getAttribute('data-theme') || 'paper';
+            const themes = ['dark', 'paper', 'sepia', 'midnight'];
+            const cur = document.documentElement.getAttribute('data-theme') || 'dark';
             this.setTheme(themes[(themes.indexOf(cur) + 1) % themes.length]);
+          } else if (action === 'calendar') {
+            this.calendarOpenBtn.click();
+          } else if (action === 'deadlines') {
+            this.announcementsOpenBtn.click();
           } else if (action === 'reset') {
             this.resetFiltersBtn.click();
-          } else if (action === 'studied') {
-            this.filterStudiedToggle.click();
           }
           this.closePalette();
         });
@@ -872,9 +1241,7 @@ class App {
               const clean = SearchEngine.cleanHtml(text);
               htmlMap.set(file.blob, clean);
             }
-          } catch (e) {
-            // Файл не найден или повреждён
-          }
+          } catch (e) {}
         }
       }
     }
@@ -942,7 +1309,7 @@ class App {
   pluralizeLectures(n) {
     const abs = Math.abs(n) % 100;
     const rem = abs % 10;
-    if (abs > 10 && abs < 20) return 'лекций';
+    if (abs > 10 && abs > 20) return 'лекций';
     if (rem > 1 && rem < 5) return 'лекции';
     if (rem === 1) return 'лекция';
     return 'лекций';
@@ -957,7 +1324,6 @@ class App {
   }
 }
 
-// Запуск приложения после загрузки DOM
 window.addEventListener('DOMContentLoaded', () => {
   window.app = new App();
 });
