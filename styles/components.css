@@ -1,46 +1,45 @@
 /**
- * styles/components.css - Компоненты UI: вход, карточки, палитра Ctrl+K,
- * модалка Split-View, админ-панель, таймлайн, фильтры и мобильный bottom-sheet
+ * styles/components.css - Академический UI без ИИ-шаблонов
+ * Точные 1px границы, микро-типографика, адаптивность и поддержка iOS / Safari
  */
 
 /* ==========================================================================
-   1. Страница входа (Экран авторизации)
+   1. Экран авторизации
    ========================================================================== */
 .auth-wrapper {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 20px;
 }
 
 .auth-card {
   width: 100%;
-  max-width: 480px;
+  max-width: 440px;
   background: var(--bg-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 40px 32px;
-  box-shadow: var(--shadow-lg);
+  padding: 36px 30px;
+  box-shadow: var(--shadow-elevated);
   position: relative;
   z-index: 2;
 }
 
 .auth-header {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .auth-disclaimer {
   background: var(--bg-surface);
   border-left: 3px solid var(--accent-color);
   padding: 12px 14px;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
   line-height: 1.45;
 }
 
@@ -57,15 +56,14 @@
 .auth-input {
   width: 100%;
   padding: 14px 16px;
-  font-size: 1.05rem;
-  letter-spacing: 0.05em;
+  font-size: 16px; /* Фиксировано 16px для предотвращения бага автозума в Safari на iPhone */
   border-radius: var(--radius-md);
   background: var(--bg-surface);
 }
 
 .caps-warning {
   display: none;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--secondary-color);
   margin-top: 6px;
   font-weight: 600;
@@ -78,27 +76,27 @@
 .auth-error {
   display: none;
   color: var(--accent-color);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   text-align: center;
 }
 
 .auth-error.visible {
   display: block;
-  animation: shake 0.3s ease;
+  animation: shake 0.28s ease;
 }
 
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-6px); }
-  75% { transform: translateX(6px); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
 }
 
 .auth-remember {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   color: var(--text-muted);
   cursor: pointer;
   user-select: none;
@@ -108,8 +106,8 @@
   background: var(--accent-color);
   color: #fff;
   font-weight: 600;
-  font-size: 1rem;
-  padding: 14px;
+  font-size: 0.95rem;
+  padding: 13px;
   border-radius: var(--radius-md);
   transition: background var(--transition-fast), transform var(--transition-fast);
   display: flex;
@@ -127,18 +125,26 @@
   transform: translateY(1px);
 }
 
+.auth-sub-hint {
+  text-align: center;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  margin-top: 20px;
+  opacity: 0.8;
+}
+
 /* ==========================================================================
-   2. Шапка сайта и Навигация
+   2. Шапка и навигация
    ========================================================================== */
 .site-header {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-subtle);
   background: var(--bg-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 100;
-  padding: 14px 0;
+  padding: 12px 0;
+  padding-top: max(12px, env(safe-area-inset-top)); /* Отступ под чёлку iPhone */
 }
 
 .header-inner {
@@ -156,39 +162,39 @@
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .search-trigger-btn {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  padding: 8px 14px;
-  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  padding: 7px 12px;
+  border-radius: var(--radius-sm);
   color: var(--text-muted);
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   transition: all var(--transition-fast);
 }
 
 .search-trigger-btn:hover {
-  border-color: var(--border-focus);
+  border-color: var(--border-strong);
   color: var(--text-main);
 }
 
 .kbd-badge {
   background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  padding: 2px 6px;
-  font-size: 0.75rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 0.7rem;
   font-family: var(--font-mono);
 }
 
 .theme-select {
-  padding: 6px 10px;
-  font-size: 0.85rem;
+  padding: 6px 8px;
+  font-size: 0.82rem;
   background: var(--bg-surface);
   cursor: pointer;
 }
@@ -198,11 +204,11 @@
   background: var(--accent-subtle);
   color: var(--accent-color);
   border: 1px solid var(--accent-color);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 4px 8px;
+  letter-spacing: 0.06em;
+  padding: 3px 6px;
   border-radius: var(--radius-sm);
 }
 
@@ -211,19 +217,19 @@
 }
 
 /* ==========================================================================
-   3. Дисклеймеры и Баннеры
+   3. Баннеры и Дашборд
    ========================================================================== */
 .alert-banner {
   background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 12px 18px;
-  margin: 20px 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin: 18px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 14px;
-  font-size: 0.86rem;
+  gap: 12px;
+  font-size: 0.82rem;
   color: var(--text-muted);
 }
 
@@ -235,34 +241,30 @@
   color: var(--text-muted);
   padding: 4px;
   font-size: 1.1rem;
-  line-height: 1;
 }
 
-/* ==========================================================================
-   4. Дашборд: Предметы и "Что нового"
-   ========================================================================== */
 .dashboard-section {
-  margin: 28px 0;
+  margin: 24px 0;
 }
 
 .section-title-wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   cursor: pointer;
   user-select: none;
 }
 
 .section-title {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .section-toggle-icon {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
   transition: transform var(--transition-fast);
 }
@@ -281,15 +283,15 @@
 
 .subjects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
 }
 
 .subject-card {
   background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 16px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
   cursor: pointer;
   transition: all var(--transition-fast);
   position: relative;
@@ -298,9 +300,9 @@
 
 .subject-card:hover {
   background: var(--bg-card-hover);
-  border-color: var(--border-focus);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-subtle);
 }
 
 .subject-card.active {
@@ -313,17 +315,17 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 3px;
 }
 
 .subject-card-title {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 0.95rem;
   margin-top: 4px;
 }
 
 .subject-card-meta {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   margin-top: 6px;
   display: flex;
@@ -331,19 +333,19 @@
 }
 
 /* ==========================================================================
-   5. Фильтры и Панель управления
+   4. Фильтры
    ========================================================================== */
 .filter-bar {
   background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 14px 18px;
-  margin-bottom: 24px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin-bottom: 20px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
 }
 
 .filter-group {
@@ -353,80 +355,65 @@
   gap: 8px;
 }
 
-.filter-chip {
-  padding: 5px 12px;
-  border-radius: 999px;
-  border: 1px solid var(--border-color);
-  background: var(--bg-surface);
-  font-size: 0.82rem;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.filter-chip:hover {
-  border-color: var(--border-focus);
-}
-
-.filter-chip.active {
-  background: var(--accent-color);
-  color: #fff;
-  border-color: var(--accent-color);
-}
-
 .filter-select {
-  padding: 5px 10px;
-  font-size: 0.84rem;
+  padding: 6px 10px;
+  font-size: 0.82rem;
 }
 
 .btn-secondary {
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-subtle);
   padding: 6px 12px;
   border-radius: var(--radius-sm);
   background: var(--bg-surface);
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   color: var(--text-main);
   transition: all var(--transition-fast);
 }
 
 .btn-secondary:hover {
-  border-color: var(--border-focus);
+  border-color: var(--border-strong);
   background: var(--bg-card-hover);
 }
 
+.btn-secondary.active {
+  background: var(--accent-color);
+  color: #fff;
+  border-color: var(--accent-color);
+}
+
 /* ==========================================================================
-   6. Карточки лекций
+   5. Карточки лекций
    ========================================================================== */
 .lectures-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 48px;
+  gap: 14px;
+  margin-bottom: 40px;
 }
 
 .lecture-card {
   background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 20px 24px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 18px 22px;
   transition: all var(--transition-fast);
   position: relative;
 }
 
 .lecture-card:hover {
   background: var(--bg-card-hover);
-  border-color: var(--border-focus);
-  box-shadow: var(--shadow-sm);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-subtle);
 }
 
 .lecture-card.studied {
-  border-left: 4px solid var(--secondary-color);
+  border-left: 3px solid var(--secondary-color);
 }
 
 .lecture-top-row {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 12px;
 }
 
 .lecture-title-wrap {
@@ -437,64 +424,64 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   margin-bottom: 6px;
 }
 
 .subject-badge {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 2px 8px;
+  padding: 2px 7px;
   border-radius: var(--radius-sm);
   color: #fff;
 }
 
 .module-badge {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
   background: var(--bg-surface);
-  padding: 2px 8px;
+  padding: 2px 7px;
   border-radius: var(--radius-sm);
 }
 
 .session-chip {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  padding: 2px 6px;
-  border-radius: 4px;
+  border: 1px solid var(--border-subtle);
+  padding: 1px 6px;
+  border-radius: 3px;
   color: var(--text-main);
 }
 
 .lecture-title {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   line-height: 1.35;
 }
 
 .lecture-description {
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .lecture-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .lecture-tag {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
   background: var(--bg-surface);
-  padding: 2px 8px;
-  border-radius: 999px;
+  padding: 1px 6px;
+  border-radius: 3px;
   cursor: pointer;
 }
 
@@ -506,18 +493,18 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border-color);
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .action-btn-primary {
   background: var(--accent-color);
   color: #fff;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  padding: 7px 14px;
+  padding: 6px 12px;
   border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
@@ -530,7 +517,7 @@
 }
 
 .studied-toggle-btn {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   display: inline-flex;
   align-items: center;
@@ -538,12 +525,6 @@
   margin-left: auto;
   padding: 4px 8px;
   border-radius: var(--radius-sm);
-  transition: all var(--transition-fast);
-}
-
-.studied-toggle-btn:hover {
-  color: var(--text-main);
-  background: var(--bg-surface);
 }
 
 .studied-toggle-btn.active {
@@ -552,15 +533,15 @@
 }
 
 /* ==========================================================================
-   7. Модалка чтения и Split-View («Конспект ↔ Оригинал»)
+   6. Модалка чтения и Split-View
    ========================================================================== */
 .modal-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(14, 18, 22, 0.75);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(10, 12, 14, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: 1000;
   align-items: center;
   justify-content: center;
@@ -569,30 +550,25 @@
 
 .modal-overlay.open {
   display: flex;
-  animation: fadeIn 0.2s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 .reader-modal {
   width: 100%;
   max-width: 1200px;
   height: 90vh;
+  height: 90dvh;
   background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-elevated);
 }
 
 .reader-header {
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--border-color);
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--border-subtle);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -602,12 +578,12 @@
 .reader-title-wrap {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   overflow: hidden;
 }
 
 .reader-modal-title {
-  font-size: 1.05rem;
+  font-size: 1rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -616,7 +592,7 @@
 .reader-controls {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .reader-body {
@@ -630,26 +606,27 @@
 .reader-pane {
   flex: 1;
   height: 100%;
-  position: relative;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .reader-pane.split-hidden {
   display: none;
 }
 
-.reader-pane iframe, .reader-pane embed {
+.reader-pane iframe {
   width: 100%;
   height: 100%;
   border: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 .pane-label-bar {
   background: var(--bg-surface);
-  border-bottom: 1px solid var(--border-color);
-  padding: 6px 12px;
-  font-size: 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 5px 12px;
+  font-size: 0.72rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -661,20 +638,19 @@
 
 .split-divider {
   width: 2px;
-  background: var(--border-color);
-  cursor: col-resize;
+  background: var(--border-subtle);
 }
 
 /* ==========================================================================
-   8. Командная палитра (Ctrl+K)
+   7. Палитра Ctrl+K
    ========================================================================== */
 .palette-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(14, 18, 22, 0.65);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(10, 12, 14, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: 2000;
   align-items: flex-start;
   justify-content: center;
@@ -687,94 +663,92 @@
 
 .palette-container {
   width: 100%;
-  max-width: 640px;
+  max-width: 600px;
   background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-elevated);
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
 .palette-input-wrap {
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border-color);
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .palette-input {
   flex: 1;
   border: none;
   background: transparent;
-  font-size: 1.15rem;
+  font-size: 16px;
   outline: none;
   box-shadow: none !important;
   color: var(--text-main);
 }
 
 .palette-results {
-  max-height: 420px;
+  max-height: 400px;
   overflow-y: auto;
-  padding: 8px;
+  padding: 6px;
+  -webkit-overflow-scrolling: touch;
 }
 
 .palette-item {
-  padding: 10px 14px;
+  padding: 8px 12px;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: background var(--transition-fast);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
-.palette-item:hover, .palette-item.selected {
+.palette-item:hover {
   background: var(--accent-subtle);
 }
 
 .palette-item-title {
   font-weight: 600;
-  font-size: 0.95rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-size: 0.9rem;
 }
 
 .palette-snippets {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   line-height: 1.4;
 }
 
 .palette-snippets mark {
   background: var(--secondary-color);
-  color: #000;
+  color: #fff;
   padding: 0 2px;
   border-radius: 2px;
 }
 
 .palette-footer {
-  padding: 10px 18px;
+  padding: 8px 16px;
   background: var(--bg-surface);
-  border-top: 1px solid var(--border-color);
-  font-size: 0.75rem;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.72rem;
   color: var(--text-muted);
   display: flex;
   justify-content: space-between;
 }
 
 /* ==========================================================================
-   9. Админ-панель (Модалки и Тулбар)
+   8. Админ-панель
    ========================================================================== */
 .admin-toolbar {
   display: none;
   background: var(--accent-subtle);
   border-bottom: 1px solid var(--accent-color);
-  padding: 8px 0;
-  font-size: 0.85rem;
+  padding: 6px 0;
+  font-size: 0.82rem;
 }
 
 .admin-toolbar.active {
@@ -787,68 +761,57 @@
   align-items: center;
 }
 
+.admin-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  display: inline-block;
+}
+
 .admin-modal {
-  max-width: 560px;
+  max-width: 520px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .form-group label {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-muted);
 }
 
-.color-chips-row {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.color-chip {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid transparent;
-}
-
-.color-chip.selected {
-  border-color: var(--text-main);
-  transform: scale(1.15);
-}
-
 /* ==========================================================================
-   10. Подвал (Footer)
+   9. Подвал (Footer)
    ========================================================================== */
 .site-footer {
-  border-top: 1px solid var(--border-color);
-  padding: 32px 0;
-  margin-top: 60px;
-  font-size: 0.84rem;
+  border-top: 1px solid var(--border-subtle);
+  padding: 28px 0;
+  margin-top: 50px;
+  font-size: 0.82rem;
   color: var(--text-muted);
 }
 
 .footer-inner {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .footer-disclaimers {
-  border-top: 1px dashed var(--border-color);
-  padding-top: 16px;
-  font-size: 0.78rem;
+  border-top: 1px dashed var(--border-subtle);
+  padding-top: 14px;
+  font-size: 0.76rem;
   line-height: 1.5;
 }
 
 /* ==========================================================================
-   11. Адаптивность и мобильный Bottom-Sheet
+   10. Специфика iOS & Mobile (iPhone / iPad)
    ========================================================================== */
 @media (max-width: 1024px) {
   .split-view-btn, .reader-pane.split-pane {
@@ -857,14 +820,12 @@
 }
 
 @media (max-width: 720px) {
-  .header-actions .search-trigger-btn span {
-    display: none;
-  }
+  .header-actions .search-trigger-btn span,
   .header-actions .kbd-badge {
     display: none;
   }
   .admin-toolbar-inner {
-    display: none !important; /* Скрыто на малых экранах по ТЗ */
+    display: none !important; /* По ТЗ админка скрывается на смартфонах */
   }
   .lecture-actions {
     flex-direction: column;
@@ -880,6 +841,11 @@
   }
   .reader-modal {
     height: 100vh;
+    height: 100dvh;
     border-radius: 0;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .modal-overlay {
+    padding: 0;
   }
 }

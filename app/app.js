@@ -661,10 +661,26 @@ class App {
 
     // Загрузка оригинала
     const origFile = (lec.originals || [])[0];
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
     if (origFile && origFile.blob) {
       const mime = origFile.type === 'pdf' ? 'application/pdf' : 'image/jpeg';
       const origBlobUrl = await this.getDecryptedBlobUrl(origFile.blob, mime);
-      this.readerOrigIframe.src = origBlobUrl;
+      
+      if (isIOS && origFile.type === 'pdf') {
+        // На iOS встроенный iframe не листает многостраничные PDF
+        this.readerOrigIframe.srcdoc = `
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 24px; font-family: -apple-system, sans-serif;">
+            <p style="margin-bottom: 16px; color: #666; font-size: 15px;">На iOS PDF-оригиналы лекций открываются в нативном просмотрщике Safari:</p>
+            <a href="${origBlobUrl}" target="_blank" style="background: #8C2518; color: #fff; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px;">
+              📄 Открыть оригинал лектора
+            </a>
+          </div>
+        `;
+      } else {
+        this.readerOrigIframe.src = origBlobUrl;
+      }
+
       this.splitToggleBtn.style.display = 'inline-flex';
 
       this.origDownloadsSpan.innerHTML = `
@@ -674,7 +690,11 @@ class App {
       `;
 
       if (openWithOriginal) {
-        this.showSplitView(true);
+        if (isIOS && origFile.type === 'pdf') {
+          window.open(origBlobUrl, '_blank');
+        } else {
+          this.showSplitView(true);
+        }
       }
     } else {
       this.splitToggleBtn.style.display = 'none';
