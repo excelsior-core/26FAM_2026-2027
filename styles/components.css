@@ -1,6 +1,6 @@
 /**
- * styles/components.css - Ultra-Wide UI: Карточки в стиле Web Tactics,
- * Интерактивный Календарь, Доска Дедлайнов с тикающими таймерами и Сплит-ридер
+ * styles/components.css - Премиальный UI: карточки Web Tactics,
+ * процедурный математический арт, интерактивный календарь и доска дедлайнов
  */
 
 /* ==========================================================================
@@ -19,10 +19,12 @@
   width: 100%;
   max-width: 480px;
   background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: 44px 36px;
-  box-shadow: var(--shadow-elevated);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), var(--shadow-elevated);
   position: relative;
   z-index: 2;
 }
@@ -102,8 +104,8 @@
   background: var(--accent-color);
   color: #fff;
   font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: 0.05em;
+  font-weight: 800;
+  letter-spacing: 0.06em;
   font-size: 0.9rem;
   text-transform: uppercase;
   padding: 14px;
@@ -131,8 +133,8 @@
 .site-header {
   border-bottom: 1px solid var(--border-subtle);
   background: var(--bg-glass);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -168,9 +170,9 @@
   border-radius: var(--radius-md);
   color: var(--text-main);
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
   transition: all var(--transition-fast);
-  position: relative;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .nav-pill-btn:hover {
@@ -183,7 +185,7 @@
   background: var(--urgent-color);
   color: #fff;
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: 800;
   padding: 1px 6px;
   border-radius: 999px;
   margin-left: 2px;
@@ -205,13 +207,34 @@
   cursor: pointer;
 }
 
-.admin-indicator {
-  display: none;
+/* Админ-кнопки строго скрыты по умолчанию */
+.admin-toolbar,
+.admin-toolbar:not(.active) {
+  display: none !important;
+  background: var(--accent-subtle);
+  border-bottom: 1px solid var(--accent-color);
+  padding: 8px 0;
+  font-size: 0.85rem;
+}
+
+.admin-toolbar.active {
+  display: block !important;
+}
+
+.admin-toolbar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-indicator,
+.admin-indicator:not(.active) {
+  display: none !important;
   background: var(--accent-subtle);
   color: var(--accent-color);
   border: 1px solid var(--accent-color);
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   padding: 4px 8px;
@@ -219,14 +242,27 @@
 }
 
 .admin-indicator.active {
-  display: inline-block;
+  display: inline-block !important;
+}
+
+#ann-admin-add-btn,
+#ann-admin-add-btn:not(.active) {
+  display: none !important;
+}
+
+#ann-admin-add-btn.active {
+  display: inline-flex !important;
+}
+  display: inline-flex !important;
 }
 
 /* ==========================================================================
-   3. Баннеры и Люксовая академическая маргиналия
+   3. Люксовая академическая маргиналия и Сессионный радар
    ========================================================================== */
 .alert-banner {
   background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-subtle);
   border-left: 3px solid var(--secondary-color);
   border-radius: var(--radius-md);
@@ -236,12 +272,12 @@
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  box-shadow: var(--shadow-subtle);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), var(--shadow-subtle);
 }
 
 .alert-banner-badge {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -268,6 +304,21 @@
   color: var(--text-main);
 }
 
+.hero-stats-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  padding: 18px 24px;
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  margin-bottom: 32px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), var(--shadow-subtle);
+}
+
 .stat-item {
   display: flex;
   flex-direction: column;
@@ -275,16 +326,16 @@
 
 .stat-num {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 800;
   line-height: 1.1;
   color: var(--text-main);
 }
 
 .stat-label {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   color: var(--text-muted);
 }
 
@@ -351,68 +402,59 @@
   display: none;
 }
 
-.subjects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
+/* Панель фильтр-вкладок предметов */
+.subjects-tabs-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
 }
 
-.subject-card {
-  background: var(--bg-card);
+.subject-tab-pill {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 18px 20px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
   cursor: pointer;
   transition: all var(--transition-fast);
-  position: relative;
-  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.subject-card:hover {
-  background: var(--bg-card-hover);
+.subject-tab-pill:hover {
   border-color: var(--border-strong);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-subtle);
+  color: var(--text-main);
+  background: var(--bg-card-hover);
 }
 
-.subject-card.active {
+.subject-tab-pill.active {
+  background: var(--accent-color);
+  color: #fff;
   border-color: var(--accent-color);
-  box-shadow: 0 0 0 1px var(--accent-color);
-}
-
-.subject-color-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-}
-
-.subject-card-title {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  margin-top: 4px;
-}
-
-.subject-card-meta {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 8px;
-  display: flex;
-  justify-content: space-between;
+  box-shadow: 0 0 20px var(--accent-subtle);
 }
 
 .filter-bar {
   background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 14px 20px;
-  margin-bottom: 28px;
+  margin-bottom: 32px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 14px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .filter-group {
@@ -449,42 +491,50 @@
 }
 
 /* ==========================================================================
-   5. ULTRA-WIDE СЕТКА КАРТОЧЕК ЛЕКЦИЙ (СТИЛЬ WEB TACTICS)
+   5. ULTRA-WIDE СЕТКА КАРТОЧЕК ЛЕКЦИЙ (WEB TACTICS STYLE)
    ========================================================================== */
 .lectures-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-  gap: 28px;
+  gap: 30px;
   margin-bottom: 60px;
 }
 
 .lecture-card {
   background: var(--bg-card);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: all var(--transition-smooth);
+  transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
   position: relative;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), var(--shadow-subtle);
 }
 
 .lecture-card:hover {
   background: var(--bg-card-hover);
-  border-color: var(--border-strong);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-elevated);
+  border-color: rgba(255, 255, 255, 0.24);
+  transform: translateY(-6px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 35px var(--border-glow);
 }
 
 .lecture-card.studied {
   border-top: 3px solid var(--secondary-color);
 }
 
-/* Процедурный математический арт в шапке карточки */
+/* Рамка и процедурный волновой арт в карточке */
+.card-artwork-frame {
+  padding: 12px 12px 0 12px;
+}
+
 .card-artwork {
-  height: 180px;
-  background: #080706;
-  border-bottom: 1px solid var(--border-subtle);
+  height: 175px;
+  background: #08070A;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
   position: relative;
   overflow: hidden;
   display: flex;
@@ -492,15 +542,45 @@
   justify-content: center;
 }
 
+.card-subj-floating-pill {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: rgba(8, 7, 10, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  z-index: 2;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+.card-subj-floating-pill .pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
 .card-vintage-index {
   position: absolute;
-  top: 14px;
-  right: 18px;
+  top: 10px;
+  right: 14px;
   font-family: var(--font-mono);
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 800;
-  color: rgba(255, 255, 255, 0.16);
-  letter-spacing: -0.05em;
+  color: rgba(255, 255, 255, 0.22);
+  letter-spacing: -0.04em;
   pointer-events: none;
   user-select: none;
   z-index: 2;
@@ -508,23 +588,23 @@
 }
 
 .lecture-card:hover .card-vintage-index {
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .card-artwork svg {
   width: 100%;
   height: 100%;
-  opacity: 0.8;
+  opacity: 0.88;
   transition: opacity var(--transition-fast), transform var(--transition-smooth);
 }
 
 .lecture-card:hover .card-artwork svg {
   opacity: 1;
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
 
 .card-content {
-  padding: 22px;
+  padding: 20px 24px 24px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -538,38 +618,45 @@
   margin-bottom: 12px;
 }
 
-.card-subject-pill {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 3px 8px;
-  border-radius: var(--radius-sm);
-  color: #fff;
-}
-
 .card-session-index {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--text-muted);
   letter-spacing: 0.05em;
+}
+
+.card-module-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--secondary-color);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
 }
 
 .card-lecture-title {
   font-family: var(--font-display);
   font-size: 1.15rem;
-  font-weight: 700;
-  line-height: 1.3;
+  font-weight: 800;
+  line-height: 1.35;
   margin-bottom: 8px;
   cursor: pointer;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  transition: color var(--transition-fast);
+}
+
+.card-lecture-title:hover {
+  color: var(--accent-color);
 }
 
 .card-lecture-desc {
-  font-size: 0.86rem;
+  font-size: 0.88rem;
   color: var(--text-muted);
-  line-height: 1.5;
+  line-height: 1.55;
   flex: 1;
   margin-bottom: 16px;
 }
@@ -578,13 +665,14 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .card-tag {
   font-size: 0.72rem;
   color: var(--text-muted);
   background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   padding: 2px 8px;
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -592,22 +680,48 @@
 
 .card-tag:hover {
   color: var(--accent-color);
+  border-color: var(--accent-color);
 }
 
 .card-bottom-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 14px;
+  padding-top: 16px;
   border-top: 1px solid var(--border-subtle);
   margin-top: auto;
 }
 
 .read-article-link {
   font-family: var(--font-display);
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: var(--text-main);
+  background: none;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.read-article-link .arrow-svg {
+  display: inline-block;
+  transition: transform var(--transition-fast);
+  color: var(--accent-color);
+  font-size: 1.1rem;
+}
+
+.read-article-link:hover {
+  color: var(--accent-color);
+}
+
+.read-article-link:hover .arrow-svg {
+  transform: translateX(5px);
+}
   letter-spacing: 0.08em;
   color: var(--accent-color);
   display: inline-flex;
@@ -630,9 +744,9 @@
 }
 
 .btn-icon-subtle {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
-  padding: 4px 8px;
+  padding: 5px 10px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-subtle);
   transition: all var(--transition-fast);
@@ -646,16 +760,18 @@
 .btn-icon-subtle.studied-active {
   color: var(--secondary-color);
   border-color: var(--secondary-color);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* ==========================================================================
-   6. ИНТЕРАКТИВНЫЙ КАЛЕНДАРЬ ПАР (ВЫДВИЖНОЙ / МОДАЛЬНЫЙ)
+   6. ИНТЕРАКТИВНЫЙ КАЛЕНДАРЬ ПАР
    ========================================================================== */
 .calendar-view-modal {
   max-width: 1100px;
   width: 92vw;
   background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: 32px;
@@ -708,7 +824,6 @@
   flex-direction: column;
   transition: all var(--transition-fast);
   cursor: pointer;
-  position: relative;
 }
 
 .calendar-day-cell:hover {
@@ -746,12 +861,14 @@
 }
 
 /* ==========================================================================
-   7. ДОСКА ОБЪЯВЛЕНИЙ И ДЕДЛАЙНОВ С ТАЙМЕРАМИ
+   7. ДОСКА ОБЪЯВЛЕНИЙ И ДЕДЛАЙНОВ
    ========================================================================== */
 .announcements-modal {
   max-width: 900px;
   width: 90vw;
   background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: 32px;
@@ -824,13 +941,13 @@
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  padding: 6px 10px;
-  min-width: 60px;
+  padding: 6px 12px;
+  min-width: 65px;
 }
 
 .countdown-digits {
   font-family: var(--font-mono);
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   font-weight: 800;
   color: var(--accent-color);
 }
@@ -848,9 +965,9 @@
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(8, 7, 6, 0.78);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(6, 5, 8, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   z-index: 1000;
   align-items: center;
   justify-content: center;
@@ -958,9 +1075,9 @@
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(8, 7, 6, 0.72);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(6, 5, 8, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 2000;
   align-items: flex-start;
   justify-content: center;

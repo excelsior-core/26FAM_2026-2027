@@ -5,26 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <title>«“конспекты” ФПМ» — Студенческий сборник нейроконспектов</title>
+  <title>КОНСПЕКТЫ ФПМ — Интеллектуальный архив 1 курса</title>
   <meta name="description" content="Студенческий сборник нейроконспектов · ФПМ НН · 1 курс">
-  <link rel="stylesheet" href="styles/main.css">
-  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/main.css?v=3.0">
+  <link rel="stylesheet" href="styles/components.css?v=3.0">
 </head>
 <body>
-  <!-- Атмосферный световой градиент -->
   <div class="hero-glow"></div>
 
   <!-- 1. Экран авторизации (Виден до расшифровки) -->
   <div id="auth-view" class="auth-wrapper">
     <div class="auth-card">
       <div class="auth-header">
-        <div class="academic-crest">ФПМ НН · 2026–2027 · 1 КУРС</div>
-        <h1 class="brand-title" style="font-size: 1.8rem; margin: 8px 0;">«<span class="quotes">“конспекты”</span> ФПМ»</h1>
-        <div class="tagline">Защищённый студенческий архив нейроконспектов</div>
+        <div class="academic-crest">✦ ИНТЕЛЛЕКТУАЛЬНЫЙ АРХИВ · ФПМ ВШЭ ✦</div>
+        <h1 class="brand-title" style="font-size: 2.1rem; margin: 12px 0 8px; letter-spacing: -0.03em;">КОНСПЕКТЫ <span style="color: var(--accent-color);">ФПМ</span></h1>
+        <div class="tagline">1-й курс · 2026–2027 учебный год</div>
       </div>
 
       <div class="auth-disclaimer">
-        Неофициальный студенческий архив ФПМ (НИУ ВШЭ НН). Не является ресурсом университета и не связан с преподавателями. Конспекты подготовлены студентами.
+        Неофициальный учебный архив ФПМ (НИУ ВШЭ НН). Не является ресурсом университета и не связан с преподавателями. Доступ защищён сквозным клиентским шифрованием (AES-256-GCM).
       </div>
 
       <form id="auth-form" class="auth-form" autocomplete="off">
@@ -33,7 +32,7 @@
             type="password" 
             id="auth-password" 
             class="auth-input" 
-            placeholder="Введите пароль доступа..." 
+            placeholder="Введите пароль курса или администратора..." 
             required 
             autofocus
             autocapitalize="off"
@@ -50,7 +49,7 @@
         </label>
 
         <button type="submit" id="auth-submit" class="auth-submit-btn">
-          <span>Войти в архив</span>
+          <span>ОТКРЫТЬ АРХИВ →</span>
         </button>
       </form>
 
@@ -62,11 +61,11 @@
 
   <!-- 2. Главная страница (После дешифрования) -->
   <div id="main-view" style="display: none;">
-    <!-- Панель администратора -->
-    <aside id="admin-toolbar" class="admin-toolbar">
+    <!-- Панель администратора (строго скрыта для студентов) -->
+    <aside id="admin-toolbar" class="admin-toolbar" style="display: none !important;">
       <div class="container admin-toolbar-inner">
         <div style="display: flex; align-items: center; gap: 10px;">
-          <span class="admin-dot"></span>
+          <span class="admin-dot" style="width: 8px; height: 8px; background: var(--accent-color); border-radius: 50%; display: inline-block;"></span>
           <strong>Режим управления архивом</strong>
         </div>
         <div style="display: flex; gap: 8px;">
@@ -84,25 +83,22 @@
     <header class="site-header">
       <div class="container header-inner">
         <div class="brand-wrap">
-          <a href="#" class="brand-title" style="font-size: 1.25rem;">
-            «<span class="quotes">“конспекты”</span> ФПМ»
+          <a href="#" class="brand-title" style="font-size: 1.25rem; letter-spacing: -0.02em;">
+            КОНСПЕКТЫ <span style="color: var(--accent-color);">ФПМ</span>
           </a>
           <span class="tagline" style="font-size: 0.72rem;">ФПМ НН · 1 курс · 2026–2027</span>
         </div>
 
         <div class="header-actions">
-          <!-- Кнопка Дедлайнов и Объявлений -->
           <button id="announcements-open-btn" class="nav-pill-btn" title="Дедлайны и объявления курса">
             <span>📌 Дедлайны</span>
             <span id="announcements-count-badge" class="pulse-badge" style="display: none;">0</span>
           </button>
 
-          <!-- Кнопка Интерактивного Календаря -->
-          <button id="calendar-open-btn" class="nav-pill-btn" title="Интерактивный календарь пар и занятий">
+          <button id="calendar-open-btn" class="nav-pill-btn" title="Интерактивный календарь пар">
             <span>📅 Календарь пар</span>
           </button>
 
-          <!-- Поиск Ctrl+K -->
           <button id="palette-open-btn" class="nav-pill-btn" title="Поиск (Ctrl+K или /)">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <span>Поиск</span>
@@ -116,7 +112,7 @@
             <option value="midnight">Полночь (Midnight)</option>
           </select>
 
-          <span id="admin-indicator" class="admin-indicator">Админ</span>
+          <span id="admin-indicator" class="admin-indicator" style="display: none !important;">Админ</span>
           <button id="logout-btn" class="btn-secondary" title="Заблокировать архив">Выход</button>
         </div>
       </div>
@@ -134,13 +130,14 @@
       </div>
 
       <!-- Монументальный Hero-блок (в стиле Web Tactics) -->
-      <section style="margin: 32px 0 20px;">
-        <div class="academic-crest">ИНТЕЛЛЕКТУАЛЬНЫЙ АРХИВ · ФПМ ВШЭ НН</div>
+      <section style="margin: 32px 0 24px;">
+        <div class="academic-crest">✦ ИНТЕЛЛЕКТУАЛЬНЫЙ АРХИВ · ФПМ ВШЭ НН ✦</div>
         <h1 class="hero-mega-title">
-          «КОНСПЕКТЫ» <span class="highlight">ФПМ</span>
+          ИНТЕЛЛЕКТУАЛЬНЫЙ АРХИВ &<br>
+          <span class="highlight">КОНСПЕКТЫ ФПМ</span>
         </h1>
         <p class="hero-sub-text">
-          Студенческий сборник нейроконспектов, интерактивное расписание модулей и оригиналы лекций в едином защищённом пространстве.
+          Защищённый студенческий сборник нейроконспектов, интерактивное расписание модулей и оригиналы лекций 1 курса ФПМ НН.
         </p>
 
         <!-- Сессионный радар прогресса -->
@@ -169,34 +166,25 @@
         </div>
       </section>
 
-      <!-- Секция "Что нового" -->
+      <!-- Новое с прошлого визита -->
       <section id="new-lectures-section" class="dashboard-section" style="display: none;">
         <div class="section-title-wrap" data-toggle="new-lectures-content">
           <h2 class="section-title">✨ Новые материалы с прошлого визита</h2>
           <span class="section-toggle-icon">▼</span>
         </div>
         <div id="new-lectures-content" class="collapsed-content">
-          <div id="new-lectures-grid" class="subjects-grid"></div>
+          <div id="new-lectures-grid" class="subjects-tabs-bar"></div>
         </div>
       </section>
 
-      <!-- Плитки предметов -->
-      <section class="dashboard-section">
-        <div class="section-title-wrap" data-toggle="subjects-content">
-          <h2 class="section-title">📚 Предметы курса</h2>
-          <span class="section-toggle-icon">▼</span>
-        </div>
-        <div id="subjects-content" class="collapsed-content">
-          <div id="subjects-grid" class="subjects-grid"></div>
-        </div>
+      <!-- Интерактивные табы предметов -->
+      <section style="margin-bottom: 20px;">
+        <div id="subjects-tabs-container" class="subjects-tabs-bar"></div>
       </section>
 
-      <!-- Панель фильтров и сортировки -->
+      <!-- Панель сортировки и вспомогательных фильтров -->
       <section class="filter-bar">
         <div class="filter-group">
-          <select id="filter-subject" class="filter-select">
-            <option value="">Все предметы</option>
-          </select>
           <select id="filter-module" class="filter-select">
             <option value="">Все модули</option>
           </select>
@@ -231,7 +219,7 @@
       <div class="container footer-inner">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
           <div>
-            <strong>«“конспекты” ФПМ»</strong> · 2026–2027 · Клиентское шифрование WebCrypto
+            <strong>“КОНСПЕКТЫ” ФПМ</strong> · 2026–2027 · Клиентское шифрование WebCrypto
           </div>
           <div>
             <button id="footer-disclaimer-toggle" class="btn-secondary" style="font-size: 0.75rem;">
@@ -248,7 +236,7 @@
     </footer>
   </div>
 
-  <!-- 3. Интерактивный Календарь пар (Отдельное окно) -->
+  <!-- 3. Интерактивный Календарь пар -->
   <div id="calendar-modal" class="modal-overlay">
     <div class="calendar-view-modal">
       <div class="calendar-top-bar">
@@ -287,7 +275,7 @@
           <span class="academic-crest">ФПМ 2026–2027</span>
         </div>
         <div style="display: flex; gap: 8px;">
-          <button id="ann-admin-add-btn" class="action-btn-primary" style="display: none; padding: 6px 12px; font-size: 0.8rem;">+ Новый дедлайн</button>
+          <button id="ann-admin-add-btn" class="action-btn-primary" style="display: none !important; padding: 6px 12px; font-size: 0.8rem;">+ Новый дедлайн</button>
           <button id="ann-close-btn" class="btn-secondary" style="font-weight: bold;">✕</button>
         </div>
       </div>
@@ -444,7 +432,6 @@
     </div>
   </div>
 
-  <!-- Ядро приложения -->
-  <script type="module" src="app/app.js"></script>
+  <script type="module" src="app/app.js?v=3.0"></script>
 </body>
 </html>

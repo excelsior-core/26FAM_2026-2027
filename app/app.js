@@ -1,7 +1,7 @@
 /**
- * app/app.js - Высокохудожественное ядро «“конспекты” ФПМ»
- * Кинематографичный генеративный арт, люксовая академическая типографика,
- * интерактивный календарь пар и доска дедлайнов с тикающими таймерами
+ * app/app.js - Высокобюджетное ядро «“КОНСПЕКТЫ” ФПМ»
+ * Единый гармонический волновой арт для всех предметов под их цвет,
+ * интерактивные табы предметов, календарь, доска дедлайнов и скрытая админка
  */
 
 import { VaultCrypto } from './crypto.js';
@@ -23,7 +23,7 @@ class App {
     this.lastVisit = localStorage.getItem('fpm_last_visit') || new Date(0).toISOString();
     this.currentLecture = null;
 
-    // Календарь: учебный год 2026-2027 (начинаем с сентября)
+    // Календарь: 2026-2027 учебный год (сентябрь 2026)
     this.calCurrentDate = new Date(2026, 8, 1);
 
     this.filters = {
@@ -59,24 +59,22 @@ class App {
     this.logoutBtn = document.getElementById('logout-btn');
 
     this.lecturesContainer = document.getElementById('lectures-container');
-    this.subjectsGrid = document.getElementById('subjects-grid');
+    this.subjectsTabsContainer = document.getElementById('subjects-tabs-container');
     this.newLecturesSection = document.getElementById('new-lectures-section');
     this.newLecturesGrid = document.getElementById('new-lectures-grid');
 
-    // Статистика
+    // Статистика в Hero
     this.statTotalLectures = document.getElementById('stat-total-lectures');
     this.statStudiedPercent = document.getElementById('stat-studied-percent');
     this.statStudiedRatio = document.getElementById('stat-studied-ratio');
     this.statProgressBar = document.getElementById('stat-progress-bar');
     this.statActiveDeadlines = document.getElementById('stat-active-deadlines');
 
-    this.filterSubject = document.getElementById('filter-subject');
     this.filterModule = document.getElementById('filter-module');
     this.filterStudiedToggle = document.getElementById('filter-studied-toggle');
     this.sortSelector = document.getElementById('sort-selector');
     this.resetFiltersBtn = document.getElementById('reset-filters-btn');
 
-    // Навигация
     this.announcementsOpenBtn = document.getElementById('announcements-open-btn');
     this.announcementsCountBadge = document.getElementById('announcements-count-badge');
     this.calendarOpenBtn = document.getElementById('calendar-open-btn');
@@ -93,7 +91,7 @@ class App {
     this.calSelectedDateTitle = document.getElementById('cal-selected-date-title');
     this.calSelectedDateList = document.getElementById('cal-selected-date-list');
 
-    // Дедлайны
+    // Объявления
     this.announcementsModal = document.getElementById('announcements-modal');
     this.annCloseBtn = document.getElementById('ann-close-btn');
     this.announcementsListContainer = document.getElementById('announcements-list-container');
@@ -156,11 +154,6 @@ class App {
 
     this.logoutBtn.addEventListener('click', () => this.handleLogout());
 
-    this.filterSubject.addEventListener('change', (e) => {
-      this.filters.subject = e.target.value;
-      this.renderLectures();
-    });
-
     this.filterModule.addEventListener('change', (e) => {
       this.filters.module = e.target.value;
       this.renderLectures();
@@ -182,9 +175,9 @@ class App {
       this.filters.module = '';
       this.filters.tag = '';
       this.filters.studiedOnly = false;
-      this.filterSubject.value = '';
       this.filterModule.value = '';
       this.filterStudiedToggle.classList.remove('active');
+      this.renderSubjectsTabs();
       this.renderLectures();
     });
 
@@ -282,20 +275,38 @@ class App {
   }
 
   async checkAutoLogin() {
-    const storedKey = localStorage.getItem('fpm_key') || sessionStorage.getItem('fpm_key');
-    const storedIsAdmin = localStorage.getItem('fpm_is_admin') === 'true' || sessionStorage.getItem('fpm_is_admin') === 'true';
+    const storedKey = sessionStorage.getItem('fpm_key') || localStorage.getItem('fpm_key');
+    if (!storedKey) return;
 
-    if (storedKey) {
+    try {
+      this.cryptoKey = await VaultCrypto.importKeyRaw(storedKey);
+
+      // Математически строгая верификация роли админа:
+      // Пытаемся расшифровать admin.bin текущим ключом.
+      // Студенческий ключ (fpm2026) никогда не сможет расшифровать admin.bin!
+      let adminUnlocked = false;
       try {
-        this.cryptoKey = await VaultCrypto.importKeyRaw(storedKey);
-        this.isAdmin = storedIsAdmin;
-        await this.loadMetadata();
-        this.unlockApp();
-        return;
-      } catch (e) {
-        console.warn('Auto-login failed:', e);
-        this.handleLogout();
+        const adminResp = await fetch('admin.bin');
+        if (adminResp.ok) {
+          const adminBuf = await adminResp.arrayBuffer();
+          const dec = await VaultCrypto.decryptBlob(adminBuf, this.cryptoKey);
+          this.metadata = JSON.parse(new TextDecoder().decode(dec));
+          adminUnlocked = true;
+        }
+      } catch (errAdminTest) {
+        adminUnlocked = false;
       }
+
+      this.isAdmin = adminUnlocked;
+
+      if (!this.isAdmin) {
+        await this.loadMetadata();
+      }
+
+      this.unlockApp();
+    } catch (e) {
+      console.warn('Auto-login failed:', e);
+      this.handleLogout();
     }
   }
 
@@ -305,6 +316,7 @@ class App {
     this.authSubmit.textContent = 'Расшифровка...';
 
     try {
+      // 1. Проверяем студенческий пароль (metadata.bin)
       let metaResp = await fetch('metadata.bin');
       if (metaResp.ok) {
         const metaBuf = await metaResp.arrayBuffer();
@@ -318,6 +330,7 @@ class App {
         } catch (errShared) {}
       }
 
+      // 2. Проверяем админ-пароль (admin.bin)
       let adminResp = await fetch('admin.bin');
       if (adminResp.ok) {
         const adminBuf = await adminResp.arrayBuffer();
@@ -355,15 +368,16 @@ class App {
       this.cryptoKey = await VaultCrypto.deriveKey(password, salt);
     }
 
-    if (this.authRemember.checked) {
-      const rawKeyB64 = await VaultCrypto.exportKeyRaw(this.cryptoKey);
-      localStorage.setItem('fpm_key', rawKeyB64);
-      localStorage.setItem('fpm_is_admin', String(this.isAdmin));
-    } else {
-      const rawKeyB64 = await VaultCrypto.exportKeyRaw(this.cryptoKey);
-      sessionStorage.setItem('fpm_key', rawKeyB64);
-      sessionStorage.setItem('fpm_is_admin', String(this.isAdmin));
-    }
+    // Полный сброс обоих хранилищ во избежание залипания сессий
+    localStorage.removeItem('fpm_key');
+    localStorage.removeItem('fpm_is_admin');
+    sessionStorage.removeItem('fpm_key');
+    sessionStorage.removeItem('fpm_is_admin');
+
+    const rawKeyB64 = await VaultCrypto.exportKeyRaw(this.cryptoKey);
+    const targetStorage = this.authRemember.checked ? localStorage : sessionStorage;
+    targetStorage.setItem('fpm_key', rawKeyB64);
+    targetStorage.setItem('fpm_is_admin', this.isAdmin ? 'true' : 'false');
 
     this.unlockApp();
   }
@@ -390,20 +404,26 @@ class App {
     this.authView.style.display = 'none';
     this.mainView.style.display = 'block';
 
-    // Админские кнопки строго скрыты от студентов
+    // Жесткое управление видимостью админ-кнопок
     if (this.isAdmin) {
       this.adminToolbar.classList.add('active');
       this.adminIndicator.classList.add('active');
-      this.annAdminAddBtn.style.display = 'inline-flex';
+      this.annAdminAddBtn.classList.add('active');
+      this.adminToolbar.style.setProperty('display', 'block', 'important');
+      this.adminIndicator.style.setProperty('display', 'inline-block', 'important');
+      this.annAdminAddBtn.style.setProperty('display', 'inline-flex', 'important');
       this.initAdmin();
     } else {
       this.adminToolbar.classList.remove('active');
       this.adminIndicator.classList.remove('active');
-      this.annAdminAddBtn.style.display = 'none';
+      this.annAdminAddBtn.classList.remove('active');
+      this.adminToolbar.style.setProperty('display', 'none', 'important');
+      this.adminIndicator.style.setProperty('display', 'none', 'important');
+      this.annAdminAddBtn.style.setProperty('display', 'none', 'important');
     }
 
     this.populateFilterDropdowns();
-    this.renderSubjects();
+    this.renderSubjectsTabs();
     this.renderNewLectures();
     this.renderLectures();
     this.updateHeroStats();
@@ -417,8 +437,7 @@ class App {
   handleLogout() {
     localStorage.removeItem('fpm_key');
     localStorage.removeItem('fpm_is_admin');
-    sessionStorage.removeItem('fpm_key');
-    sessionStorage.removeItem('fpm_is_admin');
+    sessionStorage.clear();
     this.cryptoKey = null;
     this.metadata = null;
     this.isAdmin = false;
@@ -430,7 +449,7 @@ class App {
     this.adminManager = new AdminManager(this.metadata, (updatedMeta) => {
       this.metadata = updatedMeta;
       this.populateFilterDropdowns();
-      this.renderSubjects();
+      this.renderSubjectsTabs();
       this.renderLectures();
       this.updateHeroStats();
       this.updateAnnouncementsBadge();
@@ -485,20 +504,49 @@ class App {
   }
 
   populateFilterDropdowns() {
-    this.filterSubject.innerHTML = '<option value="">Все предметы</option>';
-    for (const subj of this.metadata.subjects || []) {
-      const opt = document.createElement('option');
-      opt.value = subj.name;
-      opt.textContent = subj.name;
-      this.filterSubject.appendChild(opt);
-    }
-
     this.filterModule.innerHTML = '<option value="">Все модули</option>';
     for (const mod of this.metadata.modules || []) {
       const opt = document.createElement('option');
       opt.value = mod;
       opt.textContent = mod;
       this.filterModule.appendChild(opt);
+    }
+  }
+
+  renderSubjectsTabs() {
+    this.subjectsTabsContainer.innerHTML = '';
+    const lectures = (this.metadata.lectures || []).filter(l => !l.hidden || this.isAdmin);
+    const totalCount = lectures.length;
+
+    // Таб "Все материалы"
+    const allTab = document.createElement('button');
+    allTab.className = `subject-tab-pill ${!this.filters.subject ? 'active' : ''}`;
+    allTab.innerHTML = `<span>ВСЕ МАТЕРИАЛЫ</span><span style="opacity: 0.7;">(${totalCount})</span>`;
+    allTab.addEventListener('click', () => {
+      this.filters.subject = '';
+      this.renderSubjectsTabs();
+      this.renderLectures();
+    });
+    this.subjectsTabsContainer.appendChild(allTab);
+
+    // Табы предметов
+    for (const subj of this.metadata.subjects || []) {
+      const count = lectures.filter(l => l.subject === subj.name).length;
+      const tab = document.createElement('button');
+      tab.className = `subject-tab-pill ${this.filters.subject === subj.name ? 'active' : ''}`;
+      tab.innerHTML = `
+        <span style="color: ${subj.color || 'var(--accent-color)'}; font-size: 0.9rem;">●</span>
+        <span>${subj.name}</span>
+        <span style="opacity: 0.7;">(${count})</span>
+      `;
+
+      tab.addEventListener('click', () => {
+        this.filters.subject = this.filters.subject === subj.name ? '' : subj.name;
+        this.renderSubjectsTabs();
+        this.renderLectures();
+      });
+
+      this.subjectsTabsContainer.appendChild(tab);
     }
   }
 
@@ -534,39 +582,6 @@ class App {
     }
   }
 
-  renderSubjects() {
-    this.subjectsGrid.innerHTML = '';
-    const lectures = this.metadata.lectures || [];
-
-    for (const subj of this.metadata.subjects || []) {
-      const count = lectures.filter(l => l.subject === subj.name && (!l.hidden || this.isAdmin)).length;
-      const card = document.createElement('div');
-      card.className = `subject-card ${this.filters.subject === subj.name ? 'active' : ''}`;
-      card.innerHTML = `
-        <div class="subject-color-bar" style="background-color: ${subj.color || 'var(--accent-color)'};"></div>
-        <div class="subject-card-title">${subj.name}</div>
-        <div class="subject-card-meta">
-          <span>${count} ${this.pluralizeLectures(count)}</span>
-          ${subj.description ? `<span title="${subj.description}">ℹ</span>` : ''}
-        </div>
-      `;
-
-      card.addEventListener('click', () => {
-        if (this.filters.subject === subj.name) {
-          this.filters.subject = '';
-          this.filterSubject.value = '';
-        } else {
-          this.filters.subject = subj.name;
-          this.filterSubject.value = subj.name;
-        }
-        this.renderSubjects();
-        this.renderLectures();
-      });
-
-      this.subjectsGrid.appendChild(card);
-    }
-  }
-
   renderNewLectures() {
     const lectures = this.metadata.lectures || [];
     const newOnes = lectures.filter(l => (!l.hidden || this.isAdmin) && l.addedAt && new Date(l.addedAt) > new Date(this.lastVisit));
@@ -576,11 +591,8 @@ class App {
       this.newLecturesGrid.innerHTML = '';
       for (const lec of newOnes) {
         const item = document.createElement('div');
-        item.className = 'subject-card';
-        item.innerHTML = `
-          <div class="subject-card-title">${lec.title}</div>
-          <div class="subject-card-meta"><span>${lec.subject}</span><span>${lec.module || ''}</span></div>
-        `;
+        item.className = 'subject-tab-pill active';
+        item.innerHTML = `<span>${lec.title}</span><span style="opacity: 0.7;">${lec.subject}</span>`;
         item.addEventListener('click', () => this.openLecture(lec.id));
         this.newLecturesGrid.appendChild(item);
       }
@@ -615,14 +627,14 @@ class App {
     if (list.length === 0) {
       this.lecturesContainer.innerHTML = `
         <div style="grid-column: 1 / -1; text-align: center; padding: 70px 20px; color: var(--text-muted); background: var(--bg-card); border-radius: var(--radius-md); border: 1px dashed var(--border-subtle);">
-          Ничего не найдено — возможно, папка лекции ещё не синхронизирована из Storage.
+          Ничего не найдено — возможно, папка лекции ещё не добавлена в Storage.
         </div>
       `;
       return;
     }
 
-    for (const lec of list) {
-      const card = this.createLectureCard(lec);
+    for (let i = 0; i < list.length; i++) {
+      const card = this.createLectureCard(list[i], i);
       this.lecturesContainer.appendChild(card);
     }
 
@@ -630,109 +642,95 @@ class App {
   }
 
   /**
-   * Высокохудожественный процедурный SVG-арт в стиле Web Tactics
+   * Истинный кинематографичный генератор волновых линий (как у матана)
+   * Гармонические синусоиды, варьирующиеся по частоте и фазе, под цвет каждого предмета
    */
-  generateMathSvg(subjectName, color = '#D65A42') {
-    const s = (subjectName || '').toLowerCase();
-    if (s.includes('матан') || s.includes('анализ')) {
-      return `
-        <svg viewBox="0 0 500 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="glowM" cx="50%" cy="50%" r="60%">
-              <stop offset="0%" stop-color="${color}" stop-opacity="0.35"/>
-              <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-          <rect width="100%" height="100%" fill="#070605"/>
-          <circle cx="250" cy="100" r="160" fill="url(#glowM)"/>
-          
-          <!-- Перспективная сетка координатного поля -->
-          <g stroke="rgba(255,255,255,0.06)" stroke-width="0.8">
-            <line x1="0" y1="160" x2="500" y2="160"/>
-            <line x1="0" y1="120" x2="500" y2="120"/>
-            <line x1="0" y1="80" x2="500" y2="80"/>
-            <line x1="100" y1="0" x2="100" y2="200"/>
-            <line x1="250" y1="0" x2="250" y2="200"/>
-            <line x1="400" y1="0" x2="400" y2="200"/>
-          </g>
+  generateHarmonicWaveSvg(color = '#D65A42', seed = 0) {
+    const s = seed % 6;
+    let wave1, wave2, wave3, dots;
 
-          <!-- Интегральные гармоники Фурье -->
-          <path d="M0,120 Q60,20 130,110 T260,100 T390,90 T500,100" fill="none" stroke="${color}" stroke-width="2.8"/>
-          <path d="M0,135 Q70,180 150,120 T300,120 T420,110 T500,120" fill="none" stroke="#E63946" stroke-opacity="0.4" stroke-width="1.8"/>
-          <path d="M0,100 Q50,40 100,100 T200,100 T300,100 T400,100 T500,100" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-dasharray="3,5"/>
-          
-          <circle cx="130" cy="110" r="5" fill="${color}" stroke="#fff" stroke-width="1.5"/>
-          <circle cx="260" cy="100" r="5" fill="${color}" stroke="#fff" stroke-width="1.5"/>
-          <circle cx="390" cy="90" r="5" fill="${color}" stroke="#fff" stroke-width="1.5"/>
-        </svg>
-      `;
-    } else if (s.includes('линал') || s.includes('геометр')) {
-      return `
-        <svg viewBox="0 0 500 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="glowL" cx="50%" cy="50%" r="60%">
-              <stop offset="0%" stop-color="${color}" stop-opacity="0.35"/>
-              <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-          <rect width="100%" height="100%" fill="#05070A"/>
-          <circle cx="250" cy="100" r="160" fill="url(#glowL)"/>
-
-          <!-- Изометрический гиперкуб и аффинное пространство -->
-          <g stroke="${color}" stroke-opacity="0.25" stroke-width="1">
-            <line x1="50" y1="170" x2="250" y2="40"/>
-            <line x1="130" y1="170" x2="330" y2="40"/>
-            <line x1="210" y1="170" x2="410" y2="40"/>
-            <line x1="50" y1="170" x2="450" y2="170"/>
-            <line x1="100" y1="130" x2="450" y2="130"/>
-            <line x1="150" y1="90" x2="450" y2="90"/>
-          </g>
-
-          <!-- Собственные векторы матрицы -->
-          <line x1="250" y1="120" x2="360" y2="50" stroke="#fff" stroke-width="2.5"/>
-          <polygon points="360,50 348,54 353,62" fill="#fff"/>
-          <line x1="250" y1="120" x2="160" y2="70" stroke="${color}" stroke-width="2"/>
-          <circle cx="250" cy="120" r="6" fill="${color}" stroke="#fff" stroke-width="2"/>
-          <circle cx="360" cy="50" r="4" fill="#fff"/>
-        </svg>
-      `;
+    if (s === 0) {
+      wave1 = 'M0,80 Q50,20 100,80 T200,80 T300,80 T400,80';
+      wave2 = 'M0,90 Q60,140 120,90 T240,90 T360,90 T400,90';
+      wave3 = 'M0,70 Q40,35 80,70 T160,70 T240,70 T320,70 T400,70';
+      dots = `<circle cx="100" cy="80" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>
+              <circle cx="200" cy="80" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>
+              <circle cx="300" cy="80" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>`;
+    } else if (s === 1) {
+      wave1 = 'M0,75 Q60,135 120,75 T240,75 T360,75 T400,75';
+      wave2 = 'M0,85 Q45,25 90,85 T180,85 T270,85 T360,85 T400,85';
+      wave3 = 'M0,95 Q70,145 140,95 T280,95 T400,95';
+      dots = `<circle cx="120" cy="75" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>
+              <circle cx="240" cy="75" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>
+              <circle cx="360" cy="75" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>`;
+    } else if (s === 2) {
+      wave1 = 'M0,80 Q40,15 80,80 T160,80 T240,80 T320,80 T400,80';
+      wave2 = 'M0,95 Q55,145 110,95 T220,95 T330,95 T400,95';
+      wave3 = 'M0,65 Q80,25 160,75 T320,75 T400,75';
+      dots = `<circle cx="80" cy="80" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>
+              <circle cx="160" cy="80" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>
+              <circle cx="240" cy="80" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>
+              <circle cx="320" cy="80" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>`;
+    } else if (s === 3) {
+      wave1 = 'M0,85 Q75,25 150,85 T300,85 T400,85';
+      wave2 = 'M0,75 Q50,135 100,75 T200,75 T300,75 T400,75';
+      wave3 = 'M0,90 Q35,40 70,90 T140,90 T210,90 T280,90 T350,90 T400,90';
+      dots = `<circle cx="150" cy="85" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>
+              <circle cx="300" cy="85" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>`;
+    } else if (s === 4) {
+      wave1 = 'M0,70 Q55,130 110,70 T220,70 T330,70 T400,70';
+      wave2 = 'M0,90 Q40,30 80,90 T160,90 T240,90 T320,90 T400,90';
+      wave3 = 'M0,80 Q70,20 140,80 T280,80 T400,80';
+      dots = `<circle cx="110" cy="70" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>
+              <circle cx="220" cy="70" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>
+              <circle cx="330" cy="70" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>`;
     } else {
-      return `
-        <svg viewBox="0 0 500 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="glowD" cx="50%" cy="50%" r="60%">
-              <stop offset="0%" stop-color="${color}" stop-opacity="0.35"/>
-              <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-          <rect width="100%" height="100%" fill="#050806"/>
-          <circle cx="250" cy="100" r="160" fill="url(#glowD)"/>
-
-          <!-- Сетевой граф дискретных отношений -->
-          <g stroke="${color}" stroke-opacity="0.3" stroke-width="1.6">
-            <line x1="80" y1="100" x2="170" y2="40"/>
-            <line x1="80" y1="100" x2="170" y2="160"/>
-            <line x1="170" y1="40" x2="310" y2="60"/>
-            <line x1="170" y1="160" x2="310" y2="140"/>
-            <line x1="310" y1="60" x2="420" y2="100"/>
-            <line x1="310" y1="140" x2="420" y2="100"/>
-            <line x1="170" y1="40" x2="170" y2="160"/>
-            <line x1="310" y1="60" x2="310" y2="140"/>
-            <line x1="170" y1="40" x2="310" y2="140" stroke="rgba(255,255,255,0.4)" stroke-dasharray="3,3"/>
-          </g>
-
-          <circle cx="80" cy="100" r="6" fill="${color}" stroke="#fff" stroke-width="1.5"/>
-          <circle cx="170" cy="40" r="5" fill="${color}"/>
-          <circle cx="170" cy="160" r="5" fill="${color}"/>
-          <circle cx="310" cy="60" r="5" fill="${color}"/>
-          <circle cx="310" cy="140" r="5" fill="${color}"/>
-          <circle cx="420" cy="100" r="7" fill="#fff" stroke="${color}" stroke-width="2"/>
-        </svg>
-      `;
+      wave1 = 'M0,80 Q45,20 90,80 T180,80 T270,80 T360,80 T400,80';
+      wave2 = 'M0,85 Q70,145 140,85 T280,85 T400,85';
+      wave3 = 'M0,75 Q60,35 120,75 T240,75 T360,75 T400,75';
+      dots = `<circle cx="90" cy="80" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>
+              <circle cx="180" cy="80" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>
+              <circle cx="270" cy="80" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>
+              <circle cx="360" cy="80" r="4.5" fill="${color}" stroke="#FFFFFF" stroke-width="1.8"/>`;
     }
+
+    return `
+      <svg viewBox="0 0 400 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="waveGlow_${seed}" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="${color}" stop-opacity="0.95"/>
+            <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.85"/>
+            <stop offset="100%" stop-color="${color}" stop-opacity="0.35"/>
+          </linearGradient>
+          <radialGradient id="radialGlow_${seed}" cx="50%" cy="50%" r="60%">
+            <stop offset="0%" stop-color="${color}" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="#08070A"/>
+        <circle cx="200" cy="80" r="140" fill="url(#radialGlow_${seed})"/>
+        
+        <!-- Академическая координатная сетка -->
+        <g stroke="rgba(255,255,255,0.06)" stroke-width="0.8">
+          <line x1="0" y1="80" x2="400" y2="80"/>
+          <line x1="0" y1="40" x2="400" y2="40"/>
+          <line x1="0" y1="120" x2="400" y2="120"/>
+          <line x1="100" y1="0" x2="100" y2="160"/>
+          <line x1="200" y1="0" x2="200" y2="160"/>
+          <line x1="300" y1="0" x2="300" y2="160"/>
+        </g>
+
+        <!-- Волновые гармоники под цвет предмета -->
+        <path d="${wave1}" fill="none" stroke="url(#waveGlow_${seed})" stroke-width="2.5"/>
+        <path d="${wave2}" fill="none" stroke="${color}" stroke-opacity="0.4" stroke-width="1.6"/>
+        <path d="${wave3}" fill="none" stroke="${color}" stroke-opacity="0.45" stroke-width="1.2" stroke-dasharray="4,4"/>
+        
+        ${dots}
+      </svg>
+    `;
   }
 
-  createLectureCard(lec) {
+  createLectureCard(lec, index = 0) {
     const card = document.createElement('div');
     const isStudied = this.studiedSet.has(lec.id);
     card.className = `lecture-card ${isStudied ? 'studied' : ''}`;
@@ -741,24 +739,26 @@ class App {
     const subj = (this.metadata.subjects || []).find(s => s.name === lec.subject);
     const subjColor = subj ? subj.color : 'var(--accent-color)';
 
-    // Винтажный индекс номера лекции в углу обложки
-    const firstNum = (lec.sessions && lec.sessions[0]?.number) ? String(lec.sessions[0].number).padStart(2, '0') : '01';
-
-    // Формируем чипы пар и дат
+    const firstNum = (lec.sessions && lec.sessions[0]?.number) ? String(lec.sessions[0].number).padStart(2, '0') : String(index + 1).padStart(2, '0');
     const sessionsChips = (lec.sessions || []).map(s => `№${s.number} · ${s.date}`).join(' | ');
-
     const tagsHtml = (lec.tags || []).map(t => `<span class="card-tag" data-tag="${t}">#${t}</span>`).join('');
 
     card.innerHTML = `
-      <div class="card-artwork">
-        ${this.generateMathSvg(lec.subject, subjColor)}
-        <div class="card-vintage-index">/${firstNum}</div>
+      <div class="card-artwork-frame">
+        <div class="card-artwork">
+          ${this.generateHarmonicWaveSvg(subjColor, index)}
+          <div class="card-subj-floating-pill" style="border-color: ${subjColor};">
+            <span class="pill-dot" style="background-color: ${subjColor};"></span>
+            <span>${lec.subject}</span>
+          </div>
+          <div class="card-vintage-index">/${firstNum}</div>
+        </div>
       </div>
 
       <div class="card-content">
         <div class="card-meta-top">
-          <span class="card-subject-pill" style="background-color: ${subjColor};">● ${lec.subject}</span>
-          <span class="card-session-index">${sessionsChips}</span>
+          <span class="card-session-index">${sessionsChips || '1 КУРС · 2026–2027'}</span>
+          ${lec.module ? `<span class="card-module-tag">${lec.module}</span>` : ''}
         </div>
 
         <h3 class="card-lecture-title">${lec.title}</h3>
@@ -774,7 +774,7 @@ class App {
           
           <div style="display: flex; gap: 8px; align-items: center;">
             ${(lec.originals && lec.originals.length > 0) ? `
-              <button class="btn-icon-subtle btn-open-orig" title="Оригинал лектора">
+              <button class="btn-icon-subtle btn-open-orig" title="Оригинал лектора (${lec.originals.length} файл.)">
                 📄 PDF
               </button>
             ` : ''}

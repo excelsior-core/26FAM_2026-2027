@@ -3,7 +3,7 @@
  * Кэширует app shell (HTML, стили, скрипты, шрифты) и зашифрованные blobs
  */
 
-const CACHE_NAME = 'fpm-conspects-v1';
+const CACHE_NAME = 'fpm-conspects-v3.0';
 const APP_SHELL = [
   './',
   'index.html',
