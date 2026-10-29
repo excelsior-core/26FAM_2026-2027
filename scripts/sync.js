@@ -503,9 +503,15 @@ function deployToGitHub(config) {
     }
 
     execSync('git init', { cwd: distDir, stdio: 'ignore' });
+    execSync('git config user.name "HSE Conspects Deployer"', { cwd: distDir, stdio: 'ignore' });
+    execSync('git config user.email "deploy@hse-storage.local"', { cwd: distDir, stdio: 'ignore' });
     execSync('git checkout -b gh-pages', { cwd: distDir, stdio: 'ignore' });
+
+    // .nojekyll отключает обработчик Jekyll на GitHub Pages и гарантирует чистую отдачу файлов и шрифтов
+    fs.writeFileSync(path.join(distDir, '.nojekyll'), '');
+
     execSync('git add -A', { cwd: distDir, stdio: 'ignore' });
-    execSync(`git commit -m "Deploy: ${new Date().toISOString()}"`, { cwd: distDir, stdio: 'ignore' });
+    execSync(`git commit -m "Deploy: ${new Date().toISOString()}"`, { cwd: distDir, stdio: 'pipe' });
     execSync(`git remote add origin ${config.repoUrl}`, { cwd: distDir, stdio: 'ignore' });
 
     console.log(' ⬆️ Выполняется orphan force-push в ветку gh-pages...');
@@ -514,7 +520,8 @@ function deployToGitHub(config) {
     fs.rmSync(distDir, { recursive: true, force: true });
     console.log('🎉 Успешно опубликовано на GitHub Pages!');
   } catch (err) {
-    console.error('❌ Ошибка при отправке на GitHub Pages:', err.message);
+    const errorDetails = err.stderr ? err.stderr.toString() : err.message;
+    console.error('❌ Ошибка при отправке на GitHub Pages:\n', errorDetails);
   }
 }
 
