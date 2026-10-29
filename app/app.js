@@ -74,10 +74,6 @@ class App {
     this.layoutToggleBtn = document.getElementById('layout-toggle-btn');
 
     // Кнопки шапки
-    this.circadianBadge = document.getElementById('circadian-badge');
-    this.circadianIcon = document.getElementById('circadian-icon');
-    this.circadianText = document.getElementById('circadian-text');
-
     // Статистика в Hero
     this.statTotalLectures = document.getElementById('stat-total-lectures');
     this.statStudiedPercent = document.getElementById('stat-studied-percent');
@@ -648,7 +644,7 @@ class App {
     const isStudied = this.studiedSet.has(lec.id);
     const subjColor = this.getSubjectColor(lec.subject);
     const dateStr = lec.sessions?.[0]?.date || '';
-    const numStr = lec.sessions?.[0]?.number ? `Пapa №${lec.sessions[0].number}` : '';
+    const numStr = lec.sessions?.[0]?.number ? `Пара №${lec.sessions[0].number}` : '';
 
     el.innerHTML = `
       <div>
@@ -1043,8 +1039,6 @@ class App {
       }
 
       document.documentElement.style.setProperty('--circadian-tint', tint);
-      if (this.circadianText) this.circadianText.textContent = label;
-      if (this.circadianIcon) this.circadianIcon.textContent = icon;
     };
 
     update();
