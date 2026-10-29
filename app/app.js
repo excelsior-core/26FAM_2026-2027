@@ -123,8 +123,12 @@ class App {
     this.readerIframe = document.getElementById('reader-iframe');
     this.readerOrigIframe = document.getElementById('reader-orig-iframe');
     this.readerPdfSelect = document.getElementById('reader-pdf-select');
+    this.noteDownloadHtmlBtn = document.getElementById('note-download-html-btn');
+    this.origDownloadPdfBtn = document.getElementById('orig-download-pdf-btn');
     this.splitDivider = document.getElementById('reader-split-divider');
     this.currentPdfIndex = 0;
+    this.currentReaderMode = null;
+    this.isProgrammaticHashChange = false;
 
     this.segBtnNote = document.getElementById('seg-btn-note');
     this.segBtnOrig = document.getElementById('seg-btn-orig');
@@ -175,45 +179,22 @@ class App {
       this.readerMarginaliaPane.classList.toggle('open');
     });
 
-    this.splitToggleBtn.addEventListener('click', () => this.toggleSplitView());
-
-    // Мобильный segmented-switch
-    if (this.segBtnNote && this.segBtnOrig) {
-      this.segBtnNote.addEventListener('click', () => {
-        this.segBtnNote.classList.add('active');
-        this.segBtnOrig.classList.remove('active');
-        this.paneNote.style.display = 'flex';
-        this.paneOrig.style.display = 'none';
-      });
-
-      this.segBtnOrig.addEventListener('click', () => {
-        this.segBtnOrig.classList.add('active');
-        this.segBtnNote.classList.remove('active');
-        this.paneNote.style.display = 'none';
-        this.paneOrig.style.display = 'flex';
-        this.paneOrig.classList.remove('split-hidden');
-      });
-    }
+    this.segBtnNote?.addEventListener('click', () => this.setReaderMode('html'));
+    this.segBtnOrig?.addEventListener('click', () => this.setReaderMode('pdf'));
+    this.splitToggleBtn?.addEventListener('click', () => this.toggleSplitView());
 
     this.readerPdfSelect?.addEventListener('change', (e) => {
       const idx = parseInt(e.target.value, 10) || 0;
       this.loadOriginalPdf(idx);
     });
 
-    // Скачивание оригинального PDF с благородным русским именем
-    this.readerDownloadPdfBtn.addEventListener('click', () => {
-      if (this.currentLecture && this.currentLecture.originals?.[0]) {
-        this.downloadOriginalPdf(this.currentLecture);
-      }
-    });
+    // Скачивание файлов
+    this.readerDownloadPdfBtn?.addEventListener('click', () => this.downloadOriginalPdf());
+    this.origDownloadPdfBtn?.addEventListener('click', () => this.downloadOriginalPdf());
+    this.noteDownloadHtmlBtn?.addEventListener('click', () => this.downloadHtmlNote());
 
-    this.readerNewTabBtn.addEventListener('click', () => {
-      if (this.currentLecture?.currentPdfBlobUrl) {
-        window.open(this.currentLecture.currentPdfBlobUrl, '_blank');
-      } else if (this.currentLecture?.currentHtmlBlobUrl) {
-        window.open(this.currentLecture.currentHtmlBlobUrl, '_blank');
-      }
-    });
+    // Открытие строго текущего отображаемого документа в новой вкладке
+    this.readerNewTabBtn?.addEventListener('click', () => this.openActiveInNewTab());
 
     this.readerMarkStudiedBtn.addEventListener('click', () => {
       if (!this.currentLecture) return;
@@ -957,7 +938,18 @@ class App {
     if (!lecture) return;
 
     this.currentLecture = lecture;
-    window.location.hash = `lecture-${lectureId}`;
+    let requestedMode = options.mode || 'html';
+    this.currentPdfIndex = options.pdfIndex || 0;
+
+    const hasHtml = lecture.files && lecture.files.length > 0;
+    const hasOriginal = lecture.originals && lecture.originals.length > 0;
+
+    // Автоматическая корректировка: если у материала нет HTML, но есть PDF, переключаем на PDF!
+    if (requestedMode === 'html' && !hasHtml && hasOriginal) {
+      requestedMode = 'pdf';
+    } else if (requestedMode === 'pdf' && !hasOriginal && hasHtml) {
+      requestedMode = 'html';
+    }
 
     this.readerTitle.textContent = lecture.title;
     this.readerSubjectDot.style.backgroundColor = this.getSubjectColor(lecture.subject);
@@ -967,7 +959,7 @@ class App {
     this.cleanupBlobUrls();
 
     // Загрузка конспекта (HTML)
-    if (lecture.files && lecture.files.length > 0) {
+    if (hasHtml) {
       const htmlFile = lecture.files[0];
       try {
         const htmlBytes = await this.fetchAndDecryptBlob(htmlFile.blob);
@@ -985,12 +977,11 @@ class App {
       } catch (err) {
         console.error('Ошибка расшифровки конспекта:', err);
       }
+    } else {
+      this.readerIframe.src = 'about:blank';
     }
 
     // Загрузка оригинала (PDF)
-    const hasOriginal = lecture.originals && lecture.originals.length > 0;
-    this.currentPdfIndex = options.pdfIndex || 0;
-
     if (this.readerPdfSelect) {
       if (hasOriginal && lecture.originals.length > 1) {
         this.readerPdfSelect.style.display = 'inline-block';
@@ -1004,55 +995,177 @@ class App {
 
     if (hasOriginal) {
       await this.loadOriginalPdf(this.currentPdfIndex);
+    } else {
+      this.readerOrigIframe.src = 'about:blank';
     }
 
-    // Применение выбранного режима: html, pdf, split
-    if (options.mode === 'pdf' && hasOriginal) {
-      // Открытие чистой рукописи
+    // Управление видимостью кнопки "Скачать PDF" в шапке
+    if (this.readerDownloadPdfBtn) {
+      this.readerDownloadPdfBtn.style.display = hasOriginal ? 'inline-flex' : 'none';
+    }
+
+    // Переключаем интерфейс в запрошенный режим строго через контроллер
+    this.setReaderMode(requestedMode);
+  }
+
+  setReaderMode(mode) {
+    if (!this.currentLecture) return;
+    const hasHtml = this.currentLecture.files && this.currentLecture.files.length > 0;
+    const hasOriginal = this.currentLecture.originals && this.currentLecture.originals.length > 0;
+
+    if (mode === 'pdf' && !hasOriginal && hasHtml) {
+      mode = 'html';
+    } else if (mode === 'html' && !hasHtml && hasOriginal) {
+      mode = 'pdf';
+    } else if (mode === 'split' && (!hasHtml || !hasOriginal)) {
+      mode = hasOriginal ? 'pdf' : 'html';
+    }
+
+    this.currentReaderMode = mode;
+
+    this.segBtnNote?.classList.remove('active');
+    this.segBtnOrig?.classList.remove('active');
+    this.splitToggleBtn?.classList.remove('active');
+
+    if (mode === 'pdf') {
       this.paneNote.style.display = 'none';
       this.paneOrig.style.display = 'flex';
       this.paneOrig.classList.remove('split-hidden');
       this.splitDivider.style.display = 'none';
-      if (this.segBtnOrig) {
-        this.segBtnOrig.classList.add('active');
-        this.segBtnNote.classList.remove('active');
+      this.paneNote.style.width = '';
+      this.paneNote.style.flex = '1';
+
+      this.segBtnOrig?.classList.add('active');
+      if (this.readerNewTabBtn) {
+        this.readerNewTabBtn.title = 'Открыть оригинальный PDF в новой вкладке';
       }
-    } else if (options.mode === 'split' && hasOriginal) {
-      // Сплит-режим
+    } else if (mode === 'split') {
       this.paneNote.style.display = 'flex';
       this.paneOrig.style.display = 'flex';
       this.paneOrig.classList.remove('split-hidden');
       this.splitDivider.style.display = 'block';
+
+      this.splitToggleBtn?.classList.add('active');
+      if (this.readerNewTabBtn) {
+        this.readerNewTabBtn.title = 'Открыть оригинальный PDF в новой вкладке';
+      }
     } else {
-      // Обычный конспект
+      // mode === 'html'
       this.paneNote.style.display = 'flex';
       this.paneOrig.style.display = 'none';
       this.splitDivider.style.display = 'none';
-      if (this.segBtnNote) {
-        this.segBtnNote.classList.add('active');
-        this.segBtnOrig?.classList.remove('active');
+      this.paneNote.style.width = '';
+      this.paneNote.style.flex = '1';
+
+      this.segBtnNote?.classList.add('active');
+      if (this.readerNewTabBtn) {
+        this.readerNewTabBtn.title = 'Открыть HTML-конспект в новой вкладке';
+      }
+    }
+
+    this.updateReaderHash();
+  }
+
+  updateReaderHash() {
+    if (!this.currentLecture) return;
+    this.isProgrammaticHashChange = true;
+    window.location.hash = `lecture-${this.currentLecture.id}:${this.currentReaderMode}`;
+    setTimeout(() => {
+      this.isProgrammaticHashChange = false;
+    }, 150);
+  }
+
+  toggleSplitView() {
+    if (!this.currentLecture) return;
+    const hasOriginal = this.currentLecture.originals && this.currentLecture.originals.length > 0;
+    const hasHtml = this.currentLecture.files && this.currentLecture.files.length > 0;
+
+    if (!hasOriginal) {
+      alert('Оригинальный PDF лектора для этого материала пока не загружен.');
+      return;
+    }
+    if (!hasHtml) {
+      alert('Нейроконспект (HTML) для этого материала отсутствует, доступен только оригинал PDF.');
+      return;
+    }
+
+    if (this.currentReaderMode === 'split') {
+      this.setReaderMode('html');
+    } else {
+      this.setReaderMode('split');
+    }
+  }
+
+  openActiveInNewTab() {
+    if (!this.currentLecture) return;
+
+    if (this.currentReaderMode === 'pdf') {
+      if (this.currentLecture.currentPdfBlobUrl) {
+        window.open(this.currentLecture.currentPdfBlobUrl, '_blank');
+      } else {
+        alert('PDF файл еще не расшифрован.');
+      }
+    } else if (this.currentReaderMode === 'html') {
+      if (this.currentLecture.currentHtmlBlobUrl) {
+        window.open(this.currentLecture.currentHtmlBlobUrl, '_blank');
+      } else if (this.currentLecture.currentPdfBlobUrl) {
+        window.open(this.currentLecture.currentPdfBlobUrl, '_blank');
+      }
+    } else if (this.currentReaderMode === 'split') {
+      if (this.currentLecture.currentPdfBlobUrl) {
+        window.open(this.currentLecture.currentPdfBlobUrl, '_blank');
+      } else if (this.currentLecture.currentHtmlBlobUrl) {
+        window.open(this.currentLecture.currentHtmlBlobUrl, '_blank');
       }
     }
   }
 
-  toggleSplitView() {
-    if (!this.currentLecture?.originals?.length) {
-      alert('Оригинальный PDF лектора для этого материала пока не загружен.');
+  async openLectureInNewTab(lecId, mode = 'html') {
+    const lecture = (this.metadata.lectures || []).find(l => l.id === lecId);
+    if (!lecture) return;
+
+    if (mode === 'pdf' || (!lecture.files?.length && lecture.originals?.length)) {
+      if (lecture.originals?.[0]) {
+        try {
+          const bytes = await this.fetchAndDecryptBlob(lecture.originals[0].blob);
+          const blob = new Blob([bytes], { type: 'application/pdf' });
+          const url = URL.createObjectURL(blob);
+          this.activeObjectUrls.push(url);
+          window.open(url, '_blank');
+        } catch (e) {
+          console.error('Ошибка открытия PDF в новой вкладке:', e);
+        }
+      }
+    } else if (lecture.files?.[0]) {
+      try {
+        const bytes = await this.fetchAndDecryptBlob(lecture.files[0].blob);
+        const text = new TextDecoder().decode(bytes);
+        const blob = new Blob([text], { type: 'text/html; charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        this.activeObjectUrls.push(url);
+        window.open(url, '_blank');
+      } catch (e) {
+        console.error('Ошибка открытия HTML в новой вкладке:', e);
+      }
+    }
+  }
+
+  downloadHtmlNote(lecture) {
+    if (!lecture) lecture = this.currentLecture;
+    if (!lecture) return;
+
+    if (!lecture.currentHtmlBlobUrl) {
+      alert('HTML-конспект отсутствует для этой лекции.');
       return;
     }
-
-    const isSplitOpen = this.paneOrig.style.display === 'flex' && this.paneNote.style.display === 'flex';
-    if (isSplitOpen) {
-      // Закрываем сплит, оставляем конспект
-      this.paneOrig.style.display = 'none';
-      this.splitDivider.style.display = 'none';
-    } else {
-      // Открываем оба окна бок о бок
-      this.paneNote.style.display = 'flex';
-      this.paneOrig.style.display = 'flex';
-      this.paneOrig.classList.remove('split-hidden');
-      this.splitDivider.style.display = 'block';
-    }
+    const a = document.createElement('a');
+    a.href = lecture.currentHtmlBlobUrl;
+    const cleanSubj = (lecture.subject || '').replace(/[\/\\?%*:|"<>]/g, '');
+    const cleanTitle = (lecture.title || '').replace(/[\/\\?%*:|"<>]/g, '');
+    a.download = `[ФПМ ВШЭ] ${cleanSubj} · ${cleanTitle} (Конспект).html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 
   initSplitDivider() {
@@ -1134,13 +1247,20 @@ class App {
     this.activeObjectUrls = [];
   }
 
-  closeReader() {
+  closeReader(updateHash = true) {
     this.readerModal.classList.remove('open');
     this.readerIframe.src = 'about:blank';
     this.readerOrigIframe.src = 'about:blank';
     this.cleanupBlobUrls();
     this.currentLecture = null;
-    window.location.hash = '';
+    this.currentReaderMode = null;
+    if (updateHash) {
+      this.isProgrammaticHashChange = true;
+      window.location.hash = '';
+      setTimeout(() => {
+        this.isProgrammaticHashChange = false;
+      }, 150);
+    }
   }
 
   async fetchAndDecryptBlob(hash) {
@@ -1485,10 +1605,20 @@ class App {
   }
 
   handleHashChange() {
+    if (this.isProgrammaticHashChange) return;
+
     const hash = window.location.hash.slice(1);
     if (hash.startsWith('lecture-')) {
-      const id = hash.replace('lecture-', '');
-      this.openLecture(id);
+      const payload = hash.replace('lecture-', '');
+      let [id, mode] = payload.split(':');
+      mode = mode || 'html';
+
+      if (this.currentLecture?.id === id && this.currentReaderMode === mode) {
+        return;
+      }
+      this.openLecture(id, { mode });
+    } else if (!hash && this.readerModal?.classList.contains('open')) {
+      this.closeReader(false);
     }
   }
 }

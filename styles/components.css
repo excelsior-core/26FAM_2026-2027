@@ -824,23 +824,33 @@
   gap: 8px;
 }
 
-/* Мобильный переключатель сегментов (Segmented Switch) */
-.mobile-segment-switch {
-  display: none;
+/* Переключатель режимов ридера (Segmented Switch) */
+.reader-mode-switch {
+  display: inline-flex;
   background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--border-gold);
   border-radius: var(--radius-sm);
   padding: 2px;
+  gap: 2px;
 }
 .segment-btn {
   padding: 5px 12px;
   font-size: 0.78rem;
   border-radius: var(--radius-sm);
   color: var(--parchment-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: var(--font-sans);
+}
+.segment-btn:hover {
+  color: var(--ivory-parchment);
+  background: rgba(212, 175, 55, 0.1);
 }
 .segment-btn.active {
   background: var(--gold-antique);
-  color: #120E08;
+  color: #120E08 !important;
   font-weight: 700;
 }
 
@@ -1205,7 +1215,7 @@
   .editorial-diptych-grid {
     grid-template-columns: 1fr;
   }
-  .mobile-segment-switch {
+  .reader-mode-switch {
     display: inline-flex;
   }
   .split-divider {

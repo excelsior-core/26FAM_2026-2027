@@ -261,10 +261,11 @@
         <h3 id="reader-lecture-title" style="font-size: 1.1rem; overflow: hidden; text-overflow: ellipsis;">Лекция</h3>
       </div>
 
-      <!-- Мобильный segmented-switch для переключения на смартфонах -->
-      <div class="mobile-segment-switch">
-        <button id="seg-btn-note" class="segment-btn active">Конспект</button>
-        <button id="seg-btn-orig" class="segment-btn">Оригинал (PDF)</button>
+      <!-- Единый переключатель режимов ридера -->
+      <div class="reader-mode-switch">
+        <button id="seg-btn-note" class="segment-btn active" title="Читать нейроконспект">📝 Конспект</button>
+        <button id="seg-btn-orig" class="segment-btn" title="Смотреть оригинальный PDF лектора">📄 Оригинал (PDF)</button>
+        <button id="split-toggle-btn" class="segment-btn" title="Открыть оба документа рядом (Split-режим)">⚖️ Сплит</button>
       </div>
 
       <div class="reader-actions-area">
@@ -274,11 +275,8 @@
         <button id="reader-marginalia-toggle" class="btn-secondary" title="Личные заметки на полях">
           ✦ Заметки
         </button>
-        <button id="split-toggle-btn" class="btn-secondary" title="Открыть оригинал лектора рядом">
-          ⚖️ Оригинал рядом
-        </button>
-        <button id="reader-new-tab-btn" class="btn-secondary" title="Открыть в новой вкладке">
-          ↗ Новая вкладка
+        <button id="reader-new-tab-btn" class="btn-secondary" title="Открыть текущий документ в новой вкладке">
+          ↗ В новой вкладке
         </button>
         <button id="reader-download-pdf-btn" class="action-btn-primary" style="padding: 5px 12px; font-size: 0.8rem;" title="Скачать оригинальный PDF">
           💾 Скачать PDF
@@ -290,9 +288,14 @@
     <div class="reader-body">
       <!-- Левая панель: Нейроконспект (HTML) -->
       <div id="pane-note" class="reader-pane">
-        <div class="pane-label-bar">
-          <span>Нейроконспект (HTML)</span>
-          <span id="note-downloads-span"></span>
+        <div class="pane-label-bar" style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-weight: 600;">Нейроконспект (HTML)</span>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button id="note-download-html-btn" class="btn-secondary" style="padding: 2px 8px; font-size: 0.72rem;" title="Скачать HTML-конспект">
+              💾 Скачать HTML
+            </button>
+            <span id="note-downloads-span"></span>
+          </div>
         </div>
         <iframe id="reader-iframe" sandbox="allow-scripts allow-same-origin"></iframe>
       </div>
@@ -307,7 +310,12 @@
             <span style="font-weight: 600;">Оригинал (PDF):</span>
             <select id="reader-pdf-select" class="reader-pdf-select" style="display: none;"></select>
           </div>
-          <span id="orig-downloads-span"></span>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button id="orig-download-pdf-btn" class="btn-secondary" style="padding: 2px 8px; font-size: 0.72rem;" title="Скачать выбранный PDF">
+              💾 Скачать этот PDF
+            </button>
+            <span id="orig-downloads-span"></span>
+          </div>
         </div>
         <iframe id="reader-orig-iframe"></iframe>
       </div>
