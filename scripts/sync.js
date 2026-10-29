@@ -1,7 +1,6 @@
 /**
  * scripts/sync.js - Движок синхронизации и клиентского шифрования «“конспекты” ФПМ»
- * Без сборщиков, без npm-зависимостей (чистый Node.js LTS).
- * Сканирование Storage -> Gzip -> PBKDF2-SHA256 (600k) + AES-256-GCM -> Blobs -> Git gh-pages
+ * Сканирование Storage -> Умный парсер номеров/дат -> Gzip -> AES-256-GCM -> Mirror-mode -> GitHub Pages
  */
 
 const fs = require('fs');
@@ -18,7 +17,6 @@ const KEY_LEN = 32;
 const ROOT_DIR = path.resolve(__dirname, '..');
 const CONFIG_FILE = path.join(__dirname, 'sync.json');
 
-// Проверка окружения
 function checkPrerequisites() {
   const nodeVer = parseInt(process.versions.node.split('.')[0], 10);
   if (nodeVer < 18) {
@@ -34,7 +32,6 @@ function checkPrerequisites() {
   }
 }
 
-// Загрузка или создание начального конфига
 function loadConfig() {
   let config;
   if (!fs.existsSync(CONFIG_FILE)) {
@@ -65,16 +62,14 @@ function loadConfig() {
   }
 }
 
-// Шифрование буфера: Gzip -> AES-GCM (с единой солью хранилища и уникальным IV на каждый файл)
 function encryptWithKey(buffer, key, salt) {
   const gzipped = zlib.gzipSync(buffer, { level: 9 });
   const iv = crypto.randomBytes(12);
 
   const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
   const encrypted = Buffer.concat([cipher.update(gzipped), cipher.final()]);
-  const tag = cipher.getAuthTag(); // 16 байт
+  const tag = cipher.getAuthTag();
 
-  // Собираем: FAMB1 (5) + version (1) + salt (16) + iv (12) + ciphertext + authTag
   return Buffer.concat([
     MAGIC_HEADER,
     Buffer.from([FORMAT_VERSION]),
@@ -85,47 +80,83 @@ function encryptWithKey(buffer, key, salt) {
   ]);
 }
 
-// Вычисление стабильного SHA-256 хеша для контента
 function getSha256Hex(buf) {
   return crypto.createHash('sha256').update(buf).digest('hex').slice(0, 16);
 }
 
-// Хеш для ID лекции: subject + folderName
 function getLectureId(subject, folder) {
   return crypto.createHash('sha256').update(`${subject}::${folder}`).digest('hex').slice(0, 12);
 }
 
-// Основной процесс синхронизации
+/**
+ * Умный парсер номеров пар и дат из названия папки лекции:
+ * Примеры:
+ * "10 10.09.2026 11 14.09.2026 Пределы и непрерывность"
+ * "Лекция 5 (18.09.2026) Ранг матрицы"
+ * "№12, 13 (20.09.2026, 24.09.2026) Теорема Коши"
+ */
+function parseFolderSessions(folderName) {
+  const dates = [];
+  const dateRegex = /\b(\d{2}\.\d{2}\.\d{4})\b/g;
+  let dMatch;
+  while ((dMatch = dateRegex.exec(folderName)) !== null) {
+    dates.push(dMatch[1]);
+  }
+
+  // Очищаем от дат, чтобы цифры годов не распознались как номера лекций
+  const cleanForNums = folderName.replace(/\b\d{2}\.\d{2}\.\d{4}\b/g, ' ');
+  const nums = [];
+  const numRegex = /\b(?:№|лекци[яи]\s*|пар[аы]\s*)?(\d{1,3})\b/gi;
+  let nMatch;
+  while ((nMatch = numRegex.exec(cleanForNums)) !== null) {
+    const val = parseInt(nMatch[1], 10);
+    if (!isNaN(val) && val > 0 && val < 500) {
+      nums.push(val);
+    }
+  }
+
+  const sessions = [];
+  const count = Math.max(dates.length, nums.length);
+  for (let i = 0; i < count; i++) {
+    sessions.push({
+      number: nums[i] || (i + 1),
+      date: dates[i] || ''
+    });
+  }
+
+  // Очищенный эстетичный заголовок
+  let cleanTitle = folderName
+    .replace(/\b\d{2}\.\d{2}\.\d{4}\b/g, '')
+    .replace(/\b(?:№|лекци[яи]\s*|пар[аы]\s*)?\d{1,3}\b/gi, '')
+    .replace(/[\(\)\[\]\-—_]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return { sessions, cleanTitle: cleanTitle || folderName };
+}
+
 async function runSync() {
   checkPrerequisites();
   const config = loadConfig();
 
-  // Обработка флагов ротации паролей
   const args = process.argv.slice(2);
   if (args.includes('--rotate-shared')) {
     const newPass = args[args.indexOf('--rotate-shared') + 1];
-    if (!newPass) {
-      console.error('Укажите новый пароль: --rotate-shared <новый_пароль>');
-      process.exit(1);
-    }
+    if (!newPass) process.exit(1);
     config.sharedPassword = newPass;
     fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2), 'utf8');
-    console.log('🔑 Общий пароль обновлен в scripts/sync.json. Перешифровываем всё...');
+    console.log('🔑 Общий пароль обновлен в scripts/sync.json.');
   }
 
   if (args.includes('--rotate-admin')) {
     const newPass = args[args.indexOf('--rotate-admin') + 1];
-    if (!newPass) {
-      console.error('Укажите новый пароль: --rotate-admin <новый_пароль>');
-      process.exit(1);
-    }
+    if (!newPass) process.exit(1);
     config.adminPassword = newPass;
     fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2), 'utf8');
-    console.log('🔑 Админ-пароль обновлен в scripts/sync.json. Перешифровываем admin.bin...');
+    console.log('🔑 Админ-пароль обновлен в scripts/sync.json.');
   }
 
   const vaultSalt = Buffer.from(config.vaultSalt, 'hex');
-  console.log('⚡ Генерация мастер-ключей через PBKDF2 (600 000 итераций)...');
   const sharedKey = crypto.pbkdf2Sync(config.sharedPassword, vaultSalt, PBKDF2_ITERATIONS, KEY_LEN, 'sha256');
   const adminKey = crypto.pbkdf2Sync(config.adminPassword, vaultSalt, PBKDF2_ITERATIONS, KEY_LEN, 'sha256');
 
@@ -138,7 +169,6 @@ async function runSync() {
   }
 
   if (!fs.existsSync(hseDir)) {
-    console.log(`📁 Создание базовой структуры папок в ${hseDir}...`);
     fs.mkdirSync(hseDir, { recursive: true });
   }
 
@@ -146,20 +176,21 @@ async function runSync() {
   let existingMeta = {
     schema: 1,
     subjects: [
-      { name: "Матанализ", color: "#B5341F", description: "Лекции и семинары по матанализу" },
-      { name: "Линал и Аналит", color: "#1D4E89", description: "Линейная алгебра и аналитическая геометрия" },
-      { name: "Дискретная математика", color: "#2D6A4F", description: "Комбинаторика, графы, логика" }
+      { name: "Матанализ", color: "#B5341F", description: "Дифференциальное и интегральное исчисление" },
+      { name: "Линал и Аналит", color: "#1D4E89", description: "Векторные пространства, матрицы, аналитическая геометрия" },
+      { name: "Дискретная математика", color: "#2D6A4F", description: "Комбинаторика, теория графов и булевы функции" },
+      { name: "Программирование", color: "#7209B7", description: "Алгоритмы и структуры данных на C++" }
     ],
-    modules: ["Модуль 1", "Модуль 2"],
+    modules: ["Модуль 1", "Модуль 2", "Модуль 3", "Модуль 4"],
+    announcements: [],
     lectures: []
   };
 
   if (fs.existsSync(exportMetaPath)) {
     try {
       existingMeta = JSON.parse(fs.readFileSync(exportMetaPath, 'utf8'));
-      console.log('📋 Загружен файл экспорта site-metadata.json');
     } catch (e) {
-      console.warn('⚠️ Ошибка парсинга site-metadata.json, используем текущие данные');
+      console.warn('⚠️ Ошибка парсинга site-metadata.json');
     }
   }
 
@@ -172,10 +203,11 @@ async function runSync() {
 
   console.log('🔍 Сканирование папок Storage/HSE...');
   const activeBlobHashes = new Set();
-  const lecturesMap = new Map();
 
+  // Словарь предыдущих лекций для сохранения ручных правок админа
+  const existingLecturesById = new Map();
   for (const lec of existingMeta.lectures || []) {
-    lecturesMap.set(lec.id, lec);
+    existingLecturesById.set(lec.id, lec);
   }
 
   const subjects = fs.readdirSync(hseDir).filter(f => {
@@ -183,6 +215,7 @@ async function runSync() {
   });
 
   const nowIso = new Date().toISOString();
+  const currentLectures = [];
 
   for (const subjName of subjects) {
     const subjLecDir = path.join(hseDir, subjName, 'лекции');
@@ -198,26 +231,27 @@ async function runSync() {
       const folderPath = path.join(subjLecDir, folder);
       const lecId = getLectureId(subjName, cleanFolder);
 
-      let lecData = lecturesMap.get(lecId) || {
+      // Извлекаем сессии и заголовок из названия папки
+      const parsed = parseFolderSessions(cleanFolder);
+
+      const prev = existingLecturesById.get(lecId);
+      let lecData = {
         id: lecId,
         subject: subjName,
         folder: cleanFolder,
-        title: cleanFolder,
-        description: "",
-        tags: [],
-        module: existingMeta.modules && existingMeta.modules[0] ? existingMeta.modules[0] : "Модуль 1",
-        hidden: false,
-        sessions: [],
+        title: (prev && prev.title && prev.title !== cleanFolder) ? prev.title : parsed.cleanTitle,
+        description: prev ? (prev.description || "") : "",
+        tags: prev ? (prev.tags || []) : [],
+        module: prev ? (prev.module || "Модуль 1") : "Модуль 1",
+        hidden: prev ? !!prev.hidden : false,
+        sessions: (prev && prev.sessions && prev.sessions.length > 0) ? prev.sessions : parsed.sessions,
         files: [],
         originals: [],
-        addedAt: nowIso
+        addedAt: prev ? (prev.addedAt || nowIso) : nowIso,
+        updatedAt: nowIso
       };
 
-      lecData.updatedAt = nowIso;
-      lecData.files = [];
-      lecData.originals = [];
-
-      // 1. Поиск HTML нейроконспектов
+      // 1. Поиск HTML нейроконспектов в папке лекции
       const folderFiles = fs.readdirSync(folderPath);
       for (const file of folderFiles) {
         const filePath = path.join(folderPath, file);
@@ -229,7 +263,6 @@ async function runSync() {
 
           activeBlobHashes.add(blobName);
 
-          // Всегда шифруем актуальным ключом
           console.log(` 🔒 Шифрование конспекта: [${subjName}] ${folder}/${file}`);
           const encrypted = encryptWithKey(content, sharedKey, vaultSalt);
           fs.writeFileSync(blobPath, encrypted);
@@ -242,12 +275,40 @@ async function runSync() {
         }
       }
 
-      // 2. Поиск оригиналов (orig/*.pdf|*.jpg|*.png)
-      const origDir = path.join(folderPath, 'orig');
-      if (fs.existsSync(origDir) && fs.statSync(origDir).isDirectory()) {
-        const origFiles = fs.readdirSync(origDir);
+      // 2. Поиск оригиналов (orig, оригинал, оригиналы, originals)
+      const origPossibleNames = ['orig', 'origs', 'original', 'originals', 'оригинал', 'оригиналы'];
+      const origDirs = [];
+
+      for (const item of folderFiles) {
+        const fullItem = path.join(folderPath, item);
+        if (fs.statSync(fullItem).isDirectory() && origPossibleNames.includes(item.toLowerCase())) {
+          origDirs.push(fullItem);
+        } else if (fs.statSync(fullItem).isFile()) {
+          // Если PDF бросили прямо в папку лекции
+          const ext = path.extname(item).toLowerCase();
+          if (ext === '.pdf') {
+            const content = fs.readFileSync(fullItem);
+            const hash = getSha256Hex(content);
+            const blobName = `${hash}.bin`;
+            const blobPath = path.join(blobsDir, blobName);
+
+            activeBlobHashes.add(blobName);
+            const encrypted = encryptWithKey(content, sharedKey, vaultSalt);
+            fs.writeFileSync(blobPath, encrypted);
+
+            lecData.originals.push({
+              name: item,
+              type: 'pdf',
+              blob: hash
+            });
+          }
+        }
+      }
+
+      for (const od of origDirs) {
+        const origFiles = fs.readdirSync(od);
         for (const file of origFiles) {
-          const filePath = path.join(origDir, file);
+          const filePath = path.join(od, file);
           const ext = path.extname(file).toLowerCase();
           if (fs.statSync(filePath).isFile() && ['.pdf', '.jpg', '.jpeg', '.png'].includes(ext)) {
             const content = fs.readFileSync(filePath);
@@ -257,7 +318,7 @@ async function runSync() {
 
             activeBlobHashes.add(blobName);
 
-            console.log(` 🔒 Шифрование оригинала: [${subjName}] ${folder}/orig/${file}`);
+            console.log(` 🔒 Шифрование оригинала: [${subjName}] ${folder}/${path.basename(od)}/${file}`);
             const encrypted = encryptWithKey(content, sharedKey, vaultSalt);
             fs.writeFileSync(blobPath, encrypted);
 
@@ -270,11 +331,14 @@ async function runSync() {
         }
       }
 
-      lecturesMap.set(lecId, lecData);
+      currentLectures.push(lecData);
     }
   }
 
-  const finalLectures = Array.from(lecturesMap.values());
+  // ИСТИННЫЙ MIRROR-MODE:
+  // finalLectures содержит ТОЛЬКО те лекции, папки которых физически существуют сейчас в Storage!
+  const finalLectures = currentLectures;
+
   const finalMeta = {
     schema: 1,
     subjects: existingMeta.subjects,
@@ -283,7 +347,7 @@ async function runSync() {
     lectures: finalLectures
   };
 
-  // 3. Mirror-Mode
+  // Удаление устаревших/удаленных blobs
   const allBlobsOnDisk = fs.readdirSync(blobsDir);
   let removedCount = 0;
   for (const b of allBlobsOnDisk) {
@@ -296,7 +360,7 @@ async function runSync() {
     console.log(` 🧹 Очистка зеркала: удалено ${removedCount} устаревших blobs`);
   }
 
-  // 4. Manifest
+  // Обновление manifest.json
   const manifestList = fs.readdirSync(blobsDir).map(file => {
     const stat = fs.statSync(path.join(blobsDir, file));
     return { name: file, size: stat.size };
@@ -309,15 +373,13 @@ async function runSync() {
   };
   fs.writeFileSync(path.join(ROOT_DIR, 'manifest.json'), JSON.stringify(manifestData, null, 2), 'utf8');
 
-  // 5. Шифрование метаданных
+  // Шифрование метаданных
   console.log('🔐 Шифрование метаданных каталога...');
   const metaJsonBuf = Buffer.from(JSON.stringify(finalMeta), 'utf8');
 
-  // metadata.bin (общий пароль студентов)
   const encMeta = encryptWithKey(metaJsonBuf, sharedKey, vaultSalt);
   fs.writeFileSync(path.join(ROOT_DIR, 'metadata.bin'), encMeta);
 
-  // admin.bin (пароль администратора, содержит sharedKeyHex для доступа к blobs)
   const adminMeta = {
     ...finalMeta,
     sharedKeyHex: sharedKey.toString('hex')
@@ -326,9 +388,8 @@ async function runSync() {
   const encAdmin = encryptWithKey(adminJsonBuf, adminKey, vaultSalt);
   fs.writeFileSync(path.join(ROOT_DIR, 'admin.bin'), encAdmin);
 
-  console.log(`✅ Синхронизация завершена: ${finalLectures.length} лекций, ${activeBlobHashes.size} blobs.`);
+  console.log(`✅ Синхронизация завершена: ${finalLectures.length} лекций на сайте, ${activeBlobHashes.size} blobs.`);
 
-  // 6. Git Push
   if (!args.includes('--no-push')) {
     deployToGitHub(config);
   }
@@ -336,7 +397,7 @@ async function runSync() {
 
 function deployToGitHub(config) {
   if (!config.repoUrl) {
-    console.log('ℹ️ Параметр repoUrl не указан в scripts/sync.json. Публикация на GitHub пропущена.');
+    console.log('ℹ️ repoUrl не указан в scripts/sync.json. Деплой пропущен.');
     return;
   }
 

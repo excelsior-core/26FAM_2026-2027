@@ -1,7 +1,7 @@
 /**
- * app/app.js - Ultra-Wide ядро приложения «“конспекты” ФПМ»
- * WebCrypto-авторизация, процедурный генеративный математический арт,
- * интерактивный календарь пар, доска дедлайнов с тикающими таймерами и сплит-ридер
+ * app/app.js - Высокохудожественное ядро «“конспекты” ФПМ»
+ * Кинематографичный генеративный арт, люксовая академическая типографика,
+ * интерактивный календарь пар и доска дедлайнов с тикающими таймерами
  */
 
 import { VaultCrypto } from './crypto.js';
@@ -17,17 +17,15 @@ class App {
     this.searchEngine = new SearchEngine();
     this.adminManager = null;
 
-    // Чек-лист «Изучено»
     const savedStudied = localStorage.getItem('fpm_studied');
     this.studiedSet = new Set(savedStudied ? JSON.parse(savedStudied) : []);
 
     this.lastVisit = localStorage.getItem('fpm_last_visit') || new Date(0).toISOString();
     this.currentLecture = null;
 
-    // Календарь: текущий просматриваемый месяц (начинаем с сентября 2026 по ТЗ)
-    this.calCurrentDate = new Date(2026, 8, 1); // 0-based: 8 = Сентябрь 2026
+    // Календарь: учебный год 2026-2027 (начинаем с сентября)
+    this.calCurrentDate = new Date(2026, 8, 1);
 
-    // Фильтры
     this.filters = {
       subject: '',
       module: '',
@@ -42,7 +40,6 @@ class App {
     this.checkAutoLogin();
     this.registerServiceWorker();
 
-    // Запуск тикающего таймера обратного отсчета для дедлайнов
     setInterval(() => this.updateDeadlineCountdowns(), 1000);
   }
 
@@ -66,7 +63,7 @@ class App {
     this.newLecturesSection = document.getElementById('new-lectures-section');
     this.newLecturesGrid = document.getElementById('new-lectures-grid');
 
-    // Статистика в Hero
+    // Статистика
     this.statTotalLectures = document.getElementById('stat-total-lectures');
     this.statStudiedPercent = document.getElementById('stat-studied-percent');
     this.statStudiedRatio = document.getElementById('stat-studied-ratio');
@@ -79,13 +76,13 @@ class App {
     this.sortSelector = document.getElementById('sort-selector');
     this.resetFiltersBtn = document.getElementById('reset-filters-btn');
 
-    // Кнопки шапки
+    // Навигация
     this.announcementsOpenBtn = document.getElementById('announcements-open-btn');
     this.announcementsCountBadge = document.getElementById('announcements-count-badge');
     this.calendarOpenBtn = document.getElementById('calendar-open-btn');
     this.paletteOpenBtn = document.getElementById('palette-open-btn');
 
-    // Модалка Календаря
+    // Календарь
     this.calendarModal = document.getElementById('calendar-modal');
     this.calCloseBtn = document.getElementById('cal-close-btn');
     this.calPrevMonth = document.getElementById('cal-prev-month');
@@ -96,20 +93,19 @@ class App {
     this.calSelectedDateTitle = document.getElementById('cal-selected-date-title');
     this.calSelectedDateList = document.getElementById('cal-selected-date-list');
 
-    // Модалка Объявлений и Дедлайнов
+    // Дедлайны
     this.announcementsModal = document.getElementById('announcements-modal');
     this.annCloseBtn = document.getElementById('ann-close-btn');
     this.announcementsListContainer = document.getElementById('announcements-list-container');
     this.annAdminAddBtn = document.getElementById('ann-admin-add-btn');
 
-    // Модалка создания объявления (Админ)
     this.adminAnnModal = document.getElementById('admin-announcement-modal');
     this.adminAnnForm = document.getElementById('admin-ann-form');
     this.adminAnnCancel = document.getElementById('admin-ann-cancel');
     this.adminAnnType = document.getElementById('admin-ann-type');
     this.adminAnnDatetimeGroup = document.getElementById('admin-ann-datetime-group');
 
-    // Модалка чтения и сплит-ридер
+    // Ридер
     this.readerModal = document.getElementById('reader-modal');
     this.readerTitle = document.getElementById('reader-title');
     this.readerIframe = document.getElementById('reader-iframe');
@@ -123,7 +119,7 @@ class App {
     this.noteDownloadsSpan = document.getElementById('note-downloads-span');
     this.origDownloadsSpan = document.getElementById('orig-downloads-span');
 
-    // Палитра Ctrl+K
+    // Палитра
     this.paletteModal = document.getElementById('palette-modal');
     this.paletteInput = document.getElementById('palette-search-input');
     this.paletteResults = document.getElementById('palette-results-list');
@@ -160,7 +156,6 @@ class App {
 
     this.logoutBtn.addEventListener('click', () => this.handleLogout());
 
-    // Фильтры
     this.filterSubject.addEventListener('change', (e) => {
       this.filters.subject = e.target.value;
       this.renderLectures();
@@ -193,7 +188,6 @@ class App {
       this.renderLectures();
     });
 
-    // Модалка Календаря
     this.calendarOpenBtn.addEventListener('click', () => {
       this.calendarModal.classList.add('open');
       this.renderCalendarMonth();
@@ -208,14 +202,12 @@ class App {
       this.renderCalendarMonth();
     });
 
-    // Модалка Дедлайнов и Объявлений
     this.announcementsOpenBtn.addEventListener('click', () => {
       this.announcementsModal.classList.add('open');
       this.renderAnnouncements();
     });
     this.annCloseBtn.addEventListener('click', () => this.announcementsModal.classList.remove('open'));
 
-    // Модалка создания дедлайна (Админ)
     this.annAdminAddBtn.addEventListener('click', () => this.openAdminAnnModal());
     this.adminAnnCancel.addEventListener('click', () => this.adminAnnModal.classList.remove('open'));
     this.adminAnnType.addEventListener('change', (e) => {
@@ -226,14 +218,12 @@ class App {
       this.handleSaveAnnouncement();
     });
 
-    // Сворачиваемые секции
     document.querySelectorAll('[data-toggle]').forEach(el => {
       el.addEventListener('click', () => {
         el.parentElement.classList.toggle('collapsed');
       });
     });
 
-    // Модалка чтения
     this.readerCloseBtn.addEventListener('click', () => this.closeReaderModal());
     this.splitToggleBtn.addEventListener('click', () => this.toggleSplitView());
     this.readerNewTabBtn.addEventListener('click', () => {
@@ -243,14 +233,12 @@ class App {
       if (this.readerIframe && this.readerIframe.contentWindow) this.readerIframe.contentWindow.print();
     });
 
-    // Палитра Ctrl+K
     this.paletteOpenBtn.addEventListener('click', () => this.openPalette());
     this.paletteModal.addEventListener('click', (e) => {
       if (e.target === this.paletteModal) this.closePalette();
     });
     this.paletteInput.addEventListener('input', (e) => this.handlePaletteSearch(e.target.value));
 
-    // Глобальные горячие клавиши
     window.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
@@ -317,7 +305,6 @@ class App {
     this.authSubmit.textContent = 'Расшифровка...';
 
     try {
-      // 1. Проверяем студенческий пароль (metadata.bin)
       let metaResp = await fetch('metadata.bin');
       if (metaResp.ok) {
         const metaBuf = await metaResp.arrayBuffer();
@@ -328,12 +315,9 @@ class App {
           this.isAdmin = false;
           await this.completeLoginSuccess(password, metaBuf);
           return;
-        } catch (errShared) {
-          // Возможно, пароль администратора!
-        }
+        } catch (errShared) {}
       }
 
-      // 2. Проверяем админ-пароль (admin.bin)
       let adminResp = await fetch('admin.bin');
       if (adminResp.ok) {
         const adminBuf = await adminResp.arrayBuffer();
@@ -344,9 +328,7 @@ class App {
           this.isAdmin = true;
           await this.completeLoginSuccess(password, adminBuf);
           return;
-        } catch (errAdmin) {
-          // Оба пароля не подошли
-        }
+        } catch (errAdmin) {}
       }
 
       throw new Error('Неверный пароль');
@@ -408,11 +390,16 @@ class App {
     this.authView.style.display = 'none';
     this.mainView.style.display = 'block';
 
+    // Админские кнопки строго скрыты от студентов
     if (this.isAdmin) {
       this.adminToolbar.classList.add('active');
       this.adminIndicator.classList.add('active');
       this.annAdminAddBtn.style.display = 'inline-flex';
       this.initAdmin();
+    } else {
+      this.adminToolbar.classList.remove('active');
+      this.adminIndicator.classList.remove('active');
+      this.annAdminAddBtn.style.display = 'none';
     }
 
     this.populateFilterDropdowns();
@@ -468,7 +455,6 @@ class App {
       this.openAdminAnnModal();
     });
 
-    // Редактирование лекции
     const lecForm = document.getElementById('admin-lecture-form');
     const lecCancel = document.getElementById('admin-lec-cancel');
     lecCancel.addEventListener('click', () => {
@@ -530,7 +516,6 @@ class App {
     this.statStudiedRatio.textContent = `${studiedCount} из ${total}`;
     this.statProgressBar.style.width = `${percent}%`;
 
-    // Дедлайны
     const activeDeadlines = (this.metadata.announcements || []).filter(a => {
       if (a.type !== 'deadline' || !a.datetime) return false;
       return new Date(a.datetime).getTime() > Date.now();
@@ -629,8 +614,8 @@ class App {
 
     if (list.length === 0) {
       this.lecturesContainer.innerHTML = `
-        <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted); background: var(--bg-card); border-radius: var(--radius-md); border: 1px dashed var(--border-subtle);">
-          Ничего не найдено — возможно, лекция ещё не в Storage.
+        <div style="grid-column: 1 / -1; text-align: center; padding: 70px 20px; color: var(--text-muted); background: var(--bg-card); border-radius: var(--radius-md); border: 1px dashed var(--border-subtle);">
+          Ничего не найдено — возможно, папка лекции ещё не синхронизирована из Storage.
         </div>
       `;
       return;
@@ -645,71 +630,103 @@ class App {
   }
 
   /**
-   * Процедурный генератор математической векторной графики в стиле Web Tactics
+   * Высокохудожественный процедурный SVG-арт в стиле Web Tactics
    */
   generateMathSvg(subjectName, color = '#D65A42') {
     const s = (subjectName || '').toLowerCase();
     if (s.includes('матан') || s.includes('анализ')) {
-      // Матанализ: волновые функции, топологические гармоники и интегральные кривые
       return `
-        <svg viewBox="0 0 400 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 500 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="waveGlow" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="${color}" stop-opacity="0.8"/>
-              <stop offset="100%" stop-color="#C89248" stop-opacity="0.2"/>
-            </linearGradient>
+            <radialGradient id="glowM" cx="50%" cy="50%" r="60%">
+              <stop offset="0%" stop-color="${color}" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+            </radialGradient>
           </defs>
-          <path d="M0,80 Q50,20 100,80 T200,80 T300,80 T400,80" fill="none" stroke="url(#waveGlow)" stroke-width="2.5"/>
-          <path d="M0,90 Q60,140 120,90 T240,90 T360,90 T400,90" fill="none" stroke="${color}" stroke-opacity="0.3" stroke-width="1.5"/>
-          <path d="M0,70 Q40,30 80,70 T160,70 T240,70 T320,70 T400,70" fill="none" stroke="${color}" stroke-opacity="0.4" stroke-width="1.2" stroke-dasharray="4,4"/>
-          <circle cx="100" cy="80" r="4" fill="${color}"/>
-          <circle cx="200" cy="80" r="4" fill="${color}"/>
-          <circle cx="300" cy="80" r="4" fill="${color}"/>
+          <rect width="100%" height="100%" fill="#070605"/>
+          <circle cx="250" cy="100" r="160" fill="url(#glowM)"/>
+          
+          <!-- Перспективная сетка координатного поля -->
+          <g stroke="rgba(255,255,255,0.06)" stroke-width="0.8">
+            <line x1="0" y1="160" x2="500" y2="160"/>
+            <line x1="0" y1="120" x2="500" y2="120"/>
+            <line x1="0" y1="80" x2="500" y2="80"/>
+            <line x1="100" y1="0" x2="100" y2="200"/>
+            <line x1="250" y1="0" x2="250" y2="200"/>
+            <line x1="400" y1="0" x2="400" y2="200"/>
+          </g>
+
+          <!-- Интегральные гармоники Фурье -->
+          <path d="M0,120 Q60,20 130,110 T260,100 T390,90 T500,100" fill="none" stroke="${color}" stroke-width="2.8"/>
+          <path d="M0,135 Q70,180 150,120 T300,120 T420,110 T500,120" fill="none" stroke="#E63946" stroke-opacity="0.4" stroke-width="1.8"/>
+          <path d="M0,100 Q50,40 100,100 T200,100 T300,100 T400,100 T500,100" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-dasharray="3,5"/>
+          
+          <circle cx="130" cy="110" r="5" fill="${color}" stroke="#fff" stroke-width="1.5"/>
+          <circle cx="260" cy="100" r="5" fill="${color}" stroke="#fff" stroke-width="1.5"/>
+          <circle cx="390" cy="90" r="5" fill="${color}" stroke="#fff" stroke-width="1.5"/>
         </svg>
       `;
     } else if (s.includes('линал') || s.includes('геометр')) {
-      // Линейная алгебра: изометрические плоскости, матричные сетки и ортогональные базисы
       return `
-        <svg viewBox="0 0 400 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 500 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="gridGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="${color}" stop-opacity="0.7"/>
-              <stop offset="100%" stop-color="#5BC3D5" stop-opacity="0.1"/>
-            </linearGradient>
+            <radialGradient id="glowL" cx="50%" cy="50%" r="60%">
+              <stop offset="0%" stop-color="${color}" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+            </radialGradient>
           </defs>
-          <g stroke="url(#gridGrad)" stroke-width="1">
-            <line x1="20" y1="140" x2="200" y2="20"/>
-            <line x1="80" y1="140" x2="260" y2="20"/>
-            <line x1="140" y1="140" x2="320" y2="20"/>
-            <line x1="200" y1="140" x2="380" y2="20"/>
-            <line x1="20" y1="140" x2="380" y2="140"/>
-            <line x1="80" y1="100" x2="380" y2="100"/>
-            <line x1="140" y1="60" x2="380" y2="60"/>
+          <rect width="100%" height="100%" fill="#05070A"/>
+          <circle cx="250" cy="100" r="160" fill="url(#glowL)"/>
+
+          <!-- Изометрический гиперкуб и аффинное пространство -->
+          <g stroke="${color}" stroke-opacity="0.25" stroke-width="1">
+            <line x1="50" y1="170" x2="250" y2="40"/>
+            <line x1="130" y1="170" x2="330" y2="40"/>
+            <line x1="210" y1="170" x2="410" y2="40"/>
+            <line x1="50" y1="170" x2="450" y2="170"/>
+            <line x1="100" y1="130" x2="450" y2="130"/>
+            <line x1="150" y1="90" x2="450" y2="90"/>
           </g>
-          <line x1="200" y1="80" x2="280" y2="30" stroke="#fff" stroke-width="2"/>
-          <circle cx="280" cy="30" r="4" fill="#fff"/>
+
+          <!-- Собственные векторы матрицы -->
+          <line x1="250" y1="120" x2="360" y2="50" stroke="#fff" stroke-width="2.5"/>
+          <polygon points="360,50 348,54 353,62" fill="#fff"/>
+          <line x1="250" y1="120" x2="160" y2="70" stroke="${color}" stroke-width="2"/>
+          <circle cx="250" cy="120" r="6" fill="${color}" stroke="#fff" stroke-width="2"/>
+          <circle cx="360" cy="50" r="4" fill="#fff"/>
         </svg>
       `;
     } else {
-      // Дискретная математика / Алгоритмы: неоновые графы, узлы и сетки
       return `
-        <svg viewBox="0 0 400 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <g stroke="${color}" stroke-opacity="0.35" stroke-width="1.5">
-            <line x1="60" y1="80" x2="140" y2="30"/>
-            <line x1="60" y1="80" x2="140" y2="130"/>
-            <line x1="140" y1="30" x2="240" y2="50"/>
-            <line x1="140" y1="130" x2="240" y2="110"/>
-            <line x1="240" y1="50" x2="340" y2="80"/>
-            <line x1="240" y1="110" x2="340" y2="80"/>
-            <line x1="140" y1="30" x2="140" y2="130"/>
-            <line x1="240" y1="50" x2="240" y2="110"/>
+        <svg viewBox="0 0 500 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="glowD" cx="50%" cy="50%" r="60%">
+              <stop offset="0%" stop-color="${color}" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="100%" height="100%" fill="#050806"/>
+          <circle cx="250" cy="100" r="160" fill="url(#glowD)"/>
+
+          <!-- Сетевой граф дискретных отношений -->
+          <g stroke="${color}" stroke-opacity="0.3" stroke-width="1.6">
+            <line x1="80" y1="100" x2="170" y2="40"/>
+            <line x1="80" y1="100" x2="170" y2="160"/>
+            <line x1="170" y1="40" x2="310" y2="60"/>
+            <line x1="170" y1="160" x2="310" y2="140"/>
+            <line x1="310" y1="60" x2="420" y2="100"/>
+            <line x1="310" y1="140" x2="420" y2="100"/>
+            <line x1="170" y1="40" x2="170" y2="160"/>
+            <line x1="310" y1="60" x2="310" y2="140"/>
+            <line x1="170" y1="40" x2="310" y2="140" stroke="rgba(255,255,255,0.4)" stroke-dasharray="3,3"/>
           </g>
-          <circle cx="60" cy="80" r="5" fill="${color}"/>
-          <circle cx="140" cy="30" r="4" fill="${color}"/>
-          <circle cx="140" cy="130" r="4" fill="${color}"/>
-          <circle cx="240" cy="50" r="5" fill="${color}"/>
-          <circle cx="240" cy="110" r="4" fill="${color}"/>
-          <circle cx="340" cy="80" r="6" fill="#fff"/>
+
+          <circle cx="80" cy="100" r="6" fill="${color}" stroke="#fff" stroke-width="1.5"/>
+          <circle cx="170" cy="40" r="5" fill="${color}"/>
+          <circle cx="170" cy="160" r="5" fill="${color}"/>
+          <circle cx="310" cy="60" r="5" fill="${color}"/>
+          <circle cx="310" cy="140" r="5" fill="${color}"/>
+          <circle cx="420" cy="100" r="7" fill="#fff" stroke="${color}" stroke-width="2"/>
         </svg>
       `;
     }
@@ -724,21 +741,24 @@ class App {
     const subj = (this.metadata.subjects || []).find(s => s.name === lec.subject);
     const subjColor = subj ? subj.color : 'var(--accent-color)';
 
-    const sessionInfo = lec.sessions && lec.sessions[0]
-      ? `№ / ${lec.sessions[0].number} · ${lec.sessions[0].date}`
-      : '№ / —';
+    // Винтажный индекс номера лекции в углу обложки
+    const firstNum = (lec.sessions && lec.sessions[0]?.number) ? String(lec.sessions[0].number).padStart(2, '0') : '01';
+
+    // Формируем чипы пар и дат
+    const sessionsChips = (lec.sessions || []).map(s => `№${s.number} · ${s.date}`).join(' | ');
 
     const tagsHtml = (lec.tags || []).map(t => `<span class="card-tag" data-tag="${t}">#${t}</span>`).join('');
 
     card.innerHTML = `
       <div class="card-artwork">
         ${this.generateMathSvg(lec.subject, subjColor)}
+        <div class="card-vintage-index">/${firstNum}</div>
       </div>
 
       <div class="card-content">
         <div class="card-meta-top">
-          <span class="card-subject-pill" style="background-color: ${subjColor};">${lec.subject}</span>
-          <span class="card-session-index">${sessionInfo}</span>
+          <span class="card-subject-pill" style="background-color: ${subjColor};">● ${lec.subject}</span>
+          <span class="card-session-index">${sessionsChips}</span>
         </div>
 
         <h3 class="card-lecture-title">${lec.title}</h3>
@@ -748,10 +768,11 @@ class App {
 
         <div class="card-bottom-actions">
           <button class="read-article-link btn-open-note">
-            ЧИТАТЬ КОНСПЕКТ →
+            <span>ИЗУЧИТЬ МАТЕРИАЛ</span>
+            <span class="arrow-svg">→</span>
           </button>
           
-          <div style="display: flex; gap: 6px; align-items: center;">
+          <div style="display: flex; gap: 8px; align-items: center;">
             ${(lec.originals && lec.originals.length > 0) ? `
               <button class="btn-icon-subtle btn-open-orig" title="Оригинал лектора">
                 📄 PDF
@@ -810,9 +831,6 @@ class App {
     return card;
   }
 
-  /* ==========================================================================
-     КАЛЕНДАРЬ ПАР И ЗАНЯТИЙ
-     ========================================================================== */
   renderCalendarMonth() {
     const year = this.calCurrentDate.getFullYear();
     const month = this.calCurrentDate.getMonth();
@@ -826,7 +844,6 @@ class App {
     this.calendarDaysContainer.innerHTML = '';
     this.calendarDayDetails.style.display = 'none';
 
-    // Индексируем лекции по датам dd.mm.yyyy
     const lecturesByDate = new Map();
     for (const lec of this.metadata.lectures || []) {
       for (const ses of lec.sessions || []) {
@@ -841,11 +858,9 @@ class App {
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
 
-    // В России понедельник = 0
     let startDayOfWeek = firstDay.getDay() - 1;
     if (startDayOfWeek === -1) startDayOfWeek = 6;
 
-    // Дни предыдущего месяца
     const prevMonthLastDay = new Date(year, month, 0).getDate();
     for (let i = startDayOfWeek - 1; i >= 0; i--) {
       const cell = document.createElement('div');
@@ -854,7 +869,6 @@ class App {
       this.calendarDaysContainer.appendChild(cell);
     }
 
-    // Дни текущего месяца
     for (let day = 1; day <= lastDay.getDate(); day++) {
       const cell = document.createElement('div');
       cell.className = 'calendar-day-cell';
@@ -883,10 +897,10 @@ class App {
           this.calSelectedDateList.innerHTML = '';
           for (const p of pairs) {
             const row = document.createElement('div');
-            row.style.cssText = 'display: flex; justify-content: space-between; align-items: center; background: var(--bg-surface); padding: 8px 12px; border-radius: 4px;';
+            row.style.cssText = 'display: flex; justify-content: space-between; align-items: center; background: var(--bg-surface); padding: 10px 14px; border-radius: 6px; border: 1px solid var(--border-subtle);';
             row.innerHTML = `
               <span><strong>№${p.session.number} (${p.lecture.subject}):</strong> ${p.lecture.title}</span>
-              <button class="action-btn-primary" style="padding: 4px 10px; font-size: 0.75rem;">Открыть</button>
+              <button class="action-btn-primary" style="padding: 5px 12px; font-size: 0.78rem;">Открыть</button>
             `;
             row.querySelector('button').addEventListener('click', () => {
               this.calendarModal.classList.remove('open');
@@ -901,9 +915,6 @@ class App {
     }
   }
 
-  /* ==========================================================================
-     ДОСКА ОБЪЯВЛЕНИЙ И ДЕДЛАЙНОВ
-     ========================================================================== */
   renderAnnouncements() {
     this.announcementsListContainer.innerHTML = '';
     const list = this.metadata.announcements || [];
@@ -933,14 +944,14 @@ class App {
             <span style="font-family: var(--font-mono); font-size: 0.78rem; margin-left: 8px; color: var(--secondary-color);">
               [${ann.subject || 'Общее'}]
             </span>
-            <h4 style="font-size: 1.1rem; margin-top: 6px;">${ann.title}</h4>
+            <h4 style="font-size: 1.15rem; margin-top: 6px;">${ann.title}</h4>
           </div>
           ${this.isAdmin ? `
             <button class="btn-icon-subtle btn-ann-del" style="color: var(--urgent-color);" title="Удалить">✕</button>
           ` : ''}
         </div>
 
-        <p style="font-size: 0.9rem; line-height: 1.5; color: var(--text-main);">${ann.text}</p>
+        <p style="font-size: 0.92rem; line-height: 1.55; color: var(--text-main);">${ann.text}</p>
 
         ${isDeadline && ann.datetime ? `
           <div class="announcement-countdown" id="countdown-${ann.id}">
@@ -974,7 +985,7 @@ class App {
         const diff = target - Date.now();
 
         if (diff <= 0) {
-          wrap.innerHTML = `<span style="color: var(--urgent-color); font-weight: bold; font-family: var(--font-mono);">ДЕДЛАЙН ИСТЁК</span>`;
+          wrap.innerHTML = `<span style="color: var(--urgent-color); font-weight: bold; font-family: var(--font-mono); font-size: 0.9rem;">● ДЕДЛАЙН ИСТЁК</span>`;
         } else {
           const days = Math.floor(diff / (1000 * 60 * 60 * 24));
           const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
@@ -1029,9 +1040,6 @@ class App {
     this.adminAnnForm.reset();
   }
 
-  /* ==========================================================================
-     МОДАЛКА ЧТЕНИЯ И СПЛИТ-РИДЕР
-     ========================================================================== */
   async openLecture(id, openWithOriginal = false) {
     const lec = (this.metadata.lectures || []).find(l => l.id === id);
     if (!lec) return;
@@ -1309,7 +1317,7 @@ class App {
   pluralizeLectures(n) {
     const abs = Math.abs(n) % 100;
     const rem = abs % 10;
-    if (abs > 10 && abs > 20) return 'лекций';
+    if (abs > 10 && abs < 20) return 'лекций';
     if (rem > 1 && rem < 5) return 'лекции';
     if (rem === 1) return 'лекция';
     return 'лекций';
