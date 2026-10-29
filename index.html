@@ -300,10 +300,13 @@
       <!-- Перетаскиваемый золоченый разделитель -->
       <div id="reader-split-divider" class="split-divider" style="display: none;"></div>
 
-      <!-- Правая панель: Оригинал лектора (PDF / Изображение) -->
+      <!-- Правая панель: Оригинал лектора (PDF) -->
       <div id="pane-orig" class="reader-pane split-hidden" style="display: none;">
-        <div class="pane-label-bar">
-          <span>Оригинал лектора (PDF)</span>
+        <div class="pane-label-bar" style="display: flex; justify-content: space-between; align-items: center;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-weight: 600;">Оригинал (PDF):</span>
+            <select id="reader-pdf-select" class="reader-pdf-select" style="display: none;"></select>
+          </div>
           <span id="orig-downloads-span"></span>
         </div>
         <iframe id="reader-orig-iframe"></iframe>

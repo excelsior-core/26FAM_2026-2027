@@ -452,63 +452,42 @@ async function runSync() {
         }
       }
 
-      // 2. Поиск оригиналов (СТРОГО ТОЛЬКО .pdf)
-      const origPossibleNames = ['orig', 'origs', 'original', 'originals', 'оригинал', 'оригиналы'];
-      const origDirs = [];
-
-      for (const item of folderFiles) {
-        const fullItem = path.join(folderPath, item);
-        if (fs.statSync(fullItem).isDirectory() && origPossibleNames.includes(item.toLowerCase())) {
-          origDirs.push(fullItem);
-        } else if (fs.statSync(fullItem).isFile()) {
-          const ext = path.extname(item).toLowerCase();
-          // СТРОГО: Никаких фото доски или картинок, только PDF!
-          if (ext === '.pdf') {
-            const content = fs.readFileSync(fullItem);
-            const hash = getSha256Hex(content);
-            const blobName = `${hash}.bin`;
-            const blobPath = path.join(blobsDir, blobName);
-
-            activeBlobHashes.add(blobName);
-            console.log(` 🔒 Шифрование PDF оригинала: [${subj.name}] ${folder}/${item}`);
-            const encrypted = encryptWithKey(content, sharedKey, vaultSalt);
-            fs.writeFileSync(blobPath, encrypted);
-
-            lecData.originals.push({
-              name: item,
-              type: 'pdf',
-              blob: hash,
-              size: content.length
-            });
+      // 2. Рекурсивный поиск ВСЕХ PDF оригиналов от лекторов (в корне папки и любых подпапках)
+      function collectPdfs(dir) {
+        let results = [];
+        const entries = fs.readdirSync(dir);
+        for (const entry of entries) {
+          const full = path.join(dir, entry);
+          const stat = fs.statSync(full);
+          if (stat.isDirectory()) {
+            results = results.concat(collectPdfs(full));
+          } else if (stat.isFile() && path.extname(entry).toLowerCase() === '.pdf') {
+            results.push({ name: entry, path: full });
           }
         }
+        return results;
       }
 
-      for (const od of origDirs) {
-        const origFiles = fs.readdirSync(od);
-        for (const file of origFiles) {
-          const filePath = path.join(od, file);
-          const ext = path.extname(file).toLowerCase();
-          // СТРОГО: Только PDF, любые .jpg/.png отбрасываются
-          if (fs.statSync(filePath).isFile() && ext === '.pdf') {
-            const content = fs.readFileSync(filePath);
-            const hash = getSha256Hex(content);
-            const blobName = `${hash}.bin`;
-            const blobPath = path.join(blobsDir, blobName);
+      const allPdfs = collectPdfs(folderPath);
+      allPdfs.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
 
-            activeBlobHashes.add(blobName);
-            console.log(` 🔒 Шифрование PDF оригинала: [${subj.name}] ${folder}/${path.basename(od)}/${file}`);
-            const encrypted = encryptWithKey(content, sharedKey, vaultSalt);
-            fs.writeFileSync(blobPath, encrypted);
+      for (const pdfItem of allPdfs) {
+        const content = fs.readFileSync(pdfItem.path);
+        const hash = getSha256Hex(content);
+        const blobName = `${hash}.bin`;
+        const blobPath = path.join(blobsDir, blobName);
 
-            lecData.originals.push({
-              name: file,
-              type: 'pdf',
-              blob: hash,
-              size: content.length
-            });
-          }
-        }
+        activeBlobHashes.add(blobName);
+        console.log(` 🔒 Шифрование PDF оригинала: [${subj.name}] ${folder}/${pdfItem.name}`);
+        const encrypted = encryptWithKey(content, sharedKey, vaultSalt);
+        fs.writeFileSync(blobPath, encrypted);
+
+        lecData.originals.push({
+          name: pdfItem.name,
+          type: 'pdf',
+          blob: hash,
+          size: content.length
+        });
       }
 
       currentLectures.push(lecData);

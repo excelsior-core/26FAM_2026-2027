@@ -122,7 +122,9 @@ class App {
     this.paneOrig = document.getElementById('pane-orig');
     this.readerIframe = document.getElementById('reader-iframe');
     this.readerOrigIframe = document.getElementById('reader-orig-iframe');
+    this.readerPdfSelect = document.getElementById('reader-pdf-select');
     this.splitDivider = document.getElementById('reader-split-divider');
+    this.currentPdfIndex = 0;
 
     this.segBtnNote = document.getElementById('seg-btn-note');
     this.segBtnOrig = document.getElementById('seg-btn-orig');
@@ -192,6 +194,11 @@ class App {
         this.paneOrig.classList.remove('split-hidden');
       });
     }
+
+    this.readerPdfSelect?.addEventListener('change', (e) => {
+      const idx = parseInt(e.target.value, 10) || 0;
+      this.loadOriginalPdf(idx);
+    });
 
     // Скачивание оригинального PDF с благородным русским именем
     this.readerDownloadPdfBtn.addEventListener('click', () => {
@@ -778,7 +785,7 @@ class App {
         <div class="pdf-spotlight-actions">
           ${hasPdf ? `
             <button class="btn-open-pdf-primary js-open-pdf">
-              📄 ОТКРЫТЬ PDF ЛЕКТОРА →
+              📄 ${lec.originals.length > 1 ? `ОТКРЫТЬ PDF ЛЕКТОРОВ (${lec.originals.length}) →` : 'ОТКРЫТЬ PDF ЛЕКТОРА →'}
             </button>
             <button class="btn-open-split-secondary js-open-split">
               ⚖️ СПЛИТ-РИДЕР (БОК О БОК)
@@ -838,8 +845,8 @@ class App {
 
       <div class="folio-card-actions">
         ${hasPdf ? `
-          <button class="pdf-quick-badge js-quick-pdf" title="Открыть оригинальный PDF лектора в 1 клик">
-            📄 PDF ЛЕКТОРА
+          <button class="pdf-quick-badge js-quick-pdf" title="${lec.originals.length > 1 ? `Материал содержит ${lec.originals.length} PDF от лекторов. Нажмите для открытия` : 'Открыть оригинальный PDF лектора в 1 клик'}">
+            📄 ${lec.originals.length > 1 ? `PDF (${lec.originals.length})` : 'PDF ЛЕКТОРА'}
           </button>
         ` : `
           <span style="font-size: 0.75rem; color: var(--parchment-muted);">PDF готовится</span>
@@ -911,8 +918,8 @@ class App {
         <td style="font-weight: 600; color: var(--ivory-parchment); cursor: pointer;" class="js-open-title">${lec.title}</td>
         <td>
           ${hasPdf ? `
-            <button class="pdf-quick-badge js-quick-pdf" style="padding: 4px 8px; font-size: 0.74rem;">
-              📄 PDF
+            <button class="pdf-quick-badge js-quick-pdf" style="padding: 4px 8px; font-size: 0.74rem;" title="${lec.originals.length > 1 ? `Материал содержит ${lec.originals.length} PDF от лекторов` : 'Открыть оригинальный PDF'}">
+              📄 ${lec.originals.length > 1 ? `PDF (${lec.originals.length})` : 'PDF'}
             </button>
           ` : `<span style="font-size: 0.75rem; color: var(--parchment-muted);">—</span>`}
         </td>
@@ -980,22 +987,23 @@ class App {
       }
     }
 
-    // Загрузка оригинала (PDF / Изображение)
+    // Загрузка оригинала (PDF)
     const hasOriginal = lecture.originals && lecture.originals.length > 0;
-    if (hasOriginal) {
-      const origFile = lecture.originals[0];
-      try {
-        const origBytes = await this.fetchAndDecryptBlob(origFile.blob);
-        const mimeType = origFile.type === 'pdf' ? 'application/pdf' : 'image/jpeg';
-        const origBlob = new Blob([origBytes], { type: mimeType });
-        const origUrl = URL.createObjectURL(origBlob);
-        this.activeObjectUrls.push(origUrl);
-        lecture.currentPdfBlobUrl = origUrl;
+    this.currentPdfIndex = options.pdfIndex || 0;
 
-        this.readerOrigIframe.src = origUrl;
-      } catch (err) {
-        console.error('Ошибка расшифровки оригинала:', err);
+    if (this.readerPdfSelect) {
+      if (hasOriginal && lecture.originals.length > 1) {
+        this.readerPdfSelect.style.display = 'inline-block';
+        this.readerPdfSelect.innerHTML = lecture.originals.map((orig, idx) => 
+          `<option value="${idx}" ${idx === this.currentPdfIndex ? 'selected' : ''}>📄 ${orig.name} (${(orig.size / 1024).toFixed(0)} КБ)</option>`
+        ).join('');
+      } else {
+        this.readerPdfSelect.style.display = 'none';
       }
+    }
+
+    if (hasOriginal) {
+      await this.loadOriginalPdf(this.currentPdfIndex);
     }
 
     // Применение выбранного режима: html, pdf, split
@@ -1078,14 +1086,42 @@ class App {
     });
   }
 
+  async loadOriginalPdf(pdfIndex = 0) {
+    if (!this.currentLecture?.originals?.length) return;
+    const origList = this.currentLecture.originals;
+    if (pdfIndex < 0 || pdfIndex >= origList.length) pdfIndex = 0;
+    this.currentPdfIndex = pdfIndex;
+
+    const origFile = origList[pdfIndex];
+    try {
+      const origBytes = await this.fetchAndDecryptBlob(origFile.blob);
+      const mimeType = 'application/pdf';
+      const origBlob = new Blob([origBytes], { type: mimeType });
+      const origUrl = URL.createObjectURL(origBlob);
+      this.activeObjectUrls.push(origUrl);
+      this.currentLecture.currentPdfBlobUrl = origUrl;
+      this.currentLecture.currentPdfName = origFile.name;
+
+      this.readerOrigIframe.src = origUrl;
+      if (this.readerPdfSelect) {
+        this.readerPdfSelect.value = String(pdfIndex);
+      }
+    } catch (err) {
+      console.error('Ошибка расшифровки оригинала:', err);
+    }
+  }
+
   // Скачивание оригинального PDF с благородным русским именем
   downloadOriginalPdf(lecture) {
     if (!lecture.currentPdfBlobUrl) return;
+    const origList = lecture.originals || [];
+    const currentOrig = origList[this.currentPdfIndex || 0] || origList[0];
     const a = document.createElement('a');
     a.href = lecture.currentPdfBlobUrl;
+    const origName = currentOrig?.name ? currentOrig.name.replace(/\.pdf$/i, '') : 'Оригинал';
     const cleanSubj = lecture.subject.replace(/[\/\\?%*:|"<>]/g, '');
     const cleanTitle = lecture.title.replace(/[\/\\?%*:|"<>]/g, '');
-    a.download = `[ФПМ ВШЭ] ${cleanSubj} · ${cleanTitle} (Оригинал).pdf`;
+    a.download = `[ФПМ ВШЭ] ${cleanSubj} · ${cleanTitle} — ${origName}.pdf`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -1380,8 +1416,8 @@ class App {
                   📝 Конспект
                 </button>
                 ${hasPdf ? `
-                  <button class="pdf-quick-badge js-open-from-cal" data-id="${l.id}" data-mode="pdf" style="padding: 5px 9px; font-size: 0.75rem;">
-                    📄 PDF
+                  <button class="pdf-quick-badge js-open-from-cal" data-id="${l.id}" data-mode="pdf" style="padding: 5px 9px; font-size: 0.75rem;" title="${l.originals.length > 1 ? `Материал содержит ${l.originals.length} PDF от лекторов` : 'Открыть PDF'}">
+                    📄 ${l.originals.length > 1 ? `PDF (${l.originals.length})` : 'PDF'}
                   </button>
                   <button class="btn-secondary js-open-from-cal" data-id="${l.id}" data-mode="split" style="padding: 5px 8px; font-size: 0.75rem;" title="Сплит-ридер">
                     ⚖️
