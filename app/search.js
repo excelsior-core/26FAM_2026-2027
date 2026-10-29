@@ -287,7 +287,7 @@ export class SearchEngine {
 
     // 2. Индексация учебных материалов
     for (const lec of lectures) {
-      const plainContent = decryptedTexts.get(lec.id) || '';
+      const plainContent = (decryptedTexts && decryptedTexts.get(lec.id)) || lec.content || '';
 
       const origTitles = (lec.originals || []).map(o => (o.name || '').replace(/\.pdf$/i, '').replace(/[()_]/g, ' ')).join(' ');
       const fileTitles = (lec.files || []).map(f => (f.name || '').replace(/\.[a-z0-9]+$/i, '').replace(/[()_]/g, ' ')).join(' ');
@@ -532,6 +532,10 @@ export class SearchEngine {
         }
       }
 
+      if (item.type === 'announcement' && !wantsAnnouncement && !targetCategory) {
+        score = Math.min(score, 18);
+      }
+
       if (score > 15) {
         scored.push({
           item,
@@ -574,7 +578,25 @@ export class SearchEngine {
     let bestPos = -1;
     for (const t of tokens) {
       if (!t || t.length < 2) continue;
-      const idx = lower.indexOf(t.toLowerCase());
+      let idx = lower.indexOf(t.toLowerCase());
+      if (idx === -1) {
+        const stemT = this.stem(t);
+        if (stemT && stemT.length >= 4) {
+          idx = lower.indexOf(stemT);
+          if (idx === -1) {
+            const words = lower.split(/[^a-zа-яё0-9]+/i);
+            let offset = 0;
+            for (const w of words) {
+              const wPos = lower.indexOf(w, offset);
+              if (wPos !== -1) offset = wPos + w.length;
+              if (w.length >= 4 && this.isFuzzyMatch(this.stem(w), stemT, 1)) {
+                idx = wPos;
+                break;
+              }
+            }
+          }
+        }
+      }
       if (idx !== -1 && (bestPos === -1 || idx < bestPos)) {
         bestPos = idx;
       }

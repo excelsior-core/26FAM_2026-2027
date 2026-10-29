@@ -450,10 +450,22 @@ async function runSync() {
             blob: hash
           });
 
-          // Автоматическое распознавание темы лекции из HTML-конспекта
-          if (!lecData.description) {
-            try {
-              const htmlStr = content.toString('utf8');
+          // Извлечение полного чистого текста конспекта для мгновенного NLP-поиска
+          try {
+            const htmlStr = content.toString('utf8');
+            const cleanText = htmlStr
+              .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+              .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+              .replace(/<svg[^>]*>[\s\S]*?<\/svg>/gi, '')
+              .replace(/<[^>]+>/g, ' ')
+              .replace(/\s+/g, ' ')
+              .trim();
+            if (cleanText) {
+              lecData.content = cleanText;
+            }
+
+            // Автоматическое распознавание темы лекции из HTML-конспекта
+            if (!lecData.description) {
               const tm = htmlStr.match(/<title>([^<]+)<\/title>/i);
               const h1m = htmlStr.match(/<h1[^>]*>([^<]+)<\/h1>/i);
               const rawTopic = tm ? tm[1] : (h1m ? h1m[1] : '');
@@ -474,8 +486,8 @@ async function runSync() {
                   lecData.description = clean;
                 }
               }
-            } catch (errTopic) {}
-          }
+            }
+          } catch (errTopic) {}
         }
       }
 

@@ -1632,7 +1632,7 @@ class App {
           if (this.blobCache.has(htmlFile.blob)) {
             htmlText = this.blobCache.get(htmlFile.blob);
           } else {
-            const resp = await fetch(`blobs/${htmlFile.blob}`);
+            const resp = await fetch(`blobs/${htmlFile.blob}.bin`);
             if (!resp.ok) continue;
             const buf = await resp.arrayBuffer();
             const dec = await VaultCrypto.decryptBlob(buf, this.cryptoKey);
