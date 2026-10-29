@@ -383,33 +383,42 @@
 
   <!-- 7. Модалка редактирования лекции (Администратор) -->
   <div id="admin-lecture-modal" class="modal-overlay">
-    <div class="modal-card" style="max-width: 540px;">
-      <h3 style="margin-bottom: 18px;">Редактирование материала</h3>
+    <div class="modal-card" style="max-width: 580px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px;">
+        <h3 style="font-size: 1.25rem; color: var(--gold-antique);">✏️ Редактирование материала</h3>
+        <button type="button" id="admin-lec-close" class="btn-secondary">✕</button>
+      </div>
       <form id="admin-lecture-form" style="display: flex; flex-direction: column; gap: 14px;">
         <input type="hidden" id="admin-lec-id">
         <div>
-          <label style="font-size: 0.8rem; color: var(--parchment-muted); display: block; margin-bottom: 4px;">Название лекции:</label>
+          <label style="font-size: 0.8rem; color: var(--parchment-muted); display: block; margin-bottom: 4px;">Название лекции / занятия:</label>
           <input type="text" id="admin-lec-title" required style="width: 100%;">
         </div>
-        <div>
-          <label style="font-size: 0.8rem; color: var(--parchment-muted); display: block; margin-bottom: 4px;">Предмет:</label>
-          <select id="admin-lec-subject" required style="width: 100%;"></select>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <label style="font-size: 0.8rem; color: var(--parchment-muted); display: block; margin-bottom: 4px;">Предмет:</label>
+            <select id="admin-lec-subject" required style="width: 100%;"></select>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; color: var(--parchment-muted); display: block; margin-bottom: 4px;">Модуль:</label>
+            <select id="admin-lec-module" style="width: 100%;"></select>
+          </div>
         </div>
         <div>
-          <label style="font-size: 0.8rem; color: var(--parchment-muted); display: block; margin-bottom: 4px;">Модуль:</label>
-          <select id="admin-lec-module" style="width: 100%;"></select>
+          <label style="font-size: 0.8rem; color: var(--parchment-muted); display: block; margin-bottom: 4px;">Занятия и даты (номер:дата через запятую, пример: <code>1:02.09.2026, 2:05.09.2026</code>):</label>
+          <input type="text" id="admin-lec-sessions" placeholder="1:02.09.2026, 2:05.09.2026" style="width: 100%; font-family: var(--font-mono); font-size: 0.85rem;">
         </div>
         <div>
           <label style="font-size: 0.8rem; color: var(--parchment-muted); display: block; margin-bottom: 4px;">Теги (через запятую):</label>
           <input type="text" id="admin-lec-tags" placeholder="пределы, непрерывность, коши" style="width: 100%;">
         </div>
         <div>
-          <label style="font-size: 0.8rem; color: var(--parchment-muted); display: block; margin-bottom: 4px;">Краткое содержание:</label>
+          <label style="font-size: 0.8rem; color: var(--parchment-muted); display: block; margin-bottom: 4px;">Краткое содержание / описание:</label>
           <textarea id="admin-lec-desc" rows="3" style="width: 100%;"></textarea>
         </div>
         <div style="display: flex; align-items: center; gap: 8px;">
           <input type="checkbox" id="admin-lec-hidden">
-          <label for="admin-lec-hidden" style="cursor: pointer; font-size: 0.85rem;">Скрыть материал (черновик)</label>
+          <label for="admin-lec-hidden" style="cursor: pointer; font-size: 0.85rem;">Скрыть материал (черновик для студентов)</label>
         </div>
         <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px;">
           <button type="button" id="admin-lec-cancel" class="btn-secondary">Отмена</button>

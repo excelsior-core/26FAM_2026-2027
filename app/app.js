@@ -131,6 +131,7 @@ class App {
     this.adminLecModal = document.getElementById('admin-lecture-modal');
     this.adminLecForm = document.getElementById('admin-lecture-form');
     this.adminLecCancel = document.getElementById('admin-lecture-cancel');
+    this.adminLecClose = document.getElementById('admin-lec-close');
     this.adminExportBtn = document.getElementById('admin-export-btn');
     this.adminNewSubjectBtn = document.getElementById('admin-new-subject-btn');
     this.adminNewModuleBtn = document.getElementById('admin-new-module-btn');
@@ -294,7 +295,8 @@ class App {
     });
 
     // Админка
-    this.adminLecCancel.addEventListener('click', () => this.adminLecModal.classList.remove('open'));
+    this.adminLecCancel?.addEventListener('click', () => this.adminLecModal.classList.remove('open'));
+    this.adminLecClose?.addEventListener('click', () => this.adminLecModal.classList.remove('open'));
     this.adminLecForm.addEventListener('submit', (e) => {
       e.preventDefault();
       this.saveLectureForm();
@@ -530,6 +532,112 @@ class App {
       this.updateHeroStats();
       this.updateAnnouncementsBadge();
     });
+  }
+
+  openAdminLectureModal(lecId) {
+    if (!this.isAdmin || !this.adminManager) return;
+    const lecture = (this.metadata.lectures || []).find(l => l.id === lecId);
+    if (!lecture) return;
+
+    const idInput = document.getElementById('admin-lec-id');
+    const titleInput = document.getElementById('admin-lec-title');
+    const subjSelect = document.getElementById('admin-lec-subject');
+    const modSelect = document.getElementById('admin-lec-module');
+    const sessionsInput = document.getElementById('admin-lec-sessions');
+    const tagsInput = document.getElementById('admin-lec-tags');
+    const descInput = document.getElementById('admin-lec-desc');
+    const hiddenCheckbox = document.getElementById('admin-lec-hidden');
+
+    if (idInput) idInput.value = lecture.id;
+    if (titleInput) titleInput.value = lecture.title || '';
+
+    if (subjSelect) {
+      subjSelect.innerHTML = (this.metadata.subjects || []).map(s => 
+        `<option value="${s.name}" ${s.name === lecture.subject ? 'selected' : ''}>${s.name}</option>`
+      ).join('');
+    }
+
+    if (modSelect) {
+      const allModules = this.metadata.modules && this.metadata.modules.length > 0
+        ? this.metadata.modules
+        : ['Модуль 1', 'Модуль 2', 'Модуль 3', 'Модуль 4'];
+      modSelect.innerHTML = allModules.map(m => 
+        `<option value="${m}" ${m === lecture.module ? 'selected' : ''}>${m}</option>`
+      ).join('');
+    }
+
+    if (sessionsInput) {
+      if (Array.isArray(lecture.sessions) && lecture.sessions.length > 0) {
+        sessionsInput.value = lecture.sessions.map(s => `${s.number || 1}:${s.date || ''}`).join(', ');
+      } else {
+        sessionsInput.value = '';
+      }
+    }
+
+    if (tagsInput) {
+      tagsInput.value = Array.isArray(lecture.tags) ? lecture.tags.join(', ') : (lecture.tags || '');
+    }
+
+    if (descInput) {
+      descInput.value = lecture.description || '';
+    }
+
+    if (hiddenCheckbox) {
+      hiddenCheckbox.checked = !!lecture.hidden;
+    }
+
+    this.adminLecModal.classList.add('open');
+  }
+
+  saveLectureForm() {
+    if (!this.isAdmin || !this.adminManager) return;
+    const id = document.getElementById('admin-lec-id')?.value;
+    if (!id) return;
+
+    const title = document.getElementById('admin-lec-title')?.value || '';
+    const subject = document.getElementById('admin-lec-subject')?.value || '';
+    const module = document.getElementById('admin-lec-module')?.value || '';
+    const rawSessions = document.getElementById('admin-lec-sessions')?.value || '';
+    const tags = document.getElementById('admin-lec-tags')?.value || '';
+    const description = document.getElementById('admin-lec-desc')?.value || '';
+    const hidden = document.getElementById('admin-lec-hidden')?.checked || false;
+
+    // Парсим sessions: "1:02.09.2026, 2:05.09.2026"
+    const sessions = [];
+    if (rawSessions.trim()) {
+      const parts = rawSessions.split(',').map(p => p.trim()).filter(Boolean);
+      for (const part of parts) {
+        if (part.includes(':')) {
+          const [numStr, dateStr] = part.split(':').map(s => s.trim());
+          sessions.push({
+            number: parseInt(numStr, 10) || 1,
+            date: dateStr || ''
+          });
+        } else if (/^\d{2}\.\d{2}\.\d{4}$/.test(part)) {
+          sessions.push({ number: sessions.length + 1, date: part });
+        } else {
+          sessions.push({ number: parseInt(part, 10) || 1, date: '' });
+        }
+      }
+    }
+
+    this.adminManager.updateLecture(id, {
+      title,
+      subject,
+      module,
+      sessions,
+      tags,
+      description,
+      hidden
+    });
+
+    this.adminLecModal.classList.remove('open');
+    this.renderSubjectsTabs();
+    this.renderLectures();
+    this.updateHeroStats();
+    if (this.searchEngine) {
+      this.searchEngine.buildIndex(this.metadata.lectures || []);
+    }
   }
 
   // ==========================================
@@ -812,6 +920,7 @@ class App {
           <button class="btn-secondary js-open-split" style="padding: 4px 8px; font-size: 0.74rem;">
             ⚖️ Сплит
           </button>
+          ${this.isAdmin ? `<button class="js-admin-edit" style="color: var(--urgent-color); font-size: 0.8rem; cursor: pointer; margin-left: 6px;" title="Редактировать материал">✏️</button>` : ''}
         </td>
       `;
 
@@ -822,6 +931,10 @@ class App {
       tr.querySelector('.js-open-title').addEventListener('click', () => this.openLecture(lec.id, { mode: 'html' }));
       tr.querySelector('.js-quick-pdf')?.addEventListener('click', () => this.openLecture(lec.id, { mode: 'pdf' }));
       tr.querySelector('.js-open-split')?.addEventListener('click', () => this.openLecture(lec.id, { mode: 'split' }));
+      tr.querySelector('.js-admin-edit')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.openAdminLectureModal(lec.id);
+      });
 
       tbody.appendChild(tr);
     }
