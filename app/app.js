@@ -717,25 +717,28 @@ class App {
     this.lecturesContainer.innerHTML = '';
     let list = (this.metadata.lectures || []).filter(l => !l.hidden || this.isAdmin);
 
-    if (this.filters.subject) list = list.filter(l => l.subject === this.filters.subject);
+    let hasExplicitSearchSubject = false;
+    if (this.filters.searchQuery && this.searchEngine) {
+      const intent = this.searchEngine.parseIntent(this.filters.searchQuery);
+      if (intent.targetSubject) hasExplicitSearchSubject = true;
+    }
+
+    if (this.filters.subject && !hasExplicitSearchSubject) {
+      list = list.filter(l => l.subject === this.filters.subject);
+    }
     if (this.filters.category) list = list.filter(l => (l.category || 'лекции').toLowerCase() === this.filters.category.toLowerCase());
     if (this.filters.module) list = list.filter(l => l.module === this.filters.module);
     if (this.filters.tag) list = list.filter(l => (l.tags || []).includes(this.filters.tag));
     if (this.filters.studiedOnly) list = list.filter(l => !this.studiedSet.has(l.id));
 
-    if (this.filters.searchQuery) {
-      const sq = this.filters.searchQuery.toLowerCase();
-      list = list.filter(l => {
-        const origNames = (l.originals || []).map(o => o.name).join(' ').toLowerCase();
-        const fileNames = (l.files || []).map(f => f.name).join(' ').toLowerCase();
-        const folder = (l.folder || '').toLowerCase();
-        const title = (l.title || '').toLowerCase();
-        const subject = (l.subject || '').toLowerCase();
-        const desc = (l.description || '').toLowerCase();
-        const dates = (l.sessions || []).map(s => s.date).join(' ').toLowerCase();
-        const nums = (l.sessions || []).map(s => String(s.number)).join(' ');
-        return title.includes(sq) || origNames.includes(sq) || fileNames.includes(sq) || folder.includes(sq) || subject.includes(sq) || desc.includes(sq) || dates.includes(sq) || nums.includes(sq);
-      });
+    if (this.filters.searchQuery && this.searchEngine) {
+      const searchResults = this.searchEngine.search(this.filters.searchQuery);
+      const matchingIds = new Set(
+        searchResults
+          .filter(item => item.type === 'lecture' || !item.type)
+          .map(item => item.id)
+      );
+      list = list.filter(l => matchingIds.has(l.id));
     }
 
     list.sort((a, b) => {

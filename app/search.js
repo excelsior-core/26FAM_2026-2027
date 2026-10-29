@@ -204,9 +204,6 @@ export class SearchEngine {
     return start + rv;
   }
 
-  /**
-   * Нечеткое расстояние Левенштейна (прощение опечаток в 1-2 символа)
-   */
   isFuzzyMatch(a, b, maxDist = 1) {
     if (!a || !b) return false;
     if (Math.abs(a.length - b.length) > maxDist) return false;
@@ -246,8 +243,7 @@ export class SearchEngine {
   }
 
   /**
-   * Построение поискового индекса.
-   * Безопасно принимает как полный объект metadata, так и массив metadata.lectures.
+   * Построение поискового индекса каталога
    */
   buildIndex(metadataOrLectures, decryptedTexts = new Map()) {
     this.index = [];
@@ -261,7 +257,7 @@ export class SearchEngine {
 
     this.announcements = announcements;
 
-    // 1. Индексация объявлений и дедлайнов (коллоквиумы, домашние задания)
+    // 1. Индексация объявлений / дедлайнов (коллоквиумы, домашние задания)
     for (const ann of announcements) {
       const annText = `${ann.title || ''} ${ann.subject || ''} ${ann.text || ''}`.trim();
       const tokens = this.tokenizeAndStem(annText);
@@ -293,11 +289,9 @@ export class SearchEngine {
     for (const lec of lectures) {
       const plainContent = decryptedTexts.get(lec.id) || '';
 
-      // Темы из оригинальных PDF лекторов (например: «Комплексные числа», «метод Гаусса»)
       const origTitles = (lec.originals || []).map(o => (o.name || '').replace(/\.pdf$/i, '').replace(/[()_]/g, ' ')).join(' ');
       const fileTitles = (lec.files || []).map(f => (f.name || '').replace(/\.[a-z0-9]+$/i, '').replace(/[()_]/g, ' ')).join(' ');
 
-      // Извлечение номеров пар и дат занятий в разных форматах
       const dateStrings = [];
       const sessionNumbers = (lec.sessions || []).map(s => s.number).filter(n => typeof n === 'number');
 
@@ -373,23 +367,18 @@ export class SearchEngine {
     }
   }
 
-  handleSearch() {
-    if (!this.input) return;
-    const rawQuery = this.input.value.trim().toLowerCase();
+  /**
+   * Извлечение семантических намерений студента из запроса
+   */
+  parseIntent(rawQuery) {
+    if (!rawQuery) return { targetSubject: null, targetCategory: null, targetSessionNumber: null, wantsAnnouncement: false, meaningfulTokens: [] };
+    const q = rawQuery.trim().toLowerCase();
+    const rawTokens = q.split(/[^a-zа-яё0-9_.-]+/i).filter(Boolean);
 
-    // Если поисковая строка пуста — показываем актуальные материалы (лекции и объявления)
-    if (!rawQuery) {
-      this.currentResults = this.index.filter(i => i.type === 'lecture').slice(0, 8);
-      this.selectedIndex = 0;
-      this.renderResults(rawQuery);
-      return;
-    }
-
-    // 1. Извлечение семантических намерений (Intent Parsing)
-    const rawTokens = rawQuery.split(/[^a-zа-яё0-9_.-]+/i).filter(Boolean);
     let targetSubject = null;
     let targetCategory = null;
     let targetSessionNumber = null;
+    let wantsAnnouncement = false;
     const meaningfulTokens = [];
 
     for (let i = 0; i < rawTokens.length; i++) {
@@ -401,7 +390,7 @@ export class SearchEngine {
         continue;
       }
 
-      // Номера пар цифрами («1 пара», «пара 2», «лекция 3», «№ 4», или одиночная цифра при коротком запросе)
+      // Номера пар цифрами («1 пара», «пара 2», «лекция 3», «№ 4», или одиночная цифра)
       if (/^\d{1,3}$/.test(t)) {
         const prev = rawTokens[i - 1] || '';
         const next = rawTokens[i + 1] || '';
@@ -421,56 +410,92 @@ export class SearchEngine {
       // Алиасы категорий («коллок», «билеты», «экзамен»)
       if (this.intentAliases[t] && this.intentAliases[t].category) {
         targetCategory = this.intentAliases[t].category;
+        if (targetCategory === 'коллоквиумы' || targetCategory === 'экзамены') {
+          wantsAnnouncement = true;
+        }
         continue;
       }
 
-      // Фильтрация стоп-слов
+      if (['дедлайн', 'дедлайны', 'дз', 'коллок', 'коллоквиум'].includes(t)) {
+        wantsAnnouncement = true;
+      }
+
       if (!this.stopWords.has(t) && !['пара', 'пары', 'лекция', 'лекции', 'занятие'].includes(t)) {
         meaningfulTokens.push(t);
       }
     }
 
-    const stemmedQueryTokens = meaningfulTokens.map(t => this.stem(t));
+    return { targetSubject, targetCategory, targetSessionNumber, wantsAnnouncement, meaningfulTokens };
+  }
 
-    // 2. Ранжирование материалов
+  /**
+   * Чистый полнотекстовый и семантический поиск
+   */
+  search(rawQuery) {
+    if (!rawQuery) {
+      return this.index.filter(i => i.type === 'lecture').slice(0, 10);
+    }
+    const q = rawQuery.trim().toLowerCase();
+    const intent = this.parseIntent(q);
+    const { targetSubject, targetCategory, targetSessionNumber, wantsAnnouncement, meaningfulTokens } = intent;
+
+    const stemmedQueryTokens = meaningfulTokens.map(t => this.stem(t));
     const scored = [];
 
     for (const item of this.index) {
+      // ПРАВИЛО 1: Строгая изоляция предмета, если пользователь явно указал его
+      if (targetSubject && item.type === 'lecture') {
+        if (item.subject.toLowerCase() !== targetSubject.toLowerCase()) {
+          continue;
+        }
+      }
+
+      // ПРАВИЛО 2: Строгая проверка номера занятия (исключаем подстроки вроде "1" в "10" или "13")
+      if (targetSessionNumber !== null && item.type === 'lecture') {
+        const hasSession = item.sessionNumbers.includes(targetSessionNumber);
+        const titleHasExact = new RegExp(`(?<!\\d)${targetSessionNumber}(?!\\d)`).test(item.title);
+        if (!hasSession && !titleHasExact) {
+          continue;
+        }
+      }
+
       let score = 0;
 
-      // Точное совпадение всей строки запроса
-      if (item.rawTextLower.includes(rawQuery)) {
+      // Объявления ранжируются высоко только если студент искал дедлайны/коллоквиумы
+      if (item.type === 'announcement') {
+        if (!wantsAnnouncement && !targetCategory) {
+          score = 10;
+        } else {
+          score = 90;
+        }
+      } else {
+        score = 25;
+      }
+
+      // Точное совпадение всей фразы
+      if (item.rawTextLower.includes(q)) {
         score += 85;
       }
 
       // Бонус за предмет
-      if (targetSubject) {
-        if (item.subject.toLowerCase() === targetSubject.toLowerCase()) {
-          score += 75;
-        } else if (item.type === 'lecture') {
-          // Если пользователь явно искал «матан», материалы по алгебре штрафуются
-          score -= 40;
-        }
+      if (targetSubject && item.subject.toLowerCase() === targetSubject.toLowerCase()) {
+        score += 80;
       }
 
-      // Бонус за категорию (коллоквиумы, семинары, экзамены)
+      // Бонус за категорию
       if (targetCategory && item.category === targetCategory) {
-        score += 65;
+        score += 50;
       }
 
-      // Бонус за номер пары / лекции
+      // Бонус за номер пары
       if (targetSessionNumber !== null) {
         if (item.sessionNumbers.includes(targetSessionNumber)) {
-          score += 120;
-        } else if (item.title.includes(String(targetSessionNumber))) {
-          score += 45;
-        } else {
-          // Если искали конкретный номер занятия, материалы без этого номера штрафуются
-          score -= 100;
+          score += 100;
+        } else if (new RegExp(`(?<!\\d)${targetSessionNumber}(?!\\d)`).test(item.title)) {
+          score += 60;
         }
       }
 
-      // Оценка по стеммированным токенам
       const titleLower = item.title.toLowerCase();
       const descLower = item.description.toLowerCase();
       const contentLower = item.content.toLowerCase();
@@ -480,36 +505,30 @@ export class SearchEngine {
         const rawToken = meaningfulTokens[i];
         const stemToken = stemmedQueryTokens[i];
 
-        // Совпадение в заголовке
         if (titleLower.includes(rawToken)) {
           score += 55;
         } else if (item.tokens.some(t => t === stemToken || this.isFuzzyMatch(t, stemToken))) {
           score += 35;
         }
 
-        // Совпадение в оригинальной теме PDF лектора (например: «метод Гаусса», «вычеты»)
         if (origTitlesLower.includes(rawToken)) {
-          score += 60;
+          score += 65;
         }
 
-        // Совпадение в датах занятия
+        if (descLower.includes(rawToken)) {
+          score += 50;
+        }
+
         if (item.dateStrings.some(d => d.toLowerCase().includes(rawToken))) {
           score += 45;
         }
 
-        // Совпадение в папке
         if (item.folder.toLowerCase().includes(rawToken)) {
           score += 25;
         }
 
-        // Совпадение в описании
-        if (descLower.includes(rawToken)) {
-          score += 20;
-        }
-
-        // Совпадение в полном тексте конспекта
         if (contentLower.includes(rawToken)) {
-          score += 20;
+          score += 25;
         }
       }
 
@@ -517,22 +536,26 @@ export class SearchEngine {
         scored.push({
           item,
           score,
-          snippet: this.extractSnippet(item, meaningfulTokens.length > 0 ? meaningfulTokens : [rawQuery])
+          snippet: this.extractSnippet(item, meaningfulTokens.length > 0 ? meaningfulTokens : [q])
         });
       }
     }
 
-    // Сортировка: релевантность -> хронологический порядок
     scored.sort((a, b) => {
       if (b.score !== a.score) return b.score - a.score;
       return (a.item.firstSessionNumber || 0) - (b.item.firstSessionNumber || 0);
     });
 
     const maxScore = scored.length > 0 ? scored[0].score : 0;
-    // Отсекаем шум при наличии сильных совпадений
-    const relevant = scored.filter(s => s.score >= Math.max(25, maxScore * 0.4));
+    const relevant = scored.filter(s => s.score >= Math.max(25, maxScore * 0.35));
 
-    this.currentResults = relevant.map(s => ({ ...s.item, snippet: s.snippet }));
+    return relevant.map(s => ({ ...s.item, snippet: s.snippet }));
+  }
+
+  handleSearch() {
+    if (!this.input) return;
+    const rawQuery = this.input.value;
+    this.currentResults = this.search(rawQuery);
     this.selectedIndex = 0;
     this.renderResults(rawQuery);
   }

@@ -449,6 +449,33 @@ async function runSync() {
             type: 'html',
             blob: hash
           });
+
+          // Автоматическое распознавание темы лекции из HTML-конспекта
+          if (!lecData.description) {
+            try {
+              const htmlStr = content.toString('utf8');
+              const tm = htmlStr.match(/<title>([^<]+)<\/title>/i);
+              const h1m = htmlStr.match(/<h1[^>]*>([^<]+)<\/h1>/i);
+              const rawTopic = tm ? tm[1] : (h1m ? h1m[1] : '');
+              if (rawTopic) {
+                const clean = rawTopic
+                  .replace(/<[^>]+>/g, '')
+                  .replace(/^.*?(Высшая алгебра|Математический анализ|Дискретная математика|Аналитическая геометрия)\s*[:—–|]\s*/i, '')
+                  .replace(/\s*—\s*Полный.*?$/i, '')
+                  .replace(/\s*\|\s*ФПМ.*?$/i, '')
+                  .replace(/\s*\|\s*Конспект.*?$/i, '')
+                  .replace(/\s*\(Полный курс.*?$/i, '')
+                  .replace(/—\s*Лекция\s*\d+\s*[:—–]\s*/i, '')
+                  .replace(/Лекция\s*\d+\s*[:—–]\s*/i, '')
+                  .replace(/Лекции\s*[\d–-]+\s*[:—–]\s*/i, '')
+                  .replace(/\s+/g, ' ')
+                  .trim();
+                if (clean && clean.length > 3) {
+                  lecData.description = clean;
+                }
+              }
+            } catch (errTopic) {}
+          }
         }
       }
 
