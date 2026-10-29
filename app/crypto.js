@@ -33,7 +33,7 @@ export class VaultCrypto {
         hash: 'SHA-256'
       },
       keyMaterial,
-      { name: 'AES-256-GCM', length: 256 },
+      { name: 'AES-GCM', length: 256 },
       true, // extractable для возможности сохранения производного ключа (запомнить устройство)
       ['encrypt', 'decrypt']
     );
@@ -74,11 +74,11 @@ export class VaultCrypto {
       key = keyOrPassword;
     }
 
-    // Дешифрование AES-256-GCM
+    // Дешифрование AES-GCM
     let decryptedGzip;
     try {
       decryptedGzip = await crypto.subtle.decrypt(
-        { name: 'AES-256-GCM', iv: iv },
+        { name: 'AES-GCM', iv: iv },
         key,
         ciphertext
       );
@@ -129,7 +129,7 @@ export class VaultCrypto {
     return await crypto.subtle.importKey(
       'raw',
       bytes,
-      { name: 'AES-256-GCM' },
+      { name: 'AES-GCM' },
       true,
       ['encrypt', 'decrypt']
     );

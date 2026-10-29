@@ -302,7 +302,23 @@ class App {
   async completeLoginSuccess(password, sampleBlobBuffer) {
     const bytes = new Uint8Array(sampleBlobBuffer);
     const salt = bytes.slice(6, 22);
-    this.cryptoKey = await VaultCrypto.deriveKey(password, salt);
+
+    if (this.isAdmin && this.metadata && this.metadata.sharedKeyHex) {
+      const hex = this.metadata.sharedKeyHex;
+      const raw = new Uint8Array(hex.length / 2);
+      for (let i = 0; i < hex.length; i += 2) {
+        raw[i / 2] = parseInt(hex.substr(i, 2), 16);
+      }
+      this.cryptoKey = await crypto.subtle.importKey(
+        'raw',
+        raw,
+        { name: 'AES-GCM' },
+        true,
+        ['encrypt', 'decrypt']
+      );
+    } else {
+      this.cryptoKey = await VaultCrypto.deriveKey(password, salt);
+    }
 
     if (this.authRemember.checked) {
       const rawKeyB64 = await VaultCrypto.exportKeyRaw(this.cryptoKey);
@@ -324,6 +340,21 @@ class App {
     const buf = await resp.arrayBuffer();
     const decryptedBytes = await VaultCrypto.decryptBlob(buf, this.cryptoKey);
     this.metadata = JSON.parse(new TextDecoder().decode(decryptedBytes));
+
+    if (this.isAdmin && this.metadata && this.metadata.sharedKeyHex) {
+      const hex = this.metadata.sharedKeyHex;
+      const raw = new Uint8Array(hex.length / 2);
+      for (let i = 0; i < hex.length; i += 2) {
+        raw[i / 2] = parseInt(hex.substr(i, 2), 16);
+      }
+      this.cryptoKey = await crypto.subtle.importKey(
+        'raw',
+        raw,
+        { name: 'AES-GCM' },
+        true,
+        ['encrypt', 'decrypt']
+      );
+    }
   }
 
   unlockApp() {

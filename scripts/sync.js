@@ -36,44 +36,39 @@ function checkPrerequisites() {
 
 // Загрузка или создание начального конфига
 function loadConfig() {
+  let config;
   if (!fs.existsSync(CONFIG_FILE)) {
     console.log('⚠️ Файл scripts/sync.json не найден. Создаём из шаблона...');
-    const examplePath = path.join(__dirname, 'sync.json.example');
-    let template = {
+    config = {
       storagePath: "./Storage",
       repoUrl: "",
-      sharedPassword: "fam-students-secret-password",
-      adminPassword: "fam-admin-secret-password-2026",
+      sharedPassword: "fpm2026",
+      adminPassword: "admin2026",
+      vaultSalt: crypto.randomBytes(16).toString('hex'),
       branchDeploy: "gh-pages",
       branchSource: "main"
     };
-
-    if (fs.existsSync(examplePath)) {
-      try {
-        template = JSON.parse(fs.readFileSync(examplePath, 'utf8'));
-      } catch (e) {}
-    }
-
-    fs.writeFileSync(CONFIG_FILE, JSON.stringify(template, null, 2), 'utf8');
-    console.log('💡 Настройте пароли и repoUrl в scripts/sync.json перед деплоем на GitHub!');
-    return template;
+    fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2), 'utf8');
+    return config;
   }
 
   try {
-    return JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+    config = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+    if (!config.vaultSalt) {
+      config.vaultSalt = crypto.randomBytes(16).toString('hex');
+      fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2), 'utf8');
+    }
+    return config;
   } catch (e) {
     console.error('❌ Ошибка чтения scripts/sync.json:', e.message);
     process.exit(1);
   }
 }
 
-// Шифрование буфера: Gzip -> PBKDF2 -> AES-256-GCM
-function encryptData(buffer, password) {
+// Шифрование буфера: Gzip -> AES-GCM (с единой солью хранилища и уникальным IV на каждый файл)
+function encryptWithKey(buffer, key, salt) {
   const gzipped = zlib.gzipSync(buffer, { level: 9 });
-  const salt = crypto.randomBytes(16);
   const iv = crypto.randomBytes(12);
-
-  const key = crypto.pbkdf2Sync(password, salt, PBKDF2_ITERATIONS, KEY_LEN, 'sha256');
 
   const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
   const encrypted = Buffer.concat([cipher.update(gzipped), cipher.final()]);
@@ -129,6 +124,11 @@ async function runSync() {
     console.log('🔑 Админ-пароль обновлен в scripts/sync.json. Перешифровываем admin.bin...');
   }
 
+  const vaultSalt = Buffer.from(config.vaultSalt, 'hex');
+  console.log('⚡ Генерация мастер-ключей через PBKDF2 (600 000 итераций)...');
+  const sharedKey = crypto.pbkdf2Sync(config.sharedPassword, vaultSalt, PBKDF2_ITERATIONS, KEY_LEN, 'sha256');
+  const adminKey = crypto.pbkdf2Sync(config.adminPassword, vaultSalt, PBKDF2_ITERATIONS, KEY_LEN, 'sha256');
+
   const storageBase = path.resolve(ROOT_DIR, config.storagePath || './Storage');
   const hseDir = path.join(storageBase, 'HSE');
   const blobsDir = path.join(ROOT_DIR, 'blobs');
@@ -137,13 +137,11 @@ async function runSync() {
     fs.mkdirSync(blobsDir, { recursive: true });
   }
 
-  // Создаем базовую структуру Storage, если не существует
   if (!fs.existsSync(hseDir)) {
     console.log(`📁 Создание базовой структуры папок в ${hseDir}...`);
     fs.mkdirSync(hseDir, { recursive: true });
   }
 
-  // Чтение site-metadata.json если был экспортирован из панели
   const exportMetaPath = path.join(hseDir, 'site-metadata.json');
   let existingMeta = {
     schema: 1,
@@ -165,7 +163,6 @@ async function runSync() {
     }
   }
 
-  // Создание папок для предметов из метаданных, если их ещё нет
   for (const subj of existingMeta.subjects || []) {
     const subjPath = path.join(hseDir, subj.name, 'лекции');
     if (!fs.existsSync(subjPath)) {
@@ -177,7 +174,6 @@ async function runSync() {
   const activeBlobHashes = new Set();
   const lecturesMap = new Map();
 
-  // Заполняем карту предыдущих лекций
   for (const lec of existingMeta.lectures || []) {
     lecturesMap.set(lec.id, lec);
   }
@@ -233,11 +229,10 @@ async function runSync() {
 
           activeBlobHashes.add(blobName);
 
-          if (!fs.existsSync(blobPath)) {
-            console.log(` 🔒 Шифрование конспекта: [${subjName}] ${folder}/${file}`);
-            const encrypted = encryptData(content, config.sharedPassword);
-            fs.writeFileSync(blobPath, encrypted);
-          }
+          // Всегда шифруем актуальным ключом
+          console.log(` 🔒 Шифрование конспекта: [${subjName}] ${folder}/${file}`);
+          const encrypted = encryptWithKey(content, sharedKey, vaultSalt);
+          fs.writeFileSync(blobPath, encrypted);
 
           lecData.files.push({
             name: file,
@@ -262,11 +257,9 @@ async function runSync() {
 
             activeBlobHashes.add(blobName);
 
-            if (!fs.existsSync(blobPath)) {
-              console.log(` 🔒 Шифрование оригинала: [${subjName}] ${folder}/orig/${file}`);
-              const encrypted = encryptData(content, config.sharedPassword);
-              fs.writeFileSync(blobPath, encrypted);
-            }
+            console.log(` 🔒 Шифрование оригинала: [${subjName}] ${folder}/orig/${file}`);
+            const encrypted = encryptWithKey(content, sharedKey, vaultSalt);
+            fs.writeFileSync(blobPath, encrypted);
 
             lecData.originals.push({
               name: file,
@@ -281,7 +274,6 @@ async function runSync() {
     }
   }
 
-  // Формируем финальные метаданные
   const finalLectures = Array.from(lecturesMap.values());
   const finalMeta = {
     schema: 1,
@@ -290,7 +282,7 @@ async function runSync() {
     lectures: finalLectures
   };
 
-  // 3. Mirror-Mode: Удаление устаревших blobs
+  // 3. Mirror-Mode
   const allBlobsOnDisk = fs.readdirSync(blobsDir);
   let removedCount = 0;
   for (const b of allBlobsOnDisk) {
@@ -303,7 +295,7 @@ async function runSync() {
     console.log(` 🧹 Очистка зеркала: удалено ${removedCount} устаревших blobs`);
   }
 
-  // 4. Генерация manifest.json (список хешей и размеров)
+  // 4. Manifest
   const manifestList = fs.readdirSync(blobsDir).map(file => {
     const stat = fs.statSync(path.join(blobsDir, file));
     return { name: file, size: stat.size };
@@ -321,40 +313,41 @@ async function runSync() {
   const metaJsonBuf = Buffer.from(JSON.stringify(finalMeta), 'utf8');
 
   // metadata.bin (общий пароль студентов)
-  const encMeta = encryptData(metaJsonBuf, config.sharedPassword);
+  const encMeta = encryptWithKey(metaJsonBuf, sharedKey, vaultSalt);
   fs.writeFileSync(path.join(ROOT_DIR, 'metadata.bin'), encMeta);
 
-  // admin.bin (пароль администратора)
-  const encAdmin = encryptData(metaJsonBuf, config.adminPassword);
+  // admin.bin (пароль администратора, содержит sharedKeyHex для доступа к blobs)
+  const adminMeta = {
+    ...finalMeta,
+    sharedKeyHex: sharedKey.toString('hex')
+  };
+  const adminJsonBuf = Buffer.from(JSON.stringify(adminMeta), 'utf8');
+  const encAdmin = encryptWithKey(adminJsonBuf, adminKey, vaultSalt);
   fs.writeFileSync(path.join(ROOT_DIR, 'admin.bin'), encAdmin);
 
   console.log(`✅ Синхронизация завершена: ${finalLectures.length} лекций, ${activeBlobHashes.size} blobs.`);
 
-  // 6. Git Push на GitHub Pages (orphan ветка gh-pages)
+  // 6. Git Push
   if (!args.includes('--no-push')) {
     deployToGitHub(config);
   }
 }
 
-// Развертывание в ветку gh-pages (orphan force-push)
 function deployToGitHub(config) {
   if (!config.repoUrl) {
     console.log('ℹ️ Параметр repoUrl не указан в scripts/sync.json. Публикация на GitHub пропущена.');
-    console.log('   Укажите URL вашего репозитория (например: https://github.com/USER/FAM_2026-2027_HSE.git) для автодеплоя.');
     return;
   }
 
   console.log('🚀 Развертывание на GitHub Pages (ветка ' + (config.branchDeploy || 'gh-pages') + ')...');
 
   try {
-    // Временная папка для чистой сборки витрины
     const distDir = path.join(ROOT_DIR, '.gh-dist');
     if (fs.existsSync(distDir)) {
       fs.rmSync(distDir, { recursive: true, force: true });
     }
     fs.mkdirSync(distDir, { recursive: true });
 
-    // Копируем только открытый сайт + зашифрованные blobs (без Storage и без конфигов паролей!)
     const copyList = [
       'index.html', 'manifest.json', 'metadata.bin', 'admin.bin', 'sw.js',
       'styles', 'app', 'fonts', 'blobs'
@@ -368,7 +361,6 @@ function deployToGitHub(config) {
       }
     }
 
-    // Инициализация временного git репо для orphan-пуша
     execSync('git init', { cwd: distDir, stdio: 'ignore' });
     execSync('git checkout -b gh-pages', { cwd: distDir, stdio: 'ignore' });
     execSync('git add -A', { cwd: distDir, stdio: 'ignore' });
@@ -378,7 +370,6 @@ function deployToGitHub(config) {
     console.log(' ⬆️ Выполняется force-push в ветку gh-pages...');
     execSync('git push -f origin gh-pages', { cwd: distDir, stdio: 'inherit' });
 
-    // Очистка временной папки
     fs.rmSync(distDir, { recursive: true, force: true });
     console.log('🎉 Успешно опубликовано на GitHub Pages!');
   } catch (err) {
@@ -386,7 +377,6 @@ function deployToGitHub(config) {
   }
 }
 
-// Запуск
 runSync().catch(err => {
   console.error('❌ Фатальная ошибка sync.js:', err);
   process.exit(1);
