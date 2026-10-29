@@ -452,7 +452,7 @@ async function runSync() {
         }
       }
 
-      // 2. Поиск оригиналов (First-Class PDF Citizen)
+      // 2. Поиск оригиналов (СТРОГО ТОЛЬКО .pdf)
       const origPossibleNames = ['orig', 'origs', 'original', 'originals', 'оригинал', 'оригиналы'];
       const origDirs = [];
 
@@ -462,19 +462,21 @@ async function runSync() {
           origDirs.push(fullItem);
         } else if (fs.statSync(fullItem).isFile()) {
           const ext = path.extname(item).toLowerCase();
-          if (['.pdf', '.jpg', '.jpeg', '.png'].includes(ext)) {
+          // СТРОГО: Никаких фото доски или картинок, только PDF!
+          if (ext === '.pdf') {
             const content = fs.readFileSync(fullItem);
             const hash = getSha256Hex(content);
             const blobName = `${hash}.bin`;
             const blobPath = path.join(blobsDir, blobName);
 
             activeBlobHashes.add(blobName);
+            console.log(` 🔒 Шифрование PDF оригинала: [${subj.name}] ${folder}/${item}`);
             const encrypted = encryptWithKey(content, sharedKey, vaultSalt);
             fs.writeFileSync(blobPath, encrypted);
 
             lecData.originals.push({
               name: item,
-              type: ext === '.pdf' ? 'pdf' : 'image',
+              type: 'pdf',
               blob: hash,
               size: content.length
             });
@@ -487,20 +489,21 @@ async function runSync() {
         for (const file of origFiles) {
           const filePath = path.join(od, file);
           const ext = path.extname(file).toLowerCase();
-          if (fs.statSync(filePath).isFile() && ['.pdf', '.jpg', '.jpeg', '.png'].includes(ext)) {
+          // СТРОГО: Только PDF, любые .jpg/.png отбрасываются
+          if (fs.statSync(filePath).isFile() && ext === '.pdf') {
             const content = fs.readFileSync(filePath);
             const hash = getSha256Hex(content);
             const blobName = `${hash}.bin`;
             const blobPath = path.join(blobsDir, blobName);
 
             activeBlobHashes.add(blobName);
-            console.log(` 🔒 Шифрование оригинала (PDF/Image): [${subj.name}] ${folder}/${path.basename(od)}/${file}`);
+            console.log(` 🔒 Шифрование PDF оригинала: [${subj.name}] ${folder}/${path.basename(od)}/${file}`);
             const encrypted = encryptWithKey(content, sharedKey, vaultSalt);
             fs.writeFileSync(blobPath, encrypted);
 
             lecData.originals.push({
               name: file,
-              type: ext === '.pdf' ? 'pdf' : 'image',
+              type: 'pdf',
               blob: hash,
               size: content.length
             });
