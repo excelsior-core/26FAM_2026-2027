@@ -1,9 +1,9 @@
 /**
- * sw.js - Service Worker для оффлайн-доступа к конспектам
- * Кэширует app shell (HTML, стили, скрипты, шрифты) и зашифрованные blobs
+ * sw.js - Service Worker для оффлайн-доступа к конспектам ФПМ (Zero-CDN PWA)
+ * Кэширует app shell (HTML, стили, скрипты, автономные шрифты) и зашифрованные blobs
  */
 
-const CACHE_NAME = 'fpm-conspects-v3.0';
+const CACHE_NAME = 'fpm-conspects-v5.0';
 const APP_SHELL = [
   './',
   'index.html',
@@ -13,20 +13,22 @@ const APP_SHELL = [
   'app/crypto.js',
   'app/search.js',
   'app/admin.js',
+  'app/vault-3d.js',
+  'app/marginalia.js',
   'manifest.json',
-  'metadata.bin',
   'fonts/unbounded-variable.woff2',
-  'fonts/golos-text-variable.woff2'
+  'fonts/golos-text-variable.woff2',
+  'fonts/cormorant-garamond-cyrillic.woff2',
+  'fonts/cormorant-garamond-latin.woff2'
 ];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      // Кэшируем оболочку приложения, пропуская несуществующие файлы шрифтов
       return Promise.all(
         APP_SHELL.map((url) => {
-          return cache.add(url).catch(() => {
-            // Игнорируем отсутствие необязательных файлов (например, если шрифты еще не скачаны)
+          return cache.add(url).catch((err) => {
+            console.warn('[SW] Optional prefetch skip:', url, err.message);
           });
         })
       );
@@ -47,7 +49,7 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  // Для запросов blobs/ и shell: Network-First с фоллбэком на Cache
+  // Network-First with Cache fallback for seamless offline resilience
   e.respondWith(
     fetch(e.request)
       .then((networkResponse) => {

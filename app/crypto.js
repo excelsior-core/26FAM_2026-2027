@@ -1,7 +1,12 @@
 /**
- * app/crypto.js - Клиентская криптография на WebCrypto API
- * PBKDF2-SHA256 (600 000 итераций) + AES-256-GCM + DecompressionStream('gzip')
- * Формат blob: FAMB1 + 0x01 (version) + salt(16) + IV(12) + ciphertext+tag
+ * app/crypto.js - Бескомпромиссная клиентская криптография на WebCrypto API
+ * Стандарт: PBKDF2-HMAC-SHA256 (600 000 итераций) + AES-256-GCM + DecompressionStream('gzip')
+ * Бинарный формат блоба (.bin):
+ *   [0..4]   MAGIC: "FAMB1" (5 байт)
+ *   [5]      FORMAT VERSION: 0x01 (1 байт)
+ *   [6..21]  KDF SALT: 16 байт
+ *   [22..33] AES IV: 12 байт
+ *   [34..]   CIPHERTEXT + 16-байтный auth tag AES-GCM
  */
 
 export class VaultCrypto {
@@ -34,7 +39,7 @@ export class VaultCrypto {
       },
       keyMaterial,
       { name: 'AES-GCM', length: 256 },
-      true, // extractable для возможности сохранения производного ключа (запомнить устройство)
+      true, // extractable для безопасного сохранения в сессии
       ['encrypt', 'decrypt']
     );
   }
@@ -63,9 +68,9 @@ export class VaultCrypto {
       throw new Error(`Неподдерживаемая версия blob: ${version}`);
     }
 
-    const salt = bytes.slice(6, 22); // 16 байт
-    const iv = bytes.slice(22, 34);   // 12 байт
-    const ciphertext = bytes.slice(34); // Остаток: шифртекст + 16-байтный auth tag
+    const salt = bytes.slice(6, 22);   // 16 байт
+    const iv = bytes.slice(22, 34);     // 12 байт
+    const ciphertext = bytes.slice(34); // остаток: шифртекст + 16-байтный auth tag
 
     let key;
     if (typeof keyOrPassword === 'string') {
@@ -74,7 +79,7 @@ export class VaultCrypto {
       key = keyOrPassword;
     }
 
-    // Дешифрование AES-GCM
+    // Дешифрование AES-GCM с проверкой аутентификационного тега
     let decryptedGzip;
     try {
       decryptedGzip = await crypto.subtle.decrypt(
@@ -83,7 +88,7 @@ export class VaultCrypto {
         ciphertext
       );
     } catch (e) {
-      throw new Error('Криптографическая ошибка: неверный ключ или повреждённые данные');
+      throw new Error('Криптографическая ошибка: неверный пароль или нарушение целостности данных');
     }
 
     // Распаковка gzip через нативный DecompressionStream
@@ -101,30 +106,35 @@ export class VaultCrypto {
       const decompressedBuffer = await new Response(stream).arrayBuffer();
       return new Uint8Array(decompressedBuffer);
     } else {
-      throw new Error('Браузер не поддерживает DecompressionStream');
+      throw new Error('Браузер не поддерживает DecompressionStream API');
     }
   }
 
   /**
-   * Экспорт ключа в raw bytes для сохранения в localStorage/sessionStorage
+   * Экспорт ключа в Base64 для безопасного хранения
    * @param {CryptoKey} key 
    * @returns {Promise<string>} base64
    */
   static async exportKeyRaw(key) {
     const raw = await crypto.subtle.exportKey('raw', key);
-    return btoa(String.fromCharCode(...new Uint8Array(raw)));
+    let binary = '';
+    const bytes = new Uint8Array(raw);
+    for (let i = 0; i < bytes.byteLength; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary);
   }
 
   /**
-   * Импорт ключа из сохраненного base64
+   * Импорт ключа из Base64 строки
    * @param {string} base64Key 
    * @returns {Promise<CryptoKey>}
    */
   static async importKeyRaw(base64Key) {
-    const rawStr = atob(base64Key);
-    const bytes = new Uint8Array(rawStr.length);
-    for (let i = 0; i < rawStr.length; i++) {
-      bytes[i] = rawStr.charCodeAt(i);
+    const binary = atob(base64Key);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
     }
     return await crypto.subtle.importKey(
       'raw',
@@ -133,5 +143,49 @@ export class VaultCrypto {
       true,
       ['encrypt', 'decrypt']
     );
+  }
+
+  /**
+   * Шифрование пользовательских локальных данных (маргиналии, заметки)
+   */
+  static async encryptLocalData(key, text) {
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const encoded = new TextEncoder().encode(text);
+    const ciphertext = await crypto.subtle.encrypt(
+      { name: 'AES-GCM', iv: iv },
+      key,
+      encoded
+    );
+    const combined = new Uint8Array(iv.length + ciphertext.byteLength);
+    combined.set(iv, 0);
+    combined.set(new Uint8Array(ciphertext), iv.length);
+    let bin = '';
+    for (let i = 0; i < combined.length; i++) {
+      bin += String.fromCharCode(combined[i]);
+    }
+    return btoa(bin);
+  }
+
+  /**
+   * Расшифровка пользовательских локальных данных (маргиналии, заметки)
+   */
+  static async decryptLocalData(key, base64) {
+    try {
+      const bin = atob(base64);
+      const combined = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) {
+        combined[i] = bin.charCodeAt(i);
+      }
+      const iv = combined.slice(0, 12);
+      const ciphertext = combined.slice(12);
+      const decrypted = await crypto.subtle.decrypt(
+        { name: 'AES-GCM', iv: iv },
+        key,
+        ciphertext
+      );
+      return new TextDecoder().decode(decrypted);
+    } catch (e) {
+      return null;
+    }
   }
 }

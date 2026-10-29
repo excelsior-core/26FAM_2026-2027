@@ -22,12 +22,18 @@ if exist "%ProgramFiles%\nodejs\node.exe" (
     goto :run
 )
 
-echo [ERROR] Node.js not found.
+REM 4. Check Program Files (x86)
+if exist "%ProgramFiles(x86)%\nodejs\node.exe" (
+    set "NODE_CMD=%ProgramFiles(x86)%\nodejs\node.exe"
+    goto :run
+)
+
+echo [ERROR] Node.js not found in PATH or standard installation directories.
 pause
 exit /b 1
 
 :run
-echo Starting watch mode...
+echo Starting automatic folder watcher for CONSPECTS FPM...
 "%NODE_CMD%" "%~dp0scripts\watch.js"
 
 pause

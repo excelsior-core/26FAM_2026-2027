@@ -5,7 +5,10 @@ Storage/
 # Sync configuration with private keys/passwords
 scripts/sync.json
 
-# Node dependencies (if any installed in future)
+# Temporary distribution builds
+.gh-dist/
+
+# Node dependencies
 node_modules/
 
 # OS and editor files

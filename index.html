@@ -5,32 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>КОНСПЕКТЫ ФПМ — Интеллектуальный архив 1 курса</title>
-  <meta name="description" content="Студенческий сборник нейроконспектов · ФПМ ВШЭ · 1 курс">
+  <title>КОНСПЕКТЫ ФПМ — Интеллектуальный академический архив</title>
+  <meta name="description" content="Студенческий сборник конспектов и рукописей · ФПМ ВШЭ · 1 курс (2026–2027)">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles/main.css?v=4.1">
-  <link rel="stylesheet" href="styles/components.css?v=4.1">
+  <link rel="stylesheet" href="styles/main.css?v=5.0">
+  <link rel="stylesheet" href="styles/components.css?v=5.0">
 </head>
 <body>
+  <!-- Атмосферные световые слои -->
   <div class="hero-glow"></div>
   <div class="smoke-ambient-layer"></div>
+  <div id="panic-overlay"></div>
 
-  <!-- 1. Экран авторизации (Vault Gate Reveal) -->
+  <!-- 1. Экран авторизации (The Vault Gate) -->
   <div id="auth-view" class="auth-wrapper">
     <div class="auth-card">
-      <!-- Процедурный 3D WebGL артефакт (чистый визуал) -->
+      <!-- Процедурный 3D WebGL / Canvas артефакт (Астролябия, 4D Тессеракт или Криптекс) -->
       <div id="vault-3d-box" class="vault-3d-box"></div>
 
       <div class="auth-header">
         <div class="academic-crest">✦ ИНТЕЛЛЕКТУАЛЬНЫЙ АРХИВ · ФПМ ВШЭ ✦</div>
-        <h1 class="brand-title" style="font-size: 2.1rem; margin: 12px 0 8px; letter-spacing: -0.03em;">
-          КОНСПЕКТЫ <span style="color: var(--accent-color);">ФПМ</span>
+        <h1 class="brand-monolith" style="font-size: 2.1rem; margin: 12px 0 6px;">
+          КОНСПЕКТЫ <span class="accent">ФПМ</span>
         </h1>
-        <div class="tagline">1-й курс · 2026–2027 учебный год</div>
+        <div style="font-size: 0.85rem; color: var(--parchment-muted);">1-й курс · 2026–2027 учебный год</div>
       </div>
 
       <div class="auth-disclaimer">
-        Неофициальный учебный архив ФПМ (НИУ ВШЭ). Не является ресурсом университета и не связан с преподавателями. Доступ защищён сквозным клиентским шифрованием (AES-256-GCM + PBKDF2 600k).
+        Неофициальный учебный архив ФПМ (НИУ ВШЭ). Все материалы и рукописи защищены сквозным клиентским шифрованием (AES-256-GCM + PBKDF2 600k).
       </div>
 
       <form id="auth-form" class="auth-form" autocomplete="off">
@@ -39,7 +41,7 @@
             type="password" 
             id="auth-password" 
             class="auth-input" 
-            placeholder="Введите пароль курса или администратора..." 
+            placeholder="Введите пароль доступа..." 
             required 
             autofocus
             autocapitalize="off"
@@ -61,24 +63,24 @@
       </form>
 
       <div class="auth-sub-hint">
-        Zero-Knowledge & Zero-CDN · Без серверов и слежки · 100% Автономность
+        Zero-Knowledge & Zero-CDN · 100% Автономность · Двойной Esc для конспирации
       </div>
     </div>
   </div>
 
-  <!-- 2. Главная страница (После дешифрования) -->
+  <!-- 2. Главный портал (После дешифрования каталога) -->
   <div id="main-view" style="display: none;">
-    <!-- Панель администратора (строго скрыта для студентов) -->
+    <!-- Панель управления администратора (строго изолирована для студентов) -->
     <aside id="admin-toolbar" class="admin-toolbar" style="display: none !important;">
       <div class="container admin-toolbar-inner">
         <div style="display: flex; align-items: center; gap: 10px;">
-          <span class="admin-dot" style="width: 8px; height: 8px; background: var(--accent-color); border-radius: 50%; display: inline-block;"></span>
-          <strong>Режим управления архивом</strong>
+          <span style="width: 8px; height: 8px; background: var(--urgent-color); border-radius: 50%; display: inline-block;"></span>
+          <strong>Режим управления архивом ФПМ</strong>
         </div>
         <div style="display: flex; gap: 8px;">
           <button id="admin-new-subject-btn" class="btn-secondary">+ Предмет</button>
           <button id="admin-new-module-btn" class="btn-secondary">+ Модуль</button>
-          <button id="admin-new-announcement-btn" class="btn-secondary" style="color: var(--accent-color);">+ Дедлайн / Новость</button>
+          <button id="admin-new-announcement-btn" class="btn-secondary" style="color: var(--gold-antique);">+ Дедлайн</button>
           <button id="admin-export-btn" class="action-btn-primary" style="padding: 4px 12px; font-size: 0.8rem;">
             💾 Экспорт site-metadata.json
           </button>
@@ -89,324 +91,209 @@
     <!-- Шапка сайта -->
     <header class="site-header">
       <div class="container header-inner">
-        <div class="brand-wrap">
-          <a href="#" class="brand-title" style="font-size: 1.25rem; letter-spacing: -0.02em;">
-            КОНСПЕКТЫ <span style="color: var(--accent-color);">ФПМ</span>
+        <div style="display: flex; flex-direction: column;">
+          <a href="#" class="brand-monolith" style="font-size: 1.25rem;">
+            КОНСПЕКТЫ <span class="accent">ФПМ</span>
           </a>
-          <span class="tagline" style="font-size: 0.72rem;">ФПМ НН · 1 курс · 2026–2027</span>
+          <span style="font-size: 0.72rem; color: var(--parchment-muted); font-family: var(--font-serif); letter-spacing: 0.1em;">
+            ФПМ ВШЭ · 1 курс · 2026–2027
+          </span>
         </div>
 
         <div class="header-actions">
-          <!-- Суточный Chiaroscuro индикатор -->
-          <span id="circadian-badge" class="circadian-pill" title="Текущая фаза суточного освещения архива">✦ Ночной бархат</span>
+          <div id="circadian-badge" class="circadian-pill">
+            <span id="circadian-icon">🏛️</span>
+            <span id="circadian-text">Архив</span>
+          </div>
 
-          <button id="announcements-open-btn" class="nav-pill-btn" title="Дедлайны и объявления курса">
-            <span>📌 Дедлайны</span>
+          <button id="announcements-open-btn" class="nav-pill-btn" title="Дедлайны и объявления">
+            ⏳ Дедлайны
             <span id="announcements-count-badge" class="pulse-badge" style="display: none;">0</span>
           </button>
 
-          <button id="calendar-open-btn" class="nav-pill-btn" title="Интерактивный календарь пар">
-            <span>📅 Календарь пар</span>
+          <button id="calendar-open-btn" class="nav-pill-btn" title="Календарь пар">
+            📅 Календарь
           </button>
 
-          <button id="palette-open-btn" class="nav-pill-btn" title="Умный поиск (Ctrl+K или /)">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <span>Поиск</span>
-            <kbd class="kbd-badge">Ctrl+K</kbd>
+          <button id="palette-open-btn" class="nav-pill-btn" title="Умный сниппет-поиск">
+            🔍 Поиск
+            <span class="kbd-badge">Ctrl+K</span>
           </button>
 
-          <select id="theme-selector" class="theme-select" title="Тема оформления">
-            <option value="dark">Академия (Dark)</option>
-            <option value="paper">Бумага (Paper)</option>
-            <option value="sepia">Сепия (Sepia)</option>
-            <option value="midnight">Полночь (Midnight)</option>
+          <select id="theme-selector" class="btn-secondary" style="cursor: pointer;" title="Тема оформления">
+            <option value="baroque">Академия (Караваджо)</option>
+            <option value="paper">Музейная бумага</option>
+            <option value="sepia">Венецианская сепия</option>
+            <option value="midnight">Ночная обсерватория</option>
           </select>
 
-          <span id="admin-indicator" class="admin-indicator" style="display: none !important;">Админ</span>
-          <button id="logout-btn" class="btn-secondary" title="Заблокировать архив (Panic Key: Esc × 2)">Выход</button>
+          <button id="logout-btn" class="btn-secondary" title="Заблокировать архив (Esc x 2)">
+            🔒 Выход
+          </button>
         </div>
       </div>
     </header>
 
-    <!-- Основной контент (Ultra-Wide Canvas) -->
+    <!-- Главная экспозиция -->
     <main class="container">
-      <!-- Академическая маргиналия и дисклеймер -->
-      <div id="ai-banner" class="alert-banner">
-        <div class="alert-banner-text">
-          <span class="alert-banner-badge">✦ АРХИВНОЕ ПРИМЕЧАНИЕ · AI PROVENANCE ✦</span>
-          Конспекты синтезированы моделями ИИ на основе лекционных рукописей курса. Сложные математические доказательства и выкладки рекомендуется сверять с оригиналами лектора.
-        </div>
-        <button id="ai-banner-close" class="alert-close-btn" title="Скрыть примечание">&times;</button>
-      </div>
+      <!-- Фоновая водяная типографика -->
+      <div class="watermark-bg-word" style="top: 140px; right: -40px;">STATUES</div>
 
-      <!-- Монументальный Hero-блок -->
-      <section style="margin: 32px 0 24px;">
-        <div class="academic-crest">✦ ИНТЕЛЛЕКТУАЛЬНЫЙ АРХИВ · ФПМ ВШЭ ✦</div>
-        <h1 class="hero-mega-title">
-          ИНТЕЛЛЕКТУАЛЬНЫЙ АРХИВ &<br>
-          <span class="highlight">КОНСПЕКТЫ ФПМ</span>
-        </h1>
+      <!-- Hero-секция -->
+      <section class="hero-section">
+        <div class="academic-crest">✦ АКАДЕМИЧЕСКИЙ АРХИВ · ПЕРВЫЙ КУРС ✦</div>
+        <h2 class="hero-mega-title">
+          ФАКУЛЬТЕТ <span class="highlight">ПРИКЛАДНОЙ МАТЕМАТИКИ</span>
+        </h2>
         <p class="hero-sub-text">
-          Защищённый студенческий сборник нейроконспектов, интерактивное расписание модулей и оригиналы лекций 1 курса ФПМ ВШЭ.
+          Первоклассные конспекты и оригинальные рукописи лекторов по фундаментальным математическим дисциплинам. Полная офлайн-автономия, сквозная криптография и академический перфекционизм.
         </p>
 
-        <!-- Сессионный радар прогресса -->
-        <div class="hero-stats-bar">
+        <!-- Статистика и прогресс освоения -->
+        <div class="stats-ribbon">
           <div class="stat-item">
-            <span id="stat-total-lectures" class="stat-num">0</span>
-            <span class="stat-label">Всего материалов</span>
+            <span id="stat-total-lectures" class="stat-val">0</span>
+            <span class="stat-lbl">Материалов</span>
           </div>
           <div class="stat-item">
-            <span id="stat-studied-percent" class="stat-num">0%</span>
-            <span class="stat-label">Освоено вами</span>
-          </div>
-          <div class="progress-track-wrap">
-            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted);">
-              <span>Прогресс подготовки к сессии</span>
-              <span id="stat-studied-ratio">0 из 0</span>
-            </div>
-            <div class="progress-track-bg">
-              <div id="stat-progress-bar" class="progress-track-fill" style="width: 0%;"></div>
-            </div>
+            <span id="stat-studied-percent" class="stat-val">0%</span>
+            <span class="stat-lbl">Изучено</span>
           </div>
           <div class="stat-item">
-            <span id="stat-active-deadlines" class="stat-num" style="color: var(--urgent-color);">0</span>
-            <span class="stat-label">Активных дедлайнов</span>
+            <span id="stat-studied-ratio" class="stat-val" style="font-size: 1rem; color: var(--parchment-muted);">0 из 0</span>
+            <span class="stat-lbl">Прогресс курса</span>
+          </div>
+          <div class="progress-bar-wrap">
+            <div id="stat-progress-bar" class="progress-bar-fill"></div>
+          </div>
+          <div class="stat-item">
+            <span id="stat-active-deadlines" class="stat-val" style="color: var(--gold-light);">0</span>
+            <span class="stat-lbl">Активных дедлайнов</span>
           </div>
         </div>
       </section>
 
-      <!-- Новое с прошлого визита -->
-      <section id="new-lectures-section" class="dashboard-section" style="display: none;">
-        <div class="section-title-wrap" data-toggle="new-lectures-content">
-          <h2 class="section-title">✨ Новые материалы с прошлого визита</h2>
-          <span class="section-toggle-icon">▼</span>
-        </div>
-        <div id="new-lectures-content" class="collapsed-content">
-          <div id="new-lectures-grid" class="subjects-tabs-bar"></div>
-        </div>
-      </section>
-
-      <!-- Интерактивные табы предметов -->
-      <section style="margin-bottom: 12px;">
+      <!-- Панель управления и фильтрации -->
+      <section class="controls-bar">
+        <!-- Вкладки предметов (Auto-Chroma) -->
         <div id="subjects-tabs-container" class="subjects-tabs-bar"></div>
-      </section>
 
-      <!-- Категории материалов -->
-      <section style="margin-bottom: 24px;">
-        <div id="category-tabs-container" class="category-tabs-bar">
-          <button class="category-tab active" data-category="">✦ Все материалы</button>
-          <button class="category-tab" data-category="лекции">📚 Лекции</button>
-          <button class="category-tab" data-category="коллоквиумы">🏛️ Коллоквиумы</button>
-          <button class="category-tab" data-category="экзамены">⚖️ Экзамены</button>
-          <button class="category-tab" data-category="семинары">📝 Семинары</button>
-        </div>
-      </section>
-
-      <!-- Панель сортировки и вспомогательных фильтров -->
-      <section class="filter-bar">
-        <div class="filter-group">
-          <select id="filter-module" class="filter-select">
-            <option value="">Все модули</option>
-          </select>
-          <button id="filter-studied-toggle" class="btn-secondary">
-            Неразобранные
-          </button>
-        </div>
-
-        <div class="filter-group">
-          <select id="sort-selector" class="filter-select">
-            <option value="session-date-desc">По дате пары (новые сначала)</option>
-            <option value="session-date-asc">По дате пары (по порядку)</option>
-            <option value="session-num-asc">По номеру пары (1 → N)</option>
-            <option value="title-asc">Название (А–Я)</option>
-            <option value="added-desc">Недавно добавленные</option>
-          </select>
-
-          <button id="reset-filters-btn" class="btn-secondary" title="Сбросить фильтры">
-            Сброс
-          </button>
-        </div>
-      </section>
-
-      <!-- Сетка лекций -->
-      <section>
-        <div id="lectures-container" class="lectures-list"></div>
-      </section>
-    </main>
-
-    <!-- Подвал сайта -->
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
-          <div>
-            <strong>КОНСПЕКТЫ ФПМ</strong> · 2026–2027 · Клиентское шифрование WebCrypto (AES-256-GCM)
+        <!-- Подфильтры: категории, модули, режимы вида -->
+        <div class="sub-controls-row">
+          <div id="category-tabs-container" class="category-tabs-bar">
+            <button class="category-tab active" data-category="">Все материалы</button>
+            <button class="category-tab" data-category="лекции">Лекции</button>
+            <button class="category-tab" data-category="коллоквиумы">Коллоквиумы</button>
+            <button class="category-tab" data-category="экзамены">Экзамены</button>
+            <button class="category-tab" data-category="семинары">Семинары</button>
           </div>
-          <div>
-            <button id="footer-disclaimer-toggle" class="btn-secondary" style="font-size: 0.75rem;">
-              Отказ от ответственности
+
+          <div class="filters-actions-wrap">
+            <select id="filter-module" class="btn-secondary" style="font-size: 0.8rem;">
+              <option value="">Все модули</option>
+            </select>
+
+            <button id="filter-studied-toggle" class="btn-secondary" title="Показать только неизученные">
+              ✓ Только неизученные
+            </button>
+
+            <select id="sort-selector" class="btn-secondary" style="font-size: 0.8rem;">
+              <option value="session-date-desc">Сначала новые по дате</option>
+              <option value="session-date-asc">Сначала первые занятия</option>
+              <option value="session-num-asc">По номеру занятия</option>
+              <option value="title-asc">По алфавиту (А–Я)</option>
+            </select>
+
+            <button id="layout-toggle-btn" class="layout-toggle-btn active" title="Переключить режим отображения">
+              🏛️ Экспозиция
+            </button>
+
+            <button id="reset-filters-btn" class="btn-secondary" title="Сбросить все фильтры">
+              ✕ Сброс
             </button>
           </div>
         </div>
+      </section>
 
-        <div id="footer-disclaimer-box" class="footer-disclaimers" style="display: none;">
-          <p>Неофициальный студенческий архив ФПМ (НИУ ВШЭ). Не является официальным ресурсом НИУ ВШЭ, не связан с преподавателями и не отражает позицию университета.</p>
-          <p style="margin-top: 6px;">Нейроконспекты сгенерированы моделями ИИ — сверяйте сложные математические выкладки с оригиналами лектора.</p>
-        </div>
-      </div>
-    </footer>
+      <!-- Контейнер музейной экспозиции (Haute Couture Spread) -->
+      <section id="lectures-container" class="exhibition-canvas"></section>
+    </main>
   </div>
 
-  <!-- 3. Интерактивный Календарь пар -->
-  <div id="calendar-modal" class="modal-overlay">
-    <div class="calendar-view-modal">
-      <div class="calendar-top-bar">
-        <div class="calendar-month-title">
-          <button id="cal-prev-month" class="btn-secondary">←</button>
-          <span id="cal-current-month-label">Октябрь 2026</span>
-          <button id="cal-next-month" class="btn-secondary">→</button>
+  <!-- 3. Полноэкранный Ридер и Сплит-просмотр (Side-by-Side Split Reader) -->
+  <div id="reader-modal" class="reader-modal">
+    <div class="reader-header">
+      <div class="reader-title-area">
+        <span id="reader-subject-dot" style="width: 10px; height: 10px; border-radius: 50%; display: inline-block;"></span>
+        <h3 id="reader-lecture-title" style="font-size: 1.1rem; overflow: hidden; text-overflow: ellipsis;">Лекция</h3>
+      </div>
+
+      <!-- Мобильный segmented-switch для переключения на смартфонах -->
+      <div class="mobile-segment-switch">
+        <button id="seg-btn-note" class="segment-btn active">Конспект</button>
+        <button id="seg-btn-orig" class="segment-btn">Рукопись (PDF)</button>
+      </div>
+
+      <div class="reader-actions-area">
+        <button id="reader-mark-studied-btn" class="btn-secondary" title="Отметить как изученное">
+          ✓ Изучено
+        </button>
+        <button id="reader-marginalia-toggle" class="btn-secondary" title="Личные заметки на полях">
+          ✦ Заметки
+        </button>
+        <button id="split-toggle-btn" class="btn-secondary" title="Открыть рукопись рядом">
+          ⚖️ Оригинал рядом
+        </button>
+        <button id="reader-new-tab-btn" class="btn-secondary" title="Открыть в новой вкладке">
+          ↗ Новая вкладка
+        </button>
+        <button id="reader-download-pdf-btn" class="action-btn-primary" style="padding: 5px 12px; font-size: 0.8rem;" title="Скачать оригинальный PDF">
+          💾 Скачать PDF
+        </button>
+        <button id="reader-close-btn" class="btn-secondary" style="font-weight: bold; font-size: 1.1rem;">✕</button>
+      </div>
+    </div>
+
+    <div class="reader-body">
+      <!-- Левая панель: Нейроконспект (HTML) -->
+      <div id="pane-note" class="reader-pane">
+        <div class="pane-label-bar">
+          <span>Нейроконспект (HTML)</span>
+          <span id="note-downloads-span"></span>
         </div>
-        <button id="cal-close-btn" class="btn-secondary" style="font-weight: bold;">✕</button>
+        <iframe id="reader-iframe" sandbox="allow-scripts allow-same-origin"></iframe>
       </div>
 
-      <div class="calendar-grid">
-        <div class="calendar-day-header">Пн</div>
-        <div class="calendar-day-header">Вт</div>
-        <div class="calendar-day-header">Ср</div>
-        <div class="calendar-day-header">Чт</div>
-        <div class="calendar-day-header">Пт</div>
-        <div class="calendar-day-header">Сб</div>
-        <div class="calendar-day-header">Вс</div>
-      </div>
-      <div id="calendar-days-container" class="calendar-grid" style="margin-bottom: 0;"></div>
+      <!-- Перетаскиваемый золоченый разделитель -->
+      <div id="reader-split-divider" class="split-divider" style="display: none;"></div>
 
-      <div id="calendar-day-details" class="calendar-day-details" style="display: none;">
-        <h4 id="cal-selected-date-title" style="margin-bottom: 10px; font-size: 0.95rem;">Лекции за день</h4>
-        <div id="cal-selected-date-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
+      <!-- Правая панель: Оригинал лектора (PDF / Изображение) -->
+      <div id="pane-orig" class="reader-pane split-hidden" style="display: none;">
+        <div class="pane-label-bar">
+          <span>Оригинал рукописи лектора (PDF)</span>
+          <span id="orig-downloads-span"></span>
+        </div>
+        <iframe id="reader-orig-iframe"></iframe>
+      </div>
+
+      <!-- Боковая колонка личных зашифрованных заметок на полях -->
+      <div id="reader-marginalia-pane" class="reader-marginalia-pane">
+        <div class="marginalia-header">✦ ЛИЧНЫЕ ЗАМЕТКИ НА ПОЛЯХ</div>
+        <div id="reader-marginalia-list"></div>
       </div>
     </div>
   </div>
 
-  <!-- 4. Доска объявлений и дедлайнов с тикающими таймерами -->
-  <div id="announcements-modal" class="modal-overlay">
-    <div class="announcements-modal">
-      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 16px;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <h3 style="font-size: 1.25rem;">📌 Доска объявлений и дедлайнов</h3>
-          <span class="academic-crest">ФПМ 2026–2027</span>
-        </div>
-        <div style="display: flex; gap: 8px;">
-          <button id="ann-admin-add-btn" class="action-btn-primary" style="display: none !important; padding: 6px 12px; font-size: 0.8rem;">+ Новый дедлайн</button>
-          <button id="ann-close-btn" class="btn-secondary" style="font-weight: bold;">✕</button>
-        </div>
-      </div>
-
-      <div id="announcements-list-container" class="announcements-grid"></div>
-    </div>
-  </div>
-
-  <!-- 5. Модалка создания дедлайна/объявления (Админ) -->
-  <div id="admin-announcement-modal" class="modal-overlay">
-    <div class="auth-card admin-modal">
-      <h3 style="margin-bottom: 16px;">Новый дедлайн / Объявление</h3>
-      <form id="admin-ann-form">
-        <div class="form-group">
-          <label>Тип сообщения:</label>
-          <select id="admin-ann-type">
-            <option value="deadline">⏰ Дедлайн (с таймером обратного отсчета)</option>
-            <option value="info">📢 Информационное сообщение</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Заголовок (например: Дедлайн по ДЗ №2 C++):</label>
-          <input type="text" id="admin-ann-title" required>
-        </div>
-        <div class="form-group">
-          <label>Предмет:</label>
-          <select id="admin-ann-subject"></select>
-        </div>
-        <div class="form-group" id="admin-ann-datetime-group">
-          <label>Дата и время дедлайна:</label>
-          <input type="datetime-local" id="admin-ann-datetime">
-        </div>
-        <div class="form-group">
-          <label>Текст сообщения / Подробности:</label>
-          <textarea id="admin-ann-text" rows="3" required></textarea>
-        </div>
-        <div class="form-group" style="flex-direction: row; align-items: center; gap: 8px;">
-          <input type="checkbox" id="admin-ann-urgent">
-          <label for="admin-ann-urgent" style="cursor: pointer;">Срочно / Критичный дедлайн (выделить красным)</label>
-        </div>
-        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
-          <button type="button" id="admin-ann-cancel" class="btn-secondary">Отмена</button>
-          <button type="submit" class="action-btn-primary">Опубликовать</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- 6. Модалка чтения, Ultra-Wide Split-View и Маргиналии -->
-  <div id="reader-modal" class="modal-overlay">
-    <div class="reader-modal">
-      <div class="reader-header">
-        <div class="reader-title-wrap">
-          <strong id="reader-title" class="reader-modal-title">Название лекции</strong>
-        </div>
-        <div class="reader-controls">
-          <button id="reader-marginalia-toggle" class="btn-secondary" title="Показать/скрыть личные заметки на полях">
-            📝 Заметки на полях
-          </button>
-          <button id="split-toggle-btn" class="btn-secondary split-view-btn" title="Открыть оригинал рядом">
-            ⇄ Оригинал рядом
-          </button>
-          <button id="reader-new-tab-btn" class="btn-secondary" title="В новой вкладке">
-            ↗ В новой вкладке
-          </button>
-          <button id="reader-print-btn" class="btn-secondary" title="Печать">
-            🖨 Печать
-          </button>
-          <button id="reader-close-btn" class="btn-secondary" style="font-weight: bold;">✕</button>
-        </div>
-      </div>
-
-      <div class="reader-body">
-        <div id="pane-note" class="reader-pane">
-          <div class="pane-label-bar">
-            <span>Нейроконспект (HTML)</span>
-            <span id="note-downloads-span"></span>
-          </div>
-          <iframe id="reader-iframe" sandbox="allow-scripts allow-same-origin"></iframe>
-        </div>
-
-        <div id="reader-split-divider" class="split-divider" style="display: none;"></div>
-
-        <div id="pane-orig" class="reader-pane split-pane split-hidden">
-          <div class="pane-label-bar">
-            <span>Оригинал лектора</span>
-            <span id="orig-downloads-span"></span>
-          </div>
-          <iframe id="reader-orig-iframe"></iframe>
-        </div>
-
-        <!-- Боковая колонка личных зашифрованных заметок -->
-        <div id="reader-marginalia-pane" class="reader-marginalia-pane">
-          <div class="marginalia-header">✦ ЛИЧНЫЕ ЗАМЕТКИ НА ПОЛЯХ</div>
-          <div id="reader-marginalia-list" class="marginalia-list"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 7. Командная палитра и Умный поиск (Ctrl+K) -->
+  <!-- 4. Командная палитра и Умный поиск (Ctrl+K) -->
   <div id="palette-modal" class="palette-overlay">
     <div class="palette-container">
       <div class="palette-input-wrap">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <span style="color: var(--gold-antique); font-size: 1.1rem;">🔍</span>
         <input 
           type="text" 
           id="palette-search-input" 
           class="palette-input" 
-          placeholder="Умный поиск по лекциям, темам, формулам..."
+          placeholder="Поиск по лекциям, темам, формулам и терминам..."
           autocomplete="off"
         >
       </div>
@@ -420,41 +307,78 @@
     </div>
   </div>
 
-  <!-- 8. Модалка редактирования лекции (Админ) -->
+  <!-- 5. Интерактивный календарь пар (2026–2027) -->
+  <div id="calendar-modal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 680px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <button id="cal-prev-month" class="btn-secondary">◀</button>
+          <h3 id="cal-month-title" style="font-size: 1.25rem;">Сентябрь 2026</h3>
+          <button id="cal-next-month" class="btn-secondary">▶</button>
+        </div>
+        <button id="cal-close-btn" class="btn-secondary">✕</button>
+      </div>
+
+      <div class="calendar-grid">
+        <div class="cal-weekday">Пн</div>
+        <div class="cal-weekday">Вт</div>
+        <div class="cal-weekday">Ср</div>
+        <div class="cal-weekday">Чт</div>
+        <div class="cal-weekday">Пт</div>
+        <div class="cal-weekday">Сб</div>
+        <div class="cal-weekday">Вс</div>
+      </div>
+      <div id="cal-days-grid" class="calendar-grid" style="margin-top: 4px;"></div>
+
+      <div id="cal-selected-day-schedule" style="margin-top: 24px; border-top: 1px solid var(--border-subtle); padding-top: 16px;"></div>
+    </div>
+  </div>
+
+  <!-- 6. Доска дедлайнов с тикающими секундами -->
+  <div id="announcements-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="font-size: 1.3rem;">⏳ Дедлайны и Академические события</h3>
+        <div style="display: flex; gap: 8px;">
+          <button id="ann-admin-add-btn" class="btn-secondary" style="display: none;">+ Добавить</button>
+          <button id="ann-close-btn" class="btn-secondary">✕</button>
+        </div>
+      </div>
+      <div id="announcements-list" style="display: flex; flex-direction: column; gap: 14px; max-height: 480px; overflow-y: auto;"></div>
+    </div>
+  </div>
+
+  <!-- 7. Модалка редактирования лекции (Администратор) -->
   <div id="admin-lecture-modal" class="modal-overlay">
-    <div class="auth-card admin-modal">
-      <h3 style="margin-bottom: 16px;">Редактирование лекции</h3>
-      <form id="admin-lecture-form">
+    <div class="modal-card" style="max-width: 540px;">
+      <h3 style="margin-bottom: 18px;">Редактирование материала</h3>
+      <form id="admin-lecture-form" style="display: flex; flex-direction: column; gap: 14px;">
         <input type="hidden" id="admin-lec-id">
-        <div class="form-group">
-          <label>Название лекции:</label>
-          <input type="text" id="admin-lec-title" required>
+        <div>
+          <label style="font-size: 0.8rem; color: var(--parchment-muted); display: block; margin-bottom: 4px;">Название лекции:</label>
+          <input type="text" id="admin-lec-title" required style="width: 100%;">
         </div>
-        <div class="form-group">
-          <label>Предмет:</label>
-          <select id="admin-lec-subject" required></select>
+        <div>
+          <label style="font-size: 0.8rem; color: var(--parchment-muted); display: block; margin-bottom: 4px;">Предмет:</label>
+          <select id="admin-lec-subject" required style="width: 100%;"></select>
         </div>
-        <div class="form-group">
-          <label>Модуль:</label>
-          <select id="admin-lec-module"></select>
+        <div>
+          <label style="font-size: 0.8rem; color: var(--parchment-muted); display: block; margin-bottom: 4px;">Модуль:</label>
+          <select id="admin-lec-module" style="width: 100%;"></select>
         </div>
-        <div class="form-group">
-          <label>Пары (номер:дата через запятую, пример: 10:12.09.2026):</label>
-          <input type="text" id="admin-lec-sessions" placeholder="10:12.09.2026, 11:15.09.2026">
+        <div>
+          <label style="font-size: 0.8rem; color: var(--parchment-muted); display: block; margin-bottom: 4px;">Теги (через запятую):</label>
+          <input type="text" id="admin-lec-tags" placeholder="пределы, непрерывность, коши" style="width: 100%;">
         </div>
-        <div class="form-group">
-          <label>Теги (через запятую):</label>
-          <input type="text" id="admin-lec-tags" placeholder="пределы, непрерывность, коши">
+        <div>
+          <label style="font-size: 0.8rem; color: var(--parchment-muted); display: block; margin-bottom: 4px;">Краткое содержание:</label>
+          <textarea id="admin-lec-desc" rows="3" style="width: 100%;"></textarea>
         </div>
-        <div class="form-group">
-          <label>Краткое содержание:</label>
-          <textarea id="admin-lec-desc" rows="3"></textarea>
-        </div>
-        <div class="form-group" style="flex-direction: row; align-items: center; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
           <input type="checkbox" id="admin-lec-hidden">
-          <label for="admin-lec-hidden" style="cursor: pointer;">Скрыть лекцию (черновик)</label>
+          <label for="admin-lec-hidden" style="cursor: pointer; font-size: 0.85rem;">Скрыть материал (черновик)</label>
         </div>
-        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px;">
           <button type="button" id="admin-lec-cancel" class="btn-secondary">Отмена</button>
           <button type="submit" class="action-btn-primary">Сохранить</button>
         </div>
@@ -462,6 +386,7 @@
     </div>
   </div>
 
-  <script type="module" src="app/app.js?v=4.1"></script>
+  <!-- Главное ядро приложения -->
+  <script type="module" src="app/app.js?v=5.0"></script>
 </body>
 </html>

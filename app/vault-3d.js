@@ -1,10 +1,12 @@
 /**
- * app/vault-3d.js - Процедурный 3D WebGL / Canvas движок для экрана авторизации
- * Три мистических артефакта:
+ * app/vault-3d.js - Процедурный 3D артефакт познания для экрана авторизации (The Vault Gate)
+ * Реализация:
  * 1. Астролябия Познания (Celestial Armillary Astrolabe)
  * 2. 4D Гиперкуб / Тессеракт (Hyperdimensional Tesseract)
- * 3. Криптекс Ордена (Ancient Mathematical Cryptex)
- * Чистый визуал без кнопок и подписей на экране. Инерция мыши, 60 FPS, реакция на ввод пароля.
+ * 3. Древний Криптекс Ордена (Order Cryptex со знаками математических операторов)
+ *
+ * Никаких лишних служебных кнопок и надписей. Инерция мыши, золотая пыль, реакция на ввод пароля.
+ * При авторизации цикл рендеринга полностью глушится (Zero-CPU/GPU).
  */
 
 export class Vault3D {
@@ -18,29 +20,28 @@ export class Vault3D {
     this.ctx = this.canvas.getContext('2d');
 
     this.types = ['astrolabe', 'tesseract', 'cryptex'];
-    // Выбираем случайно при входе на сайт
-    const randomIndex = Math.floor(Math.random() * this.types.length);
-    this.currentType = this.types[randomIndex];
+    this.currentType = this.types[Math.floor(Math.random() * this.types.length)];
 
     this.width = 0;
     this.height = 0;
     this.dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    this.rotX = 0.3;
-    this.rotY = 0.4;
+    this.rotX = 0.35;
+    this.rotY = 0.45;
     this.rotZ = 0;
-    this.targetRotX = 0.3;
-    this.targetRotY = 0.4;
+    this.targetRotX = 0.35;
+    this.targetRotY = 0.45;
     this.isDragging = false;
     this.lastMouseX = 0;
     this.lastMouseY = 0;
 
     this.time = 0;
-    this.keyPressPulse = 0;
+    this.pulse = 0;
     this.cipherStep = 0;
     this.isRunning = true;
+    this.rafId = null;
 
-    // 16 вершин тессеракта в 4D
+    // 16 4D-вершин тессеракта
     this.tesseractVertices = [];
     for (let i = 0; i < 16; i++) {
       this.tesseractVertices.push([
@@ -50,336 +51,397 @@ export class Vault3D {
         (i & 8) ? 1 : -1
       ]);
     }
+
+    // Ребра тессеракта
     this.tesseractEdges = [];
     for (let i = 0; i < 16; i++) {
       for (let j = i + 1; j < 16; j++) {
-        const diff = (i ^ j);
-        if (diff === 1 || diff === 2 || diff === 4 || diff === 8) {
-          this.tesseractEdges.push([i, j]);
+        let diff = 0;
+        for (let k = 0; k < 4; k++) {
+          if (this.tesseractVertices[i][k] !== this.tesseractVertices[j][k]) diff++;
         }
+        if (diff === 1) this.tesseractEdges.push([i, j]);
       }
     }
 
-    this.cryptexGlyphs = ['∇', '∫', '∮', '∂', '∞', 'ℝ', '∑', '∀', '∃', 'λ', 'μ', 'Ω'];
+    // Математические символы для колец криптекса
+    this.cryptexSymbols = ['∇', '∫', '∮', '∂', '∞', 'ℝ', '∑', 'lim', '∀', '∃', 'ℂ', 'π'];
 
+    // Парящие золотые частицы библиотечной пыли
+    this.dustParticles = [];
+    for (let i = 0; i < 48; i++) {
+      this.dustParticles.push({
+        x: (Math.random() - 0.5) * 360,
+        y: (Math.random() - 0.5) * 360,
+        z: (Math.random() - 0.5) * 200,
+        vy: -0.2 - Math.random() * 0.4,
+        size: 0.8 + Math.random() * 1.5,
+        opacity: 0.15 + Math.random() * 0.45,
+        flicker: Math.random() * Math.PI * 2
+      });
+    }
+
+    this.initEvents();
     this.resize();
-    this.bindEvents();
-    this.animate = this.animate.bind(this);
-    requestAnimationFrame(this.animate);
+    this.animate();
   }
 
-  resize() {
-    const rect = this.container.getBoundingClientRect();
-    this.width = rect.width || 340;
-    this.height = rect.height || 300;
-    this.canvas.width = this.width * this.dpr;
-    this.canvas.height = this.height * this.dpr;
-    this.canvas.style.width = `${this.width}px`;
-    this.canvas.style.height = `${this.height}px`;
-    this.ctx.scale(this.dpr, this.dpr);
-  }
-
-  bindEvents() {
+  initEvents() {
     window.addEventListener('resize', () => this.resize());
 
-    const onStart = (x, y) => {
+    const handleStart = (clientX, clientY) => {
       this.isDragging = true;
-      this.lastMouseX = x;
-      this.lastMouseY = y;
+      this.lastMouseX = clientX;
+      this.lastMouseY = clientY;
     };
 
-    const onMove = (x, y) => {
+    const handleMove = (clientX, clientY) => {
       if (!this.isDragging) {
-        const rect = this.container.getBoundingClientRect();
-        const nx = (x - rect.left) / this.width - 0.5;
-        const ny = (y - rect.top) / this.height - 0.5;
-        this.targetRotY = nx * 1.5;
-        this.targetRotX = -ny * 1.5;
+        // Мягкий параллакс курсора
+        const rect = this.canvas.getBoundingClientRect();
+        const nx = (clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+        const ny = (clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+        this.targetRotY = 0.45 + nx * 0.35;
+        this.targetRotX = 0.35 - ny * 0.35;
         return;
       }
-      const dx = x - this.lastMouseX;
-      const dy = y - this.lastMouseY;
-      this.targetRotY += dx * 0.01;
-      this.targetRotX += dy * 0.01;
-      this.lastMouseX = x;
-      this.lastMouseY = y;
+      const dx = clientX - this.lastMouseX;
+      const dy = clientY - this.lastMouseY;
+      this.rotY += dx * 0.008;
+      this.rotX += dy * 0.008;
+      this.targetRotY = this.rotY;
+      this.targetRotX = this.rotX;
+      this.lastMouseX = clientX;
+      this.lastMouseY = clientY;
     };
 
-    const onEnd = () => {
+    const handleEnd = () => {
       this.isDragging = false;
     };
 
-    this.container.addEventListener('mousedown', (e) => onStart(e.clientX, e.clientY));
-    window.addEventListener('mousemove', (e) => onMove(e.clientX, e.clientY));
-    window.addEventListener('mouseup', onEnd);
+    this.canvas.addEventListener('mousedown', (e) => handleStart(e.clientX, e.clientY));
+    window.addEventListener('mousemove', (e) => handleMove(e.clientX, e.clientY));
+    window.addEventListener('mouseup', handleEnd);
 
-    this.container.addEventListener('touchstart', (e) => {
-      if (e.touches.length === 1) onStart(e.touches[0].clientX, e.touches[0].clientY);
+    this.canvas.addEventListener('touchstart', (e) => {
+      if (e.touches[0]) handleStart(e.touches[0].clientX, e.touches[0].clientY);
     }, { passive: true });
-
     window.addEventListener('touchmove', (e) => {
-      if (this.isDragging && e.touches.length === 1) {
-        onMove(e.touches[0].clientX, e.touches[0].clientY);
-      }
+      if (e.touches[0]) handleMove(e.touches[0].clientX, e.touches[0].clientY);
     }, { passive: true });
-
-    window.addEventListener('touchend', onEnd);
+    window.addEventListener('touchend', handleEnd);
   }
 
-  triggerKeyPulse() {
-    this.keyPressPulse = 1.0;
+  resize() {
+    if (!this.container) return;
+    const rect = this.container.getBoundingClientRect();
+    this.width = rect.width || 320;
+    this.height = rect.height || 220;
+    this.canvas.width = this.width * this.dpr;
+    this.canvas.height = this.height * this.dpr;
+    this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+  }
+
+  onKeyPress() {
+    this.pulse = 1.0;
     this.cipherStep += 1;
-    this.targetRotY += 0.35;
+    this.targetRotY += 0.25;
+  }
+
+  onError() {
+    this.pulse = 1.5;
+    // Драматичное встряхивание
+    this.rotX += (Math.random() - 0.5) * 0.3;
+    this.rotY += (Math.random() - 0.5) * 0.5;
   }
 
   pause() {
     this.isRunning = false;
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+    }
   }
 
   resume() {
     if (!this.isRunning) {
       this.isRunning = true;
-      requestAnimationFrame(this.animate);
+      this.animate();
     }
   }
 
   animate() {
     if (!this.isRunning) return;
+    this.time += 0.014;
+    this.pulse *= 0.92;
 
-    this.time += 0.016;
-    this.keyPressPulse *= 0.94;
-
-    this.rotX += (this.targetRotX - this.rotX) * 0.08;
-    this.rotY += (this.targetRotY - this.rotY) * 0.08;
+    this.rotX += (this.targetRotX - this.rotX) * 0.06;
+    this.rotY += (this.targetRotY - this.rotY) * 0.06;
 
     this.ctx.clearRect(0, 0, this.width, this.height);
 
     const cx = this.width / 2;
     const cy = this.height / 2;
 
+    this.renderDust(cx, cy);
+
     if (this.currentType === 'astrolabe') {
-      this.drawAstrolabe(cx, cy);
+      this.renderAstrolabe(cx, cy);
     } else if (this.currentType === 'tesseract') {
-      this.drawTesseract(cx, cy);
-    } else if (this.currentType === 'cryptex') {
-      this.drawCryptex(cx, cy);
+      this.renderTesseract(cx, cy);
+    } else {
+      this.renderCryptex(cx, cy);
     }
 
-    requestAnimationFrame(this.animate);
+    this.rafId = requestAnimationFrame(() => this.animate());
   }
 
-  // --- 1. АСТРОЛЯБИЯ ПОЗНАНИЯ ---
-  drawAstrolabe(cx, cy) {
+  renderDust(cx, cy) {
     const ctx = this.ctx;
-    const radius = Math.min(this.width, this.height) * 0.38;
-    const baseGlow = 0.2 + this.keyPressPulse * 0.6;
+    ctx.save();
+    for (const p of this.dustParticles) {
+      p.y += p.vy;
+      p.flicker += 0.03;
+      if (p.y < -120) p.y = 120;
 
-    const radGlow = ctx.createRadialGradient(cx, cy, 10, cx, cy, radius * 1.3);
-    radGlow.addColorStop(0, `rgba(212, 163, 115, ${baseGlow * 0.2})`);
-    radGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-    ctx.fillStyle = radGlow;
-    ctx.fillRect(0, 0, this.width, this.height);
+      const alpha = p.opacity * (0.6 + 0.4 * Math.sin(p.flicker));
+      ctx.fillStyle = `rgba(212, 175, 55, ${alpha.toFixed(3)})`;
+      ctx.beginPath();
+      ctx.arc(cx + p.x, cy + p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  // ==========================================
+  // 1. АСТРОЛЯБИЯ ПОЗНАНИЯ
+  // ==========================================
+  renderAstrolabe(cx, cy) {
+    const ctx = this.ctx;
+    const baseRadius = Math.min(this.width, this.height) * 0.34;
+    const rings = [
+      { r: baseRadius * 1.0, rx: this.rotX * 0.8 + Math.sin(this.time * 0.6) * 0.2, ry: this.rotY + this.time * 0.4, w: 2.5, gold: '#E5C158' },
+      { r: baseRadius * 0.82, rx: this.rotX + 0.5, ry: -this.rotY * 0.9 - this.time * 0.5, w: 1.8, gold: '#D4AF37' },
+      { r: baseRadius * 0.64, rx: -this.rotX * 0.7 + this.time * 0.3, ry: this.rotY * 1.2 + 0.8, w: 1.4, gold: '#C5A059' },
+      { r: baseRadius * 0.44, rx: this.rotX * 1.3, ry: this.rotY - this.time * 0.7, w: 1.0, gold: '#AA8238' }
+    ];
 
     ctx.save();
     ctx.translate(cx, cy);
 
-    const rings = [
-      { r: radius, rotSpeed: 0.4, tilt: this.rotX + 0.2, spin: this.time * 0.3 + this.rotY, color: '#D4A373' },
-      { r: radius * 0.82, rotSpeed: -0.6, tilt: this.rotX + 1.2, spin: -this.time * 0.5 + this.rotY * 1.2, color: '#E5BA8F' },
-      { r: radius * 0.64, rotSpeed: 0.8, tilt: this.rotX - 0.7, spin: this.time * 0.7 + this.rotY * 0.8, color: '#C89355' }
-    ];
-
-    for (let idx = 0; idx < rings.length; idx++) {
-      const ring = rings[idx];
-      ctx.save();
-      ctx.rotate(ring.spin);
-
-      const scaleY = Math.cos(ring.tilt);
-      ctx.scale(1, Math.max(0.15, Math.abs(scaleY)));
-
-      ctx.beginPath();
-      ctx.arc(0, 0, ring.r, 0, Math.PI * 2);
-      ctx.lineWidth = 2.5;
-      ctx.strokeStyle = ring.color;
-      ctx.shadowColor = ring.color;
-      ctx.shadowBlur = 8 + this.keyPressPulse * 16;
-      ctx.stroke();
-
-      const ticks = 16;
-      for (let t = 0; t < ticks; t++) {
-        const ang = (t / ticks) * Math.PI * 2;
-        const x1 = Math.cos(ang) * (ring.r - 5);
-        const y1 = Math.sin(ang) * (ring.r - 5);
-        const x2 = Math.cos(ang) * (ring.r + 5);
-        const y2 = Math.sin(ang) * (ring.r + 5);
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = 'rgba(255, 230, 180, 0.6)';
-        ctx.stroke();
-      }
-
-      ctx.restore();
-    }
-
-    const corePulse = 8 + Math.sin(this.time * 3) * 3 + this.keyPressPulse * 8;
+    // Центральное свечение
+    const glow = ctx.createRadialGradient(0, 0, 0, 0, 0, baseRadius * 1.2);
+    glow.addColorStop(0, `rgba(212, 175, 55, ${0.12 + this.pulse * 0.2})`);
+    glow.addColorStop(1, 'rgba(212, 175, 55, 0)');
+    ctx.fillStyle = glow;
     ctx.beginPath();
-    ctx.arc(0, 0, corePulse, 0, Math.PI * 2);
-    ctx.fillStyle = '#FFF2D6';
-    ctx.shadowColor = '#D4A373';
-    ctx.shadowBlur = 24 + this.keyPressPulse * 20;
+    ctx.arc(0, 0, baseRadius * 1.2, 0, Math.PI * 2);
     ctx.fill();
 
-    for (let p = 0; p < 8; p++) {
-      const pAng = (p / 8) * Math.PI * 2 + this.time * 0.4;
-      const pDist = radius * 0.4 + Math.sin(this.time * 2 + p) * 15;
-      const px = Math.cos(pAng) * pDist;
-      const py = Math.sin(pAng) * pDist * 0.6;
+    // Рисование колец астролябии
+    for (const ring of rings) {
+      ctx.strokeStyle = ring.gold;
+      ctx.lineWidth = ring.w + this.pulse * 0.5;
+      ctx.shadowColor = 'rgba(212, 175, 55, 0.4)';
+      ctx.shadowBlur = 6 + this.pulse * 10;
+
       ctx.beginPath();
-      ctx.arc(px, py, 1.5, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(255, 240, 200, 0.8)';
-      ctx.shadowBlur = 6;
+      const points = 64;
+      for (let i = 0; i <= points; i++) {
+        const theta = (i / points) * Math.PI * 2;
+        let x = ring.r * Math.cos(theta);
+        let y = ring.r * Math.sin(theta);
+        let z = 0;
+
+        // Поворот Y
+        let x1 = x * Math.cos(ring.ry) + z * Math.sin(ring.ry);
+        let z1 = -x * Math.sin(ring.ry) + z * Math.cos(ring.ry);
+        // Поворот X
+        let y2 = y * Math.cos(ring.rx) - z1 * Math.sin(ring.rx);
+        let z2 = y * Math.sin(ring.rx) + z1 * Math.cos(ring.rx);
+
+        const fov = 340;
+        const scale = fov / (fov + z2);
+        const px = x1 * scale;
+        const py = y2 * scale;
+
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+    }
+
+    // Центральная сфера / Земля / Солнце
+    const coreGrad = ctx.createRadialGradient(-3, -3, 0, 0, 0, 10);
+    coreGrad.addColorStop(0, '#FFF5D6');
+    coreGrad.addColorStop(0.5, '#E5C158');
+    coreGrad.addColorStop(1, '#664E1C');
+    ctx.fillStyle = coreGrad;
+    ctx.shadowBlur = 12 + this.pulse * 16;
+    ctx.shadowColor = '#D4AF37';
+    ctx.beginPath();
+    ctx.arc(0, 0, 7 + this.pulse * 2, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  // ==========================================
+  // 2. 4D ГИПЕРКУБ / ТЕССЕРАКТ
+  // ==========================================
+  renderTesseract(cx, cy) {
+    const ctx = this.ctx;
+    const baseScale = Math.min(this.width, this.height) * 0.28;
+
+    // Углы вращения в 4D
+    const angleXW = this.time * 0.45 + this.rotX;
+    const angleYW = this.time * 0.35 + this.rotY;
+    const angleZW = this.cipherStep * 0.15;
+
+    const projected = this.tesseractVertices.map(v => {
+      let [x, y, z, w] = v;
+
+      // Вращение в плоскости X-W
+      let x1 = x * Math.cos(angleXW) - w * Math.sin(angleXW);
+      let w1 = x * Math.sin(angleXW) + w * Math.cos(angleXW);
+
+      // Вращение в плоскости Y-W
+      let y1 = y * Math.cos(angleYW) - w1 * Math.sin(angleYW);
+      let w2 = y * Math.sin(angleYW) + w1 * Math.cos(angleYW);
+
+      // Вращение в плоскости Z-W
+      let z1 = z * Math.cos(angleZW) - w2 * Math.sin(angleZW);
+      let w3 = z * Math.sin(angleZW) + w2 * Math.cos(angleZW);
+
+      // 4D -> 3D стереографическая перспектива
+      const dist4 = 2.4;
+      const s4 = 1 / (dist4 - w3);
+      let x3d = x1 * s4 * baseScale;
+      let y3d = y1 * s4 * baseScale;
+      let z3d = z1 * s4 * baseScale;
+
+      // 3D вращение по камере
+      let rx = x3d * Math.cos(this.rotY * 0.5) + z3d * Math.sin(this.rotY * 0.5);
+      let rz = -x3d * Math.sin(this.rotY * 0.5) + z3d * Math.cos(this.rotY * 0.5);
+      let ry = y3d * Math.cos(this.rotX * 0.5) - rz * Math.sin(this.rotX * 0.5);
+      let rz2 = y3d * Math.sin(this.rotX * 0.5) + rz * Math.cos(this.rotX * 0.5);
+
+      const fov = 320;
+      const s3 = fov / (fov + rz2);
+      return {
+        px: cx + rx * s3,
+        py: cy + ry * s3,
+        depth: rz2
+      };
+    });
+
+    ctx.save();
+
+    // Ребра 4D-куба
+    for (const [i, j] of this.tesseractEdges) {
+      const p1 = projected[i];
+      const p2 = projected[j];
+      const avgDepth = (p1.depth + p2.depth) / 2;
+      const alpha = Math.max(0.12, Math.min(0.85, 0.45 - avgDepth * 0.003 + this.pulse * 0.3));
+
+      ctx.strokeStyle = `rgba(212, 175, 55, ${alpha.toFixed(3)})`;
+      ctx.lineWidth = 1.2 + this.pulse * 0.8;
+      ctx.shadowColor = '#D4AF37';
+      ctx.shadowBlur = 4 + this.pulse * 6;
+
+      ctx.beginPath();
+      ctx.moveTo(p1.px, p1.py);
+      ctx.lineTo(p2.px, p2.py);
+      ctx.stroke();
+    }
+
+    // Вершины
+    for (const p of projected) {
+      const vAlpha = Math.max(0.2, Math.min(1.0, 0.6 - p.depth * 0.004 + this.pulse * 0.4));
+      ctx.fillStyle = `rgba(255, 245, 214, ${vAlpha.toFixed(3)})`;
+      ctx.shadowColor = '#E5C158';
+      ctx.shadowBlur = 8 + this.pulse * 8;
+      ctx.beginPath();
+      ctx.arc(p.px, p.py, 2.5 + this.pulse * 1.5, 0, Math.PI * 2);
       ctx.fill();
     }
 
     ctx.restore();
   }
 
-  // --- 2. 4D ГИПЕРКУБ / ТЕССЕРАКТ ---
-  drawTesseract(cx, cy) {
+  // ==========================================
+  // 3. ДРЕВНИЙ КРИПТЕКС ОРДЕНА
+  // ==========================================
+  renderCryptex(cx, cy) {
     const ctx = this.ctx;
-    const scale = Math.min(this.width, this.height) * 0.28;
-
-    const angleXW = this.time * 0.6 + this.rotY;
-    const angleYZ = this.time * 0.4 + this.rotX;
-
-    const cosA = Math.cos(angleXW);
-    const sinA = Math.sin(angleXW);
-    const cosB = Math.cos(angleYZ);
-    const sinB = Math.sin(angleYZ);
-
-    const projected2D = [];
-    const cameraDist4D = 2.4;
-    const cameraDist3D = 3.2;
-
-    for (let i = 0; i < 16; i++) {
-      let [x, y, z, w] = this.tesseractVertices[i];
-
-      const xRot = x * cosA - w * sinA;
-      const wRot = x * sinA + w * cosA;
-      x = xRot;
-      w = wRot;
-
-      const yRot = y * cosB - z * sinB;
-      const zRot = y * sinB + z * cosB;
-      y = yRot;
-      z = zRot;
-
-      const wFactor = 1 / (cameraDist4D - w);
-      const x3 = x * wFactor;
-      const y3 = y * wFactor;
-      const z3 = z * wFactor;
-
-      const zFactor = 1 / (cameraDist3D - z3);
-      const x2 = x3 * zFactor * scale * 3.6 + cx;
-      const y2 = y3 * zFactor * scale * 3.6 + cy;
-
-      projected2D.push({ x: x2, y: y2, depth: z3 });
-    }
-
-    ctx.lineWidth = 1.6;
-    for (const [i, j] of this.tesseractEdges) {
-      const p1 = projected2D[i];
-      const p2 = projected2D[j];
-
-      const avgDepth = (p1.depth + p2.depth) / 2;
-      const alpha = Math.max(0.15, Math.min(0.9, 0.5 + avgDepth * 0.5)) + this.keyPressPulse * 0.3;
-
-      ctx.beginPath();
-      ctx.moveTo(p1.x, p1.y);
-      ctx.lineTo(p2.x, p2.y);
-      ctx.strokeStyle = `rgba(181, 52, 31, ${alpha})`;
-      ctx.shadowColor = '#B5341F';
-      ctx.shadowBlur = 6 + this.keyPressPulse * 12;
-      ctx.stroke();
-    }
-
-    for (let i = 0; i < 16; i++) {
-      const p = projected2D[i];
-      const ptRadius = Math.max(2, 3.5 + p.depth * 2) + this.keyPressPulse * 2;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, ptRadius, 0, Math.PI * 2);
-      ctx.fillStyle = '#FFD79E';
-      ctx.shadowColor = '#FF8C42';
-      ctx.shadowBlur = 10 + this.keyPressPulse * 14;
-      ctx.fill();
-    }
-  }
-
-  // --- 3. КРИПТЕКС ОРДЕНА ---
-  drawCryptex(cx, cy) {
-    const ctx = this.ctx;
-    const radius = Math.min(this.width, this.height) * 0.36;
-    const ringsCount = 3;
+    const ringCount = 5;
+    const ringWidth = 28;
+    const radius = Math.min(this.width, this.height) * 0.30;
+    const totalW = ringCount * ringWidth;
 
     ctx.save();
     ctx.translate(cx, cy);
-    ctx.rotate(this.rotX * 0.5);
 
-    const cylinderWidth = radius * 1.5;
-    const ringSpacing = cylinderWidth / (ringsCount + 1);
+    // Наклон криптекса в изометрии
+    const tilt = this.rotX * 0.6;
+    const spinBase = this.rotY + this.time * 0.2;
 
-    for (let r = 0; r < ringsCount; r++) {
-      const rx = -cylinderWidth / 2 + (r + 1) * ringSpacing;
-      const ringOffsetAngle = (this.cipherStep * (r % 2 === 0 ? 0.5 : -0.5)) + this.time * (0.2 + r * 0.1) + this.rotY;
+    for (let r = 0; r < ringCount; r++) {
+      const rx = (r - (ringCount - 1) / 2) * ringWidth;
+      const ringSpin = spinBase + (this.cipherStep * (r % 2 === 0 ? 0.35 : -0.35));
 
+      // Цилиндрическая грань кольца
       ctx.save();
       ctx.translate(rx, 0);
 
-      ctx.beginPath();
-      ctx.ellipse(0, 0, 16, radius, 0, 0, Math.PI * 2);
-      ctx.strokeStyle = '#D4A373';
-      ctx.lineWidth = 2.5;
-      ctx.shadowColor = '#D4A373';
-      ctx.shadowBlur = 10 + this.keyPressPulse * 15;
-      ctx.stroke();
+      // Багетные резные насечки золотого обода
+      ctx.strokeStyle = r % 2 === 0 ? '#D4AF37' : '#C5A059';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(-ringWidth / 2 + 1, -radius, ringWidth - 2, radius * 2);
 
-      ctx.font = '12px "Unbounded", monospace';
+      // Математические символы по кругу цилиндра
+      const count = this.cryptexSymbols.length;
+      ctx.font = 'bold 13px serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
 
-      const totalGlyphs = this.cryptexGlyphs.length;
-      for (let g = 0; g < totalGlyphs; g++) {
-        const glyphAngle = ringOffsetAngle + (g / totalGlyphs) * Math.PI * 2;
-        const gy = Math.sin(glyphAngle) * (radius * 0.85);
-        const gz = Math.cos(glyphAngle);
+      for (let s = 0; s < count; s++) {
+        const theta = (s / count) * Math.PI * 2 + ringSpin;
+        const cosTheta = Math.cos(theta);
+        const sinTheta = Math.sin(theta);
 
-        if (gz > 0) {
-          const alpha = Math.max(0.2, gz) + this.keyPressPulse * 0.4;
-          const scale = 0.8 + gz * 0.4;
-          ctx.save();
-          ctx.translate(0, gy);
-          ctx.scale(scale, scale);
-          ctx.fillStyle = `rgba(255, 235, 205, ${alpha})`;
-          ctx.shadowColor = '#FFC078';
-          ctx.shadowBlur = 8 * gz;
-          const glyph = this.cryptexGlyphs[(g + r * 3) % totalGlyphs];
-          ctx.fillText(glyph, 0, 0);
-          ctx.restore();
+        // Показываем только фронтальные символы
+        if (sinTheta > 0) {
+          const sy = -cosTheta * radius * Math.cos(tilt);
+          const fontAlpha = Math.max(0.15, sinTheta);
+          ctx.fillStyle = `rgba(244, 235, 225, ${fontAlpha.toFixed(2)})`;
+          ctx.shadowColor = '#D4AF37';
+          ctx.shadowBlur = (sinTheta > 0.8 ? 8 : 0) + this.pulse * 6;
+
+          const symbol = this.cryptexSymbols[(s + r * 2) % count];
+          ctx.fillText(symbol, 0, sy);
         }
       }
 
       ctx.restore();
     }
 
+    // Осевой шпиндель и замочные бронзовые наконечники
+    ctx.strokeStyle = '#AA8238';
+    ctx.lineWidth = 4;
     ctx.beginPath();
-    ctx.moveTo(-cylinderWidth / 2 - 15, 0);
-    ctx.lineTo(cylinderWidth / 2 + 15, 0);
-    ctx.strokeStyle = 'rgba(212, 163, 115, 0.7)';
-    ctx.lineWidth = 3;
-    ctx.shadowBlur = 12;
+    ctx.moveTo(-totalW / 2 - 16, 0);
+    ctx.lineTo(totalW / 2 + 16, 0);
     ctx.stroke();
+
+    // Левый и правый золотые набалдашники
+    ctx.fillStyle = '#D4AF37';
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = '#D4AF37';
+    ctx.beginPath();
+    ctx.arc(-totalW / 2 - 14, 0, 10, 0, Math.PI * 2);
+    ctx.arc(totalW / 2 + 14, 0, 10, 0, Math.PI * 2);
+    ctx.fill();
 
     ctx.restore();
   }

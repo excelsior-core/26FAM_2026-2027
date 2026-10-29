@@ -1,6 +1,7 @@
 /**
  * scripts/sync.js - Движок синхронизации и клиентского шифрования «КОНСПЕКТЫ ФПМ»
  * Сканирование Storage/HSE -> Auto-Chroma -> Категоризация -> Gzip -> AES-256-GCM -> Mirror-mode -> GitHub Pages
+ * Zero-Knowledge, Zero-Leakage, Zero-CDN
  */
 
 const fs = require('fs');
@@ -19,6 +20,7 @@ const CONFIG_FILE = path.join(__dirname, 'sync.json');
 
 const ROYAL_PALETTE = [
   '#B5341F', // Ruby / Crimson (Матанализ)
+  '#D4AF37', // Antique Gold
   '#1D4E89', // Sapphire / Cobalt (Линал и Аналит)
   '#2D6A4F', // Emerald (Дискретная математика)
   '#7209B7', // Amethyst / Deep Violet (Программирование)
@@ -35,19 +37,12 @@ function checkPrerequisites() {
     console.error('❌ Требуется Node.js версии 18 или выше (у вас ' + process.version + ')');
     process.exit(1);
   }
-
-  try {
-    execSync('git --version', { stdio: 'ignore' });
-  } catch (e) {
-    console.error('❌ Git не найден в PATH. Установите git: https://git-scm.com/');
-    process.exit(1);
-  }
 }
 
 function loadConfig() {
   let config;
   if (!fs.existsSync(CONFIG_FILE)) {
-    console.log('⚠️ Файл scripts/sync.json не найден. Создаём конфигурацию...');
+    console.log('⚠️ Файл scripts/sync.json не найден. Создаём конфигурацию по умолчанию...');
     config = {
       storagePath: "./Storage",
       repoUrl: "",
@@ -185,6 +180,7 @@ async function runSync() {
     console.log(`🔑 Админ-пароль обновлен на: "${newPass}" в scripts/sync.json`);
   }
 
+  console.log('⏳ Вычисление мастер-ключей (PBKDF2 600 000 итераций)...');
   const vaultSalt = Buffer.from(config.vaultSalt, 'hex');
   const sharedKey = crypto.pbkdf2Sync(config.sharedPassword, vaultSalt, PBKDF2_ITERATIONS, KEY_LEN, 'sha256');
   const adminKey = crypto.pbkdf2Sync(config.adminPassword, vaultSalt, PBKDF2_ITERATIONS, KEY_LEN, 'sha256');
@@ -219,7 +215,7 @@ async function runSync() {
     try {
       existingMeta = JSON.parse(fs.readFileSync(exportMetaPath, 'utf8'));
     } catch (e) {
-      console.warn('⚠️ Ошибка парсинга site-metadata.json, используются дефолтные настройки');
+      console.warn('⚠️ Ошибка парсинга site-metadata.json, используются параметры по умолчанию');
     }
   }
 
@@ -239,7 +235,6 @@ async function runSync() {
   const finalSubjects = [];
   const handledSubjectNames = new Set();
 
-  // Сначала сохраняем существующие предметы с их настройками, если папка на диске есть
   for (const s of existingMeta.subjects || []) {
     if (diskSubjectNames.includes(s.name)) {
       finalSubjects.push(s);
@@ -247,11 +242,10 @@ async function runSync() {
     }
   }
 
-  // Добавляем новые обнаруженные папки предметов с автоматическим цветом Auto-Chroma
   for (const name of diskSubjectNames) {
     if (!handledSubjectNames.has(name)) {
       const autoColor = getColorForSubject(name, existingMeta.subjects);
-      console.log(` ✨ Обнаружен новый предмет: "${name}" (назначен цвет: ${autoColor})`);
+      console.log(` ✨ Обнаружен новый предмет: "${name}" (Auto-Chroma цвет: ${autoColor})`);
       finalSubjects.push({
         name,
         color: autoColor,
@@ -274,7 +268,6 @@ async function runSync() {
       return fs.statSync(path.join(subjDir, f)).isDirectory();
     });
 
-    // Определяем: разбиты ли папки по категориям (лекции, коллоквиумы...) или лежат напрямую
     const scanTargets = [];
     const hasCategoryDirs = subEntries.some(e => KNOWN_CATEGORIES.includes(e.toLowerCase()));
 
@@ -293,7 +286,6 @@ async function runSync() {
         }
       }
     } else {
-      // Прямые папки лекций внутри предмета
       for (const f of subEntries) {
         scanTargets.push({
           category: 'лекции',
@@ -328,8 +320,9 @@ async function runSync() {
         updatedAt: nowIso
       };
 
-      // 1. Поиск HTML нейроконспектов
       const folderFiles = fs.readdirSync(folderPath);
+
+      // 1. Поиск HTML нейроконспектов
       for (const file of folderFiles) {
         const filePath = path.join(folderPath, file);
         if (fs.statSync(filePath).isFile() && file.endsWith('.html')) {
@@ -351,7 +344,7 @@ async function runSync() {
         }
       }
 
-      // 2. Поиск оригиналов (orig, оригинал, оригиналы, originals)
+      // 2. Поиск оригиналов (First-Class PDF Citizen)
       const origPossibleNames = ['orig', 'origs', 'original', 'originals', 'оригинал', 'оригиналы'];
       const origDirs = [];
 
@@ -374,7 +367,8 @@ async function runSync() {
             lecData.originals.push({
               name: item,
               type: ext === '.pdf' ? 'pdf' : 'image',
-              blob: hash
+              blob: hash,
+              size: content.length
             });
           }
         }
@@ -392,14 +386,15 @@ async function runSync() {
             const blobPath = path.join(blobsDir, blobName);
 
             activeBlobHashes.add(blobName);
-            console.log(` 🔒 Шифрование оригинала: [${subj.name}] ${folder}/${path.basename(od)}/${file}`);
+            console.log(` 🔒 Шифрование оригинала (PDF/Image): [${subj.name}] ${folder}/${path.basename(od)}/${file}`);
             const encrypted = encryptWithKey(content, sharedKey, vaultSalt);
             fs.writeFileSync(blobPath, encrypted);
 
             lecData.originals.push({
               name: file,
               type: ext === '.pdf' ? 'pdf' : 'image',
-              blob: hash
+              blob: hash,
+              size: content.length
             });
           }
         }
@@ -446,13 +441,14 @@ async function runSync() {
   };
   fs.writeFileSync(path.join(ROOT_DIR, 'manifest.json'), JSON.stringify(manifestData, null, 2), 'utf8');
 
-  // Шифрование метаданных
-  console.log('🔐 Шифрование метаданных каталога (AES-256-GCM)...');
+  // Шифрование метаданных каталога студентов (metadata.bin)
+  console.log('🔐 Шифрование каталога студентов metadata.bin (AES-256-GCM)...');
   const metaJsonBuf = Buffer.from(JSON.stringify(finalMeta), 'utf8');
-
   const encMeta = encryptWithKey(metaJsonBuf, sharedKey, vaultSalt);
   fs.writeFileSync(path.join(ROOT_DIR, 'metadata.bin'), encMeta);
 
+  // Шифрование каталога администратора (admin.bin) с инъекцией sharedKeyHex
+  console.log('🔐 Шифрование админ-каталога admin.bin (AES-256-GCM)...');
   const adminMeta = {
     ...finalMeta,
     sharedKeyHex: sharedKey.toString('hex')
@@ -465,12 +461,12 @@ async function runSync() {
   fs.writeFileSync(exportMetaPath, JSON.stringify(finalMeta, null, 2), 'utf8');
 
   console.log(`\n==================================================`);
-  console.log(`✅ СИНХРОНИЗАЦИЯ УСПЕШНО ЗАВЕРШЕНА!`);
-  console.log(`📚 Предметов: ${finalSubjects.length}`);
+  console.log(`🏛️ «КОНСПЕКТЫ ФПМ» — СИНХРОНИЗАЦИЯ УСПЕШНО ЗАВЕРШЕНА!`);
+  console.log(`📚 Предметов в архиве: ${finalSubjects.length}`);
   console.log(`📝 Всего материалов: ${finalLectures.length}`);
   console.log(`📦 Активных шифрованных blobs: ${activeBlobHashes.size}`);
   console.log(`🔑 Пароль студента: ${config.sharedPassword}`);
-  console.log(`🔑 Пароль админа: ${config.adminPassword}`);
+  console.log(`🔑 Пароль администратора: ${config.adminPassword}`);
   console.log(`==================================================\n`);
 
   if (!args.includes('--no-push')) {
@@ -480,7 +476,7 @@ async function runSync() {
 
 function deployToGitHub(config) {
   if (!config.repoUrl) {
-    console.log('ℹ️ repoUrl не указан в scripts/sync.json. Публикация на GitHub Pages пропущена.');
+    console.log('ℹ️ repoUrl не указан в scripts/sync.json. Деплой на GitHub Pages пропущен.');
     return;
   }
 
@@ -512,13 +508,13 @@ function deployToGitHub(config) {
     execSync(`git commit -m "Deploy: ${new Date().toISOString()}"`, { cwd: distDir, stdio: 'ignore' });
     execSync(`git remote add origin ${config.repoUrl}`, { cwd: distDir, stdio: 'ignore' });
 
-    console.log(' ⬆️ Выполняется force-push в ветку gh-pages...');
+    console.log(' ⬆️ Выполняется orphan force-push в ветку gh-pages...');
     execSync('git push -f origin gh-pages', { cwd: distDir, stdio: 'inherit' });
 
     fs.rmSync(distDir, { recursive: true, force: true });
     console.log('🎉 Успешно опубликовано на GitHub Pages!');
   } catch (err) {
-    console.error('❌ Ошибка при отправке на GitHub:', err.message);
+    console.error('❌ Ошибка при отправке на GitHub Pages:', err.message);
   }
 }
 

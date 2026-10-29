@@ -22,20 +22,18 @@ if exist "%ProgramFiles%\nodejs\node.exe" (
     goto :run
 )
 
-echo [ERROR] Node.js not found.
+REM 4. Check Program Files (x86)
+if exist "%ProgramFiles(x86)%\nodejs\node.exe" (
+    set "NODE_CMD=%ProgramFiles(x86)%\nodejs\node.exe"
+    goto :run
+)
+
+echo [ERROR] Node.js not found in PATH or standard installation directories.
 pause
 exit /b 1
 
 :run
-echo Starting sync...
+echo Running synchronization and encryption engine...
 "%NODE_CMD%" "%~dp0scripts\sync.js" %*
 
-if %ERRORLEVEL% neq 0 (
-    echo.
-    echo [ERROR] Sync failed.
-    pause
-) else (
-    echo.
-    echo [SUCCESS] Sync complete!
-    timeout /t 3 > nul
-)
+pause

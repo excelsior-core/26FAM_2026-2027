@@ -1,24 +1,24 @@
 {
-  "name": "fam-2026-2027-hse",
-  "version": "1.0.0",
-  "description": "Студенческий сборник нейроконспектов ФПМ НН (1 курс)",
-  "private": true,
-  "type": "commonjs",
+  "name": "hse-conspects-fpm",
+  "version": "5.0.0",
+  "description": "Клиентский зашифрованный академический портал «КОНСПЕКТЫ ФПМ» (ФПМ ВШЭ 1 курс)",
+  "main": "scripts/serve.js",
   "scripts": {
+    "start": "node scripts/serve.js",
     "sync": "node scripts/sync.js",
     "watch": "node scripts/watch.js",
     "rotate-shared": "node scripts/sync.js --rotate-shared",
     "rotate-admin": "node scripts/sync.js --rotate-admin"
   },
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "keywords": [
     "hse",
-    "fpm",
-    "notes",
-    "crypto",
-    "static-site"
+    "conspects",
+    "cryptography",
+    "webcrypto",
+    "zero-knowledge",
+    "chiaroscuro",
+    "baroque"
   ],
-  "author": "FAM 2026-2027 Students"
+  "author": "FAM HSE",
+  "license": "MIT"
 }

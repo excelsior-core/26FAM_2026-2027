@@ -22,12 +22,19 @@ if exist "%ProgramFiles%\nodejs\node.exe" (
     goto :run
 )
 
-echo [ERROR] Node.js not found.
+REM 4. Check Program Files (x86)
+if exist "%ProgramFiles(x86)%\nodejs\node.exe" (
+    set "NODE_CMD=%ProgramFiles(x86)%\nodejs\node.exe"
+    goto :run
+)
+
+echo [ERROR] Node.js not found in PATH or standard installation directories.
+echo Please install Node.js from https://nodejs.org/
 pause
 exit /b 1
 
 :run
-echo Starting local web server...
+echo Starting local web server for CONSPECTS FPM...
 "%NODE_CMD%" "%~dp0scripts\serve.js"
 
 pause

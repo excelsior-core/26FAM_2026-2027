@@ -1,7 +1,15 @@
 /**
- * styles/main.css - Высокобюджетный Ultra-Wide Dark Academia & Web Tactics
- * Глубокий атмосферный градиент, кинематографичное свечение, винтажная типографика
+ * styles/main.css - «КОНСПЕКТЫ ФПМ»
+ * Философия: Haute Couture Museum × Neoclassical Baroque & Sculptural Chiaroscuro × Dark Academia
+ * Обсидиановый бархат, античное золото, свет Караваджо, водяная типографика и нулевые CDN.
  */
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('../fonts/cormorant-garamond-cyrillic.woff2') format('woff2');
+  font-weight: 400 700;
+  font-display: swap;
+}
 
 @font-face {
   font-family: 'Unbounded';
@@ -18,107 +26,124 @@
 }
 
 :root {
-  /* Тема: Dark Academia (По умолчанию) — глубокий ночной бархат с фиолетово-медным свечением */
-  --bg-gradient: radial-gradient(circle at 50% -10%, #201322 0%, #0d0a12 40%, #060508 100%);
-  --bg-base: #060508;
-  --bg-card: rgba(18, 15, 23, 0.75);
-  --bg-card-hover: rgba(28, 23, 35, 0.9);
-  --bg-surface: #14111a;
-  --bg-glass: rgba(10, 8, 14, 0.88);
-  --text-main: #F4EBE1;
-  --text-muted: #8E8294;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.22);
-  --border-glow: rgba(214, 90, 66, 0.5);
-  --accent-color: #E65A42;
-  --accent-hover: #F8725B;
-  --accent-subtle: rgba(230, 90, 66, 0.15);
-  --secondary-color: #D4A373;
-  --urgent-color: #FF4D5A;
-  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.5);
-  --shadow-elevated: 0 20px 50px rgba(0, 0, 0, 0.85);
+  /* Палитра Караваджо: Обсидиановый бархат и Античное золото */
+  --bg-base: #050406;
+  --bg-deep: #0B080E;
+  --bg-surface: #110E17;
+  --bg-card: rgba(16, 13, 21, 0.82);
+  --bg-card-hover: rgba(25, 20, 32, 0.94);
+  --bg-glass: rgba(8, 6, 11, 0.92);
 
-  --font-display: 'Unbounded', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-body: 'Golos Text', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-serif: "Cinzel", "Cormorant Garamond", "Playfair Display", "Times New Roman", "Georgia", serif;
+  --gold-antique: #D4AF37;
+  --gold-light: #E5C158;
+  --gold-dim: #C5A059;
+  --gold-shadow: rgba(212, 175, 55, 0.18);
+  --gold-border: rgba(212, 175, 55, 0.35);
+
+  --accent-color: #D4AF37;
+  --accent-hover: #E5C158;
+  --accent-subtle: rgba(212, 175, 55, 0.12);
+
+  --amber-dark: #A66522;
+  --walnut-wood: #211613;
+  --ivory-parchment: #F4EBE1;
+  --parchment-muted: #9E93A3;
+  --urgent-color: #BD2A1D;
+
+  --border-subtle: rgba(212, 175, 55, 0.14);
+  --border-strong: rgba(212, 175, 55, 0.38);
+  --border-frame: rgba(212, 175, 55, 0.6);
+
+  --font-serif: 'Cormorant Garamond', 'Cinzel', 'Playfair Display', Georgia, serif;
+  --font-display: 'Unbounded', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: 'Golos Text', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: ui-monospace, 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
 
   --circadian-tint: rgba(0, 0, 0, 0);
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --transition-fast: 0.16s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Светлая книжная бумага (Paper) */
+/* Светлая музейная бумага (Paper Archive) */
 [data-theme="paper"] {
-  --bg-gradient: radial-gradient(circle at 50% 0%, #FFFFFF 0%, #F5EFE3 55%, #EBE3D3 100%);
   --bg-base: #F5EFE3;
+  --bg-deep: #ECE3D0;
+  --bg-surface: #E2D7C0;
   --bg-card: #FFFFFF;
   --bg-card-hover: #FDFBF7;
-  --bg-surface: #EDE4D1;
-  --bg-glass: rgba(245, 239, 227, 0.92);
-  --text-main: #181513;
-  --text-muted: #6C6259;
-  --border-subtle: rgba(24, 21, 19, 0.09);
-  --border-strong: rgba(24, 21, 19, 0.24);
-  --border-glow: rgba(140, 37, 24, 0.35);
-  --accent-color: #942618;
-  --accent-hover: #7D1F13;
-  --accent-subtle: rgba(148, 38, 24, 0.08);
-  --secondary-color: #B47834;
-  --urgent-color: #C1121F;
-  --shadow-subtle: 0 4px 14px rgba(0, 0, 0, 0.05);
-  --shadow-elevated: 0 16px 40px rgba(0, 0, 0, 0.09);
+  --bg-glass: rgba(245, 239, 227, 0.95);
+
+  --gold-antique: #8A6D1C;
+  --gold-light: #A38226;
+  --gold-dim: #725916;
+  --gold-shadow: rgba(138, 109, 28, 0.12);
+  --gold-border: rgba(138, 109, 28, 0.28);
+
+  --accent-color: #8A6D1C;
+  --accent-hover: #6D5414;
+  --accent-subtle: rgba(138, 109, 28, 0.08);
+
+  --ivory-parchment: #1A1512;
+  --parchment-muted: #695F53;
+  --border-subtle: rgba(26, 21, 18, 0.12);
+  --border-strong: rgba(26, 21, 18, 0.28);
 }
 
-/* Сепия (Университетский пергамент) */
+/* Сепия (Венецианский пергамент) */
 [data-theme="sepia"] {
-  --bg-gradient: radial-gradient(circle at 50% 0%, #FDF7EB 0%, #EFE1C8 60%, #E2CFB0 100%);
   --bg-base: #EFE1C8;
-  --bg-card: #F8EEDC;
-  --bg-card-hover: #FCF6EC;
-  --bg-surface: #E0CDB0;
-  --bg-glass: rgba(239, 225, 200, 0.92);
-  --text-main: #332214;
-  --text-muted: #735942;
-  --border-subtle: rgba(51, 34, 20, 0.1);
-  --border-strong: rgba(51, 34, 20, 0.25);
-  --border-glow: rgba(158, 63, 36, 0.4);
-  --accent-color: #A23E22;
-  --accent-hover: #883219;
-  --accent-subtle: rgba(162, 62, 34, 0.1);
-  --secondary-color: #A67338;
-  --urgent-color: #BD2A1D;
-  --shadow-subtle: 0 4px 14px rgba(51, 34, 20, 0.06);
-  --shadow-elevated: 0 16px 36px rgba(51, 34, 20, 0.12);
+  --bg-deep: #E2CFB0;
+  --bg-surface: #D6BD98;
+  --bg-card: #F9EFE0;
+  --bg-card-hover: #FFF7EC;
+  --bg-glass: rgba(239, 225, 200, 0.95);
+
+  --gold-antique: #945B1C;
+  --gold-light: #B27027;
+  --gold-dim: #794814;
+  --gold-shadow: rgba(148, 91, 28, 0.14);
+  --gold-border: rgba(148, 91, 28, 0.3);
+
+  --accent-color: #945B1C;
+  --accent-hover: #794814;
+  --accent-subtle: rgba(148, 91, 28, 0.09);
+
+  --ivory-parchment: #2B1D12;
+  --parchment-muted: #6E533C;
+  --border-subtle: rgba(43, 29, 18, 0.12);
+  --border-strong: rgba(43, 29, 18, 0.3);
 }
 
-/* Midnight (Ночная обсерватория) */
+/* Ночной Сапфир (Midnight Observatory) */
 [data-theme="midnight"] {
-  --bg-gradient: radial-gradient(circle at 50% -10%, #11223A 0%, #08111D 50%, #03060B 100%);
   --bg-base: #03060B;
-  --bg-card: rgba(13, 24, 40, 0.8);
-  --bg-card-hover: rgba(20, 36, 60, 0.95);
+  --bg-deep: #08111D;
   --bg-surface: #0E1B2C;
-  --bg-glass: rgba(5, 10, 18, 0.9);
-  --text-main: #E2ECF7;
-  --text-muted: #7E97B5;
-  --border-subtle: rgba(226, 236, 247, 0.08);
-  --border-strong: rgba(226, 236, 247, 0.24);
-  --border-glow: rgba(91, 195, 213, 0.5);
+  --bg-card: rgba(13, 24, 40, 0.85);
+  --bg-card-hover: rgba(18, 33, 56, 0.95);
+  --bg-glass: rgba(5, 10, 18, 0.92);
+
+  --gold-antique: #5BC3D5;
+  --gold-light: #7ED2E1;
+  --gold-dim: #3B95A4;
+  --gold-shadow: rgba(91, 195, 213, 0.2);
+  --gold-border: rgba(91, 195, 213, 0.35);
+
   --accent-color: #5BC3D5;
-  --accent-hover: #81D3E2;
-  --accent-subtle: rgba(91, 195, 213, 0.15);
-  --secondary-color: #C9A765;
-  --urgent-color: #FF5A5F;
-  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.6);
-  --shadow-elevated: 0 20px 50px rgba(0, 0, 0, 0.85);
+  --accent-hover: #7ED2E1;
+  --accent-subtle: rgba(91, 195, 213, 0.12);
+
+  --ivory-parchment: #E2ECF7;
+  --parchment-muted: #7E97B5;
+  --border-subtle: rgba(91, 195, 213, 0.15);
+  --border-strong: rgba(91, 195, 213, 0.38);
 }
 
-/* Сбросы */
+/* Базовые сбросы */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -134,12 +159,14 @@ html {
 
 body {
   background-color: var(--bg-base);
-  background-image: var(--bg-gradient);
+  background-image: 
+    radial-gradient(circle at 50% -12%, rgba(212, 175, 55, 0.08) 0%, transparent 65%),
+    linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-base) 100%);
   background-attachment: fixed;
-  color: var(--text-main);
+  color: var(--ivory-parchment);
   font-family: var(--font-body);
   font-size: 0.95rem;
-  line-height: 1.55;
+  line-height: 1.6;
   min-height: 100vh;
   min-height: 100dvh;
   position: relative;
@@ -150,7 +177,7 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Суточный световой оверлей (Circadian Lighting) */
+/* Суточное световое колесо (Circadian Chiaroscuro) */
 body::after {
   content: "";
   position: fixed;
@@ -158,98 +185,113 @@ body::after {
   pointer-events: none;
   z-index: 9998;
   background-color: var(--circadian-tint);
-  transition: background-color 2s ease;
+  transition: background-color 3s ease;
 }
 
-/* Тактильный бумажный микро-шум */
+/* Текстура античного пергамента / микро-шум */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.04;
+  opacity: 0.035;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Кинематографичный световой ореол в шапке */
+/* Драматичный театральный свет сверху (Caravaggio Spotlight) */
 .hero-glow {
   position: absolute;
-  top: -240px;
+  top: -260px;
   left: 50%;
   transform: translateX(-50%);
-  width: 1200px;
-  height: 600px;
-  background: radial-gradient(circle, var(--accent-subtle) 0%, transparent 65%);
-  filter: blur(140px);
+  width: 1300px;
+  height: 650px;
+  background: radial-gradient(ellipse at 50% 30%, rgba(212, 175, 55, 0.16) 0%, rgba(212, 175, 55, 0.04) 50%, transparent 75%);
+  filter: blur(120px);
   pointer-events: none;
   z-index: 0;
 }
 
-/* УЛЬТРА-ВАЙД КАНВАС ДЕСКТОПА (до 1780px) */
+/* Объемный дымчатый амбиент (Volumetric Atmosphere) */
+.smoke-ambient-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.45;
+  background-image: 
+    radial-gradient(circle at 15% 25%, rgba(212, 175, 55, 0.03) 0%, transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(181, 52, 31, 0.03) 0%, transparent 45%);
+}
+
+/* Крупная водяная фоновая типографика сквозь слои дыма («STATUES», «MATHEMATICA») */
+.watermark-bg-word {
+  position: absolute;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(6rem, 16vw, 15rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.025);
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+  line-height: 1;
+}
+
+/* Ультра-широкий канвас (Ultra-Wide Haute Couture Canvas) */
 .container {
-  max-width: 1780px;
-  width: 95vw;
+  max-width: 1720px;
+  width: 94vw;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 28px;
   position: relative;
   z-index: 1;
 }
 
-/* Монументальная акцидентная типографика */
+/* Барочная и акцидентная типографика */
 h1, h2, h3, h4, .brand-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ivory-parchment);
+}
+
+.brand-monolith {
   font-family: var(--font-display);
   font-weight: 800;
-  letter-spacing: -0.025em;
-  color: var(--text-main);
+  letter-spacing: -0.02em;
   text-transform: uppercase;
+  color: var(--ivory-parchment);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
 }
 
-.hero-mega-title {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(2.4rem, 5.5vw, 4.8rem);
-  line-height: 1.05;
-  letter-spacing: -0.035em;
-  text-transform: uppercase;
-  margin: 20px 0 16px;
-  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
-}
-
-.hero-mega-title .highlight {
-  color: var(--accent-color);
-  background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero-sub-text {
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  max-width: 820px;
-  line-height: 1.6;
-  margin-bottom: 28px;
+.brand-monolith span.accent {
+  color: var(--gold-antique);
 }
 
 .academic-crest {
   font-family: var(--font-serif);
-  font-size: 0.78rem;
-  letter-spacing: 0.18em;
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--secondary-color);
+  color: var(--gold-antique);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 a {
-  color: var(--accent-color);
+  color: var(--gold-antique);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 a:hover {
-  color: var(--accent-hover);
+  color: var(--gold-light);
 }
 
 button {
@@ -263,19 +305,51 @@ button {
 
 input, select, textarea {
   font-family: var(--font-body);
-  font-size: 16px;
-  color: var(--text-main);
-  background: var(--bg-card);
+  font-size: 15px;
+  color: var(--ivory-parchment);
+  background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  padding: 11px 16px;
+  padding: 12px 16px;
   outline: none;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 input:focus, select:focus, textarea:focus {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 2px var(--accent-subtle);
+  border-color: var(--gold-antique);
+  box-shadow: 0 0 0 2px var(--gold-shadow);
+}
+
+/* Декоративные барочные виньетки и разделители */
+.baroque-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 32px 0;
+  color: var(--gold-dim);
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+.baroque-divider::before,
+.baroque-divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+}
+
+/* Всплывающий экран конспирации (Panic Flash) */
+#panic-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 100000;
+}
+#panic-overlay.active {
+  display: block;
 }
 
 @media (prefers-reduced-motion: reduce) {

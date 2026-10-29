@@ -1,7 +1,8 @@
 /**
- * app/admin.js - Модуль панели администратора
- * Доступен при вводе мастер-пароля администратора (дешифрует admin.bin).
- * Позволяет редактировать предметы, модули, лекции и экспортировать site-metadata.json
+ * app/admin.js - Модуль панели администратора «КОНСПЕКТЫ ФПМ»
+ * Доступен исключительно при вводе мастер-пароля администратора (дешифрует admin.bin).
+ * Скрыт от обычных студентов на математическом и визуальном уровне.
+ * Позволяет управлять предметами, модулями, лекциями, дедлайнами и экспортировать site-metadata.json
  */
 
 export class AdminManager {
@@ -9,22 +10,16 @@ export class AdminManager {
     this.metadata = metadata;
     this.onSave = onSaveCallback;
     this.colorsPalette = [
-      '#B5341F', '#D9A05B', '#2D6A4F', '#1D4E89',
-      '#7209B7', '#D00000', '#3F37C9', '#4895EF',
-      '#6A040F', '#007200', '#F77F00', '#4A4E69'
+      '#B5341F', '#D4AF37', '#1D4E89', '#2D6A4F',
+      '#7209B7', '#C87D20', '#0E7490', '#4338CA',
+      '#6A040F', '#374151', '#A23E22', '#5BC3D5'
     ];
   }
 
-  /**
-   * Обновление ссылки на актуальные метаданные
-   */
   setMetadata(metadata) {
     this.metadata = metadata;
   }
 
-  /**
-   * Сохранение и вызов коллбэка обновления интерфейса
-   */
   commitChanges() {
     this.metadata.updatedAt = new Date().toISOString();
     if (this.onSave) {
@@ -32,9 +27,6 @@ export class AdminManager {
     }
   }
 
-  /**
-   * Добавление/обновление предмета
-   */
   saveSubject(name, color, description = '', oldName = null) {
     if (!name || !name.trim()) return;
     const cleanName = name.trim();
@@ -42,7 +34,6 @@ export class AdminManager {
     if (!this.metadata.subjects) this.metadata.subjects = [];
 
     if (oldName && oldName !== cleanName) {
-      // Обновляем имя предмета в лекциях
       for (const lec of this.metadata.lectures || []) {
         if (lec.subject === oldName) {
           lec.subject = cleanName;
@@ -70,18 +61,12 @@ export class AdminManager {
     this.commitChanges();
   }
 
-  /**
-   * Удаление предмета
-   */
   deleteSubject(name) {
-    if (!confirm(`Удалить предмет «${name}»? Сами файлы лекций останутся на диске.`)) return;
+    if (!confirm(`Удалить предмет «${name}»? Исходные файлы на диске останутся нетронутыми.`)) return;
     this.metadata.subjects = (this.metadata.subjects || []).filter(s => s.name !== name);
     this.commitChanges();
   }
 
-  /**
-   * Добавление/переименование модуля
-   */
   saveModule(name, oldName = null) {
     if (!name || !name.trim()) return;
     const cleanName = name.trim();
@@ -103,9 +88,6 @@ export class AdminManager {
     this.commitChanges();
   }
 
-  /**
-   * Редактирование лекции
-   */
   updateLecture(id, updates) {
     const lecture = (this.metadata.lectures || []).find(l => l.id === id);
     if (!lecture) return false;
@@ -129,9 +111,6 @@ export class AdminManager {
     return true;
   }
 
-  /**
-   * Добавление / обновление объявления или дедлайна
-   */
   saveAnnouncement(data) {
     if (!this.metadata.announcements) this.metadata.announcements = [];
     if (data.id) {
@@ -147,7 +126,7 @@ export class AdminManager {
       const newAnn = {
         id: 'ann_' + Date.now().toString(36),
         type: data.type || 'deadline',
-        title: data.title || 'Новое объявление',
+        title: data.title || 'Новый дедлайн',
         subject: data.subject || 'Общее',
         datetime: data.datetime || '',
         text: data.text || '',
@@ -159,21 +138,15 @@ export class AdminManager {
     this.commitChanges();
   }
 
-  /**
-   * Удаление объявления
-   */
   deleteAnnouncement(id) {
-    if (!confirm('Удалить это объявление/дедлайн?')) return;
+    if (!confirm('Удалить эту запись?')) return;
     this.metadata.announcements = (this.metadata.announcements || []).filter(a => a.id !== id);
     this.commitChanges();
   }
 
-  /**
-   * Экспорт site-metadata.json в файл для синхронизации
-   */
   exportMetadataJson() {
     const jsonStr = JSON.stringify(this.metadata, null, 2);
-    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
