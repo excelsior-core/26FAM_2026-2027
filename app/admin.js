@@ -99,8 +99,8 @@ export class AdminManager {
     if (updates.hidden !== undefined) lecture.hidden = !!updates.hidden;
     if (updates.tags !== undefined) {
       lecture.tags = Array.isArray(updates.tags)
-        ? updates.tags
-        : updates.tags.split(',').map(t => t.trim()).filter(Boolean);
+        ? updates.tags.map(t => String(t).trim().replace(/^#+/, '').toUpperCase()).filter(Boolean)
+        : String(updates.tags).split(/[,;\s]+/).map(t => t.trim().replace(/^#+/, '').toUpperCase()).filter(Boolean);
     }
     if (updates.sessions !== undefined) {
       lecture.sessions = updates.sessions;

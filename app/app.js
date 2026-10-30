@@ -383,14 +383,15 @@ class App {
     if (!storedKey) return;
 
     try {
-      this.cryptoKey = await VaultCrypto.importKeyRaw(storedKey);
+      const importedKey = await VaultCrypto.importKeyRaw(storedKey);
+      this.cryptoKey = importedKey;
 
       let adminUnlocked = false;
       try {
-        const adminResp = await fetch('admin.bin');
+        const adminResp = await fetch(`admin.bin?t=${Date.now()}`);
         if (adminResp.ok) {
           const adminBuf = await adminResp.arrayBuffer();
-          const dec = await VaultCrypto.decryptBlob(adminBuf, this.cryptoKey);
+          const dec = await VaultCrypto.decryptBlob(adminBuf, importedKey);
           this.metadata = JSON.parse(new TextDecoder().decode(dec));
           adminUnlocked = true;
         }
@@ -402,6 +403,15 @@ class App {
 
       if (!this.isAdmin) {
         await this.loadMetadata();
+      } else if (this.metadata && this.metadata.sharedKeyHex) {
+        // Администратор дешифровал admin.bin ключом администратора,
+        // но все blobs (HTML конспекты и PDF оригиналы) зашифрованы ключом sharedKey!
+        const hex = this.metadata.sharedKeyHex;
+        const raw = new Uint8Array(hex.length / 2);
+        for (let i = 0; i < hex.length; i += 2) {
+          raw[i / 2] = parseInt(hex.substr(i, 2), 16);
+        }
+        this.cryptoKey = await crypto.subtle.importKey('raw', raw, { name: 'AES-GCM' }, true, ['encrypt', 'decrypt']);
       }
 
       this.unlockApp();
@@ -458,15 +468,24 @@ class App {
     const bytes = new Uint8Array(sampleBlobBuffer);
     const salt = bytes.slice(6, 22);
 
-    if (this.isAdmin && this.metadata && this.metadata.sharedKeyHex) {
-      const hex = this.metadata.sharedKeyHex;
-      const raw = new Uint8Array(hex.length / 2);
-      for (let i = 0; i < hex.length; i += 2) {
-        raw[i / 2] = parseInt(hex.substr(i, 2), 16);
+    let keyToStore;
+    if (this.isAdmin) {
+      const adminKey = await VaultCrypto.deriveKey(password, salt);
+      keyToStore = adminKey;
+
+      if (this.metadata && this.metadata.sharedKeyHex) {
+        const hex = this.metadata.sharedKeyHex;
+        const raw = new Uint8Array(hex.length / 2);
+        for (let i = 0; i < hex.length; i += 2) {
+          raw[i / 2] = parseInt(hex.substr(i, 2), 16);
+        }
+        this.cryptoKey = await crypto.subtle.importKey('raw', raw, { name: 'AES-GCM' }, true, ['encrypt', 'decrypt']);
+      } else {
+        this.cryptoKey = adminKey;
       }
-      this.cryptoKey = await crypto.subtle.importKey('raw', raw, { name: 'AES-GCM' }, true, ['encrypt', 'decrypt']);
     } else {
       this.cryptoKey = await VaultCrypto.deriveKey(password, salt);
+      keyToStore = this.cryptoKey;
     }
 
     localStorage.removeItem('fpm_key');
@@ -474,7 +493,7 @@ class App {
     sessionStorage.removeItem('fpm_key');
     sessionStorage.removeItem('fpm_is_admin');
 
-    const rawKeyB64 = await VaultCrypto.exportKeyRaw(this.cryptoKey);
+    const rawKeyB64 = await VaultCrypto.exportKeyRaw(keyToStore);
     const targetStorage = this.authRemember.checked ? localStorage : sessionStorage;
     targetStorage.setItem('fpm_key', rawKeyB64);
     targetStorage.setItem('fpm_is_admin', this.isAdmin ? 'true' : 'false');
@@ -600,7 +619,14 @@ class App {
     }
 
     if (tagsInput) {
-      tagsInput.value = Array.isArray(lecture.tags) ? lecture.tags.join(', ') : (lecture.tags || '');
+      tagsInput.style.textTransform = 'uppercase';
+      const cleanTags = Array.isArray(lecture.tags)
+        ? lecture.tags.map(t => String(t).trim().replace(/^#+/, '').toUpperCase()).filter(Boolean)
+        : (lecture.tags ? String(lecture.tags).split(/[,;\s]+/).map(t => t.trim().replace(/^#+/, '').toUpperCase()).filter(Boolean) : []);
+      tagsInput.value = cleanTags.join(', ');
+      tagsInput.oninput = () => {
+        tagsInput.value = tagsInput.value.toUpperCase();
+      };
     }
 
     if (descInput) {
@@ -623,7 +649,8 @@ class App {
     const subject = document.getElementById('admin-lec-subject')?.value || '';
     const module = document.getElementById('admin-lec-module')?.value || '';
     const rawSessions = document.getElementById('admin-lec-sessions')?.value || '';
-    const tags = document.getElementById('admin-lec-tags')?.value || '';
+    const rawTags = document.getElementById('admin-lec-tags')?.value || '';
+    const tags = rawTags.split(/[,;\s]+/).map(t => t.trim().replace(/^#+/, '').toUpperCase()).filter(Boolean);
     const description = document.getElementById('admin-lec-desc')?.value || '';
     const hidden = document.getElementById('admin-lec-hidden')?.checked || false;
 
@@ -808,7 +835,7 @@ class App {
         <h3 class="hero-folio-title">${lec.title}</h3>
         <p class="hero-folio-desc">${lec.description || 'Фундаментальный академический материал курса с разбором теорем, определений и математических выводов.'}</p>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          ${(lec.tags || []).map(t => `<span style="font-size: 0.75rem; color: var(--gold-dim); background: rgba(212, 175, 55, 0.08); padding: 2px 8px; border-radius: 4px;">#${t}</span>`).join('')}
+          ${(lec.tags || []).map(t => `<span style="font-size: 0.75rem; color: var(--gold-dim); background: rgba(212, 175, 55, 0.08); padding: 2px 8px; border-radius: 4px; font-weight: 500; letter-spacing: 0.03em;">#${String(t).trim().replace(/^#+/, '').toUpperCase()}</span>`).join('')}
         </div>
       </div>
 
@@ -1013,30 +1040,11 @@ class App {
     this.readerModal.classList.add('open');
     this.cleanupBlobUrls();
 
-    // Загрузка конспекта (HTML)
-    if (hasHtml) {
-      const htmlFile = lecture.files[0];
-      try {
-        const htmlBytes = await this.fetchAndDecryptBlob(htmlFile.blob);
-        const htmlText = new TextDecoder().decode(htmlBytes);
-        const htmlBlob = new Blob([htmlText], { type: 'text/html; charset=utf-8' });
-        const htmlUrl = URL.createObjectURL(htmlBlob);
-        this.activeObjectUrls.push(htmlUrl);
-        lecture.currentHtmlBlobUrl = htmlUrl;
+    // 1. Активируем целевой режим ДО подстановки blob в iframe,
+    // чтобы целевая панель уже имела display: flex (не display: none) в Chromium
+    this.setReaderMode(requestedMode);
 
-        this.readerIframe.src = htmlUrl;
-        this.readerIframe.onload = () => {
-          this.marginalia.attachToIframe(this.readerIframe, lecture.id);
-          this.searchEngine.updateLectureContent(lecture.id, htmlText);
-        };
-      } catch (err) {
-        console.error('Ошибка расшифровки конспекта:', err);
-      }
-    } else {
-      this.readerIframe.src = 'about:blank';
-    }
-
-    // Загрузка оригинала (PDF)
+    // 2. Селектор оригиналов PDF
     if (this.readerPdfSelect) {
       if (hasOriginal && lecture.originals.length > 1) {
         this.readerPdfSelect.style.display = 'inline-block';
@@ -1048,6 +1056,48 @@ class App {
       }
     }
 
+    // 3. Загрузка конспекта (HTML)
+    if (hasHtml) {
+      const htmlFile = lecture.files[0];
+      try {
+        const htmlBytes = await this.fetchAndDecryptBlob(htmlFile.blob);
+        const htmlText = (typeof htmlBytes === 'string') ? htmlBytes : new TextDecoder().decode(htmlBytes);
+        const htmlBlob = new Blob([htmlText], { type: 'text/html; charset=utf-8' });
+        const htmlUrl = URL.createObjectURL(htmlBlob);
+        this.activeObjectUrls.push(htmlUrl);
+        lecture.currentHtmlBlobUrl = htmlUrl;
+
+        this.readerIframe.srcdoc = htmlText;
+        this.readerIframe.onload = () => {
+          this.marginalia.attachToIframe(this.readerIframe, lecture.id);
+          this.searchEngine.updateLectureContent(lecture.id, htmlText);
+        };
+        setTimeout(() => {
+          this.marginalia.attachToIframe(this.readerIframe, lecture.id);
+        }, 150);
+      } catch (err) {
+        console.error('Ошибка расшифровки конспекта:', err);
+        this.readerIframe.srcdoc = `
+          <body style="background:#110e17;color:#e8d8b8;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
+            <div style="text-align:center;padding:24px;max-width:500px;">
+              <p style="font-size:1.15rem;color:#e57373;margin-bottom:8px;">⚠️ Не удалось расшифровать конспект</p>
+              <p style="font-size:0.85rem;color:#a89f91;line-height:1.5;">${err.message || 'Ошибка криптографического ключа'}. Пожалуйста, обновите страницу (Ctrl+F5) и авторизуйтесь заново.</p>
+            </div>
+          </body>
+        `;
+      }
+    } else {
+      this.readerIframe.srcdoc = `
+        <body style="background:#110e17;color:#e8d8b8;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
+          <div style="text-align:center;padding:24px;">
+            <p style="font-size:1.1rem;color:#d4af37;">📝 Нейроконспект (HTML) отсутствует</p>
+            <p style="font-size:0.85rem;color:#a89f91;">Для этого занятия доступен оригинал в формате PDF.</p>
+          </div>
+        </body>
+      `;
+    }
+
+    // 4. Загрузка оригинала (PDF)
     if (hasOriginal) {
       await this.loadOriginalPdf(this.currentPdfIndex);
     } else {
@@ -1058,9 +1108,6 @@ class App {
     if (this.readerDownloadPdfBtn) {
       this.readerDownloadPdfBtn.style.display = hasOriginal ? 'inline-flex' : 'none';
     }
-
-    // Переключаем интерфейс в запрошенный режим строго через контроллер
-    this.setReaderMode(requestedMode);
   }
 
   setReaderMode(mode) {
@@ -1094,6 +1141,10 @@ class App {
       if (this.readerNewTabBtn) {
         this.readerNewTabBtn.title = 'Открыть оригинальный PDF в новой вкладке';
       }
+
+      if (hasOriginal && (!this.readerOrigIframe.src || this.readerOrigIframe.src === 'about:blank' || this.readerOrigIframe.src === window.location.href)) {
+        this.loadOriginalPdf(this.currentPdfIndex || 0);
+      }
     } else if (mode === 'split') {
       this.paneNote.style.display = 'flex';
       this.paneOrig.style.display = 'flex';
@@ -1103,6 +1154,10 @@ class App {
       this.splitToggleBtn?.classList.add('active');
       if (this.readerNewTabBtn) {
         this.readerNewTabBtn.title = 'Открыть оригинальный PDF в новой вкладке';
+      }
+
+      if (hasOriginal && (!this.readerOrigIframe.src || this.readerOrigIframe.src === 'about:blank' || this.readerOrigIframe.src === window.location.href)) {
+        this.loadOriginalPdf(this.currentPdfIndex || 0);
       }
     } else {
       // mode === 'html'
@@ -1182,10 +1237,10 @@ class App {
     if (mode === 'pdf' || (!lecture.files?.length && lecture.originals?.length)) {
       if (lecture.originals?.[0]) {
         try {
-          const bytes = await this.fetchAndDecryptBlob(lecture.originals[0].blob);
+          let bytes = await this.fetchAndDecryptBlob(lecture.originals[0].blob);
+          if (typeof bytes === 'string') bytes = new TextEncoder().encode(bytes);
           const blob = new Blob([bytes], { type: 'application/pdf' });
           const url = URL.createObjectURL(blob);
-          this.activeObjectUrls.push(url);
           window.open(url, '_blank');
         } catch (e) {
           console.error('Ошибка открытия PDF в новой вкладке:', e);
@@ -1194,10 +1249,9 @@ class App {
     } else if (lecture.files?.[0]) {
       try {
         const bytes = await this.fetchAndDecryptBlob(lecture.files[0].blob);
-        const text = new TextDecoder().decode(bytes);
+        const text = typeof bytes === 'string' ? bytes : new TextDecoder().decode(bytes);
         const blob = new Blob([text], { type: 'text/html; charset=utf-8' });
         const url = URL.createObjectURL(blob);
-        this.activeObjectUrls.push(url);
         window.open(url, '_blank');
       } catch (e) {
         console.error('Ошибка открытия HTML в новой вкладке:', e);
@@ -1263,8 +1317,9 @@ class App {
     const origFile = origList[pdfIndex];
     try {
       const origBytes = await this.fetchAndDecryptBlob(origFile.blob);
+      const rawBytes = (origBytes instanceof Uint8Array) ? origBytes : new TextEncoder().encode(origBytes);
       const mimeType = 'application/pdf';
-      const origBlob = new Blob([origBytes], { type: mimeType });
+      const origBlob = new Blob([rawBytes], { type: mimeType });
       const origUrl = URL.createObjectURL(origBlob);
       this.activeObjectUrls.push(origUrl);
       this.currentLecture.currentPdfBlobUrl = origUrl;
@@ -1276,6 +1331,16 @@ class App {
       }
     } catch (err) {
       console.error('Ошибка расшифровки оригинала:', err);
+      if (this.readerOrigIframe) {
+        this.readerOrigIframe.srcdoc = `
+          <body style="background:#110e17;color:#e8d8b8;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
+            <div style="text-align:center;padding:24px;max-width:500px;">
+              <p style="font-size:1.15rem;color:#e57373;margin-bottom:8px;">⚠️ Не удалось расшифровать PDF оригинал</p>
+              <p style="font-size:0.85rem;color:#a89f91;line-height:1.5;">${err.message || 'Ошибка криптографического ключа'}. Пожалуйста, обновите страницу (Ctrl+F5) и авторизуйтесь заново.</p>
+            </div>
+          </body>
+        `;
+      }
     }
   }
 
@@ -1305,7 +1370,9 @@ class App {
   closeReader(updateHash = true) {
     this.readerModal.classList.remove('open');
     this.readerIframe.src = 'about:blank';
+    this.readerIframe.srcdoc = '';
     this.readerOrigIframe.src = 'about:blank';
+    this.readerOrigIframe.srcdoc = '';
     this.cleanupBlobUrls();
     this.currentLecture = null;
     this.currentReaderMode = null;
@@ -1320,7 +1387,8 @@ class App {
 
   async fetchAndDecryptBlob(hash) {
     if (this.blobCache.has(hash)) {
-      return this.blobCache.get(hash);
+      const cached = this.blobCache.get(hash);
+      return (cached instanceof Uint8Array) ? cached : new TextEncoder().encode(cached);
     }
     const resp = await fetch(`blobs/${hash}.bin`);
     if (!resp.ok) throw new Error(`Не удалось загрузить blob: ${hash}`);
@@ -1630,14 +1698,15 @@ class App {
         try {
           let htmlText = '';
           if (this.blobCache.has(htmlFile.blob)) {
-            htmlText = this.blobCache.get(htmlFile.blob);
+            const cached = this.blobCache.get(htmlFile.blob);
+            htmlText = (cached instanceof Uint8Array) ? new TextDecoder().decode(cached) : String(cached);
           } else {
             const resp = await fetch(`blobs/${htmlFile.blob}.bin`);
             if (!resp.ok) continue;
             const buf = await resp.arrayBuffer();
             const dec = await VaultCrypto.decryptBlob(buf, this.cryptoKey);
             htmlText = new TextDecoder().decode(dec);
-            this.blobCache.set(htmlFile.blob, htmlText);
+            this.blobCache.set(htmlFile.blob, dec);
           }
           if (htmlText) {
             this.searchEngine.updateLectureContent(lec.id, htmlText);

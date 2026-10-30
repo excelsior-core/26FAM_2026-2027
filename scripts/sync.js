@@ -418,7 +418,7 @@ async function runSync() {
         folder: cleanFolder,
         title: chosenTitle,
         description: prev ? (prev.description || "") : "",
-        tags: prev ? (prev.tags || []) : [],
+        tags: prev ? (Array.isArray(prev.tags) ? prev.tags.map(t => String(t).trim().replace(/^#+/, '').toUpperCase()).filter(Boolean) : []) : [],
         module: prev ? (prev.module || "Модуль 1") : "Модуль 1",
         hidden: prev ? !!prev.hidden : false,
         sessions: chosenSessions,
