@@ -453,38 +453,115 @@ async function runSync() {
           // Извлечение полного чистого текста конспекта для мгновенного NLP-поиска
           try {
             const htmlStr = content.toString('utf8');
-            const cleanText = htmlStr
+            let cleanText = htmlStr
               .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
               .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
               .replace(/<svg[^>]*>[\s\S]*?<\/svg>/gi, '')
+              .replace(/<aside[^>]*>[\s\S]*?<\/aside>/gi, '')
+              .replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, '')
+              .replace(/<header[^>]*>[\s\S]*?<\/header>/gi, '')
+              .replace(/<footer[^>]*>[\s\S]*?<\/footer>/gi, '')
+              .replace(/<noscript[^>]*>[\s\S]*?<\/noscript>/gi, '')
+              .replace(/<iframe[^>]*>[\s\S]*?<\/iframe>/gi, '')
               .replace(/<[^>]+>/g, ' ')
+              .replace(/&nbsp;/gi, ' ')
+              .replace(/&lt;/gi, '<')
+              .replace(/&gt;/gi, '>')
+              .replace(/&amp;/gi, '&')
+              .replace(/&#\d+;/g, '');
+
+            // Математическая очистка для чистоты текста и сниппетов
+            cleanText = cleanText
+              .replace(/\\mathbb\{R\}/g, 'ℝ')
+              .replace(/\\mathbb\{C\}/g, 'ℂ')
+              .replace(/\\mathbb\{N\}/g, 'ℕ')
+              .replace(/\\mathbb\{Z\}/g, 'ℤ')
+              .replace(/\\mathbb\{Q\}/g, 'ℚ')
+              .replace(/\\mathbb\s*\{?[A-Za-z]*\}?/g, '')
+              .replace(/\\(?:mathbf|mathit|text)\{([^}]+)\}/g, '$1')
+              .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)')
+              .replace(/\\dot\{([a-zA-Z])\}/g, '$1̇')
+              .replace(/\\le\b/g, '≤')
+              .replace(/\\ge\b/g, '≥')
+              .replace(/\\ne\b/g, '≠')
+              .replace(/\\approx\b/g, '≈')
+              .replace(/\\equiv\b/g, '≡')
+              .replace(/\\asymp\b/g, '≍')
+              .replace(/\\sim\b/g, '∼')
+              .replace(/\\to\b/g, '→')
+              .replace(/\\pm\b/g, '±')
+              .replace(/\\mp\b/g, '∓')
+              .replace(/\\cdot\b/g, '·')
+              .replace(/\\times\b/g, '×')
+              .replace(/\\in\b/g, '∈')
+              .replace(/\\notin\b/g, '∉')
+              .replace(/\\subset\b/g, '⊂')
+              .replace(/\\forall\b/g, '∀')
+              .replace(/\\exists\b/g, '∃')
+              .replace(/\\infty\b/g, '∞')
+              .replace(/\\alpha\b/g, 'α')
+              .replace(/\\beta\b/g, 'β')
+              .replace(/\\gamma\b/g, 'γ')
+              .replace(/\\pi\b/g, 'π')
+              .replace(/\\varepsilon\b/g, 'ε')
+              .replace(/\\lambda\b/g, 'λ')
+              .replace(/\\delta\b/g, 'δ')
+              .replace(/\\phi\b/g, 'φ')
+              .replace(/\\varphi\b/g, 'φ')
+              .replace(/\\sigma\b/g, 'σ')
+              .replace(/\[cite:\s*\d+\]/gi, '')
+              .replace(/\{[^{}]*(?:color|margin|padding|display|background|font|border)[^{}]*\}/gi, ' ')
+              .replace(/\/\*[\s\S]*?\*\//g, ' ')
+              .replace(/var\(--[a-z0-9_-]+\)/gi, ' ')
+              .replace(/\.[a-z0-9_-]+\s*\{/gi, ' ')
+              .replace(/\$+/g, '')
+              .replace(/\\quad\b/g, ' ')
+              .replace(/\\/g, '')
+              .replace(/[\{\}]/g, '')
               .replace(/\s+/g, ' ')
               .trim();
+
             if (cleanText) {
               lecData.content = cleanText;
             }
 
             // Автоматическое распознавание темы лекции из HTML-конспекта
-            if (!lecData.description) {
+            const isGenericDesc = !lecData.description || 
+              /^Лекци[яи]\s*[\d,\sи–-]+$/i.test(lecData.description.trim()) ||
+              /^Лекция\s*\d+\.\d+/i.test(lecData.description.trim());
+
+            if (isGenericDesc) {
               const tm = htmlStr.match(/<title>([^<]+)<\/title>/i);
               const h1m = htmlStr.match(/<h1[^>]*>([^<]+)<\/h1>/i);
-              const rawTopic = tm ? tm[1] : (h1m ? h1m[1] : '');
-              if (rawTopic) {
-                const clean = rawTopic
-                  .replace(/<[^>]+>/g, '')
-                  .replace(/^.*?(Высшая алгебра|Математический анализ|Дискретная математика|Аналитическая геометрия)\s*[:—–|]\s*/i, '')
-                  .replace(/\s*—\s*Полный.*?$/i, '')
-                  .replace(/\s*\|\s*ФПМ.*?$/i, '')
-                  .replace(/\s*\|\s*Конспект.*?$/i, '')
-                  .replace(/\s*\(Полный курс.*?$/i, '')
-                  .replace(/—\s*Лекция\s*\d+\s*[:—–]\s*/i, '')
-                  .replace(/Лекция\s*\d+\s*[:—–]\s*/i, '')
-                  .replace(/Лекции\s*[\d–-]+\s*[:—–]\s*/i, '')
-                  .replace(/\s+/g, ' ')
-                  .trim();
-                if (clean && clean.length > 3) {
-                  lecData.description = clean;
+              let rawTopic = tm ? tm[1] : (h1m ? h1m[1] : '');
+              
+              let clean = (rawTopic || '')
+                .replace(/<[^>]+>/g, '')
+                .replace(/^.*?(Высшая алгебра|Математический анализ|Дискретная математика|Аналитическая геометрия)\s*[:—–|]\s*/i, '')
+                .replace(/\s*—\s*Полный.*?$/i, '')
+                .replace(/\s*\|\s*ФПМ.*?$/i, '')
+                .replace(/\s*\|\s*Конспект.*?$/i, '')
+                .replace(/\s*\(Полный курс.*?$/i, '')
+                .replace(/—\s*Лекци[яи]\s*[\d,\sи–-]+[:—–]\s*/i, '')
+                .replace(/Лекци[яи]\s*[\d,\sи–-]+[:—–]\s*/i, '')
+                .replace(/Лекция\s*\d+\.\d+\s*[:—–]\s*/i, '')
+                .replace(/\s+/g, ' ')
+                .trim();
+
+              if (!clean || /^[\d,\sи–-]+$/.test(clean) || /^Лекци/i.test(clean)) {
+                const h2m = htmlStr.match(/<h2[^>]*>([^<]+)<\/h2>/i);
+                if (h2m) {
+                  clean = h2m[1]
+                    .replace(/<[^>]+>/g, '')
+                    .replace(/^§\s*\d+\.\s*/, '')
+                    .replace(/\$[^$]+\$/g, '')
+                    .replace(/\s+/g, ' ')
+                    .trim();
                 }
+              }
+
+              if (clean && clean.length > 3) {
+                lecData.description = clean;
               }
             }
           } catch (errTopic) {}

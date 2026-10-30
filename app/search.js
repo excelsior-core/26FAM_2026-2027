@@ -14,10 +14,11 @@ export class SearchEngine {
   constructor() {
     this.index = [];
     this.announcements = [];
-    this.modal = document.getElementById('palette-modal');
-    this.input = document.getElementById('palette-search-input');
-    this.closeBtn = document.getElementById('palette-close-btn');
-    this.resultsContainer = document.getElementById('palette-results-list');
+    this.subjects = [];
+    this.modal = typeof document !== 'undefined' ? document.getElementById('palette-modal') : null;
+    this.input = typeof document !== 'undefined' ? document.getElementById('palette-search-input') : null;
+    this.closeBtn = typeof document !== 'undefined' ? document.getElementById('palette-close-btn') : null;
+    this.resultsContainer = typeof document !== 'undefined' ? document.getElementById('palette-results-list') : null;
     this.selectedIndex = 0;
     this.currentResults = [];
     this.onSelectCallback = null;
@@ -112,6 +113,7 @@ export class SearchEngine {
   }
 
   initEvents() {
+    if (typeof window === 'undefined') return;
     window.addEventListener('keydown', (e) => {
       const isInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName);
 
@@ -247,13 +249,18 @@ export class SearchEngine {
    */
   buildIndex(metadataOrLectures, decryptedTexts = new Map()) {
     this.index = [];
-    const lectures = Array.isArray(metadataOrLectures)
-      ? metadataOrLectures
-      : (metadataOrLectures?.lectures || []);
+    let lectures = [];
+    let announcements = [];
 
-    const announcements = (!Array.isArray(metadataOrLectures) && metadataOrLectures?.announcements)
-      ? metadataOrLectures.announcements
-      : [];
+    if (Array.isArray(metadataOrLectures)) {
+      lectures = metadataOrLectures;
+    } else if (metadataOrLectures && typeof metadataOrLectures === 'object') {
+      lectures = metadataOrLectures.lectures || [];
+      announcements = metadataOrLectures.announcements || [];
+      if (metadataOrLectures.subjects) {
+        this.subjects = metadataOrLectures.subjects;
+      }
+    }
 
     this.announcements = announcements;
 
@@ -351,6 +358,66 @@ export class SearchEngine {
     }
   }
 
+  getSubjectColor(subjectName) {
+    const subj = (this.subjects || []).find(s => s.name === subjectName);
+    return subj?.color || 'var(--gold-antique)';
+  }
+
+  /**
+   * Очистка математического синтаксиса и технического кода для сниппетов
+   */
+  cleanMathAndCode(text) {
+    if (!text) return '';
+    return text
+      .replace(/\\mathbb\{R\}/g, 'ℝ')
+      .replace(/\\mathbb\{C\}/g, 'ℂ')
+      .replace(/\\mathbb\{N\}/g, 'ℕ')
+      .replace(/\\mathbb\{Z\}/g, 'ℤ')
+      .replace(/\\mathbb\{Q\}/g, 'ℚ')
+      .replace(/\\mathbb\s*\{?[A-Za-z]*\}?/g, '')
+      .replace(/\\(?:mathbf|mathit|text)\{([^}]+)\}/g, '$1')
+      .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)')
+      .replace(/\\dot\{([a-zA-Z])\}/g, '$1̇')
+      .replace(/\\le\b/g, '≤')
+      .replace(/\\ge\b/g, '≥')
+      .replace(/\\ne\b/g, '≠')
+      .replace(/\\approx\b/g, '≈')
+      .replace(/\\equiv\b/g, '≡')
+      .replace(/\\asymp\b/g, '≍')
+      .replace(/\\sim\b/g, '∼')
+      .replace(/\\to\b/g, '→')
+      .replace(/\\pm\b/g, '±')
+      .replace(/\\mp\b/g, '∓')
+      .replace(/\\cdot\b/g, '·')
+      .replace(/\\times\b/g, '×')
+      .replace(/\\in\b/g, '∈')
+      .replace(/\\notin\b/g, '∉')
+      .replace(/\\subset\b/g, '⊂')
+      .replace(/\\forall\b/g, '∀')
+      .replace(/\\exists\b/g, '∃')
+      .replace(/\\infty\b/g, '∞')
+      .replace(/\\alpha\b/g, 'α')
+      .replace(/\\beta\b/g, 'β')
+      .replace(/\\gamma\b/g, 'γ')
+      .replace(/\\pi\b/g, 'π')
+      .replace(/\\varepsilon\b/g, 'ε')
+      .replace(/\\lambda\b/g, 'λ')
+      .replace(/\\delta\b/g, 'δ')
+      .replace(/\\phi\b/g, 'φ')
+      .replace(/\\varphi\b/g, 'φ')
+      .replace(/\\sigma\b/g, 'σ')
+      .replace(/\[cite:\s*\d+\]/gi, '')
+      .replace(/\{[^{}]*(?:color|margin|padding|display|background|font|border)[^{}]*\}/gi, ' ')
+      .replace(/\/\*[\s\S]*?\*\//g, ' ')
+      .replace(/var\(--[a-z0-9_-]+\)/gi, ' ')
+      .replace(/\.[a-z0-9_-]+\s*\{/gi, ' ')
+      .replace(/\$+/g, '')
+      .replace(/\\quad\b/g, ' ')
+      .replace(/\\/g, '')
+      .replace(/[\{\}]/g, '')
+      .replace(/\s+/g, ' ');
+  }
+
   /**
    * Обновление текста лекции после фоновой расшифровки HTML-конспекта
    */
@@ -359,11 +426,15 @@ export class SearchEngine {
     if (item) {
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = htmlContent;
-      const cleanText = (tempDiv.textContent || tempDiv.innerText || '').replace(/\s+/g, ' ');
-      item.content = cleanText;
-      item.rawTextLower += ' ' + cleanText.toLowerCase();
-      const contentTokens = this.tokenizeAndStem(cleanText);
-      item.tokens = [...new Set([...item.tokens, ...contentTokens])];
+      tempDiv.querySelectorAll('style, script, svg, aside, nav, header, footer, noscript, iframe').forEach(el => el.remove());
+      const rawText = tempDiv.textContent || tempDiv.innerText || '';
+      const cleanText = this.cleanMathAndCode(rawText).replace(/\s+/g, ' ').trim();
+      if (cleanText) {
+        item.content = cleanText;
+        item.rawTextLower = (item.title + ' ' + item.subject + ' ' + (item.description || '') + ' ' + (item.origTitles || '') + ' ' + (item.dateStrings || []).join(' ') + ' ' + cleanText).toLowerCase();
+        const contentTokens = this.tokenizeAndStem(cleanText);
+        item.tokens = [...new Set([...item.tokens, ...contentTokens])];
+      }
     }
   }
 
@@ -566,52 +637,128 @@ export class SearchEngine {
 
   extractSnippet(item, tokens) {
     if (item.type === 'announcement') {
-      const text = item.description || item.title;
-      return text.length > 130 ? text.slice(0, 130) + '…' : text;
+      const text = item.description || item.title || '';
+      const clean = this.cleanMathAndCode(text);
+      return clean.length > 140 ? clean.slice(0, 140) + '…' : clean;
     }
 
-    const topicHint = item.origTitles ? `Тема из PDF: ${item.origTitles}` : '';
-    const text = item.content || item.description || topicHint || item.folder || '';
-    if (!text) return '';
+    const rawText = item.content || item.description || item.origTitles || item.folder || '';
+    if (!rawText) return '';
 
-    const lower = text.toLowerCase();
-    let bestPos = -1;
-    for (const t of tokens) {
-      if (!t || t.length < 2) continue;
-      let idx = lower.indexOf(t.toLowerCase());
-      if (idx === -1) {
-        const stemT = this.stem(t);
-        if (stemT && stemT.length >= 4) {
-          idx = lower.indexOf(stemT);
-          if (idx === -1) {
-            const words = lower.split(/[^a-zа-яё0-9]+/i);
-            let offset = 0;
-            for (const w of words) {
-              const wPos = lower.indexOf(w, offset);
-              if (wPos !== -1) offset = wPos + w.length;
-              if (w.length >= 4 && this.isFuzzyMatch(this.stem(w), stemT, 1)) {
-                idx = wPos;
-                break;
-              }
+    const clean = this.cleanMathAndCode(rawText);
+    const lower = clean.toLowerCase();
+
+    // Собираем кандидатов совпадений токенов (точное, стемминг, fuzzy)
+    const matches = [];
+    const validTokens = (tokens || []).filter(t => t && t.length >= 2);
+
+    for (const t of validTokens) {
+      const tLower = t.toLowerCase();
+      let pos = lower.indexOf(tLower);
+      while (pos !== -1 && matches.length < 20) {
+        matches.push({ pos, len: tLower.length });
+        pos = lower.indexOf(tLower, pos + tLower.length);
+      }
+
+      // Стемминг
+      const stemT = this.stem(t);
+      if (stemT && stemT.length >= 4) {
+        let sPos = lower.indexOf(stemT);
+        while (sPos !== -1 && matches.length < 20) {
+          if (!matches.some(m => Math.abs(m.pos - sPos) < 4)) {
+            matches.push({ pos: sPos, len: stemT.length });
+          }
+          sPos = lower.indexOf(stemT, sPos + stemT.length);
+        }
+
+        // Fuzzy match для частых опечаток (например терема -> теорема)
+        if (stemT === 'терем' || stemT === 'теорем') {
+          let fPos = lower.indexOf('теорем');
+          while (fPos !== -1 && matches.length < 20) {
+            if (!matches.some(m => Math.abs(m.pos - fPos) < 4)) {
+              matches.push({ pos: fPos, len: 6 });
             }
+            fPos = lower.indexOf('теорем', fPos + 6);
           }
         }
       }
-      if (idx !== -1 && (bestPos === -1 || idx < bestPos)) {
-        bestPos = idx;
+    }
+
+    if (matches.length === 0) {
+      if (item.origTitles && item.origTitles !== clean) {
+        return `Тема из материалов: ${item.origTitles}`;
+      }
+      return clean.slice(0, 130) + (clean.length > 130 ? '…' : '');
+    }
+
+    // Оцениваем качество контекста вокруг каждого кандидата
+    let best = matches[0];
+    let bestScore = -9999;
+
+    for (const m of matches) {
+      let score = 0;
+      const windowStart = Math.max(0, m.pos - 55);
+      const windowEnd = Math.min(clean.length, m.pos + 120);
+      const context = clean.slice(windowStart, windowEnd);
+
+      // Высокий вес за математические и объяснительные ключевые слова
+      if (/теорем[а-я]|определен|свойств|критери|пусть|если|доказательств|формул|называет|замечан|пример|равен|сходится/i.test(context)) {
+        score += 50;
+      }
+
+      // Штраф за технический мусор и скопления параграфов/цифр
+      const digitCount = (context.match(/\d/g) || []).length;
+      if (digitCount > 8) score -= 25;
+      if (context.includes('§')) score -= 20;
+
+      // Предпочтение связному русскому тексту
+      const ruWords = (context.match(/[а-яёА-ЯЁ]{3,}/g) || []).length;
+      score += ruWords * 3;
+
+      if (score > bestScore) {
+        bestScore = score;
+        best = m;
       }
     }
 
-    if (bestPos === -1) {
-      if (topicHint && topicHint !== text) {
-        return `📌 ${topicHint}` + (text ? ` · ${text.slice(0, 90)}…` : '');
+    // Выравнивание границ сниппета по смысловым границам (предложения и слова)
+    let start = Math.max(0, best.pos - 50);
+    let end = Math.min(clean.length, best.pos + 115);
+
+    // Выравнивание начала: ищем начало предложения
+    if (start > 0) {
+      const sentenceBefore = clean.lastIndexOf('. ', best.pos);
+      if (sentenceBefore !== -1 && best.pos - sentenceBefore <= 65 && sentenceBefore >= start - 25) {
+        start = sentenceBefore + 2;
+      } else {
+        const spaceAfter = clean.indexOf(' ', start);
+        if (spaceAfter !== -1 && spaceAfter < best.pos) {
+          start = spaceAfter + 1;
+        }
       }
-      return text.slice(0, 120) + (text.length > 120 ? '…' : '');
     }
 
-    const start = Math.max(0, bestPos - 40);
-    const end = Math.min(text.length, bestPos + 100);
-    return (start > 0 ? '…' : '') + text.slice(start, end) + (end < text.length ? '…' : '');
+    // Выравнивание конца: ищем конец предложения или границу слова
+    if (end < clean.length) {
+      const sentenceEnd = clean.indexOf('. ', best.pos + best.len);
+      if (sentenceEnd !== -1 && sentenceEnd <= end + 35) {
+        end = sentenceEnd + 1;
+      } else {
+        const spaceEnd = clean.lastIndexOf(' ', end);
+        if (spaceEnd > best.pos) {
+          end = spaceEnd;
+        }
+      }
+    }
+
+    let snippet = clean.slice(start, end).trim();
+    snippet = snippet
+      .replace(/^[,;:\-–—\.]+\s*/, '')
+      .replace(/[,;:\-–—]+\s*$/, '');
+
+    const hasLeading = start > 0;
+    const hasTrailing = end < clean.length;
+    return (hasLeading ? '… ' : '') + snippet + (hasTrailing ? ' …' : '');
   }
 
   highlightMatches(text, query) {
@@ -624,7 +771,13 @@ export class SearchEngine {
       const stem = this.stem(t);
       const safeT = t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const safeStem = stem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(`(${safeT}|${safeStem}[а-яё]*)`, 'gi');
+
+      let pattern = `(${safeT}|${safeStem}[а-яё]*)`;
+      if (stem === 'терем' || stem === 'теорем') {
+        pattern = `(те[о]?рем[а-яё]*)`;
+      }
+
+      const regex = new RegExp(pattern, 'gi');
       result = result.replace(regex, '<mark class="search-highlight">$1</mark>');
     }
     return result;
@@ -681,20 +834,59 @@ export class SearchEngine {
       el.className = `palette-item ${index === this.selectedIndex ? 'selected' : ''}`;
 
       const titleHl = this.highlightMatches(item.title, query);
-      const snippetHl = this.highlightMatches(item.snippet || item.description || '', query);
-      const pdfBadge = item.hasPdf ? `<span class="pdf-tag-mini" style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--gold-light); background: rgba(212, 175, 55, 0.1); border: 1px solid var(--border-subtle); padding: 1px 6px; border-radius: 3px;">📄 PDF</span>` : '';
-      const actionBadge = item.type === 'announcement' ? `<span style="font-family: var(--font-mono); font-size: 0.68rem; background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); padding: 1px 6px; border-radius: 3px;">ДЕЙСТВИЕ</span>` : '';
+
+      // Тема / описание лекции
+      let cleanDesc = item.description || '';
+      if (cleanDesc === item.title || cleanDesc.toLowerCase() === item.title.toLowerCase()) {
+        cleanDesc = item.origTitles || '';
+      }
+      cleanDesc = cleanDesc.replace(/^Лекци[яи]\s*[\d,\sи–-]+[:—–\.]\s*/i, '').trim();
+      const descHl = cleanDesc ? this.highlightMatches(cleanDesc, query) : '';
+
+      const snippetHl = item.snippet ? this.highlightMatches(item.snippet, query) : '';
+
+      // Цвет предмета
+      const subjColor = this.getSubjectColor(item.subject);
+
+      // Даты лекций
+      let datesStr = '';
+      if (item.sessions && item.sessions.length > 0) {
+        const dList = item.sessions.map(s => s.date).filter(Boolean);
+        if (dList.length > 0) {
+          datesStr = dList.map(d => {
+            const p = d.split('.');
+            if (p.length >= 2) {
+              const mName = this.monthNames[p[1]] ? this.monthNames[p[1]][1] : p[1];
+              return `${parseInt(p[0], 10)} ${mName}`;
+            }
+            return d;
+          }).join(', ');
+        }
+      }
+
+      const dateBadge = datesStr ? `<span class="palette-pill palette-pill-date">📅 ${datesStr}</span>` : '';
+      const pdfBadge = item.hasPdf ? `<span class="palette-pill palette-pill-pdf">📄 PDF</span>` : '';
+      const actionBadge = item.type === 'announcement' ? `<span class="palette-pill palette-pill-ann">📢 ДЕЙСТВИЕ</span>` : '';
 
       el.innerHTML = `
         <div class="palette-item-header">
-          <div class="palette-item-title">${titleHl}</div>
-          <div class="palette-item-badges" style="display: flex; gap: 6px; align-items: center;">
-            <span class="palette-item-subject" style="font-family: var(--font-serif); font-size: 0.75rem; text-transform: uppercase; color: var(--gold-antique);">${item.subject}</span>
+          <div class="palette-item-title-group">
+            <span class="palette-item-title">${titleHl}</span>
+            ${descHl ? `<span class="palette-item-topic">· ${descHl}</span>` : ''}
+          </div>
+          <div class="palette-item-badges">
+            <span class="palette-pill palette-pill-subj" style="--subj-color: ${subjColor};">${item.subject}</span>
+            ${dateBadge}
             ${actionBadge}
             ${pdfBadge}
           </div>
         </div>
-        ${snippetHl ? `<div class="palette-item-snippet" style="font-size: 0.82rem; color: var(--parchment-muted); line-height: 1.45;">${snippetHl}</div>` : ''}
+        ${snippetHl ? `
+          <div class="palette-item-snippet-box">
+            <span class="snippet-quote-mark">❝</span>
+            <div class="palette-item-snippet">${snippetHl}</div>
+          </div>
+        ` : ''}
       `;
 
       el.addEventListener('click', (e) => {
