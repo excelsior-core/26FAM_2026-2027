@@ -31,6 +31,64 @@ const ROYAL_PALETTE = [
   '#374151'  // Titanium Slate
 ];
 
+const DEFAULT_MODULES = [
+  { name: "Модуль 1", startDate: "01.09.2026", endDate: "25.10.2026" },
+  { name: "Модуль 2", startDate: "26.10.2026", endDate: "31.12.2026" },
+  { name: "Модуль 3", startDate: "11.01.2027", endDate: "28.03.2027" },
+  { name: "Модуль 4", startDate: "29.03.2027", endDate: "30.06.2027" }
+];
+
+function parseDateStrToTime(str) {
+  if (!str) return 0;
+  const parts = String(str).trim().split('.');
+  if (parts.length === 3) {
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const year = parseInt(parts[2], 10);
+    return new Date(year, month, day).getTime();
+  }
+  return 0;
+}
+
+function normalizeModules(rawModules) {
+  if (!rawModules || !Array.isArray(rawModules) || rawModules.length === 0) {
+    return JSON.parse(JSON.stringify(DEFAULT_MODULES));
+  }
+  const defaultMap = {};
+  for (const dm of DEFAULT_MODULES) {
+    defaultMap[dm.name] = { start: dm.startDate, end: dm.endDate };
+  }
+  return rawModules.map(m => {
+    if (typeof m === 'string') {
+      const d = defaultMap[m] || { start: '', end: '' };
+      return { name: m, startDate: d.start, endDate: d.end };
+    }
+    return {
+      name: m.name || 'Модуль',
+      startDate: m.startDate || '',
+      endDate: m.endDate || ''
+    };
+  });
+}
+
+function detectModuleForDate(dateStr, modules) {
+  if (!dateStr || !modules || !modules.length) return null;
+  const t = parseDateStrToTime(dateStr);
+  if (!t) return null;
+
+  for (const m of modules) {
+    if (m && m.startDate && m.endDate) {
+      const start = parseDateStrToTime(m.startDate);
+      const end = parseDateStrToTime(m.endDate);
+      const endOfDay = end + 24 * 60 * 60 * 1000 - 1;
+      if (t >= start && t <= endOfDay) {
+        return m.name;
+      }
+    }
+  }
+  return null;
+}
+
 function checkPrerequisites() {
   const nodeVer = parseInt(process.versions.node.split('.')[0], 10);
   if (nodeVer < 18) {
@@ -323,6 +381,8 @@ async function runSync() {
     }
   }
 
+  const normalizedModules = normalizeModules(existingMeta.modules);
+
   console.log('🔍 Сканирование папок Storage/HSE...');
   const activeBlobHashes = new Set();
 
@@ -411,6 +471,13 @@ async function runSync() {
       const chosenSessions = hasPrevDates ? prev.sessions : parsed.sessions;
       const chosenTitle = (prev && prev.title && prev.title !== cleanFolder) ? prev.title : parsed.cleanTitle;
 
+      // Автоматическое определение модуля по датам лекции
+      const firstDate = (chosenSessions && chosenSessions.length > 0 && chosenSessions[0].date)
+        ? chosenSessions[0].date
+        : (parsed.dates && parsed.dates.length > 0 ? parsed.dates[0] : null);
+      const autoModule = detectModuleForDate(firstDate, normalizedModules);
+      const chosenModule = autoModule || (prev ? (prev.module || "Модуль 1") : "Модуль 1");
+
       let lecData = {
         id: lecId,
         subject: subj.name,
@@ -419,7 +486,7 @@ async function runSync() {
         title: chosenTitle,
         description: prev ? (prev.description || "") : "",
         tags: prev ? (Array.isArray(prev.tags) ? prev.tags.map(t => String(t).trim().replace(/^#+/, '').toUpperCase()).filter(Boolean) : []) : [],
-        module: prev ? (prev.module || "Модуль 1") : "Модуль 1",
+        module: chosenModule,
         hidden: prev ? !!prev.hidden : false,
         sessions: chosenSessions,
         files: [],
@@ -616,7 +683,7 @@ async function runSync() {
   const finalMeta = {
     schema: 1,
     subjects: finalSubjects,
-    modules: existingMeta.modules || ["Модуль 1", "Модуль 2", "Модуль 3", "Модуль 4"],
+    modules: normalizedModules,
     announcements: existingMeta.announcements || [],
     lectures: finalLectures
   };

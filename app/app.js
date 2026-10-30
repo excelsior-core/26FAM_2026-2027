@@ -143,7 +143,13 @@ class App {
     this.adminLecClose = document.getElementById('admin-lec-close');
     this.adminExportBtn = document.getElementById('admin-export-btn');
     this.adminNewSubjectBtn = document.getElementById('admin-new-subject-btn');
-    this.adminNewModuleBtn = document.getElementById('admin-new-module-btn');
+    this.adminModulesBtn = document.getElementById('admin-modules-btn');
+    this.adminModulesModal = document.getElementById('admin-modules-modal');
+    this.adminModulesList = document.getElementById('admin-modules-list');
+    this.adminModulesClose = document.getElementById('admin-modules-close');
+    this.adminAddModuleRowBtn = document.getElementById('admin-add-module-row-btn');
+    this.adminAutoassignModulesBtn = document.getElementById('admin-autoassign-modules-btn');
+    this.adminModulesSaveBtn = document.getElementById('admin-modules-save-btn');
     this.adminNewAnnouncementBtn = document.getElementById('admin-new-announcement-btn');
   }
 
@@ -344,14 +350,20 @@ class App {
       });
     }
 
-    if (this.adminNewModuleBtn) {
-      this.adminNewModuleBtn.addEventListener('click', () => {
-        const name = prompt('Название нового модуля (пример: Модуль 5):');
-        if (name && this.adminManager) {
-          this.adminManager.saveModule(name);
-          this.populateFilterDropdowns();
-        }
-      });
+    if (this.adminModulesBtn) {
+      this.adminModulesBtn.addEventListener('click', () => this.openAdminModulesModal());
+    }
+    if (this.adminModulesClose) {
+      this.adminModulesClose.addEventListener('click', () => this.adminModulesModal.classList.remove('open'));
+    }
+    if (this.adminAddModuleRowBtn) {
+      this.adminAddModuleRowBtn.addEventListener('click', () => this.addAdminModuleRow());
+    }
+    if (this.adminAutoassignModulesBtn) {
+      this.adminAutoassignModulesBtn.addEventListener('click', () => this.autoassignModulesToLectures());
+    }
+    if (this.adminModulesSaveBtn) {
+      this.adminModulesSaveBtn.addEventListener('click', () => this.saveAdminModules());
     }
 
     if (this.adminNewAnnouncementBtn) {
@@ -602,9 +614,7 @@ class App {
     }
 
     if (modSelect) {
-      const allModules = this.metadata.modules && this.metadata.modules.length > 0
-        ? this.metadata.modules
-        : ['Модуль 1', 'Модуль 2', 'Модуль 3', 'Модуль 4'];
+      const allModules = (this.metadata.modules || []).map(m => typeof m === 'string' ? m : m.name);
       modSelect.innerHTML = allModules.map(m => 
         `<option value="${m}" ${m === lecture.module ? 'selected' : ''}>${m}</option>`
       ).join('');
@@ -616,6 +626,16 @@ class App {
       } else {
         sessionsInput.value = '';
       }
+      sessionsInput.oninput = () => {
+        const val = sessionsInput.value;
+        const dMatch = val.match(/(\d{1,2}\.\d{2}\.\d{4})/);
+        if (dMatch && this.adminManager) {
+          const detected = this.adminManager.detectModuleForDate(dMatch[1]);
+          if (detected && modSelect) {
+            modSelect.value = detected;
+          }
+        }
+      };
     }
 
     if (tagsInput) {
@@ -693,6 +713,133 @@ class App {
   }
 
   // ==========================================
+  // УПРАВЛЕНИЕ АКАДЕМИЧЕСКИМИ МОДУЛЯМИ И ДАТАМИ
+  // ==========================================
+  openAdminModulesModal() {
+    if (!this.isAdmin || !this.adminManager) return;
+    this.adminManager.normalizeModules();
+    this.renderAdminModulesRows();
+    this.adminModulesModal.classList.add('open');
+  }
+
+  renderAdminModulesRows() {
+    if (!this.adminModulesList) return;
+    this.adminModulesList.innerHTML = '';
+    const modules = this.adminManager.normalizeModules();
+
+    modules.forEach((mod) => {
+      const row = document.createElement('div');
+      row.className = 'module-edit-row';
+      row.style.cssText = 'display: grid; grid-template-columns: 1.4fr 1.1fr 1.1fr auto auto; gap: 8px; align-items: center; background: rgba(255,255,255,0.03); padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border-subtle);';
+
+      const count = (this.metadata.lectures || []).filter(l => l.module === mod.name).length;
+
+      row.innerHTML = `
+        <div>
+          <label style="font-size: 0.7rem; color: var(--parchment-muted); display: block; margin-bottom: 2px;">Название модуля:</label>
+          <input type="text" class="mod-name-input" value="${mod.name || ''}" placeholder="Модуль 1" style="width: 100%; font-size: 0.82rem; padding: 4px 6px;">
+        </div>
+        <div>
+          <label style="font-size: 0.7rem; color: var(--parchment-muted); display: block; margin-bottom: 2px;">Дата начала:</label>
+          <input type="text" class="mod-start-input" value="${mod.startDate || ''}" placeholder="01.09.2026" style="width: 100%; font-size: 0.82rem; font-family: var(--font-mono); padding: 4px 6px;">
+        </div>
+        <div>
+          <label style="font-size: 0.7rem; color: var(--parchment-muted); display: block; margin-bottom: 2px;">Дата окончания:</label>
+          <input type="text" class="mod-end-input" value="${mod.endDate || ''}" placeholder="25.10.2026" style="width: 100%; font-size: 0.82rem; font-family: var(--font-mono); padding: 4px 6px;">
+        </div>
+        <div style="font-size: 0.75rem; color: var(--gold-dim); padding-top: 14px; white-space: nowrap;">
+          <span style="background: rgba(212,175,55,0.1); padding: 3px 6px; border-radius: 4px;">${count} мат.</span>
+        </div>
+        <div style="padding-top: 14px;">
+          <button type="button" class="btn-secondary js-del-mod" style="padding: 3px 6px; font-size: 0.75rem; color: var(--urgent-color);" title="Удалить строку модуля">✕</button>
+        </div>
+      `;
+
+      row.querySelector('.js-del-mod').addEventListener('click', () => {
+        row.remove();
+      });
+
+      this.adminModulesList.appendChild(row);
+    });
+  }
+
+  addAdminModuleRow() {
+    if (!this.adminModulesList) return;
+    const row = document.createElement('div');
+    row.className = 'module-edit-row';
+    row.style.cssText = 'display: grid; grid-template-columns: 1.4fr 1.1fr 1.1fr auto auto; gap: 8px; align-items: center; background: rgba(255,255,255,0.03); padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border-subtle);';
+
+    const currentCount = this.adminModulesList.querySelectorAll('.module-edit-row').length + 1;
+
+    row.innerHTML = `
+      <div>
+        <label style="font-size: 0.7rem; color: var(--parchment-muted); display: block; margin-bottom: 2px;">Название модуля:</label>
+        <input type="text" class="mod-name-input" value="Модуль ${currentCount}" placeholder="Модуль ${currentCount}" style="width: 100%; font-size: 0.82rem; padding: 4px 6px;">
+      </div>
+      <div>
+        <label style="font-size: 0.7rem; color: var(--parchment-muted); display: block; margin-bottom: 2px;">Дата начала:</label>
+        <input type="text" class="mod-start-input" value="" placeholder="ДД.ММ.ГГГГ" style="width: 100%; font-size: 0.82rem; font-family: var(--font-mono); padding: 4px 6px;">
+      </div>
+      <div>
+        <label style="font-size: 0.7rem; color: var(--parchment-muted); display: block; margin-bottom: 2px;">Дата окончания:</label>
+        <input type="text" class="mod-end-input" value="" placeholder="ДД.ММ.ГГГГ" style="width: 100%; font-size: 0.82rem; font-family: var(--font-mono); padding: 4px 6px;">
+      </div>
+      <div style="font-size: 0.75rem; color: var(--gold-dim); padding-top: 14px; white-space: nowrap;">
+        <span style="background: rgba(212,175,55,0.1); padding: 3px 6px; border-radius: 4px;">0 мат.</span>
+      </div>
+      <div style="padding-top: 14px;">
+        <button type="button" class="btn-secondary js-del-mod" style="padding: 3px 6px; font-size: 0.75rem; color: var(--urgent-color);" title="Удалить строку модуля">✕</button>
+      </div>
+    `;
+
+    row.querySelector('.js-del-mod').addEventListener('click', () => {
+      row.remove();
+    });
+
+    this.adminModulesList.appendChild(row);
+  }
+
+  collectModulesFromModal() {
+    if (!this.adminModulesList) return [];
+    const rows = this.adminModulesList.querySelectorAll('.module-edit-row');
+    const modules = [];
+    rows.forEach(r => {
+      const name = r.querySelector('.mod-name-input')?.value.trim();
+      const start = r.querySelector('.mod-start-input')?.value.trim();
+      const end = r.querySelector('.mod-end-input')?.value.trim();
+      if (name) {
+        modules.push({ name, startDate: start, endDate: end });
+      }
+    });
+    return modules;
+  }
+
+  saveAdminModules() {
+    const modules = this.collectModulesFromModal();
+    if (!modules.length) {
+      alert('Добавьте хотя бы один модуль.');
+      return;
+    }
+    this.adminManager.saveModulesList(modules, false);
+    this.adminModulesModal.classList.remove('open');
+    this.populateFilterDropdowns();
+    this.renderLectures();
+  }
+
+  autoassignModulesToLectures() {
+    const modules = this.collectModulesFromModal();
+    if (!modules.length) {
+      alert('Заполните модули и их даты.');
+      return;
+    }
+    const count = this.adminManager.saveModulesList(modules, true);
+    alert(`⚡ Успешно распределено материалов по модулям: ${count}`);
+    this.renderAdminModulesRows();
+    this.populateFilterDropdowns();
+    this.renderLectures();
+  }
+
+  // ==========================================
   // ГЛАВНАЯ ЭКСПОЗИЦИЯ (HAUTE COUTURE EDITORIAL)
   // ==========================================
   renderSubjectsTabs() {
@@ -733,9 +880,10 @@ class App {
   populateFilterDropdowns() {
     this.filterModule.innerHTML = '<option value="">Все модули</option>';
     for (const mod of this.metadata.modules || []) {
+      const name = typeof mod === 'string' ? mod : mod.name;
       const opt = document.createElement('option');
-      opt.value = mod;
-      opt.textContent = mod;
+      opt.value = name;
+      opt.textContent = name;
       this.filterModule.appendChild(opt);
     }
   }

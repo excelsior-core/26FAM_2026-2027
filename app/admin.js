@@ -67,23 +67,107 @@ export class AdminManager {
     this.commitChanges();
   }
 
-  saveModule(name, oldName = null) {
+  normalizeModules() {
+    if (!this.metadata.modules || !Array.isArray(this.metadata.modules) || !this.metadata.modules.length) {
+      this.metadata.modules = [
+        { name: 'Модуль 1', startDate: '01.09.2026', endDate: '25.10.2026' },
+        { name: 'Модуль 2', startDate: '26.10.2026', endDate: '31.12.2026' },
+        { name: 'Модуль 3', startDate: '11.01.2027', endDate: '28.03.2027' },
+        { name: 'Модуль 4', startDate: '29.03.2027', endDate: '30.06.2027' }
+      ];
+      return this.metadata.modules;
+    }
+
+    const defaultDates = {
+      'Модуль 1': { start: '01.09.2026', end: '25.10.2026' },
+      'Модуль 2': { start: '26.10.2026', end: '31.12.2026' },
+      'Модуль 3': { start: '11.01.2027', end: '28.03.2027' },
+      'Модуль 4': { start: '29.03.2027', end: '30.06.2027' }
+    };
+
+    this.metadata.modules = this.metadata.modules.map(m => {
+      if (typeof m === 'string') {
+        const d = defaultDates[m] || { start: '', end: '' };
+        return { name: m, startDate: d.start, endDate: d.end };
+      }
+      return {
+        name: m.name || 'Модуль',
+        startDate: m.startDate || '',
+        endDate: m.endDate || ''
+      };
+    });
+
+    return this.metadata.modules;
+  }
+
+  detectModuleForDate(dateStr) {
+    if (!dateStr) return null;
+    const modules = this.normalizeModules();
+    const parts = String(dateStr).trim().split('.');
+    if (parts.length !== 3) return null;
+    const time = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10)).getTime();
+    if (!time) return null;
+
+    for (const m of modules) {
+      if (m.startDate && m.endDate) {
+        const sParts = m.startDate.split('.');
+        const eParts = m.endDate.split('.');
+        if (sParts.length === 3 && eParts.length === 3) {
+          const sTime = new Date(parseInt(sParts[2], 10), parseInt(sParts[1], 10) - 1, parseInt(sParts[0], 10)).getTime();
+          const eTime = new Date(parseInt(eParts[2], 10), parseInt(eParts[1], 10) - 1, parseInt(eParts[0], 10)).getTime() + 86400000 - 1;
+          if (time >= sTime && time <= eTime) {
+            return m.name;
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  saveModulesList(modulesList, autoAssignToLectures = false) {
+    this.metadata.modules = modulesList;
+    let reassignedCount = 0;
+    if (autoAssignToLectures) {
+      for (const lec of this.metadata.lectures || []) {
+        const dateStr = lec.sessions?.[0]?.date;
+        if (dateStr) {
+          const detected = this.detectModuleForDate(dateStr);
+          if (detected) {
+            lec.module = detected;
+            reassignedCount++;
+          }
+        }
+      }
+    }
+    this.commitChanges();
+    return reassignedCount;
+  }
+
+  saveModule(name, oldName = null, startDate = '', endDate = '') {
     if (!name || !name.trim()) return;
     const cleanName = name.trim();
-    if (!this.metadata.modules) this.metadata.modules = [];
+    const modules = this.normalizeModules();
 
     if (oldName && oldName !== cleanName) {
-      const idx = this.metadata.modules.indexOf(oldName);
-      if (idx !== -1) {
-        this.metadata.modules[idx] = cleanName;
+      const existing = modules.find(m => m.name === oldName);
+      if (existing) {
+        existing.name = cleanName;
+        if (startDate) existing.startDate = startDate;
+        if (endDate) existing.endDate = endDate;
       }
       for (const lec of this.metadata.lectures || []) {
         if (lec.module === oldName) {
           lec.module = cleanName;
         }
       }
-    } else if (!this.metadata.modules.includes(cleanName)) {
-      this.metadata.modules.push(cleanName);
+    } else {
+      const existing = modules.find(m => m.name === cleanName);
+      if (existing) {
+        if (startDate) existing.startDate = startDate;
+        if (endDate) existing.endDate = endDate;
+      } else {
+        modules.push({ name: cleanName, startDate, endDate });
+      }
     }
     this.commitChanges();
   }

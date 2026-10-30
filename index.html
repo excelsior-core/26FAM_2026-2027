@@ -95,7 +95,7 @@
         </div>
         <div style="display: flex; gap: 8px;">
           <button id="admin-new-subject-btn" class="btn-secondary">+ Предмет</button>
-          <button id="admin-new-module-btn" class="btn-secondary">+ Модуль</button>
+          <button id="admin-modules-btn" class="btn-secondary" style="color: var(--gold-bright);">📅 Модули и даты</button>
           <button id="admin-new-announcement-btn" class="btn-secondary" style="color: var(--gold-antique);">+ Дедлайн</button>
           <button id="admin-export-btn" class="action-btn-primary" style="padding: 4px 12px; font-size: 0.8rem;">
             💾 Экспорт site-metadata.json
@@ -449,6 +449,40 @@
           <button type="submit" class="action-btn-primary">Сохранить</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- 6. Модалка управления модулями и датами (Админ) -->
+  <div id="admin-modules-modal" class="modal-overlay">
+    <div class="auth-card" style="max-width: 720px; width: 95%;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-family: var(--font-serif); font-size: 1.3rem; margin: 0; color: var(--gold-bright);">
+          📅 Академические модули и даты
+        </h3>
+        <button type="button" id="admin-modules-close" class="btn-secondary" style="padding: 2px 8px; font-weight: bold;">✕</button>
+      </div>
+
+      <p style="font-size: 0.82rem; color: var(--parchment-muted); margin-bottom: 14px; line-height: 1.5;">
+        Настройте временные рамки учебных модулей (в формате <code>ДД.ММ.ГГГГ</code>). При синхронизации или сохранении материалы будут автоматически относиться к нужному модулю согласно датам их проведения.
+      </p>
+
+      <div id="admin-modules-list" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; max-height: 50vh; overflow-y: auto;">
+        <!-- Строки модулей генерируются динамически -->
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; border-top: 1px solid var(--border-subtle); padding-top: 14px;">
+        <button type="button" id="admin-add-module-row-btn" class="btn-secondary" style="font-size: 0.8rem;">
+          + Добавить модуль
+        </button>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" id="admin-autoassign-modules-btn" class="btn-secondary" style="font-size: 0.8rem; color: var(--gold-antique);" title="Пересчитать и проставить модули всем лекциям по датам">
+            ⚡ Автораспределить все лекции
+          </button>
+          <button type="button" id="admin-modules-save-btn" class="action-btn-primary" style="padding: 5px 14px; font-size: 0.82rem;">
+            Сохранить
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
