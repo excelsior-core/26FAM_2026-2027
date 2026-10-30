@@ -1163,6 +1163,107 @@ class App {
   // ==========================================
   // ПОЛНОЭКРАННЫЙ РИДЕР И СПЛИТ-РЕЖИМ (PDF Sovereign)
   // ==========================================
+  prepareHtmlForReader(htmlText) {
+    if (!htmlText || typeof htmlText !== 'string') return htmlText;
+
+    const navScript = `
+<script id="fpm-toc-fix">
+(function() {
+  function setupTocScroll() {
+    document.addEventListener('click', function(e) {
+      var a = e.target.closest('a');
+      if (!a) return;
+      var href = a.getAttribute('href');
+      if (!href) return;
+
+      if (href.charAt(0) === '#') {
+        e.preventDefault();
+        e.stopPropagation();
+        var id = href.slice(1);
+        if (!id) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        try { id = decodeURIComponent(id); } catch(err) {}
+        var escapeCss = (window.CSS && window.CSS.escape) ? window.CSS.escape : function(s) {
+          return s.replace(/([ #;?%&,.+*~':"!^$[\\]()=>|\\/@])/g, '\\\\$1');
+        };
+        var target = document.getElementById(id) ||
+                     document.querySelector('[name="' + escapeCss(id) + '"]') ||
+                     document.querySelector('[id="' + escapeCss(id) + '"]');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          try { history.replaceState(null, '', href); } catch(errState) {}
+        }
+      } else if (/^https?:\\/\\//i.test(href)) {
+        e.preventDefault();
+        window.open(href, '_blank', 'noopener,noreferrer');
+      }
+    }, true);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupTocScroll);
+  } else {
+    setupTocScroll();
+  }
+})();
+</script>
+`;
+
+    if (htmlText.includes('</body>')) {
+      return htmlText.replace('</body>', `${navScript}</body>`);
+    } else if (htmlText.includes('</head>')) {
+      return htmlText.replace('</head>', `${navScript}</head>`);
+    }
+    return htmlText + navScript;
+  }
+
+  attachIframeNavigationFixes(iframe) {
+    try {
+      const doc = iframe.contentDocument || iframe.contentWindow?.document;
+      if (!doc || doc._fpmNavAttached) return;
+      doc._fpmNavAttached = true;
+
+      doc.addEventListener('click', (e) => {
+        const a = e.target.closest('a');
+        if (!a) return;
+        const href = a.getAttribute('href');
+        if (!href) return;
+
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          e.stopPropagation();
+          const targetId = href.slice(1);
+          if (!targetId) {
+            (iframe.contentWindow || doc.documentElement).scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+          }
+          let decodedId = targetId;
+          try { decodedId = decodeURIComponent(targetId); } catch (err) {}
+          const escapeCss = window.CSS?.escape || ((s) => s.replace(/([ #;?%&,.+*~':"!^$\[\]()=>|/@])/g, '\\$1'));
+          const targetEl = doc.getElementById(targetId) ||
+                           doc.getElementById(decodedId) ||
+                           doc.querySelector(`[name="${escapeCss(targetId)}"]`) ||
+                           doc.querySelector(`[name="${escapeCss(decodedId)}"]`) ||
+                           doc.querySelector(`[id="${escapeCss(targetId)}"]`) ||
+                           doc.querySelector(`[id="${escapeCss(decodedId)}"]`);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            try {
+              iframe.contentWindow?.history?.replaceState(null, '', href);
+            } catch (errState) {}
+          }
+        } else if (/^https?:\/\//i.test(href)) {
+          e.preventDefault();
+          window.open(href, '_blank', 'noopener,noreferrer');
+        }
+      }, true);
+    } catch (e) {
+      console.warn('Не удалось привязать перехват якорей к iframe:', e);
+    }
+  }
+
   async openLecture(lectureId, options = {}) {
     const lecture = (this.metadata.lectures || []).find(l => l.id === lectureId);
     if (!lecture) return;
@@ -1209,20 +1310,28 @@ class App {
       const htmlFile = lecture.files[0];
       try {
         const htmlBytes = await this.fetchAndDecryptBlob(htmlFile.blob);
-        const htmlText = (typeof htmlBytes === 'string') ? htmlBytes : new TextDecoder().decode(htmlBytes);
-        const htmlBlob = new Blob([htmlText], { type: 'text/html; charset=utf-8' });
+        let htmlText = (typeof htmlBytes === 'string') ? htmlBytes : new TextDecoder().decode(htmlBytes);
+        
+        // Внедряем бесшовный фикс навигации по якорям/оглавлению
+        const enhancedHtml = this.prepareHtmlForReader(htmlText);
+
+        const htmlBlob = new Blob([enhancedHtml], { type: 'text/html; charset=utf-8' });
         const htmlUrl = URL.createObjectURL(htmlBlob);
         this.activeObjectUrls.push(htmlUrl);
         lecture.currentHtmlBlobUrl = htmlUrl;
 
-        this.readerIframe.srcdoc = htmlText;
-        this.readerIframe.onload = () => {
+        // Удаляем атрибут srcdoc, чтобы iframe загружался из blob URL и имел собственный origin
+        this.readerIframe.removeAttribute('srcdoc');
+        this.readerIframe.src = htmlUrl;
+
+        const onIframeReady = () => {
+          this.attachIframeNavigationFixes(this.readerIframe);
           this.marginalia.attachToIframe(this.readerIframe, lecture.id);
           this.searchEngine.updateLectureContent(lecture.id, htmlText);
         };
-        setTimeout(() => {
-          this.marginalia.attachToIframe(this.readerIframe, lecture.id);
-        }, 150);
+
+        this.readerIframe.onload = onIframeReady;
+        setTimeout(onIframeReady, 250);
       } catch (err) {
         console.error('Ошибка расшифровки конспекта:', err);
         this.readerIframe.srcdoc = `
@@ -1235,6 +1344,7 @@ class App {
         `;
       }
     } else {
+      this.readerIframe.src = 'about:blank';
       this.readerIframe.srcdoc = `
         <body style="background:#110e17;color:#e8d8b8;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
           <div style="text-align:center;padding:24px;">
@@ -1397,7 +1507,8 @@ class App {
     } else if (lecture.files?.[0]) {
       try {
         const bytes = await this.fetchAndDecryptBlob(lecture.files[0].blob);
-        const text = typeof bytes === 'string' ? bytes : new TextDecoder().decode(bytes);
+        let text = typeof bytes === 'string' ? bytes : new TextDecoder().decode(bytes);
+        text = this.prepareHtmlForReader(text);
         const blob = new Blob([text], { type: 'text/html; charset=utf-8' });
         const url = URL.createObjectURL(blob);
         window.open(url, '_blank');
@@ -1412,6 +1523,18 @@ class App {
     if (!lecture) return;
 
     if (!lecture.currentHtmlBlobUrl) {
+      if (lecture.files?.[0]) {
+        this.fetchAndDecryptBlob(lecture.files[0].blob).then(bytes => {
+          let text = (typeof bytes === 'string') ? bytes : new TextDecoder().decode(bytes);
+          text = this.prepareHtmlForReader(text);
+          const blob = new Blob([text], { type: 'text/html; charset=utf-8' });
+          lecture.currentHtmlBlobUrl = URL.createObjectURL(blob);
+          this.downloadHtmlNote(lecture);
+        }).catch(err => {
+          alert('Не удалось скачать конспект: ' + err.message);
+        });
+        return;
+      }
       alert('HTML-конспект отсутствует для этой лекции.');
       return;
     }
@@ -1518,9 +1641,9 @@ class App {
   closeReader(updateHash = true) {
     this.readerModal.classList.remove('open');
     this.readerIframe.src = 'about:blank';
-    this.readerIframe.srcdoc = '';
+    this.readerIframe.removeAttribute('srcdoc');
     this.readerOrigIframe.src = 'about:blank';
-    this.readerOrigIframe.srcdoc = '';
+    this.readerOrigIframe.removeAttribute('srcdoc');
     this.cleanupBlobUrls();
     this.currentLecture = null;
     this.currentReaderMode = null;
