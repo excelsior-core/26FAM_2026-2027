@@ -369,6 +369,17 @@ export class SearchEngine {
   cleanMathAndCode(text) {
     if (!text) return '';
     return text
+      // 1. Полная очистка остатков HTML, CSS и служебных блоков
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/\/\*[\s\S]*?\*\//g, ' ')
+      .replace(/\{[^{}]*\}/g, ' ')
+      .replace(/@[a-z-]+[^{]*\{[^{}]*\}/gi, ' ')
+      .replace(/\.[a-zA-Z0-9_-]+\s*\{?[^}]*\}?/g, ' ')
+      .replace(/var\(--[a-zA-Z0-9_-]+\)/gi, ' ')
+      .replace(/--[a-zA-Z0-9_-]+\s*:[^;{}]+;?/g, ' ')
+      .replace(/(?:margin|padding|color|background|border|font|display|flex|width|height|position|top|left|right|bottom|z-index|opacity|box-shadow|overflow)[a-z-]*\s*:[^;{}]+;?/gi, ' ')
+      
+      // 2. Красивые типографские математические множества и символы
       .replace(/\\mathbb\{R\}/g, 'ℝ')
       .replace(/\\mathbb\{C\}/g, 'ℂ')
       .replace(/\\mathbb\{N\}/g, 'ℕ')
@@ -396,6 +407,8 @@ export class SearchEngine {
       .replace(/\\forall\b/g, '∀')
       .replace(/\\exists\b/g, '∃')
       .replace(/\\infty\b/g, '∞')
+      .replace(/\\Longleftrightarrow|\\iff/g, '⟺')
+      .replace(/\\Longrightarrow|\\implies/g, '⟹')
       .replace(/\\alpha\b/g, 'α')
       .replace(/\\beta\b/g, 'β')
       .replace(/\\gamma\b/g, 'γ')
@@ -407,15 +420,22 @@ export class SearchEngine {
       .replace(/\\varphi\b/g, 'φ')
       .replace(/\\sigma\b/g, 'σ')
       .replace(/\[cite:\s*\d+\]/gi, '')
-      .replace(/\{[^{}]*(?:color|margin|padding|display|background|font|border)[^{}]*\}/gi, ' ')
-      .replace(/\/\*[\s\S]*?\*\//g, ' ')
-      .replace(/var\(--[a-z0-9_-]+\)/gi, ' ')
-      .replace(/\.[a-z0-9_-]+\s*\{/gi, ' ')
       .replace(/\$+/g, '')
       .replace(/\\quad\b/g, ' ')
+      .replace(/\\(?:left|right|big|Big)\b/g, '')
+      .replace(/\\[a-zA-Z]+/g, ' ')
       .replace(/\\/g, '')
-      .replace(/[\{\}]/g, '')
-      .replace(/\s+/g, ' ');
+      .replace(/[\{\}\[\]]/g, ' ')
+      .replace(/&nbsp;/gi, ' ')
+      .replace(/&lt;/gi, '<')
+      .replace(/&gt;/gi, '>')
+      .replace(/&amp;/gi, '&')
+      .replace(/&#\d+;/g, '')
+      .replace(/\.{2,}/g, '…')
+      .replace(/§\s*(\d+)([А-ЯЁа-яё])/g, '§ $1 $2')
+      .replace(/([а-яёa-z])([А-ЯЁ])/g, '$1 $2')
+      .replace(/\s+/g, ' ')
+      .trim();
   }
 
   /**
@@ -423,18 +443,36 @@ export class SearchEngine {
    */
   updateLectureContent(lectureId, htmlContent) {
     const item = this.index.find(i => i.id === lectureId && i.type === 'lecture');
-    if (item) {
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = htmlContent;
-      tempDiv.querySelectorAll('style, script, svg, aside, nav, header, footer, noscript, iframe').forEach(el => el.remove());
-      const rawText = tempDiv.textContent || tempDiv.innerText || '';
+    if (!item || !htmlContent) return;
+
+    try {
+      // 1. Предварительная изоляция: вырезаем head, style, script, svg
+      const preCleaned = htmlContent
+        .replace(/<head[^>]*>[\s\S]*?<\/head>/gi, ' ')
+        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, ' ')
+        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, ' ')
+        .replace(/<svg[^>]*>[\s\S]*?<\/svg>/gi, ' ');
+
+      // 2. DOM-парсинг через DOMParser для безопасного извлечения только содержимого body
+      let rawText = '';
+      if (typeof DOMParser !== 'undefined') {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(preCleaned, 'text/html');
+        doc.querySelectorAll('style, script, svg, aside, nav, header, footer, noscript, iframe, link, meta').forEach(el => el.remove());
+        rawText = doc.body ? (doc.body.textContent || doc.body.innerText || '') : '';
+      } else {
+        rawText = preCleaned.replace(/<[^>]+>/g, ' ');
+      }
+
       const cleanText = this.cleanMathAndCode(rawText).replace(/\s+/g, ' ').trim();
-      if (cleanText) {
+      if (cleanText && cleanText.length > 30) {
         item.content = cleanText;
         item.rawTextLower = (item.title + ' ' + item.subject + ' ' + (item.description || '') + ' ' + (item.origTitles || '') + ' ' + (item.dateStrings || []).join(' ') + ' ' + cleanText).toLowerCase();
         const contentTokens = this.tokenizeAndStem(cleanText);
         item.tokens = [...new Set([...item.tokens, ...contentTokens])];
       }
+    } catch (e) {
+      console.warn('Ошибка парсинга контента лекции для поиска:', e);
     }
   }
 
@@ -697,15 +735,21 @@ export class SearchEngine {
 
     for (const m of matches) {
       let score = 0;
-      const windowStart = Math.max(0, m.pos - 55);
-      const windowEnd = Math.min(clean.length, m.pos + 120);
+      const windowStart = Math.max(0, m.pos - 60);
+      const windowEnd = Math.min(clean.length, m.pos + 130);
       const context = clean.slice(windowStart, windowEnd);
 
-      // Высокий вес за математические и объяснительные ключевые слова
-      if (/теорем[а-я]|определен|свойств|критери|пусть|если|доказательств|формул|называет|замечан|пример|равен|сходится/i.test(context)) {
-        score += 50;
+      // Высокий вес за математические формулировки, теоремы и определения
+      if (/(?:пусть|если|тогда|критерий|эквивалентн|определение|формул|необходимо и достаточно|существует|для любого|произведение|равно|предел|непрерывн)/i.test(context)) {
+        score += 65;
       }
-
+      if (/теорем[а-я]\s*(?:\d+|[A-ZА-ЯЁ]|об|о|для)/i.test(context)) {
+        score += 45;
+      }
+      // Штраф за фразы завершения доказательства (не несут смысла теоремы)
+      if (/полностью доказан|ч\.т\.д\.|что и требовалось|конец доказательства/i.test(context)) {
+        score -= 55;
+      }
       // Штраф за технический мусор и скопления параграфов/цифр
       const digitCount = (context.match(/\d/g) || []).length;
       if (digitCount > 8) score -= 25;
@@ -722,26 +766,31 @@ export class SearchEngine {
     }
 
     // Выравнивание границ сниппета по смысловым границам (предложения и слова)
-    let start = Math.max(0, best.pos - 50);
-    let end = Math.min(clean.length, best.pos + 115);
+    let start = Math.max(0, best.pos - 55);
+    let end = Math.min(clean.length, best.pos + 120);
 
     // Выравнивание начала: ищем начало предложения
     if (start > 0) {
       const sentenceBefore = clean.lastIndexOf('. ', best.pos);
-      if (sentenceBefore !== -1 && best.pos - sentenceBefore <= 65 && sentenceBefore >= start - 25) {
+      if (sentenceBefore !== -1 && best.pos - sentenceBefore <= 75 && sentenceBefore >= start - 30) {
         start = sentenceBefore + 2;
       } else {
-        const spaceAfter = clean.indexOf(' ', start);
-        if (spaceAfter !== -1 && spaceAfter < best.pos) {
-          start = spaceAfter + 1;
+        const spaceBefore = clean.lastIndexOf(' ', start);
+        if (spaceBefore !== -1 && start - spaceBefore <= 15) {
+          start = spaceBefore + 1;
+        } else {
+          const spaceAfter = clean.indexOf(' ', start);
+          if (spaceAfter !== -1 && spaceAfter < best.pos) {
+            start = spaceAfter + 1;
+          }
         }
       }
     }
 
-    // Выравнивание конца: ищем конец предложения или границу слова
+    // Выравнивание конца: гарантируем смысловую длину не менее 80 символов (если есть текст)
     if (end < clean.length) {
-      const sentenceEnd = clean.indexOf('. ', best.pos + best.len);
-      if (sentenceEnd !== -1 && sentenceEnd <= end + 35) {
+      let sentenceEnd = clean.indexOf('. ', best.pos + best.len);
+      if (sentenceEnd !== -1 && sentenceEnd - start >= 80 && sentenceEnd <= end + 45) {
         end = sentenceEnd + 1;
       } else {
         const spaceEnd = clean.lastIndexOf(' ', end);
@@ -766,21 +815,26 @@ export class SearchEngine {
     const tokens = query.split(/[^a-zа-яё0-9_.-]+/i).filter(t => !this.stopWords.has(t) && t.length > 1);
     if (tokens.length === 0) return text;
 
-    let result = text;
+    const patterns = [];
     for (const t of tokens) {
       const stem = this.stem(t);
       const safeT = t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const safeStem = stem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-      let pattern = `(${safeT}|${safeStem}[а-яё]*)`;
       if (stem === 'терем' || stem === 'теорем') {
-        pattern = `(те[о]?рем[а-яё]*)`;
+        patterns.push('те[о]?рем[а-яё]*');
+      } else {
+        patterns.push(safeT);
+        if (safeStem.length >= 3) {
+          patterns.push(`${safeStem}[а-яё]*`);
+        }
       }
-
-      const regex = new RegExp(pattern, 'gi');
-      result = result.replace(regex, '<mark class="search-highlight">$1</mark>');
     }
-    return result;
+
+    if (patterns.length === 0) return text;
+    patterns.sort((a, b) => b.length - a.length);
+    const combinedRegex = new RegExp(`(${patterns.join('|')})`, 'gi');
+    return text.replace(combinedRegex, '<mark class="search-highlight">$1</mark>');
   }
 
   handleKeyNavigation(e) {

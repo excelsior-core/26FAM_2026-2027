@@ -521,8 +521,9 @@ async function runSync() {
           try {
             const htmlStr = content.toString('utf8');
             let cleanText = htmlStr
-              .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
-              .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+              .replace(/<head[^>]*>[\s\S]*?<\/head>/gi, ' ')
+              .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, ' ')
+              .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, ' ')
               .replace(/<svg[^>]*>[\s\S]*?<\/svg>/gi, '')
               .replace(/<aside[^>]*>[\s\S]*?<\/aside>/gi, '')
               .replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, '')
@@ -536,6 +537,16 @@ async function runSync() {
               .replace(/&gt;/gi, '>')
               .replace(/&amp;/gi, '&')
               .replace(/&#\d+;/g, '');
+
+            // Очистка CSS, остатков стилей и служебных блоков
+            cleanText = cleanText
+              .replace(/\/\*[\s\S]*?\*\//g, ' ')
+              .replace(/\{[^{}]*\}/g, ' ')
+              .replace(/@[a-z-]+[^{]*\{[^{}]*\}/gi, ' ')
+              .replace(/\.[a-zA-Z0-9_-]+\s*\{?[^}]*\}?/g, ' ')
+              .replace(/var\(--[a-zA-Z0-9_-]+\)/gi, ' ')
+              .replace(/--[a-zA-Z0-9_-]+\s*:[^;{}]+;?/g, ' ')
+              .replace(/(?:margin|padding|color|background|border|font|display|flex|width|height|position|top|left|right|bottom|z-index|opacity|box-shadow|overflow)[a-z-]*\s*:[^;{}]+;?/gi, ' ');
 
             // Математическая очистка для чистоты текста и сниппетов
             cleanText = cleanText
@@ -566,6 +577,8 @@ async function runSync() {
               .replace(/\\forall\b/g, '∀')
               .replace(/\\exists\b/g, '∃')
               .replace(/\\infty\b/g, '∞')
+              .replace(/\\Longleftrightarrow|\\iff/g, '⟺')
+              .replace(/\\Longrightarrow|\\implies/g, '⟹')
               .replace(/\\alpha\b/g, 'α')
               .replace(/\\beta\b/g, 'β')
               .replace(/\\gamma\b/g, 'γ')
@@ -577,14 +590,15 @@ async function runSync() {
               .replace(/\\varphi\b/g, 'φ')
               .replace(/\\sigma\b/g, 'σ')
               .replace(/\[cite:\s*\d+\]/gi, '')
-              .replace(/\{[^{}]*(?:color|margin|padding|display|background|font|border)[^{}]*\}/gi, ' ')
-              .replace(/\/\*[\s\S]*?\*\//g, ' ')
-              .replace(/var\(--[a-z0-9_-]+\)/gi, ' ')
-              .replace(/\.[a-z0-9_-]+\s*\{/gi, ' ')
               .replace(/\$+/g, '')
               .replace(/\\quad\b/g, ' ')
+              .replace(/\\(?:left|right|big|Big)\b/g, '')
+              .replace(/\\[a-zA-Z]+/g, ' ')
               .replace(/\\/g, '')
-              .replace(/[\{\}]/g, '')
+              .replace(/[\{\}\[\]]/g, ' ')
+              .replace(/\.{2,}/g, '…')
+              .replace(/§\s*(\d+)([А-ЯЁа-яё])/g, '§ $1 $2')
+              .replace(/([а-яёa-z])([А-ЯЁ])/g, '$1 $2')
               .replace(/\s+/g, ' ')
               .trim();
 
