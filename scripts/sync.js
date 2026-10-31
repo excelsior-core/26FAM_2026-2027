@@ -150,7 +150,8 @@ function getSha256Hex(buf) {
 }
 
 function getLectureId(subject, category, folder) {
-  return crypto.createHash('sha256').update(`${subject}::${category}::${folder}`).digest('hex').slice(0, 12);
+  const normCat = (category || 'лекции').toLowerCase();
+  return crypto.createHash('sha256').update(`${subject}::${normCat}::${folder}`).digest('hex').slice(0, 12);
 }
 
 function getColorForSubject(subjectName, existingSubjects = []) {
