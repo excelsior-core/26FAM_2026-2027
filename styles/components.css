@@ -69,6 +69,16 @@
   margin-bottom: 24px;
 }
 
+.auth-card-title {
+  font-size: clamp(1.4rem, 6.2vw, 2.1rem);
+  margin: 12px 0 6px;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 .auth-disclaimer {
   background: rgba(17, 14, 23, 0.7);
   border-left: 2px solid var(--gold-antique);
@@ -801,8 +811,15 @@
 }
 
 /* РЕЖИМ РЕЕСТРА (Archival Registry Mode) */
+.registry-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .archival-registry-table {
   width: 100%;
+  min-width: 680px;
   border-collapse: collapse;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
@@ -849,13 +866,14 @@
   background: var(--bg-surface);
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 0 20px;
   gap: 16px;
 }
 
 .reader-title-area {
+  flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -867,6 +885,13 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
+}
+
+.reader-close-btn {
+  flex-shrink: 0;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 /* Переключатель режимов ридера (Segmented Switch) */
@@ -1387,22 +1412,461 @@
   box-shadow: 0 0 4px rgba(212, 175, 55, 0.4);
 }
 
-/* Адаптивность для мобильных экранов */
+/* ==========================================================================
+   Мобильная карточка PDF (Для мобильных устройств и Android)
+   ========================================================================== */
+.mobile-pdf-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 36px 20px;
+  background: radial-gradient(circle at 50% 25%, rgba(212, 175, 55, 0.08) 0%, rgba(10, 8, 14, 0.98) 75%);
+  color: var(--ivory-parchment);
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.mobile-pdf-crest {
+  font-family: var(--font-serif);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--gold-antique);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.mobile-pdf-icon {
+  font-size: 3.4rem;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.35));
+}
+
+.mobile-pdf-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 5vw, 1.45rem);
+  font-weight: 700;
+  color: #FFFDF9;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  max-width: 480px;
+}
+
+.mobile-pdf-meta {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--gold-dim);
+  margin-bottom: 16px;
+}
+
+.mobile-pdf-note {
+  font-size: 0.88rem;
+  color: var(--parchment-muted);
+  line-height: 1.55;
+  max-width: 420px;
+  margin-bottom: 28px;
+}
+
+.mobile-pdf-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 340px;
+}
+
+/* ==========================================================================
+   Адаптивность для планшетов и мобильных устройств (Mobile & Responsive Suite)
+   ========================================================================== */
+
 @media (max-width: 900px) {
   .hero-folio-card {
-    grid-template-columns: 1fr;
-    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    padding: 24px 18px;
+    gap: 20px;
+    margin: 0;
+  }
+  .hero-folio-card::before,
+  .hero-folio-card::after {
+    display: none;
+  }
+  .hero-folio-title {
+    font-size: clamp(1.4rem, 5.2vw, 1.85rem);
+    line-height: 1.25;
+  }
+  .folio-pdf-spotlight {
+    padding: 16px;
+    width: 100%;
+    box-sizing: border-box;
   }
   .editorial-diptych-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
   }
-  .reader-mode-switch {
-    display: inline-flex;
+  .exhibit-folio-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    padding: 22px 18px;
+    margin: 0;
   }
   .split-divider {
     display: none !important;
   }
   .reader-pane.split-hidden {
     display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Шапка сайта */
+  .site-header {
+    padding: 8px 0;
+  }
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .header-inner > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 8px;
+    width: 100%;
+    padding: 2px 0 4px;
+  }
+  .header-actions::-webkit-scrollbar {
+    display: none;
+  }
+  .nav-pill-btn {
+    flex-shrink: 0;
+    padding: 7px 12px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+  .nav-pill-btn .kbd-badge {
+    display: none !important;
+  }
+  #theme-selector {
+    flex-shrink: 0;
+    padding: 7px 10px;
+    font-size: 0.78rem;
+  }
+  #logout-btn {
+    flex-shrink: 0;
+    padding: 7px 12px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  /* Админ тулбар */
+  .admin-toolbar-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    text-align: center;
+  }
+  .admin-toolbar-inner > div:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  /* Hero-секция */
+  .hero-section {
+    padding: 24px 0 20px;
+  }
+  .hero-mega-title {
+    font-size: clamp(1.8rem, 7vw, 2.6rem);
+    margin: 10px 0;
+  }
+  .hero-sub-text {
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+  }
+  .stats-ribbon {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 16px;
+  }
+  .progress-bar-wrap {
+    grid-column: 1 / -1;
+    min-width: 0;
+    margin: 4px 0;
+  }
+
+  /* Панель управления и фильтрации */
+  .controls-bar {
+    margin: 20px 0 16px;
+    gap: 12px;
+  }
+  .subjects-tabs-bar {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 8px;
+    padding-bottom: 4px;
+    width: 100%;
+  }
+  .subjects-tabs-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .subject-tab-pill {
+    flex-shrink: 0;
+    padding: 7px 12px;
+    font-size: 0.8rem;
+  }
+  .sub-controls-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+  }
+  .category-tabs-bar {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 6px;
+    padding-bottom: 4px;
+    width: 100%;
+  }
+  .category-tabs-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .category-tab {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    font-size: 0.78rem;
+  }
+  .filters-actions-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+  }
+  .inline-search-wrap {
+    width: 100%;
+    flex: 1 1 100%;
+    height: 38px;
+  }
+  #filter-module {
+    flex: 1 1 calc(50% - 4px);
+    height: 38px;
+    font-size: 0.78rem;
+  }
+  #sort-selector {
+    flex: 1 1 calc(50% - 4px);
+    height: 38px;
+    font-size: 0.78rem;
+  }
+  #filter-studied-toggle {
+    flex: 1 1 100%;
+    height: 38px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #layout-toggle-btn {
+    flex: 1 1 calc(50% - 4px);
+    height: 38px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #reset-filters-btn {
+    flex: 1 1 calc(50% - 4px);
+    height: 38px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Шапка ридера на мобилках */
+  .reader-header {
+    height: auto;
+    min-height: 52px;
+    padding: 8px 12px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "title close"
+      "modes modes"
+      "actions actions";
+    gap: 8px;
+    align-items: center;
+  }
+  .reader-title-area {
+    grid-area: title;
+    width: 100%;
+    min-width: 0;
+  }
+  #reader-lecture-title {
+    font-size: 0.95rem !important;
+  }
+  .reader-close-btn {
+    grid-area: close;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .reader-mode-switch {
+    grid-area: modes;
+    width: 100%;
+    display: flex;
+  }
+  .reader-mode-switch .segment-btn {
+    flex: 1;
+    text-align: center;
+    padding: 8px 6px;
+    font-size: 0.8rem;
+  }
+  #split-toggle-btn {
+    display: none !important;
+  }
+  .reader-actions-area {
+    grid-area: actions;
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 6px;
+    width: 100%;
+    padding-bottom: 2px;
+  }
+  .reader-actions-area::-webkit-scrollbar {
+    display: none;
+  }
+  .reader-actions-area .btn-secondary,
+  .reader-actions-area .action-btn-primary {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+  }
+
+  /* Заметки на полях на мобилках */
+  .reader-marginalia-pane {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    box-sizing: border-box;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Экран авторизации */
+  .auth-wrapper {
+    padding: 12px;
+  }
+  .auth-card {
+    padding: 28px 18px;
+    border-radius: var(--radius-md);
+  }
+  .auth-header {
+    margin-bottom: 18px;
+  }
+  .academic-crest {
+    font-size: clamp(0.58rem, 2.2vw, 0.72rem);
+    letter-spacing: clamp(0.06em, 0.6vw, 0.12em);
+    text-align: center;
+    justify-content: center;
+    white-space: normal;
+  }
+  .vault-3d-box {
+    height: 160px;
+  }
+  .auth-disclaimer {
+    font-size: 0.76rem;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+  }
+
+  /* Модалки: Календарь, Дедлайны */
+  .modal-overlay {
+    padding: 12px;
+  }
+  .modal-card {
+    padding: 20px 14px;
+    max-height: calc(100dvh - 24px);
+    overflow-y: auto;
+    width: 100%;
+  }
+  .calendar-grid {
+    gap: 4px;
+  }
+  .cal-day-cell {
+    padding: 4px 2px;
+    font-size: 0.72rem;
+  }
+  .cal-dot {
+    width: 4px;
+    height: 4px;
+  }
+
+  /* Командная палитра / Умный поиск */
+  .palette-overlay {
+    padding: 12px;
+    align-items: flex-start;
+  }
+  .palette-container {
+    max-height: calc(100dvh - 24px);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 6px;
+  }
+  .palette-input-wrap {
+    padding: 12px 14px;
+    gap: 8px;
+  }
+  .palette-input {
+    font-size: 0.95rem;
+  }
+  .palette-results {
+    max-height: none;
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .palette-footer {
+    display: none;
   }
 }

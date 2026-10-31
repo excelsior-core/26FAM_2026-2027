@@ -8,8 +8,8 @@
   <title>КОНСПЕКТЫ ФПМ — Интеллектуальный академический архив</title>
   <meta name="description" content="Студенческий сборник конспектов и материалов · ФПМ ВШЭ · 1 курс (2026–2027)">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles/main.css?v=5.0">
-  <link rel="stylesheet" href="styles/components.css?v=5.0">
+  <link rel="stylesheet" href="styles/main.css?v=6.0">
+  <link rel="stylesheet" href="styles/components.css?v=6.0">
 </head>
 <body>
   <!-- Атмосферные световые слои -->
@@ -41,7 +41,7 @@
 
       <div class="auth-header">
         <div class="academic-crest">✦ ИНТЕЛЛЕКТУАЛЬНЫЙ АРХИВ · ФПМ ВШЭ ✦</div>
-        <h1 class="brand-monolith" style="font-size: 2.1rem; margin: 12px 0 6px;">
+        <h1 class="brand-monolith auth-card-title">
           КОНСПЕКТЫ <span class="accent">ФПМ</span>
         </h1>
         <div style="font-size: 0.85rem; color: var(--parchment-muted);">1-й курс · 2026–2027 учебный год</div>
@@ -293,8 +293,9 @@
         <button id="reader-download-pdf-btn" class="action-btn-primary" style="padding: 5px 12px; font-size: 0.8rem;" title="Скачать оригинальный PDF">
           💾 Скачать PDF
         </button>
-        <button id="reader-close-btn" class="btn-secondary" style="font-weight: bold; font-size: 1.1rem;">✕</button>
       </div>
+
+      <button id="reader-close-btn" class="btn-secondary reader-close-btn" title="Закрыть читалку (Esc)">✕</button>
     </div>
 
     <div class="reader-body">
@@ -327,6 +328,23 @@
               💾 Скачать этот PDF
             </button>
             <span id="orig-downloads-span"></span>
+          </div>
+        </div>
+        <div id="mobile-pdf-card" class="mobile-pdf-card" style="display: none;">
+          <div class="mobile-pdf-crest">✦ ОРИГИНАЛЬНЫЙ PDF ЛЕКТОРА ✦</div>
+          <div class="mobile-pdf-icon">📜</div>
+          <h3 id="mobile-pdf-title" class="mobile-pdf-title">Оригинал лекции</h3>
+          <div id="mobile-pdf-meta" class="mobile-pdf-meta"></div>
+          <p class="mobile-pdf-note">
+            На мобильных устройствах браузер блокирует встроенный просмотр защищенных PDF. Нажмите кнопку ниже, чтобы открыть лекцию во весь экран в системном просмотрщике или сохранить файл:
+          </p>
+          <div class="mobile-pdf-actions">
+            <button id="mobile-pdf-open-btn" class="btn-open-pdf-primary" style="width: 100%; justify-content: center; padding: 13px;">
+              📲 Открыть PDF во весь экран
+            </button>
+            <button id="mobile-pdf-download-btn" class="btn-open-split-secondary" style="width: 100%; justify-content: center; padding: 13px;">
+              💾 Скачать файл PDF
+            </button>
           </div>
         </div>
         <iframe id="reader-orig-iframe"></iframe>

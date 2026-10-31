@@ -129,6 +129,11 @@ class App {
     this.noteDownloadHtmlBtn = document.getElementById('note-download-html-btn');
     this.origDownloadPdfBtn = document.getElementById('orig-download-pdf-btn');
     this.splitDivider = document.getElementById('reader-split-divider');
+    this.mobilePdfCard = document.getElementById('mobile-pdf-card');
+    this.mobilePdfTitle = document.getElementById('mobile-pdf-title');
+    this.mobilePdfMeta = document.getElementById('mobile-pdf-meta');
+    this.mobilePdfOpenBtn = document.getElementById('mobile-pdf-open-btn');
+    this.mobilePdfDownloadBtn = document.getElementById('mobile-pdf-download-btn');
     this.currentPdfIndex = 0;
     this.currentReaderMode = null;
     this.isProgrammaticHashChange = false;
@@ -201,6 +206,16 @@ class App {
     this.readerDownloadPdfBtn?.addEventListener('click', () => this.downloadOriginalPdf());
     this.origDownloadPdfBtn?.addEventListener('click', () => this.downloadOriginalPdf());
     this.noteDownloadHtmlBtn?.addEventListener('click', () => this.downloadHtmlNote());
+
+    // Мобильная карточка PDF
+    this.mobilePdfOpenBtn?.addEventListener('click', () => {
+      if (this.currentLecture?.currentPdfBlobUrl) {
+        window.open(this.currentLecture.currentPdfBlobUrl, '_blank');
+      }
+    });
+    this.mobilePdfDownloadBtn?.addEventListener('click', () => {
+      this.downloadOriginalPdf();
+    });
 
     // Открытие строго текущего отображаемого документа в новой вкладке
     this.readerNewTabBtn?.addEventListener('click', () => this.openActiveInNewTab());
@@ -1096,6 +1111,9 @@ class App {
 
   // Режим архивного реестра (Таблица)
   renderRegistryTable(list) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'registry-table-wrapper';
+
     const table = document.createElement('table');
     table.className = 'archival-registry-table';
 
@@ -1162,7 +1180,8 @@ class App {
       tbody.appendChild(tr);
     }
 
-    this.lecturesContainer.appendChild(table);
+    wrapper.appendChild(table);
+    this.lecturesContainer.appendChild(wrapper);
   }
 
   // ==========================================
@@ -1405,7 +1424,7 @@ class App {
         this.readerNewTabBtn.title = 'Открыть оригинальный PDF в новой вкладке';
       }
 
-      if (hasOriginal && (!this.readerOrigIframe.src || this.readerOrigIframe.src === 'about:blank' || this.readerOrigIframe.src === window.location.href)) {
+      if (hasOriginal && (!this.currentLecture.currentPdfBlobUrl || !this.readerOrigIframe.src || this.readerOrigIframe.src === 'about:blank' || this.readerOrigIframe.src === window.location.href)) {
         this.loadOriginalPdf(this.currentPdfIndex || 0);
       }
     } else if (mode === 'split') {
@@ -1419,7 +1438,7 @@ class App {
         this.readerNewTabBtn.title = 'Открыть оригинальный PDF в новой вкладке';
       }
 
-      if (hasOriginal && (!this.readerOrigIframe.src || this.readerOrigIframe.src === 'about:blank' || this.readerOrigIframe.src === window.location.href)) {
+      if (hasOriginal && (!this.currentLecture.currentPdfBlobUrl || !this.readerOrigIframe.src || this.readerOrigIframe.src === 'about:blank' || this.readerOrigIframe.src === window.location.href)) {
         this.loadOriginalPdf(this.currentPdfIndex || 0);
       }
     } else {
@@ -1601,7 +1620,34 @@ class App {
       this.currentLecture.currentPdfBlobUrl = origUrl;
       this.currentLecture.currentPdfName = origFile.name;
 
-      this.readerOrigIframe.src = origUrl;
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (window.innerWidth <= 768);
+      const isAndroid = /Android/i.test(navigator.userAgent);
+
+      if (isMobile) {
+        if (this.mobilePdfCard) {
+          this.mobilePdfCard.style.display = 'flex';
+          if (this.mobilePdfTitle) {
+            this.mobilePdfTitle.textContent = origFile.name || 'Оригинал лектора (PDF)';
+          }
+          if (this.mobilePdfMeta) {
+            const sizeStr = origBytes.length ? `${(origBytes.length / (1024 * 1024)).toFixed(1)} МБ` : '';
+            this.mobilePdfMeta.textContent = `${this.currentLecture.subject} · ${sizeStr}`;
+          }
+        }
+        if (isAndroid && this.readerOrigIframe) {
+          this.readerOrigIframe.style.display = 'none';
+        } else if (this.readerOrigIframe) {
+          this.readerOrigIframe.style.display = 'block';
+          this.readerOrigIframe.src = origUrl;
+        }
+      } else {
+        if (this.mobilePdfCard) this.mobilePdfCard.style.display = 'none';
+        if (this.readerOrigIframe) {
+          this.readerOrigIframe.style.display = 'block';
+          this.readerOrigIframe.src = origUrl;
+        }
+      }
+
       if (this.readerPdfSelect) {
         this.readerPdfSelect.value = String(pdfIndex);
       }
@@ -1622,14 +1668,15 @@ class App {
 
   // Скачивание оригинального PDF с благородным русским именем
   downloadOriginalPdf(lecture) {
-    if (!lecture.currentPdfBlobUrl) return;
+    lecture = lecture || this.currentLecture;
+    if (!lecture?.currentPdfBlobUrl) return;
     const origList = lecture.originals || [];
     const currentOrig = origList[this.currentPdfIndex || 0] || origList[0];
     const a = document.createElement('a');
     a.href = lecture.currentPdfBlobUrl;
     const origName = currentOrig?.name ? currentOrig.name.replace(/\.pdf$/i, '') : 'Оригинал';
-    const cleanSubj = lecture.subject.replace(/[\/\\?%*:|"<>]/g, '');
-    const cleanTitle = lecture.title.replace(/[\/\\?%*:|"<>]/g, '');
+    const cleanSubj = (lecture.subject || 'ФПМ').replace(/[\/\\?%*:|"<>]/g, '');
+    const cleanTitle = (lecture.title || 'Материал').replace(/[\/\\?%*:|"<>]/g, '');
     a.download = `[ФПМ ВШЭ] ${cleanSubj} · ${cleanTitle} — ${origName}.pdf`;
     document.body.appendChild(a);
     a.click();
@@ -1645,10 +1692,14 @@ class App {
 
   closeReader(updateHash = true) {
     this.readerModal.classList.remove('open');
+    if (this.mobilePdfCard) this.mobilePdfCard.style.display = 'none';
+    if (this.readerOrigIframe) {
+      this.readerOrigIframe.style.display = '';
+      this.readerOrigIframe.src = 'about:blank';
+      this.readerOrigIframe.removeAttribute('srcdoc');
+    }
     this.readerIframe.src = 'about:blank';
     this.readerIframe.removeAttribute('srcdoc');
-    this.readerOrigIframe.src = 'about:blank';
-    this.readerOrigIframe.removeAttribute('srcdoc');
     this.cleanupBlobUrls();
     this.currentLecture = null;
     this.currentReaderMode = null;
