@@ -197,8 +197,42 @@ function parseFolderSessions(folderName, defaultCategory = 'лекции') {
   const norm = folderName.trim();
   let remaining = norm;
 
-  // 1. Поиск числовых номеров / диапазонов пар в начале:
-  // "1-2", "3-4", "5-7", "8-9", "10-12", "10", "11", "Лекция 1-2", "Семинар 3", "№ 1-2"
+  // 1. Приоритетный официальный формат: пары (номер дата) в начале строки:
+  // e.g. "01 02.09.2026 02 04.09.2026 Название" или "12 23.10.2026 Название"
+  const pairRegex = /^(?:(?:лекци[яи]|пар[аы]|семинар[ы]?|заняти[ея]|коллоквиум)\s*)?(?:№\s*)?(\d{1,3})\s+(?:\(?(\d{1,2}\.\d{2}(?:\.\d{4})?)\)?)(?:\s+|$)/iu;
+  const directSessions = [];
+  let pairMatch;
+
+  while ((pairMatch = remaining.match(pairRegex)) !== null) {
+    const num = parseInt(pairMatch[1], 10);
+    const dateRaw = pairMatch[2];
+    const parts = dateRaw.split('.');
+    const day = parts[0].padStart(2, '0');
+    const month = parts[1].padStart(2, '0');
+    const year = parts[2] || (parseInt(month, 10) >= 8 ? '2026' : '2027');
+    directSessions.push({ number: num, date: `${day}.${month}.${year}` });
+    remaining = remaining.slice(pairMatch[0].length).trim();
+  }
+
+  if (directSessions.length > 0) {
+    let cleanTitle = remaining
+      .replace(/^[\s,;:\-–—\.]+/g, '')
+      .replace(/[\s,;:\-–—\.]+$/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    if (!cleanTitle) {
+      const isPlural = directSessions.length > 1;
+      const catLabel = isPlural ? 'Лекции' : 'Лекция';
+      cleanTitle = isPlural
+        ? `${catLabel} ${directSessions[0].number}–${directSessions[directSessions.length - 1].number}`
+        : `${catLabel} ${directSessions[0].number}`;
+    }
+
+    return { sessions: directSessions, cleanTitle };
+  }
+
+  // 2. Универсальный фолбэк на старые форматы (диапазоны 1-2, русские месяцы "4 и 7 сент")
   const nums = [];
   const rangeMatch = remaining.match(/^(?:(?:лекци[яи]|пар[аы]|семинар[ы]?|заняти[ея]|коллоквиум)\s*)?(?:№\s*)?(\d{1,3})\s*[-–—]\s*(\d{1,3})(?!\d)/iu);
   if (rangeMatch) {

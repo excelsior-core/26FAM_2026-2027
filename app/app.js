@@ -1052,6 +1052,11 @@ class App {
 
         <h4 class="folio-card-title">${lec.title}</h4>
         <p class="folio-card-desc">${lec.description || 'Конспект занятия с аналитическими выкладками и теоремами.'}</p>
+        ${(lec.tags && lec.tags.length > 0) ? `
+          <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px;">
+            ${lec.tags.map(t => `<span style="font-size: 0.68rem; color: var(--gold-dim); background: rgba(212, 175, 55, 0.08); padding: 2px 7px; border-radius: 4px; font-weight: 500; letter-spacing: 0.03em;">#${String(t).trim().replace(/^#+/, '').toUpperCase()}</span>`).join('')}
+          </div>
+        ` : ''}
       </div>
 
       <div class="folio-card-actions">
