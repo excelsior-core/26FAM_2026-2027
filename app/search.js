@@ -923,18 +923,16 @@ export class SearchEngine {
       const actionBadge = item.type === 'announcement' ? `<span class="palette-pill palette-pill-ann">📢 ДЕЙСТВИЕ</span>` : '';
 
       el.innerHTML = `
-        <div class="palette-item-header">
-          <div class="palette-item-title-group">
-            <span class="palette-item-title">${titleHl}</span>
-            ${descHl ? `<span class="palette-item-topic">· ${descHl}</span>` : ''}
-          </div>
+        <div class="palette-item-meta">
+          <span class="palette-pill palette-pill-subj" style="--subj-color: ${subjColor};">● ${item.subject}</span>
           <div class="palette-item-badges">
-            <span class="palette-pill palette-pill-subj" style="--subj-color: ${subjColor};">${item.subject}</span>
             ${dateBadge}
             ${actionBadge}
             ${pdfBadge}
           </div>
         </div>
+        <div class="palette-item-title">${titleHl}</div>
+        ${descHl ? `<div class="palette-item-desc">${descHl}</div>` : ''}
         ${snippetHl ? `
           <div class="palette-item-snippet-box">
             <span class="snippet-quote-mark">❝</span>
