@@ -438,10 +438,15 @@ def convert_lecture(meta):
     with open(src_file, "r", encoding="utf-8") as f:
         src_html = f.read()
 
-    # Если это лекция 12, она уже близка к Караваджо, но проверим ее и встроим кнопки dock
+    # Если это лекция 12, она уже близка к Караваджо, но проверим ее и встроим кнопки dock и обновим стили
     if meta["number"] == "12":
-        # Обновляем кнопки dock и script в лекции 12
-        l12_html = src_html
+        # Обновляем стили из шаблона
+        templ_style = re.search(r'<style>(.*?)</style>', template, re.DOTALL)
+        if templ_style:
+            l12_html = re.sub(r'<style>.*?</style>', f"<style>{templ_style.group(1)}</style>", src_html, flags=re.DOTALL)
+        else:
+            l12_html = src_html
+
         old_dock = """    <button class="dock-btn active" id="dockTocToggleBtn" onclick="toggleSidebarDesk()">
       <span>✦</span> Оглавление
     </button>
@@ -471,12 +476,12 @@ def convert_lecture(meta):
     };
 
     document.addEventListener("DOMContentLoaded", function() {"""
-        if old_script_start in l12_html:
+        if old_script_start in l12_html and "window.toggleAllProofs" not in l12_html:
             l12_html = l12_html.replace(old_script_start, new_script_start)
 
         with open(out_file, "w", encoding="utf-8") as f:
             f.write(l12_html)
-        print(f"[{meta['number']}] Updated Lecture 12 reading dock: {out_file}")
+        print(f"[{meta['number']}] Updated Lecture 12 reading dock & styles: {out_file}")
         return
 
     # Извлекаем содержимое <main>

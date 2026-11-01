@@ -752,6 +752,10 @@
       page-break-inside: avoid;
       min-width: 0;
       max-width: 100%;
+      overflow: hidden; /* Гарантирует предотвращение вылета содержимого за границы блока */
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      box-sizing: border-box;
     }
 
     .callout::after {
@@ -771,8 +775,11 @@
       gap: 0.65rem;
       margin-bottom: 0.75rem;
       padding-bottom: 0.5rem;
+      padding-right: 1.8rem; /* Отступ справа, чтобы текст не наползал на иконку ✦ */
       border-bottom: 1px solid rgba(229, 184, 66, 0.12);
       flex-wrap: wrap;
+      min-width: 0;
+      max-width: 100%;
     }
 
     .callout-tag {
@@ -792,6 +799,11 @@
       color: var(--text-heading);
       line-height: 1.3;
       min-width: 0;
+      max-width: 100%;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      hyphens: auto;
+      -webkit-hyphens: auto;
     }
 
     .callout-body {
@@ -800,6 +812,33 @@
       color: var(--text-main);
       min-width: 0;
       max-width: 100%;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: normal;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+    }
+
+    .callout-body p,
+    .content-area p {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    /* Защита инлайн формул от распирания контейнера на мобильных */
+    .callout-body .katex,
+    .content-area .katex {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      vertical-align: middle;
+      scrollbar-width: none;
+    }
+    .callout-body .katex::-webkit-scrollbar,
+    .content-area .katex::-webkit-scrollbar {
+      display: none;
     }
 
     .callout-body > *:last-child {
@@ -1366,6 +1405,94 @@
       }
       .callout {
         padding: 1.15rem 1.25rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .main-wrap {
+        padding: 4.2rem 0.85rem 4.5rem;
+      }
+      .lecture-monument {
+        margin-bottom: 2rem;
+        padding-bottom: 1.25rem;
+      }
+      .lecture-monument h1 {
+        font-size: 1.95rem;
+        line-height: 1.2;
+      }
+      .floating-reading-dock {
+        top: 8px;
+        right: 8px;
+        max-width: calc(100vw - 16px);
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        padding: 3px 5px;
+        gap: 4px;
+      }
+      .floating-reading-dock::-webkit-scrollbar {
+        display: none;
+      }
+      .dock-btn, .theme-pill-btn {
+        font-size: 0.7rem;
+        padding: 4px 7px;
+      }
+      .callout {
+        padding: 1rem 1rem;
+        margin: 1.5rem 0;
+        border-radius: 8px;
+      }
+      .callout-header {
+        gap: 0.4rem;
+        padding-right: 1.4rem;
+        margin-bottom: 0.55rem;
+      }
+      .callout-tag {
+        font-size: 0.68rem;
+        letter-spacing: 0.1em;
+      }
+      .callout-title {
+        font-size: 1.12rem;
+        line-height: 1.25;
+      }
+      .callout-body {
+        font-size: 0.94rem;
+        line-height: 1.68;
+      }
+      details.proof-block {
+        padding: 0.85rem 0.95rem;
+        margin: 1.25rem 0;
+        border-radius: 7px;
+      }
+      details.proof-block summary {
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+      }
+      .key-takeaways {
+        padding: 1.25rem 1.1rem;
+        margin: 2.25rem 0;
+        border-radius: 10px;
+      }
+      .key-takeaways ul {
+        margin-left: 1.15rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .main-wrap {
+        padding: 4rem 0.65rem 4rem;
+      }
+      .callout {
+        padding: 0.85rem 0.8rem;
+      }
+      .callout-header {
+        padding-right: 1.2rem;
+      }
+      .callout-title {
+        font-size: 1.05rem;
+      }
+      .callout-body {
+        font-size: 0.9rem;
       }
     }
   </style>
