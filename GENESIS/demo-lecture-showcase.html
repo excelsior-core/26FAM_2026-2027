@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="caravaggio">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Аналитическая геометрия — Лекция 6: Плоскость и прямая в пространстве</title>
+
+  <!-- Google Fonts: Роскошная академическая типографика -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- KaTeX для математических формул -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    /* ==========================================================================
+       1. ДИЗАЙН-ТОКЕНЫ: ТРИ УНИВЕРСАЛЬНЫХ СТИЛЯ (КАРАВАДЖО / МРАМОР / СЕПИЯ)
+       ========================================================================== */
+    :root, [data-theme="caravaggio"] {
+      --bg-page: #0a0806;
+      --bg-canvas: #0e0b08;
+      --bg-surface: #14100c;
+      --bg-surface-elevated: #1b1610;
+      --bg-sidebar: #0d0a07;
+      --bg-glass: rgba(18, 14, 10, 0.88);
+
+      --border-subtle: rgba(229, 184, 66, 0.12);
+      --border-medium: rgba(229, 184, 66, 0.25);
+      --border-strong: rgba(229, 184, 66, 0.45);
+      --border-glow: rgba(229, 184, 66, 0.18);
+
+      --text-main: #e8e2d5;
+      --text-secondary: #beb4a0;
+      --text-muted: #877b67;
+      --text-heading: #fcf9f2;
+      --text-gold: #e5b842;
+      --text-gold-bright: #ffd977;
+
+      --gold-gradient: linear-gradient(135deg, #fff0c7 0%, #e5b842 50%, #9e7724 100%);
+      --accent-gold: #c59b27;
+      --accent-gold-bright: #e5b842;
+      --accent-gold-soft: rgba(229, 184, 66, 0.12);
+
+      /* Смысловые вельветовые платы (Chiaroscuro) */
+      --def-bg: linear-gradient(145deg, rgba(22, 34, 64, 0.5) 0%, rgba(13, 19, 36, 0.75) 100%);
+      --def-border: #3b82f6;
+      --def-accent: #60a5fa;
+
+      --thm-bg: linear-gradient(145deg, rgba(16, 46, 34, 0.5) 0%, rgba(9, 28, 20, 0.75) 100%);
+      --thm-border: #10b981;
+      --thm-accent: #34d399;
+
+      --proof-bg: rgba(17, 13, 9, 0.85);
+      --proof-border: rgba(229, 184, 66, 0.28);
+      --proof-accent: #e5b842;
+
+      --remark-bg: linear-gradient(145deg, rgba(54, 34, 12, 0.5) 0%, rgba(28, 16, 6, 0.75) 100%);
+      --remark-border: #d97706;
+      --remark-accent: #fbbf24;
+
+      --warn-bg: linear-gradient(145deg, rgba(56, 18, 24, 0.5) 0%, rgba(30, 9, 12, 0.75) 100%);
+      --warn-border: #e11d48;
+      --warn-accent: #fb7185;
+
+      --example-bg: linear-gradient(145deg, rgba(42, 22, 60, 0.5) 0%, rgba(22, 11, 32, 0.75) 100%);
+      --example-border: #8b5cf6;
+      --example-accent: #c084fc;
+
+      /* Токены для SVG-диаграмм */
+      --svg-bg: #100c09;
+      --svg-grid: rgba(229, 184, 66, 0.1);
+      --svg-axis: #a89880;
+      --svg-stroke-gold: #e5b842;
+      --svg-stroke-cyan: #38bdf8;
+      --svg-stroke-emerald: #34d399;
+      --svg-stroke-purple: #c084fc;
+      --svg-fill-gold: rgba(229, 184, 66, 0.14);
+      --svg-fill-cyan: rgba(56, 189, 248, 0.12);
+      --svg-text: #e8e2d5;
+
+      --shadow-ambient: 0 16px 45px -10px rgba(0, 0, 0, 0.85);
+      --shadow-gold: 0 6px 28px -4px rgba(229, 184, 66, 0.2);
+    }
+
+    [data-theme="marble"] {
+      --bg-page: #faf8f3;
+      --bg-canvas: #f4efe4;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #f4eee2;
+      --bg-sidebar: #f1ebd8;
+      --bg-glass: rgba(255, 255, 255, 0.94);
+
+      --border-subtle: rgba(160, 120, 40, 0.16);
+      --border-medium: rgba(160, 120, 40, 0.3);
+      --border-strong: rgba(160, 120, 40, 0.55);
+      --border-glow: rgba(160, 120, 40, 0.15);
+
+      --text-main: #251e17;
+      --text-secondary: #574c3e;
+      --text-muted: #857764;
+      --text-heading: #17110a;
+      --text-gold: #946c15;
+      --text-gold-bright: #b8861d;
+      --gold-gradient: linear-gradient(135deg, #44320b 0%, #946c15 50%, #44320b 100%);
+
+      --accent-gold: #946c15;
+      --accent-gold-bright: #b8861d;
+      --accent-gold-soft: rgba(148, 108, 21, 0.08);
+
+      --def-bg: #f6f9ff;
+      --def-border: #2563eb;
+      --def-accent: #1d4ed8;
+
+      --thm-bg: #f3fbf6;
+      --thm-border: #059669;
+      --thm-accent: #047857;
+
+      --proof-bg: #fdfcf9;
+      --proof-border: rgba(160, 120, 40, 0.28);
+      --proof-accent: #946c15;
+
+      --remark-bg: #fffcf2;
+      --remark-border: #d97706;
+      --remark-accent: #b45309;
+
+      --warn-bg: #fff6f6;
+      --warn-border: #e11d48;
+      --warn-accent: #be123c;
+
+      --example-bg: #f9f6ff;
+      --example-border: #7c3aed;
+      --example-accent: #6d28d9;
+
+      --svg-bg: #ffffff;
+      --svg-grid: rgba(160, 120, 40, 0.12);
+      --svg-axis: #6b5d4a;
+      --svg-stroke-gold: #946c15;
+      --svg-stroke-cyan: #0284c7;
+      --svg-stroke-emerald: #059669;
+      --svg-stroke-purple: #7c3aed;
+      --svg-fill-gold: rgba(148, 108, 21, 0.1);
+      --svg-fill-cyan: rgba(2, 132, 199, 0.1);
+      --svg-text: #251e17;
+
+      --shadow-ambient: 0 10px 30px -10px rgba(60, 40, 20, 0.08);
+      --shadow-gold: 0 4px 20px rgba(160, 120, 40, 0.12);
+    }
+
+    [data-theme="renaissance"] {
+      --bg-page: #eee4d1;
+      --bg-canvas: #e7dcbf;
+      --bg-surface: #f5ece0;
+      --bg-surface-elevated: #e2d3bb;
+      --bg-sidebar: #dfd0b6;
+      --bg-glass: rgba(245, 236, 224, 0.94);
+
+      --border-subtle: #cfbe9c;
+      --border-medium: #bda67f;
+      --border-strong: #997f56;
+      --border-glow: rgba(120, 75, 20, 0.15);
+
+      --text-main: #322518;
+      --text-secondary: #594632;
+      --text-muted: #826e57;
+      --text-heading: #1f150c;
+      --text-gold: #824f0f;
+      --text-gold-bright: #a16416;
+      --gold-gradient: linear-gradient(135deg, #3d2407 0%, #824f0f 50%, #3d2407 100%);
+
+      --accent-gold: #824f0f;
+      --accent-gold-bright: #a16416;
+      --accent-gold-soft: rgba(130, 80, 16, 0.1);
+
+      --def-bg: #eaf0f7;
+      --def-border: #1e5a8a;
+      --def-accent: #1e5a8a;
+
+      --thm-bg: #eaf3ed;
+      --thm-border: #286b45;
+      --thm-accent: #286b45;
+
+      --proof-bg: #ede2d1;
+      --proof-border: #bda67f;
+      --proof-accent: #824f0f;
+
+      --remark-bg: #f8efe0;
+      --remark-border: #995c14;
+      --remark-accent: #995c14;
+
+      --warn-bg: #f9e8e8;
+      --warn-border: #9c2727;
+      --warn-accent: #9c2727;
+
+      --example-bg: #f3eaf7;
+      --example-border: #6d3a82;
+      --example-accent: #6d3a82;
+
+      --svg-bg: #f5ece0;
+      --svg-grid: #d8c8ac;
+      --svg-axis: #594632;
+      --svg-stroke-gold: #824f0f;
+      --svg-stroke-cyan: #1e5a8a;
+      --svg-stroke-emerald: #286b45;
+      --svg-stroke-purple: #6d3a82;
+      --svg-fill-gold: rgba(130, 80, 16, 0.12);
+      --svg-fill-cyan: rgba(30, 90, 138, 0.12);
+      --svg-text: #322518;
+
+      --shadow-ambient: 0 8px 25px rgba(60, 40, 20, 0.08);
+      --shadow-gold: 0 4px 16px rgba(130, 80, 16, 0.1);
+    }
+
+    /* ==========================================================================
+       2. БАЗОВАЯ СЕТКА И ЗАЩИТА ОТ ПЕРЕПОЛНЕНИЙ (ANTI-OVERFLOW SHIELD)
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.84;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.25s ease, color 0.25s ease;
+      /* Sticky-safe horizontal containment */
+      position: relative;
+      /* Защита от вылета длинных слов/символов */
+      overflow-wrap: break-word;
+      word-break: normal;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: -150px;
+      right: -150px;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, var(--border-glow) 0%, transparent 68%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    #reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-gold), var(--text-gold-bright));
+      width: 0%;
+      z-index: 9999;
+      box-shadow: 0 0 10px rgba(229, 184, 66, 0.5);
+      transition: width 0.1s ease;
+    }
+
+    /* ==========================================================================
+       3. ПАРЯЩИЙ ДОК УПРАВЛЕНИЯ
+       ========================================================================== */
+    .floating-reading-dock {
+      position: fixed;
+      top: 18px;
+      right: 24px;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border-medium);
+      padding: 4px 6px;
+      border-radius: 999px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), var(--shadow-gold);
+      transition: all 0.25s ease;
+      max-width: calc(100vw - 32px);
+    }
+
+    .dock-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-gold);
+      font-family: 'Cinzel', serif;
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 0.42rem 0.85rem;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .dock-btn:hover {
+      background: var(--accent-gold-soft);
+      border-color: var(--border-medium);
+      color: var(--text-gold-bright);
+    }
+
+    .dock-btn.active {
+      background: var(--accent-gold-soft);
+      border-color: var(--accent-gold);
+      color: var(--text-gold-bright);
+    }
+
+    .dock-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--border-medium);
+      flex-shrink: 0;
+    }
+
+    .theme-dock-group {
+      display: flex;
+      gap: 2px;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 2px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .theme-pill-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .theme-pill-btn:hover {
+      color: var(--text-main);
+    }
+
+    .theme-pill-btn.active {
+      background: var(--bg-surface-elevated);
+      color: var(--text-gold);
+      border: 1px solid var(--border-medium);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ==========================================================================
+       4. РАСКЛАДКА С ПЛАВНЫМ СКЛАДЫВАНИЕМ САЙДБАРА
+       ========================================================================== */
+    .layout-root {
+      align-items: start;
+      display: grid;
+      grid-template-columns: 310px minmax(0, 1fr);
+      min-height: 100vh;
+      max-width: 1480px;
+      margin: 0 auto;
+      transition: grid-template-columns 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      z-index: 10;
+      min-width: 0; /* Строгая защита от flex/grid вылета */
+    }
+
+    .layout-root.sidebar-collapsed {
+      grid-template-columns: 0px minmax(0, 1fr);
+    }
+
+    .layout-root.sidebar-collapsed .sidebar {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-30px);
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background-color: var(--bg-sidebar);
+      border-right: 1px solid var(--border-subtle);
+      padding: 2rem 1.35rem 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.35rem;
+      z-index: 50;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      transform: translateX(0);
+      min-width: 0;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .sidebar::-webkit-scrollbar-thumb {
+      background: var(--border-medium);
+      border-radius: 99px;
+    }
+
+    .sidebar-header {
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .kicker-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-gold);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .sidebar-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      line-height: 1.3;
+      word-break: break-word;
+    }
+
+    .toc-search-wrap {
+      position: relative;
+    }
+
+    .toc-search-input {
+      width: 100%;
+      padding: 0.48rem 0.75rem 0.48rem 1.95rem;
+      font-size: 0.82rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .toc-search-input:focus {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 12px var(--border-glow);
+    }
+
+    .toc-search-icon {
+      position: absolute;
+      left: 0.65rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.75rem;
+      color: var(--text-gold);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .toc-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      min-width: 0;
+    }
+
+    .toc-title-kicker {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .toc-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .toc-item {
+      display: block;
+      padding: 0.42rem 0.65rem;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      line-height: 1.4;
+      font-size: 0.84rem;
+      border-left: 2px solid transparent;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .toc-item.h3-item {
+      padding-left: 1.35rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .toc-item:hover {
+      background-color: var(--bg-surface-elevated);
+      color: var(--text-gold-bright);
+    }
+
+    .toc-item.active {
+      background-color: var(--accent-gold-soft);
+      color: var(--text-gold-bright);
+      border-left-color: var(--accent-gold-bright);
+      font-weight: 600;
+    }
+
+    .sidebar-footer {
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .sidebar-gold-btn {
+      width: 100%;
+      padding: 0.52rem 0.85rem;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: 'Cinzel', serif;
+      border-radius: 6px;
+      border: 1px solid var(--border-medium);
+      background: var(--bg-surface-elevated);
+      color: var(--text-gold);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar-gold-btn:hover {
+      background: var(--accent-gold-soft);
+      border-color: var(--accent-gold);
+      color: var(--text-gold-bright);
+    }
+
+    /* ==========================================================================
+       5. ОСНОВНОЙ КОНТЕНТ (МОНУМЕНТАЛЬНЫЙ ФОЛИАНТ)
+       ========================================================================== */
+    .main-wrap {
+      padding: 4.5rem 5rem 7rem;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+      min-width: 0; /* Предотвращает раздувание контентной колонки */
+      transition: max-width 0.35s ease;
+    }
+
+    .layout-root.sidebar-collapsed .main-wrap {
+      max-width: 960px;
+    }
+
+    .lecture-monument {
+      position: relative;
+      margin-bottom: 3.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border-subtle);
+      min-width: 0;
+    }
+
+    .monument-kicker {
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--text-gold);
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1.15rem;
+      flex-wrap: wrap;
+    }
+
+    .lecture-monument h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 3.4rem;
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.018em;
+      color: var(--text-heading);
+      margin-bottom: 1.25rem;
+      overflow-wrap: break-word;
+    }
+
+    .lecture-monument h1 .gold-phrase {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    .monument-lead {
+      font-size: 1.16rem;
+      line-height: 1.72;
+      color: var(--text-secondary);
+      font-weight: 300;
+      max-width: 820px;
+      margin-bottom: 1.5rem;
+    }
+
+    .monument-clean-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.85rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.06em;
+    }
+
+    .clean-pill {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      padding: 0.22rem 0.65rem;
+      border-radius: 4px;
+      color: var(--text-gold);
+      white-space: nowrap;
+    }
+
+    .engraved-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 3.25rem 0 2rem;
+      color: var(--border-medium);
+      font-size: 0.75rem;
+    }
+
+    .engraved-divider::before, .engraved-divider::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(90deg, transparent, var(--border-medium), transparent);
+    }
+
+    .drop-cap {
+      float: left;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4.8rem;
+      line-height: 0.8;
+      padding-top: 4px;
+      padding-right: 12px;
+      padding-bottom: 2px;
+      color: var(--text-gold);
+      font-weight: 700;
+      text-shadow: 0 0 15px var(--border-glow);
+    }
+
+    .content-area {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .content-area h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2.3rem;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--text-heading);
+      margin-top: 4rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid var(--border-subtle);
+      scroll-margin-top: 2rem;
+      position: relative;
+      overflow-wrap: break-word;
+    }
+
+    .content-area h2::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 80px;
+      height: 2px;
+      background: var(--gold-gradient);
+    }
+
+    .content-area h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .content-area h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.65rem;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--text-gold-bright);
+      margin-top: 2.75rem;
+      margin-bottom: 0.85rem;
+      scroll-margin-top: 2rem;
+      overflow-wrap: break-word;
+    }
+
+    .content-area p {
+      margin-bottom: 1.25rem;
+      color: var(--text-main);
+      font-size: 1.02rem;
+    }
+
+    .content-area ul, .content-area ol {
+      margin: 0.75rem 0 1.4rem 1.85rem;
+      color: var(--text-main);
+    }
+
+    .content-area li {
+      margin-bottom: 0.45rem;
+    }
+
+    /* Смысловые вельветовые платы (Callouts) */
+    .callout {
+      position: relative;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-left: 4.5px solid var(--callout-accent, var(--accent-gold));
+      border-radius: 10px;
+      padding: 1.45rem 1.75rem;
+      margin: 2.25rem 0;
+      box-shadow: var(--shadow-ambient), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      break-inside: avoid;
+      page-break-inside: avoid;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .callout::after {
+      content: "✦";
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      font-size: 0.75rem;
+      color: var(--callout-accent, var(--accent-gold));
+      opacity: 0.65;
+      pointer-events: none;
+    }
+
+    .callout-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.65rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(229, 184, 66, 0.12);
+      flex-wrap: wrap;
+    }
+
+    .callout-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--callout-accent, var(--accent-gold));
+      flex-shrink: 0;
+    }
+
+    .callout-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      line-height: 1.3;
+      min-width: 0;
+    }
+
+    .callout-body {
+      font-size: 0.98rem;
+      line-height: 1.76;
+      color: var(--text-main);
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .callout-body > *:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Варианты плат */
+    .callout-def {
+      --callout-accent: var(--def-accent);
+      background: var(--def-bg);
+      border-color: rgba(59, 130, 246, 0.32);
+      border-left-color: var(--def-accent);
+    }
+
+    .callout-thm {
+      --callout-accent: var(--thm-accent);
+      background: var(--thm-bg);
+      border-color: rgba(16, 185, 129, 0.32);
+      border-left-color: var(--thm-accent);
+    }
+
+    .callout-remark {
+      --callout-accent: var(--remark-accent);
+      background: var(--remark-bg);
+      border-color: rgba(217, 119, 6, 0.32);
+      border-left-color: var(--remark-accent);
+    }
+
+    .callout-warn {
+      --callout-accent: var(--warn-accent);
+      background: var(--warn-bg);
+      border-color: rgba(225, 29, 72, 0.32);
+      border-left-color: var(--warn-accent);
+    }
+
+    .callout-example {
+      --callout-accent: var(--example-accent);
+      background: var(--example-bg);
+      border-color: rgba(139, 92, 246, 0.32);
+      border-left-color: var(--example-accent);
+    }
+
+    /* Сворачиваемое доказательство */
+    details.proof-block {
+      background: var(--proof-bg);
+      border: 1px solid var(--border-medium);
+      border-radius: 8px;
+      margin: 1.6rem 0;
+      padding: 1rem 1.45rem;
+      font-size: 0.96rem;
+      line-height: 1.76;
+      position: relative;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    details.proof-block summary {
+      cursor: pointer;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      color: var(--text-gold);
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      user-select: none;
+      outline: none;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    details.proof-block summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.proof-block summary::before {
+      content: "◈";
+      display: inline-block;
+      transition: transform 0.2s ease;
+      font-size: 0.88rem;
+      color: var(--accent-gold-bright);
+    }
+
+    details.proof-block[open] summary::before {
+      transform: rotate(90deg);
+    }
+
+    details.proof-block .proof-content {
+      margin-top: 0.95rem;
+      padding-top: 0.95rem;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      min-width: 0;
+    }
+
+    .qed {
+      float: right;
+      font-size: 1.15em;
+      color: var(--accent-gold);
+      margin-left: 0.5rem;
+    }
+
+    /* Монолитная формула-герой */
+    .formula-hero {
+      position: relative;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: 8px;
+      padding: 1.35rem 2.2rem;
+      margin: 1.85rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-gold), inset 0 1px 0 rgba(255,255,255,0.03);
+      break-inside: avoid;
+      page-break-inside: avoid;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .formula-hero .formula-num {
+      position: absolute;
+      right: 1.4rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-gold);
+      pointer-events: none;
+    }
+
+    .formula-copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      opacity: 0;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-medium);
+      border-radius: 4px;
+      padding: 0.25rem 0.55rem;
+      font-size: 0.7rem;
+      font-family: 'Cinzel', serif;
+      color: var(--text-gold);
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      z-index: 5;
+    }
+
+    .formula-hero:hover .formula-copy-btn {
+      opacity: 1;
+    }
+
+    .formula-copy-btn:hover {
+      background: var(--accent-gold-soft);
+      border-color: var(--accent-gold);
+      color: var(--text-gold-bright);
+    }
+
+    /* Векторная иллюстрация / диаграмма (SVG) */
+    .figure-card {
+      background: var(--svg-bg);
+      border: 1px solid var(--border-medium);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin: 2.5rem 0;
+      text-align: center;
+      box-shadow: var(--shadow-ambient);
+      position: relative;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .figure-card::before {
+      content: "✦";
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      font-size: 0.75rem;
+      color: var(--accent-gold);
+      opacity: 0.5;
+    }
+
+    .figure-card::after {
+      content: "✦";
+      position: absolute;
+      bottom: 10px;
+      right: 12px;
+      font-size: 0.75rem;
+      color: var(--accent-gold);
+      opacity: 0.5;
+    }
+
+    .figure-svg-container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .figure-svg-container svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-width: 100%;
+    }
+
+    .figure-caption {
+      margin-top: 1.15rem;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .figure-caption strong {
+      font-family: 'Cinzel', serif;
+      color: var(--text-gold);
+      letter-spacing: 0.06em;
+    }
+
+    /* Сводная таблица с защитой от вылета за границы экрана */
+    .table-box {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 2.25rem 0;
+      border: 1px solid var(--border-medium);
+      border-radius: 8px;
+      background: var(--bg-surface);
+      box-shadow: var(--shadow-ambient);
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .table-box::-webkit-scrollbar {
+      height: 5px;
+    }
+    .table-box::-webkit-scrollbar-thumb {
+      background: var(--border-medium);
+      border-radius: 99px;
+    }
+
+    .academic-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.94rem;
+      text-align: left;
+      min-width: 520px; /* Чтобы не сжималась в кашу на мобилках */
+    }
+
+    .academic-table th {
+      background-color: var(--bg-surface-elevated);
+      color: var(--text-gold);
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      padding: 0.95rem 1.25rem;
+      border-bottom: 2px solid var(--border-strong);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .academic-table td {
+      padding: 0.95rem 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      vertical-align: top;
+    }
+
+    .academic-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .academic-table tr:hover td {
+      background-color: var(--accent-gold-soft);
+    }
+
+    /* Итоговая скрижаль выводов */
+    .key-takeaways {
+      position: relative;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 12px;
+      padding: 2rem 2.25rem;
+      margin: 3.5rem 0;
+      box-shadow: var(--shadow-gold);
+      break-inside: avoid;
+      page-break-inside: avoid;
+      min-width: 0;
+    }
+
+    .key-takeaways-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-gold);
+      margin-bottom: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .key-takeaways ul {
+      margin: 0 0 0 1.45rem;
+    }
+
+    .key-takeaways li {
+      margin-bottom: 0.65rem;
+      font-size: 0.98rem;
+    }
+
+    /* ==========================================================================
+       6. KATEX: СТРОГАЯ ИЗОЛЯЦИЯ И ЗАЩИТА ОТ ВЫЛЕТА МАТЕМАТИКИ
+       ========================================================================== */
+    .katex {
+      color: var(--text-heading);
+      font-size: 1.05em;
+      text-rendering: auto;
+    }
+
+    /* Строгий скролл контейнер для длинных уравнений */
+    .katex-display {
+      display: block;
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+      max-width: 100% !important;
+      padding: 0.55rem 0.25rem;
+      margin: 0.85rem 0 !important;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .katex-display::-webkit-scrollbar {
+      height: 4px;
+    }
+    .katex-display::-webkit-scrollbar-thumb {
+      background: var(--border-medium);
+      border-radius: 99px;
+    }
+
+    /* Защита от деления слов внутри формул */
+    .katex-html {
+      white-space: nowrap;
+    }
+
+    /* ==========================================================================
+       7. ИДЕАЛЬНЫЙ ЭКСПОРТ В PDF И ПЕЧАТЬ (@MEDIA PRINT БЕЗ РАЗРЫВОВ И С БЕЛЫМ ЛИСТОМ)
+       ========================================================================== */
+    @page {
+      size: A4 portrait;
+      margin: 16mm 14mm 18mm 14mm;
+    }
+
+    @media print {
+      /* Принудительный перевод в книжный высококонтрастный режим для сохранения чернил */
+      *, *::before, *::after {
+        box-shadow: none !important;
+        text-shadow: none !important;
+        background-color: transparent !important;
+      }
+
+      body {
+        background: #ffffff !important;
+        color: #111111 !important;
+        font-size: 10.5pt;
+        line-height: 1.55;
+        max-width: 100% !important;
+        overflow: visible !important;
+      }
+
+      /* Скрытие всех элементов интерфейса */
+      .sidebar,
+      #reading-progress,
+      .floating-reading-dock,
+      .formula-copy-btn,
+      .toc-search-wrap {
+        display: none !important;
+      }
+
+      .layout-root {
+        display: block !important;
+        max-width: 100% !important;
+      }
+
+      .main-wrap {
+        padding: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+
+      /* Защита заголовков от отрыва от следующего текста (No orphan headings) */
+      h1, h2, h3, h4, .lecture-monument {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+        break-after: avoid-page !important;
+      }
+
+      /* Защита абзацев от висячих строк (Orphans / Widows) */
+      p {
+        orphans: 3;
+        widows: 3;
+      }
+
+      /* Защита блоков от разрыва пополам между страницами */
+      .callout,
+      .figure-card,
+      .table-box,
+      .formula-hero,
+      .key-takeaways,
+      details.proof-block,
+      tr {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        break-inside: avoid-page !important;
+        border: 1px solid #777777 !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+        margin: 1.2rem 0 !important;
+      }
+
+      /* Принудительное раскрытие доказательств в PDF */
+      details.proof-block {
+        display: block !important;
+      }
+
+      details.proof-block .proof-content {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        margin-top: 0.5rem !important;
+      }
+
+      /* Заголовки таблиц повторяются при переносе таблицы на новую страницу */
+      thead {
+        display: table-header-group !important;
+      }
+
+      /* Текст внутри таблиц и формул */
+      .academic-table th, .academic-table td {
+        color: #000000 !important;
+        border-color: #cccccc !important;
+      }
+
+      .table-box {
+        overflow: visible !important;
+      }
+
+      /* Цвет ключевых золотых фраз в печати — читаемый благородный темный графит */
+      .lecture-monument h1 .gold-phrase,
+      .text-gold,
+      .callout-tag,
+      .drop-cap {
+        color: #1a1a1a !important;
+        -webkit-text-fill-color: #1a1a1a !important;
+      }
+
+      /* Формулы в печати */
+      .katex {
+        color: #000000 !important;
+      }
+
+      .katex-display {
+        overflow-x: visible !important;
+      }
+
+      /* Защита ссылок: подавление автопечати URL в скобках */
+      a[href]::after {
+        content: none !important;
+      }
+      a {
+        color: #111111 !important;
+        text-decoration: none !important;
+      }
+
+      /* Специфика формул в блоке formula-hero при печати */
+      .formula-hero {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0.8rem 1.2rem !important;
+        background: #ffffff !important;
+        border: 1px solid #777777 !important;
+      }
+      .formula-hero .formula-num {
+        position: static !important;
+        color: #333333 !important;
+        font-size: 8.5pt !important;
+      }
+      .formula-hero .katex-display {
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      /* Разрывы таблиц: разделение между строками с сохранением шапки */
+      table {
+        break-inside: auto !important;
+      }
+      tr {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+      }
+      tfoot {
+        display: table-footer-group !important;
+      }
+
+      /* Масштаб векторных SVG при печати */
+      .figure-card {
+        padding: 1rem !important;
+      }
+      .figure-svg-container svg {
+        max-height: 220px !important;
+      }
+    }
+
+    /* ==========================================================================
+       8. МОБИЛЬНАЯ АДАПТАЦИЯ (MOBILE SAFEGUARDS)
+       ========================================================================== */
+    @media (max-width: 960px) {
+      .layout-root {
+        grid-template-columns: 1fr;
+      }
+      .layout-root.sidebar-collapsed {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 300px;
+        box-shadow: 0 0 50px rgba(0,0,0,0.9);
+        transform: translateX(-100%);
+        opacity: 0;
+        pointer-events: none;
+      }
+      .layout-root:not(.sidebar-collapsed) .sidebar {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .main-wrap {
+        padding: 4.5rem 1.25rem 5rem;
+      }
+      .lecture-monument h1 {
+        font-size: 2.3rem;
+      }
+      .floating-reading-dock {
+        top: 10px;
+        right: 10px;
+      }
+      .formula-hero {
+        padding: 1.2rem 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .formula-hero .formula-num {
+        position: static;
+        margin-top: 0.35rem;
+      }
+      .callout {
+        padding: 1.15rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="reading-progress"></div>
+
+  <!-- Парящий тулбар чтения -->
+  <nav class="floating-reading-dock" aria-label="Панель инструментов">
+    <button class="dock-btn active" id="dockTocToggleBtn" onclick="toggleSidebarDesk()">
+      <span>✦</span> Оглавление
+    </button>
+    <div class="dock-divider"></div>
+    <div class="theme-dock-group">
+      <button class="theme-pill-btn active" data-set-theme="caravaggio" title="Тема Караваджо">Караваджо</button>
+      <button class="theme-pill-btn" data-set-theme="marble" title="Тема Мрамор">Мрамор</button>
+      <button class="theme-pill-btn" data-set-theme="renaissance" title="Тема Сепия">Сепия</button>
+    </div>
+    <div class="dock-divider"></div>
+    <button class="dock-btn" onclick="window.print()" title="Распечатать или сохранить в PDF">
+      🖨 PDF
+    </button>
+  </nav>
+
+  <div class="layout-root" id="layoutRoot">
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="kicker-label">✦ НАВИГАЦИЯ ✦</div>
+        <h2 class="sidebar-title" id="sidebar-lecture">Плоскость и прямая в пространстве</h2>
+      </div>
+
+      <div class="toc-search-wrap">
+        <span class="toc-search-icon">🔍</span>
+        <input type="text" class="toc-search-input" id="tocSearch" placeholder="Поиск по разделам...">
+      </div>
+
+      <div class="toc-container">
+        <div class="toc-title-kicker">Разделы конспекта</div>
+        <nav class="toc-nav" id="tocNav">
+          <!-- Автоматическое оглавление -->
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="sidebar-gold-btn" onclick="toggleSidebarDesk()">
+          <span>✕</span> Скрыть панель
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-wrap">
+
+      <!-- Заглавная часть без дублирования навигации сайта -->
+      <header class="lecture-monument">
+        <div class="monument-kicker">
+          <span>✦ АНАЛИТИЧЕСКАЯ ГЕОМЕТРИЯ</span>
+          <span style="opacity: 0.4;">/</span>
+          <span>ЛЕКЦИЯ №06 ✦</span>
+        </div>
+
+        <h1 id="article-title">ПЛОСКОСТЬ И <span class="gold-phrase">ПРЯМАЯ В ПРОСТРАНСТВЕ</span></h1>
+        <p class="monument-lead" id="article-lead">
+          Исчерпывающее аналитическое руководство по многообразиям первой степени в пространстве $\mathbb{R}^3$. Строгий вывод векторно-параметрических, канонических и общих уравнений, взаимная ортогональность нормальных векторов и фундаментальные метрические соотношения.
+        </p>
+
+        <div class="monument-clean-meta">
+          <span class="clean-pill">Аналитическая Геометрия</span>
+          <span>•</span>
+          <span>14 октября 2026</span>
+        </div>
+      </header>
+
+      <article class="content-area" id="lectureContent">
+
+        <h2>1. Аффинная теория плоскости в пространстве</h2>
+        
+        <p>
+          <span class="drop-cap">В</span> аффинном пространстве $\mathbb{A}^3$ геометрическое положение плоскости $\pi$ как двумерного линейного многообразия однозначно фиксируется точкой полюса $M_0$ и парой неколлинеарных направляющих векторов, порождающих двумерное подпространство $V^2 = \operatorname{span}\{\bar{a}, \bar{b}\}$.
+        </p>
+
+        <!-- Определение (Сапфировый бархат с золотым тиснением) -->
+        <div class="callout callout-def">
+          <div class="callout-header">
+            <span class="callout-tag">Определение 6.1</span>
+            <span class="callout-title">Векторно-параметрическое задание плоскости</span>
+          </div>
+          <div class="callout-body">
+            Пусть $M_0(\bar{r}_0)$ — фиксированная точка плоскости $\pi$, а векторы $\bar{a}$ и $\bar{b}$ неколлинеарны ($\bar{a} \nparallel \bar{b}$) и параллельны $\pi$. Точка $M(\bar{r})$ принадлежит плоскости $\pi$ тогда и только тогда, когда вектор смещения $\vec{M_0 M} = \bar{r} - \bar{r}_0$ компланарен базису $\{\bar{a}, \bar{b}\}$:
+            $$\bar{r} = \bar{r}_0 + u\,\bar{a} + v\,\bar{b}, \quad \text{где } u, v \in \mathbb{R}.$$
+          </div>
+        </div>
+
+        <!-- Гравюра-иллюстрация: Векторно-параметрическое задание -->
+        <figure class="figure-card">
+          <div class="figure-svg-container">
+            <svg viewBox="0 0 740 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Векторно-параметрическое уравнение плоскости">
+              <defs>
+                <marker id="arr-gold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--svg-stroke-gold)"/>
+                </marker>
+                <marker id="arr-cyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--svg-stroke-cyan)"/>
+                </marker>
+                <marker id="arr-emerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--svg-stroke-emerald)"/>
+                </marker>
+              </defs>
+
+              <g stroke="var(--svg-grid)" stroke-width="1" stroke-dasharray="3 3">
+                <line x1="30" y1="75" x2="710" y2="75"/>
+                <line x1="30" y1="150" x2="710" y2="150"/>
+                <line x1="30" y1="225" x2="710" y2="225"/>
+                <circle cx="370" cy="150" r="130" fill="none" stroke="var(--svg-grid)" stroke-width="0.7" opacity="0.6"/>
+              </g>
+
+              <polygon points="170,235 570,205 650,85 250,115" fill="var(--svg-fill-gold)" stroke="var(--svg-stroke-gold)" stroke-width="1.6" stroke-dasharray="7 4"/>
+
+              <circle cx="300" cy="180" r="4.5" fill="var(--svg-stroke-gold)"/>
+              <text x="270" y="200" font-family="'Cormorant Garamond', Georgia, serif" font-style="italic" font-size="18" fill="var(--text-gold)">M₀(r₀)</text>
+
+              <line x1="300" y1="180" x2="445" y2="170" stroke="var(--svg-stroke-gold)" stroke-width="2.5" marker-end="url(#arr-gold)"/>
+              <text x="390" y="160" font-family="'Cormorant Garamond', Georgia, serif" font-weight="700" font-style="italic" font-size="18" fill="var(--text-gold)">a</text>
+
+              <line x1="300" y1="180" x2="355" y2="125" stroke="var(--svg-stroke-emerald)" stroke-width="2.5" marker-end="url(#arr-emerald)"/>
+              <text x="320" y="135" font-family="'Cormorant Garamond', Georgia, serif" font-weight="700" font-style="italic" font-size="18" fill="var(--text-emerald)">b</text>
+
+              <line x1="300" y1="180" x2="300" y2="60" stroke="var(--svg-stroke-cyan)" stroke-width="2.5" marker-end="url(#arr-cyan)"/>
+              <text x="312" y="75" font-family="'Cormorant Garamond', Georgia, serif" font-weight="700" font-style="italic" font-size="18" fill="var(--text-cyan)">n = [a, b]</text>
+
+              <line x1="300" y1="180" x2="520" y2="135" stroke="var(--svg-axis)" stroke-width="1.8" stroke-dasharray="5 3"/>
+              <circle cx="520" cy="135" r="4.5" fill="var(--svg-stroke-cyan)"/>
+              <text x="535" y="138" font-family="'Cormorant Garamond', Georgia, serif" font-style="italic" font-size="18" fill="var(--text-heading)">M(r = r₀ + ua + vb)</text>
+            </svg>
+          </div>
+          <figcaption class="figure-caption">
+            <strong>ГРАВЮРА 6.1.</strong> Геометрическая конфигурация плоскости $\pi \subset \mathbb{R}^3$: ориентация подпространства базисом $\{\bar{a}, \bar{b}\}$ и единым ортогональным вектором нормали $\bar{n} = [\bar{a} \times \bar{b}]$.
+          </figcaption>
+        </figure>
+
+        <h3>Параметрическая система в координатном базисе</h3>
+        <p>
+          Введение декартовой системы координат $Oxyz$ позволяет проецировать векторное уравнение на базисные орты $\mathbf{i}, \mathbf{j}, \mathbf{k}$, порождая фундаментальную систему трех линейных уравнений с двумя степенями свободы:
+        </p>
+
+        <!-- Монолитная формула-герой -->
+        <div class="formula-hero" data-latex="\begin{cases} x = x_0 + a_1 u + b_1 v \\ y = y_0 + a_2 u + b_2 v \\ z = z_0 + a_3 u + b_3 v \end{cases}">
+          $$\begin{cases}
+            x = x_0 + a_1 u + b_1 v, \\
+            y = y_0 + a_2 u + b_2 v, \\
+            z = z_0 + a_3 u + b_3 v,
+          \end{cases} \qquad (u, v \in \mathbb{R}).$$
+          <span class="formula-num">§ 6.1</span>
+        </div>
+
+        <!-- Теорема (Малахитовый бархат с золотым тиснением) -->
+        <div class="callout callout-thm">
+          <div class="callout-header">
+            <span class="callout-tag">Теорема 6.1</span>
+            <span class="callout-title">Критерий общего уравнения плоскости в евклидовом пространстве</span>
+          </div>
+          <div class="callout-body">
+            Всякое линейное уравнение первой степени относительно декартовых координат:
+            $$Ax + By + Cz + D = 0, \quad \text{при условии } A^2 + B^2 + C^2 \neq 0,$$
+            задает в $\mathbb{R}^3$ некоторую плоскость $\pi$. Коэффициенты при переменных образуют координаты вектора нормали $\bar{n} = (A, B, C) \perp \pi$.
+          </div>
+        </div>
+
+        <!-- Сворачиваемое доказательство -->
+        <details class="proof-block">
+          <summary>Строгое доказательство теоремы 6.1</summary>
+          <div class="proof-content">
+            <p>
+              <strong>Необходимость:</strong> Пусть плоскость $\pi$ проходит через точку $M_0(x_0, y_0, z_0)$ и ортогональна ненулевому вектору $\bar{n} = (A, B, C)$.
+            </p>
+            <p>
+              Точка $M(x, y, z)$ лежит на плоскости $\pi \iff \vec{M_0 M} \perp \bar{n} \iff (\vec{M_0 M}, \bar{n}) = 0$:
+              $$A(x - x_0) + B(y - y_0) + C(z - z_0) = 0.$$
+            </p>
+            <p>
+              Раскрывая скобки и полагая $D \equiv -(Ax_0 + By_0 + Cz_0)$, получаем $Ax + By + Cz + D = 0$. Условие $A^2 + B^2 + C^2 > 0$ гарантирует, что $\bar{n} \neq \bar{0}$.
+              <span class="qed">$\blacksquare$</span>
+            </p>
+          </div>
+        </details>
+
+        <!-- Интуиция Караваджо (Янтарная плата) -->
+        <div class="callout callout-remark">
+          <div class="callout-header">
+            <span class="callout-tag">Интуиция Караваджо</span>
+            <span class="callout-title">Геометрическая интерпретация свободного члена D</span>
+          </div>
+          <div class="callout-body">
+            Величина $D$ характеризует параллельный сдвиг плоскости от начала координат $O(0,0,0)$. В нормированном уравнении $x\cos\alpha + y\cos\beta + z\cos\gamma - p = 0$ свободный член равен ориентированному расстоянию $p \ge 0$ от полюса $O$ до плоскости по направлению единичной нормали.
+          </div>
+        </div>
+
+        <!-- Ловушка коллоквиума (Рубиновый бархат) -->
+        <div class="callout callout-warn">
+          <div class="callout-header">
+            <span class="callout-tag">Ловушка коллоквиума</span>
+            <span class="callout-title">Вырождение направляющего ранга матрицы</span>
+          </div>
+          <div class="callout-body">
+            При составлении уравнения плоскости через три точки $M_1, M_2, M_3$ необходимо предварительно убедиться в линейной независимости векторов $\vec{M_1 M_2}$ и $\vec{M_1 M_3}$. Если они коллинеарны, определитель третьего порядка обратится в нуль тождественно, а ранг упадет до 1, порождая прямую, а не плоскость.
+          </div>
+        </div>
+
+        <div class="engraved-divider">✦ ──────── ◈ ──────── ✦</div>
+
+        <h2>2. Прямая линия как пересечение гиперплоскостей</h2>
+        <p>
+          Прямая линия в трехмерном евклидовом пространстве представляет собой одномерное многообразие. В алгебраическом представлении она задается совместной системой двух независимых уравнений первого порядка:
+        </p>
+
+        <!-- Пример с разбором (Аметистовый бархат) -->
+        <div class="callout callout-example">
+          <div class="callout-header">
+            <span class="callout-tag">Пример 6.1 (Экзаменационная задача)</span>
+            <span class="callout-title">Сведение общих уравнений прямой к канонической форме</span>
+          </div>
+          <div class="callout-body">
+            <p><strong>Постановка:</strong> Прямая задана пересечением двух плоскостей:</p>
+            $$\begin{cases} 2x - y + z - 3 = 0, \\ x + 2y - z + 1 = 0. \end{cases}$$
+            <p><strong>Аналитическое решение:</strong> Направляющий вектор прямой $\bar{a}$ перпендикулярен нормалям обеих плоскостей $\bar{n}_1 = (2, -1, 1)$ и $\bar{n}_2 = (1, 2, -1)$. Следовательно, он параллелен их векторному произведению:</p>
+            $$\bar{a} = [\bar{n}_1 \times \bar{n}_2] = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ 2 & -1 & 1 \\ 1 & 2 & -1 \end{vmatrix} = (-1, 3, 5).$$
+            <p>Полагая $z_0 = 0$, находим частную точку $M_0(1, -1, 0)$. Канонический вид прямой принимает форму:</p>
+            $$\frac{x - 1}{-1} = \frac{y + 1}{3} = \frac{z}{5}.$$
+          </div>
+        </div>
+
+        <h2>3. Сводная таблица аналитических представлений</h2>
+        <p>
+          Канонический справочник уравнений плоскости для оперативной подготовки к экзаменационным сессиям:
+        </p>
+
+        <!-- Сводная таблица -->
+        <div class="table-box">
+          <table class="academic-table">
+            <thead>
+              <tr>
+                <th>Форма уравнения</th>
+                <th>Аналитическое выражение</th>
+                <th>Геометрический инвариант</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Общее уравнение</strong></td>
+                <td>$Ax + By + Cz + D = 0$</td>
+                <td>Вектор нормали $\bar{n} = (A, B, C)$</td>
+              </tr>
+              <tr>
+                <td><strong>По точке и нормали</strong></td>
+                <td>$A(x - x_0) + B(y - y_0) + C(z - z_0) = 0$</td>
+                <td>Точка $M_0 \in \pi$ и нормаль $\bar{n}$</td>
+              </tr>
+              <tr>
+                <td><strong>Уравнение в отрезках</strong></td>
+                <td>$\frac{x}{a} + \frac{y}{b} + \frac{z}{c} = 1$</td>
+                <td>Отрезки $a, b, c$, отсекаемые на осях координат</td>
+              </tr>
+              <tr>
+                <td><strong>Через 3 заданные точки</strong></td>
+                <td>$\begin{vmatrix} x - x_1 & y - y_1 & z - z_1 \\ x_2 - x_1 & y_2 - y_1 & z_2 - z_1 \\ x_3 - x_1 & y_3 - y_1 & z_3 - z_1 \end{vmatrix} = 0$</td>
+                <td>Неколлинеарная тройка точек $M_1, M_2, M_3$</td>
+              </tr>
+              <tr>
+                <td><strong>Нормированное (Гессе)</strong></td>
+                <td>$x \cos\alpha + y \cos\beta + z \cos\gamma - p = 0$</td>
+                <td>Ориентированное расстояние $p \ge 0$ от полюса</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Итоговый блок-скрижаль -->
+        <div class="key-takeaways">
+          <div class="key-takeaways-title">
+            <span>✦</span> Ключевые фундаментальные инварианты лекции
+          </div>
+          <ul>
+            <li>Вектор нормали $\bar{n} = (A, B, C)$ определяет направление плоскости в евклидовом пространстве $\mathbb{R}^3$ с точностью до масштабного множителя $\lambda \neq 0$.</li>
+            <li>Расстояние от точки $M_0(x_0, y_0, z_0)$ до плоскости $Ax + By + Cz + D = 0$:
+              $$d = \frac{|Ax_0 + By_0 + Cz_0 + D|}{\sqrt{A^2 + B^2 + C^2}}.$$
+            </li>
+            <li>Прямая в пространстве не задается одним уравнением, требуя системы ранга 2 в коразмерности 1.</li>
+            <li>Угол между двумя плоскостями совпадает с углом между их нормальными векторами $\bar{n}_1$ и $\bar{n}_2$.</li>
+          </ul>
+        </div>
+
+      </article>
+
+    </main>
+
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+            // 1. Инициализация формул KaTeX с защитой от слёта рендера
+      function initAcademicKaTeX() {
+        if (!window.renderMathInElement) return false;
+        try {
+          renderMathInElement(document.body, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false}
+            ],
+            throwOnError: false
+          });
+          return true;
+        } catch (err) {
+          console.warn("KaTeX execution warning:", err);
+          return false;
+        }
+      }
+
+      if (!initAcademicKaTeX()) {
+        window.addEventListener("load", initAcademicKaTeX);
+      }
+
+      // 2. Переключатель стилей оформления
+      const themeBtns = document.querySelectorAll("[data-set-theme]");
+      const savedTheme = localStorage.getItem("fpm_academic_theme") || "caravaggio";
+      applyTheme(savedTheme);
+
+      themeBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const theme = btn.getAttribute("data-set-theme");
+          applyTheme(theme);
+          localStorage.setItem("fpm_academic_theme", theme);
+        });
+      });
+
+      function applyTheme(theme) {
+        document.documentElement.setAttribute("data-theme", theme);
+        themeBtns.forEach(b => {
+          b.classList.toggle("active", b.getAttribute("data-set-theme") === theme);
+        });
+      }
+
+      // 3. Автоматическое построение оглавления по h2 и h3
+      const content = document.getElementById("lectureContent");
+      const tocNav = document.getElementById("tocNav");
+      const headings = content.querySelectorAll("h2, h3");
+
+      headings.forEach((heading, idx) => {
+        if (!heading.id) {
+          heading.id = "sec-" + (idx + 1);
+        }
+        const a = document.createElement("a");
+        a.href = "#" + heading.id;
+        a.className = "toc-item " + (heading.tagName.toLowerCase() === "h3" ? "h3-item" : "h2-item");
+        a.textContent = heading.textContent.trim();
+        a.title = heading.textContent.trim();
+        a.setAttribute("data-target", heading.id);
+        tocNav.appendChild(a);
+      });
+
+      // 4. Живой поиск по оглавлению
+      const searchInput = document.getElementById("tocSearch");
+      if (searchInput) {
+        searchInput.addEventListener("input", function() {
+          const val = this.value.toLowerCase().trim();
+          const items = tocNav.querySelectorAll(".toc-item");
+          items.forEach(item => {
+            const match = item.textContent.toLowerCase().includes(val);
+            item.style.display = match ? "block" : "none";
+          });
+        });
+      }
+
+      // 5. ScrollSpy и индикатор чтения
+      const progressBar = document.getElementById("reading-progress");
+      const tocLinks = tocNav.querySelectorAll(".toc-item");
+
+      window.addEventListener("scroll", () => {
+        const winScroll = document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        progressBar.style.width = scrolled + "%";
+
+        let currentId = "";
+        headings.forEach(heading => {
+          const rect = heading.getBoundingClientRect();
+          if (rect.top <= 160) {
+            currentId = heading.id;
+          }
+        });
+
+        tocLinks.forEach(link => {
+          link.classList.toggle("active", link.getAttribute("data-target") === currentId);
+        });
+      }, { passive: true });
+
+      // 6. Копирование кода формул в LaTeX
+      const formulaHeroes = document.querySelectorAll(".formula-hero");
+      formulaHeroes.forEach(hero => {
+        const btn = document.createElement("button");
+        btn.className = "formula-copy-btn";
+        btn.textContent = "LaTeX";
+        btn.title = "Скопировать формулу в буфер обмена";
+        btn.addEventListener("click", () => {
+          const raw = hero.getAttribute("data-latex") || hero.innerText;
+          navigator.clipboard.writeText(raw).then(() => {
+            btn.textContent = "Скопировано!";
+            setTimeout(() => { btn.textContent = "LaTeX"; }, 2000);
+          });
+        });
+        hero.appendChild(btn);
+      });
+
+      // 7. Защита PDF: При открытии диалога печати автоматически разворачиваем все доказательства
+      window.addEventListener("beforeprint", () => {
+        document.querySelectorAll("details.proof-block").forEach(d => {
+          d.setAttribute("data-was-closed", !d.hasAttribute("open"));
+          d.setAttribute("open", "");
+        });
+      });
+
+      window.addEventListener("afterprint", () => {
+        document.querySelectorAll("details.proof-block").forEach(d => {
+          if (d.getAttribute("data-was-closed") === "true") {
+            d.removeAttribute("open");
+          }
+          d.removeAttribute("data-was-closed");
+        });
+      });
+
+    });
+
+    // Сворачивание и разворачивание сайдбара
+    function toggleSidebarDesk() {
+      const layout = document.getElementById("layoutRoot");
+      const btn = document.getElementById("dockTocToggleBtn");
+      layout.classList.toggle("sidebar-collapsed");
+      const isCollapsed = layout.classList.contains("sidebar-collapsed");
+      if (btn) {
+        btn.classList.toggle("active", !isCollapsed);
+      }
+    }
+  </script>
+</body>
+</html>
