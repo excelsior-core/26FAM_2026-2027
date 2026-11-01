@@ -312,7 +312,7 @@ def generate_lecture_8_body():
           <p>Условие $(\\varepsilon_k)^m = 1$ равносильно тому, что аргумент кратен $2\\pi$:</p>
           $$\\frac{2\\pi k m}{n} = 2\\pi t \\; (t \\in \\mathbb{Z}) \\iff k m = n t \\iff n \\mid k m.$$
 
-          <p><strong>Необходимость ($\\\\implies$):</strong></p>
+          <p><strong>Необходимость ($\implies$):</strong></p>
           <p>Пусть $\\varepsilon_k$ — первообразный корень. Предположим противное: $\\gcd(k, n) = d > 1$.</p>
           <p>Тогда $n = n_1 d$ и $k = k_1 d$, где $n_1 = \\frac{n}{d} < n$.</p>
           <p>Возведем $\\varepsilon_k$ в степень $n_1$:</p>
@@ -320,7 +320,7 @@ def generate_lecture_8_body():
           <p>Но $0 < n_1 < n$, что противоречит определению первообразного корня (он не может давать 1 в степени, меньшей $n$).</p>
           <p>Следовательно, предположение неверно, и $\\gcd(k, n) = 1$.</p>
 
-          <p><strong>Достаточность ($\\\\impliedby$):</strong></p>
+          <p><strong>Достаточность ($\impliedby$):</strong></p>
           <p>Пусть $\\gcd(k, n) = 1$. Предположим, что $(\\varepsilon_k)^m = 1$ для некоторого $m \\in \\mathbb{N}$.</p>
           <p>Тогда $n \\mid km$. Но числа $k$ и $n$ взаимно просты! По лемме Евклида, если $n$ делит $km$ и $\\gcd(k, n) = 1$, то $n$ обязано делить $m$ ($n \\mid m$).</p>
           <p>Отсюда следует, что $m \\ge n$. Значит, ни для какого $0 < m < n$ равенство $(\\varepsilon_k)^m = 1$ невозможно. По определению, корень $\\varepsilon_k$ первообразный!</p>
@@ -428,12 +428,18 @@ def convert_lecture(meta):
         print(f"[{meta['number']}] Generated Lecture 8: {out_file} ({len(full_html)} bytes)")
         return
 
-    # Для остальных лекций читаем исходный HTML
-    src_file = out_file
-    if not os.path.exists(src_file):
-        htmls = [f for f in os.listdir(folder_path) if f.endswith(".html")]
+    # Для остальных лекций читаем исходный HTML (предпочитаем чистый .orig)
+    orig_file = out_file + ".orig"
+    if os.path.exists(orig_file):
+        src_file = orig_file
+    elif os.path.exists(out_file):
+        src_file = out_file
+    else:
+        htmls = [f for f in os.listdir(folder_path) if f.endswith(".html") and not f.endswith(".orig")]
         if htmls:
             src_file = os.path.join(folder_path, htmls[0])
+        else:
+            src_file = out_file
     
     with open(src_file, "r", encoding="utf-8") as f:
         src_html = f.read()
@@ -491,11 +497,13 @@ def convert_lecture(meta):
         return
     body = main_m.group(1)
 
-    # Удаляем старые шапки и оглавления
-    body = re.sub(r'<header>.*?</header>', '', body, flags=re.DOTALL)
-    body = re.sub(r'<nav class="printable-toc".*?</nav>', '', body, flags=re.DOTALL)
-    body = re.sub(r'<nav class="toc".*?</nav>', '', body, flags=re.DOTALL)
-    body = re.sub(r'<div class="printable-toc-box".*?</div>\s*</div>', '', body, flags=re.DOTALL)
+    # Удаляем старые шапки и оглавления (включая doc-header, print-toc-container, printable-toc)
+    body = re.sub(r'<header[^>]*>.*?</header>', '', body, flags=re.DOTALL | re.IGNORECASE)
+    body = re.sub(r'<section[^>]*class="[^"]*print-toc[^"]*"[^>]*>.*?</section>', '', body, flags=re.DOTALL | re.IGNORECASE)
+    body = re.sub(r'<section[^>]*id="document-toc"[^>]*>.*?</section>', '', body, flags=re.DOTALL | re.IGNORECASE)
+    body = re.sub(r'<div[^>]*class="[^"]*print-toc[^"]*"[^>]*>.*?</div\s*>', '', body, flags=re.DOTALL | re.IGNORECASE)
+    body = re.sub(r'<div[^>]*class="printable-toc-box"[^>]*>.*?</div>\s*</div>', '', body, flags=re.DOTALL | re.IGNORECASE)
+    body = re.sub(r'<nav[^>]*>.*?</nav>', '', body, flags=re.DOTALL | re.IGNORECASE)
 
     # Преобразуем доказательства с помощью сбалансированного парсера
     proof_pattern = re.compile(

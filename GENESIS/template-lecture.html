@@ -895,6 +895,8 @@
       page-break-inside: avoid;
       min-width: 0;
       max-width: 100%;
+      overflow: hidden; /* Гарантирует невылет содержимого и знаков Q.E.D. за пределы карточки */
+      box-sizing: border-box;
     }
 
     details.proof-block summary {
@@ -934,13 +936,32 @@
       border-top: 1px solid var(--border-subtle);
       color: var(--text-main);
       min-width: 0;
+      display: flow-root; /* Block Formatting Context: содержит плавающие элементы float (знак Q.E.D.) внутри */
+      box-sizing: border-box;
+    }
+
+    details.proof-block .proof-content::after {
+      content: "";
+      display: table;
+      clear: both;
     }
 
     .qed {
       float: right;
       font-size: 1.15em;
-      color: var(--accent-gold);
+      line-height: 1;
+      color: var(--accent-gold) !important;
       margin-left: 0.5rem;
+      margin-top: 0.25rem;
+      margin-bottom: 0.25rem;
+      display: inline-flex;
+      align-items: center;
+      user-select: none;
+    }
+
+    .qed .katex, .qed .mord, .qed svg {
+      color: var(--accent-gold) !important;
+      fill: var(--accent-gold) !important;
     }
 
     /* Монолитная формула-герой */
