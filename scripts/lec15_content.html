@@ -155,47 +155,102 @@
 
         <!-- Научная гравюра SVG: Равномерная непрерывность vs Осцилляции -->
         <figure class="figure-card">
-          <div class="figure-svg-container">
-            <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Сравнение равномерной непрерывности и высокочастотной сингулярности">
-              <!-- Левая часть: Полоса Кантора (равномерная непрерывность) -->
-              <rect x="30" y="25" width="330" height="250" rx="8" fill="var(--svg-bg)" stroke="var(--border-subtle)" stroke-width="1"/>
-              <text x="50" y="50" font-family="'Cinzel', serif" font-size="13" font-weight="700" fill="var(--text-gold)">А. РАВНОМЕРНАЯ НЕПРЕРЫВНОСТЬ</text>
+  <div class="figure-svg-container">
+    <svg viewBox="0 0 760 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Равномерная непрерывность против осцилляций">
+      <defs>
+        <marker id="arr-axis2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"/>
+        </marker>
+        <linearGradient id="grad-cantor-box" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="var(--accent-gold)" stop-opacity="0.22"/>
+          <stop offset="100%" stop-color="var(--accent-gold)" stop-opacity="0.06"/>
+        </linearGradient>
+      </defs>
 
-              <line x1="50" y1="230" x2="330" y2="230" stroke="var(--svg-axis)" stroke-width="1.5"/>
-              <line x1="70" y1="60" x2="70" y2="250" stroke="var(--svg-axis)" stroke-width="1.5"/>
+      <!-- ================= ПАНЕЛЬ А: ОКНО БЕЗОПАСНОСТИ КАНТОРА ================= -->
+      <g id="panel-cantor">
+        <rect x="25" y="20" width="345" height="270" rx="10" fill="var(--svg-bg)" stroke="var(--border-subtle)" stroke-width="1.2"/>
+        <text x="45" y="46" font-family="'Cinzel', serif" font-size="12.5" font-weight="700" letter-spacing="0.08em" fill="var(--text-gold)">
+          ✦ А. РАВНОМЕРНАЯ НЕПРЕРЫВНОСТЬ
+        </text>
 
-              <!-- Плавная кривая -->
-              <path d="M 80,210 Q 180,170 310,90" fill="none" stroke="var(--svg-stroke-gold)" stroke-width="2.5"/>
+        <!-- Оси -->
+        <line x1="50" y1="235" x2="345" y2="235" stroke="var(--svg-axis)" stroke-width="1.5" marker-end="url(#arr-axis2)"/>
+        <line x1="75" y1="255" x2="75" y2="55" stroke="var(--svg-axis)" stroke-width="1.5" marker-end="url(#arr-axis2)"/>
+        <text x="345" y="248" font-family="'Cormorant Garamond', serif" font-size="17" font-style="italic" fill="var(--svg-text)">x</text>
+        <text x="63" y="62" font-family="'Cormorant Garamond', serif" font-size="17" font-style="italic" fill="var(--svg-text)">y</text>
 
-              <!-- Окрестностный прямоугольник 2δ x 2ε -->
-              <rect x="170" y="125" width="60" height="50" fill="var(--svg-fill-gold)" stroke="var(--svg-stroke-gold)" stroke-width="1.5" stroke-dasharray="3 3"/>
-              <circle cx="200" cy="150" r="4" fill="var(--svg-stroke-gold)"/>
-              <text x="238" y="155" font-family="'Cormorant Garamond', serif" font-size="14" fill="var(--text-gold)">2ε</text>
-              <text x="190" y="190" font-family="'Cormorant Garamond', serif" font-size="14" fill="var(--text-gold)">2δ</text>
-              <text x="60" y="260" font-family="'Cormorant Garamond', serif" font-size="12" font-style="italic" fill="var(--text-muted)">Окно 2δ×2ε удерживает график при любом сдвиге</text>
+        <!-- График функции -->
+        <path d="M 75.0,188.8 L 78.1,185.5 L 81.2,182.2 L 84.3,179.0 L 87.4,175.7 L 90.5,172.5 L 93.6,169.3 L 96.7,166.1 L 99.8,162.9 L 102.9,159.8 L 106.0,156.7 L 109.1,153.7 L 112.2,150.7 L 115.3,147.7 L 118.4,144.8 L 121.5,141.9 L 124.6,139.1 L 127.7,136.3 L 130.8,133.6 L 133.9,130.9 L 137.0,128.3 L 140.1,125.8 L 143.2,123.3 L 146.3,120.9 L 149.4,118.5 L 152.5,116.2 L 155.6,114.0 L 158.7,111.9 L 161.8,109.8 L 164.9,107.8 L 168.0,105.9 L 171.1,104.0 L 174.2,102.2 L 177.3,100.5 L 180.4,98.9 L 183.5,97.4 L 186.6,96.0 L 189.7,94.6 L 192.8,93.3 L 195.9,92.2 L 199.1,91.1 L 202.2,90.1 L 205.3,89.1 L 208.4,88.3 L 211.5,87.6 L 214.6,86.9 L 217.7,86.4 L 220.8,85.9 L 223.9,85.6 L 227.0,85.3 L 230.1,85.1 L 233.2,85.0 L 236.3,85.0 L 239.4,85.1 L 242.5,85.3 L 245.6,85.6 L 248.7,86.0 L 251.8,86.4 L 254.9,87.0 L 258.0,87.7 L 261.1,88.4 L 264.2,89.2 L 267.3,90.2 L 270.4,91.2 L 273.5,92.3 L 276.6,93.5 L 279.7,94.8 L 282.8,96.1 L 285.9,97.6 L 289.0,99.1 L 292.1,100.7 L 295.2,102.4 L 298.3,104.2 L 301.4,106.1 L 304.5,108.0 L 307.6,110.0 L 310.7,112.1 L 313.8,114.3 L 316.9,116.5 L 320.0,118.8" fill="none" stroke="var(--svg-stroke-gold)" stroke-width="2.6" stroke-linecap="round"/>
 
-              <!-- Правая часть: Осцилляции sin(1/x) -->
-              <rect x="400" y="25" width="330" height="250" rx="8" fill="var(--svg-bg)" stroke="var(--border-subtle)" stroke-width="1"/>
-              <text x="420" y="50" font-family="'Cinzel', serif" font-size="13" font-weight="700" fill="var(--warn-accent)">Б. СИНГУЛЯРНОСТЬ y = sin(1/x)</text>
+        <!-- Прямоугольник безопасности Кантора 2delta x 2epsilon -->
+        <!-- Центр: (195, 145) -->
+        <rect x="155" y="115" width="80" height="60" rx="4" fill="url(#grad-cantor-box)" stroke="var(--accent-gold)" stroke-width="1.6" stroke-dasharray="4 3"/>
+        <circle cx="195" cy="145" r="4.5" fill="var(--text-gold-bright)"/>
 
-              <line x1="420" y1="150" x2="700" y2="150" stroke="var(--svg-axis)" stroke-width="1.5"/>
-              <line x1="440" y1="60" x2="440" y2="250" stroke="var(--svg-axis)" stroke-width="1.5"/>
+        <!-- Стрелки размеров 2delta и 2epsilon -->
+        <line x1="155" y1="183" x2="235" y2="183" stroke="var(--text-gold)" stroke-width="1.2"/>
+        <circle cx="155" cy="183" r="1.5" fill="var(--text-gold)"/>
+        <circle cx="235" cy="183" r="1.5" fill="var(--text-gold)"/>
+        <text x="185" y="197" font-family="'Cormorant Garamond', serif" font-size="13" font-style="italic" fill="var(--text-gold)">2δ(ε)</text>
 
-              <!-- График осцилляций около нуля -->
-              <path d="M 445,150 L 447,70 L 449,230 L 452,70 L 456,230 L 462,75 L 472,225 L 490,80 L 520,215 L 570,95 L 640,180 L 690,150" fill="none" stroke="var(--svg-stroke-cyan)" stroke-width="2"/>
+        <line x1="243" y1="115" x2="243" y2="175" stroke="var(--text-gold)" stroke-width="1.2"/>
+        <circle cx="243" cy="115" r="1.5" fill="var(--text-gold)"/>
+        <circle cx="243" cy="175" r="1.5" fill="var(--text-gold)"/>
+        <text x="250" y="149" font-family="'Cormorant Garamond', serif" font-size="13" font-style="italic" fill="var(--text-gold)">2ε</text>
 
-              <!-- Две сближающиеся точки x' и x'' с разрывом ε0 = 1 -->
-              <line x1="452" y1="70" x2="456" y2="230" stroke="var(--warn-border)" stroke-width="1.5" stroke-dasharray="2 2"/>
-              <circle cx="452" cy="70" r="3.5" fill="var(--warn-accent)"/>
-              <circle cx="456" cy="230" r="3.5" fill="var(--warn-accent)"/>
-              <text x="465" y="145" font-family="'Cormorant Garamond', serif" font-size="13" font-weight="700" fill="var(--warn-accent)">|Δf| = 2 ≥ ε₀</text>
-              <text x="420" y="260" font-family="'Cormorant Garamond', serif" font-size="12" font-style="italic" fill="var(--text-muted)">|x' - x''| → 0, но размах колебаний не затухает</text>
-            </svg>
-          </div>
-          <figcaption class="figure-caption">
-            <strong>ГРАВЮРА 15.1.</strong> Геометрическая природа равномерной непрерывности. Слева: «прямоугольник безопасности Кантора» фиксированного размера $2\delta \times 2\varepsilon$ скользит вдоль графика, не позволяя кривой пересечь его горизонтальные грани. Справа: у функции $\sin(1/x)$ около нуля частота осцилляций уходит в бесконечность, делая невозможным выбор единого $\delta$.
-          </figcaption>
-        </figure>
+        <!-- Поясняющий текст -->
+        <text x="55" y="278" font-family="'Cormorant Garamond', serif" font-size="12.5" font-style="italic" fill="var(--text-secondary)">
+          Окно 2δ×2ε скользит по кривой: график не выходит через горизонтали
+        </text>
+      </g>
+
+      <!-- ================= ПАНЕЛЬ Б: ОСЦИЛЛЯЦИИ sin(1/x) ================= -->
+      <g id="panel-oscillations">
+        <rect x="390" y="20" width="345" height="270" rx="10" fill="var(--svg-bg)" stroke="var(--border-subtle)" stroke-width="1.2"/>
+        <text x="410" y="46" font-family="'Cinzel', serif" font-size="12.5" font-weight="700" letter-spacing="0.08em" fill="var(--warn-accent)">
+          ✦ Б. СИНГУЛЯРНОСТЬ y = sin(1/x)
+        </text>
+
+        <!-- Оси: начало (450, 150) -->
+        <line x1="435" y1="150" x2="715" y2="150" stroke="var(--svg-axis)" stroke-width="1.5" marker-end="url(#arr-axis2)"/>
+        <line x1="450" y1="245" x2="450" y2="55" stroke="var(--svg-axis)" stroke-width="1.5" marker-end="url(#arr-axis2)"/>
+        <text x="715" y="163" font-family="'Cormorant Garamond', serif" font-size="17" font-style="italic" fill="var(--svg-text)">x</text>
+        <text x="438" y="62" font-family="'Cormorant Garamond', serif" font-size="17" font-style="italic" fill="var(--svg-text)">y</text>
+
+        <!-- Линии уровней y = 1 и y = -1 -->
+        <line x1="450" y1="78" x2="690" y2="78" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="2 2"/>
+        <line x1="450" y1="222" x2="690" y2="222" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="2 2"/>
+        <text x="430" y="82" font-family="'Cormorant Garamond', serif" font-size="13" fill="var(--text-muted)">+1</text>
+        <text x="432" y="226" font-family="'Cormorant Garamond', serif" font-size="13" fill="var(--text-muted)">-1</text>
+
+        <!-- Высокоточный график sin(1/x) -->
+        <path d="M 459.6,210.3 L 459.6,212.2 L 459.6,215.8 L 459.7,219.5 L 459.7,221.9 L 459.7,221.0 L 459.8,215.3 L 459.8,203.5 L 459.9,185.4 L 460.0,161.8 L 460.0,135.1 L 460.1,109.2 L 460.2,88.8 L 460.3,78.6 L 460.4,81.7 L 460.4,99.1 L 460.5,128.1 L 460.6,162.7 L 460.8,195.0 L 460.9,216.7 L 461.0,221.4 L 461.1,207.3 L 461.2,177.5 L 461.4,139.8 L 461.5,104.7 L 461.6,82.4 L 461.8,79.3 L 461.9,96.8 L 462.0,129.7 L 462.2,168.5 L 462.4,201.9 L 462.5,220.3 L 462.7,218.3 L 462.8,196.8 L 463.0,162.1 L 463.2,124.2 L 463.4,93.7 L 463.5,78.8 L 463.7,83.1 L 463.9,105.2 L 464.1,138.7 L 464.3,174.9 L 464.5,204.5 L 464.7,220.4 L 464.9,219.2 L 465.1,201.7 L 465.3,172.6 L 465.5,138.7 L 465.7,107.6 L 465.9,86.0 L 466.2,78.0 L 466.4,84.7 L 466.6,104.1 L 466.8,132.1 L 467.1,163.1 L 467.3,191.3 L 467.6,211.8 L 467.8,221.4 L 468.0,219.1 L 468.3,205.7 L 468.5,183.8 L 468.8,157.1 L 469.1,129.7 L 469.3,105.7 L 469.6,88.1 L 469.8,79.0 L 470.1,79.3 L 470.4,88.4 L 470.7,104.8 L 470.9,126.3 L 471.2,150.1 L 471.5,173.5 L 471.8,194.1 L 472.1,209.8 L 472.4,219.3 L 472.7,222.0 L 473.0,217.9 L 473.3,207.8 L 473.6,192.9 L 473.9,174.5 L 474.2,154.5 L 474.5,134.5 L 474.8,115.9 L 475.1,100.2 L 475.4,88.3 L 475.8,80.8 L 476.1,78.0 L 476.4,79.9 L 476.7,86.2 L 477.1,96.2 L 477.4,109.1 L 477.8,124.2 L 478.1,140.4 L 478.4,156.8 L 478.8,172.6 L 479.1,187.1 L 479.5,199.6 L 479.8,209.5 L 480.2,216.7 L 480.5,220.8 L 480.9,222.0 L 481.3,220.2 L 481.6,215.7 L 482.0,208.7 L 482.4,199.8 L 482.8,189.2 L 483.1,177.4 L 483.5,164.9 L 483.9,152.1 L 484.3,139.5 L 484.7,127.4 L 485.0,116.1 L 485.4,105.9 L 485.8,97.2 L 486.2,90.0 L 486.6,84.4 L 487.0,80.5 L 487.4,78.4 L 487.8,78.1 L 488.2,79.3 L 488.7,82.1 L 489.1,86.3 L 489.5,91.8 L 489.9,98.3 L 490.3,105.8 L 490.7,114.0 L 491.2,122.7 L 491.6,131.8 L 492.0,141.0 L 492.5,150.3 L 492.9,159.4 L 493.3,168.3 L 493.8,176.7 L 494.2,184.6 L 494.6,191.9 L 495.1,198.5 L 495.5,204.4 L 496.0,209.4 L 496.4,213.6 L 496.9,217.0 L 497.4,219.5 L 497.8,221.1 L 498.3,221.9 L 498.7,221.9 L 499.2,221.1 L 499.7,219.6 L 500.2,217.4 L 500.6,214.5 L 501.1,211.1 L 501.6,207.1 L 502.1,202.7 L 502.5,197.8 L 503.0,192.6 L 503.5,187.1 L 504.0,181.4 L 504.5,175.6 L 505.0,169.5 L 505.5,163.5 L 506.0,157.4 L 506.5,151.3 L 507.0,145.3 L 507.5,139.5 L 508.0,133.7 L 508.5,128.2 L 509.0,122.8 L 509.5,117.7 L 510.0,112.9 L 510.6,108.3 L 511.1,104.0 L 511.6,100.0 L 512.1,96.4 L 512.7,93.1 L 513.2,90.1 L 513.7,87.4 L 514.2,85.1 L 514.8,83.1 L 515.3,81.5 L 515.9,80.1 L 516.4,79.1 L 516.9,78.5 L 517.5,78.1 L 518.0,78.0 L 518.6,78.2 L 519.1,78.7 L 519.7,79.4 L 520.2,80.4 L 520.8,81.7 L 521.4,83.1 L 521.9,84.8 L 522.5,86.7 L 523.1,88.8 L 523.6,91.0 L 524.2,93.4 L 524.8,95.9 L 525.3,98.6 L 525.9,101.4 L 526.5,104.3 L 527.1,107.2 L 527.7,110.3 L 528.3,113.4 L 528.8,116.6 L 529.4,119.9 L 530.0,123.2 L 530.6,126.5 L 531.2,129.8 L 531.8,133.1 L 532.4,136.5 L 533.0,139.8 L 533.6,143.1 L 534.2,146.4 L 534.8,149.7 L 535.4,152.9 L 536.0,156.1 L 536.7,159.3 L 537.3,162.4 L 537.9,165.4 L 538.5,168.4 L 539.1,171.3 L 539.8,174.1 L 540.4,176.9 L 541.0,179.6 L 541.6,182.2 L 542.3,184.7 L 542.9,187.2 L 543.5,189.6 L 544.2,191.9 L 544.8,194.1 L 545.5,196.2 L 546.1,198.2 L 546.8,200.2 L 547.4,202.0 L 548.1,203.8 L 548.7,205.5 L 549.4,207.1 L 550.0,208.6 L 550.7,210.0 L 551.3,211.4 L 552.0,212.6 L 552.7,213.8 L 553.3,214.9 L 554.0,215.9 L 554.7,216.8 L 555.3,217.6 L 556.0,218.4 L 556.7,219.1 L 557.4,219.7 L 558.0,220.2 L 558.7,220.7 L 559.4,221.1 L 560.1,221.4 L 560.8,221.6 L 561.5,221.8 L 562.2,221.9 L 562.9,222.0 L 563.5,222.0 L 564.2,221.9 L 564.9,221.8 L 565.6,221.6 L 566.3,221.4 L 567.0,221.1 L 567.8,220.8 L 568.5,220.4 L 569.2,220.0 L 569.9,219.5 L 570.6,219.0 L 571.3,218.4 L 572.0,217.8 L 572.8,217.2 L 573.5,216.5 L 574.2,215.8 L 574.9,215.0 L 575.6,214.3 L 576.4,213.5 L 577.1,212.6 L 577.8,211.7 L 578.6,210.8 L 579.3,209.9 L 580.1,209.0 L 580.8,208.0 L 581.5,207.0 L 582.3,206.0 L 583.0,204.9 L 583.8,203.9 L 584.5,202.8 L 585.3,201.7 L 586.0,200.6 L 586.8,199.5 L 587.5,198.3 L 588.3,197.2 L 589.1,196.0 L 589.8,194.9 L 590.6,193.7 L 591.3,192.5 L 592.1,191.3 L 592.9,190.1 L 593.7,188.9 L 594.4,187.7 L 595.2,186.5 L 596.0,185.3 L 596.8,184.0 L 597.5,182.8 L 598.3,181.6 L 599.1,180.4 L 599.9,179.1 L 600.7,177.9 L 601.5,176.7 L 602.3,175.4 L 603.1,174.2 L 603.9,173.0 L 604.7,171.8 L 605.5,170.5 L 606.3,169.3 L 607.1,168.1 L 607.9,166.9 L 608.7,165.7 L 609.5,164.5 L 610.3,163.3 L 611.1,162.1 L 611.9,160.9 L 612.7,159.8 L 613.5,158.6 L 614.4,157.4 L 615.2,156.3 L 616.0,155.1 L 616.8,154.0 L 617.7,152.9 L 618.5,151.7 L 619.3,150.6 L 620.1,149.5 L 621.0,148.4 L 621.8,147.3 L 622.6,146.2 L 623.5,145.2 L 624.3,144.1 L 625.2,143.0 L 626.0,142.0 L 626.9,141.0 L 627.7,139.9 L 628.5,138.9 L 629.4,137.9 L 630.3,136.9 L 631.1,135.9 L 632.0,135.0 L 632.8,134.0 L 633.7,133.0 L 634.5,132.1 L 635.4,131.1 L 636.3,130.2 L 637.1,129.3 L 638.0,128.4 L 638.9,127.5 L 639.7,126.6 L 640.6,125.7 L 641.5,124.9 L 642.4,124.0 L 643.2,123.2 L 644.1,122.3 L 645.0,121.5 L 645.9,120.7 L 646.8,119.9 L 647.7,119.1 L 648.6,118.3 L 649.4,117.6 L 650.3,116.8 L 651.2,116.0 L 652.1,115.3 L 653.0,114.6 L 653.9,113.8 L 654.8,113.1 L 655.7,112.4 L 656.6,111.7 L 657.5,111.0 L 658.4,110.4 L 659.4,109.7 L 660.3,109.0 L 661.2,108.4 L 662.1,107.8 L 663.0,107.1 L 663.9,106.5 L 664.8,105.9 L 665.8,105.3 L 666.7,104.7 L 667.6,104.1 L 668.5,103.5 L 669.5,103.0 L 670.4,102.4 L 671.3,101.9 L 672.3,101.3 L 673.2,100.8 L 674.1,100.3 L 675.1,99.8 L 676.0,99.3 L 677.0,98.8 L 677.9,98.3 L 678.8,97.8 L 679.8,97.3 L 680.7,96.9 L 681.7,96.4 L 682.6,95.9 L 683.6,95.5" fill="none" stroke="var(--svg-stroke-cyan)" stroke-width="1.8" stroke-linejoin="round"/>
+
+        <!-- Сближающиеся точки с предельным разрывом Delta f = 2 -->
+        <line x1="476.1" y1="78.0" x2="472.6" y2="222.0" stroke="var(--warn-border)" stroke-width="1.6" stroke-dasharray="2 2"/>
+        <circle cx="476.1" cy="78.0" r="4" fill="var(--text-gold)"/>
+        <circle cx="472.6" cy="222.0" r="4" fill="var(--warn-accent)"/>
+
+        <!-- Текстовая аннотация разрушения равномерности -->
+        <text x="486.1" y="90.0" font-family="'Cormorant Garamond', serif" font-size="13" font-style="italic" fill="var(--text-gold)">x'ₙ (f = +1)</text>
+        <text x="482.6" y="218.0" font-family="'Cormorant Garamond', serif" font-size="13" font-style="italic" fill="var(--warn-accent)">x''ₙ (f = -1)</text>
+
+        <rect x="525" y="165" width="185" height="52" rx="6" fill="var(--bg-surface-elevated)" stroke="var(--warn-border)" stroke-width="1"/>
+        <text x="535" y="184" font-family="'Cormorant Garamond', serif" font-size="12.5" font-weight="600" fill="var(--warn-accent)">|x'ₙ - x''ₙ| → 0 (стягивание)</text>
+        <text x="535" y="202" font-family="'Cormorant Garamond', serif" font-size="12.5" font-weight="700" fill="var(--text-gold)">|f(x'ₙ) - f(x''ₙ)| = 2 ≥ ε₀</text>
+
+        <!-- Подпись под панелью -->
+        <text x="420" y="278" font-family="'Cormorant Garamond', serif" font-size="12.5" font-style="italic" fill="var(--text-secondary)">
+          Бесконечные осцилляции в окрестности 0 разрушают равномерность
+        </text>
+      </g>
+    </svg>
+  </div>
+  <figcaption class="figure-caption">
+    <strong>ГРАВЮРА 15.1.</strong> Геометрический критерий равномерной непрерывности. <em>Панель А:</em> калибр Кантора $\delta(arepsilon)$ образует жесткое окно безопасности, сопровождающее график функции вдоль компакта. <em>Панель Б:</em> у функции $y = \sin(1/x)$ при $x 	o +0$ частота осцилляций стремится к бесконечности; на сколь угодно малом интервале $\delta$ размах значений равен 2, что опровергает равномерную непрерывность.
+  </figcaption>
+</figure>
 
         <div class="engraved-divider">✦ ──────── ◈ ──────── ✦</div>
 
@@ -680,52 +735,119 @@
 
         <!-- Научная гравюра SVG: Скачок монотонной функции и обратная функция -->
         <figure class="figure-card">
-          <div class="figure-svg-container">
-            <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Скачок монотонной функции и непрерывность обратной функции">
-              <!-- Слева: Скачок монотонной функции -->
-              <rect x="30" y="25" width="330" height="250" rx="8" fill="var(--svg-bg)" stroke="var(--border-subtle)" stroke-width="1"/>
-              <text x="50" y="50" font-family="'Cinzel', serif" font-size="13" font-weight="700" fill="var(--warn-accent)">А. СКАЧОК МОНОТОННОЙ ФУНКЦИИ</text>
+  <div class="figure-svg-container">
+    <svg viewBox="0 0 760 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Геометрия монотонных отображений">
+      <defs>
+        <marker id="arr-axis" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"/>
+        </marker>
+        <linearGradient id="grad-jump" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--warn-border)" stop-opacity="0.85"/>
+          <stop offset="100%" stop-color="var(--warn-accent)" stop-opacity="0.35"/>
+        </linearGradient>
+      </defs>
 
-              <line x1="50" y1="230" x2="330" y2="230" stroke="var(--svg-axis)" stroke-width="1.5"/>
-              <line x1="70" y1="60" x2="70" y2="250" stroke="var(--svg-axis)" stroke-width="1.5"/>
+      <!-- ================= ПАНЕЛЬ А: СКАЧОК МОНОТОННОЙ ФУНКЦИИ ================= -->
+      <g id="panel-a">
+        <rect x="25" y="20" width="345" height="270" rx="10" fill="var(--svg-bg)" stroke="var(--border-subtle)" stroke-width="1.2"/>
+        
+        <!-- Заголовок панели -->
+        <text x="45" y="46" font-family="'Cinzel', serif" font-size="12.5" font-weight="700" letter-spacing="0.08em" fill="var(--text-gold)">
+          ✦ А. СКАЧОК МОНОТОННОЙ ФУНКЦИИ
+        </text>
 
-              <!-- Ветви графика со скачком -->
-              <path d="M 80,210 Q 140,195 180,180" fill="none" stroke="var(--svg-stroke-gold)" stroke-width="2.5"/>
-              <circle cx="180" cy="180" r="4" fill="none" stroke="var(--svg-stroke-gold)" stroke-width="1.8"/>
+        <!-- Оси координат с делениями -->
+        <line x1="50" y1="235" x2="345" y2="235" stroke="var(--svg-axis)" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+        <line x1="75" y1="255" x2="75" y2="55" stroke="var(--svg-axis)" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+        <text x="345" y="248" font-family="'Cormorant Garamond', serif" font-size="17" font-style="italic" fill="var(--svg-text)">x</text>
+        <text x="63" y="62" font-family="'Cormorant Garamond', serif" font-size="17" font-style="italic" fill="var(--svg-text)">y</text>
+        <text x="63" y="248" font-family="'Cormorant Garamond', serif" font-size="14" fill="var(--text-muted)">O</text>
 
-              <path d="M 180,110 Q 230,95 310,75" fill="none" stroke="var(--svg-stroke-gold)" stroke-width="2.5"/>
-              <circle cx="180" cy="110" r="4" fill="var(--svg-stroke-gold)"/>
+        <!-- Графики ветвей -->
+        <path d="M 90.0,215.0 L 92.0,214.8 L 94.1,214.5 L 96.1,214.1 L 98.2,213.7 L 100.2,213.2 L 102.2,212.7 L 104.3,212.2 L 106.3,211.7 L 108.4,211.1 L 110.4,210.6 L 112.4,210.0 L 114.5,209.4 L 116.5,208.8 L 118.6,208.1 L 120.6,207.5 L 122.7,206.8 L 124.7,206.2 L 126.7,205.5 L 128.8,204.8 L 130.8,204.1 L 132.9,203.4 L 134.9,202.6 L 136.9,201.9 L 139.0,201.2 L 141.0,200.4 L 143.1,199.6 L 145.1,198.9 L 147.1,198.1 L 149.2,197.3 L 151.2,196.5 L 153.3,195.7 L 155.3,194.9 L 157.3,194.1 L 159.4,193.2 L 161.4,192.4 L 163.5,191.6 L 165.5,190.7 L 167.6,189.9 L 169.6,189.0 L 171.6,188.1 L 173.7,187.2 L 175.7,186.4 L 177.8,185.5 L 179.8,184.6 L 181.8,183.7 L 183.9,182.8 L 185.9,181.8 L 188.0,180.9 L 190.0,180.0" fill="none" stroke="var(--svg-stroke-gold)" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M 190.0,120.0 L 192.2,118.5 L 194.4,117.3 L 196.6,116.3 L 198.8,115.4 L 201.0,114.4 L 203.2,113.6 L 205.4,112.7 L 207.6,111.9 L 209.8,111.1 L 212.0,110.3 L 214.2,109.6 L 216.4,108.8 L 218.6,108.1 L 220.8,107.3 L 223.1,106.6 L 225.3,105.9 L 227.5,105.2 L 229.7,104.5 L 231.9,103.8 L 234.1,103.2 L 236.3,102.5 L 238.5,101.8 L 240.7,101.2 L 242.9,100.5 L 245.1,99.9 L 247.3,99.2 L 249.5,98.6 L 251.7,98.0 L 253.9,97.3 L 256.1,96.7 L 258.3,96.1 L 260.5,95.5 L 262.7,94.9 L 264.9,94.3 L 267.1,93.7 L 269.3,93.1 L 271.5,92.5 L 273.7,91.9 L 275.9,91.3 L 278.1,90.7 L 280.3,90.1 L 282.5,89.5 L 284.7,88.9 L 286.9,88.4 L 289.2,87.8 L 291.4,87.2 L 293.6,86.7 L 295.8,86.1 L 298.0,85.5 L 300.2,85.0 L 302.4,84.4 L 304.6,83.8 L 306.8,83.3 L 309.0,82.7 L 311.2,82.2 L 313.4,81.6 L 315.6,81.1 L 317.8,80.5 L 320.0,80.0" fill="none" stroke="var(--svg-stroke-gold)" stroke-width="2.6" stroke-linecap="round"/>
 
-              <!-- Выколотый интервал значений на оси Oy -->
-              <line x1="70" y1="110" x2="70" y2="180" stroke="var(--warn-border)" stroke-width="4"/>
-              <text x="78" y="150" font-family="'Cormorant Garamond', serif" font-size="13" font-weight="700" fill="var(--warn-accent)">Дырка в образе Y</text>
-              <line x1="180" y1="180" x2="180" y2="230" stroke="var(--svg-axis)" stroke-width="1" stroke-dasharray="2 2"/>
-              <text x="175" y="245" font-family="'Cinzel', serif" font-size="13" fill="var(--text-gold)">x₀</text>
+        <!-- Проекции точки x0 -->
+        <line x1="190" y1="235" x2="190" y2="120" stroke="var(--border-medium)" stroke-width="1.2" stroke-dasharray="3 3"/>
+        <text x="186" y="252" font-family="'Cormorant Garamond', serif" font-size="16" font-style="italic" font-weight="600" fill="var(--text-gold)">x₀</text>
 
-              <!-- Справа: Взаимно обратные непрерывные функции -->
-              <rect x="400" y="25" width="330" height="250" rx="8" fill="var(--svg-bg)" stroke="var(--border-subtle)" stroke-width="1"/>
-              <text x="420" y="50" font-family="'Cinzel', serif" font-size="13" font-weight="700" fill="var(--svg-stroke-emerald)">Б. ОБРАТНАЯ ФУНКЦИЯ y = f⁻¹(x)</text>
+        <!-- Проекции на ось Oy для левого предела f(x0 - 0) -->
+        <line x1="75" y1="180" x2="190" y2="180" stroke="var(--border-medium)" stroke-width="1" stroke-dasharray="3 3"/>
+        <circle cx="75" cy="180" r="2.5" fill="var(--svg-axis)"/>
+        <text x="28" y="184" font-family="'Cormorant Garamond', serif" font-size="13" font-style="italic" fill="var(--svg-text)">f(x₀-0)</text>
 
-              <line x1="420" y1="230" x2="700" y2="230" stroke="var(--svg-axis)" stroke-width="1.5"/>
-              <line x1="440" y1="60" x2="440" y2="250" stroke="var(--svg-axis)" stroke-width="1.5"/>
+        <!-- Проекции на ось Oy для правого предела f(x0 + 0) -->
+        <line x1="75" y1="120" x2="190" y2="120" stroke="var(--border-medium)" stroke-width="1" stroke-dasharray="3 3"/>
+        <circle cx="75" cy="120" r="2.5" fill="var(--svg-axis)"/>
+        <text x="28" y="124" font-family="'Cormorant Garamond', serif" font-size="13" font-style="italic" fill="var(--svg-text)">f(x₀+0)</text>
 
-              <!-- Биссектриса y = x -->
-              <line x1="440" y1="230" x2="680" y2="60" stroke="var(--border-medium)" stroke-width="1.2" stroke-dasharray="4 4"/>
-              <text x="685" y="65" font-family="'Cormorant Garamond', serif" font-size="13" font-style="italic" fill="var(--text-muted)">y = x</text>
+        <!-- Интервал скачка на оси Oy -->
+        <rect x="72.5" y="120" width="5" height="60" rx="2.5" fill="url(#grad-jump)"/>
+        <!-- Фигурная скобка или плашка разрыва -->
+        <path d="M 85,120 L 92,120 L 92,145 L 97,150 L 92,155 L 92,180 L 85,180" fill="none" stroke="var(--warn-border)" stroke-width="1.4"/>
+        <text x="103" y="146" font-family="'Cormorant Garamond', serif" font-size="13" font-weight="600" fill="var(--warn-accent)">Скачок h(x₀) &gt; 0</text>
+        <text x="103" y="162" font-family="'Cormorant Garamond', serif" font-size="11.5" font-style="italic" fill="var(--text-muted)">J = (f(x₀-0), f(x₀+0))</text>
+        <text x="103" y="176" font-family="'Cinzel', serif" font-size="10.5" fill="var(--warn-accent)">J ⊄ f(X) (БРЕШЬ)</text>
 
-              <!-- График y = f(x) -->
-              <path d="M 450,210 Q 520,180 580,70" fill="none" stroke="var(--svg-stroke-cyan)" stroke-width="2.5"/>
-              <text x="590" y="80" font-family="'Cormorant Garamond', serif" font-size="14" fill="var(--svg-stroke-cyan)">y = f(x)</text>
+        <!-- Точки разрыва: выколотая и сплошная -->
+        <circle cx="190" cy="180" r="4.5" fill="var(--bg-surface)" stroke="var(--svg-stroke-gold)" stroke-width="2"/>
+        <circle cx="190" cy="120" r="4.5" fill="var(--svg-stroke-gold)"/>
 
-              <!-- График y = f⁻¹(x) симметричный -->
-              <path d="M 460,220 Q 490,150 600,80" fill="none" stroke="var(--svg-stroke-emerald)" stroke-width="2.5"/>
-              <text x="605" y="95" font-family="'Cormorant Garamond', serif" font-size="14" fill="var(--svg-stroke-emerald)">y = f⁻¹(x)</text>
-            </svg>
-          </div>
-          <figcaption class="figure-caption">
-            <strong>ГРАВЮРА 15.2.</strong> Геометрия монотонных отображений. Слева: скачок монотонной функции образует брешь в множестве значений, доказывая, что разрыв несовместим с промежуточностью образа. Справа: строго монотонная непрерывная функция и её зеркально-симметричная непрерывная обратная функция.
-          </figcaption>
-        </figure>
+        <!-- Подпись под панелью -->
+        <text x="75" y="278" font-family="'Cormorant Garamond', serif" font-size="12.5" font-style="italic" fill="var(--text-secondary)">
+          Разрыв 1-го рода (скачок) разрывает связность образа f(X)
+        </text>
+      </g>
+
+      <!-- ================= ПАНЕЛЬ Б: НЕПРЕРЫВНОСТЬ ОБРАТНОЙ ФУНКЦИИ ================= -->
+      <g id="panel-b">
+        <rect x="390" y="20" width="345" height="270" rx="10" fill="var(--svg-bg)" stroke="var(--border-subtle)" stroke-width="1.2"/>
+        
+        <!-- Заголовок панели -->
+        <text x="410" y="46" font-family="'Cinzel', serif" font-size="12.5" font-weight="700" letter-spacing="0.08em" fill="var(--svg-stroke-emerald)">
+          ✦ Б. НЕПРЕРЫВНОСТЬ ОБРАТНОЙ ФУНКЦИИ
+        </text>
+
+        <!-- Оси координат 1:1 -->
+        <line x1="415" y1="235" x2="710" y2="235" stroke="var(--svg-axis)" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+        <line x1="440" y1="255" x2="440" y2="55" stroke="var(--svg-axis)" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+        <text x="710" y="248" font-family="'Cormorant Garamond', serif" font-size="17" font-style="italic" fill="var(--svg-text)">x</text>
+        <text x="428" y="62" font-family="'Cormorant Garamond', serif" font-size="17" font-style="italic" fill="var(--svg-text)">y</text>
+        <text x="428" y="248" font-family="'Cormorant Garamond', serif" font-size="14" fill="var(--text-muted)">O</text>
+
+        <!-- Биссектриса y = x строго под 45 градусов -->
+        <line x1="440" y1="235" x2="640" y2="35" stroke="var(--border-medium)" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <text x="646" y="44" font-family="'Cormorant Garamond', serif" font-size="14" font-style="italic" fill="var(--text-muted)">y = x</text>
+
+        <!-- Графики: f(x) и f^-1(x) -->
+        <path d="M 455.0,230.0 L 457.2,229.0 L 459.4,227.9 L 461.6,226.9 L 463.9,225.8 L 466.1,224.7 L 468.3,223.6 L 470.5,222.4 L 472.7,221.3 L 474.9,220.1 L 477.2,218.9 L 479.4,217.7 L 481.6,216.4 L 483.8,215.2 L 486.0,213.9 L 488.2,212.6 L 490.4,211.2 L 492.7,209.9 L 494.9,208.5 L 497.1,207.1 L 499.3,205.6 L 501.5,204.2 L 503.7,202.7 L 505.9,201.2 L 508.2,199.6 L 510.4,198.1 L 512.6,196.5 L 514.8,194.9 L 517.0,193.2 L 519.2,191.5 L 521.5,189.8 L 523.7,188.1 L 525.9,186.3 L 528.1,184.5 L 530.3,182.6 L 532.5,180.8 L 534.7,178.9 L 537.0,176.9 L 539.2,175.0 L 541.4,173.0 L 543.6,170.9 L 545.8,168.8 L 548.0,166.7 L 550.3,164.6 L 552.5,162.4 L 554.7,160.1 L 556.9,157.9 L 559.1,155.5 L 561.3,153.2 L 563.5,150.8 L 565.8,148.3 L 568.0,145.9 L 570.2,143.3 L 572.4,140.8 L 574.6,138.1 L 576.8,135.5 L 579.1,132.8 L 581.3,130.0 L 583.5,127.2 L 585.7,124.3 L 587.9,121.4 L 590.1,118.4 L 592.3,115.4 L 594.6,112.3 L 596.8,109.2 L 599.0,106.0 L 601.2,102.8 L 603.4,99.5 L 605.6,96.1 L 607.8,92.7 L 610.1,89.2 L 612.3,85.7 L 614.5,82.1 L 616.7,78.4 L 618.9,74.7 L 621.1,70.9 L 623.4,67.0 L 625.6,63.1 L 627.8,59.1 L 630.0,55.0" fill="none" stroke="var(--svg-stroke-cyan)" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M 450.0,225.0 L 451.0,222.8 L 452.1,220.6 L 453.1,218.4 L 454.2,216.1 L 455.3,213.9 L 456.4,211.7 L 457.6,209.5 L 458.7,207.3 L 459.9,205.1 L 461.1,202.8 L 462.3,200.6 L 463.6,198.4 L 464.8,196.2 L 466.1,194.0 L 467.4,191.8 L 468.8,189.6 L 470.1,187.3 L 471.5,185.1 L 472.9,182.9 L 474.4,180.7 L 475.8,178.5 L 477.3,176.3 L 478.8,174.1 L 480.4,171.8 L 481.9,169.6 L 483.5,167.4 L 485.1,165.2 L 486.8,163.0 L 488.5,160.8 L 490.2,158.5 L 491.9,156.3 L 493.7,154.1 L 495.5,151.9 L 497.4,149.7 L 499.2,147.5 L 501.1,145.3 L 503.1,143.0 L 505.0,140.8 L 507.0,138.6 L 509.1,136.4 L 511.2,134.2 L 513.3,132.0 L 515.4,129.7 L 517.6,127.5 L 519.9,125.3 L 522.1,123.1 L 524.5,120.9 L 526.8,118.7 L 529.2,116.5 L 531.7,114.2 L 534.1,112.0 L 536.7,109.8 L 539.2,107.6 L 541.9,105.4 L 544.5,103.2 L 547.2,100.9 L 550.0,98.7 L 552.8,96.5 L 555.7,94.3 L 558.6,92.1 L 561.6,89.9 L 564.6,87.7 L 567.7,85.4 L 570.8,83.2 L 574.0,81.0 L 577.2,78.8 L 580.5,76.6 L 583.9,74.4 L 587.3,72.2 L 590.8,69.9 L 594.3,67.7 L 597.9,65.5 L 601.6,63.3 L 605.3,61.1 L 609.1,58.9 L 613.0,56.6 L 616.9,54.4 L 620.9,52.2 L 625.0,50.0" fill="none" stroke="var(--svg-stroke-emerald)" stroke-width="2.6" stroke-linecap="round"/>
+
+        <!-- Подписи кривых -->
+        <text x="590" y="85" font-family="'Cormorant Garamond', serif" font-size="15" font-weight="600" font-style="italic" fill="var(--svg-stroke-cyan)">y = f(x)</text>
+        <text x="635" y="180" font-family="'Cormorant Garamond', serif" font-size="15" font-weight="600" font-style="italic" fill="var(--svg-stroke-emerald)">y = f⁻¹(x)</text>
+
+        <!-- Ортогональная связка симметричных точек M и M' -->
+        <line x1="551.2" y1="163.6" x2="516.4" y2="128.8" stroke="var(--border-strong)" stroke-width="1.2" stroke-dasharray="3 3"/>
+        <circle cx="551.2" cy="163.6" r="4" fill="var(--svg-stroke-cyan)"/>
+        <circle cx="516.4" cy="128.8" r="4" fill="var(--svg-stroke-emerald)"/>
+        <circle cx="533.8" cy="146.2" r="2" fill="var(--text-gold)"/>
+
+        <!-- Метки точек M(x₀, y₀) и M'(y₀, x₀) -->
+        <text x="481.2" y="157.6" font-family="'Cormorant Garamond', serif" font-size="13" font-style="italic" fill="var(--svg-stroke-cyan)">M(x₀, y₀)</text>
+        <text x="524.4" y="140.8" font-family="'Cormorant Garamond', serif" font-size="13" font-style="italic" fill="var(--svg-stroke-emerald)">M'(y₀, x₀)</text>
+
+        <!-- Подпись под панелью -->
+        <text x="430" y="278" font-family="'Cormorant Garamond', serif" font-size="12.5" font-style="italic" fill="var(--text-secondary)">
+          Строгая зеркальная симметрия относительно биссектрисы y = x
+        </text>
+      </g>
+    </svg>
+  </div>
+  <figcaption class="figure-caption">
+    <strong>ГРАВЮРА 15.2.</strong> Геометрические принципы теории монотонных отображений. <em>Панель А:</em> скачок неубывающей функции порождает непустой открытый интервал $J = (f(x_0 - 0), f(x_0 + 0))$, не содержащий значений функции, нарушая связность образа $f(X)$. <em>Панель Б:</em> график обратной функции $y = f^-1(x)$ строго симметричен графику $y = f(x)$ относительно биссектрисы $y = x$; сохранение промежуточности гарантирует непрерывность $f^-1$.
+  </figcaption>
+</figure>
 
         <h3>5.1. Применение к обратным тригонометрическим функциям</h3>
         <p>
