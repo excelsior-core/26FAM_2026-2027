@@ -1689,6 +1689,135 @@
 
   <!-- Встроенный автономный движок -->
   <script>
+    // 0. Глобальные хелперы для создания академических интерактивных досок JSXGraph
+    window.createAcademicBoard = function(containerId, options) {
+      if (typeof JXG === 'undefined') return null;
+      options = options || {};
+
+      if (window._academicBoards && window._academicBoards[containerId]) {
+        try {
+          JXG.JSXGraph.freeBoard(window._academicBoards[containerId]);
+        } catch(e) {}
+      }
+      window._academicBoards = window._academicBoards || {};
+
+      const theme = document.documentElement.getAttribute('data-theme') || 'caravaggio';
+      const isDark = theme === 'caravaggio';
+
+      const palette = {
+        gold: isDark ? '#e5b842' : '#946c15',
+        goldBright: isDark ? '#ffd977' : '#b8861d',
+        cyan: isDark ? '#38bdf8' : '#0284c7',
+        emerald: isDark ? '#34d399' : '#059669',
+        ruby: isDark ? '#fb7185' : '#be123c',
+        purple: isDark ? '#c084fc' : '#7c3aed',
+        amber: isDark ? '#fbbf24' : '#d97706',
+        axis: isDark ? '#a89880' : '#6b5d4a',
+        grid: isDark ? 'rgba(229, 184, 66, 0.12)' : 'rgba(160, 120, 40, 0.12)',
+        text: isDark ? '#e8e2d5' : '#251e17',
+        fillGold: isDark ? 'rgba(229, 184, 66, 0.14)' : 'rgba(148, 108, 21, 0.1)',
+        fillCyan: isDark ? 'rgba(56, 189, 248, 0.12)' : 'rgba(2, 132, 199, 0.1)',
+        fillEmerald: isDark ? 'rgba(52, 211, 153, 0.12)' : 'rgba(5, 150, 105, 0.1)',
+        fillRuby: isDark ? 'rgba(251, 113, 133, 0.12)' : 'rgba(190, 18, 60, 0.1)'
+      };
+
+      const defaultOpts = {
+        boundingbox: [-5, 5, 5, -5],
+        axis: false,
+        showNavigation: false,
+        showCopyright: false,
+        keepaspectratio: false,
+        pan: { enabled: true, needShift: false },
+        zoom: { enabled: true, needShift: false, factorX: 1.2, factorY: 1.2 }
+      };
+
+      const config = Object.assign({}, defaultOpts, options);
+      const board = JXG.JSXGraph.initBoard(containerId, config);
+      board.palette = palette;
+      window._academicBoards[containerId] = board;
+
+      board.renderKaTeX = function() {
+        const container = document.getElementById(containerId);
+        if (container && window.renderMathInElement) {
+          window.renderMathInElement(container, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false}
+            ],
+            throwOnError: false
+          });
+        }
+      };
+
+      return board;
+    };
+
+    window.createAcademicAxes = function(board, config) {
+      config = config || {};
+      const pal = board.palette || { axis: '#a89880', text: '#e8e2d5', grid: 'rgba(229, 184, 66, 0.12)' };
+
+      if (config.grid !== false) {
+        board.create('grid', [], {
+          strokeColor: pal.grid,
+          strokeWidth: 1,
+          dash: 2,
+          gridX: config.gridX || 1,
+          gridY: config.gridY || 1
+        });
+      }
+
+      const xAxis = board.create('axis', [[0, 0], [1, 0]], {
+        strokeColor: pal.axis,
+        strokeWidth: 1.5,
+        highlight: false,
+        ticks: {
+          strokeColor: pal.axis,
+          insertTicks: true,
+          drawLabels: config.xLabels !== false,
+          label: { strokeColor: pal.text, fontSize: 13, offset: [-4, -14] }
+        }
+      });
+
+      const yAxis = board.create('axis', [[0, 0], [0, 1]], {
+        strokeColor: pal.axis,
+        strokeWidth: 1.5,
+        highlight: false,
+        ticks: {
+          strokeColor: pal.axis,
+          insertTicks: true,
+          drawLabels: config.yLabels !== false,
+          label: { strokeColor: pal.text, fontSize: 13, offset: [-22, 0] }
+        }
+      });
+
+      return { xAxis, yAxis };
+    };
+
+    window.safeInitAcademicBoards = function(initFn) {
+      function tryRun() {
+        if (typeof JXG !== 'undefined' && typeof window.createAcademicBoard === 'function') {
+          try {
+            initFn();
+          } catch(err) {
+            console.error('Academic board initialization error:', err);
+          }
+          return true;
+        }
+        return false;
+      }
+
+      if (!tryRun()) {
+        let attempts = 0;
+        const timer = setInterval(function() {
+          attempts++;
+          if (tryRun() || attempts > 60) {
+            clearInterval(timer);
+          }
+        }, 80);
+        window.addEventListener('load', tryRun);
+      }
+    };
+
     document.addEventListener("DOMContentLoaded", function() {
 
             // 1. Инициализация формул KaTeX с защитой от слёта рендера
@@ -1734,110 +1863,7 @@
         window.dispatchEvent(new CustomEvent('academicThemeChanged', { detail: { theme } }));
       }
 
-      // Глобальный хелпер для создания академических интерактивных досок JSXGraph
-      window.createAcademicBoard = function(containerId, options) {
-        if (typeof JXG === 'undefined') return null;
-        options = options || {};
 
-        if (window._academicBoards && window._academicBoards[containerId]) {
-          try {
-            JXG.JSXGraph.freeBoard(window._academicBoards[containerId]);
-          } catch(e) {}
-        }
-        window._academicBoards = window._academicBoards || {};
-
-        const theme = document.documentElement.getAttribute('data-theme') || 'caravaggio';
-        const isDark = theme === 'caravaggio';
-
-        const palette = {
-          gold: isDark ? '#e5b842' : '#946c15',
-          goldBright: isDark ? '#ffd977' : '#b8861d',
-          cyan: isDark ? '#38bdf8' : '#0284c7',
-          emerald: isDark ? '#34d399' : '#059669',
-          ruby: isDark ? '#fb7185' : '#be123c',
-          purple: isDark ? '#c084fc' : '#7c3aed',
-          amber: isDark ? '#fbbf24' : '#d97706',
-          axis: isDark ? '#a89880' : '#6b5d4a',
-          grid: isDark ? 'rgba(229, 184, 66, 0.12)' : 'rgba(160, 120, 40, 0.12)',
-          text: isDark ? '#e8e2d5' : '#251e17',
-          fillGold: isDark ? 'rgba(229, 184, 66, 0.14)' : 'rgba(148, 108, 21, 0.1)',
-          fillCyan: isDark ? 'rgba(56, 189, 248, 0.12)' : 'rgba(2, 132, 199, 0.1)',
-          fillEmerald: isDark ? 'rgba(52, 211, 153, 0.12)' : 'rgba(5, 150, 105, 0.1)',
-          fillRuby: isDark ? 'rgba(251, 113, 133, 0.12)' : 'rgba(190, 18, 60, 0.1)'
-        };
-
-        const defaultOpts = {
-          boundingbox: [-5, 5, 5, -5],
-          axis: false,
-          showNavigation: false,
-          showCopyright: false,
-          keepaspectratio: false,
-          pan: { enabled: true, needShift: false },
-          zoom: { enabled: true, needShift: false, factorX: 1.2, factorY: 1.2 }
-        };
-
-        const config = Object.assign({}, defaultOpts, options);
-        const board = JXG.JSXGraph.initBoard(containerId, config);
-        board.palette = palette;
-        window._academicBoards[containerId] = board;
-
-        board.renderKaTeX = function() {
-          const container = document.getElementById(containerId);
-          if (container && window.renderMathInElement) {
-            window.renderMathInElement(container, {
-              delimiters: [
-                {left: '$$', right: '$$', display: true},
-                {left: '$', right: '$', display: false}
-              ],
-              throwOnError: false
-            });
-          }
-        };
-
-        return board;
-      };
-
-      // Хелпер для создания стандартных академических осей
-      window.createAcademicAxes = function(board, config) {
-        config = config || {};
-        const pal = board.palette || { axis: '#a89880', text: '#e8e2d5', grid: 'rgba(229, 184, 66, 0.12)' };
-
-        if (config.grid !== false) {
-          board.create('grid', [], {
-            strokeColor: pal.grid,
-            strokeWidth: 1,
-            dash: 2,
-            gridX: config.gridX || 1,
-            gridY: config.gridY || 1
-          });
-        }
-
-        const xAxis = board.create('axis', [[0, 0], [1, 0]], {
-          strokeColor: pal.axis,
-          strokeWidth: 1.5,
-          highlight: false,
-          ticks: {
-            strokeColor: pal.axis,
-            insertTicks: true,
-            drawLabels: config.xLabels !== false,
-            label: { strokeColor: pal.text, fontSize: 13, offset: [-4, -14] }
-          }
-        });
-
-        const yAxis = board.create('axis', [[0, 0], [0, 1]], {
-          strokeColor: pal.axis,
-          strokeWidth: 1.5,
-          highlight: false,
-          ticks: {
-            strokeColor: pal.axis,
-            insertTicks: true,
-            drawLabels: config.yLabels !== false,
-            label: { strokeColor: pal.text, fontSize: 13, offset: [-22, 0] }
-          }
-        });
-
-        return { xAxis, yAxis };
-      };
 
       // 3. Автоматическое построение оглавления по h2 и h3
       const content = document.getElementById("lectureContent");

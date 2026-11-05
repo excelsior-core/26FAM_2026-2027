@@ -364,7 +364,7 @@
         <!-- Интерактивная доска JSXGraph: Метод дихотомии и теорема Больцано-Коши -->
         <figure class="figure-card">
           <div class="figure-board-container">
-            <div id="jxg-board-14-1" class="jxgbox" style="height: 420px;"></div>
+            <div id="jxg-board-14-1" class="jxgbox" style="width: 100%; height: 420px;"></div>
           </div>
           <figcaption class="figure-caption">
             <strong>ГРАВЮРА 14.1.</strong> Геометрическая визуализация первой теоремы Больцано–Коши и алгоритма дихотомии. Непрерывная траектория $y = f(x)$, связывающая разнознаковые концы $f(a) < 0$ и $f(b) > 0$, неминуемо пересекает координатную ось. Конструктивный метод половинного деления (дихотомии) порождает систему вложенных отрезков $[a_0, b_0] \supset [a_1, b_1] \supset [a_2, b_2] \dots$, длины которых стремятся к нулю, стягиваясь к единственному предельному корню $c \in (a, b)$, в котором $f(c) = 0$.
@@ -616,7 +616,7 @@
         <!-- Интерактивная доска JSXGraph: Теоремы Вейерштрасса и образ отрезка -->
         <figure class="figure-card">
           <div class="figure-board-container">
-            <div id="jxg-board-14-2" class="jxgbox" style="height: 420px;"></div>
+            <div id="jxg-board-14-2" class="jxgbox" style="width: 100%; height: 420px;"></div>
           </div>
           <figcaption class="figure-caption">
             <strong>ГРАВЮРА 14.2.</strong> Теоремы Вейерштрасса и непрерывный образ отрезка. На компакте $[a, b]$ непрерывная функция гарантированно достигает своих точных граней: глобального максимума $M = f(x^*)$ и глобального минимума $m = f(x_*)$. Проекция графика образует сплошной замкнутый отрезок $[m, M]$ на оси ординат, а любое промежуточное значение $C \in (m, M)$ достигается хотя бы в одной точке (вторая теорема Больцано–Коши: $f(c) = C$).
@@ -779,12 +779,7 @@
         <!-- Скрипт инициализации высокоточных математических досок JSXGraph (Лекция 14) -->
         <script>
           (function() {
-            function initLecture14Boards() {
-              if (typeof JXG === 'undefined' || typeof window.createAcademicBoard !== 'function') {
-                window.addEventListener('load', initLecture14Boards);
-                return;
-              }
-
+            function buildLecture14Boards() {
               // Board 14.1: Bolzano-Cauchy & Bisection
               (function() {
                 const board = window.createAcademicBoard('jxg-board-14-1', {
@@ -909,14 +904,23 @@
               })();
             }
 
-            if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', initLecture14Boards);
+            if (typeof window.safeInitAcademicBoards === 'function') {
+              window.safeInitAcademicBoards(buildLecture14Boards);
             } else {
-              initLecture14Boards();
+              let cnt = 0;
+              const t = setInterval(function() {
+                cnt++;
+                if (typeof window.safeInitAcademicBoards === 'function') {
+                  clearInterval(t);
+                  window.safeInitAcademicBoards(buildLecture14Boards);
+                } else if (cnt > 60) {
+                  clearInterval(t);
+                }
+              }, 60);
             }
 
             window.addEventListener('academicThemeChanged', function() {
-              initLecture14Boards();
+              buildLecture14Boards();
             });
           })();
         </script>

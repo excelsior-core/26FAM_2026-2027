@@ -20,11 +20,11 @@ fig15_1_replacement = """<!-- Интерактивная доска JSXGraph: Р
           <div class="figure-dual-container">
             <div class="figure-half">
               <div class="figure-panel-title">✦ А. Окно безопасности Кантора $2\\delta \\times 2\\varepsilon$</div>
-              <div id="jxg-board-15-1a" class="jxgbox"></div>
+              <div id="jxg-board-15-1a" class="jxgbox" style="width: 100%; height: 380px;"></div>
             </div>
             <div class="figure-half">
               <div class="figure-panel-title">✦ Б. Разрушение равномерности: $y = \\sin(1/x)$</div>
-              <div id="jxg-board-15-1b" class="jxgbox"></div>
+              <div id="jxg-board-15-1b" class="jxgbox" style="width: 100%; height: 380px;"></div>
             </div>
           </div>
           <figcaption class="figure-caption">
@@ -44,11 +44,11 @@ fig15_2_replacement = """<!-- Интерактивная доска JSXGraph: С
           <div class="figure-dual-container">
             <div class="figure-half">
               <div class="figure-panel-title">✦ А. Скачок монотонной функции и лакуна в образе</div>
-              <div id="jxg-board-15-2a" class="jxgbox"></div>
+              <div id="jxg-board-15-2a" class="jxgbox" style="width: 100%; height: 380px;"></div>
             </div>
             <div class="figure-half">
               <div class="figure-panel-title">✦ Б. Непрерывность и симметрия обратной функции $y = f^{-1}(x)$</div>
-              <div id="jxg-board-15-2b" class="jxgbox"></div>
+              <div id="jxg-board-15-2b" class="jxgbox" style="width: 100%; height: 380px;"></div>
             </div>
           </div>
           <figcaption class="figure-caption">
@@ -60,17 +60,16 @@ assert fig15_2_pattern.search(c15), "Figure 15.2 not found in lec15_content.html
 c15 = fig15_2_pattern.sub(lambda m: fig15_2_replacement, c15)
 print("Replaced Figure 15.2 with JSXGraph dual-board markup")
 
+# Remove previous script block if any
+script15_pattern = re.compile(r'\s*<!-- Скрипт инициализации высокоточных математических досок JSXGraph \(Лекция 15\) -->\s*<script>.*?</script>', re.DOTALL)
+c15 = script15_pattern.sub('', c15)
+
 # Append Lecture 15 JSXGraph initialization script
 lec15_script = """
         <!-- Скрипт инициализации высокоточных математических досок JSXGraph (Лекция 15) -->
         <script>
           (function() {
-            function initLecture15Boards() {
-              if (typeof JXG === 'undefined' || typeof window.createAcademicBoard !== 'function') {
-                window.addEventListener('load', initLecture15Boards);
-                return;
-              }
-
+            function buildLecture15Boards() {
               // Board 15.1A: Cantor Security Window
               (function() {
                 const board = window.createAcademicBoard('jxg-board-15-1a', {
@@ -177,8 +176,8 @@ lec15_script = """
                 board.create('point', [xn1, 1], { name: '', size: 5, fillColor: p.goldBright, strokeColor: p.gold, fixed: true });
                 board.create('point', [xn2, -1], { name: '', size: 5, fillColor: p.ruby, strokeColor: p.ruby, fixed: true });
 
-                board.create('text', [xn1 + 0.02, 1.08, '$$M_n\'\\left(x_n\', +1\\right)$$'], { fontSize: 13, color: p.goldBright, display: 'html' });
-                board.create('text', [xn2 + 0.02, -1.08, '$$M_n\'\'\\left(x_n\'\', -1\\right)$$'], { fontSize: 13, color: p.ruby, display: 'html' });
+                board.create('text', [xn1 + 0.02, 1.08, "$$M_n'\\\\left(x_n', +1\\\\right)$$"], { fontSize: 13, color: p.goldBright, display: 'html' });
+                board.create('text', [xn2 + 0.02, -1.08, "$$M_n''\\\\left(x_n'', -1\\\\right)$$"], { fontSize: 13, color: p.ruby, display: 'html' });
 
                 board.create('segment', [[xn1, 1], [xn1, -1]], { strokeColor: p.ruby, strokeWidth: 2.6, dash: 3 });
                 board.create('text', [xn1 + 0.03, 0.0, '$$|\\Delta f| = 2 \\geqslant \\varepsilon_0$$'], { fontSize: 14, color: p.ruby, display: 'html' });
@@ -187,7 +186,7 @@ lec15_script = """
                 board.create('segment', [[xn2, -1], [xn2, 0]], { strokeColor: p.axis, strokeWidth: 1.0, dash: 2 });
 
                 board.create('segment', [[xn2, -0.15], [xn1, -0.15]], { strokeColor: p.gold, strokeWidth: 2.0 });
-                board.create('text', [xn2 + 0.02, -0.32, '$$|x_n\' - x_n\'\'| < \\delta \\to 0$$'], { fontSize: 13, color: p.gold, display: 'html' });
+                board.create('text', [xn2 + 0.02, -0.32, "$$|x_n' - x_n''| < \\\\delta \\\\to 0$$"], { fontSize: 13, color: p.gold, display: 'html' });
 
                 board.create('text', [0.22, 1.25, '$$\\forall \\delta > 0: \\Delta x < \\delta, \\text{ но } |\\Delta f| = 2$$'], {
                   fontSize: 13,
@@ -294,7 +293,7 @@ lec15_script = """
                 const Mprime = board.create('point', [y0, x0], { name: '', size: 5, fillColor: p.emerald, strokeColor: p.emerald, fixed: true });
 
                 board.create('text', [x0 + 0.12, y0 - 0.15, '$$M(x_0, y_0)$$'], { fontSize: 13, color: p.cyan, display: 'html' });
-                board.create('text', [y0 - 0.75, x0 + 0.18, '$$M\'(y_0, x_0)$$'], { fontSize: 13, color: p.emerald, display: 'html' });
+                board.create('text', [y0 - 0.75, x0 + 0.18, "$$M'(y_0, x_0)$$"], { fontSize: 13, color: p.emerald, display: 'html' });
 
                 board.create('segment', [M, Mprime], { strokeColor: p.text, strokeWidth: 1.4, dash: 2 });
 
@@ -310,25 +309,33 @@ lec15_script = """
               })();
             }
 
-            if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', initLecture15Boards);
+            if (typeof window.safeInitAcademicBoards === 'function') {
+              window.safeInitAcademicBoards(buildLecture15Boards);
             } else {
-              initLecture15Boards();
+              let cnt = 0;
+              const t = setInterval(function() {
+                cnt++;
+                if (typeof window.safeInitAcademicBoards === 'function') {
+                  clearInterval(t);
+                  window.safeInitAcademicBoards(buildLecture15Boards);
+                } else if (cnt > 60) {
+                  clearInterval(t);
+                }
+              }, 60);
             }
 
             window.addEventListener('academicThemeChanged', function() {
-              initLecture15Boards();
+              buildLecture15Boards();
             });
           })();
         </script>
 """
 
-if 'initLecture15Boards' not in c15:
-    c15 += lec15_script
+c15 += lec15_script
 
 with open(LEC15_CONTENT_PATH, 'w', encoding='utf-8') as f:
     f.write(c15)
-print("Saved updated lec15_content.html")
+print("Saved fully updated lec15_content.html")
 
 
 # -------------------------------------------------------------
@@ -343,7 +350,7 @@ fig14_1_pattern = re.compile(r'<!-- (?:Научная гравюра SVG|Инт�
 fig14_1_replacement = """<!-- Интерактивная доска JSXGraph: Метод дихотомии и теорема Больцано-Коши -->
         <figure class="figure-card">
           <div class="figure-board-container">
-            <div id="jxg-board-14-1" class="jxgbox" style="height: 420px;"></div>
+            <div id="jxg-board-14-1" class="jxgbox" style="width: 100%; height: 420px;"></div>
           </div>
           <figcaption class="figure-caption">
             <strong>ГРАВЮРА 14.1.</strong> Геометрическая визуализация первой теоремы Больцано–Коши и алгоритма дихотомии. Непрерывная траектория $y = f(x)$, связывающая разнознаковые концы $f(a) < 0$ и $f(b) > 0$, неминуемо пересекает координатную ось. Конструктивный метод половинного деления (дихотомии) порождает систему вложенных отрезков $[a_0, b_0] \\supset [a_1, b_1] \\supset [a_2, b_2] \\dots$, длины которых стремятся к нулю, стягиваясь к единственному предельному корню $c \\in (a, b)$, в котором $f(c) = 0$.
@@ -360,7 +367,7 @@ fig14_2_pattern = re.compile(r'<!-- (?:Научная гравюра SVG|Инт�
 fig14_2_replacement = """<!-- Интерактивная доска JSXGraph: Теоремы Вейерштрасса и образ отрезка -->
         <figure class="figure-card">
           <div class="figure-board-container">
-            <div id="jxg-board-14-2" class="jxgbox" style="height: 420px;"></div>
+            <div id="jxg-board-14-2" class="jxgbox" style="width: 100%; height: 420px;"></div>
           </div>
           <figcaption class="figure-caption">
             <strong>ГРАВЮРА 14.2.</strong> Теоремы Вейерштрасса и непрерывный образ отрезка. На компакте $[a, b]$ непрерывная функция гарантированно достигает своих точных граней: глобального максимума $M = f(x^*)$ и глобального минимума $m = f(x_*)$. Проекция графика образует сплошной замкнутый отрезок $[m, M]$ на оси ординат, а любое промежуточное значение $C \\in (m, M)$ достигается хотя бы в одной точке (вторая теорема Больцано–Коши: $f(c) = C$).
@@ -371,17 +378,16 @@ assert fig14_2_pattern.search(c14), "Figure 14.2 not found in lec14_content.html
 c14 = fig14_2_pattern.sub(lambda m: fig14_2_replacement, c14)
 print("Replaced Figure 14.2 with JSXGraph board markup")
 
+# Remove previous script block if any
+script14_pattern = re.compile(r'\s*<!-- Скрипт инициализации высокоточных математических досок JSXGraph \(Лекция 14\) -->\s*<script>.*?</script>', re.DOTALL)
+c14 = script14_pattern.sub('', c14)
+
 # Append Lecture 14 JSXGraph initialization script
 lec14_script = """
         <!-- Скрипт инициализации высокоточных математических досок JSXGraph (Лекция 14) -->
         <script>
           (function() {
-            function initLecture14Boards() {
-              if (typeof JXG === 'undefined' || typeof window.createAcademicBoard !== 'function') {
-                window.addEventListener('load', initLecture14Boards);
-                return;
-              }
-
+            function buildLecture14Boards() {
               // Board 14.1: Bolzano-Cauchy & Bisection
               (function() {
                 const board = window.createAcademicBoard('jxg-board-14-1', {
@@ -506,22 +512,30 @@ lec14_script = """
               })();
             }
 
-            if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', initLecture14Boards);
+            if (typeof window.safeInitAcademicBoards === 'function') {
+              window.safeInitAcademicBoards(buildLecture14Boards);
             } else {
-              initLecture14Boards();
+              let cnt = 0;
+              const t = setInterval(function() {
+                cnt++;
+                if (typeof window.safeInitAcademicBoards === 'function') {
+                  clearInterval(t);
+                  window.safeInitAcademicBoards(buildLecture14Boards);
+                } else if (cnt > 60) {
+                  clearInterval(t);
+                }
+              }, 60);
             }
 
             window.addEventListener('academicThemeChanged', function() {
-              initLecture14Boards();
+              buildLecture14Boards();
             });
           })();
         </script>
 """
 
-if 'initLecture14Boards' not in c14:
-    c14 += lec14_script
+c14 += lec14_script
 
 with open(LEC14_CONTENT_PATH, 'w', encoding='utf-8') as f:
     f.write(c14)
-print("Saved updated lec14_content.html")
+print("Saved fully updated lec14_content.html")

@@ -158,11 +158,11 @@
           <div class="figure-dual-container">
             <div class="figure-half">
               <div class="figure-panel-title">✦ А. Окно безопасности Кантора $2\delta \times 2\varepsilon$</div>
-              <div id="jxg-board-15-1a" class="jxgbox"></div>
+              <div id="jxg-board-15-1a" class="jxgbox" style="width: 100%; height: 380px;"></div>
             </div>
             <div class="figure-half">
               <div class="figure-panel-title">✦ Б. Разрушение равномерности: $y = \sin(1/x)$</div>
-              <div id="jxg-board-15-1b" class="jxgbox"></div>
+              <div id="jxg-board-15-1b" class="jxgbox" style="width: 100%; height: 380px;"></div>
             </div>
           </div>
           <figcaption class="figure-caption">
@@ -656,11 +656,11 @@
           <div class="figure-dual-container">
             <div class="figure-half">
               <div class="figure-panel-title">✦ А. Скачок монотонной функции и лакуна в образе</div>
-              <div id="jxg-board-15-2a" class="jxgbox"></div>
+              <div id="jxg-board-15-2a" class="jxgbox" style="width: 100%; height: 380px;"></div>
             </div>
             <div class="figure-half">
               <div class="figure-panel-title">✦ Б. Непрерывность и симметрия обратной функции $y = f^{-1}(x)$</div>
-              <div id="jxg-board-15-2b" class="jxgbox"></div>
+              <div id="jxg-board-15-2b" class="jxgbox" style="width: 100%; height: 380px;"></div>
             </div>
           </div>
           <figcaption class="figure-caption">
@@ -781,12 +781,7 @@
         <!-- Скрипт инициализации высокоточных математических досок JSXGraph (Лекция 15) -->
         <script>
           (function() {
-            function initLecture15Boards() {
-              if (typeof JXG === 'undefined' || typeof window.createAcademicBoard !== 'function') {
-                window.addEventListener('load', initLecture15Boards);
-                return;
-              }
-
+            function buildLecture15Boards() {
               // Board 15.1A: Cantor Security Window
               (function() {
                 const board = window.createAcademicBoard('jxg-board-15-1a', {
@@ -893,8 +888,8 @@
                 board.create('point', [xn1, 1], { name: '', size: 5, fillColor: p.goldBright, strokeColor: p.gold, fixed: true });
                 board.create('point', [xn2, -1], { name: '', size: 5, fillColor: p.ruby, strokeColor: p.ruby, fixed: true });
 
-                board.create('text', [xn1 + 0.02, 1.08, '$$M_n'\left(x_n', +1\right)$$'], { fontSize: 13, color: p.goldBright, display: 'html' });
-                board.create('text', [xn2 + 0.02, -1.08, '$$M_n''\left(x_n'', -1\right)$$'], { fontSize: 13, color: p.ruby, display: 'html' });
+                board.create('text', [xn1 + 0.02, 1.08, "$$M_n'\\left(x_n', +1\\right)$$"], { fontSize: 13, color: p.goldBright, display: 'html' });
+                board.create('text', [xn2 + 0.02, -1.08, "$$M_n''\\left(x_n'', -1\\right)$$"], { fontSize: 13, color: p.ruby, display: 'html' });
 
                 board.create('segment', [[xn1, 1], [xn1, -1]], { strokeColor: p.ruby, strokeWidth: 2.6, dash: 3 });
                 board.create('text', [xn1 + 0.03, 0.0, '$$|\Delta f| = 2 \geqslant \varepsilon_0$$'], { fontSize: 14, color: p.ruby, display: 'html' });
@@ -903,7 +898,7 @@
                 board.create('segment', [[xn2, -1], [xn2, 0]], { strokeColor: p.axis, strokeWidth: 1.0, dash: 2 });
 
                 board.create('segment', [[xn2, -0.15], [xn1, -0.15]], { strokeColor: p.gold, strokeWidth: 2.0 });
-                board.create('text', [xn2 + 0.02, -0.32, '$$|x_n' - x_n''| < \delta \to 0$$'], { fontSize: 13, color: p.gold, display: 'html' });
+                board.create('text', [xn2 + 0.02, -0.32, "$$|x_n' - x_n''| < \\delta \\to 0$$"], { fontSize: 13, color: p.gold, display: 'html' });
 
                 board.create('text', [0.22, 1.25, '$$\forall \delta > 0: \Delta x < \delta, \text{ но } |\Delta f| = 2$$'], {
                   fontSize: 13,
@@ -1010,7 +1005,7 @@
                 const Mprime = board.create('point', [y0, x0], { name: '', size: 5, fillColor: p.emerald, strokeColor: p.emerald, fixed: true });
 
                 board.create('text', [x0 + 0.12, y0 - 0.15, '$$M(x_0, y_0)$$'], { fontSize: 13, color: p.cyan, display: 'html' });
-                board.create('text', [y0 - 0.75, x0 + 0.18, '$$M'(y_0, x_0)$$'], { fontSize: 13, color: p.emerald, display: 'html' });
+                board.create('text', [y0 - 0.75, x0 + 0.18, "$$M'(y_0, x_0)$$"], { fontSize: 13, color: p.emerald, display: 'html' });
 
                 board.create('segment', [M, Mprime], { strokeColor: p.text, strokeWidth: 1.4, dash: 2 });
 
@@ -1026,14 +1021,23 @@
               })();
             }
 
-            if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', initLecture15Boards);
+            if (typeof window.safeInitAcademicBoards === 'function') {
+              window.safeInitAcademicBoards(buildLecture15Boards);
             } else {
-              initLecture15Boards();
+              let cnt = 0;
+              const t = setInterval(function() {
+                cnt++;
+                if (typeof window.safeInitAcademicBoards === 'function') {
+                  clearInterval(t);
+                  window.safeInitAcademicBoards(buildLecture15Boards);
+                } else if (cnt > 60) {
+                  clearInterval(t);
+                }
+              }, 60);
             }
 
             window.addEventListener('academicThemeChanged', function() {
-              initLecture15Boards();
+              buildLecture15Boards();
             });
           })();
         </script>
