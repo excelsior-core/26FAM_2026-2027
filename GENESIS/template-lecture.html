@@ -15,9 +15,6 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 
-  <!-- JSXGraph для высокоточных интерактивных математических чертежей и графиков -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.11.0/distrib/jsxgraph.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/jsxgraph@1.11.0/distrib/jsxgraphcore.js"></script>
 
   <style>
     /* ==========================================================================
@@ -1039,7 +1036,7 @@
       max-width: 100%;
     }
 
-    /* Контейнеры для досок JSXGraph и двухпанельных научных иллюстраций */
+    /* Контейнеры для двухпанельных научных иллюстраций и векторных гравюр */
     .figure-board-container {
       width: 100%;
       max-width: 900px;
@@ -1081,41 +1078,35 @@
       gap: 0.4rem;
     }
 
-    .jxgbox {
-      position: relative;
-      overflow: hidden;
+    /* Контейнер для эталонных векторных научных гравюр (SVG) */
+    .figure-svg-container {
       width: 100%;
-      height: 380px;
-      background-color: var(--svg-bg) !important;
-      border: 1px solid var(--border-medium) !important;
-      border-radius: 10px;
-      box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.45);
-      touch-action: none;
+      max-width: 960px;
+      margin: 0 auto 0.75rem auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    [data-theme="marble"] .jxgbox {
-      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.06);
+    .figure-svg-container svg {
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border-medium);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.55);
+      background-color: var(--svg-bg);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    /* JSXGraph Text Elements & Typography */
-    .JXGtext {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-      color: var(--text-main) !important;
-      font-size: 13.5px !important;
-      user-select: none;
-      -webkit-user-select: none;
+    [data-theme="marble"] .figure-svg-container svg {
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+      border-color: rgba(160, 120, 40, 0.22);
     }
 
-    .jxg-katex-label {
-      font-size: 14px;
-      line-height: 1;
-      display: inline-block;
-      white-space: nowrap;
-    }
-
-    /* Скрытие стандартного навигатора и копирайта JSXGraph */
-    .JXG_navigation {
-      display: none !important;
+    .figure-svg-container svg:hover {
+      border-color: var(--border-strong);
+      box-shadow: 0 6px 30px rgba(229, 184, 66, 0.2);
     }
 
     .figure-card::before {
@@ -1354,7 +1345,7 @@
       /* Защита блоков от разрыва пополам между страницами */
       .callout,
       .figure-card,
-      .jxgbox,
+      .figure-svg-container,
       .table-box,
       .formula-hero,
       .key-takeaways,
@@ -1689,135 +1680,6 @@
 
   <!-- Встроенный автономный движок -->
   <script>
-    // 0. Глобальные хелперы для создания академических интерактивных досок JSXGraph
-    window.createAcademicBoard = function(containerId, options) {
-      if (typeof JXG === 'undefined') return null;
-      options = options || {};
-
-      if (window._academicBoards && window._academicBoards[containerId]) {
-        try {
-          JXG.JSXGraph.freeBoard(window._academicBoards[containerId]);
-        } catch(e) {}
-      }
-      window._academicBoards = window._academicBoards || {};
-
-      const theme = document.documentElement.getAttribute('data-theme') || 'caravaggio';
-      const isDark = theme === 'caravaggio';
-
-      const palette = {
-        gold: isDark ? '#e5b842' : '#946c15',
-        goldBright: isDark ? '#ffd977' : '#b8861d',
-        cyan: isDark ? '#38bdf8' : '#0284c7',
-        emerald: isDark ? '#34d399' : '#059669',
-        ruby: isDark ? '#fb7185' : '#be123c',
-        purple: isDark ? '#c084fc' : '#7c3aed',
-        amber: isDark ? '#fbbf24' : '#d97706',
-        axis: isDark ? '#a89880' : '#6b5d4a',
-        grid: isDark ? 'rgba(229, 184, 66, 0.12)' : 'rgba(160, 120, 40, 0.12)',
-        text: isDark ? '#e8e2d5' : '#251e17',
-        fillGold: isDark ? 'rgba(229, 184, 66, 0.14)' : 'rgba(148, 108, 21, 0.1)',
-        fillCyan: isDark ? 'rgba(56, 189, 248, 0.12)' : 'rgba(2, 132, 199, 0.1)',
-        fillEmerald: isDark ? 'rgba(52, 211, 153, 0.12)' : 'rgba(5, 150, 105, 0.1)',
-        fillRuby: isDark ? 'rgba(251, 113, 133, 0.12)' : 'rgba(190, 18, 60, 0.1)'
-      };
-
-      const defaultOpts = {
-        boundingbox: [-5, 5, 5, -5],
-        axis: false,
-        showNavigation: false,
-        showCopyright: false,
-        keepaspectratio: false,
-        pan: { enabled: true, needShift: false },
-        zoom: { enabled: true, needShift: false, factorX: 1.2, factorY: 1.2 }
-      };
-
-      const config = Object.assign({}, defaultOpts, options);
-      const board = JXG.JSXGraph.initBoard(containerId, config);
-      board.palette = palette;
-      window._academicBoards[containerId] = board;
-
-      board.renderKaTeX = function() {
-        const container = document.getElementById(containerId);
-        if (container && window.renderMathInElement) {
-          window.renderMathInElement(container, {
-            delimiters: [
-              {left: '$$', right: '$$', display: true},
-              {left: '$', right: '$', display: false}
-            ],
-            throwOnError: false
-          });
-        }
-      };
-
-      return board;
-    };
-
-    window.createAcademicAxes = function(board, config) {
-      config = config || {};
-      const pal = board.palette || { axis: '#a89880', text: '#e8e2d5', grid: 'rgba(229, 184, 66, 0.12)' };
-
-      if (config.grid !== false) {
-        board.create('grid', [], {
-          strokeColor: pal.grid,
-          strokeWidth: 1,
-          dash: 2,
-          gridX: config.gridX || 1,
-          gridY: config.gridY || 1
-        });
-      }
-
-      const xAxis = board.create('axis', [[0, 0], [1, 0]], {
-        strokeColor: pal.axis,
-        strokeWidth: 1.5,
-        highlight: false,
-        ticks: {
-          strokeColor: pal.axis,
-          insertTicks: true,
-          drawLabels: config.xLabels !== false,
-          label: { strokeColor: pal.text, fontSize: 13, offset: [-4, -14] }
-        }
-      });
-
-      const yAxis = board.create('axis', [[0, 0], [0, 1]], {
-        strokeColor: pal.axis,
-        strokeWidth: 1.5,
-        highlight: false,
-        ticks: {
-          strokeColor: pal.axis,
-          insertTicks: true,
-          drawLabels: config.yLabels !== false,
-          label: { strokeColor: pal.text, fontSize: 13, offset: [-22, 0] }
-        }
-      });
-
-      return { xAxis, yAxis };
-    };
-
-    window.safeInitAcademicBoards = function(initFn) {
-      function tryRun() {
-        if (typeof JXG !== 'undefined' && typeof window.createAcademicBoard === 'function') {
-          try {
-            initFn();
-          } catch(err) {
-            console.error('Academic board initialization error:', err);
-          }
-          return true;
-        }
-        return false;
-      }
-
-      if (!tryRun()) {
-        let attempts = 0;
-        const timer = setInterval(function() {
-          attempts++;
-          if (tryRun() || attempts > 60) {
-            clearInterval(timer);
-          }
-        }, 80);
-        window.addEventListener('load', tryRun);
-      }
-    };
-
     document.addEventListener("DOMContentLoaded", function() {
 
             // 1. Инициализация формул KaTeX с защитой от слёта рендера
