@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Аналитическая геометрия | Лекция 5: Прямые на плоскости и смешанное произведение. Конспект FAM ФПМ НИУ ВШЭ.">
+  <meta name="description" content="Фундаментальные формы уравнений прямой, метрические соотношения и угловые характеристики">
   <title>Аналитическая геометрия | Лекция 5: Прямые на плоскости и смешанное произведение — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
@@ -183,8 +183,13 @@ html[data-theme] ::selection{background:var(--gold);color:var(--paper)}
 .themed-figure [data-figure-theme="light"]{display:block}
 html[data-theme="dark"] .themed-figure [data-figure-theme],html[data-theme="parchment"] .themed-figure [data-figure-theme]{display:none}
 html[data-theme="dark"] .themed-figure [data-figure-theme="dark"],html[data-theme="parchment"] .themed-figure [data-figure-theme="parchment"]{display:block}
-/* One neutral/light asset may remain on its own light plate in every theme. Never invert mathematical colours. */
-.figure-plate{background:#fff;color:#202e29;padding:16px;border:1px solid var(--rule)}
+.figure-plate{background:var(--bg-card);color:var(--ink);padding:20px;border:1px solid var(--rule);border-radius:8px;margin:32px 0}
+html[data-theme="light"] .figure-plate{background:#ffffff}
+html[data-theme="dark"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+html[data-theme="parchment"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+@media print{
+ .figure-plate{background:white!important;border:0!important;padding:0!important}
+}
 @media(max-width:760px){.topbar{height:auto;min-height:70px;flex-wrap:wrap;padding:12px 18px;gap:10px}.top-actions{gap:8px;flex-wrap:wrap}.theme-control select{font-size:10px;max-width:103px;padding:8px 4px}.pdf-button{padding:6px 8px}.pdf-button span{margin-left:4px}.wordmark{font-size:24px}}
 @media(max-width:400px){.wordmark{display:none}.top-actions{width:100%;justify-content:space-between}}
 @media print{
@@ -440,323 +445,969 @@ SOFTWARE.
     </aside>
     <main id="content">
       <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
-  <div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>ФПМ НИУ ВШЭ</span></div>
-  <h1>Аналитическая геометрия | Лекция 5: Прямые на плоскости и смешанное произведение</h1>
-  <p class="subtitle">Фундаментальные формы уравнений прямой, метрические соотношения и угловые характеристики</p>
-  <div class="lecture-abstract">
-    <p>Фундаментальные формы уравнений прямой, метрические соотношения и угловые характеристики</p>
-    <div class="abstract-formula" aria-label="Ключевое выражение лекции">\[', right: '\]</div>
-  </div>
-</header>
-<div class="proof-toolbar" aria-label="Все доказательства">
-  <span class="toolbar-label">Доказательства</span>
-  <div class="segmented" role="group" aria-label="Режим всех доказательств">
-    <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
-    <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
-    <button data-all-proofs="full" aria-pressed="false">Полностью</button>
-  </div>
-  <span id="proof-state" class="proof-state" aria-live="polite"></span>
-</div>
-<noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
-<p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
-
+      <header class="lecture-head" id="top">
+        <div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>Академический конспект ФПМ</span></div>
+        <h1>Аналитическая геометрия | Лекция 5: Прямые на плоскости и смешанное произведение</h1>
+        <p class="subtitle">Фундаментальные формы уравнений прямой, метрические соотношения и угловые характеристики</p>
+        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[', right: '\]</div></div>
+      </header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
 <section class="chapter" aria-labelledby="chapter-1">
   <div class="chapter-kicker">01 / Введение</div>
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <!-- Header Section -->
-      <header class="lecture-header" id="sec-overview">
-        <span class="badge-pill">Курс: Аналитическая геометрия</span>
-        <h1 class="lecture-title">Лекция 5. Смешанное произведение в ОНСК. Теория прямых на плоскости</h1>
-        <div class="lecture-subtitle">Фундаментальные формы уравнений прямой, метрические соотношения и угловые характеристики</div>
-        
-        <div class="meta-bar">
-          <div class="meta-item">
-            <strong>Лектор:</strong> проф. Г. М. Полотовский
+<header class="lecture-header" id="sec-overview">
+<span class="badge-pill">Курс: Аналитическая геометрия</span>
+<h1 class="lecture-title">Лекция 5. Смешанное произведение в ОНСК. Теория прямых на плоскости</h1>
+<div class="lecture-subtitle">Фундаментальные формы уравнений прямой, метрические соотношения и угловые характеристики</div>
+<div class="meta-bar">
+<div class="meta-item">
+<strong>Лектор:</strong> проф. Г. М. Полотовский
           </div>
-          <div class="meta-item">
-            <strong>Дата:</strong> 5 октября 2026 г.
+<div class="meta-item">
+<strong>Дата:</strong> 5 октября 2026 г.
           </div>
-          <div class="meta-item">
-            <strong>Модуль:</strong> I модуль 2026–2027 уч. года
+<div class="meta-item">
+<strong>Модуль:</strong> I модуль 2026–2027 уч. года
           </div>
-          <div class="meta-item">
-            <strong>Программа:</strong> Фундаментальная и прикладная математика
+<div class="meta-item">
+<strong>Программа:</strong> Фундаментальная и прикладная математика
           </div>
-        </div>
-      </header>
+</div>
+</header>
+<!-- On-page Clickable Table of Contents (Works in Web and PDF) -->
 
-      <!-- On-page Clickable Table of Contents (Works in Web and PDF) -->
-      
-
-      <!-- SECTION 1 -->
-      <section id="sec-mixed-product">
+<!-- SECTION 1 -->
+<section id="sec-mixed-product">
 </section>
-
 <section class="chapter" aria-labelledby="chapter-2">
-  <div class="chapter-kicker">02 / 1. Дополнение векторной алге…</div>
-  <h2 id="chapter-2" data-toc="1. Дополнение векторной алге…">§ 1. Дополнение векторной алгебры: Смешанное произведение в ортонормированном базисе</h2>
-  <p>
+  <div class="chapter-kicker">02 / 1. Дополнение векторной алгебр…</div>
+  <h2 id="chapter-2" data-toc="1. Дополнение векторной алгебр…">§ 1. Дополнение векторной алгебры: Смешанное произведение в ортонормированном базисе</h2>
+  
+<p>
           В завершение аппарата векторной алгебры рассмотрим координатное выражение для смешанного (скалярно-векторного) произведения трех векторов в трехмерном евклидовом пространстве при условии задания их координат в правом ортонормированном базисе $(\mathbf{i}, \mathbf{j}, \mathbf{k})$.
         </p>
-
-        <div class="statement definition" id="def-1">
-  <div class="block-label">Определение 1</div>
-  <h3 id="sub-1" data-toc="Определение смешанного произ…">Определение смешанного произведения</h3>
-  
-          
-            <span class="callout-tag">Определение</span>
-          
-</div>
-          <p>
-            <strong>Смешанным произведением</strong> трех векторов $\mathbf{a}, \mathbf{b}, \mathbf{c}$ называется скалярное произведение векторного произведения векторов $\mathbf{a}$ и $\mathbf{b}$ на вектор $\mathbf{c}$:
+<div class="statement definition" id="def-1"><div class="block-label">Определение</div><h3 data-toc="Определение смешанного произве…" id="sub-2-1">Определение смешанного произведения</h3><div>
+<p>
+<strong>Смешанным произведением</strong> трех векторов $\mathbf{a}, \mathbf{b}, \mathbf{c}$ называется скалярное произведение векторного произведения векторов $\mathbf{a}$ и $\mathbf{b}$ на вектор $\mathbf{c}$:
           </p>
-          <div class="formula-banner">
-            $$\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle = ([\mathbf{a}, \mathbf{b}], \mathbf{c})$$
+<div class="equation">
+            \[\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle = ([\mathbf{a}, \mathbf{b}], \mathbf{c})\]
           </div>
-          <p>
+<p>
             Геометрически смешанное произведение с точностью до знака равно объему параллелепипеда, построенного на векторах $\mathbf{a}, \mathbf{b}, \mathbf{c}$:
-            $$V = |\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle|$$
+            \[V = |\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle|\]
             При этом $\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle > 0$, если тройка $(\mathbf{a}, \mathbf{b}, \mathbf{c})$ является правой, $\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle < 0$, если тройка левая, и $\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle = 0$ тогда и только тогда, когда векторы компланарны.
           </p>
-        </div>
-
-        <div class="theorem-card callout">
-          <div class="callout-header">
-            <span>Теорема: Вычисление смешанного произведения через определитель 3-го порядка</span>
-            <span class="callout-tag">Теорема</span>
-          </div>
-          <p>
+</div></div>
+<div class="statement theorem featured" id="thm-1"><div class="block-label">Теорема</div><h3 data-toc="Теорема: Вычисление смешанного…" id="sub-2-2">Теорема: Вычисление смешанного произведения через определитель 3-го порядка</h3><div>
+<p>
             Пусть в правом ортонормированном базисе $(\mathbf{i}, \mathbf{j}, \mathbf{k})$ векторы заданы своими координатами:
-            $$\mathbf{a} = (x_1, y_1, z_1), \quad \mathbf{b} = (x_2, y_2, z_2), \quad \mathbf{c} = (x_3, y_3, z_3)$$
+            \[\mathbf{a} = (x_1, y_1, z_1), \quad \mathbf{b} = (x_2, y_2, z_2), \quad \mathbf{c} = (x_3, y_3, z_3)\]
             Тогда их смешанное произведение равно определителю третьего порядка, строками которого являются координаты этих векторов:
           </p>
-          <div class="formula-banner">
-            $$\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle = \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix}$$
+<div class="equation">
+            \[\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle = \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix}\]
           </div>
-        </div>
-
-        <div class="proof" id="proof-1" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство теоремы">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-1" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (Доказательство теоремы).</p>
-  </div>
-  <div class="proof-full" id="full-1" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          
-            <span class="callout-tag">Доказательство</span>
-          
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div></div>
+<div class="proof" data-proof="" id="proof-1">
+<div aria-label="Доказательство Доказательство теоремыДоказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <p>
+<div class="proof-idea" data-proof-idea="" id="idea-1">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство теоремыДоказательство).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-1">
+<div class="proof-label">Доказательство (Доказательство теоремыДоказательство)</div>
+<p>
             1. В ортонормированном базисе векторное произведение $[\mathbf{a}, \mathbf{b}]$ выражается через формальный символический определитель с разложением по первой строке:
-            $$[\mathbf{a}, \mathbf{b}] = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \end{vmatrix} = (y_1 z_2 - z_1 y_2)\mathbf{i} - (x_1 z_2 - z_1 x_2)\mathbf{j} + (x_1 y_2 - y_1 x_2)\mathbf{k}$$
+            \[[\mathbf{a}, \mathbf{b}] = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \end{vmatrix} = (y_1 z_2 - z_1 y_2)\mathbf{i} - (x_1 z_2 - z_1 x_2)\mathbf{j} + (x_1 y_2 - y_1 x_2)\mathbf{k}\]
           </p>
-          <p>
+<p>
             Таким образом, вектор $[\mathbf{a}, \mathbf{b}]$ имеет следующие координаты в базисе $(\mathbf{i}, \mathbf{j}, \mathbf{k})$:
-            $$[\mathbf{a}, \mathbf{b}] = \left( (y_1 z_2 - z_1 y_2), \; -(x_1 z_2 - z_1 x_2), \; (x_1 y_2 - y_1 x_2) \right)$$
+            \[[\mathbf{a}, \mathbf{b}] = \left( (y_1 z_2 - z_1 y_2), \; -(x_1 z_2 - z_1 x_2), \; (x_1 y_2 - y_1 x_2) \right)\]
           </p>
-          <p>
+<p>
             2. Так как базис является ортонормированным, скалярное произведение двух векторов равно сумме попарных произведений их одноименных координат. Вычисляем скалярное произведение вектора $[\mathbf{a}, \mathbf{b}]$ с вектором $\mathbf{c} = (x_3, y_3, z_3)$:
-            $$\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle = ([\mathbf{a}, \mathbf{b}], \mathbf{c}) = (y_1 z_2 - z_1 y_2)x_3 - (x_1 z_2 - z_1 x_2)y_3 + (x_1 y_2 - y_1 x_2)z_3$$
+            \[\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle = ([\mathbf{a}, \mathbf{b}], \mathbf{c}) = (y_1 z_2 - z_1 y_2)x_3 - (x_1 z_2 - z_1 x_2)y_3 + (x_1 y_2 - y_1 x_2)z_3\]
           </p>
-          <p>
+<p>
             3. Заметим, что полученное алгебраическое выражение представляет собой в точности разложение по третьей строке определителя:
-            $$\begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix} = x_3 \begin{vmatrix} y_1 & z_1 \\ y_2 & z_2 \end{vmatrix} - y_3 \begin{vmatrix} x_1 & z_1 \\ x_2 & z_2 \end{vmatrix} + z_3 \begin{vmatrix} x_1 & y_1 \\ x_2 & y_2 \end{vmatrix}$$
-            $$= x_3(y_1 z_2 - z_1 y_2) - y_3(x_1 z_2 - z_1 x_2) + z_3(x_1 y_2 - y_1 x_2)$$
+            \[\begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix} = x_3 \begin{vmatrix} y_1 & z_1 \\ y_2 & z_2 \end{vmatrix} - y_3 \begin{vmatrix} x_1 & z_1 \\ x_2 & z_2 \end{vmatrix} + z_3 \begin{vmatrix} x_1 & y_1 \\ x_2 & y_2 \end{vmatrix}\]
+            \[= x_3(y_1 z_2 - z_1 y_2) - y_3(x_1 z_2 - z_1 x_2) + z_3(x_1 y_2 - y_1 x_2)\]
           </p>
-          <p>
+<p>
             Равенство полностью доказано. С алгебраической точки зрения это также равносильно разложению по первой строке определителя $\begin{vmatrix} x_3 & y_3 & z_3 \\ x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \end{vmatrix}$. Перестановка строк 1 и 2, а затем 2 и 3 представляет собой четное число транспозиций ($(-1)^2 = +1$), сохраняющее значение и знак определителя:
-            $$\begin{vmatrix} x_3 & y_3 & z_3 \\ x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \end{vmatrix} = - \begin{vmatrix} x_1 & y_1 & z_1 \\ x_3 & y_3 & z_3 \\ x_2 & y_2 & z_2 \end{vmatrix} = + \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix}$$
+            \[\begin{vmatrix} x_3 & y_3 & z_3 \\ x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \end{vmatrix} = - \begin{vmatrix} x_1 & y_1 & z_1 \\ x_3 & y_3 & z_3 \\ x_2 & y_2 & z_2 \end{vmatrix} = + \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix}\]
           </p>
-          <div class="proof-end">&#9632;</div>
-        </div>
-
-        <!-- SVG 1: Mixed Product & Parallelepiped -->
-        <div class="diagram-container">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 650 320" width="650" height="320">
-            <defs>
-              <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-                <path d="M0,0 L0,6 L8,3 z" fill="var(--svg-vec)" />
-              </marker>
-              <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-                <path d="M0,0 L0,6 L8,3 z" fill="var(--svg-line-main)" />
-              </marker>
-              <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-                <path d="M0,0 L0,6 L8,3 z" fill="var(--svg-line-sec)" />
-              </marker>
-              <marker id="arrow-pink" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-                <path d="M0,0 L0,6 L8,3 z" fill="var(--svg-accent)" />
-              </marker>
-            </defs>
-
-            <!-- Base Parallelogram Fill -->
-            <polygon points="120,240 320,240 440,180 240,180" fill="var(--card-theorem-bg)" stroke="var(--border-color)" stroke-width="1.5" />
-
-            <!-- Top Face Parallelogram Fill -->
-            <polygon points="170,140 370,140 490,80 290,80" fill="var(--card-theorem-bg)" stroke="var(--border-color)" stroke-width="1.5" stroke-dasharray="4,4" />
-
-            <!-- Edges of Parallelepiped -->
-            <line x1="120" y1="240" x2="170" y2="140" stroke="var(--border-color)" stroke-width="1.5" />
-            <line x1="320" y1="240" x2="370" y2="140" stroke="var(--border-color)" stroke-width="1.5" />
-            <line x1="440" y1="180" x2="490" y2="80" stroke="var(--border-color)" stroke-width="1.5" />
-            <line x1="240" y1="180" x2="290" y2="80" stroke="var(--border-color)" stroke-width="1.5" stroke-dasharray="4,4" />
-
-            <!-- Vector a (along bottom edge) -->
-            <line x1="120" y1="240" x2="320" y2="240" stroke="var(--svg-line-main)" stroke-width="3" marker-end="url(#arrow-blue)" />
-            <text x="210" y="265" fill="var(--svg-line-main)" font-weight="700" font-size="16">a = (x₁, y₁, z₁)</text>
-
-            <!-- Vector b (along depth edge) -->
-            <line x1="120" y1="240" x2="238" y2="181" stroke="var(--svg-line-sec)" stroke-width="3" marker-end="url(#arrow-orange)" />
-            <text x="150" y="195" fill="var(--svg-line-sec)" font-weight="700" font-size="16">b = (x₂, y₂, z₂)</text>
-
-            <!-- Vector c (along slanted vertical edge) -->
-            <line x1="120" y1="240" x2="168" y2="144" stroke="var(--svg-vec)" stroke-width="3" marker-end="url(#arrow-green)" />
-            <text x="80" y="165" fill="var(--svg-vec)" font-weight="700" font-size="16">c = (x₃, y₃, z₃)</text>
-
-            <!-- Cross Product [a, b] Normal Vector -->
-            <line x1="120" y1="240" x2="120" y2="60" stroke="var(--svg-accent)" stroke-width="3" marker-end="url(#arrow-pink)" />
-            <text x="30" y="55" fill="var(--svg-accent)" font-weight="700" font-size="16">[a, b] ⊥ (Основание)</text>
-
-            <!-- Height h projection -->
-            <line x1="170" y1="140" x2="170" y2="240" stroke="var(--svg-axis)" stroke-width="2" stroke-dasharray="3,3" />
-            <text x="178" y="200" fill="var(--svg-axis)" font-size="14" font-weight="600">h = |c| cos θ</text>
-            <circle cx="170" cy="240" r="3" fill="var(--svg-axis)" />
-
-            <!-- Base Origin Point -->
-            <circle cx="120" cy="240" r="5" fill="var(--text-main)" />
-            <text x="95" y="255" fill="var(--text-main)" font-weight="700" font-size="15">O</text>
-
-            <!-- Label for Volume -->
-            <rect x="360" y="220" width="260" height="60" rx="8" fill="var(--bg-card-alt)" stroke="var(--border-color)" />
-            <text x="375" y="245" fill="var(--text-main)" font-weight="600" font-size="14">V = |⟨a, b, c⟩| = S_осн · h</text>
-            <text x="375" y="267" fill="var(--accent-primary)" font-weight="600" font-size="13">Определитель матрицы 3×3</text>
-          </svg></div>
-          <div class="diagram-caption">Рис. 1. Геометрическая интерпретация смешанного произведения трех векторов как ориентированного объема параллелепипеда</div>
-        </div>
-
-        <div class="remark-card callout">
-          <div class="callout-header">
-            <span>Критерий компланарности векторов</span>
-            <span class="callout-tag">Следствие</span>
-          </div>
-          <p>
+<div class="proof-end">■</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<!-- SVG 1: Mixed Product & Parallelepiped -->
+<figure class="figure-plate">
+<svg height="320" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 320" width="650">
+<defs>
+<marker id="arrow-green" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L8,3 z" fill="var(--svg-vec)"></path>
+</marker>
+<marker id="arrow-blue" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L8,3 z" fill="var(--svg-line-main)"></path>
+</marker>
+<marker id="arrow-orange" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L8,3 z" fill="var(--svg-line-sec)"></path>
+</marker>
+<marker id="arrow-pink" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L8,3 z" fill="var(--svg-accent)"></path>
+</marker>
+</defs>
+<!-- Base Parallelogram Fill -->
+<polygon fill="var(--card-theorem-bg)" points="120,240 320,240 440,180 240,180" stroke="var(--border-color)" stroke-width="1.5"></polygon>
+<!-- Top Face Parallelogram Fill -->
+<polygon fill="var(--card-theorem-bg)" points="170,140 370,140 490,80 290,80" stroke="var(--border-color)" stroke-dasharray="4,4" stroke-width="1.5"></polygon>
+<!-- Edges of Parallelepiped -->
+<line stroke="var(--border-color)" stroke-width="1.5" x1="120" x2="170" y1="240" y2="140"></line>
+<line stroke="var(--border-color)" stroke-width="1.5" x1="320" x2="370" y1="240" y2="140"></line>
+<line stroke="var(--border-color)" stroke-width="1.5" x1="440" x2="490" y1="180" y2="80"></line>
+<line stroke="var(--border-color)" stroke-dasharray="4,4" stroke-width="1.5" x1="240" x2="290" y1="180" y2="80"></line>
+<!-- Vector a (along bottom edge) -->
+<line marker-end="url(#arrow-blue)" stroke="var(--svg-line-main)" stroke-width="3" x1="120" x2="320" y1="240" y2="240"></line>
+<text fill="var(--svg-line-main)" font-size="16" font-weight="700" x="210" y="265">a = (x₁, y₁, z₁)</text>
+<!-- Vector b (along depth edge) -->
+<line marker-end="url(#arrow-orange)" stroke="var(--svg-line-sec)" stroke-width="3" x1="120" x2="238" y1="240" y2="181"></line>
+<text fill="var(--svg-line-sec)" font-size="16" font-weight="700" x="150" y="195">b = (x₂, y₂, z₂)</text>
+<!-- Vector c (along slanted vertical edge) -->
+<line marker-end="url(#arrow-green)" stroke="var(--svg-vec)" stroke-width="3" x1="120" x2="168" y1="240" y2="144"></line>
+<text fill="var(--svg-vec)" font-size="16" font-weight="700" x="80" y="165">c = (x₃, y₃, z₃)</text>
+<!-- Cross Product [a, b] Normal Vector -->
+<line marker-end="url(#arrow-pink)" stroke="var(--svg-accent)" stroke-width="3" x1="120" x2="120" y1="240" y2="60"></line>
+<text fill="var(--svg-accent)" font-size="16" font-weight="700" x="30" y="55">[a, b] ⊥ (Основание)</text>
+<!-- Height h projection -->
+<line stroke="var(--svg-axis)" stroke-dasharray="3,3" stroke-width="2" x1="170" x2="170" y1="140" y2="240"></line>
+<text fill="var(--svg-axis)" font-size="14" font-weight="600" x="178" y="200">h = |c| cos θ</text>
+<circle cx="170" cy="240" fill="var(--svg-axis)" r="3"></circle>
+<!-- Base Origin Point -->
+<circle cx="120" cy="240" fill="var(--text-main)" r="5"></circle>
+<text fill="var(--text-main)" font-size="15" font-weight="700" x="95" y="255">O</text>
+<!-- Label for Volume -->
+<rect fill="var(--bg-card-alt)" height="60" rx="8" stroke="var(--border-color)" width="260" x="360" y="220"></rect>
+<text fill="var(--text-main)" font-size="14" font-weight="600" x="375" y="245">V = |⟨a, b, c⟩| = S_осн · h</text>
+<text fill="var(--accent-primary)" font-size="13" font-weight="600" x="375" y="267">Определитель матрицы 3×3</text>
+</svg>
+<div class="diagram-caption">Рис. 1. Геометрическая интерпретация смешанного произведения трех векторов как ориентированного объема параллелепипеда</div>
+</figure>
+<div class="remark-card callout">
+<div class="callout-header">
+<span>Критерий компланарности векторов</span>
+<span class="callout-tag">Следствие</span>
+</div>
+<p>
             Три вектора $\mathbf{a}, \mathbf{b}, \mathbf{c}$ компланарны (лежат в одной плоскости или параллельны одной плоскости) тогда и только тогда, когда их смешанное произведение равно нулю:
-            $$\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle = 0 \iff \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix} = 0$$
+            \[\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle = 0 \iff \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix} = 0\]
             Это условие фундаментально: оно выражает линейную зависимость трех векторов в пространстве $\mathbb{R}^3$.
           </p>
-        </div>
-      </section>
+</div>
 
-      <!-- SECTION 2 -->
-      <section id="sec-lines-intro">
+<!-- SECTION 2 -->
+<section id="sec-lines-intro">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-3">
-  <div class="chapter-kicker">03 / 2. Теория прямых на плоскост…</div>
-  <h2 id="chapter-3" data-toc="2. Теория прямых на плоскост…">§ 2. Теория прямых на плоскости: Формы задания уравнений</h2>
-  <p>
+  <div class="chapter-kicker">03 / 2. Теория прямых на плоскости:…</div>
+  <h2 id="chapter-3" data-toc="2. Теория прямых на плоскости:…">§ 2. Теория прямых на плоскости: Формы задания уравнений</h2>
+  
+<p>
           В аналитической геометрии геометрический объект «прямая» определяется аналитически через совокупность координат ее точек. В зависимости от выбранного геометрического базиса и исходных данных выделяют девять фундаментальных форм уравнения прямой.
         </p>
-
-        <!-- Subsection 2.1 -->
-        <article id="sec-form-1-2">
-          <h3 id="sub-2" data-toc="1. Векторно-параметрическое …">2.1. Векторно-параметрическое и параметрические уравнения прямой</h3>
-          
-          <div class="statement definition" id="def-2">
-  <div class="block-label">Определение 2</div>
-  <h3 id="sub-3" data-toc=". Векторно-параметрическое у…">1). Векторно-параметрическое уравнение</h3>
-  
-            
-              <span class="callout-tag">Форма 1</span>
-            
-</div>
-            <p>
+<!-- Subsection 2.1 -->
+<article id="sec-form-1-2">
+<h3 class="subsection-heading" data-toc="1. Векторно-параметрическое и …" id="sub-3-1">2.1. Векторно-параметрическое и параметрические уравнения прямой</h3>
+<div class="statement definition" id="def-2"><div class="block-label">Форма 1</div><h3 data-toc=". Векторно-параметрическое ура…" id="sub-3-2">1). Векторно-параметрическое уравнение</h3><div>
+<p>
               Пусть на плоскости зафиксирована точка $M_0$ с радиус-вектором $\mathbf{r}_0$ и задан ненулевой вектор $\mathbf{a} \ne \mathbf{0}$, называемый <strong>направляющим вектором прямой</strong>. Точка $M$ с радиус-вектором $\mathbf{r}$ принадлежит прямой $L$ тогда и только тогда, когда вектор $\overrightarrow{M_0 M} = \mathbf{r} - \mathbf{r}_0$ коллинеарен вектору $\mathbf{a}$:
             </p>
-            <div class="formula-banner">
-              $$\mathbf{r} = \mathbf{r}_0 + t \mathbf{a}, \quad t \in \mathbb{R}$$
+<div class="equation">
+              \[\mathbf{r} = \mathbf{r}_0 + t \mathbf{a}, \quad t \in \mathbb{R}\]
             </div>
-            <p>
+<p>
               Здесь скалярный множитель $t$ играет роль независимого числового параметра. Каждому значению $t \in (-\infty, +\infty)$ взаимно однозначно соответствует точка $M$ на прямой.
             </p>
-          </div>
-
-          <div class="statement definition" id="def-3">
-  <div class="block-label">Определение 3</div>
-  <h3 id="sub-4" data-toc=". Параметрические уравнения …">2). Параметрические уравнения прямой</h3>
-  
-            
-              <span class="callout-tag">Форма 2</span>
-            
-</div>
-            <p>
+</div></div>
+<div class="statement definition" id="def-3"><div class="block-label">Форма 2</div><h3 data-toc=". Параметрические уравнения пр…" id="sub-3-3">2). Параметрические уравнения прямой</h3><div>
+<p>
               Спроецируем векторно-параметрическое уравнение на координатные оси декартовой системы координат $Oxy$. Пусть $\mathbf{r}_0 = (x_0, y_0)$, $\mathbf{r} = (x, y)$, а направляющий вектор имеет координаты $\mathbf{a} = (a_1, a_2) \ne (0,0)$. Тогда покомпонентно получаем систему:
             </p>
-            <div class="formula-banner">
-              $$\begin{cases} x = x_0 + a_1 t \\ y = y_0 + a_2 t \end{cases}, \quad t \in \mathbb{R}$$
+<div class="equation">
+              \[\begin{cases} x = x_0 + a_1 t \\ y = y_0 + a_2 t \end{cases}, \quad t \in \mathbb{R}\]
             </div>
+</div></div>
+<!-- SVG 2: Vector Parametric Line -->
+<figure class="figure-plate">
+<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650">
+<defs>
+<marker id="arrow-axis" markerheight="7" markerwidth="7" orient="auto" refx="5" refy="2.5">
+<path d="M0,0 L0,5 L7,2.5 z" fill="var(--svg-axis)"></path>
+</marker>
+<marker id="arrow-line-dir" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L8,3 z" fill="var(--svg-line-main)"></path>
+</marker>
+<marker id="arrow-r0" markerheight="7" markerwidth="7" orient="auto" refx="5" refy="2.5">
+<path d="M0,0 L0,5 L7,2.5 z" fill="var(--accent-remark)"></path>
+</marker>
+<marker id="arrow-r" markerheight="7" markerwidth="7" orient="auto" refx="5" refy="2.5">
+<path d="M0,0 L0,5 L7,2.5 z" fill="var(--text-muted)"></path>
+</marker>
+</defs>
+<!-- Coordinate Axes -->
+<line marker-end="url(#arrow-axis)" stroke="var(--svg-axis)" stroke-width="1.8" x1="50" x2="600" y1="250" y2="250"></line>
+<text fill="var(--svg-axis)" font-size="15" font-weight="700" x="590" y="275">X</text>
+<line marker-end="url(#arrow-axis)" stroke="var(--svg-axis)" stroke-width="1.8" x1="100" x2="100" y1="280" y2="30"></line>
+<text fill="var(--svg-axis)" font-size="15" font-weight="700" x="75" y="45">Y</text>
+<text fill="var(--svg-axis)" font-size="14" x="82" y="268">O</text>
+<!-- Line L (Extended) -->
+<line stroke="var(--border-color)" stroke-dasharray="3,3" stroke-width="2" x1="40" x2="570" y1="210" y2="70"></line>
+<text fill="var(--text-muted)" font-size="15" font-weight="700" x="575" y="68">L</text>
+<!-- Vector r0 to M0 -->
+<line marker-end="url(#arrow-r0)" stroke="var(--accent-remark)" stroke-width="2.5" x1="100" x2="220" y1="250" y2="162"></line>
+<circle cx="220" cy="162" fill="var(--accent-remark)" r="4.5"></circle>
+<text fill="var(--accent-remark)" font-size="15" font-weight="700" x="145" y="215">r₀</text>
+<text fill="var(--accent-remark)" font-size="15" font-weight="700" x="210" y="145">M₀(x₀, y₀)</text>
+<!-- Vector r to M -->
+<line marker-end="url(#arrow-r)" stroke="var(--text-muted)" stroke-dasharray="4,4" stroke-width="1.8" x1="100" x2="420" y1="250" y2="109"></line>
+<circle cx="420" cy="109" fill="var(--svg-line-main)" r="4.5"></circle>
+<text fill="var(--text-muted)" font-size="14" font-weight="600" x="270" y="195">r</text>
+<text fill="var(--svg-line-main)" font-size="15" font-weight="700" x="425" y="105">M(x, y)</text>
+<!-- Segment M0 M on Line representing t*a -->
+<line marker-end="url(#arrow-line-dir)" stroke="var(--svg-line-main)" stroke-width="3.5" x1="220" x2="416" y1="162" y2="110"></line>
+<text fill="var(--svg-line-main)" font-size="15" font-weight="700" x="290" y="125">t · a</text>
+<!-- Free Direction Vector a shown parallel -->
+<line marker-end="url(#arrow-green)" stroke="var(--svg-vec)" stroke-width="2.5" x1="330" x2="430" y1="60" y2="34"></line>
+<text fill="var(--svg-vec)" font-size="14" font-weight="700" x="370" y="40">a (направляющий)</text>
+</svg>
+<div class="diagram-caption">Рис. 2. Геометрическая структура векторно-параметрического уравнения прямой на плоскости</div>
+</figure>
+</article>
+<!-- Subsection 2.2 -->
+<article id="sec-form-3">
+<h3 class="subsection-heading" data-toc="2. Уравнение прямой с угловым …" id="sub-3-4">2.2. Уравнение прямой с угловым коэффициентом</h3>
+<div class="statement definition" id="def-4"><div class="block-label">Форма 3</div><h3 data-toc=". Уравнение с угловым коэффици…" id="sub-3-5">3). Уравнение с угловым коэффициентом («школьная форма»)</h3><div>
+<p>
+              Если прямая не параллельна оси ординат (то есть $a_1 \ne 0$), исключим параметр $t$ из первого уравнения параметрической системы:
+              \[t = \frac{x - x_0}{a_1}\]
+              Подставляя это выражение во второе уравнение, получаем:
+              \[y = y_0 + a_2 \frac{x - x_0}{a_1} = \frac{a_2}{a_1}x + \left( y_0 - \frac{a_2}{a_1}x_0 \right)\]
+              Положим:
+              \[k = \frac{a_2}{a_1} = \operatorname{tg}\varphi, \quad b = y_0 - k x_0\]
+              Тогда уравнение прямой принимает классический вид:
+            </p>
+<div class="equation">
+              \[y = kx + b\]
+            </div>
+<p>
+<strong>Геометрический смысл коэффициентов:</strong>
+<ul>
+<li>$k = \operatorname{tg}\varphi$ — <em>угловой коэффициент</em> прямой, где $\varphi$ — угол, отсчитываемый от положительного направления оси $Ox$ до прямой против часовой стрелки ($0 \le \varphi < \pi, \; \varphi \ne \frac{\pi}{2}$).</li>
+<li>$b$ — ордината точки пересечения прямой с осью ординат $Oy$, так как при $x = 0$ имеем $y = b$, то есть прямая проходит через точку $(0, b)$.</li>
+</ul>
+</p>
+</div></div>
+</article>
+<!-- Subsection 2.3 -->
+<article id="sec-form-4">
+<h3 class="subsection-heading" data-toc="3. Каноническое уравнение прям…" id="sub-3-6">2.3. Каноническое уравнение прямой на плоскости</h3>
+<div class="statement theorem" id="thm-2"><div class="block-label">Форма 4</div><h3 data-toc=". Каноническое уравнение прямой" id="sub-3-7">4). Каноническое уравнение прямой</h3><div>
+<p>
+              Выразим параметр $t$ из каждого уравнения параметрической системы в предположении $a_1 \ne 0, a_2 \ne 0$:
+              \[t = \frac{x - x_0}{a_1}, \quad t = \frac{y - y_0}{a_2}\]
+              Приравнивая правые части, получаем <strong>каноническое уравнение прямой</strong>:
+            </p>
+<div class="equation">
+              \[\frac{x - x_0}{a_1} = \frac{y - y_0}{a_2}\]
+            </div>
+</div></div>
+<div class="remark-card callout">
+<div class="callout-header">
+<span>Семантическое соглашение: нуль в знаменателе канонического уравнения</span>
+<span class="callout-tag">Важное правило</span>
+</div>
+<p>
+              В аналитической геометрии в каноническом уравнении <strong>допускается запись с нулевым знаменателем</strong>. Такая запись носит чисто символический характер пропорции и строго расшифровывается равенством нулю соответствующего числителя:
+            </p>
+<ol>
+<li>
+<strong>Если $a_2 = 0$</strong> (при этом $a_1 \ne 0$): запись $\frac{x - x_0}{a_1} = \frac{y - y_0}{0}$ означает, что числитель правой части тождественно равен нулю:
+                \[y - y_0 = 0 \iff y = y_0 = \text{const}\]
+                Это уравнение <em>горизонтальной прямой</em>, параллельной оси абсцисс $Ox$. Координата $x$ при этом пробегает всё множество вещественных чисел $\mathbb{R}$.
+              </li>
+<li>
+<strong>Если $a_1 = 0$</strong> (при этом $a_2 \ne 0$): запись $\frac{x - x_0}{0} = \frac{y - y_0}{a_2}$ означает:
+                \[x - x_0 = 0 \iff x = x_0 = \text{const}\]
+                Это уравнение <em>вертикальной прямой</em>, параллельной оси ординат $Oy$. Координата $y$ пробегает все действительные числа $\mathbb{R}$.
+              </li>
+</ol>
+<p>
+              Оба знаменателя одновременно обратиться в ноль не могут, так как по определению направляющий вектор $\mathbf{a} = (a_1, a_2) \ne \mathbf{0}$.
+            </p>
+</div>
+</article>
+<!-- Subsection 2.4 -->
+<article id="sec-form-5-6">
+<h3 class="subsection-heading" data-toc="4. Прямая через две точки и ур…" id="sub-3-8">2.4. Прямая через две точки и уравнение в отрезках</h3>
+<div class="statement definition" id="def-5"><div class="block-label">Форма 5</div><h3 data-toc=". Уравнение прямой, проходящей…" id="sub-3-9">5). Уравнение прямой, проходящей через две заданные точки</h3><div>
+<p>
+              Пусть на плоскости заданы две различные фиксированные точки $A_1(x_1, y_1)$ и $A_2(x_2, y_2)$. Вектор $\overrightarrow{A_1 A_2} = (x_2 - x_1, y_2 - y_1)$ является направляющим вектором данной прямой ($\overrightarrow{A_1 A_2} \ne \mathbf{0}$). Выбирая точку $A_1$ в качестве начальной точки $(x_0, y_0)$, записываем каноническое уравнение:
+            </p>
+<div class="equation">
+              \[\frac{x - x_1}{x_2 - x_1} = \frac{y - y_1}{y_2 - y_1}\]
+            </div>
+<p>
+              В виде определителя второго порядка это условие формулируется как компланарность (коллинеарность) векторов:
+              \[\begin{vmatrix} x - x_1 & y - y_1 \\ x_2 - x_1 & y_2 - y_1 \end{vmatrix} = 0\]
+            </p>
+</div></div>
+<div class="statement definition" id="def-6"><div class="block-label">Форма 6</div><h3 data-toc=". Уравнение прямой «в отрезках»" id="sub-3-10">6). Уравнение прямой «в отрезках»</h3><div>
+<p>
+              Пусть прямая пересекает координатную ось $Ox$ в точке $A_1(a, 0)$, а ось $Oy$ — в точке $A_2(0, b)$, причем $a \ne 0$ и $b \ne 0$ (прямая не проходит через начало координат). Воспользуемся уравнением прямой через две точки:
+              \[\frac{x - a}{0 - a} = \frac{y - 0}{b - 0} \iff \frac{x - a}{-a} = \frac{y}{b}\]
+              Разделим почленно левую часть равенства:
+              \[-\frac{x}{a} + 1 = \frac{y}{b} \iff \frac{x}{a} + \frac{y}{b} = 1\]
+            </p>
+<div class="equation">
+              \[\frac{x}{a} + \frac{y}{b} = 1\]
+            </div>
+<p>
+              Параметры $a$ и $b$ представляют собой алгебраические величины отрезков, отсекаемых прямой на осях координат от начала координат $O$.
+            </p>
+</div></div>
+<!-- SVG 3: Intercept form -->
+<figure class="figure-plate">
+<svg height="280" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 280" width="650">
+<defs>
+<marker id="arrow-axis-2" markerheight="7" markerwidth="7" orient="auto" refx="5" refy="2.5">
+<path d="M0,0 L0,5 L7,2.5 z" fill="var(--svg-axis)"></path>
+</marker>
+</defs>
+<!-- Axes -->
+<line marker-end="url(#arrow-axis-2)" stroke="var(--svg-axis)" stroke-width="1.8" x1="80" x2="580" y1="230" y2="230"></line>
+<text fill="var(--svg-axis)" font-size="15" font-weight="700" x="570" y="255">X</text>
+<line marker-end="url(#arrow-axis-2)" stroke="var(--svg-axis)" stroke-width="1.8" x1="160" x2="160" y1="260" y2="30"></line>
+<text fill="var(--svg-axis)" font-size="15" font-weight="700" x="135" y="45">Y</text>
+<text fill="var(--svg-axis)" font-size="14" x="142" y="248">O</text>
+<!-- Intercept Triangle Shading -->
+<polygon fill="var(--card-example-bg)" points="160,230 160,80 400,230" stroke="none"></polygon>
+<!-- Straight Line Cutting Axes -->
+<line stroke="var(--accent-example)" stroke-width="3" x1="100" x2="460" y1="42" y2="268"></line>
+<!-- Point (a, 0) -->
+<circle cx="400" cy="230" fill="var(--accent-example)" r="5"></circle>
+<text fill="var(--accent-example)" font-size="16" font-weight="700" x="395" y="255">a (a, 0)</text>
+<!-- Point (0, b) -->
+<circle cx="160" cy="80" fill="var(--accent-example)" r="5"></circle>
+<text fill="var(--accent-example)" font-size="16" font-weight="700" x="120" y="85">b (0, b)</text>
+<!-- Formula callout on diagram -->
+<rect fill="var(--bg-card-alt)" height="60" rx="8" stroke="var(--border-color)" width="220" x="330" y="70"></rect>
+<text fill="var(--text-main)" font-size="16" font-weight="700" x="350" y="98">x / a + y / b = 1</text>
+<text fill="var(--text-muted)" font-size="13" x="350" y="118">S_треуг = ½ |a · b|</text>
+</svg>
+<div class="diagram-caption">Рис. 3. Геометрическая иллюстрация уравнения прямой в отрезках на осях координат</div>
+</figure>
+</article>
+<!-- Subsection 2.5 -->
+<article id="sec-form-7-8">
+<h3 class="subsection-heading" data-toc="5. Векторное и общее уравнения…" id="sub-3-11">2.5. Векторное и общее уравнения прямой на плоскости</h3>
+<div class="statement definition" id="def-7"><div class="block-label">Форма 7</div><h3 data-toc=". Векторное уравнение прямой ч…" id="sub-3-12">7). Векторное уравнение прямой через нормальный вектор</h3><div>
+<p>
+              Ненулевой вектор $\mathbf{n} \ne \mathbf{0}$, ортогональный к прямой $L$ (то есть перпендикулярный ее направляющему вектору $\mathbf{a}$: $(\mathbf{n}, \mathbf{a}) = 0$), называется <strong>нормальным вектором прямой</strong>.
+            </p>
+<p>
+              Пусть точка $M_0$ с радиус-вектором $\mathbf{r}_0$ лежит на прямой $L$, а $\mathbf{n}$ — фиксированный нормальный вектор. Тогда для произвольной точки $M(\mathbf{r})$ прямой вектор $\mathbf{r} - \mathbf{r}_0$ параллелен прямой и, следовательно, перпендикулярен $\mathbf{n}$:
+            </p>
+<div class="equation">
+              \[(\mathbf{r} - \mathbf{r}_0, \mathbf{n}) = 0\]
+            </div>
+</div></div>
+<div class="statement definition" id="def-8"><div class="block-label">Форма 8</div><h3 data-toc=". Общее уравнение прямой на пл…" id="sub-3-13">8). Общее уравнение прямой на плоскости</h3><div>
+<p>
+              Пусть декартова прямоугольная система координат на плоскости является <em>ортонормированной</em>. Обозначим координаты радиус-векторов и нормали:
+              \[\mathbf{r} = (x, y), \quad \mathbf{r}_0 = (x_0, y_0), \quad \mathbf{n} = (A, B) \ne (0,0)\]
+              Тогда вектор разности $\mathbf{r} - \mathbf{r}_0 = (x - x_0, y - y_0)$. Раскрывая скалярное произведение:
+              \[((x - x_0, y - y_0), (A, B)) = 0\]
+              \[A(x - x_0) + B(y - y_0) = 0\]
+              \[Ax + By + (-A x_0 - B y_0) = 0\]
+              Обозначив свободный коэффициент $C = -A x_0 - B y_0$, получаем <strong>общее линейное уравнение прямой на плоскости</strong>:
+            </p>
+<div class="equation">
+              \[Ax + By + C = 0, \quad A^2 + B^2 > 0\]
+            </div>
+</div></div>
+<div class="statement theorem" id="thm-3"><div class="block-label">Теорема Полотовского</div><h3 data-toc="Теорема 1: Геометрический смыс…" id="sub-3-14">Теорема 1: Геометрический смысл коэффициентов A и B в ОНСК</h3><div>
+<p>
+              Пусть $Ax + By + C = 0$ ($A^2 + B^2 > 0$) — общее уравнение прямой, заданное в <strong>ортонормированной системе координат</strong>. Тогда вектор $\mathbf{n} = (A, B)$ является нормальным вектором этой прямой.
+            </p>
+</div></div>
+<div class="proof" data-proof="" id="proof-2">
+<div aria-label="Доказательство Доказательство теоремы 1Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-2">
+<div class="proof-label">Идея</div>
+<p>Выберем на прямой две произвольные различные точки $M(x_0, y_0)$ и $N(x_1, y_1)$ ($M \ne N$).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-2">
+<div class="proof-label">Доказательство (Доказательство теоремы 1Строгое доказательство)</div>
+<p>
+              Выберем на прямой две произвольные различные точки $M(x_0, y_0)$ и $N(x_1, y_1)$ ($M \ne N$). Так как обе точки принадлежат данной прямой, их координаты удовлетворяют общему уравнению:
+              \[\begin{cases} A x_0 + B y_0 + C = 0 \\ A x_1 + B y_1 + C = 0 \end{cases}\]
+              Вычтем почленно второе тождество из первого:
+              \[(A x_0 - A x_1) + (B y_0 - B y_1) + (C - C) = 0\]
+              \[A(x_0 - x_1) + B(y_0 - y_1) = 0\]
+            </p>
+<p>
+              Левая часть полученного равенства представляет собой стандартное скалярное произведение в ортонормированном базисе между вектором $\overrightarrow{NM} = (x_0 - x_1, y_0 - y_1)$ и вектором $\mathbf{n} = (A, B)$:
+              \[(\overrightarrow{NM}, \mathbf{n}) = 0\]
+              Поскольку точки $M$ и $N$ не совпадают, вектор $\overrightarrow{NM}$ является ненулевым направляющим вектором прямой. Равенство скалярного произведения нулю в ОНСК означает, что вектор $\mathbf{n} = (A, B)$ ортогонален направляющему вектору $\overrightarrow{NM}$, а значит, ортогонален всей прямой. Следовательно, вектор $(A, B)$ — нормальный вектор данной прямой.
+            </p>
+<div class="proof-end">■</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="remark-card callout">
+<div class="callout-header">
+<span>Критическое замечание: роль ортонормированности базиса</span>
+<span class="callout-tag">Фундаментально</span>
+</div>
+<p>
+              Уравнение первой степени $Ax + By + C = 0$ определяет прямую в <strong>любой</strong> аффинной (в том числе косоугольной и с неравными масштабами по осям) системе координат. Однако утверждение о том, что коэффициенты $(A, B)$ образуют <em>нормальный вектор</em>, справедливо <strong>исключительно в ортонормированной системе координат</strong>!
+            </p>
+<p>
+              В общей аффинной системе координат с матрицей Грама $G = \begin{pmatrix} g_{11} & g_{12} \\ g_{12} & g_{22} \end{pmatrix} \ne \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$ скалярное произведение векторов вычисляется с учетом метрического тензора: $(\mathbf{u}, \mathbf{v}) = \mathbf{u}^T G \mathbf{v}$. Поэтому вектор с координатами $(A, B)$ в общем косоугольном базисе геометрически <strong>не будет перпендикулярен</strong> прямой.
+            </p>
+</div>
+</article>
+<!-- Subsection 2.6 -->
+<article id="sec-form-9">
+<h3 class="subsection-heading" data-toc="6. Нормальное уравнение прямой…" id="sub-3-15">2.6. Нормальное уравнение прямой на плоскости</h3>
+<div class="statement definition" id="def-9"><div class="block-label">Форма 9</div><h3 data-toc=". Нормальное уравнение прямой …" id="sub-3-16">9). Нормальное уравнение прямой на плоскости</h3><div>
+<p>
+              Разделим обе части общего уравнения прямой $Ax + By + C = 0$ на длину ее нормального вектора $|\mathbf{n}| = \sqrt{A^2 + B^2} \ne 0$:
+            </p>
+<div class="equation">
+              \[\frac{Ax + By + C}{\sqrt{A^2 + B^2}} = 0\]
+            </div>
+<p>
+              Выполняя почленное деление, запишем уравнение в виде:
+              \[p x + q y + d = 0\]
+              где:
+              \[p = \frac{A}{\sqrt{A^2 + B^2}}, \quad q = \frac{B}{\sqrt{A^2 + B^2}}, \quad d = \frac{C}{\sqrt{A^2 + B^2}}\]
+            </p>
+<p>
+<strong>Геометрический смысл коэффициентов:</strong>
+              Вектор $\mathbf{n}_0 = (p, q)$ является <em>единичным нормальным вектором</em> прямой, так как:
+              \[p^2 + q^2 = \frac{A^2 + B^2}{A^2 + B^2} = 1\]
+              Коэффициенты $p$ и $q$ равны направляющим косинусам вектора нормали относительно координатных осей $Ox$ и $Oy$:
+              \[p = \cos \alpha, \quad q = \cos \beta\]
+              где $\alpha$ — угол между вектором $\mathbf{n}$ и осью $Ox$, а $\beta$ — угол между $\mathbf{n}$ и осью $Oy$.
+            </p>
+</div></div>
+<!-- SVG 4: Normal Vector Direction Cosines -->
+<figure class="figure-plate">
+<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650">
+<defs>
+<marker id="arrow-n" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L8,3 z" fill="var(--accent-primary)"></path>
+</marker>
+</defs>
+<!-- Axes -->
+<line marker-end="url(#arrow-axis)" stroke="var(--svg-axis)" stroke-width="1.8" x1="80" x2="580" y1="240" y2="240"></line>
+<text fill="var(--svg-axis)" font-size="15" font-weight="700" x="575" y="265">X</text>
+<line marker-end="url(#arrow-axis)" stroke="var(--svg-axis)" stroke-width="1.8" x1="160" x2="160" y1="270" y2="30"></line>
+<text fill="var(--svg-axis)" font-size="15" font-weight="700" x="135" y="45">Y</text>
+<text fill="var(--svg-axis)" font-size="14" x="142" y="258">O</text>
+<!-- Normal Vector n = (A, B) -->
+<line marker-end="url(#arrow-n)" stroke="var(--accent-primary)" stroke-width="3" x1="160" x2="420" y1="240" y2="100"></line>
+<circle cx="420" cy="100" fill="var(--accent-primary)" r="4.5"></circle>
+<text fill="var(--accent-primary)" font-size="16" font-weight="700" x="430" y="95">n = (A, B)</text>
+<!-- Projections on Axes -->
+<line stroke="var(--svg-axis)" stroke-dasharray="3,3" stroke-width="1.5" x1="420" x2="420" y1="100" y2="240"></line>
+<line stroke="var(--svg-axis)" stroke-dasharray="3,3" stroke-width="1.5" x1="420" x2="160" y1="100" y2="100"></line>
+<circle cx="420" cy="240" fill="var(--svg-axis)" r="3.5"></circle>
+<circle cx="160" cy="100" fill="var(--svg-axis)" r="3.5"></circle>
+<text fill="var(--text-main)" font-size="14" font-weight="600" x="415" y="260">A</text>
+<text fill="var(--text-main)" font-size="14" font-weight="600" x="140" y="105">B</text>
+<!-- Angle alpha with X-axis -->
+<path d="M 230,240 A 70,70 0 0,0 220,208" fill="none" stroke="var(--accent-example)" stroke-width="2.5"></path>
+<text fill="var(--accent-example)" font-size="15" font-weight="700" x="238" y="222">α</text>
+<!-- Angle beta with Y-axis -->
+<path d="M 160,180 A 60,60 0 0,0 195,195" fill="none" stroke="var(--accent-def)" stroke-width="2.5"></path>
+<text fill="var(--accent-def)" font-size="15" font-weight="700" x="175" y="170">β</text>
+<!-- Hypotenuse / Magnitude Label -->
+<text fill="var(--accent-primary)" font-size="14" font-weight="600" x="270" y="145">|n| = √(A² + B²)</text>
+<!-- Cosine Formulas Box -->
+<rect fill="var(--bg-card-alt)" height="75" rx="8" stroke="var(--border-color)" width="190" x="440" y="150"></rect>
+<text fill="var(--text-main)" font-size="14" x="455" y="178">p = cos α = A / |n|</text>
+<text fill="var(--text-main)" font-size="14" x="455" y="206">q = cos β = B / |n|</text>
+</svg>
+<div class="diagram-caption">Рис. 4. Направляющие косинусы нормального вектора в прямоугольной системе координат</div>
+</figure>
+</article>
+
+<!-- SECTION 3 -->
+<section id="sec-distance">
+</section>
+</section>
+<section class="chapter" aria-labelledby="chapter-4">
+  <div class="chapter-kicker">04 / 3. Метрическая теория: Расстоя…</div>
+  <h2 id="chapter-4" data-toc="3. Метрическая теория: Расстоя…">§ 3. Метрическая теория: Расстояние от точки до прямой на плоскости</h2>
+  
+<div class="statement theorem" id="thm-4"><div class="block-label">Теорема Полотовского</div><h3 data-toc="Теорема 2: Формула расстояния …" id="sub-4-1">Теорема 2: Формула расстояния от произвольной точки до прямой в ОНСК</h3><div>
+<p>
+            В ортонормированной декартовой системе координат расстояние $\rho(M_0, L)$ от произвольной фиксированной точки плоскости $M_0(x_0, y_0)$ до прямой $L$, заданной общим уравнением $Ax + By + C = 0$, вычисляется по формуле:
+          </p>
+<div class="equation">
+            \[\rho(M_0, L) = \frac{|A x_0 + B y_0 + C|}{\sqrt{A^2 + B^2}}\]
           </div>
+</div></div>
+<div class="proof" data-proof="" id="proof-3">
+<div aria-label="Доказательство Строгое аналитико-геометрическое доказательствоДоказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-3">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Строгое аналитико-геометрическое доказательствоДоказательство).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-3">
+<div class="proof-label">Доказательство (Строгое аналитико-геометрическое доказательствоДоказательство)</div>
+<p>
+<strong>Шаг 1. Геометрическая проекция на нормаль.</strong><br/>
+            Пусть $N(x_1, y_1)$ — <em>произвольная</em> точка, лежащая на прямой $L$. Поскольку прямая ортогональна своему нормальному вектору $\mathbf{n} = (A, B)$, расстояние $\rho(M_0, L)$ от точки $M_0$ до прямой в точности равно модулю ортогональной проекции вектора «наклонной» $\overrightarrow{M_0 N}$ на направление вектора нормали $\mathbf{n}$:
+            \[\rho(M_0, L) = |\operatorname{pr}_{\mathbf{n}} \overrightarrow{M_0 N}|\]
+          </p>
+<p>
+<strong>Шаг 2. Скалярное выражение проекции.</strong><br/>
+            По определению проекции вектора на ось, задаваемую направлением вектора $\mathbf{n}$:
+            \[\operatorname{pr}_{\mathbf{n}} \overrightarrow{M_0 N} = |\overrightarrow{M_0 N}| \cos \angle(\overrightarrow{M_0 N}, \mathbf{n}) = \frac{(\overrightarrow{M_0 N}, \mathbf{n})}{|\mathbf{n}|}\]
+            Взяв абсолютную величину:
+            \[\rho(M_0, L) = \frac{|(\overrightarrow{M_0 N}, \mathbf{n})|}{|\mathbf{n}|}\]
+          </p>
+<p>
+<strong>Шаг 3. Координатное разложение в ОНСК.</strong><br/>
+            Вектор $\overrightarrow{M_0 N}$ имеет координаты:
+            \[\overrightarrow{M_0 N} = (x_1 - x_0, \; y_1 - y_0)\]
+            Вычисляем скалярное произведение в ОНСК:
+            \[(\overrightarrow{M_0 N}, \mathbf{n}) = A(x_1 - x_0) + B(y_1 - y_0) = (A x_1 + B y_1) - (A x_0 + B y_0)\]
+          </p>
+<p>
+<strong>Шаг 4. Использование принадлежности точки прямой.</strong><br/>
+            Так как точка $N(x_1, y_1)$ лежит на прямой $L$, ее координаты обращают уравнение прямой в тождество:
+            \[A x_1 + B y_1 + C = 0 \iff A x_1 + B y_1 = -C\]
+            Подставим это значение в скалярное произведение:
+            \[(\overrightarrow{M_0 N}, \mathbf{n}) = -C - (A x_0 + B y_0) = -(A x_0 + B y_0 + C)\]
+          </p>
+<p>
+<strong>Шаг 5. Окончательный вывод.</strong><br/>
+            Подставляем полученное скалярное произведение в формулу расстояния и учитываем, что $| -u | = |u|$:
+            \[\rho(M_0, L) = \frac{|-(A x_0 + B y_0 + C)|}{|\mathbf{n}|} = \frac{|A x_0 + B y_0 + C|}{\sqrt{A^2 + B^2}}\]
+            Теорема доказана полностью.
+          </p>
+<div class="proof-end">■</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<!-- SVG 5: Distance from point to line -->
+<figure class="figure-plate">
+<svg height="320" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 320" width="650">
+<defs>
+<marker id="arrow-norm-2" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L8,3 z" fill="var(--accent-theorem)"></path>
+</marker>
+<marker id="arrow-hyp" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L8,3 z" fill="var(--accent-remark)"></path>
+</marker>
+</defs>
+<!-- Line L -->
+<line stroke="var(--svg-line-main)" stroke-width="2.5" x1="50" x2="590" y1="280" y2="170"></line>
+<text fill="var(--svg-line-main)" font-size="15" font-weight="700" x="600" y="175">L: Ax + By + C = 0</text>
+<!-- Point M0(x0, y0) -->
+<circle cx="280" cy="60" fill="var(--accent-example)" r="5"></circle>
+<text fill="var(--accent-example)" font-size="16" font-weight="700" x="285" y="55">M₀(x₀, y₀)</text>
+<!-- Point N on line -->
+<circle cx="450" cy="198" fill="var(--svg-axis)" r="4.5"></circle>
+<text fill="var(--text-main)" font-size="15" font-weight="600" x="460" y="215">N(x₁, y₁) ∈ L</text>
+<!-- Vector M0 N (Slanted line) -->
+<line marker-end="url(#arrow-hyp)" stroke="var(--accent-remark)" stroke-dasharray="4,4" stroke-width="2" x1="280" x2="444" y1="60" y2="194"></line>
+<text fill="var(--accent-remark)" font-size="14" font-weight="600" x="380" y="125">M₀N (наклонная)</text>
+<!-- Foot of perpendicular H -->
+<circle cx="240" cy="242" fill="var(--accent-theorem)" r="4.5"></circle>
+<text fill="var(--accent-theorem)" font-size="14" font-weight="600" x="235" y="265">H</text>
+<!-- Altitude / Distance line M0 H -->
+<line stroke="var(--accent-theorem)" stroke-width="3" x1="280" x2="240" y1="60" y2="242"></line>
+<text fill="var(--accent-theorem)" font-size="16" font-weight="700" x="235" y="150">ρ(M₀, L)</text>
+<!-- Right-angle marker at H -->
+<path d="M 248,206 L 284,214 L 276,250" fill="none" stroke="var(--accent-theorem)" stroke-width="1.5"></path>
+<!-- Normal vector from line -->
+<line marker-end="url(#arrow-green)" stroke="var(--accent-def)" stroke-width="2.5" x1="160" x2="198" y1="258" y2="70"></line>
+<text fill="var(--accent-def)" font-size="15" font-weight="700" x="140" y="110">n = (A, B)</text>
+<!-- Projection bracket / callout -->
+<rect fill="var(--bg-card-alt)" height="55" rx="8" stroke="var(--border-color)" width="260" x="360" y="240"></rect>
+<text fill="var(--text-main)" font-size="13" font-weight="600" x="375" y="263">ρ(M₀, L) = |pr_n M₀N|</text>
+<text fill="var(--accent-primary)" font-size="13" font-weight="600" x="375" y="283">= |Ax₀ + By₀ + C| / √(A² + B²)</text>
+</svg>
+<div class="diagram-caption">Рис. 5. Вывод формулы расстояния через ортогональное проецирование наклонной на вектор нормали прямой</div>
+</figure>
+<div class="remark-card callout">
+<div class="callout-header">
+<span>Геометрический смысл свободного члена в нормальном уравнении</span>
+<span class="callout-tag">Следствие</span>
+</div>
+<p>
+            1. Для нахождения расстояния от точки до прямой достаточно подставить координаты этой точки $(x_0, y_0)$ в <em>левую часть нормального уравнения прямой</em> и взять модуль полученного числа:
+            \[\rho(M_0, L) = |p x_0 + q y_0 + d|\]
+          </p>
+<p>
+            2. Подставим в эту формулу начало координат $O(0, 0)$:
+            \[\rho(O, L) = |p \cdot 0 + q \cdot 0 + d| = |d|\]
+            Таким образом, в нормальном уравнении прямой $px + qy + d = 0$ абсолютная величина свободного члена $|d|$ равна <strong>расстоянию от начала координат до данной прямой</strong>!
+          </p>
+</div>
 
-          <!-- SVG 2: Vector Parametric Line -->
-          <div class="diagram-container">
-            <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 650 300" width="650" height="300">
-              <defs>
-                <marker id="arrow-axis" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto">
-                  <path d="M0,0 L0,5 L7,2.5 z" fill="var(--svg-axis)" />
-                </marker>
-                <marker id="arrow-line-dir" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-                  <path d="M0,0 L0,6 L8,3 z" fill="var(--svg-line-main)" />
-                </marker>
-                <marker id="arrow-r0" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto">
-                  <path d="M0,0 L0,5 L7,2.5 z" fill="var(--accent-remark)" />
-                </marker>
-                <marker id="arrow-r" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto">
-                  <path d="M0,0 L0,5 L7,2.5 z" fill="var(--text-muted)" />
-                </marker>
-              </defs>
-
-              <!-- Coordinate Axes -->
-              <line x1="50" y1="250" x2="600" y2="250" stroke="var(--svg-axis)" stroke-width="1.8" marker-end="url(#arrow-axis)" />
-              <text x="590" y="275" fill="var(--svg-axis)" font-weight="700" font-size="15">X</text>
-              <line x1="100" y1="280" x2="100" y2="30" stroke="var(--svg-axis)" stroke-width="1.8" marker-end="url(#arrow-axis)" />
-              <text x="75" y="45" fill="var(--svg-axis)" font-weight="700" font-size="15">Y</text>
-              <text x="82" y="268" fill="var(--svg-axis)" font-size="14">O</text>
-
-              <!-- Line L (Extended) -->
-              <line x1="40" y1="210" x2="570" y2="70" stroke="var(--border-color)" stroke-width="2" stroke-dasharray="3,3" />
-              <text x="575" y="68" fill="var(--text-muted)" font-weight="700" font-size="15">L</text>
-
-              <!-- Vector r0 to M0 -->
-              <line x1="100" y1="250" x2="220" y2="162" stroke="var(--accent-remark)" stroke-width="2.5" marker-end="url(#arrow-r0)" />
-              <circle cx="220" cy="162" r="4.5" fill="var(--accent-remark)" />
-              <text x="145" y="215" fill="var(--accent-remark)" font-weight="700" font-size="15">r₀</text>
-              <text x="210" y="145" fill="var(--accent-remark)" font-weight="700" font-size="15">M₀(x₀, y₀)</text>
-
-              <!-- Vector r to M -->
-              <line x1="100" y1="250" x2="420" y2="109" stroke="var(--text-muted)" stroke-width="1.8" stroke-dasharray="4,4" marker-end="url(#arrow-r)" />
-              <circle cx="420" cy="109" r="4.5" fill="var(--svg-line-main)" />
-              <text x="270" y="195" fill="var(--text-muted)" font-weight="600" font-size="14">r</text>
-              <text x="425" y="105" fill="var(--svg-line-main)" font-weight="700" font-size="15">M(x, y)</text>
-
-              <!-- Segment M0 M on Line representing t*a -->
-              <line x1="220" y1="162" x2="416" y2="110" stroke="var(--svg-line-main)" stroke-width="3.5" marker-end="url(#arrow-line-dir)" />
-              <text x="290" y="125" fill="var(--svg-line-main)" font-weight="700" font-size="15">t · a</text>
-
-              <!-- Free Direction Vector a shown parallel -->
-              <line x1="330" y1="60" x2="430" y2="34" stroke="var(--svg-vec)" stroke-width="2.5" marker-end="url(#arrow-green)" />
-              <text x="370" y="40" fill="var(--svg-vec)" font-weight="700" font-size="14">a (направляющий)</text>
-            </svg></div>
-            <div class="diagram-caption">Рис. 2. Геометрическая структура векторно-параметрического уравнения прямой на плоскости</div>
+<!-- SECTION 4 -->
+<section id="sec-angle">
+</section>
+</section>
+<section class="chapter" aria-labelledby="chapter-5">
+  <div class="chapter-kicker">05 / 4. Взаимное расположение и уго…</div>
+  <h2 id="chapter-5" data-toc="4. Взаимное расположение и уго…">§ 4. Взаимное расположение и угол между двумя прямыми на плоскости</h2>
+  
+<p>
+          Рассмотрим две прямые $L_1$ и $L_2$ в ортонормированной декартовой системе координат. В зависимости от формы задания прямых угол $\gamma$ между ними и критерии их взаимного расположения (параллельность, совпадение, перпендикулярность) формулируются в трех аналитических эквивалентах.
+        </p>
+<!-- Subsection 4.1 -->
+<h3 class="subsection-heading" data-toc="1. Через угловые коэффициенты …" id="sub-5-1">4.1. Через угловые коэффициенты («школьный метод»)</h3>
+<p>
+          Пусть прямые заданы уравнениями с угловыми коэффициентами:
+          \[L_1: y = k_1 x + b_1, \quad L_2: y = k_2 x + b_2\]
+          Обозначим углы наклона прямых к положительному направлению оси абсцисс через $\varphi_1$ и $\varphi_2$ соответственно ($k_1 = \operatorname{tg}\varphi_1, \; k_2 = \operatorname{tg}\varphi_2$), а угол между самими прямыми — через $\gamma$.
+        </p>
+<div class="statement theorem" id="thm-5"><div class="block-label">Теорема</div><h3 data-toc="Формула угла через тангенс" id="sub-5-2">Формула угла через тангенс</h3><div>
+<p>
+            По теореме о внешнем угле плоского треугольника, образованного прямыми $L_1, L_2$ и осью $Ox$, угол $\varphi_2$ является внешним углом:
+            \[\varphi_2 = \varphi_1 + \gamma \implies \gamma = \varphi_2 - \varphi_1\]
+            Применяя тригонометрическую формулу тангенса разности:
+            \[\operatorname{tg}\gamma = \operatorname{tg}(\varphi_2 - \varphi_1) = \frac{\operatorname{tg}\varphi_2 - \operatorname{tg}\varphi_1}{1 + \operatorname{tg}\varphi_1 \operatorname{tg}\varphi_2}\]
+            Подставляя соотношения $k_1 = \operatorname{tg}\varphi_1$ и $k_2 = \operatorname{tg}\varphi_2$:
+          </p>
+<div class="equation">
+            \[\operatorname{tg}\gamma = \frac{k_2 - k_1}{1 + k_1 k_2}\]
           </div>
+<p>
+            Для нахождения <em>острого угла</em> между прямыми берется абсолютная величина тангенса:
+            \[\operatorname{tg}\gamma_{\text{остр}} = \left| \frac{k_2 - k_1}{1 + k_1 k_2} \right|\]
+          </p>
+</div></div>
+<!-- SVG 6: Angle between lines -->
+<figure class="figure-plate">
+<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650">
+<!-- Axes -->
+<line marker-end="url(#arrow-axis)" stroke="var(--svg-axis)" stroke-width="1.8" x1="50" x2="600" y1="230" y2="230"></line>
+<text fill="var(--svg-axis)" font-size="15" font-weight="700" x="590" y="255">X</text>
+<line marker-end="url(#arrow-axis)" stroke="var(--svg-axis)" stroke-width="1.8" x1="120" x2="120" y1="270" y2="30"></line>
+<text fill="var(--svg-axis)" font-size="15" font-weight="700" x="95" y="45">Y</text>
+<text fill="var(--svg-axis)" font-size="14" x="105" y="248">O</text>
+<!-- Line L1 -->
+<line stroke="var(--svg-line-main)" stroke-width="2.5" x1="60" x2="520" y1="275" y2="45"></line>
+<text fill="var(--svg-line-main)" font-size="15" font-weight="700" x="530" y="55">L₁: y = k₁x + b₁</text>
+<!-- Line L2 -->
+<line stroke="var(--svg-line-sec)" stroke-width="2.5" x1="280" x2="460" y1="275" y2="30"></line>
+<text fill="var(--svg-line-sec)" font-size="15" font-weight="700" x="470" y="35">L₂: y = k₂x + b₂</text>
+<!-- Angle phi 1 -->
+<path d="M 220,230 A 40,40 0 0,0 205,202" fill="none" stroke="var(--svg-line-main)" stroke-width="2.2"></path>
+<text fill="var(--svg-line-main)" font-size="15" font-weight="700" x="215" y="210">φ₁</text>
+<!-- Angle phi 2 -->
+<path d="M 370,230 A 40,40 0 0,0 348,187" fill="none" stroke="var(--svg-line-sec)" stroke-width="2.2"></path>
+<text fill="var(--svg-line-sec)" font-size="15" font-weight="700" x="360" y="200">φ₂</text>
+<!-- Angle gamma between lines -->
+<circle cx="428" cy="91" fill="var(--text-main)" r="4.5"></circle>
+<path d="M 405,103 A 30,30 0 0,0 415,125" fill="none" stroke="var(--accent-proof)" stroke-width="2.5"></path>
+<text fill="var(--accent-proof)" font-size="16" font-weight="700" x="390" y="130">γ</text>
+<!-- Callout Theorem text -->
+<rect fill="var(--bg-card-alt)" height="70" rx="8" stroke="var(--border-color)" width="220" x="50" y="60"></rect>
+<text fill="var(--text-main)" font-size="14" font-weight="600" x="65" y="85">Внешний угол: φ₂ = φ₁ + γ</text>
+<text fill="var(--accent-proof)" font-size="14" font-weight="700" x="65" y="105">γ = φ₂ − φ₁</text>
+</svg>
+<div class="diagram-caption">Рис. 6. Геометрическая схема вычисления угла между прямыми по теореме о внешнем угле треугольника</div>
+</figure>
+<div class="statement definition" id="def-10"><div class="block-label">Критерии</div><h3 data-toc="Критерии взаимного расположени…" id="sub-5-3">Критерии взаимного расположения прямых через угловые коэффициенты</h3><div>
+<ul>
+<li>
+<strong>Критерий ортогональности (перпендикулярности):</strong><br/>
+              Прямые взаимно перпендикулярны ($\gamma = 90^\circ$) тогда и только тогда, когда тангенс угла между ними не существует (знаменатель равен нулю):
+              \[1 + k_1 k_2 = 0 \iff k_1 k_2 = -1 \iff k_1 = -\frac{1}{k_2}\]
+            </li>
+<li>
+<strong>Критерий параллельности:</strong><br/>
+              Прямые параллельны ($\gamma = 0$) тогда и только тогда, когда их угловые коэффициенты совпадают:
+              \[k_1 = k_2, \quad b_1 \ne b_2\]
+            </li>
+<li>
+<strong>Критерий совпадения:</strong><br/>
+              Прямые тождественно совпадают, если:
+              \[k_1 = k_2, \quad b_1 = b_2\]
+            </li>
+</ul>
+</div></div>
+<!-- Subsection 4.2 -->
+<h3 class="subsection-heading" data-toc="2. Через направляющие векторы" id="sub-5-4">4.2. Через направляющие векторы</h3>
+<p>
+          Пусть прямые заданы каноническими или параметрическими уравнениями с направляющими векторами $\mathbf{a}_1 = (a_{1x}, a_{1y})$ и $\mathbf{a}_2 = (a_{2x}, a_{2y})$. Тогда угол $\gamma$ между прямыми равен углу между векторами $\mathbf{a}_1$ и $\mathbf{a}_2$:
+        </p>
+<div class="equation">
+          \[\cos \gamma = \frac{(\mathbf{a}_1, \mathbf{a}_2)}{|\mathbf{a}_1| |\mathbf{a}_2|} = \frac{a_{1x} a_{2x} + a_{1y} a_{2y}}{\sqrt{a_{1x}^2 + a_{1y}^2} \sqrt{a_{2x}^2 + a_{2y}^2}}\]
+        </div>
+<p>
+          Для наименьшего (острого) угла между пересекающимися прямыми:
+          \[\cos \gamma_{\text{остр}} = \frac{|a_{1x} a_{2x} + a_{1y} a_{2y}|}{\sqrt{a_{1x}^2 + a_{1y}^2} \sqrt{a_{2x}^2 + a_{2y}^2}}\]
+          <strong>Критерий перпендикулярности:</strong> $(\mathbf{a}_1, \mathbf{a}_2) = 0 \iff a_{1x} a_{2x} + a_{1y} a_{2y} = 0$.<br/>
+<strong>Критерий параллельности:</strong> $\mathbf{a}_1 \parallel \mathbf{a}_2 \iff \frac{a_{1x}}{a_{2x}} = \frac{a_{1y}}{a_{2y}}$.
+        </p>
+<!-- Subsection 4.3 -->
+<h3 class="subsection-heading" data-toc="3. Через нормальные векторы (п…" id="sub-5-5">4.3. Через нормальные векторы (по общим уравнениям)</h3>
+<p>
+          Пусть прямые заданы общими уравнениями в ОНСК:
+          \[L_1: A_1 x + B_1 y + C_1 = 0 \quad (\mathbf{n}_1 = (A_1, B_1))\]
+          \[L_2: A_2 x + B_2 y + C_2 = 0 \quad (\mathbf{n}_2 = (A_2, B_2))\]
+        </p>
+<div class="statement theorem" id="thm-6"><div class="block-label">Теорема</div><h3 data-toc="Теорема о равенстве углов с вз…" id="sub-5-6">Теорема о равенстве углов с взаимно перпендикулярными сторонами</h3><div>
+<p>
+            Так как вектор $\mathbf{n}_1 \perp L_1$ и $\mathbf{n}_2 \perp L_2$, по геометрической теореме об углах с попарно взаимно перпендикулярными сторонами угол $\gamma$ между прямыми $L_1$ и $L_2$ равен углу между их нормалями $\mathbf{n}_1$ и $\mathbf{n}_2$ (либо дополняет его до $180^\circ$):
+          </p>
+<div class="equation">
+            \[\cos \gamma = \frac{(\mathbf{n}_1, \mathbf{n}_2)}{|\mathbf{n}_1| |\mathbf{n}_2|} = \frac{A_1 A_2 + B_1 B_2}{\sqrt{A_1^2 + B_1^2} \sqrt{A_2^2 + B_2^2}}\]
+          </div>
+<p>
+            Для острого угла:
+            \[\cos \gamma_{\text{остр}} = \frac{|A_1 A_2 + B_1 B_2|}{\sqrt{A_1^2 + B_1^2} \sqrt{A_2^2 + B_2^2}}\]
+          </p>
+<ul>
+<li><strong>Критерий перпендикулярности:</strong> $(\mathbf{n}_1, \mathbf{n}_2) = 0 \iff A_1 A_2 + B_1 B_2 = 0$.</li>
+<li><strong>Критерий параллельности:</strong> $\mathbf{n}_1 \parallel \mathbf{n}_2 \iff \frac{A_1}{A_2} = \frac{B_1}{B_2} \ne \frac{C_1}{C_2}$.</li>
+<li><strong>Критерий совпадения прямых:</strong> $\frac{A_1}{A_2} = \frac{B_1}{B_2} = \frac{C_1}{C_2}$.</li>
+</ul>
+</div></div>
+
+<!-- SECTION 5 -->
+<section id="sec-summary-table">
+</section>
+</section>
+<section class="chapter" aria-labelledby="chapter-6">
+  <div class="chapter-kicker">06 / 5. Сводная сравнительная матри…</div>
+  <h2 id="chapter-6" data-toc="5. Сводная сравнительная матри…">§ 5. Сводная сравнительная матрица всех уравнений прямой на плоскости</h2>
+  
+<p>
+          Ниже представлена полная систематизация всех девяти рассмотренных форм уравнения прямой, их параметров, геометрического смысла и областей применимости.
+        </p>
+<div class="table-container">
+<table class="matrix-table">
+<thead>
+<tr>
+<th>№</th>
+<th>Форма уравнения</th>
+<th>Аналитическая запись</th>
+<th>Определяющие параметры</th>
+<th>Ограничения / Особенности</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Векторно-параметрическое</strong></td>
+<td>$\mathbf{r} = \mathbf{r}_0 + t \mathbf{a}$</td>
+<td>Точка $\mathbf{r}_0(x_0, y_0)$, направляющий $\mathbf{a} \ne \mathbf{0}$</td>
+<td>Параметр $t \in \mathbb{R}$, инвариантно к базису</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Параметрические</strong></td>
+<td>$\begin{cases} x = x_0 + a_1 t \\ y = y_0 + a_2 t \end{cases}$</td>
+<td>Точка $(x_0, y_0)$, вектор $(a_1, a_2) \ne (0,0)$</td>
+<td>Удобно для описания движения точки</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>С угловым коэффициентом</strong></td>
+<td>$y = kx + b$</td>
+<td>Угловой коэф. $k = \operatorname{tg}\varphi$, сдвиг $b$</td>
+<td>Не описывает вертикальные прямые ($x = \text{const}$)</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Каноническое</strong></td>
+<td>$\frac{x - x_0}{a_1} = \frac{y - y_0}{a_2}$</td>
+<td>Точка $(x_0, y_0)$, вектор $(a_1, a_2) \ne (0,0)$</td>
+<td>Допускает $0$ в знаменателе: $\frac{x-x_0}{a_1}=\frac{y-y_0}{0} \implies y=y_0$</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Через две точки</strong></td>
+<td>$\frac{x - x_1}{x_2 - x_1} = \frac{y - y_1}{y_2 - y_1}$</td>
+<td>Точки $A_1(x_1, y_1) \ne A_2(x_2, y_2)$</td>
+<td>Эквивалентно $\begin{vmatrix} x-x_1 & y-y_1 \\ x_2-x_1 & y_2-y_1 \end{vmatrix} = 0$</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>В отрезках на осях</strong></td>
+<td>$\frac{x}{a} + \frac{y}{b} = 1$</td>
+<td>Отрезки $a \ne 0$ на $Ox$ и $b \ne 0$ на $Oy$</td>
+<td>Не применимо для прямых через $(0,0)$ и параллельных осям</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Векторное через нормаль</strong></td>
+<td>$(\mathbf{r} - \mathbf{r}_0, \mathbf{n}) = 0$</td>
+<td>Точка $\mathbf{r}_0$, нормальный вектор $\mathbf{n} \perp L$</td>
+<td>Инвариантно к выбору координат при наличии скалярного произведения</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Общее линейное</strong></td>
+<td>$Ax + By + C = 0$</td>
+<td>Коэффициенты $(A, B) \ne (0,0)$, скаляр $C$</td>
+<td>Универсально для любой прямой; в ОНСК $\mathbf{n}=(A, B)$</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Нормальное уравнение</strong></td>
+<td>$p x + q y + d = 0$</td>
+<td>$p=\cos\alpha, q=\cos\beta$, $|d| = \rho(O, L)$</td>
+<td>Единичный нормальный вектор: $p^2 + q^2 = 1$</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 6 -->
+<section id="sec-practice">
+</section>
+</section>
+<section class="chapter" aria-labelledby="chapter-7">
+  <div class="chapter-kicker">07 / 6. Аналитический практикум: За…</div>
+  <h2 id="chapter-7" data-toc="6. Аналитический практикум: За…">§ 6. Аналитический практикум: Задачи с полными доказательствами</h2>
+  
+<!-- Task 1 -->
+<div class="worked-example" id="ex-1"><div class="block-label">Практикум</div><h3 data-toc="Задача 1: Взаимное преобразова…" id="sub-7-1">Задача 1: Взаимное преобразование всех форм уравнения прямой</h3><div>
+<p>
+<strong>Условие:</strong> Прямая $L$ проходит через точки $A(2, 3)$ и $B(5, 7)$ в ортонормированной системе координат. Записать для нее все 9 уравнений, нормализовать общее уравнение и вычислить расстояние от начала координат до прямой.
+          </p>
+<p>
+<strong>Решение и вывод:</strong>
+<ol>
+<li>
+<strong>Вектор $\overrightarrow{AB}$ и направляющий вектор:</strong><br/>
+                $\mathbf{a} = \overrightarrow{AB} = (5 - 2, \; 7 - 3) = (3, 4)$. Длина направляющего вектора $|\mathbf{a}| = \sqrt{3^2 + 4^2} = 5$.
+              </li>
+<li>
+<strong>Векторно-параметрическое:</strong> $\mathbf{r} = (2, 3) + t(3, 4), \quad t \in \mathbb{R}$.
+              </li>
+<li>
+<strong>Параметрические:</strong> $\begin{cases} x = 2 + 3t \\ y = 3 + 4t \end{cases}, \quad t \in \mathbb{R}$.
+              </li>
+<li>
+<strong>Каноническое:</strong> $\frac{x - 2}{3} = \frac{y - 3}{4}$.
+              </li>
+<li>
+<strong>Через две точки:</strong> $\frac{x - 2}{5 - 2} = \frac{y - 3}{7 - 3}$.
+              </li>
+<li>
+<strong>Общее уравнение:</strong><br/>
+                Перемножая крест-накрест каноническое уравнение: $4(x - 2) = 3(y - 3) \implies 4x - 8 = 3y - 9 \implies 4x - 3y + 1 = 0$.<br/>
+                Здесь $A = 4, B = -3, C = 1$. Нормальный вектор $\mathbf{n} = (4, -3)$, его длина $|\mathbf{n}| = \sqrt{4^2 + (-3)^2} = 5$.
+              </li>
+<li>
+<strong>С угловым коэффициентом:</strong> $y = \frac{4}{3}x + \frac{1}{3}$ (где $k = \frac{4}{3}$, $b = \frac{1}{3}$).
+              </li>
+<li>
+<strong>В отрезках:</strong><br/>
+                $4x - 3y = -1 \iff -4x + 3y = 1 \iff \frac{x}{-1/4} + \frac{y}{1/3} = 1$.<br/>
+                Следовательно, $a = -\frac{1}{4}, \; b = \frac{1}{3}$.
+              </li>
+<li>
+<strong>Нормальное уравнение:</strong><br/>
+                Делим общее уравнение на $|\mathbf{n}| = 5$:
+                \[\frac{4}{5}x - \frac{3}{5}y + \frac{1}{5} = 0\]
+                Коэффициенты $p = \frac{4}{5}, \; q = -\frac{3}{5}, \; d = \frac{1}{5}$. Проверка нормировки: $p^2 + q^2 = \frac{16}{25} + \frac{9}{25} = 1$.
+              </li>
+<li>
+<strong>Расстояние от начала координат:</strong> $\rho(O, L) = |d| = \left|\frac{1}{5}\right| = 0.2$.
+              </li>
+</ol>
+</p>
+</div></div>
+<!-- Task 2 -->
+<div class="worked-example" id="ex-2"><div class="block-label">Практикум</div><h3 data-toc="Задача 2: Вычисление высоты тр…" id="sub-7-2">Задача 2: Вычисление высоты треугольника через метрику расстояния</h3><div>
+<p>
+<strong>Условие:</strong> В треугольнике с вершинами $P(1, 2)$, $Q(5, 5)$, $R(2, 9)$ найти длину высоты $h_R$, опущенной из вершины $R$ на сторону $PQ$.
+          </p>
+<p>
+<strong>Решение:</strong>
+            Высота $h_R$ по определению равна расстоянию $\rho(R, L_{PQ})$ от точки $R(2, 9)$ до прямой $L_{PQ}$, проходящей через $P$ и $Q$.
+            <ol>
+<li>
+                Составим уравнение прямой $L_{PQ}$ через две точки:
+                \[\frac{x - 1}{5 - 1} = \frac{y - 2}{5 - 2} \iff \frac{x - 1}{4} = \frac{y - 2}{3}\]
+                \[3(x - 1) = 4(y - 2) \iff 3x - 3 = 4y - 8 \iff 3x - 4y + 5 = 0\]
+                Здесь $A = 3, B = -4, C = 5$.
+              </li>
+<li>
+                Применим доказанную теорему 2 о расстоянии от точки $R(x_0 = 2, y_0 = 9)$ до прямой $3x - 4y + 5 = 0$:
+                \[h_R = \rho(R, L_{PQ}) = \frac{|3(2) - 4(9) + 5|}{\sqrt{3^2 + (-4)^2}} = \frac{|6 - 36 + 5|}{\sqrt{9 + 16}} = \frac{|-25|}{\sqrt{25}} = \frac{25}{5} = 5\]
+              </li>
+</ol>
+<strong>Ответ:</strong> $h_R = 5$.
+          </p>
+</div></div>
+<!-- Task 3 -->
+<div class="worked-example" id="ex-3"><div class="block-label">Углубленный вывод</div><h3 data-toc="Задача 3: Уравнения биссектрис…" id="sub-7-3">Задача 3: Уравнения биссектрис координатных углов между прямыми</h3><div>
+<p>
+<strong>Теоретическое обоснование:</strong> Геометрическое место точек (ГМТ) $M(x, y)$, равноудаленных от двух пересекающихся прямых $L_1: A_1 x + B_1 y + C_1 = 0$ и $L_2: A_2 x + B_2 y + C_2 = 0$, состоит из двух взаимно перпендикулярных прямых — биссектрис углов между $L_1$ и $L_2$.
+          </p>
+<p>
+            Условие равноудаленности $\rho(M, L_1) = \rho(M, L_2)$ в силу теоремы 2 записывается как:
+            \[\frac{|A_1 x + B_1 y + C_1|}{\sqrt{A_1^2 + B_1^2}} = \frac{|A_2 x + B_2 y + C_2|}{\sqrt{A_2^2 + B_2^2}}\]
+            Раскрывая знак модуля, получаем уравнения двух взаимно перпендикулярных биссектрис:
+          </p>
+<div class="equation">
+            \[\frac{A_1 x + B_1 y + C_1}{\sqrt{A_1^2 + B_1^2}} = \pm \frac{A_2 x + B_2 y + C_2}{\sqrt{A_2^2 + B_2^2}}\]
+          </div>
+<p>
+<strong>Доказательство их ортогональности:</strong>
+            Обозначим единичные нормали как $\mathbf{n}_1$ и $\mathbf{n}_2$ ($|\mathbf{n}_1| = |\mathbf{n}_2| = 1$). Тогда нормальные векторы двух биссектрис равны $\mathbf{N}_1 = \mathbf{n}_1 - \mathbf{n}_2$ и $\mathbf{N}_2 = \mathbf{n}_1 + \mathbf{n}_2$. Вычисляем их скалярное произведение:
+            \[(\mathbf{N}_1, \mathbf{N}_2) = (\mathbf{n}_1 - \mathbf{n}_2, \; \mathbf{n}_1 + \mathbf{n}_2) = |\mathbf{n}_1|^2 - |\mathbf{n}_2|^2 = 1 - 1 = 0\]
+            Скалярное произведение равно нулю, следовательно, нормали ортогональны, и полученные биссектрисы взаимно перпендикулярны!
+          </p>
+<div class="proof-end">■</div>
+</div></div>
+
+<!-- Footer -->
+
 </section>
 <!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>

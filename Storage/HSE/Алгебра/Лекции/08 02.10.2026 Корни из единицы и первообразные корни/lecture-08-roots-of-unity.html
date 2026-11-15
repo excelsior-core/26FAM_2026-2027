@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Корни из единицы и первообразные корни. Конспект FAM ФПМ НИУ ВШЭ.">
+  <meta name="description" content="ФПМ НИУ ВШЭ · Полный академический лекционный конспект">
   <title>Корни из единицы и первообразные корни — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
@@ -183,8 +183,13 @@ html[data-theme] ::selection{background:var(--gold);color:var(--paper)}
 .themed-figure [data-figure-theme="light"]{display:block}
 html[data-theme="dark"] .themed-figure [data-figure-theme],html[data-theme="parchment"] .themed-figure [data-figure-theme]{display:none}
 html[data-theme="dark"] .themed-figure [data-figure-theme="dark"],html[data-theme="parchment"] .themed-figure [data-figure-theme="parchment"]{display:block}
-/* One neutral/light asset may remain on its own light plate in every theme. Never invert mathematical colours. */
-.figure-plate{background:#fff;color:#202e29;padding:16px;border:1px solid var(--rule)}
+.figure-plate{background:var(--bg-card);color:var(--ink);padding:20px;border:1px solid var(--rule);border-radius:8px;margin:32px 0}
+html[data-theme="light"] .figure-plate{background:#ffffff}
+html[data-theme="dark"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+html[data-theme="parchment"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+@media print{
+ .figure-plate{background:white!important;border:0!important;padding:0!important}
+}
 @media(max-width:760px){.topbar{height:auto;min-height:70px;flex-wrap:wrap;padding:12px 18px;gap:10px}.top-actions{gap:8px;flex-wrap:wrap}.theme-control select{font-size:10px;max-width:103px;padding:8px 4px}.pdf-button{padding:6px 8px}.pdf-button span{margin-left:4px}.wordmark{font-size:24px}}
 @media(max-width:400px){.wordmark{display:none}.top-actions{width:100%;justify-content:space-between}}
 @media print{
@@ -440,374 +445,278 @@ SOFTWARE.
     </aside>
     <main id="content">
       <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
-  <div class="lecture-meta"><span class="subject">Алгебра</span><span>ФПМ НИУ ВШЭ</span></div>
-  <h1>Корни из единицы и первообразные корни</h1>
-  <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-  <div class="lecture-abstract">
-    <p>ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-    <div class="abstract-formula" aria-label="Ключевое выражение лекции">\[U_n = \{ z \in \mathbb{C} \mid z^n = 1 \}.\]</div>
-  </div>
-</header>
-<div class="proof-toolbar" aria-label="Все доказательства">
-  <span class="toolbar-label">Доказательства</span>
-  <div class="segmented" role="group" aria-label="Режим всех доказательств">
-    <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
-    <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
-    <button data-all-proofs="full" aria-pressed="false">Полностью</button>
-  </div>
-  <span id="proof-state" class="proof-state" aria-live="polite"></span>
-</div>
-<noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
-<p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
-
+      <header class="lecture-head" id="top">
+        <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
+        <h1>Корни из единицы и первообразные корни</h1>
+        <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
+        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[U_n = \{ z \in \mathbb{C} \mid z^n = 1 \}.\]</div></div>
+      </header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
 <section class="chapter" aria-labelledby="chapter-1">
   <div class="chapter-kicker">01 / Введение</div>
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <header class="lecture-monument">
-        <div class="monument-kicker">
-          <span>✦ Алгебра</span>
-          <span style="opacity: 0.4;">/</span>
-          <span>ЛЕКЦИЯ №Лекция 08 ✦</span>
-        </div>
-
-        <h1 id="article-title">КОРНИ ИЗ ЕДИНИЦЫ И <span class="gold-phrase">ПЕРВООБРАЗНЫЕ КОРНИ</span></h1>
-        <p class="monument-lead" id="article-lead">Множество корней из единицы U_n и его геометрия в виде правильного n-угольника, циклическая группа корней, определение первообразного корня, критерий первообразности gcd(k, n) = 1 со строгим доказательством и выражение корней произвольного комплексного числа.</p>
-
-        <div class="monument-clean-meta">
-          <span class="clean-pill">Алгебра</span>
-          <span>•</span>
-          <span>2 октября 2026</span>
-        </div>
-      </header>
-
-      <!-- 
+<div class="monument-kicker">
+<span>✦ Алгебра</span>
+<span style="opacity: 0.4;">/</span>
+<span>ЛЕКЦИЯ №Лекция 08 ✦</span>
+</div>
+<h1 id="article-title">КОРНИ ИЗ ЕДИНИЦЫ И <span class="gold-phrase">ПЕРВООБРАЗНЫЕ КОРНИ</span></h1>
+<p class="monument-lead" id="article-lead">Множество корней из единицы U_n и его геометрия в виде правильного n-угольника, циклическая группа корней, определение первообразного корня, критерий первообразности gcd(k, n) = 1 со строгим доказательством и выражение корней произвольного комплексного числа.</p>
+<div class="monument-clean-meta">
+<span class="clean-pill">Алгебра</span>
+<span>•</span>
+<span>2 октября 2026</span>
+</div>
+</header>
+<!-- 
         =============================================================================
         СЮДА НЕЙРОСЕТЬ ВСТАВЛЯЕТ СОДЕРЖИМОЕ КОНСПЕКТА (ARTICLE CONTENT)
         =============================================================================
       -->
-      <article class="content-area" id="lectureContent">
-
-        
-    <section class="lecture-section" id="roots-of-unity">
-      <div class="kicker-label">✦ РАЗДЕЛ 01 ✦</div>
+<article class="content-area" id="lectureContent">
+<section class="lecture-section" id="roots-of-unity">
+<div class="kicker-label">✦ РАЗДЕЛ 01 ✦</div>
 </section>
-
 <section class="chapter" aria-labelledby="chapter-2">
-  <div class="chapter-kicker">02 / Множество корней из единицы …</div>
-  <h2 id="chapter-2" data-toc="Множество корней из единицы …">1. Множество корней из единицы и геометрическое представление</h2>
-  <p><span class="drop-cap">К</span>орни из единицы образуют фундаментальный математический мост между тригонометрией, комплексным анализом и абстрактной теорией групп. В поле действительных чисел $\mathbb{R}$ корень $n$-й степени из 1 принимает значение $1$ (при нечетных $n$) или $\pm 1$ (при четных $n$). В поле комплексных чисел $\mathbb{C}$ уравнение степени $n$ всегда имеет ровно $n$ попарно различных решений, образующих исключительную геометрическую структуру правильного $n$-угольника.</p>
-
-      <div class="statement definition" id="def-1">
-  <div class="block-label">Определение 1</div>
-  <h3 id="sub-1" data-toc="Определение 8.1">Определение 8.1</h3>
+  <div class="chapter-kicker">02 / Множество корней из единицы и …</div>
+  <h2 id="chapter-2" data-toc="Множество корней из единицы и …">1. Множество корней из единицы и геометрическое представление</h2>
   
-        
-          <span class="callout-title">Множество корней степени $n$ из единицы</span>
-        
-</div>
-        <div class="callout-body">
-          <strong>Множеством корней степени $n$ из единицы</strong> называется множество всех комплексных чисел, $n$-я степень которых равна 1:
-          $$U_n = \{ z \in \mathbb{C} \mid z^n = 1 \}.$$
+<p><span class="drop-cap">К</span>орни из единицы образуют фундаментальный математический мост между тригонометрией, комплексным анализом и абстрактной теорией групп. В поле действительных чисел $\mathbb{R}$ корень $n$-й степени из 1 принимает значение $1$ (при нечетных $n$) или $\pm 1$ (при четных $n$). В поле комплексных чисел $\mathbb{C}$ уравнение степени $n$ всегда имеет ровно $n$ попарно различных решений, образующих исключительную геометрическую структуру правильного $n$-угольника.</p>
+<div class="statement definition" id="def-1"><div class="block-label">Определение 8.1</div><h3 data-toc="Множество корней степени n из …" id="sub-2-1">Множество корней степени $n$ из единицы</h3><div>
+<strong>Множеством корней степени $n$ из единицы</strong> называется множество всех комплексных чисел, $n$-я степень которых равна 1:
+          \[U_n = \{ z \in \mathbb{C} \mid z^n = 1 \}.\]
           Записывая число $1$ в тригонометрической форме $1 = \cos 0 + i \sin 0 = 1 \cdot e^{i \cdot 0}$, по формуле Муавра для корней получаем явный вид:
-          $$\varepsilon_k = \cos \frac{2\pi k}{n} + i \sin \frac{2\pi k}{n} = e^{i \frac{2\pi k}{n}}, \quad k = 0, 1, 2, \dots, n - 1.$$
+          \[\varepsilon_k = \cos \frac{2\pi k}{n} + i \sin \frac{2\pi k}{n} = e^{i \frac{2\pi k}{n}}, \quad k = 0, 1, 2, \dots, n - 1.\]
           Следовательно:
-          $$U_n = \{ \varepsilon_0, \varepsilon_1, \dots, \varepsilon_{n-1} \}.$$
-        </div>
-      </div>
-
-      <div class="statement theorem featured" id="thm-1">
-  <div class="block-label">Утверждение 1</div>
-  <h3 id="sub-2" data-toc="Теорема 8.1">Теорема 8.1</h3>
-  
-        
-          <span class="callout-title">О геометрическом расположении корней из единицы</span>
-        
-</div>
-        <div class="callout-body">
+          \[U_n = \{ \varepsilon_0, \varepsilon_1, \dots, \varepsilon_{n-1} \}.\]
+        </div></div>
+<div class="statement theorem featured" id="thm-1"><div class="block-label">Теорема 8.1</div><h3 data-toc="О геометрическом расположении …" id="sub-2-2">О геометрическом расположении корней из единицы</h3><div>
           Все $n$ корней степени $n$ из единицы расположены на единичной окружности с центром в начале координат (радиуса $R = 1$) в вершинах <strong>правильного $n$-угольника</strong>, вписанного в эту окружность, причем одна из его вершин лежит на действительной оси в точке с координатами $(1, 0)$ (корень $\varepsilon_0 = 1$).
-        </div>
-      </div>
-
-      <div class="callout callout-remark">
-        <div class="callout-header">
-          <span class="callout-tag">Интуиция Караваджо</span>
-          <span class="callout-title">Симметрия единичного круга</span>
-        </div>
-        <div class="callout-body">
-          Угол между любыми двумя соседними корнями $\varepsilon_k$ и $\varepsilon_{k+1}$ постоянен и равен $\Delta \varphi = \frac{2\pi}{n}$. В силу симметрии правильного $n$-угольника центр масс всех его вершин совпадает с началом координат, откуда немедленно следует замечательное тождество для суммы всех корней:
-          $$\sum_{k=0}^{n-1} \varepsilon_k = 0 \quad (\text{при } n \ge 2).$$
-        </div>
-      </div>
-
-      <div class="engraved-divider">✦ ──────── ◈ ──────── ✦</div>
-
-      <div class="kicker-label">✦ РАЗДЕЛ 02 ✦</div>
-</section>
-
-<section class="chapter" aria-labelledby="chapter-3">
-  <div class="chapter-kicker">03 / Групповые свойства множества…</div>
-  <h2 id="chapter-3" data-toc="Групповые свойства множества…">2. Групповые свойства множества $U_n$</h2>
-  <div class="statement theorem" id="thm-2">
-  <div class="block-label">Утверждение 2</div>
-  <h3 id="sub-3" data-toc="Теорема 8.2">Теорема 8.2</h3>
-  
-        
-          <span class="callout-title">Мультипликативная группа корней из единицы</span>
-        
+        </div></div>
+<div class="callout callout-remark">
+<div class="callout-header">
+<span class="callout-tag">Интуиция Караваджо</span>
+<span class="callout-title">Симметрия единичного круга</span>
 </div>
-        <div class="callout-body">
-          Множество корней из единицы $U_n$ относительно стандартной операции умножения комплексных чисел образует <strong>абелеву группу</strong> порядка $n$.<br>
+<div class="callout-body">
+          Угол между любыми двумя соседними корнями $\varepsilon_k$ и $\varepsilon_{k+1}$ постоянен и равен $\Delta \varphi = \frac{2\pi}{n}$. В силу симметрии правильного $n$-угольника центр масс всех его вершин совпадает с началом координат, откуда немедленно следует замечательное тождество для суммы всех корней:
+          \[\sum_{k=0}^{n-1} \varepsilon_k = 0 \quad (\text{при } n \ge 2).\]
+        </div>
+</div>
+<div class="engraved-divider">✦ ──────── ◈ ──────── ✦</div>
+<div class="kicker-label">✦ РАЗДЕЛ 02 ✦</div>
+
+</section>
+<section class="chapter" aria-labelledby="chapter-3">
+  <div class="chapter-kicker">03 / Групповые свойства множества U_n</div>
+  <h2 id="chapter-3" data-toc="Групповые свойства множества U_n">2. Групповые свойства множества $U_n$</h2>
+  
+<div class="statement theorem" id="thm-2"><div class="block-label">Теорема 8.2</div><h3 data-toc="Мультипликативная группа корне…" id="sub-3-1">Мультипликативная группа корней из единицы</h3><div>
+          Множество корней из единицы $U_n$ относительно стандартной операции умножения комплексных чисел образует <strong>абелеву группу</strong> порядка $n$.<br/>
           Группа $(U_n, \cdot)$ обладает свойствами:
           <ol style="margin: 0.6rem 0 0 1.2rem; padding: 0;">
-            <li><strong>Единичный элемент:</strong> $1 = \varepsilon_0 \in U_n$, так как $1^n = 1$.</li>
-            <li><strong>Замкнутость:</strong> Произведение двух корней из $U_n$ является корнем из $U_n$: $z_1, z_2 \in U_n \implies z_1 z_2 \in U_n$.</li>
-            <li><strong>Обратный элемент:</strong> Для любого $z \in U_n$ обратный элемент $z^{-1} = \bar{z} \in U_n$.</li>
-          </ol>
-        </div>
-      </div>
-
-      <div class="proof" id="proof-1" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство групповых свойств $(U_n, \cdot)$">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-1" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>1. Нейтральный элемент:</strong> $1^n = 1 \implies 1 \in U_n$. Для любого $z \in U_n$ имеем $z \cdot 1 = z$.</p>
-  </div>
-  <div class="proof-full" id="full-1" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство групповых свойств $(U_n, \cdot)$)</div>
-    <div class="proof-content">
-          <p><strong>1. Нейтральный элемент:</strong> $1^n = 1 \implies 1 \in U_n$. Для любого $z \in U_n$ имеем $z \cdot 1 = z$.</p>
-          <p><strong>2. Замкнутость:</strong> Пусть $z_1, z_2 \in U_n$, то есть $z_1^n = 1$ и $z_2^n = 1$. По свойству возведения произведения в степень:</p>
-          $$(z_1 z_2)^n = z_1^n \cdot z_2^n = 1 \cdot 1 = 1 \implies z_1 z_2 \in U_n.$$
+<li><strong>Единичный элемент:</strong> $1 = \varepsilon_0 \in U_n$, так как $1^n = 1$.</li>
+<li><strong>Замкнутость:</strong> Произведение двух корней из $U_n$ является корнем из $U_n$: $z_1, z_2 \in U_n \implies z_1 z_2 \in U_n$.</li>
+<li><strong>Обратный элемент:</strong> Для любого $z \in U_n$ обратный элемент $z^{-1} = \bar{z} \in U_n$.</li>
+</ol>
+</div></div>
+<div class="proof" data-proof="" id="proof-1">
+<div aria-label="Доказательство Строгое доказательство групповых свойств $(U_n, \cdot)$" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-1">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Строгое доказательство групповых свойств (U_n, cdot)).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-1">
+<div class="proof-label">Доказательство (Строгое доказательство групповых свойств $(U_n, \cdot)$)</div>
+<div class="proof-content">
+<p><strong>1. Нейтральный элемент:</strong> $1^n = 1 \implies 1 \in U_n$. Для любого $z \in U_n$ имеем $z \cdot 1 = z$.</p>
+<p><strong>2. Замкнутость:</strong> Пусть $z_1, z_2 \in U_n$, то есть $z_1^n = 1$ и $z_2^n = 1$. По свойству возведения произведения в степень:</p>
+          \[(z_1 z_2)^n = z_1^n \cdot z_2^n = 1 \cdot 1 = 1 \implies z_1 z_2 \in U_n.\]
           <p><strong>3. Обратный элемент:</strong> Пусть $z \in U_n$, то есть $z^n = 1$. Так как $z \ne 0$, обратный элемент $z^{-1}$ существует в $\mathbb{C}$. Возведем его в $n$-ю степень:</p>
-          $$(z^{-1})^n = (z^n)^{-1} = 1^{-1} = 1 \implies z^{-1} \in U_n.$$
+          \[(z^{-1})^n = (z^n)^{-1} = 1^{-1} = 1 \implies z^{-1} \in U_n.\]
           <p>В явном виде для $\varepsilon_k$: $(\varepsilon_k)^{-1} = \varepsilon_{n-k} = \overline{\varepsilon_k}$.</p>
-          <p>Ассоциативность и коммутативность умножения наследуются из поля $\mathbb{C}$. Следовательно, $(U_n, \cdot)$ — абелева группа.</p>
-          <span class="qed">$\blacksquare$</span>
-        </div>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<p>Ассоциативность и коммутативность умножения наследуются из поля $\mathbb{C}$. Следовательно, $(U_n, \cdot)$ — абелева группа.</p>
+<span class="qed">$\blacksquare$</span>
 </div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="engraved-divider">✦ ──────── ◈ ──────── ✦</div>
+<div class="kicker-label">✦ РАЗДЕЛ 03 ✦</div>
 
-      <div class="engraved-divider">✦ ──────── ◈ ──────── ✦</div>
-
-      <div class="kicker-label">✦ РАЗДЕЛ 03 ✦</div>
 </section>
-
 <section class="chapter" aria-labelledby="chapter-4">
-  <div class="chapter-kicker">04 / Первообразные (примитивные) …</div>
-  <h2 id="chapter-4" data-toc="Первообразные (примитивные) …">3. Первообразные (примитивные) корни и критерий первообразности</h2>
-  <div class="statement definition" id="def-2">
-  <div class="block-label">Определение 2</div>
-  <h3 id="sub-4" data-toc="Определение 8.2">Определение 8.2</h3>
+  <div class="chapter-kicker">04 / Первообразные (примитивные) ко…</div>
+  <h2 id="chapter-4" data-toc="Первообразные (примитивные) ко…">3. Первообразные (примитивные) корни и критерий первообразности</h2>
   
-        
-          <span class="callout-title">Первообразный корень</span>
-        
-</div>
-        <div class="callout-body">
+<div class="statement definition" id="def-2"><div class="block-label">Определение 8.2</div><h3 data-toc="Первообразный корень" id="sub-4-1">Первообразный корень</h3><div>
           Корень $\varepsilon \in U_n$ называется <strong>первообразным (примитивным) корнем степени $n$ из единицы</strong>, если его наименьший положительный порядок равен в точности $n$, то есть:
-          $$\varepsilon^n = 1 \quad \text{и} \quad \varepsilon^m \ne 1 \; \text{для всех} \; 0 < m < n.$$
+          \[\varepsilon^n = 1 \quad \text{и} \quad \varepsilon^m \ne 1 \; \text{для всех} \; 0 < m < n.\]
           Иными словами, $\varepsilon$ не является корнем никакой меньшей натуральной степени из единицы.
-        </div>
-      </div>
-
-      <div class="worked-example" id="ex-1">
-  <div class="block-label">Пример 1</div>
-  <h3 id="sub-5" data-toc="Пример 8.1">Пример 8.1</h3>
-  
-        
-          <span class="callout-title">Анализ корней 6-й степени из единицы ($n = 6$)</span>
-        
-</div>
-        <div class="callout-body">
+        </div></div>
+<div class="worked-example" id="ex-1"><div class="block-label">Пример 8.1</div><h3 data-toc="Анализ корней 6-й степени из е…" id="sub-4-2">Анализ корней 6-й степени из единицы ($n = 6$)</h3><div>
+<div class="callout-body">
           Выпишем все 6 корней степени 6: $\varepsilon_k = \cos \frac{2\pi k}{6} + i \sin \frac{2\pi k}{6} = \cos \frac{\pi k}{3} + i \sin \frac{\pi k}{3}$:
-          $$\begin{aligned}
+          \[\begin{aligned}
           \varepsilon_0 &= \cos 0 + i \sin 0 = 1, &&\text{порядок } 1; \\
           \varepsilon_1 &= \cos \frac{\pi}{3} + i \sin \frac{\pi}{3} = \frac{1}{2} + \frac{\sqrt{3}}{2}i, &&\text{порядок } 6 \; (\text{первообразный!}); \\
           \varepsilon_2 &= \cos \frac{2\pi}{3} + i \sin \frac{2\pi}{3} = -\frac{1}{2} + \frac{\sqrt{3}}{2}i, &&\varepsilon_2^3 = 1 \implies \text{порядок } 3; \\
           \varepsilon_3 &= \cos \pi + i \sin \pi = -1, &&\varepsilon_3^2 = 1 \implies \text{порядок } 2; \\
           \varepsilon_4 &= \cos \frac{4\pi}{3} + i \sin \frac{4\pi}{3} = -\frac{1}{2} - \frac{\sqrt{3}}{2}i, &&\varepsilon_4^3 = 1 \implies \text{порядок } 3; \\
           \varepsilon_5 &= \cos \frac{5\pi}{3} + i \sin \frac{5\pi}{3} = \frac{1}{2} - \frac{\sqrt{3}}{2}i, &&\text{порядок } 6 \; (\text{первообразный!}).
-          \end{aligned}$$
+          \end{aligned}\]
           Следовательно, первообразными корнями 6-й степени являются только $\varepsilon_1$ и $\varepsilon_5$. Обратим внимание: их индексы $1$ и $5$ — это в точности числа, взаимно простые с $6$!
         </div>
-      </div>
-
-      <div class="statement theorem" id="thm-3">
-  <div class="block-label">Утверждение 3</div>
-  <h3 id="sub-6" data-toc="Теорема 8.3">Теорема 8.3</h3>
-  
-        
-          <span class="callout-title">Критерий первообразного корня</span>
-        
-</div>
-        <div class="callout-body">
+</div></div>
+<div class="statement theorem" id="thm-3"><div class="block-label">Теорема 8.3</div><h3 data-toc="Критерий первообразного корня" id="sub-4-3">Критерий первообразного корня</h3><div>
           Корень $\varepsilon_k = \cos \frac{2\pi k}{n} + i \sin \frac{2\pi k}{n}$ является первообразным корнем степени $n$ тогда и только тогда, когда его номер $k$ взаимно прост с показателем степени $n$:
-          $$\gcd(k, n) = 1.$$
+          \[\gcd(k, n) = 1.\]
           <em>Следствие:</em> Количество первообразных корней степени $n$ равно значению функции Эйлера $\varphi(n)$.
-        </div>
-      </div>
-
-      <div class="proof" id="proof-2" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство критерия первообразности корня в обе стороны">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-2" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Рассмотрим возведение $\varepsilon_k$ в степень $m$ ($m \in \mathbb{N}$):</p>
-  </div>
-  <div class="proof-full" id="full-2" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство критерия первообразности корня в обе стороны)</div>
-    <div class="proof-content">
-          <p>Рассмотрим возведение $\varepsilon_k$ в степень $m$ ($m \in \mathbb{N}$):</p>
-          $$(\varepsilon_k)^m = \cos \frac{2\pi k m}{n} + i \sin \frac{2\pi k m}{n}.$$
+        </div></div>
+<div class="proof" data-proof="" id="proof-2">
+<div aria-label="Доказательство Строгое доказательство критерия первообразности корня в обе стороны" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-2">
+<div class="proof-label">Идея</div>
+<p>Рассмотрим возведение $\varepsilon_k$ в степень $m$ ($m \in \mathbb{N}$):</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-2">
+<div class="proof-label">Доказательство (Строгое доказательство критерия первообразности корня в обе стороны)</div>
+<div class="proof-content">
+<p>Рассмотрим возведение $\varepsilon_k$ в степень $m$ ($m \in \mathbb{N}$):</p>
+          \[(\varepsilon_k)^m = \cos \frac{2\pi k m}{n} + i \sin \frac{2\pi k m}{n}.\]
           <p>Условие $(\varepsilon_k)^m = 1$ равносильно тому, что аргумент кратен $2\pi$:</p>
-          $$\frac{2\pi k m}{n} = 2\pi t \; (t \in \mathbb{Z}) \iff k m = n t \iff n \mid k m.$$
+          \[\frac{2\pi k m}{n} = 2\pi t \; (t \in \mathbb{Z}) \iff k m = n t \iff n \mid k m.\]
 
           <p><strong>Необходимость ($\implies$):</strong></p>
-          <p>Пусть $\varepsilon_k$ — первообразный корень. Предположим противное: $\gcd(k, n) = d > 1$.</p>
-          <p>Тогда $n = n_1 d$ и $k = k_1 d$, где $n_1 = \frac{n}{d} < n$.</p>
-          <p>Возведем $\varepsilon_k$ в степень $n_1$:</p>
-          $$(\varepsilon_k)^{n_1} = \cos \frac{2\pi (k_1 d) n_1}{n_1 d} + i \sin \frac{2\pi (k_1 d) n_1}{n_1 d} = \cos(2\pi k_1) + i \sin(2\pi k_1) = 1.$$
+<p>Пусть $\varepsilon_k$ — первообразный корень. Предположим противное: $\gcd(k, n) = d > 1$.</p>
+<p>Тогда $n = n_1 d$ и $k = k_1 d$, где $n_1 = \frac{n}{d} < n$.</p>
+<p>Возведем $\varepsilon_k$ в степень $n_1$:</p>
+          \[(\varepsilon_k)^{n_1} = \cos \frac{2\pi (k_1 d) n_1}{n_1 d} + i \sin \frac{2\pi (k_1 d) n_1}{n_1 d} = \cos(2\pi k_1) + i \sin(2\pi k_1) = 1.\]
           <p>Но $0 < n_1 < n$, что противоречит определению первообразного корня (он не может давать 1 в степени, меньшей $n$).</p>
-          <p>Следовательно, предположение неверно, и $\gcd(k, n) = 1$.</p>
-
-          <p><strong>Достаточность ($\impliedby$):</strong></p>
-          <p>Пусть $\gcd(k, n) = 1$. Предположим, что $(\varepsilon_k)^m = 1$ для некоторого $m \in \mathbb{N}$.</p>
-          <p>Тогда $n \mid km$. Но числа $k$ и $n$ взаимно просты! По лемме Евклида, если $n$ делит $km$ и $\gcd(k, n) = 1$, то $n$ обязано делить $m$ ($n \mid m$).</p>
-          <p>Отсюда следует, что $m \ge n$. Значит, ни для какого $0 < m < n$ равенство $(\varepsilon_k)^m = 1$ невозможно. По определению, корень $\varepsilon_k$ первообразный!</p>
-          <span class="qed">$\blacksquare$</span>
-        </div>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<p>Следовательно, предположение неверно, и $\gcd(k, n) = 1$.</p>
+<p><strong>Достаточность ($\impliedby$):</strong></p>
+<p>Пусть $\gcd(k, n) = 1$. Предположим, что $(\varepsilon_k)^m = 1$ для некоторого $m \in \mathbb{N}$.</p>
+<p>Тогда $n \mid km$. Но числа $k$ и $n$ взаимно просты! По лемме Евклида, если $n$ делит $km$ и $\gcd(k, n) = 1$, то $n$ обязано делить $m$ ($n \mid m$).</p>
+<p>Отсюда следует, что $m \ge n$. Значит, ни для какого $0 < m < n$ равенство $(\varepsilon_k)^m = 1$ невозможно. По определению, корень $\varepsilon_k$ первообразный!</p>
+<span class="qed">$\blacksquare$</span>
 </div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="engraved-divider">✦ ──────── ◈ ──────── ✦</div>
+<div class="kicker-label">✦ РАЗДЕЛ 04 ✦</div>
 
-      <div class="engraved-divider">✦ ──────── ◈ ──────── ✦</div>
-
-      <div class="kicker-label">✦ РАЗДЕЛ 04 ✦</div>
 </section>
-
 <section class="chapter" aria-labelledby="chapter-5">
-  <div class="chapter-kicker">05 / Порождение группы U_n и цикл…</div>
-  <h2 id="chapter-5" data-toc="Порождение группы U_n и цикл…">4. Порождение группы $U_n$ и циклическая структура</h2>
-  <div class="statement theorem" id="thm-4">
-  <div class="block-label">Утверждение 4</div>
-  <h3 id="sub-7" data-toc="Теорема 8.4">Теорема 8.4</h3>
+  <div class="chapter-kicker">05 / Порождение группы U_n и циклич…</div>
+  <h2 id="chapter-5" data-toc="Порождение группы U_n и циклич…">4. Порождение группы $U_n$ и циклическая структура</h2>
   
-        
-          <span class="callout-title">О выражении корней через первообразный корень</span>
-        
-</div>
-        <div class="callout-body">
+<div class="statement theorem" id="thm-4"><div class="block-label">Теорема 8.4</div><h3 data-toc="О выражении корней через перво…" id="sub-5-1">О выражении корней через первообразный корень</h3><div>
           Пусть $\varepsilon$ — произвольный первообразный корень степени $n$ из единицы. Тогда любой корень из единицы является некоторой степенью корня $\varepsilon$:
-          $$U_n = \{ \varepsilon^0, \varepsilon^1, \varepsilon^2, \dots, \varepsilon^{n-1} \}.$$
+          \[U_n = \{ \varepsilon^0, \varepsilon^1, \varepsilon^2, \dots, \varepsilon^{n-1} \}.\]
           Следовательно, группа $U_n$ является <strong>циклической группой</strong> порядка $n$:
-          $$U_n = \langle \varepsilon \rangle \cong (\mathbb{Z}_n, +).$$
-        </div>
-      </div>
-
-      <div class="proof" id="proof-3" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство теоремы о порождении циклической группы">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-3" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Рассмотрим множество степеней $M = \{ \varepsilon^0, \varepsilon^1, \dots, \varepsilon^{n-1} \}$. По свойству замкнутости все эти степени лежат в $U_n$, то есть $M \subseteq U_n$.</p>
-  </div>
-  <div class="proof-full" id="full-3" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство теоремы о порождении циклической группы)</div>
-    <div class="proof-content">
-          <p>Рассмотрим множество степеней $M = \{ \varepsilon^0, \varepsilon^1, \dots, \varepsilon^{n-1} \}$. По свойству замкнутости все эти степени лежат в $U_n$, то есть $M \subseteq U_n$.</p>
-          <p>Покажем, что все $n$ элементов множества $M$ попарно различны. Предположим противное: пусть $\varepsilon^s = \varepsilon^k$ для некоторых $0 \le k < s \le n - 1$.</p>
-          <p>Умножим обе части равенства на $(\varepsilon^k)^{-1}$:</p>
-          $$\varepsilon^{s - k} = 1.$$
+          \[U_n = \langle \varepsilon \rangle \cong (\mathbb{Z}_n, +).\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-3">
+<div aria-label="Доказательство Строгое доказательство теоремы о порождении циклической группы" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-3">
+<div class="proof-label">Идея</div>
+<p>Рассмотрим множество степеней $M = \{ \varepsilon^0, \varepsilon^1, \dots, \varepsilon^{n-1} \}$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-3">
+<div class="proof-label">Доказательство (Строгое доказательство теоремы о порождении циклической группы)</div>
+<div class="proof-content">
+<p>Рассмотрим множество степеней $M = \{ \varepsilon^0, \varepsilon^1, \dots, \varepsilon^{n-1} \}$. По свойству замкнутости все эти степени лежат в $U_n$, то есть $M \subseteq U_n$.</p>
+<p>Покажем, что все $n$ элементов множества $M$ попарно различны. Предположим противное: пусть $\varepsilon^s = \varepsilon^k$ для некоторых $0 \le k < s \le n - 1$.</p>
+<p>Умножим обе части равенства на $(\varepsilon^k)^{-1}$:</p>
+          \[\varepsilon^{s - k} = 1.\]
           <p>Но разность $m = s - k$ удовлетворяет строгому неравенству $0 < s - k < n$. Это противоречит тому, что $\varepsilon$ — первообразный корень степени $n$ (он не может давать 1 при степени $0 < m < n$).</p>
-          <p>Следовательно, все степени $\varepsilon^0, \dots, \varepsilon^{n-1}$ различны. Множество $M$ содержит ровно $n$ элементов, и $U_n$ содержит ровно $n$ элементов. Так как $M \subseteq U_n$ и $|M| = |U_n| = n$, то $M = U_n$.</p>
-          <span class="qed">$\blacksquare$</span>
-        </div>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<p>Следовательно, все степени $\varepsilon^0, \dots, \varepsilon^{n-1}$ различны. Множество $M$ содержит ровно $n$ элементов, и $U_n$ содержит ровно $n$ элементов. Так как $M \subseteq U_n$ и $|M| = |U_n| = n$, то $M = U_n$.</p>
+<span class="qed">$\blacksquare$</span>
 </div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="engraved-divider">✦ ──────── ◈ ──────── ✦</div>
+<div class="kicker-label">✦ РАЗДЕЛ 05 ✦</div>
 
-      <div class="engraved-divider">✦ ──────── ◈ ──────── ✦</div>
-
-      <div class="kicker-label">✦ РАЗДЕЛ 05 ✦</div>
 </section>
-
 <section class="chapter" aria-labelledby="chapter-6">
-  <div class="chapter-kicker">06 / Выражение корней произвольно…</div>
-  <h2 id="chapter-6" data-toc="Выражение корней произвольно…">5. Выражение корней произвольного комплексного числа $z$</h2>
-  <div class="statement theorem" id="thm-5">
-  <div class="block-label">Утверждение 5</div>
-  <h3 id="sub-8" data-toc="Теорема 8.5">Теорема 8.5</h3>
+  <div class="chapter-kicker">06 / Выражение корней произвольного…</div>
+  <h2 id="chapter-6" data-toc="Выражение корней произвольного…">5. Выражение корней произвольного комплексного числа $z$</h2>
   
-        
-          <span class="callout-title">О связи корней из $z$ с корнями из единицы</span>
-        
-</div>
-        <div class="callout-body">
-          Пусть $z \in \mathbb{C}$, $z \ne 0$, и пусть $w$ — некоторый фиксированный корень $n$-й степени из $z$ (то есть $w^n = z$).<br>
+<div class="statement theorem" id="thm-5"><div class="block-label">Теорема 8.5</div><h3 data-toc="О связи корней из z с корнями …" id="sub-6-1">О связи корней из $z$ с корнями из единицы</h3><div>
+          Пусть $z \in \mathbb{C}$, $z \ne 0$, и пусть $w$ — некоторый фиксированный корень $n$-й степени из $z$ (то есть $w^n = z$).<br/>
           Тогда все $n$ корней степени $n$ из числа $z$ получаются умножением фиксированного значения $w$ на все корни степени $n$ из единицы:
-          $$\sqrt[n]{z} = \{ w \cdot \varepsilon_0, \, w \cdot \varepsilon_1, \, \dots, \, w \cdot \varepsilon_{n-1} \}.$$
+          \[\sqrt[n]{z} = \{ w \cdot \varepsilon_0, \, w \cdot \varepsilon_1, \, \dots, \, w \cdot \varepsilon_{n-1} \}.\]
           Если $\varepsilon$ — первообразный корень степени $n$, то:
-          $$\sqrt[n]{z} = \{ w \cdot \varepsilon^0, \, w \cdot \varepsilon^1, \, \dots, \, w \cdot \varepsilon^{n-1} \}.$$
-        </div>
-      </div>
-
-      <div class="proof" id="proof-4" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство теоремы о выражении всех корней">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-4" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>1. Проверка того, что каждое число $w \varepsilon_k$ является корнем из $z$:</strong></p>
-  </div>
-  <div class="proof-full" id="full-4" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство теоремы о выражении всех корней)</div>
-    <div class="proof-content">
-          <p><strong>1. Проверка того, что каждое число $w \varepsilon_k$ является корнем из $z$:</strong></p>
-          $$(w \varepsilon_k)^n = w^n \cdot (\varepsilon_k)^n = z \cdot 1 = z.$$
+          \[\sqrt[n]{z} = \{ w \cdot \varepsilon^0, \, w \cdot \varepsilon^1, \, \dots, \, w \cdot \varepsilon^{n-1} \}.\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-4">
+<div aria-label="Доказательство Строгое доказательство теоремы о выражении всех корней" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-4">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Строгое доказательство теоремы о выражении всех корней).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-4">
+<div class="proof-label">Доказательство (Строгое доказательство теоремы о выражении всех корней)</div>
+<div class="proof-content">
+<p><strong>1. Проверка того, что каждое число $w \varepsilon_k$ является корнем из $z$:</strong></p>
+          \[(w \varepsilon_k)^n = w^n \cdot (\varepsilon_k)^n = z \cdot 1 = z.\]
           <p>Значит, все элементы множества действительно являются корнями степени $n$ из $z$.</p>
-          
-          <p><strong>2. Попарная различность элементов:</strong></p>
-          <p>Пусть $w \varepsilon_k = w \varepsilon_m$. Так как $z \ne 0$, корень $w \ne 0$. Разделив равенство на $w$, получаем $\varepsilon_k = \varepsilon_m \implies k = m$. Все $n$ значений попарно различны.</p>
-          <p>По теореме о числе корней, уравнение $x^n = z$ имеет ровно $n$ комплексных корней. Следовательно, набор $\{w \varepsilon_k\}_{k=0}^{n-1}$ исчерпывает все корни $n$-й степени из $z$.</p>
-          <span class="qed">$\blacksquare$</span>
-        </div>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<p><strong>2. Попарная различность элементов:</strong></p>
+<p>Пусть $w \varepsilon_k = w \varepsilon_m$. Так как $z \ne 0$, корень $w \ne 0$. Разделив равенство на $w$, получаем $\varepsilon_k = \varepsilon_m \implies k = m$. Все $n$ значений попарно различны.</p>
+<p>По теореме о числе корней, уравнение $x^n = z$ имеет ровно $n$ комплексных корней. Следовательно, набор $\{w \varepsilon_k\}_{k=0}^{n-1}$ исчерпывает все корни $n$-й степени из $z$.</p>
+<span class="qed">$\blacksquare$</span>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="key-takeaways">
+<div class="key-takeaways-title">Шпаргалка к лекции 8</div>
+<ul>
+<li>Множество корней: $U_n = \{\varepsilon_0, \dots, \varepsilon_{n-1}\}$, $\varepsilon_k = e^{i \frac{2\pi k}{n}}$.</li>
+<li>Геометрия: вершины правильного $n$-угольника на единичной окружности с вершиной в $(1, 0)$.</li>
+<li>Группа: $(U_n, \cdot)$ — циклическая группа порядка $n$.</li>
+<li>Критерий первообразности: $\varepsilon_k$ первообразный $\iff \gcd(k, n) = 1$. Число таких корней: $\varphi(n)$.</li>
+<li>Выражение корней из $z$: $\sqrt[n]{z} = \{w \varepsilon^0, w \varepsilon^1, \dots, w \varepsilon^{n-1}\}$.</li>
+</ul>
 </div>
 
-      <div class="key-takeaways">
-        <div class="key-takeaways-title">Шпаргалка к лекции 8</div>
-        <ul>
-          <li>Множество корней: $U_n = \{\varepsilon_0, \dots, \varepsilon_{n-1}\}$, $\varepsilon_k = e^{i \frac{2\pi k}{n}}$.</li>
-          <li>Геометрия: вершины правильного $n$-угольника на единичной окружности с вершиной в $(1, 0)$.</li>
-          <li>Группа: $(U_n, \cdot)$ — циклическая группа порядка $n$.</li>
-          <li>Критерий первообразности: $\varepsilon_k$ первообразный $\iff \gcd(k, n) = 1$. Число таких корней: $\varphi(n)$.</li>
-          <li>Выражение корней из $z$: $\sqrt[n]{z} = \{w \varepsilon^0, w \varepsilon^1, \dots, w \varepsilon^{n-1}\}$.</li>
-        </ul>
-      </div>
-    </section>
+
+
 </section>
 <!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>

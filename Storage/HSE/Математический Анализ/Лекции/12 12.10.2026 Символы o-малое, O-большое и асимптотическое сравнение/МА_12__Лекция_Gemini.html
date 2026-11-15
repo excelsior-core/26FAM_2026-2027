@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Математический анализ: Теория асимптотического сравнения функций. Конспект FAM ФПМ НИУ ВШЭ.">
+  <meta name="description" content="ФПМ НИУ ВШЭ · Полный академический лекционный конспект">
   <title>Математический анализ: Теория асимптотического сравнения функций — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
@@ -183,8 +183,13 @@ html[data-theme] ::selection{background:var(--gold);color:var(--paper)}
 .themed-figure [data-figure-theme="light"]{display:block}
 html[data-theme="dark"] .themed-figure [data-figure-theme],html[data-theme="parchment"] .themed-figure [data-figure-theme]{display:none}
 html[data-theme="dark"] .themed-figure [data-figure-theme="dark"],html[data-theme="parchment"] .themed-figure [data-figure-theme="parchment"]{display:block}
-/* One neutral/light asset may remain on its own light plate in every theme. Never invert mathematical colours. */
-.figure-plate{background:#fff;color:#202e29;padding:16px;border:1px solid var(--rule)}
+.figure-plate{background:var(--bg-card);color:var(--ink);padding:20px;border:1px solid var(--rule);border-radius:8px;margin:32px 0}
+html[data-theme="light"] .figure-plate{background:#ffffff}
+html[data-theme="dark"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+html[data-theme="parchment"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+@media print{
+ .figure-plate{background:white!important;border:0!important;padding:0!important}
+}
 @media(max-width:760px){.topbar{height:auto;min-height:70px;flex-wrap:wrap;padding:12px 18px;gap:10px}.top-actions{gap:8px;flex-wrap:wrap}.theme-control select{font-size:10px;max-width:103px;padding:8px 4px}.pdf-button{padding:6px 8px}.pdf-button span{margin-left:4px}.wordmark{font-size:24px}}
 @media(max-width:400px){.wordmark{display:none}.top-actions{width:100%;justify-content:space-between}}
 @media print{
@@ -440,957 +445,977 @@ SOFTWARE.
     </aside>
     <main id="content">
       <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
-  <div class="lecture-meta"><span class="subject">Математический анализ</span><span>ФПМ НИУ ВШЭ</span></div>
-  <h1>Математический анализ: Теория асимптотического сравнения функций</h1>
-  <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-  <div class="lecture-abstract">
-    <p>ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-    <div class="abstract-formula" aria-label="Ключевое выражение лекции">\[', right: '\]</div>
-  </div>
-</header>
-<div class="proof-toolbar" aria-label="Все доказательства">
-  <span class="toolbar-label">Доказательства</span>
-  <div class="segmented" role="group" aria-label="Режим всех доказательств">
-    <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
-    <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
-    <button data-all-proofs="full" aria-pressed="false">Полностью</button>
-  </div>
-  <span id="proof-state" class="proof-state" aria-live="polite"></span>
-</div>
-<noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
-<p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
-
+      <header class="lecture-head" id="top">
+        <div class="lecture-meta"><span class="subject">Математический анализ</span><span>Академический конспект ФПМ</span></div>
+        <h1>Математический анализ: Теория асимптотического сравнения функций</h1>
+        <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
+        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[', right: '\]</div></div>
+      </header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
 <section class="chapter" aria-labelledby="chapter-1">
   <div class="chapter-kicker">01 / Введение</div>
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <!-- ЗАГОЛОВОК И МЕТАДАННЫЕ -->
-    <header>
-      <div class="badge">Фундаментальный курс анализа &bull; Семестр 1</div>
-      <h1>Сравнение функций: асимптотические символы $o$ и $O$, эквивалентность и шкалы порядков</h1>
-      <p style="font-size: 1.05rem; color: var(--text-secondary); margin-top: 0.5rem;">
+<header>
+<div class="badge">Фундаментальный курс анализа • Семестр 1</div>
+<h1>Сравнение функций: асимптотические символы $o$ и $O$, эквивалентность и шкалы порядков</h1>
+<p style="font-size: 1.05rem; color: var(--text-secondary); margin-top: 0.5rem;">
         Полный университетский конспект лекции с разбором Теорем 12–15, доказательствами эквивалентности определений, алгеброй символов Ландау, методом выделения главной части и тонкими контрпримерами.
       </p>
-    </header>
+</header>
+<!-- ИНТЕРАКТИВНОЕ ОГЛАВЛЕНИЕ -->
 
-    <!-- ИНТЕРАКТИВНОЕ ОГЛАВЛЕНИЕ -->
-    
-
-    <!-- РАЗДЕЛ 1 -->
-    <section id="sec-1">
+<!-- РАЗДЕЛ 1 -->
+<section id="sec-1">
 </section>
-
 <section class="chapter" aria-labelledby="chapter-2">
-  <div class="chapter-kicker">02 / 1. Введение и мотивация лока…</div>
-  <h2 id="chapter-2" data-toc="1. Введение и мотивация лока…">§ 1. Введение и мотивация локального сравнения функций</h2>
-  <p>
+  <div class="chapter-kicker">02 / 1. Введение и мотивация локаль…</div>
+  <h2 id="chapter-2" data-toc="1. Введение и мотивация локаль…">§ 1. Введение и мотивация локального сравнения функций</h2>
+  
+<p>
         В математическом анализе при исследовании поведения функций в окрестности некоторой предельной точки $x = a$ (где $a \in \mathbb{R}$ либо $a = \pm\infty$) качественного утверждения о том, что функция является <em>бесконечно малой</em> ($\lim_{x \to a} f(x) = 0$) или <em>бесконечно большой</em> ($\lim_{x \to a} f(x) = \infty$), оказывается принципиально недостаточно.
       </p>
-      <p>
+<p>
         Возникает ключевая задача: <strong>сравнивать скорости</strong> стремления функций к нулю либо к бесконечности. Например, при $x \to 0$ функции $x$, $x^2$, $x^5$ и $e^{-1/x^2}$ все стремятся к нулю, однако их локальная скорость стремления колоссально различается. Для формализации этих соотношений в классический математический анализ была введена система <em>асимптотических символов (символов Ландау)</em>: $o$ («о-малое»), $O$ («О-большое»), а также знаки эквивалентности ($\sim$) и одинакового порядка ($\asymp$).
       </p>
-      <p>
+<p>
         Всюду далее мы рассматриваем функции, определенные в некоторой <strong>проколотой окрестности</strong> точки $a$, обозначаемой:
-        $$\dot{U}(a) = U(a) \setminus \{a\} = \{x \in \mathbb{R} : 0 < |x - a| < \delta\}.$$
+        \[\dot{U}(a) = U(a) \setminus \{a\} = \{x \in \mathbb{R} : 0 < |x - a| < \delta\}.\]
         Значение самих функций в точке $a$ не играет никакой роли, а сами функции могут быть даже не определены в точке $a$.
       </p>
-    </section>
 
-    <!-- РАЗДЕЛ 2 -->
-    <section id="sec-2">
+<!-- РАЗДЕЛ 2 -->
+<section id="sec-2">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-3">
-  <div class="chapter-kicker">03 / 2. Символ «o-малое»: два опр…</div>
-  <h2 id="chapter-3" data-toc="2. Символ «o-малое»: два опр…">§ 2. Символ «$o$-малое»: два определения и их равносильность</h2>
-  <div class="math-box box-def">
-        <div class="math-box-title">&#128220; Определение 1 (через произведение — общее базовое определение)</div>
-        <p>
+  <div class="chapter-kicker">03 / 2. Символ «o-малое»: два опред…</div>
+  <h2 id="chapter-3" data-toc="2. Символ «o-малое»: два опред…">§ 2. Символ «$o$-малое»: два определения и их равносильность</h2>
+  
+<div class="statement definition" id="def-1"><div class="block-label">Определение 1</div><h3 data-toc="📜 Определение 1 (через произве…" id="sub-3-1">📜 Определение 1 (через произведение — общее базовое определение)</h3><div>
+<p>
           Пусть функции $f(x)$ и $g(x)$ определены в проколотой окрестности $\dot{U}(a)$ точки $a$. Функция $f(x)$ называется <strong>бесконечно малой по сравнению с функцией $g(x)$ при $x \to a$</strong> (символически: $f(x) = o(g(x))$ при $x \to a$), если существует функция $\varphi(x)$, определенная в $\dot{U}(a)$, такая что выполнено представление:
-          $$f(x) = g(x) \cdot \varphi(x) \quad \forall x \in \dot{U}(a),$$
+          \[f(x) = g(x) \cdot \varphi(x) \quad \forall x \in \dot{U}(a),\]
           где $\varphi(x)$ является бесконечно малой функцией при $x \to a$, то есть:
-          $$\lim_{x \to a} \varphi(x) = 0.$$
+          \[\lim_{x \to a} \varphi(x) = 0.\]
         </p>
-      </div>
-
-      <p>
-        <strong>Концептуальный смысл Определения 1:</strong> Сама по себе функция $f(x)$ вовсе не обязана быть бесконечно малой в абсолютном смысле — она бесконечно мала <em>лишь в масштабе функции $g(x)$</em>. Главное теоретическое достоинство Определения 1 состоит в том, что функция $g(x)$ <strong>может обращаться в ноль</strong> в сколь угодно большом числе точек окрестности $\dot{U}(a)$, поскольку определение не содержит операций деления.
+</div></div>
+<p>
+<strong>Концептуальный смысл Определения 1:</strong> Сама по себе функция $f(x)$ вовсе не обязана быть бесконечно малой в абсолютном смысле — она бесконечно мала <em>лишь в масштабе функции $g(x)$</em>. Главное теоретическое достоинство Определения 1 состоит в том, что функция $g(x)$ <strong>может обращаться в ноль</strong> в сколь угодно большом числе точек окрестности $\dot{U}(a)$, поскольку определение не содержит операций деления.
       </p>
-
-      <div class="math-box box-def">
-        <div class="math-box-title">&#128220; Определение 2 (через предел отношения — рабочее определение)</div>
-        <p>
+<div class="statement definition" id="def-2"><div class="block-label">Определение 2</div><h3 data-toc="📜 Определение 2 (через предел …" id="sub-3-2">📜 Определение 2 (через предел отношения — рабочее определение)</h3><div>
+<p>
           Пусть функции $f(x)$ и $g(x)$ определены в $\dot{U}(a)$, причем дополнительно выполнено условие:
-          $$g(x) \ne 0 \quad \forall x \in \dot{U}(a).$$
+          \[g(x) \ne 0 \quad \forall x \in \dot{U}(a).\]
           Тогда функция $f(x) = o(g(x))$ при $x \to a$, если:
-          $$\lim_{x \to a} \frac{f(x)}{g(x)} = 0.$$
+          \[\lim_{x \to a} \frac{f(x)}{g(x)} = 0.\]
         </p>
-      </div>
-
-      <div class="math-box box-thm">
-        <div class="math-box-title">&#127891; Теорема (об эквивалентности Определений 1 и 2 для $o$-малого)</div>
-        <p>
+</div></div>
+<div class="equation">
+<div class="math-box-title">🎓 Теорема (об эквивалентности Определений 1 и 2 для $o$-малого)</div>
+<p>
           Если функция $g(x)$ не обращается в ноль в проколотой окрестности $\dot{U}(a)$, то Определение 1 и Определение 2 логически равносильны:
-          $$\left( \exists \varphi : f = g \cdot \varphi, \ \lim_{x \to a} \varphi(x) = 0 \right) \iff \lim_{x \to a} \frac{f(x)}{g(x)} = 0.$$
+          \[\left( \exists \varphi : f = g \cdot \varphi, \ \lim_{x \to a} \varphi(x) = 0 \right) \iff \lim_{x \to a} \frac{f(x)}{g(x)} = 0.\]
         </p>
-      </div>
-
-      <div class="math-box box-proof">
-        <div class="math-box-title">&#9654; Доказательство (в обе стороны)</div>
-        <p>
-          <strong>Необходимость ($\implies$):</strong> Пусть выполнено Определение 1. Тогда для всех $x \in \dot{U}(a)$ справедливо $f(x) = g(x) \cdot \varphi(x)$, где $\lim_{x \to a} \varphi(x) = 0$. Так как по условию теоремы $g(x) \ne 0$, разделим обе части равенства на $g(x)$:
-          $$\frac{f(x)}{g(x)} = \varphi(x) \quad \forall x \in \dot{U}(a).$$
+</div>
+<div class="proof" data-proof="" id="proof-1">
+<div aria-label="Доказательство ▶ Доказательство (в обе стороны)" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-1">
+<div class="proof-label">Идея</div>
+<p>Необходимость ($\implies$): Пусть выполнено Определение 1.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-1">
+<div class="proof-label">Доказательство (▶ Доказательство (в обе стороны))</div>
+<p>
+<strong>Необходимость ($\implies$):</strong> Пусть выполнено Определение 1. Тогда для всех $x \in \dot{U}(a)$ справедливо $f(x) = g(x) \cdot \varphi(x)$, где $\lim_{x \to a} \varphi(x) = 0$. Так как по условию теоремы $g(x) \ne 0$, разделим обе части равенства на $g(x)$:
+          \[\frac{f(x)}{g(x)} = \varphi(x) \quad \forall x \in \dot{U}(a).\]
           Переходя к пределу при $x \to a$, в силу равенства функций получаем:
-          $$\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \varphi(x) = 0,$$
+          \[\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \varphi(x) = 0,\]
           что полностью совпадает с условием Определения 2.
         </p>
-        <p>
-          <strong>Достаточность ($\impliedby$):</strong> Пусть выполнено Определение 2, то есть отношение $\frac{f(x)}{g(x)}$ определено и стремится к $0$ при $x \to a$. Построим функцию $\varphi(x)$ на $\dot{U}(a)$ явным образом:
-          $$\varphi(x) \coloneqq \frac{f(x)}{g(x)}.$$
+<p>
+<strong>Достаточность ($\impliedby$):</strong> Пусть выполнено Определение 2, то есть отношение $\frac{f(x)}{g(x)}$ определено и стремится к $0$ при $x \to a$. Построим функцию $\varphi(x)$ на $\dot{U}(a)$ явным образом:
+          \[\varphi(x) \coloneqq \frac{f(x)}{g(x)}.\]
           Данная функция определена корректно на всем $\dot{U}(a)$, так как знаменатель $g(x) \ne 0$. При этом:
-          $$f(x) = g(x) \cdot \frac{f(x)}{g(x)} = g(x) \cdot \varphi(x), \quad \text{и} \quad \lim_{x \to a} \varphi(x) = \lim_{x \to a} \frac{f(x)}{g(x)} = 0.$$
-          Таким образом, выполнено Определение 1. <span class="qed">&#9632;</span>
-        </p>
-      </div>
-
-      <div class="math-box box-ex">
-        <div class="math-box-title">&#128394; Пример с лекции: сравнение $1 - \cos x$ и $\sin x$ при $x \to 0$</div>
-        <p>
+          \[f(x) = g(x) \cdot \frac{f(x)}{g(x)} = g(x) \cdot \varphi(x), \quad \text{и} \quad \lim_{x \to a} \varphi(x) = \lim_{x \to a} \frac{f(x)}{g(x)} = 0.\]
+          Таким образом, выполнено Определение 1. <span class="qed">■</span>
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="worked-example" id="ex-1"><div class="block-label">Пример 1</div><h3 data-toc="🖊 Пример с лекции: сравнение 1…" id="sub-3-3">🖊 Пример с лекции: сравнение $1 - \cos x$ и $\sin x$ при $x \to 0$</h3><div>
+<p>
           Исследуем поведение функций $f(x) = 1 - \cos x$ и $g(x) = \sin x$ в окрестности нуля ($x \to 0$).
         </p>
-        <p>
+<p>
           В проколотой окрестности $\dot{U}_\pi(0) = (-\pi, \pi) \setminus \{0\}$ знаменатель $g(x) = \sin x \ne 0$. Проверим соотношение по Определению 2:
         </p>
-        <p>
-          <strong>Способ 1 (через классическую тригонометрию):</strong>
+<p>
+<strong>Способ 1 (через классическую тригонометрию):</strong>
           Воспользуемся формулой понижения степени $1 - \cos x = 2 \sin^2\frac{x}{2}$ и синусом двойного аргумента $\sin x = 2 \sin\frac{x}{2} \cos\frac{x}{2}$:
-          $$\lim_{x \to 0} \frac{1 - \cos x}{\sin x} = \lim_{x \to 0} \frac{2 \sin^2 \frac{x}{2}}{2 \sin \frac{x}{2} \cos \frac{x}{2}} = \lim_{x \to 0} \operatorname{tg} \frac{x}{2} = 0.$$
+          \[\lim_{x \to 0} \frac{1 - \cos x}{\sin x} = \lim_{x \to 0} \frac{2 \sin^2 \frac{x}{2}}{2 \sin \frac{x}{2} \cos \frac{x}{2}} = \lim_{x \to 0} \operatorname{tg} \frac{x}{2} = 0.\]
         </p>
-        <p>
-          <strong>Способ 2 (через эквивалентности первого семестра):</strong>
+<p>
+<strong>Способ 2 (через эквивалентности первого семестра):</strong>
           Используя замечательные пределы, при $x \to 0$ имеем $1 - \cos x \sim \frac{x^2}{2}$ и $\sin x \sim x$. Тогда:
-          $$\lim_{x \to 0} \frac{1 - \cos x}{\sin x} = \lim_{x \to 0} \frac{x^2 / 2}{x} = \lim_{x \to 0} \frac{x}{2} = 0.$$
+          \[\lim_{x \to 0} \frac{1 - \cos x}{\sin x} = \lim_{x \to 0} \frac{x^2 / 2}{x} = \lim_{x \to 0} \frac{x}{2} = 0.\]
         </p>
-        <p>
-          <strong>Вывод:</strong> $1 - \cos x = o(\sin x)$ при $x \to 0$. Это доказывает, что при приближении к нулю величина $1 - \cos x$ убывает несравнимо быстрее, чем $\sin x$.
+<p>
+<strong>Вывод:</strong> $1 - \cos x = o(\sin x)$ при $x \to 0$. Это доказывает, что при приближении к нулю величина $1 - \cos x$ убывает несравнимо быстрее, чем $\sin x$.
         </p>
-      </div>
-    </section>
+</div></div>
 
-    <!-- РАЗДЕЛ 3 -->
-    <section id="sec-3">
+<!-- РАЗДЕЛ 3 -->
+<section id="sec-3">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-4">
-  <div class="chapter-kicker">04 / 3. Алгебра символа «o-малое»…</div>
-  <h2 id="chapter-4" data-toc="3. Алгебра символа «o-малое»…">§ 3. Алгебра символа «$o$-малое» (Асимптотическое исчисление)</h2>
-  <p>
+  <div class="chapter-kicker">04 / 3. Алгебра символа «o-малое» (…</div>
+  <h2 id="chapter-4" data-toc="3. Алгебра символа «o-малое» (…">§ 3. Алгебра символа «$o$-малое» (Асимптотическое исчисление)</h2>
+  
+<p>
         Символ $o(g(x))$ представляет собой не единичную функцию, а <strong>целый класс (множество) функций</strong>, обладающих свойством быть бесконечно малыми относительно $g(x)$. Традиционная запись $f(x) = o(g(x))$ исторически использует знак равенства, но по своей математической сути означает принадлежность: $f(x) \in o(g(x))$. Из-за этого равенства с символом $o$ необратимы: из $f = o(g)$ и $h = o(g)$ не следует, что $f = h$.
       </p>
-
-      <div class="math-box box-thm">
-        <div class="math-box-title">&#127891; Теорема (Правила действий с символом $o$-малое)</div>
-        <p>Пусть $\alpha(x)$ и $\beta(x)$ определены в $\dot{U}(a)$. При $x \to a$ справедливы следующие тождества классов:</p>
-        <ol>
-          <li><strong>Умножение на константу:</strong> $c \cdot o(\alpha(x)) = o(\alpha(x))$ для любого $c \in \mathbb{R}$.</li>
-          <li><strong>Сложение и вычитание:</strong> $o(\alpha(x)) \pm o(\alpha(x)) = o(\alpha(x))$.</li>
-          <li><strong>Произведение:</strong> $o(\alpha(x)) \cdot o(\beta(x)) = o(\alpha(x) \cdot \beta(x))$.</li>
-          <li><strong>Повторное применение:</strong> $o(o(\alpha(x))) = o(\alpha(x))$.</li>
-          <li><strong>Степенное правило:</strong> При $x \to 0$ для любых вещественных $n > m > 0$ выполняется $x^n = o(x^m)$.</li>
-        </ol>
-      </div>
-
-      <div class="math-box box-proof">
-        <div class="math-box-title">&#9654; Доказательства арифметических свойств</div>
-        <p>
-          <strong>Доказательство свойства 1:</strong> Пусть $f(x) \in c \cdot o(\alpha(x))$. Это означает, что $f(x) = c \cdot (\varphi(x) \alpha(x)) = (c \cdot \varphi(x)) \alpha(x)$, где $\lim_{x \to a} \varphi(x) = 0$. По теореме о пределе произведения $\lim_{x \to a} (c \varphi(x)) = c \cdot 0 = 0$. Обозначив $\psi(x) \coloneqq c \varphi(x)$, получаем $f(x) = \psi(x) \alpha(x)$, где $\psi(x) \to 0$, то есть $f(x) \in o(\alpha(x))$.
+<div class="equation">
+<div class="math-box-title">🎓 Теорема (Правила действий с символом $o$-малое)</div>
+<p>Пусть $\alpha(x)$ и $\beta(x)$ определены в $\dot{U}(a)$. При $x \to a$ справедливы следующие тождества классов:</p>
+<ol>
+<li><strong>Умножение на константу:</strong> $c \cdot o(\alpha(x)) = o(\alpha(x))$ для любого $c \in \mathbb{R}$.</li>
+<li><strong>Сложение и вычитание:</strong> $o(\alpha(x)) \pm o(\alpha(x)) = o(\alpha(x))$.</li>
+<li><strong>Произведение:</strong> $o(\alpha(x)) \cdot o(\beta(x)) = o(\alpha(x) \cdot \beta(x))$.</li>
+<li><strong>Повторное применение:</strong> $o(o(\alpha(x))) = o(\alpha(x))$.</li>
+<li><strong>Степенное правило:</strong> При $x \to 0$ для любых вещественных $n > m > 0$ выполняется $x^n = o(x^m)$.</li>
+</ol>
+</div>
+<div class="proof" data-proof="" id="proof-2">
+<div aria-label="Доказательство ▶ Доказательства арифметических свойств" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-2">
+<div class="proof-label">Идея</div>
+<p>Доказательство свойства 1: Пусть $f(x) \in c \cdot o(\alpha(x))$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-2">
+<div class="proof-label">Доказательство (▶ Доказательства арифметических свойств)</div>
+<p>
+<strong>Доказательство свойства 1:</strong> Пусть $f(x) \in c \cdot o(\alpha(x))$. Это означает, что $f(x) = c \cdot (\varphi(x) \alpha(x)) = (c \cdot \varphi(x)) \alpha(x)$, где $\lim_{x \to a} \varphi(x) = 0$. По теореме о пределе произведения $\lim_{x \to a} (c \varphi(x)) = c \cdot 0 = 0$. Обозначив $\psi(x) \coloneqq c \varphi(x)$, получаем $f(x) = \psi(x) \alpha(x)$, где $\psi(x) \to 0$, то есть $f(x) \in o(\alpha(x))$.
         </p>
-        <p>
-          <strong>Доказательство свойства 2:</strong> Пусть $f_1(x) = \varphi_1(x) \alpha(x)$ и $f_2(x) = \varphi_2(x) \alpha(x)$, где $\lim \varphi_1 = \lim \varphi_2 = 0$. Тогда:
-          $$f_1(x) \pm f_2(x) = (\varphi_1(x) \pm \varphi_2(x)) \alpha(x).$$
+<p>
+<strong>Доказательство свойства 2:</strong> Пусть $f_1(x) = \varphi_1(x) \alpha(x)$ и $f_2(x) = \varphi_2(x) \alpha(x)$, где $\lim \varphi_1 = \lim \varphi_2 = 0$. Тогда:
+          \[f_1(x) \pm f_2(x) = (\varphi_1(x) \pm \varphi_2(x)) \alpha(x).\]
           Так как $\lim_{x \to a} (\varphi_1(x) \pm \varphi_2(x)) = 0 \pm 0 = 0$, сумма $f_1 \pm f_2$ представляет собой бесконечно малую функцию, умноженную на $\alpha(x)$, то есть принадлежит классу $o(\alpha(x))$.
         </p>
-        <p>
-          <strong>Доказательство свойства 3:</strong> Пусть $f(x) = \varphi_1(x) \alpha(x)$ и $g(x) = \varphi_2(x) \beta(x)$, где $\varphi_1, \varphi_2 \to 0$. Перемножая их, имеем:
-          $$f(x) g(x) = (\varphi_1(x) \varphi_2(x)) \cdot (\alpha(x) \beta(x)).$$
+<p>
+<strong>Доказательство свойства 3:</strong> Пусть $f(x) = \varphi_1(x) \alpha(x)$ и $g(x) = \varphi_2(x) \beta(x)$, где $\varphi_1, \varphi_2 \to 0$. Перемножая их, имеем:
+          \[f(x) g(x) = (\varphi_1(x) \varphi_2(x)) \cdot (\alpha(x) \beta(x)).\]
           Предел функции $\Phi(x) \coloneqq \varphi_1(x) \varphi_2(x)$ равен $0 \cdot 0 = 0$. Следовательно, $f(x) g(x) = o(\alpha(x) \beta(x))$.
         </p>
-        <p>
-          <strong>Доказательство свойства 4:</strong> Пусть $f(x) = o(g(x))$, где $g(x) = o(\alpha(x))$. Тогда $g(x) = \varphi_1(x) \alpha(x)$ и $f(x) = \varphi_2(x) g(x) = (\varphi_1(x) \varphi_2(x)) \alpha(x)$, где $\lim \varphi_1 = \lim \varphi_2 = 0$. Так как $\lim (\varphi_1 \varphi_2) = 0$, получаем $f(x) = o(\alpha(x))$.
+<p>
+<strong>Доказательство свойства 4:</strong> Пусть $f(x) = o(g(x))$, где $g(x) = o(\alpha(x))$. Тогда $g(x) = \varphi_1(x) \alpha(x)$ и $f(x) = \varphi_2(x) g(x) = (\varphi_1(x) \varphi_2(x)) \alpha(x)$, где $\lim \varphi_1 = \lim \varphi_2 = 0$. Так как $\lim (\varphi_1 \varphi_2) = 0$, получаем $f(x) = o(\alpha(x))$.
         </p>
-        <p>
-          <strong>Доказательство свойства 5:</strong> При $x \to 0$ отношение $\frac{x^n}{x^m} = x^{n-m}$. Поскольку показатель степени $n - m > 0$, получаем $\lim_{x \to 0} x^{n-m} = 0$. По Определению 2 это означает $x^n = o(x^m)$. В частности: $x^2 = o(x)$, $x^3 = o(x)$, $x^3 = o(x^2)$. <span class="qed">&#9632;</span>
-        </p>
-      </div>
-
-      <div class="math-box box-thm">
-        <div class="math-box-title">&#127891; Лемма (о поглощении старших степеней малости в символе $o$)</div>
-        <p>
+<p>
+<strong>Доказательство свойства 5:</strong> При $x \to 0$ отношение $\frac{x^n}{x^m} = x^{n-m}$. Поскольку показатель степени $n - m > 0$, получаем $\lim_{x \to 0} x^{n-m} = 0$. По Определению 2 это означает $x^n = o(x^m)$. В частности: $x^2 = o(x)$, $x^3 = o(x)$, $x^3 = o(x^2)$. <span class="qed">■</span>
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="equation">
+<div class="math-box-title">🎓 Лемма (о поглощении старших степеней малости в символе $o$)</div>
+<p>
           При $x \to 0$ справедливы тождества:
-          $$o(x + x^2) = o(x) \quad \text{и} \quad x + x^2 + o(x + x^2) = x + o(x).$$
+          \[o(x + x^2) = o(x) \quad \text{и} \quad x + x^2 + o(x + x^2) = x + o(x).\]
         </p>
-      </div>
-
-      <div class="math-box box-proof">
-        <div class="math-box-title">&#9654; Доказательство леммы</div>
-        <p>
+</div>
+<div class="proof" data-proof="" id="proof-3">
+<div aria-label="Доказательство ▶ Доказательство леммы" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-3">
+<div class="proof-label">Идея</div>
+<p>Пусть произвольная функция $f(x) \in o(x + x^2)$ при $x \to 0$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-3">
+<div class="proof-label">Доказательство (▶ Доказательство леммы)</div>
+<p>
           Пусть произвольная функция $f(x) \in o(x + x^2)$ при $x \to 0$. По Определению 1 существует бесконечно малая $\varphi(x)$ ($\lim_{x \to 0} \varphi(x) = 0$), такая что:
-          $$f(x) = \varphi(x) \cdot (x + x^2) = \varphi(x) \cdot (1 + x) \cdot x.$$
+          \[f(x) = \varphi(x) \cdot (x + x^2) = \varphi(x) \cdot (1 + x) \cdot x.\]
           Обозначим функцию $\psi(x) \coloneqq \varphi(x) \cdot (1 + x)$. Вычислим её предел: так как $\lim_{x \to 0} (1 + x) = 1$, а $\lim_{x \to 0} \varphi(x) = 0$, то по теореме об арифметике пределов:
-          $$\lim_{x \to 0} \psi(x) = \lim_{x \to 0} \varphi(x) \cdot \lim_{x \to 0} (1 + x) = 0 \cdot 1 = 0.$$
+          \[\lim_{x \to 0} \psi(x) = \lim_{x \to 0} \varphi(x) \cdot \lim_{x \to 0} (1 + x) = 0 \cdot 1 = 0.\]
           (Также можно рассуждать через теорему: произведение бесконечно малой на функцию, ограниченную в окрестности нуля $|1 + x| \le 2$, есть бесконечно малая).
           Таким образом, $f(x) = \psi(x) \cdot x$, где $\lim_{x \to 0} \psi(x) = 0$, что строго означает $f(x) \in o(x)$.
         </p>
-        <p>
+<p>
           Далее, учитывая доказанное ранее свойство $x^2 = o(x)$ и правило сложения $o(x) + o(x) = o(x)$, находим:
-          $$x + x^2 + o(x + x^2) = x + o(x) + o(x) = x + o(x).$$
-          Лемма полностью доказана. <span class="qed">&#9632;</span>
-        </p>
-      </div>
-
-      <!-- ИЛЛЮСТРАЦИЯ: СРАВНЕНИЕ СТЕПЕНЕЙ МАЛОСТИ -->
-      <figure class="figure-container">
-        <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 760 300" width="760" height="300" xmlns="http://www.w3.org/2000/svg">
-          <!-- Координатная сетка и оси -->
-          <line x1="60" y1="240" x2="700" y2="240" stroke="var(--border-strong)" stroke-width="1.5"/>
-          <line x1="120" y1="260" x2="120" y2="30" stroke="var(--border-strong)" stroke-width="1.5"/>
-          <polygon points="700,236 710,240 700,244" fill="var(--text-muted)"/>
-          <polygon points="116,30 120,20 124,30" fill="var(--text-muted)"/>
-          <text x="705" y="258" fill="var(--text-muted)" font-size="13" font-family="sans-serif">x</text>
-          <text x="100" y="32" fill="var(--text-muted)" font-size="13" font-family="sans-serif">y</text>
-
-          <!-- Отметка 0 и 1 -->
-          <text x="108" y="256" fill="var(--text-muted)" font-size="13">0</text>
-          <line x1="560" y1="236" x2="560" y2="244" stroke="var(--border-strong)" stroke-width="1.5"/>
-          <text x="555" y="258" fill="var(--text-muted)" font-size="13">1</text>
-          <line x1="116" y1="60" x2="124" y2="60" stroke="var(--border-strong)" stroke-width="1.5"/>
-          <text x="95" y="64" fill="var(--text-muted)" font-size="13">1</text>
-
-          <!-- Прямая y = x -->
-          <line x1="120" y1="240" x2="560" y2="60" stroke="var(--text-muted)" stroke-width="1.8" stroke-dasharray="4,4"/>
-          <text x="570" y="65" fill="var(--text-muted)" font-size="13" font-weight="bold">y = x</text>
-
-          <!-- Парабола y = x^2 -->
-          <path d="M 120 240 Q 340 236 560 60" fill="none" stroke="var(--box-def-border)" stroke-width="2.5"/>
-          <text x="570" y="105" fill="var(--box-def-border)" font-size="13" font-weight="bold">y = x² = o(x)</text>
-
-          <!-- Кубическая парабола y = x^3 -->
-          <path d="M 120 240 Q 410 240 560 60" fill="none" stroke="var(--box-thm-border)" stroke-width="2.5"/>
-          <text x="570" y="145" fill="var(--box-thm-border)" font-size="13" font-weight="bold">y = x³ = o(x²)</text>
-
-          <!-- Зона локального порядка при x -> 0 -->
-          <rect x="150" y="180" width="220" height="48" rx="6" fill="var(--bg-surface-elevated)" stroke="var(--border-strong)" stroke-width="1"/>
-          <text x="160" y="200" fill="var(--text-primary)" font-size="12" font-weight="bold">При x → 0+ вблизи 0:</text>
-          <text x="160" y="218" fill="var(--primary)" font-size="12">x³ &lt; x² &lt; x (быстрее прижимаются к 0)</text>
-        </svg></div>
-        <figcaption class="figure-caption">
+          \[x + x^2 + o(x + x^2) = x + o(x) + o(x) = x + o(x).\]
+          Лемма полностью доказана. <span class="qed">■</span>
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<!-- ИЛЛЮСТРАЦИЯ: СРАВНЕНИЕ СТЕПЕНЕЙ МАЛОСТИ -->
+<figure class="figure-container">
+<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 760 300" width="760" xmlns="http://www.w3.org/2000/svg">
+<!-- Координатная сетка и оси -->
+<line stroke="var(--border-strong)" stroke-width="1.5" x1="60" x2="700" y1="240" y2="240"></line>
+<line stroke="var(--border-strong)" stroke-width="1.5" x1="120" x2="120" y1="260" y2="30"></line>
+<polygon fill="var(--text-muted)" points="700,236 710,240 700,244"></polygon>
+<polygon fill="var(--text-muted)" points="116,30 120,20 124,30"></polygon>
+<text fill="var(--text-muted)" font-family="sans-serif" font-size="13" x="705" y="258">x</text>
+<text fill="var(--text-muted)" font-family="sans-serif" font-size="13" x="100" y="32">y</text>
+<!-- Отметка 0 и 1 -->
+<text fill="var(--text-muted)" font-size="13" x="108" y="256">0</text>
+<line stroke="var(--border-strong)" stroke-width="1.5" x1="560" x2="560" y1="236" y2="244"></line>
+<text fill="var(--text-muted)" font-size="13" x="555" y="258">1</text>
+<line stroke="var(--border-strong)" stroke-width="1.5" x1="116" x2="124" y1="60" y2="60"></line>
+<text fill="var(--text-muted)" font-size="13" x="95" y="64">1</text>
+<!-- Прямая y = x -->
+<line stroke="var(--text-muted)" stroke-dasharray="4,4" stroke-width="1.8" x1="120" x2="560" y1="240" y2="60"></line>
+<text fill="var(--text-muted)" font-size="13" font-weight="bold" x="570" y="65">y = x</text>
+<!-- Парабола y = x^2 -->
+<path d="M 120 240 Q 340 236 560 60" fill="none" stroke="var(--box-def-border)" stroke-width="2.5"></path>
+<text fill="var(--box-def-border)" font-size="13" font-weight="bold" x="570" y="105">y = x² = o(x)</text>
+<!-- Кубическая парабола y = x^3 -->
+<path d="M 120 240 Q 410 240 560 60" fill="none" stroke="var(--box-thm-border)" stroke-width="2.5"></path>
+<text fill="var(--box-thm-border)" font-size="13" font-weight="bold" x="570" y="145">y = x³ = o(x²)</text>
+<!-- Зона локального порядка при x -> 0 -->
+<rect fill="var(--bg-surface-elevated)" height="48" rx="6" stroke="var(--border-strong)" stroke-width="1" width="220" x="150" y="180"></rect>
+<text fill="var(--text-primary)" font-size="12" font-weight="bold" x="160" y="200">При x → 0+ вблизи 0:</text>
+<text fill="var(--primary)" font-size="12" x="160" y="218">x³ &lt; x² &lt; x (быстрее прижимаются к 0)</text>
+</svg>
+<figcaption class="figure-caption">
           Рис. 1. Иерархия порядков малости степенных функций при $x \to 0$. Чем выше показатель степени, тем быстрее кривая касается оси абсцисс, что геометрически выражает отношение $x^n = o(x^m)$ при $n > m$.
         </figcaption>
-      </figure>
-    </section>
+</figure>
 
-    <!-- РАЗДЕЛ 4 -->
-    <section id="sec-4">
+<!-- РАЗДЕЛ 4 -->
+<section id="sec-4">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-5">
-  <div class="chapter-kicker">05 / 4. Сравнение порядков малост…</div>
-  <h2 id="chapter-5" data-toc="4. Сравнение порядков малост…">§ 4. Сравнение порядков малости и порядков роста функций</h2>
-  <div class="math-box box-def">
-        <div class="math-box-title">&#128220; Определение (больший порядок малости для бесконечно малых)</div>
-        <p>
+  <div class="chapter-kicker">05 / 4. Сравнение порядков малости …</div>
+  <h2 id="chapter-5" data-toc="4. Сравнение порядков малости …">§ 4. Сравнение порядков малости и порядков роста функций</h2>
+  
+<div class="statement definition" id="def-3"><div class="block-label">Определение 3</div><h3 data-toc="📜 Определение (больший порядок…" id="sub-5-1">📜 Определение (больший порядок малости для бесконечно малых)</h3><div>
+<p>
           Пусть $\alpha(x)$ и $\beta(x)$ — бесконечно малые функции при $x \to a$. Если:
-          $$\beta(x) = o(\alpha(x)) \quad \text{при } x \to a,$$
+          \[\beta(x) = o(\alpha(x)) \quad \text{при } x \to a,\]
           то говорят, что <strong>бесконечно малая $\beta(x)$ имеет больший порядок малости, чем $\alpha(x)$</strong> при $x \to a$.
         </p>
-      </div>
-
-      <p>
-        <em>Интуитивный смысл:</em> Величина $\beta(x)$ исчезающе мала в масштабе $\alpha(x)$. В разобранном выше примере $1 - \cos x = o(\sin x)$ при $x \to 0$, поэтому $1 - \cos x$ имеет больший порядок малости, чем $\sin x$ (порядок $2$ против порядка $1$).
+</div></div>
+<p>
+<em>Интуитивный смысл:</em> Величина $\beta(x)$ исчезающе мала в масштабе $\alpha(x)$. В разобранном выше примере $1 - \cos x = o(\sin x)$ при $x \to 0$, поэтому $1 - \cos x$ имеет больший порядок малости, чем $\sin x$ (порядок $2$ против порядка $1$).
       </p>
-
-      <div class="math-box box-def">
-        <div class="math-box-title">&#128220; Определение (больший порядок роста для бесконечно больших)</div>
-        <p>
+<div class="statement definition" id="def-4"><div class="block-label">Определение 4</div><h3 data-toc="📜 Определение (больший порядок…" id="sub-5-2">📜 Определение (больший порядок роста для бесконечно больших)</h3><div>
+<p>
           Пусть $f(x)$ и $g(x)$ — бесконечно большие функции при $x \to a$ (то есть $\lim_{x \to a} |f(x)| = +\infty$ и $\lim_{x \to a} |g(x)| = +\infty$). Если выполнено отношение:
-          $$f(x) = o(g(x)) \quad \text{при } x \to a,$$
+          \[f(x) = o(g(x)) \quad \text{при } x \to a,\]
           то говорят, что <strong>бесконечно большая $g(x)$ имеет больший порядок роста (больший порядок «большести»), чем $f(x)$</strong> при $x \to a$.
         </p>
-      </div>
-
-      <p>
-        <strong>Фундаментальная шкала роста при $x \to +\infty$ (иерархия Зорича–Кудрявцева):</strong>
-        $$\ln x = o(x^\alpha) \quad (\alpha > 0), \qquad x^\alpha = o(a^x) \quad (a > 1), \qquad a^x = o(x!), \qquad x! = o(x^x).$$
+</div></div>
+<p>
+<strong>Фундаментальная шкала роста при $x \to +\infty$ (иерархия Зорича–Кудрявцева):</strong>
+        \[\ln x = o(x^\alpha) \quad (\alpha > 0), \qquad x^\alpha = o(a^x) \quad (a > 1), \qquad a^x = o(x!), \qquad x! = o(x^x).\]
         Каждая последующая функция растет несоизмеримо быстрее предыдущей, полностью подавляя ее в пределах отношения.
       </p>
-    </section>
 
-    <!-- РАЗДЕЛ 5 -->
-    <section id="sec-5">
+<!-- РАЗДЕЛ 5 -->
+<section id="sec-5">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-6">
-  <div class="chapter-kicker">06 / 5. Теорема 12: Связь эквивал…</div>
-  <h2 id="chapter-6" data-toc="5. Теорема 12: Связь эквивал…">§ 5. Теорема 12: Связь эквивалентности и символа $o$-малое</h2>
-  <p>
+  <div class="chapter-kicker">06 / 5. Теорема 12: Связь эквивален…</div>
+  <h2 id="chapter-6" data-toc="5. Теорема 12: Связь эквивален…">§ 5. Теорема 12: Связь эквивалентности и символа $o$-малое</h2>
+  
+<p>
         Напомним, что две функции $\alpha(x)$ и $\beta(x)$ называются <strong>эквивалентными</strong> при $x \to a$ (обозначается $\alpha(x) \sim \beta(x)$), если существует функция $\varphi(x)$, определенная в $\dot{U}(a)$, такая что:
-        $$\beta(x) = \alpha(x) \cdot \varphi(x) \quad \text{причем} \quad \lim_{x \to a} \varphi(x) = 1.$$
+        \[\beta(x) = \alpha(x) \cdot \varphi(x) \quad \text{причем} \quad \lim_{x \to a} \varphi(x) = 1.\]
         В случае $\alpha(x) \ne 0$ это равносильно условию $\lim_{x \to a} \frac{\beta(x)}{\alpha(x)} = 1$.
       </p>
-
-      <div class="math-box box-thm">
-        <div class="math-box-title">&#127891; Теорема 12 (Критерий эквивалентности через символ $o$-малое)</div>
-        <p>
+<div class="equation">
+<div class="math-box-title">🎓 Теорема 12 (Критерий эквивалентности через символ $o$-малое)</div>
+<p>
           Пусть функции $\alpha(x)$ и $\beta(x)$ определены в проколотой окрестности $\dot{U}(a)$. Тогда:
-          $$\alpha(x) \sim \beta(x) \text{ при } x \to a \quad \Longleftrightarrow \quad \beta(x) - \alpha(x) = o(\alpha(x)) \text{ при } x \to a.$$
+          \[\alpha(x) \sim \beta(x) \text{ при } x \to a \quad \Longleftrightarrow \quad \beta(x) - \alpha(x) = o(\alpha(x)) \text{ при } x \to a.\]
           (В силу симметрии эквивалентности это также равносильно $\beta(x) - \alpha(x) = o(\beta(x))$).
         </p>
-      </div>
-
-      <div class="math-box box-proof">
-        <div class="math-box-title">&#9654; Доказательство Теоремы 12 (в обе стороны)</div>
-        <p>
-          <strong>Необходимость ($\implies$):</strong>
+</div>
+<div class="proof" data-proof="" id="proof-4">
+<div aria-label="Доказательство ▶ Доказательство Теоремы 12 (в обе стороны)" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-4">
+<div class="proof-label">Идея</div>
+<p>Необходимость ($\implies$):
+          Пусть дано, что $\alpha(x) \sim \beta(x)$ при $x \to a$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-4">
+<div class="proof-label">Доказательство (▶ Доказательство Теоремы 12 (в обе стороны))</div>
+<p>
+<strong>Необходимость ($\implies$):</strong>
           Пусть дано, что $\alpha(x) \sim \beta(x)$ при $x \to a$. По определению эквивалентности существует функция $\varphi(x)$, для которой:
-          $$\beta(x) = \alpha(x) \cdot \varphi(x) \quad \forall x \in \dot{U}(a), \quad \text{где } \lim_{x \to a} \varphi(x) = 1.$$
+          \[\beta(x) = \alpha(x) \cdot \varphi(x) \quad \forall x \in \dot{U}(a), \quad \text{где } \lim_{x \to a} \varphi(x) = 1.\]
           Вычтем $\alpha(x)$ из обеих частей тождества:
-          $$\beta(x) - \alpha(x) = \alpha(x) \cdot \varphi(x) - \alpha(x) = \alpha(x) \cdot (\varphi(x) - 1).$$
+          \[\beta(x) - \alpha(x) = \alpha(x) \cdot \varphi(x) - \alpha(x) = \alpha(x) \cdot (\varphi(x) - 1).\]
           Обозначим $\psi(x) \coloneqq \varphi(x) - 1$. По теореме о пределе разности:
-          $$\lim_{x \to a} \psi(x) = \lim_{x \to a} (\varphi(x) - 1) = 1 - 1 = 0.$$
+          \[\lim_{x \to a} \psi(x) = \lim_{x \to a} (\varphi(x) - 1) = 1 - 1 = 0.\]
           Таким образом, разность $\beta(x) - \alpha(x)$ представлена как произведение $\alpha(x)$ на бесконечно малую $\psi(x)$, что по Определению 1 означает:
-          $$\beta(x) - \alpha(x) = o(\alpha(x)) \quad \text{при } x \to a.$$
+          \[\beta(x) - \alpha(x) = o(\alpha(x)) \quad \text{при } x \to a.\]
         </p>
-        <p>
-          <strong>Достаточность ($\impliedby$):</strong>
+<p>
+<strong>Достаточность ($\impliedby$):</strong>
           Пусть теперь известно, что $\beta(x) - \alpha(x) = o(\alpha(x))$ при $x \to a$.
           По Определению 1 существует бесконечно малая $\psi(x)$ ($\lim_{x \to a} \psi(x) = 0$), для которой:
-          $$\beta(x) - \alpha(x) = \alpha(x) \cdot \psi(x).$$
+          \[\beta(x) - \alpha(x) = \alpha(x) \cdot \psi(x).\]
           Выразим функцию $\beta(x)$:
-          $$\beta(x) = \alpha(x) + \alpha(x) \cdot \psi(x) = \alpha(x) \cdot (1 + \psi(x)).$$
+          \[\beta(x) = \alpha(x) + \alpha(x) \cdot \psi(x) = \alpha(x) \cdot (1 + \psi(x)).\]
           Положим $\varphi(x) \coloneqq 1 + \psi(x)$. Вычислим её предел:
-          $$\lim_{x \to a} \varphi(x) = \lim_{x \to a} (1 + \psi(x)) = 1 + 0 = 1.$$
-          По определению эквивалентности это означает, что $\beta(x) \sim \alpha(x)$ при $x \to a$. Теорема 12 полностью доказана. <span class="qed">&#9632;</span>
-        </p>
-      </div>
-
-      <p>
-        <strong>Ключевое следствие (Формула асимптотического разложения):</strong>
+          \[\lim_{x \to a} \varphi(x) = \lim_{x \to a} (1 + \psi(x)) = 1 + 0 = 1.\]
+          По определению эквивалентности это означает, что $\beta(x) \sim \alpha(x)$ при $x \to a$. Теорема 12 полностью доказана. <span class="qed">■</span>
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<p>
+<strong>Ключевое следствие (Формула асимптотического разложения):</strong>
         Соотношение эквивалентности $\beta(x) \sim \alpha(x)$ позволяет записать <em>точное равенство</em>:
-        $$\beta(x) = \alpha(x) + o(\alpha(x)).$$
+        \[\beta(x) = \alpha(x) + o(\alpha(x)).\]
         Здесь $\alpha(x)$ называется <strong>главной частью</strong> функции $\beta(x)$, а $o(\alpha(x))$ — остаточным членом (поправкой высшего порядка малости).
       </p>
-    </section>
 
-    <!-- РАЗДЕЛ 6 -->
-    <section id="sec-6">
+<!-- РАЗДЕЛ 6 -->
+<section id="sec-6">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-7">
-  <div class="chapter-kicker">07 / 6. Метод выделения главной ч…</div>
-  <h2 id="chapter-7" data-toc="6. Метод выделения главной ч…">§ 6. Метод выделения главной части при вычислении пределов</h2>
-  <div class="math-box box-warn">
-        <div class="math-box-title">&#9888; Главная ловушка анализа: почему нельзя слепо заменять в суммах?</div>
-        <p>
+  <div class="chapter-kicker">07 / 6. Метод выделения главной час…</div>
+  <h2 id="chapter-7" data-toc="6. Метод выделения главной час…">§ 6. Метод выделения главной части при вычислении пределов</h2>
+  
+<div class="equation">
+<div class="math-box-title">⚠ Главная ловушка анализа: почему нельзя слепо заменять в суммах?</div>
+<p>
           Широко известное правило «замены функций на эквивалентные» безупречно работает <strong>только для сомножителей в произведениях и частных</strong>.
           В алгебраических суммах и разностях прямая замена $\beta(x)$ на $\alpha(x)$ является <strong>грубейшей математической ошибкой</strong>, если не учитывать остаточный член $o(\alpha(x))$.
         </p>
-        <p>
-          <em>Суть метода выделения главной части:</em> Мы заменяем слагаемые не на «приблизительные эквиваленты», а подставляем <strong>точные равенства</strong> вида $\beta(x) = \alpha(x) + o(\alpha(x))$. Это гарантирует абсолютную строгость выкладок.
+<p>
+<em>Суть метода выделения главной части:</em> Мы заменяем слагаемые не на «приблизительные эквиваленты», а подставляем <strong>точные равенства</strong> вида $\beta(x) = \alpha(x) + o(\alpha(x))$. Это гарантирует абсолютную строгость выкладок.
         </p>
-      </div>
-
-      <div class="math-box box-ex">
-        <div class="math-box-title">&#128394; Центральный лекционный пример (максимально подробный разбор)</div>
-        <p>Вычислить предел функции при $x \to 0$:</p>
-        $$L = \lim_{x \to 0} \frac{\arcsin 5x + \ln(1 + x + x^2) - 10x^3}{\operatorname{tg}^2(\sqrt{3}x) + \sin 4x + e^{x^2} - 1}.$$
+</div>
+<div class="worked-example" id="ex-2"><div class="block-label">Пример 2</div><h3 data-toc="🖊 Центральный лекционный приме…" id="sub-7-1">🖊 Центральный лекционный пример (максимально подробный разбор)</h3><div>
+<p>Вычислить предел функции при $x \to 0$:</p>
+        \[L = \lim_{x \to 0} \frac{\arcsin 5x + \ln(1 + x + x^2) - 10x^3}{\operatorname{tg}^2(\sqrt{3}x) + \sin 4x + e^{x^2} - 1}.\]
         <p><strong>Пошаговое решение:</strong></p>
-        <p>Разложим каждое слагаемое числителя и знаменателя с точностью до порядка $o(x)$ при $x \to 0$:</p>
-        <ol>
-          <li>
-            <strong>Слагаемое $\arcsin 5x$:</strong> Так как $\arcsin t \sim t$ при $t \to 0$, имеем $\arcsin 5x \sim 5x$.
+<p>Разложим каждое слагаемое числителя и знаменателя с точностью до порядка $o(x)$ при $x \to 0$:</p>
+<ol>
+<li>
+<strong>Слагаемое $\arcsin 5x$:</strong> Так как $\arcsin t \sim t$ при $t \to 0$, имеем $\arcsin 5x \sim 5x$.
             По Теореме 12: $\arcsin 5x = 5x + o(5x) = 5x + o(x)$.
           </li>
-          <li>
-            <strong>Слагаемое $\ln(1 + x + x^2)$:</strong> Аргумент $t = x + x^2 \to 0$. Известно, что $\ln(1 + t) \sim t$, следовательно, $\ln(1 + x + x^2) = x + x^2 + o(x + x^2)$.
+<li>
+<strong>Слагаемое $\ln(1 + x + x^2)$:</strong> Аргумент $t = x + x^2 \to 0$. Известно, что $\ln(1 + t) \sim t$, следовательно, $\ln(1 + x + x^2) = x + x^2 + o(x + x^2)$.
             Применяя доказанную в § 3 лемму о поглощении: $x^2 = o(x)$ и $o(x + x^2) = o(x)$.
             Получаем: $\ln(1 + x + x^2) = x + o(x) + o(x) = x + o(x)$.
           </li>
-          <li>
-            <strong>Слагаемое $-10x^3$:</strong> Так как показатель $3 > 1$, то $x^3 = o(x)$, а константа $-10$ поглощается: $-10x^3 = o(x)$.
+<li>
+<strong>Слагаемое $-10x^3$:</strong> Так как показатель $3 > 1$, то $x^3 = o(x)$, а константа $-10$ поглощается: $-10x^3 = o(x)$.
           </li>
-          <li>
-            <strong>Слагаемое $\operatorname{tg}^2(\sqrt{3}x)$:</strong> Так как $\operatorname{tg}(\sqrt{3}x) \sim \sqrt{3}x$, то $\operatorname{tg}(\sqrt{3}x) = \sqrt{3}x + o(x)$. Возводя в квадрат:
-            $$(\sqrt{3}x + o(x))^2 = 3x^2 + 2\sqrt{3}x \cdot o(x) + (o(x))^2 = 3x^2 + o(x^2) + o(x^2) = 3x^2 + o(x^2) = o(x).$$
+<li>
+<strong>Слагаемое $\operatorname{tg}^2(\sqrt{3}x)$:</strong> Так как $\operatorname{tg}(\sqrt{3}x) \sim \sqrt{3}x$, то $\operatorname{tg}(\sqrt{3}x) = \sqrt{3}x + o(x)$. Возводя в квадрат:
+            \[(\sqrt{3}x + o(x))^2 = 3x^2 + 2\sqrt{3}x \cdot o(x) + (o(x))^2 = 3x^2 + o(x^2) + o(x^2) = 3x^2 + o(x^2) = o(x).\]
           </li>
-          <li>
-            <strong>Слагаемое $\sin 4x$:</strong> $\sin 4x \sim 4x \implies \sin 4x = 4x + o(4x) = 4x + o(x)$.
+<li>
+<strong>Слагаемое $\sin 4x$:</strong> $\sin 4x \sim 4x \implies \sin 4x = 4x + o(4x) = 4x + o(x)$.
           </li>
-          <li>
-            <strong>Слагаемое $e^{x^2} - 1$:</strong> Так как $e^t - 1 \sim t$, то $e^{x^2} - 1 = x^2 + o(x^2)$. Так как показатель $2 > 1$, то $x^2 = o(x)$, откуда $e^{x^2} - 1 = o(x)$.
+<li>
+<strong>Слагаемое $e^{x^2} - 1$:</strong> Так как $e^t - 1 \sim t$, то $e^{x^2} - 1 = x^2 + o(x^2)$. Так как показатель $2 > 1$, то $x^2 = o(x)$, откуда $e^{x^2} - 1 = o(x)$.
           </li>
-        </ol>
-        <p><strong>Сборка числителя:</strong></p>
-        $$\text{Числитель} = (5x + o(x)) + (x + o(x)) + o(x) = 6x + (o(x) + o(x) + o(x)) = 6x + o(x).$$
+</ol>
+<p><strong>Сборка числителя:</strong></p>
+        \[\text{Числитель} = (5x + o(x)) + (x + o(x)) + o(x) = 6x + (o(x) + o(x) + o(x)) = 6x + o(x).\]
         <p><strong>Сборка знаменателя:</strong></p>
-        $$\text{Знаменатель} = o(x) + (4x + o(x)) + o(x) = 4x + o(x).$$
+        \[\text{Знаменатель} = o(x) + (4x + o(x)) + o(x) = 4x + o(x).\]
         <p><strong>Предельный переход:</strong></p>
-        $$L = \lim_{x \to 0} \frac{6x + o(x)}{4x + o(x)}.$$
+        \[L = \lim_{x \to 0} \frac{6x + o(x)}{4x + o(x)}.\]
         <p>
           Разделим числитель и знаменатель дроби на $x$ (при $x \ne 0$):
-          $$L = \lim_{x \to 0} \frac{6 + \dfrac{o(x)}{x}}{4 + \dfrac{o(x)}{x}}.$$
+          \[L = \lim_{x \to 0} \frac{6 + \dfrac{o(x)}{x}}{4 + \dfrac{o(x)}{x}}.\]
           По базовому Определению 2 символа $o$-малое отношение $\lim_{x \to 0} \frac{o(x)}{x} = 0$. Применяя теорему об арифметике пределов:
-          $$L = \frac{6 + 0}{4 + 0} = \frac{6}{4} = \frac{3}{2}.$$
+          \[L = \frac{6 + 0}{4 + 0} = \frac{6}{4} = \frac{3}{2}.\]
         </p>
-        <p><strong>Ответ:</strong> $L = \dfrac{3}{2}$.</p>
-      </div>
-
-      <div class="math-box box-warn">
-        <div class="math-box-title">&#128065; Разбор классического контрпримера: почему в разности $o(x)$ недостаточно?</div>
-        <p>Рассмотрим предел, разобранный лектором для демонстрации границ применимости первого порядка:</p>
-        $$\lim_{x \to 0} \frac{\operatorname{tg} x - \sin x}{x^3}.$$
+<p><strong>Ответ:</strong> $L = \dfrac{3}{2}$.</p>
+</div></div>
+<div class="equation">
+<div class="math-box-title">👁 Разбор классического контрпримера: почему в разности $o(x)$ недостаточно?</div>
+<p>Рассмотрим предел, разобранный лектором для демонстрации границ применимости первого порядка:</p>
+        \[\lim_{x \to 0} \frac{\operatorname{tg} x - \sin x}{x^3}.\]
         <p>
           Если формально записать асимптотику только первого порядка: $\operatorname{tg} x = x + o(x)$ и $\sin x = x + o(x)$, мы получим:
-          $$\frac{\operatorname{tg} x - \sin x}{x^3} = \frac{(x + o(x)) - (x + o(x))}{x^3} = \frac{0 + o(x) - o(x)}{x^3} = \frac{o(x)}{x^3}.$$
+          \[\frac{\operatorname{tg} x - \sin x}{x^3} = \frac{(x + o(x)) - (x + o(x))}{x^3} = \frac{0 + o(x) - o(x)}{x^3} = \frac{o(x)}{x^3}.\]
           Отношение $\frac{o(x)}{x^3}$ представляет собой неопределенность $\left[\frac{0}{0}\right]$: мы знаем лишь, что числитель быстрее $x$, но не знаем, быстрее ли он $x^3$! Члены первого порядка взаимно уничтожились ($x - x = 0$).
         </p>
-        <p>
-          <strong>Связь с формулой Тейлора:</strong> Метод выделения главной части первого порядка — это частный случай формулы Тейлора при $n = 1$. Если главные линейные члены сокращаются, необходимо привлекать высшие порядки:
-          $$\operatorname{tg} x = x + \frac{x^3}{3} + o(x^3), \qquad \sin x = x - \frac{x^3}{6} + o(x^3).$$
+<p>
+<strong>Связь с формулой Тейлора:</strong> Метод выделения главной части первого порядка — это частный случай формулы Тейлора при $n = 1$. Если главные линейные члены сокращаются, необходимо привлекать высшие порядки:
+          \[\operatorname{tg} x = x + \frac{x^3}{3} + o(x^3), \qquad \sin x = x - \frac{x^3}{6} + o(x^3).\]
           Тогда разность принимает вид:
-          $$\operatorname{tg} x - \sin x = \left(x + \frac{x^3}{3}\right) - \left(x - \frac{x^3}{6}\right) + o(x^3) = \left(\frac{1}{3} + \frac{1}{6}\right) x^3 + o(x^3) = \frac{1}{2} x^3 + o(x^3).$$
+          \[\operatorname{tg} x - \sin x = \left(x + \frac{x^3}{3}\right) - \left(x - \frac{x^3}{6}\right) + o(x^3) = \left(\frac{1}{3} + \frac{1}{6}\right) x^3 + o(x^3) = \frac{1}{2} x^3 + o(x^3).\]
           Теперь предел раскрывается строго и тривиально:
-          $$\lim_{x \to 0} \frac{\frac{1}{2} x^3 + o(x^3)}{x^3} = \lim_{x \to 0} \left(\frac{1}{2} + \frac{o(x^3)}{x^3}\right) = \frac{1}{2} + 0 = \frac{1}{2}.$$
+          \[\lim_{x \to 0} \frac{\frac{1}{2} x^3 + o(x^3)}{x^3} = \lim_{x \to 0} \left(\frac{1}{2} + \frac{o(x^3)}{x^3}\right) = \frac{1}{2} + 0 = \frac{1}{2}.\]
         </p>
-      </div>
-    </section>
+</div>
 
-    <!-- РАЗДЕЛ 7 -->
-    <section id="sec-7">
+<!-- РАЗДЕЛ 7 -->
+<section id="sec-7">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-8">
-  <div class="chapter-kicker">08 / 7. Символ «O-большое»: два о…</div>
-  <h2 id="chapter-8" data-toc="7. Символ «O-большое»: два о…">§ 7. Символ «$O$-большое»: два определения и Теорема 13</h2>
-  <p>
+  <div class="chapter-kicker">08 / 7. Символ «O-большое»: два опр…</div>
+  <h2 id="chapter-8" data-toc="7. Символ «O-большое»: два опр…">§ 7. Символ «$O$-большое»: два определения и Теорема 13</h2>
+  
+<p>
         Символ $O$-большое описывает отношение <strong>мажорирования или ограниченности одной функции по сравнению с другой</strong>.
       </p>
-
-      <div class="math-box box-def">
-        <div class="math-box-title">&#128220; Определение 1 (через ограниченный множитель — общее)</div>
-        <p>
+<div class="statement definition" id="def-5"><div class="block-label">Определение 5</div><h3 data-toc="📜 Определение 1 (через огранич…" id="sub-8-1">📜 Определение 1 (через ограниченный множитель — общее)</h3><div>
+<p>
           Пусть функции $f(x)$ и $g(x)$ определены в проколотой окрестности $\dot{U}(a)$. Функция $f(x)$ называется <strong>ограниченной по сравнению с $g(x)$ при $x \to a$</strong> (пишут $f(x) = O(g(x))$ при $x \to a$), если существует функция $\varphi(x)$, определенная в $\dot{U}(a)$, такая что:
-          $$f(x) = \varphi(x) \cdot g(x) \quad \forall x \in \dot{U}(a),$$
+          \[f(x) = \varphi(x) \cdot g(x) \quad \forall x \in \dot{U}(a),\]
           где $\varphi(x)$ является <strong>ограниченной функцией</strong> в $\dot{U}(a)$, то есть:
-          $$\exists K > 0 \quad \forall x \in \dot{U}(a) : \quad |\varphi(x)| \le K.$$
+          \[\exists K > 0 \quad \forall x \in \dot{U}(a) : \quad |\varphi(x)| \le K.\]
         </p>
-      </div>
-
-      <div class="math-box box-def">
-        <div class="math-box-title">&#128220; Определение 2 (через неравенство мажорирования — геометрическое)</div>
-        <p>
+</div></div>
+<div class="statement definition" id="def-6"><div class="block-label">Определение 6</div><h3 data-toc="📜 Определение 2 (через неравен…" id="sub-8-2">📜 Определение 2 (через неравенство мажорирования — геометрическое)</h3><div>
+<p>
           Пусть функции $f(x)$ и $g(x)$ определены в $\dot{U}(a)$. Функция $f(x) = O(g(x))$ при $x \to a$, если существуют константа $K > 0$ и окрестность $\dot{U}(a)$ такие, что:
-          $$\forall x \in \dot{U}(a) : \quad |f(x)| \le K \cdot |g(x)|.$$
+          \[\forall x \in \dot{U}(a) : \quad |f(x)| \le K \cdot |g(x)|.\]
         </p>
-      </div>
-
-      <div class="math-box box-thm">
-        <div class="math-box-title">&#127891; Теорема 13 (Равносильность Определений 1 и 2 для $O$-большого)</div>
-        <p>
+</div></div>
+<div class="equation">
+<div class="math-box-title">🎓 Теорема 13 (Равносильность Определений 1 и 2 для $O$-большого)</div>
+<p>
           Определение 1 и Определение 2 символа $O$-большое логически эквивалентны.
         </p>
-      </div>
-
-      <div class="math-box box-proof">
-        <div class="math-box-title">&#9654; Доказательство Теоремы 13 (в обе стороны)</div>
-        <p>
-          <strong>Шаг 1 (Опр. 1 $\implies$ Опр. 2):</strong>
+</div>
+<div class="proof" data-proof="" id="proof-5">
+<div aria-label="Доказательство ▶ Доказательство Теоремы 13 (в обе стороны)" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-5">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (▶ Доказательство Теоремы 13 (в обе стороны)).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-5">
+<div class="proof-label">Доказательство (▶ Доказательство Теоремы 13 (в обе стороны))</div>
+<p>
+<strong>Шаг 1 (Опр. 1 $\implies$ Опр. 2):</strong>
           Пусть выполнено Определение 1: $f(x) = \varphi(x) \cdot g(x)$ и $|\varphi(x)| \le K$ при всех $x \in \dot{U}(a)$.
           Возьмем абсолютную величину от обеих частей равенства. Используя мультипликативность модуля:
-          $$|f(x)| = |\varphi(x) \cdot g(x)| = |\varphi(x)| \cdot |g(x)| \le K \cdot |g(x)| \quad \forall x \in \dot{U}(a).$$
+          \[|f(x)| = |\varphi(x) \cdot g(x)| = |\varphi(x)| \cdot |g(x)| \le K \cdot |g(x)| \quad \forall x \in \dot{U}(a).\]
           Это в точности неравенство Определения 2.
         </p>
-        <p>
-          <strong>Шаг 2 (Опр. 2 $\implies$ Опр. 1):</strong>
+<p>
+<strong>Шаг 2 (Опр. 2 $\implies$ Опр. 1):</strong>
           Пусть выполнено Определение 2: существует $K > 0$, такое что $|f(x)| \le K \cdot |g(x)|$ для всех $x \in \dot{U}(a)$.
           Нам необходимо явно построить функцию $\varphi(x)$, удовлетворяющую условиям Определения 1. Определим функцию $\varphi(x)$ на $\dot{U}(a)$ формулой:
-          $$\varphi(x) \coloneqq \begin{cases} 
+          \[\varphi(x) \coloneqq \begin{cases} 
             \dfrac{f(x)}{g(x)}, & \text{если } g(x) \ne 0, \\ 
             0, & \text{если } g(x) = 0. 
-          \end{cases}$$
+          \end{cases}\]
           Проверим корректность этой конструкции:
         </p>
-        <ul>
-          <li>
-            <em>Выполнение тождества $f(x) = \varphi(x) \cdot g(x)$:</em>
+<ul>
+<li>
+<em>Выполнение тождества $f(x) = \varphi(x) \cdot g(x)$:</em>
             Если $g(x) \ne 0$, то $\varphi(x) g(x) = \frac{f(x)}{g(x)} g(x) = f(x)$.
             Если $g(x) = 0$, то из исходного неравенства $|f(x)| \le K \cdot |0| = 0$ строго следует, что $f(x) = 0$.
             Тогда $\varphi(x) g(x) = 0 \cdot 0 = 0 = f(x)$.
             Значит, равенство $f(x) = \varphi(x) g(x)$ верно во всех точках окрестности $\dot{U}(a)$.
           </li>
-          <li>
-            <em>Ограниченность функции $\varphi(x)$:</em>
+<li>
+<em>Ограниченность функции $\varphi(x)$:</em>
             Если $g(x) \ne 0$, то $|\varphi(x)| = \left|\frac{f(x)}{g(x)}\right| = \frac{|f(x)|}{|g(x)|} \le K$.
             Если $g(x) = 0$, то $|\varphi(x)| = |0| = 0 \le K$.
             Следовательно, $|\varphi(x)| \le K$ для всех $x \in \dot{U}(a)$, то есть $\varphi(x)$ ограничена.
           </li>
-        </ul>
-        <p>Теорема 13 полностью доказана. <span class="qed">&#9632;</span></p>
-      </div>
-
-      <!-- ИЛЛЮСТРАЦИЯ: КОРИДОР ОГРАНИЧЕННОСТИ O-БОЛЬШОГО -->
-      <figure class="figure-container">
-        <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 760 320" width="760" height="320" xmlns="http://www.w3.org/2000/svg">
-          <!-- Оси координат -->
-          <line x1="60" y1="160" x2="700" y2="160" stroke="var(--border-strong)" stroke-width="1.5"/>
-          <line x1="120" y1="300" x2="120" y2="20" stroke="var(--border-strong)" stroke-width="1.5"/>
-          <polygon points="700,156 710,160 700,164" fill="var(--text-muted)"/>
-          <polygon points="116,20 120,10 124,20" fill="var(--text-muted)"/>
-          <text x="705" y="178" fill="var(--text-muted)" font-size="13">x</text>
-          <text x="100" y="22" fill="var(--text-muted)" font-size="13">y</text>
-
-          <text x="110" y="180" fill="var(--text-primary)" font-size="13" font-weight="bold">a</text>
-
-          <!-- Верхняя огибающая +K * g(x) -->
-          <path d="M 120 160 Q 350 90 680 30" fill="none" stroke="var(--box-thm-border)" stroke-width="2" stroke-dasharray="5,4"/>
-          <text x="600" y="42" fill="var(--box-thm-border)" font-size="13" font-weight="bold">+K · |g(x)|</text>
-
-          <!-- Нижняя огибающая -K * g(x) -->
-          <path d="M 120 160 Q 350 230 680 290" fill="none" stroke="var(--box-thm-border)" stroke-width="2" stroke-dasharray="5,4"/>
-          <text x="600" y="280" fill="var(--box-thm-border)" font-size="13" font-weight="bold">-K · |g(x)|</text>
-
-          <!-- Заливка конического коридора мажорирования -->
-          <path d="M 120 160 Q 350 90 680 30 L 680 290 Q 350 230 120 160 Z" fill="var(--box-def-bg)" opacity="0.5"/>
-
-          <!-- Функция f(x), колеблющаяся внутри коридора -->
-          <path d="M 120 160 
+</ul>
+<p>Теорема 13 полностью доказана. <span class="qed">■</span></p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<!-- ИЛЛЮСТРАЦИЯ: КОРИДОР ОГРАНИЧЕННОСТИ O-БОЛЬШОГО -->
+<figure class="figure-container">
+<svg height="320" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 760 320" width="760" xmlns="http://www.w3.org/2000/svg">
+<!-- Оси координат -->
+<line stroke="var(--border-strong)" stroke-width="1.5" x1="60" x2="700" y1="160" y2="160"></line>
+<line stroke="var(--border-strong)" stroke-width="1.5" x1="120" x2="120" y1="300" y2="20"></line>
+<polygon fill="var(--text-muted)" points="700,156 710,160 700,164"></polygon>
+<polygon fill="var(--text-muted)" points="116,20 120,10 124,20"></polygon>
+<text fill="var(--text-muted)" font-size="13" x="705" y="178">x</text>
+<text fill="var(--text-muted)" font-size="13" x="100" y="22">y</text>
+<text fill="var(--text-primary)" font-size="13" font-weight="bold" x="110" y="180">a</text>
+<!-- Верхняя огибающая +K * g(x) -->
+<path d="M 120 160 Q 350 90 680 30" fill="none" stroke="var(--box-thm-border)" stroke-dasharray="5,4" stroke-width="2"></path>
+<text fill="var(--box-thm-border)" font-size="13" font-weight="bold" x="600" y="42">+K · |g(x)|</text>
+<!-- Нижняя огибающая -K * g(x) -->
+<path d="M 120 160 Q 350 230 680 290" fill="none" stroke="var(--box-thm-border)" stroke-dasharray="5,4" stroke-width="2"></path>
+<text fill="var(--box-thm-border)" font-size="13" font-weight="bold" x="600" y="280">-K · |g(x)|</text>
+<!-- Заливка конического коридора мажорирования -->
+<path d="M 120 160 Q 350 90 680 30 L 680 290 Q 350 230 120 160 Z" fill="var(--box-def-bg)" opacity="0.5"></path>
+<!-- Функция f(x), колеблющаяся внутри коридора -->
+<path d="M 120 160 
                    Q 180 135 240 150 
-                   T 360 140 T 480 185 T 600 120 T 680 155" 
-                fill="none" stroke="var(--primary)" stroke-width="2.5"/>
-          <text x="500" y="115" fill="var(--primary)" font-size="14" font-weight="bold">y = f(x)</text>
-
-          <rect x="230" y="235" width="280" height="40" rx="6" fill="var(--bg-surface-elevated)" stroke="var(--border-strong)" stroke-width="1"/>
-          <text x="245" y="260" fill="var(--text-primary)" font-size="12" font-weight="bold">Коридор: |f(x)| ≤ K · |g(x)| в U̇(a)</text>
-        </svg></div>
-        <figcaption class="figure-caption">
+                   T 360 140 T 480 185 T 600 120 T 680 155" fill="none" stroke="var(--primary)" stroke-width="2.5"></path>
+<text fill="var(--primary)" font-size="14" font-weight="bold" x="500" y="115">y = f(x)</text>
+<rect fill="var(--bg-surface-elevated)" height="40" rx="6" stroke="var(--border-strong)" stroke-width="1" width="280" x="230" y="235"></rect>
+<text fill="var(--text-primary)" font-size="12" font-weight="bold" x="245" y="260">Коридор: |f(x)| ≤ K · |g(x)| в U̇(a)</text>
+</svg>
+<figcaption class="figure-caption">
           Рис. 2. Геометрическая интерпретация $f(x) = O(g(x))$: график функции $f(x)$ в проколотой окрестности $\dot{U}(a)$ лежит целиком внутри симметричного коридора шириной $2K \cdot |g(x)|$.
         </figcaption>
-      </figure>
-
-      <div class="math-box box-def">
-        <div class="math-box-title">&#128220; Частный случай: $g(x) \equiv 1$ как классическая ограниченность</div>
-        <p>
+</figure>
+<div class="statement definition" id="def-7"><div class="block-label">Определение 7</div><h3 data-toc="📜 Частный случай: g(x) 1 как к…" id="sub-8-3">📜 Частный случай: $g(x) \equiv 1$ как классическая ограниченность</h3><div>
+<p>
           Если положить $g(x) \equiv 1$, то условие Определения 2 принимает вид:
-          $$\exists K > 0 \quad \forall x \in \dot{U}(a) : \quad |f(x)| \le K \cdot 1 = K.$$
+          \[\exists K > 0 \quad \forall x \in \dot{U}(a) : \quad |f(x)| \le K \cdot 1 = K.\]
           Это в точности совпадает со стандартным определением <strong>локальной ограниченности функции</strong>.
           Таким образом, запись $f(x) = O(1)$ при $x \to a$ означает, что функция $f(x)$ ограничена в некоторой окрестности точки $a$.
         </p>
-        <p>
-          <em>Пример с лекции:</em> Для функции синуса на всей оси $\mathbb{R}$ выполнено $|\sin x| \le 1$, следовательно, $\sin x = O(1)$ при $x \to 0$ (и при любом другом предельном переходе).
+<p>
+<em>Пример с лекции:</em> Для функции синуса на всей оси $\mathbb{R}$ выполнено $|\sin x| \le 1$, следовательно, $\sin x = O(1)$ при $x \to 0$ (и при любом другом предельном переходе).
         </p>
-      </div>
-    </section>
+</div></div>
 
-    <!-- РАЗДЕЛ 8 -->
-    <section id="sec-8">
+<!-- РАЗДЕЛ 8 -->
+<section id="sec-8">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-9">
-  <div class="chapter-kicker">09 / 8. Теорема 14 и фундаменталь…</div>
-  <h2 id="chapter-9" data-toc="8. Теорема 14 и фундаменталь…">§ 8. Теорема 14 и фундаментальные свойства мажорирования</h2>
-  <div class="math-box box-thm">
-        <div class="math-box-title">&#127891; Теорема 14 (Достаточное условие отношения $O$-большое)</div>
-        <p>
+  <div class="chapter-kicker">09 / 8. Теорема 14 и фундаментальны…</div>
+  <h2 id="chapter-9" data-toc="8. Теорема 14 и фундаментальны…">§ 8. Теорема 14 и фундаментальные свойства мажорирования</h2>
+  
+<div class="equation">
+<div class="math-box-title">🎓 Теорема 14 (Достаточное условие отношения $O$-большое)</div>
+<p>
           Пусть функции $f(x), g(x), \varphi(x)$ определены в $\dot{U}(a)$, причем $f(x) = \varphi(x) \cdot g(x)$. Если существует конечный предел:
-          $$\lim_{x \to a} \varphi(x) = k \quad (k \in \mathbb{R}),$$
+          \[\lim_{x \to a} \varphi(x) = k \quad (k \in \mathbb{R}),\]
           то $f(x) = O(g(x))$ при $x \to a$.
         </p>
-      </div>
-
-      <div class="math-box box-proof">
-        <div class="math-box-title">&#9654; Доказательство Теоремы 14</div>
-        <p>
+</div>
+<div class="proof" data-proof="" id="proof-6">
+<div aria-label="Доказательство ▶ Доказательство Теоремы 14" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-6">
+<div class="proof-label">Идея</div>
+<p>Воспользуемся теоремой математического анализа о локальной ограниченности функции, имеющей конечный предел.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-6">
+<div class="proof-label">Доказательство (▶ Доказательство Теоремы 14)</div>
+<p>
           Воспользуемся теоремой математического анализа о локальной ограниченности функции, имеющей конечный предел.
           По определению предела по Коши, выбрав $\varepsilon = 1$, найдем проколотую окрестность $\widetilde{U}(a)$, такую что для всех $x \in \widetilde{U}(a)$:
-          $$|\varphi(x) - k| < 1.$$
+          \[|\varphi(x) - k| < 1.\]
           Используя неравенство треугольника для модуля:
-          $$|\varphi(x)| = |(\varphi(x) - k) + k| \le |\varphi(x) - k| + |k| < 1 + |k|.$$
+          \[|\varphi(x)| = |(\varphi(x) - k) + k| \le |\varphi(x) - k| + |k| < 1 + |k|.\]
           Положим $K \coloneqq 1 + |k| > 0$. Тогда в окрестности $U'(a) \coloneqq \dot{U}(a) \cap \widetilde{U}(a)$ функция $\varphi(x)$ ограничена константой $K$.
-          Следовательно, выполнено Определение 1: $f(x) = \varphi(x) g(x)$ при $|\varphi(x)| \le K$, откуда $f(x) = O(g(x))$ при $x \to a$. <span class="qed">&#9632;</span>
-        </p>
-      </div>
-
-      <div class="math-box box-thm">
-        <div class="math-box-title">&#127891; Следствие 1 (Предельное достаточное условие через отношение)</div>
-        <p>
+          Следовательно, выполнено Определение 1: $f(x) = \varphi(x) g(x)$ при $|\varphi(x)| \le K$, откуда $f(x) = O(g(x))$ при $x \to a$. <span class="qed">■</span>
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="equation">
+<div class="math-box-title">🎓 Следствие 1 (Предельное достаточное условие через отношение)</div>
+<p>
           Пусть $f(x)$ и $g(x)$ определены в $\dot{U}(a)$, причем $g(x) \ne 0$ для всех $x \in \dot{U}(a)$. Если существует конечный предел:
-          $$\lim_{x \to a} \frac{f(x)}{g(x)} = k \quad (k \in \mathbb{R}),$$
+          \[\lim_{x \to a} \frac{f(x)}{g(x)} = k \quad (k \in \mathbb{R}),\]
           то $f(x) = O(g(x))$ при $x \to a$.
         </p>
-      </div>
-
-      <div class="math-box box-thm">
-        <div class="math-box-title">&#127891; Следствие 2 (Включение $o$-малого в класс $O$-большое)</div>
-        <p>
+</div>
+<div class="equation">
+<div class="math-box-title">🎓 Следствие 2 (Включение $o$-малого в класс $O$-большое)</div>
+<p>
           Если $f(x) = o(g(x))$ при $x \to a$, то $f(x) = O(g(x))$ при $x \to a$.
         </p>
-      </div>
-
-      <div class="math-box box-proof">
-        <div class="math-box-title">&#9654; Доказательство Следствия 2</div>
-        <p>
-          По Определению 1 символа $o$-малое имеем $f(x) = \varphi(x) g(x)$, где $\lim_{x \to a} \varphi(x) = 0$. Число $0$ является конечным вещественным числом ($0 \in \mathbb{R}$). Следовательно, по Теореме 14 при $k = 0$ получаем $f(x) = O(g(x))$. <span class="qed">&#9632;</span>
-        </p>
-      </div>
-
-      <div class="math-box box-warn">
-        <div class="math-box-title">&#9888; Принцип необратимости Следствия 2</div>
-        <p>
+</div>
+<div class="proof" data-proof="" id="proof-7">
+<div aria-label="Доказательство ▶ Доказательство Следствия 2" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-7">
+<div class="proof-label">Идея</div>
+<p>По Определению 1 символа $o$-малое имеем $f(x) = \varphi(x) g(x)$, где $\lim_{x \to a} \varphi(x) = 0$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-7">
+<div class="proof-label">Доказательство (▶ Доказательство Следствия 2)</div>
+<p>
+          По Определению 1 символа $o$-малое имеем $f(x) = \varphi(x) g(x)$, где $\lim_{x \to a} \varphi(x) = 0$. Число $0$ является конечным вещественным числом ($0 \in \mathbb{R}$). Следовательно, по Теореме 14 при $k = 0$ получаем $f(x) = O(g(x))$. <span class="qed">■</span>
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="equation">
+<div class="math-box-title">⚠ Принцип необратимости Следствия 2</div>
+<p>
           Обратная импликация <strong>неверна</strong>: отношение $O$-большое является существенно более широким, чем $o$-малое.
         </p>
-        <p>
-          <em>Контрпример с лекции:</em> Рассмотрим функции $f(x) = x$ и $g(x) = 2x$ при $x \to 0$.
+<p>
+<em>Контрпример с лекции:</em> Рассмотрим функции $f(x) = x$ и $g(x) = 2x$ при $x \to 0$.
           Вычислим предел отношения:
-          $$\lim_{x \to 0} \frac{f(x)}{g(x)} = \lim_{x \to 0} \frac{x}{2x} = \frac{1}{2} \in \mathbb{R}.$$
+          \[\lim_{x \to 0} \frac{f(x)}{g(x)} = \lim_{x \to 0} \frac{x}{2x} = \frac{1}{2} \in \mathbb{R}.\]
           По Следствию 1 получаем $x = O(2x)$. Однако предел равен $\frac{1}{2} \ne 0$, поэтому $x \ne o(2x)$.
         </p>
-      </div>
-    </section>
+</div>
 
-    <!-- РАЗДЕЛ 9 -->
-    <section id="sec-9">
+<!-- РАЗДЕЛ 9 -->
+<section id="sec-9">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-10">
-  <div class="chapter-kicker">10 / 9. Функции одинакового поряд…</div>
-  <h2 id="chapter-10" data-toc="9. Функции одинакового поряд…">§ 9. Функции одинакового порядка ($\asymp$), Теорема 15 и тонкие примеры</h2>
-  <div class="math-box box-def">
-        <div class="math-box-title">&#128220; Определение (Функции одного и того же порядка)</div>
-        <p>
+  <div class="chapter-kicker">10 / 9. Функции одинакового порядка…</div>
+  <h2 id="chapter-10" data-toc="9. Функции одинакового порядка…">§ 9. Функции одинакового порядка ($\asymp$), Теорема 15 и тонкие примеры</h2>
+  
+<div class="statement definition" id="def-8"><div class="block-label">Определение 8</div><h3 data-toc="📜 Определение (Функции одного …" id="sub-10-1">📜 Определение (Функции одного и того же порядка)</h3><div>
+<p>
           Функции $f(x)$ и $g(x)$ называются <strong>функциями одного (одинакового) порядка при $x \to a$</strong> (символически: $f(x) \asymp g(x)$ при $x \to a$), если они взаимно мажорируют друг друга, то есть одновременно выполнено:
-          $$f(x) = O(g(x)) \quad \text{и} \quad g(x) = O(f(x)) \quad \text{при } x \to a.$$
+          \[f(x) = O(g(x)) \quad \text{и} \quad g(x) = O(f(x)) \quad \text{при } x \to a.\]
         </p>
-      </div>
-
-      <p>
-        <strong>Двусторонняя геометрическая оценка:</strong> По Определению 2 отношение $f(x) \asymp g(x)$ равносильно существованию положительных констант $K_1, K_2 > 0$ и окрестности $\dot{U}(a)$ таких, что:
-        $$K_1 \cdot |g(x)| \le |f(x)| \le K_2 \cdot |g(x)| \quad \forall x \in \dot{U}(a).$$
+</div></div>
+<p>
+<strong>Двусторонняя геометрическая оценка:</strong> По Определению 2 отношение $f(x) \asymp g(x)$ равносильно существованию положительных констант $K_1, K_2 > 0$ и окрестности $\dot{U}(a)$ таких, что:
+        \[K_1 \cdot |g(x)| \le |f(x)| \le K_2 \cdot |g(x)| \quad \forall x \in \dot{U}(a).\]
       </p>
-
-      <div class="math-box box-thm">
-        <div class="math-box-title">&#127891; Теорема 15 (Предельный признак одинакового порядка)</div>
-        <p>
+<div class="equation">
+<div class="math-box-title">🎓 Теорема 15 (Предельный признак одинакового порядка)</div>
+<p>
           Пусть функции $f(x)$ и $g(x)$ определены в $\dot{U}(a)$, причем $g(x) \ne 0$ для всех $x \in \dot{U}(a)$. Если существует конечный <strong>ненулевой</strong> предел отношения:
-          $$\lim_{x \to a} \frac{f(x)}{g(x)} = k, \quad \text{где } k \in \mathbb{R} \setminus \{0\},$$
+          \[\lim_{x \to a} \frac{f(x)}{g(x)} = k, \quad \text{где } k \in \mathbb{R} \setminus \{0\},\]
           то функции имеют одинаковый порядок: $f(x) \asymp g(x)$ при $x \to a$.
         </p>
-      </div>
-
-      <div class="math-box box-proof">
-        <div class="math-box-title">&#9654; Доказательство Теоремы 15</div>
-        <p>
+</div>
+<div class="proof" data-proof="" id="proof-8">
+<div aria-label="Доказательство ▶ Доказательство Теоремы 15" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-8">
+<div class="proof-label">Идея</div>
+<p>Так как $\lim_{x \to a} \frac{f(x)}{g(x)} = k \in \mathbb{R}$, по Следствию 1 Теоремы 14 сразу имеем $f(x) = O(g(x))$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-8">
+<div class="proof-label">Доказательство (▶ Доказательство Теоремы 15)</div>
+<p>
           Так как $\lim_{x \to a} \frac{f(x)}{g(x)} = k \in \mathbb{R}$, по Следствию 1 Теоремы 14 сразу имеем $f(x) = O(g(x))$.
           Поскольку предел $k \ne 0$, по теореме о пределе частного существует предел обратной дроби:
-          $$\lim_{x \to a} \frac{g(x)}{f(x)} = \frac{1}{\lim_{x \to a} \frac{f(x)}{g(x)}} = \frac{1}{k} \in \mathbb{R}.$$
+          \[\lim_{x \to a} \frac{g(x)}{f(x)} = \frac{1}{\lim_{x \to a} \frac{f(x)}{g(x)}} = \frac{1}{k} \in \mathbb{R}.\]
           Так как $\frac{1}{k}$ — конечное вещественное число, вновь по Следствию 1 Теоремы 14 получаем $g(x) = O(f(x))$.
-          Поскольку оба условия $f = O(g)$ и $g = O(f)$ выполнены одновременно, по определению $f(x) \asymp g(x)$. <span class="qed">&#9632;</span>
-        </p>
-      </div>
-
-      <div class="math-box box-thm">
-        <div class="math-box-title">&#127891; Следствие (Связь эквивалентности и одинакового порядка)</div>
-        <p>
+          Поскольку оба условия $f = O(g)$ и $g = O(f)$ выполнены одновременно, по определению $f(x) \asymp g(x)$. <span class="qed">■</span>
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="equation">
+<div class="math-box-title">🎓 Следствие (Связь эквивалентности и одинакового порядка)</div>
+<p>
           Если $f(x) \sim g(x)$ при $x \to a$, то $f(x) \asymp g(x)$ при $x \to a$.
         </p>
-        <p>
-          <em>Доказательство:</em> При эквивалентности предел отношения равен $k = 1$. Так как $1 \ne 0$, утверждение вытекает из Теоремы 15.
+<p>
+<em>Доказательство:</em> При эквивалентности предел отношения равен $k = 1$. Так как $1 \ne 0$, утверждение вытекает из Теоремы 15.
         </p>
-      </div>
-
-      <div class="math-box box-ex">
-        <div class="math-box-title">&#128394; Тонкий лекционный пример: $f \asymp g$ БЕЗ существования предела отношения!</div>
-        <p>
+</div>
+<div class="worked-example" id="ex-3"><div class="block-label">Пример 3</div><h3 data-toc="🖊 Тонкий лекционный пример: f …" id="sub-10-2">🖊 Тонкий лекционный пример: $f \asymp g$ БЕЗ существования предела отношения!</h3><div>
+<p>
           Исследуем функции $f(x) = x \operatorname{arctg}\frac{1}{x}$ и $g(x) = x$ в окрестности точки $x = 0$.
         </p>
-        <p><strong>Исследование:</strong></p>
-        <ol>
-          <li>
-            <strong>Проверка $f(x) = O(g(x))$:</strong> Функция арктангенса ограничена на всей числовой оси: $|\operatorname{arctg} t| < \frac{\pi}{2}$ для любого $t \in \mathbb{R}$.
+<p><strong>Исследование:</strong></p>
+<ol>
+<li>
+<strong>Проверка $f(x) = O(g(x))$:</strong> Функция арктангенса ограничена на всей числовой оси: $|\operatorname{arctg} t| < \frac{\pi}{2}$ для любого $t \in \mathbb{R}$.
             Следовательно, для всех $x \ne 0$:
-            $$|f(x)| = |x| \cdot \left|\operatorname{arctg}\frac{1}{x}\right| \le \frac{\pi}{2} |x| = \frac{\pi}{2} |g(x)|.$$
+            \[|f(x)| = |x| \cdot \left|\operatorname{arctg}\frac{1}{x}\right| \le \frac{\pi}{2} |x| = \frac{\pi}{2} |g(x)|.\]
             Значит, $f(x) = O(g(x))$ с константой $K_2 = \frac{\pi}{2}$.
           </li>
-          <li>
-            <strong>Проверка $g(x) = O(f(x))$:</strong> Нам требуется доказать, что множитель $\psi(x) = \frac{1}{\operatorname{arctg}(1/x)}$ ограничен в некоторой окрестности нуля.
+<li>
+<strong>Проверка $g(x) = O(f(x))$:</strong> Нам требуется доказать, что множитель $\psi(x) = \frac{1}{\operatorname{arctg}(1/x)}$ ограничен в некоторой окрестности нуля.
             Выберем окрестность радиуса $\delta = 1$, то есть $\dot{U}_1(0) = \{x : 0 < |x| < 1\}$.
             Тогда для всех $x \in \dot{U}_1(0)$ аргумент $t = \frac{1}{x}$ удовлетворяет неравенству:
-            $$|t| = \frac{1}{|x|} > 1.$$
+            \[|t| = \frac{1}{|x|} > 1.\]
             Так как $\operatorname{arctg} t$ строго монотонно возрастает и нечетен:
-            $$\text{при } t > 1: \quad \frac{\pi}{4} < \operatorname{arctg} t < \frac{\pi}{2}, \qquad \text{при } t < -1: \quad -\frac{\pi}{2} < \operatorname{arctg} t < -\frac{\pi}{4}.$$
+            \[\text{при } t > 1: \quad \frac{\pi}{4} < \operatorname{arctg} t < \frac{\pi}{2}, \qquad \text{при } t < -1: \quad -\frac{\pi}{2} < \operatorname{arctg} t < -\frac{\pi}{4}.\]
             Следовательно, во всей проколотой окрестности $\dot{U}_1(0)$ выполнена строгая оценка снизу:
-            $$\frac{\pi}{4} < \left|\operatorname{arctg}\frac{1}{x}\right| < \frac{\pi}{2} \implies \frac{2}{\pi} < \frac{1}{\left|\operatorname{arctg}\frac{1}{x}\right|} < \frac{4}{\pi}.$$
+            \[\frac{\pi}{4} < \left|\operatorname{arctg}\frac{1}{x}\right| < \frac{\pi}{2} \implies \frac{2}{\pi} < \frac{1}{\left|\operatorname{arctg}\frac{1}{x}\right|} < \frac{4}{\pi}.\]
             Отсюда получаем:
-            $$|g(x)| = |x| = \frac{1}{\left|\operatorname{arctg}\frac{1}{x}\right|} \cdot |f(x)| \le \frac{4}{\pi} |f(x)| \quad \forall x \in \dot{U}_1(0).$$
+            \[|g(x)| = |x| = \frac{1}{\left|\operatorname{arctg}\frac{1}{x}\right|} \cdot |f(x)| \le \frac{4}{\pi} |f(x)| \quad \forall x \in \dot{U}_1(0).\]
             Значит, $g(x) = O(f(x))$ с константой $K_1 = \frac{4}{\pi}$.
           </li>
-        </ol>
-        <p>
-          <strong>Вывод:</strong> Функции имеют строго <strong>одинаковый порядок</strong>: $x \operatorname{arctg}\frac{1}{x} \asymp x$ при $x \to 0$.
+</ol>
+<p>
+<strong>Вывод:</strong> Функции имеют строго <strong>одинаковый порядок</strong>: $x \operatorname{arctg}\frac{1}{x} \asymp x$ при $x \to 0$.
         </p>
-        <p>
-          <strong>Принципиальный концептуальный вывод:</strong> Вычислим предел отношения $\frac{f(x)}{g(x)} = \operatorname{arctg}\frac{1}{x}$ при $x \to 0$:
-          $$\lim_{x \to +0} \operatorname{arctg}\frac{1}{x} = \frac{\pi}{2}, \qquad \lim_{x \to -0} \operatorname{arctg}\frac{1}{x} = -\frac{\pi}{2}.$$
+<p>
+<strong>Принципиальный концептуальный вывод:</strong> Вычислим предел отношения $\frac{f(x)}{g(x)} = \operatorname{arctg}\frac{1}{x}$ при $x \to 0$:
+          \[\lim_{x \to +0} \operatorname{arctg}\frac{1}{x} = \frac{\pi}{2}, \qquad \lim_{x \to -0} \operatorname{arctg}\frac{1}{x} = -\frac{\pi}{2}.\]
           Так как односторонние пределы не совпадают, двусторонний предел $\lim_{x \to 0} \frac{f(x)}{g(x)}$ <strong>НЕ СУЩЕСТВУЕТ</strong>!
           <em>Это доказывает, что отношение одинакового порядка ($\asymp$) является более общим и глубоким геометрическим свойством, нежели наличие предела отношения!</em>
-        </p>
-      </div>
-
-      <!-- ИЛЛЮСТРАЦИЯ: ГЕОМЕТРИЯ X * ARCTG(1/X) -->
-      <figure class="figure-container">
-        <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 760 320" width="760" height="320" xmlns="http://www.w3.org/2000/svg">
-          <!-- Оси координат -->
-          <line x1="50" y1="260" x2="710" y2="260" stroke="var(--border-strong)" stroke-width="1.5"/>
-          <line x1="380" y1="290" x2="380" y2="30" stroke="var(--border-strong)" stroke-width="1.5"/>
-          <polygon points="710,256 720,260 710,264" fill="var(--text-muted)"/>
-          <polygon points="376,30 380,20 384,30" fill="var(--text-muted)"/>
-          <text x="715" y="278" fill="var(--text-muted)" font-size="13">x</text>
-          <text x="390" y="32" fill="var(--text-muted)" font-size="13">y</text>
-          <text x="368" y="278" fill="var(--text-muted)" font-size="13">0</text>
-
-          <!-- Верхний конус y = (pi/2) * |x| -->
-          <line x1="380" y1="260" x2="680" y2="70" stroke="var(--box-thm-border)" stroke-width="2" stroke-dasharray="5,4"/>
-          <line x1="380" y1="260" x2="80" y2="70" stroke="var(--box-thm-border)" stroke-width="2" stroke-dasharray="5,4"/>
-          <text x="635" y="60" fill="var(--box-thm-border)" font-size="13" font-weight="bold">y = (π/2)|x|</text>
-
-          <!-- Нижний конус y = (pi/4) * |x| на [-1, 1] -->
-          <line x1="380" y1="260" x2="680" y2="165" stroke="var(--box-def-border)" stroke-width="2" stroke-dasharray="5,4"/>
-          <line x1="380" y1="260" x2="80" y2="165" stroke="var(--box-def-border)" stroke-width="2" stroke-dasharray="5,4"/>
-          <text x="635" y="180" fill="var(--box-def-border)" font-size="13" font-weight="bold">y = (π/4)|x|</text>
-
-          <!-- Сектор двусторонней зажатости -->
-          <polygon points="380,260 680,70 680,165" fill="var(--box-def-bg)" opacity="0.5"/>
-          <polygon points="380,260 80,70 80,165" fill="var(--box-def-bg)" opacity="0.5"/>
-
-          <!-- График f(x) = x * arctg(1/x) - ЧЁТНАЯ неотрицательная функция -->
-          <path d="M 80 165 
+</p>
+</div></div>
+<!-- ИЛЛЮСТРАЦИЯ: ГЕОМЕТРИЯ X * ARCTG(1/X) -->
+<figure class="figure-container">
+<svg height="320" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 760 320" width="760" xmlns="http://www.w3.org/2000/svg">
+<!-- Оси координат -->
+<line stroke="var(--border-strong)" stroke-width="1.5" x1="50" x2="710" y1="260" y2="260"></line>
+<line stroke="var(--border-strong)" stroke-width="1.5" x1="380" x2="380" y1="290" y2="30"></line>
+<polygon fill="var(--text-muted)" points="710,256 720,260 710,264"></polygon>
+<polygon fill="var(--text-muted)" points="376,30 380,20 384,30"></polygon>
+<text fill="var(--text-muted)" font-size="13" x="715" y="278">x</text>
+<text fill="var(--text-muted)" font-size="13" x="390" y="32">y</text>
+<text fill="var(--text-muted)" font-size="13" x="368" y="278">0</text>
+<!-- Верхний конус y = (pi/2) * |x| -->
+<line stroke="var(--box-thm-border)" stroke-dasharray="5,4" stroke-width="2" x1="380" x2="680" y1="260" y2="70"></line>
+<line stroke="var(--box-thm-border)" stroke-dasharray="5,4" stroke-width="2" x1="380" x2="80" y1="260" y2="70"></line>
+<text fill="var(--box-thm-border)" font-size="13" font-weight="bold" x="635" y="60">y = (π/2)|x|</text>
+<!-- Нижний конус y = (pi/4) * |x| на [-1, 1] -->
+<line stroke="var(--box-def-border)" stroke-dasharray="5,4" stroke-width="2" x1="380" x2="680" y1="260" y2="165"></line>
+<line stroke="var(--box-def-border)" stroke-dasharray="5,4" stroke-width="2" x1="380" x2="80" y1="260" y2="165"></line>
+<text fill="var(--box-def-border)" font-size="13" font-weight="bold" x="635" y="180">y = (π/4)|x|</text>
+<!-- Сектор двусторонней зажатости -->
+<polygon fill="var(--box-def-bg)" opacity="0.5" points="380,260 680,70 680,165"></polygon>
+<polygon fill="var(--box-def-bg)" opacity="0.5" points="380,260 80,70 80,165"></polygon>
+<!-- График f(x) = x * arctg(1/x) - ЧЁТНАЯ неотрицательная функция -->
+<path d="M 80 165 
                    Q 230 180 380 260 
-                   Q 530 180 680 165" 
-                fill="none" stroke="var(--primary)" stroke-width="2.8"/>
-          <text x="490" y="200" fill="var(--primary)" font-size="14" font-weight="bold">f(x) = x · arctg(1/x)</text>
-
-          <!-- Вертикальные границы окрестности x = ±1 -->
-          <line x1="680" y1="270" x2="680" y2="50" stroke="var(--border-strong)" stroke-width="1.2" stroke-dasharray="3,3"/>
-          <line x1="80" y1="270" x2="80" y2="50" stroke="var(--border-strong)" stroke-width="1.2" stroke-dasharray="3,3"/>
-          <text x="670" y="285" fill="var(--text-muted)" font-size="12">x = 1</text>
-          <text x="70" y="285" fill="var(--text-muted)" font-size="12">x = -1</text>
-        </svg></div>
-        <figcaption class="figure-caption">
+                   Q 530 180 680 165" fill="none" stroke="var(--primary)" stroke-width="2.8"></path>
+<text fill="var(--primary)" font-size="14" font-weight="bold" x="490" y="200">f(x) = x · arctg(1/x)</text>
+<!-- Вертикальные границы окрестности x = ±1 -->
+<line stroke="var(--border-strong)" stroke-dasharray="3,3" stroke-width="1.2" x1="680" x2="680" y1="270" y2="50"></line>
+<line stroke="var(--border-strong)" stroke-dasharray="3,3" stroke-width="1.2" x1="80" x2="80" y1="270" y2="50"></line>
+<text fill="var(--text-muted)" font-size="12" x="670" y="285">x = 1</text>
+<text fill="var(--text-muted)" font-size="12" x="70" y="285">x = -1</text>
+</svg>
+<figcaption class="figure-caption">
           Рис. 3. Функция $f(x) = x \operatorname{arctg}(1/x)$ четна и неотрицательна. В окрестности $\dot{U}_1(0)$ ее график строго зажат внутри конуса $\frac{\pi}{4}|x| \le f(x) \le \frac{\pi}{2}|x|$, что обеспечивает одинаковый порядок $f(x) \asymp x$ при отсутствии обычного предела отношения.
         </figcaption>
-      </figure>
-
-      <div class="math-box box-warn">
-        <div class="math-box-title">&#128065; Лекционный контрпример: разрушение порядка из-за осцилляций и нулей</div>
-        <p>
+</figure>
+<div class="equation">
+<div class="math-box-title">👁 Лекционный контрпример: разрушение порядка из-за осцилляций и нулей</div>
+<p>
           Исследуем функции $f(x) = x \cos\frac{1}{x}$ и $g(x) = x$ при $x \to 0$.
         </p>
-        <p>
+<p>
           1. <strong>Соотношение $f(x) = O(g(x))$:</strong> Выполняется безупречно, поскольку $|\cos(1/x)| \le 1$, откуда:
-          $$|f(x)| = |x| \cdot \left|\cos\frac{1}{x}\right| \le 1 \cdot |x| = 1 \cdot |g(x)| \quad \forall x \ne 0.$$
+          \[|f(x)| = |x| \cdot \left|\cos\frac{1}{x}\right| \le 1 \cdot |x| = 1 \cdot |g(x)| \quad \forall x \ne 0.\]
         </p>
-        <p>
+<p>
           2. <strong>Обратное соотношение $g(x) \stackrel{?}{=} O(f(x))$:</strong> Для его истинности требовалось бы существование константы $K > 0$ и окрестности $\dot{U}_\delta(0)$, в которой:
-          $$|x| \le K \cdot \left|x \cos\frac{1}{x}\right| \iff 1 \le K \cdot \left|\cos\frac{1}{x}\right| \iff \left|\cos\frac{1}{x}\right| \ge \frac{1}{K} > 0.$$
+          \[|x| \le K \cdot \left|x \cos\frac{1}{x}\right| \iff 1 \le K \cdot \left|\cos\frac{1}{x}\right| \iff \left|\cos\frac{1}{x}\right| \ge \frac{1}{K} > 0.\]
           Однако косинус обращается в ноль в точках:
-          $$\frac{1}{x_n} = \frac{\pi}{2} + \pi n \implies x_n = \frac{1}{\frac{\pi}{2} + \pi n}, \quad n \in \mathbb{N}.$$
+          \[\frac{1}{x_n} = \frac{\pi}{2} + \pi n \implies x_n = \frac{1}{\frac{\pi}{2} + \pi n}, \quad n \in \mathbb{N}.\]
           При $n \to \infty$ последовательность точек $x_n \to 0$. Следовательно, <em>в любой, сколь угодно малой окрестности нуля</em> существует бесконечно много точек $x_n$, в которых $f(x_n) = x_n \cdot 0 = 0$, в то время как $g(x_n) = x_n \ne 0$!
         </p>
-        <p>
+<p>
           В точках $x_n$ неравенство принимает ложный вид $|x_n| \le K \cdot 0 = 0$.
           Поэтому $g(x) \ne O(f(x))$, и функции <strong>НЕ имеют одинакового порядка</strong> при $x \to 0$.
         </p>
-      </div>
-
-      <!-- ИЛЛЮСТРАЦИЯ: ОСЦИЛЛЯЦИИ X * COS(1/X) -->
-      <figure class="figure-container">
-        <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 760 300" width="760" height="300" xmlns="http://www.w3.org/2000/svg">
-          <!-- Оси координат -->
-          <line x1="50" y1="150" x2="710" y2="150" stroke="var(--border-strong)" stroke-width="1.5"/>
-          <line x1="380" y1="280" x2="380" y2="20" stroke="var(--border-strong)" stroke-width="1.5"/>
-          <text x="715" y="155" fill="var(--text-muted)" font-size="13">x</text>
-          <text x="390" y="30" fill="var(--text-muted)" font-size="13">y</text>
-          <text x="368" y="168" fill="var(--text-muted)" font-size="13">0</text>
-
-          <!-- Огибающие y = x и y = -x -->
-          <line x1="120" y1="254" x2="640" y2="46" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="5,4"/>
-          <line x1="120" y1="46" x2="640" y2="254" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="5,4"/>
-          <text x="645" y="50" fill="var(--text-muted)" font-size="13">y = x</text>
-          <text x="645" y="260" fill="var(--text-muted)" font-size="13">y = -x</text>
-
-          <!-- Осцилляции функции f(x) = x * cos(1/x) -->
-          <path d="M 380 150 
+</div>
+<!-- ИЛЛЮСТРАЦИЯ: ОСЦИЛЛЯЦИИ X * COS(1/X) -->
+<figure class="figure-container">
+<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 760 300" width="760" xmlns="http://www.w3.org/2000/svg">
+<!-- Оси координат -->
+<line stroke="var(--border-strong)" stroke-width="1.5" x1="50" x2="710" y1="150" y2="150"></line>
+<line stroke="var(--border-strong)" stroke-width="1.5" x1="380" x2="380" y1="280" y2="20"></line>
+<text fill="var(--text-muted)" font-size="13" x="715" y="155">x</text>
+<text fill="var(--text-muted)" font-size="13" x="390" y="30">y</text>
+<text fill="var(--text-muted)" font-size="13" x="368" y="168">0</text>
+<!-- Огибающие y = x и y = -x -->
+<line stroke="var(--text-muted)" stroke-dasharray="5,4" stroke-width="1.5" x1="120" x2="640" y1="254" y2="46"></line>
+<line stroke="var(--text-muted)" stroke-dasharray="5,4" stroke-width="1.5" x1="120" x2="640" y1="46" y2="254"></line>
+<text fill="var(--text-muted)" font-size="13" x="645" y="50">y = x</text>
+<text fill="var(--text-muted)" font-size="13" x="645" y="260">y = -x</text>
+<!-- Осцилляции функции f(x) = x * cos(1/x) -->
+<path d="M 380 150 
                    Q 390 148 400 150 
-                   T 415 145 T 430 158 T 450 140 T 475 165 T 510 120 T 560 190 T 630 85" 
-                fill="none" stroke="var(--primary)" stroke-width="2"/>
-          <path d="M 380 150 
+                   T 415 145 T 430 158 T 450 140 T 475 165 T 510 120 T 560 190 T 630 85" fill="none" stroke="var(--primary)" stroke-width="2"></path>
+<path d="M 380 150 
                    Q 370 152 360 150 
-                   T 345 155 T 330 142 T 310 160 T 285 135 T 250 180 T 200 110 T 130 215" 
-                fill="none" stroke="var(--primary)" stroke-width="2"/>
-
-          <!-- Нули x_n красными маркерами -->
-          <circle cx="430" cy="150" r="3.5" fill="#ef4444"/>
-          <circle cx="458" cy="150" r="3.5" fill="#ef4444"/>
-          <circle cx="500" cy="150" r="3.5" fill="#ef4444"/>
-          <circle cx="580" cy="150" r="3.5" fill="#ef4444"/>
-
-          <rect x="440" y="195" width="260" height="36" rx="5" fill="var(--bg-surface-elevated)" stroke="#ef4444" stroke-width="1"/>
-          <text x="450" y="218" fill="#ef4444" font-size="12" font-weight="bold">Бесконечно много нулей x_n → 0</text>
-        </svg></div>
-        <figcaption class="figure-caption">
+                   T 345 155 T 330 142 T 310 160 T 285 135 T 250 180 T 200 110 T 130 215" fill="none" stroke="var(--primary)" stroke-width="2"></path>
+<!-- Нули x_n красными маркерами -->
+<circle cx="430" cy="150" fill="#ef4444" r="3.5"></circle>
+<circle cx="458" cy="150" fill="#ef4444" r="3.5"></circle>
+<circle cx="500" cy="150" fill="#ef4444" r="3.5"></circle>
+<circle cx="580" cy="150" fill="#ef4444" r="3.5"></circle>
+<rect fill="var(--bg-surface-elevated)" height="36" rx="5" stroke="#ef4444" stroke-width="1" width="260" x="440" y="195"></rect>
+<text fill="#ef4444" font-size="12" font-weight="bold" x="450" y="218">Бесконечно много нулей x_n → 0</text>
+</svg>
+<figcaption class="figure-caption">
           Рис. 4. Функция $f(x) = x \cos(1/x)$ зажата между прямыми $y = \pm x$. В любой окрестности нуля лежат корни $x_n = (\frac{\pi}{2} + \pi n)^{-1}$, где $f(x_n) = 0$, поэтому отношение $g(x)/f(x) = 1/\cos(1/x)$ неограниченно, и одинаковый порядок не имеет места.
         </figcaption>
-      </figure>
-    </section>
+</figure>
 
-    <!-- РАЗДЕЛ 10 -->
-    <section id="sec-10">
+<!-- РАЗДЕЛ 10 -->
+<section id="sec-10">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-11">
-  <div class="chapter-kicker">11 / 10. Порядок малости и шкала …</div>
-  <h2 id="chapter-11" data-toc="10. Порядок малости и шкала …">§ 10. Порядок малости и шкала сравнения бесконечно малых</h2>
-  <div class="math-box box-def">
-        <div class="math-box-title">&#128220; Определение (Порядок малости функции)</div>
-        <p>
+  <div class="chapter-kicker">11 / 10. Порядок малости и шкала ср…</div>
+  <h2 id="chapter-11" data-toc="10. Порядок малости и шкала ср…">§ 10. Порядок малости и шкала сравнения бесконечно малых</h2>
+  
+<div class="statement definition" id="def-9"><div class="block-label">Определение 9</div><h3 data-toc="📜 Определение (Порядок малости…" id="sub-11-1">📜 Определение (Порядок малости функции)</h3><div>
+<p>
           Пусть $\alpha(x)$ — эталонная бесконечно малая при $x \to a$ (как правило, $\alpha(x) = x - a$ при $a \in \mathbb{R}$ или $\alpha(x) = \frac{1}{x}$ при $a = \infty$).
           Бесконечно малая функция $\beta(x)$ называется <strong>бесконечно малой порядка $p > 0$ относительно $\alpha(x)$ при $x \to a$</strong>, если:
-          $$\beta(x) \asymp (\alpha(x))^p \quad \text{при } x \to a.$$
+          \[\beta(x) \asymp (\alpha(x))^p \quad \text{при } x \to a.\]
         </p>
-        <p>
+<p>
           Если при этом существует конечный ненулевой предел:
-          $$\lim_{x \to a} \frac{\beta(x)}{(\alpha(x))^p} = C \ne 0 \quad (C \in \mathbb{R}),$$
+          \[\lim_{x \to a} \frac{\beta(x)}{(\alpha(x))^p} = C \ne 0 \quad (C \in \mathbb{R}),\]
           то выражение $C \cdot (\alpha(x))^p$ называется <strong>главной частью бесконечно малой $\beta(x)$</strong>.
         </p>
-      </div>
-
-      <div class="math-box box-ex">
-        <div class="math-box-title">&#128394; Пример с лекции: определение порядка малости</div>
-        <p>
+</div></div>
+<div class="worked-example" id="ex-4"><div class="block-label">Пример 4</div><h3 data-toc="🖊 Пример с лекции: определение…" id="sub-11-2">🖊 Пример с лекции: определение порядка малости</h3><div>
+<p>
           Определить порядок малости функции $\beta(x) = \sqrt[5]{1 + x^7} - 1$ относительно $\alpha(x) = x$ при $x \to 0$.
         </p>
-        <p><strong>Решение:</strong></p>
-        <p>
+<p><strong>Решение:</strong></p>
+<p>
           Используем стандартное асимптотическое разложение бинома:
-          $$(1 + t)^\mu - 1 \sim \mu t \quad \text{при } t \to 0.$$
+          \[(1 + t)^\mu - 1 \sim \mu t \quad \text{при } t \to 0.\]
           В нашем случае $t = x^7 \to 0$ и показатель $\mu = \frac{1}{5}$. Получаем:
-          $$\sqrt[5]{1 + x^7} - 1 = (1 + x^7)^{1/5} - 1 \sim \frac{1}{5} x^7 \quad \text{при } x \to 0.$$
+          \[\sqrt[5]{1 + x^7} - 1 = (1 + x^7)^{1/5} - 1 \sim \frac{1}{5} x^7 \quad \text{при } x \to 0.\]
         </p>
-        <p>
+<p>
           Составим предел отношения к степенной функции $x^p$:
-          $$\lim_{x \to 0} \frac{\sqrt[5]{1 + x^7} - 1}{x^p} = \lim_{x \to 0} \frac{\frac{1}{5} x^7}{x^p} = \frac{1}{5} \lim_{x \to 0} x^{7 - p}.$$
+          \[\lim_{x \to 0} \frac{\sqrt[5]{1 + x^7} - 1}{x^p} = \lim_{x \to 0} \frac{\frac{1}{5} x^7}{x^p} = \frac{1}{5} \lim_{x \to 0} x^{7 - p}.\]
           Этот предел существует, конечен и отличен от нуля тогда и только тогда, когда $7 - p = 0$, то есть:
-          $$p = 7.$$
+          \[p = 7.\]
         </p>
-        <p>
-          <strong>Ответ:</strong> Функция $\beta(x)$ имеет порядок малости $p = 7$ относительно $x$ при $x \to 0$, а её главная часть равна $\dfrac{1}{5} x^7$.
+<p>
+<strong>Ответ:</strong> Функция $\beta(x)$ имеет порядок малости $p = 7$ относительно $x$ при $x \to 0$, а её главная часть равна $\dfrac{1}{5} x^7$.
         </p>
-      </div>
-    </section>
+</div></div>
 
-    <!-- РАЗДЕЛ 11 -->
-    <section id="sec-11">
+<!-- РАЗДЕЛ 11 -->
+<section id="sec-11">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-12">
-  <div class="chapter-kicker">12 / 11. Сводная классификация и …</div>
-  <h2 id="chapter-12" data-toc="11. Сводная классификация и …">§ 11. Сводная классификация и расширенный задачник с решениями</h2>
-  <div class="table-wrapper">
-        <div class="table-scroll">
+  <div class="chapter-kicker">12 / 11. Сводная классификация и ра…</div>
+  <h2 id="chapter-12" data-toc="11. Сводная классификация и ра…">§ 11. Сводная классификация и расширенный задачник с решениями</h2>
+  
+<div class="table-wrapper">
 <table>
-          <thead>
-            <tr>
-              <th>Символ / Отношение</th>
-              <th>Определение через предел ($g \ne 0$)</th>
-              <th>Общее определение через $\varphi(x)$</th>
-              <th>Геометрический и смысловой образ</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>$f = o(g)$</strong></td>
-              <td>$\lim\limits_{x \to a} \frac{f(x)}{g(x)} = 0$</td>
-              <td>$f = \varphi \cdot g, \ \lim \varphi = 0$</td>
-              <td>$f$ исчезающе мала на фоне $g$ (выше порядок малости)</td>
-            </tr>
-            <tr>
-              <td><strong>$f = O(g)$</strong></td>
-              <td>$\limsup\limits_{x \to a} \left|\frac{f(x)}{g(x)}\right| < +\infty$</td>
-              <td>$f = \varphi \cdot g, \ |\varphi| \le K$</td>
-              <td>График $f$ заключен внутри коридора $\pm K|g|$</td>
-            </tr>
-            <tr>
-              <td><strong>$f \sim g$</strong></td>
-              <td>$\lim\limits_{x \to a} \frac{f(x)}{g(x)} = 1$</td>
-              <td>$f = g + o(g)$</td>
-              <td>Функции асимптотически совпадают до малых поправок</td>
-            </tr>
-            <tr>
-              <td><strong>$f \asymp g$</strong></td>
-              <td>$\lim\limits_{x \to a} \frac{f(x)}{g(x)} = k \ne 0$ (достаточно)</td>
-              <td>$K_1 |g| \le |f| \le K_2 |g|$</td>
-              <td>Функции имеют одинаковую скорость роста / убывания</td>
-            </tr>
-          </tbody>
-        </table>
+<thead>
+<tr>
+<th>Символ / Отношение</th>
+<th>Определение через предел ($g \ne 0$)</th>
+<th>Общее определение через $\varphi(x)$</th>
+<th>Геометрический и смысловой образ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>$f = o(g)$</strong></td>
+<td>$\lim\limits_{x \to a} \frac{f(x)}{g(x)} = 0$</td>
+<td>$f = \varphi \cdot g, \ \lim \varphi = 0$</td>
+<td>$f$ исчезающе мала на фоне $g$ (выше порядок малости)</td>
+</tr>
+<tr>
+<td><strong>$f = O(g)$</strong></td>
+<td>$\limsup\limits_{x \to a} \left|\frac{f(x)}{g(x)}\right| < +\infty$</td>
+<td>$f = \varphi \cdot g, \ |\varphi| \le K$</td>
+<td>График $f$ заключен внутри коридора $\pm K|g|$</td>
+</tr>
+<tr>
+<td><strong>$f \sim g$</strong></td>
+<td>$\lim\limits_{x \to a} \frac{f(x)}{g(x)} = 1$</td>
+<td>$f = g + o(g)$</td>
+<td>Функции асимптотически совпадают до малых поправок</td>
+</tr>
+<tr>
+<td><strong>$f \asymp g$</strong></td>
+<td>$\lim\limits_{x \to a} \frac{f(x)}{g(x)} = k \ne 0$ (достаточно)</td>
+<td>$K_1 |g| \le |f| \le K_2 |g|$</td>
+<td>Функции имеют одинаковую скорость роста / убывания</td>
+</tr>
+</tbody>
+</table>
 </div>
-      </div>
-
-      <div class="math-box box-ex">
-        <div class="math-box-title">&#128394; Задача 1 (Транзитивность отношения $O$-большое)</div>
-        <p>
-          <strong>Условие:</strong> Доказать, что если $f(x) = O(g(x))$ и $g(x) = O(h(x))$ при $x \to a$, то $f(x) = O(h(x))$ при $x \to a$.
+<div class="worked-example" id="ex-5"><div class="block-label">Пример 5</div><h3 data-toc="🖊 Задача 1 (Транзитивность отн…" id="sub-12-1">🖊 Задача 1 (Транзитивность отношения $O$-большое)</h3><div>
+<p>
+<strong>Условие:</strong> Доказать, что если $f(x) = O(g(x))$ и $g(x) = O(h(x))$ при $x \to a$, то $f(x) = O(h(x))$ при $x \to a$.
         </p>
-        <p><strong>Доказательство:</strong></p>
-        <p>
+<p><strong>Доказательство:</strong></p>
+<p>
           По Определению 2 существуют константы $K_1, K_2 > 0$ и окрестности $U_1(a), U_2(a)$ такие, что:
-          $$|f(x)| \le K_1 |g(x)| \quad \forall x \in U_1(a), \qquad |g(x)| \le K_2 |h(x)| \quad \forall x \in U_2(a).$$
+          \[|f(x)| \le K_1 |g(x)| \quad \forall x \in U_1(a), \qquad |g(x)| \le K_2 |h(x)| \quad \forall x \in U_2(a).\]
           Рассмотрим окрестность $U(a) \coloneqq U_1(a) \cap U_2(a)$. Для любого $x \in U(a)$ оба неравенства справедливы одновременно:
-          $$|f(x)| \le K_1 |g(x)| \le K_1 (K_2 |h(x)|) = (K_1 K_2) |h(x)|.$$
+          \[|f(x)| \le K_1 |g(x)| \le K_1 (K_2 |h(x)|) = (K_1 K_2) |h(x)|.\]
           Положив константу $K \coloneqq K_1 K_2 > 0$, получаем $|f(x)| \le K |h(x)|$ при всех $x \in U(a)$.
-          Следовательно, $f(x) = O(h(x))$ при $x \to a$. <span class="qed">&#9632;</span>
+          Следовательно, $f(x) = O(h(x))$ при $x \to a$. <span class="qed">■</span>
+</p>
+</div></div>
+<div class="worked-example" id="ex-6"><div class="block-label">Пример 6</div><h3 data-toc="🖊 Задача 2 (Вычисление асимпто…" id="sub-12-2">🖊 Задача 2 (Вычисление асимптотики сложного выражения)</h3><div>
+<p>
+<strong>Условие:</strong> Найти порядок малости и главную часть функции $\beta(x) = \ln(\cos x) + \sqrt{1 + x^2} - 1$ относительно $x$ при $x \to 0$.
         </p>
-      </div>
-
-      <div class="math-box box-ex">
-        <div class="math-box-title">&#128394; Задача 2 (Вычисление асимптотики сложного выражения)</div>
-        <p>
-          <strong>Условие:</strong> Найти порядок малости и главную часть функции $\beta(x) = \ln(\cos x) + \sqrt{1 + x^2} - 1$ относительно $x$ при $x \to 0$.
-        </p>
-        <p><strong>Решение:</strong></p>
-        <ol>
-          <li>
+<p><strong>Решение:</strong></p>
+<ol>
+<li>
             Для первого слагаемого: $\ln(\cos x) = \ln(1 + (\cos x - 1))$. Так как $\cos x - 1 \sim -\frac{x^2}{2}$, то:
-            $$\ln(\cos x) = -\frac{x^2}{2} + o(x^2).$$
+            \[\ln(\cos x) = -\frac{x^2}{2} + o(x^2).\]
           </li>
-          <li>
+<li>
             Для второго слагаемого: по биномиальному разложению $\sqrt{1 + x^2} - 1 = (1 + x^2)^{1/2} - 1 = \frac{1}{2} x^2 + o(x^2)$.
           </li>
-          <li>
+<li>
             Сложим оба разложения:
-            $$\beta(x) = \left(-\frac{x^2}{2} + o(x^2)\right) + \left(\frac{x^2}{2} + o(x^2)\right) = o(x^2).$$
+            \[\beta(x) = \left(-\frac{x^2}{2} + o(x^2)\right) + \left(\frac{x^2}{2} + o(x^2)\right) = o(x^2).\]
           </li>
-        </ol>
-        <p>
+</ol>
+<p>
           Члены порядка $x^2$ взаимно уничтожились! Значит, порядок малости строго выше $2$. Привлечем члены формулы Тейлора 4-го порядка:
-          $$\cos x = 1 - \frac{x^2}{2} + \frac{x^4}{24} + o(x^4) \implies \ln(\cos x) = -\frac{x^2}{2} - \frac{x^4}{12} + o(x^4),$$
-          $$\sqrt{1 + x^2} - 1 = \frac{x^2}{2} - \frac{x^4}{8} + o(x^4).$$
+          \[\cos x = 1 - \frac{x^2}{2} + \frac{x^4}{24} + o(x^4) \implies \ln(\cos x) = -\frac{x^2}{2} - \frac{x^4}{12} + o(x^4),\]
+          \[\sqrt{1 + x^2} - 1 = \frac{x^2}{2} - \frac{x^4}{8} + o(x^4).\]
           Складывая уточненные разложения:
-          $$\beta(x) = \left(-\frac{1}{12} - \frac{1}{8}\right) x^4 + o(x^4) = -\frac{5}{24} x^4 + o(x^4).$$
+          \[\beta(x) = \left(-\frac{1}{12} - \frac{1}{8}\right) x^4 + o(x^4) = -\frac{5}{24} x^4 + o(x^4).\]
         </p>
-        <p>
-          <strong>Ответ:</strong> Порядок малости равен $p = 4$, а главная часть равна $-\dfrac{5}{24} x^4$.
+<p>
+<strong>Ответ:</strong> Порядок малости равен $p = 4$, а главная часть равна $-\dfrac{5}{24} x^4$.
         </p>
-      </div>
-    </section>
+</div></div>
+
+
 </section>
 <!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>

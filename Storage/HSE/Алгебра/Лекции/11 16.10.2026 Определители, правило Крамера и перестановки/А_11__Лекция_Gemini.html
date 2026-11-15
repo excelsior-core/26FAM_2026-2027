@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Определители, правило Крамера и перестановки. Конспект FAM ФПМ НИУ ВШЭ.">
+  <meta name="description" content="ФПМ НИУ ВШЭ · Полный академический лекционный конспект">
   <title>Определители, правило Крамера и перестановки — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
@@ -183,8 +183,13 @@ html[data-theme] ::selection{background:var(--gold);color:var(--paper)}
 .themed-figure [data-figure-theme="light"]{display:block}
 html[data-theme="dark"] .themed-figure [data-figure-theme],html[data-theme="parchment"] .themed-figure [data-figure-theme]{display:none}
 html[data-theme="dark"] .themed-figure [data-figure-theme="dark"],html[data-theme="parchment"] .themed-figure [data-figure-theme="parchment"]{display:block}
-/* One neutral/light asset may remain on its own light plate in every theme. Never invert mathematical colours. */
-.figure-plate{background:#fff;color:#202e29;padding:16px;border:1px solid var(--rule)}
+.figure-plate{background:var(--bg-card);color:var(--ink);padding:20px;border:1px solid var(--rule);border-radius:8px;margin:32px 0}
+html[data-theme="light"] .figure-plate{background:#ffffff}
+html[data-theme="dark"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+html[data-theme="parchment"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+@media print{
+ .figure-plate{background:white!important;border:0!important;padding:0!important}
+}
 @media(max-width:760px){.topbar{height:auto;min-height:70px;flex-wrap:wrap;padding:12px 18px;gap:10px}.top-actions{gap:8px;flex-wrap:wrap}.theme-control select{font-size:10px;max-width:103px;padding:8px 4px}.pdf-button{padding:6px 8px}.pdf-button span{margin-left:4px}.wordmark{font-size:24px}}
 @media(max-width:400px){.wordmark{display:none}.top-actions{width:100%;justify-content:space-between}}
 @media print{
@@ -440,13 +445,11 @@ SOFTWARE.
     </aside>
     <main id="content">
       <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
-  <div class="lecture-meta"><span class="subject">Алгебра</span><span>ФПМ НИУ ВШЭ</span></div>
-  <h1>Определители, правило Крамера и перестановки</h1>
-  <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-  <div class="lecture-abstract">
-    <p>ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-    <div class="abstract-formula" aria-label="Ключевое выражение лекции">\[\left\{
+      <header class="lecture-head" id="top">
+        <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
+        <h1>Определители, правило Крамера и перестановки</h1>
+        <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
+        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[\left\{
           \begin{alignedat}{5}
           c_{11}\underline{\underline{x_1}} &+ \dots + c_{1,j_2}\!x_{j_2} &+ \dots + c_{1,j_r}\!x_{j_r} &+ \dots + c_{1n}x_n &&= \bar{b}_1, \\
           &\phantom{+\dots+{}} c_{2,j_2}\underline{\underline{x_{j_2}}} &+ \dots + c_{2,j_r}\!x_{j_r} &+ \dots + c_{2n}x_n &&= \bar{b}_2, \\
@@ -456,89 +459,76 @@ SOFTWARE.
           &&&\phantom{+\dots+{}} \vdots && \quad\;\vdots \\
           &&&\phantom{+\dots+{}} 0 &&= \bar{b}_m.
           \end{alignedat}
-          \right. \qquad (3)\]</div>
-  </div>
-</header>
-<div class="proof-toolbar" aria-label="Все доказательства">
-  <span class="toolbar-label">Доказательства</span>
-  <div class="segmented" role="group" aria-label="Режим всех доказательств">
-    <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
-    <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
-    <button data-all-proofs="full" aria-pressed="false">Полностью</button>
-  </div>
-  <span id="proof-state" class="proof-state" aria-live="polite"></span>
-</div>
-<noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
-<p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
-
+          \right. \qquad (3)\]</div></div>
+      </header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
 <section class="chapter" aria-labelledby="chapter-1">
   <div class="chapter-kicker">01 / Введение</div>
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <header class="lecture-monument">
-        <div class="monument-kicker">
-          <span>✦ Алгебра</span>
-          <span style="opacity: 0.4;">/</span>
-          <span>ЛЕКЦИЯ №Лекция 11 ✦</span>
-        </div>
-
-        <h1 id="article-title">ОПРЕДЕЛИТЕЛИ 2-ГО И 3-ГО ПОРЯДКОВ, <span class="gold-phrase">ПРАВИЛО КРАМЕРА И ПЕРЕСТАНОВКИ</span></h1>
-        <p class="monument-lead" id="article-lead">Определители 2-го и 3-го порядков, геометрический смысл ориентированной площади и объема, строгий алгебраический вывод формул Крамера для систем 2x2, правило треугольников Саррюса и введение в комбинаторную теорию перестановок конечных множеств.</p>
-
-        <div class="monument-clean-meta">
-          <span class="clean-pill">Алгебра</span>
-          <span>•</span>
-          <span>16 октября 2026</span>
-        </div>
-      </header>
-
-      <!-- 
+<div class="monument-kicker">
+<span>✦ Алгебра</span>
+<span style="opacity: 0.4;">/</span>
+<span>ЛЕКЦИЯ №Лекция 11 ✦</span>
+</div>
+<h1 id="article-title">ОПРЕДЕЛИТЕЛИ 2-ГО И 3-ГО ПОРЯДКОВ, <span class="gold-phrase">ПРАВИЛО КРАМЕРА И ПЕРЕСТАНОВКИ</span></h1>
+<p class="monument-lead" id="article-lead">Определители 2-го и 3-го порядков, геометрический смысл ориентированной площади и объема, строгий алгебраический вывод формул Крамера для систем 2x2, правило треугольников Саррюса и введение в комбинаторную теорию перестановок конечных множеств.</p>
+<div class="monument-clean-meta">
+<span class="clean-pill">Алгебра</span>
+<span>•</span>
+<span>16 октября 2026</span>
+</div>
+</header>
+<!-- 
         =============================================================================
         СЮДА НЕЙРОСЕТЬ ВСТАВЛЯЕТ СОДЕРЖИМОЕ КОНСПЕКТА (ARTICLE CONTENT)
         =============================================================================
       -->
-      <article class="content-area" id="lectureContent">
-
-        
-      <!-- HERO HEADER -->
-      <section class="lecture-hero">
-        <div class="hero-meta-row">
-          <span class="meta-pill">📚 Курс: Высшая алгебра (1 семестр)</span>
-          <span class="meta-pill">📖 Доп. источники: А. Г. Курош, А. И. Кострикин</span>
-          <span class="meta-pill">✅ Все утверждения с полными доказательствами</span>
-        </div>
-        <h1>Следствия из метода Гаусса, Правило Крамера, Определители 2–3 порядков и Теория Перестановок</h1>
-        <p class="subtitle">
+<article class="content-area" id="lectureContent">
+<!-- HERO HEADER -->
+<section class="lecture-hero">
+<div class="hero-meta-row">
+<span class="meta-pill">📚 Курс: Высшая алгебра (1 семестр)</span>
+<span class="meta-pill">📖 Доп. источники: А. Г. Курош, А. И. Кострикин</span>
+<span class="meta-pill">✅ Все утверждения с полными доказательствами</span>
+</div>
+<h1>Следствия из метода Гаусса, Правило Крамера, Определители 2–3 порядков и Теория Перестановок</h1>
+<p class="subtitle">
           Академический конспект лекции с развернутыми доказательствами всех теорем и следствий, выверенными векторными иллюстрациями (схемы ступенчатых матриц, треугольников Саррюса, индуктивного построения ряда перестановок и инверсий) и методологическими комментариями по классическим учебникам А. Г. Куроша («Курс высшей алгебры») и А. И. Кострикина («Введение в алгебру»).
         </p>
-      </section>
-
-      <!-- CLICKABLE IN-DOCUMENT TABLE OF CONTENTS (Preserved in PDF Print!) -->
-      
-
-      <!-- =====================================================================
+</section>
+<!-- CLICKABLE IN-DOCUMENT TABLE OF CONTENTS (Preserved in PDF Print!) -->
+<!-- =====================================================================
            CHAPTER 1: СЛЕДСТВИЯ ИЗ КРИТЕРИЯ СОВМЕСТНОСТИ И МЕТОДА ГАУССА
            ===================================================================== -->
-      <section class="chapter-section" id="chapter-1">
-        <div class="chapter-banner ch1">
-          <span class="chapter-kicker">Тема I • Системы линейных алгебраических уравнений</span>
+<section class="chapter-section" id="chapter-1">
+<div class="chapter-banner ch1">
+<span class="chapter-kicker">Тема I • Системы линейных алгебраических уравнений</span>
 </section>
-
 <section class="chapter" aria-labelledby="chapter-2">
-  <div class="chapter-kicker">02 / Следствия из метода Гаусса и…</div>
-  <h2 id="chapter-2" data-toc="Следствия из метода Гаусса и…">Следствия из метода Гаусса и критерия совместности СЛАУ</h2>
-  </div>
+  <div class="chapter-kicker">02 / Следствия из метода Гаусса и к…</div>
+  <h2 id="chapter-2" data-toc="Следствия из метода Гаусса и к…">Следствия из метода Гаусса и критерия совместности СЛАУ</h2>
+  
 
-        <h3 id="sub-1" data-toc="1.1 Ступенчатый вид системы,…">
-          <span class="sec-tag">§ 1.1</span>
-          <span>Ступенчатый вид системы, главные и свободные неизвестные</span>
-        </h3>
-
-        <p><span class="drop-cap">Р</span>          Рассмотрим систему из $m$ линейных алгебраических уравнений с $n$ неизвестными $x_1, x_2, \dots, x_n$ над некоторым полем $P$ (например, полем действительных чисел $\mathbb{R}$ или комплексных чисел $\mathbb{C}$). В результате прямого хода метода Гаусса (с помощью элементарных преобразований строк) система приводится к эквивалентной (равносильной) системе <strong>ступенчатого (трапециевидного) вида</strong>, которую на доске мы обозначили номером $(3)$:
+<h3 class="sub-heading" data-toc="1.1Ступенчатый вид системы, гл…" id="sec-1-1">
+<span class="sec-tag">§ 1.1</span>
+<span>Ступенчатый вид системы, главные и свободные неизвестные</span>
+</h3>
+<p><span class="drop-cap">Р</span>          Рассмотрим систему из $m$ линейных алгебраических уравнений с $n$ неизвестными $x_1, x_2, \dots, x_n$ над некоторым полем $P$ (например, полем действительных чисел $\mathbb{R}$ или комплексных чисел $\mathbb{C}$). В результате прямого хода метода Гаусса (с помощью элементарных преобразований строк) система приводится к эквивалентной (равносильной) системе <strong>ступенчатого (трапециевидного) вида</strong>, которую на доске мы обозначили номером $(3)$:
         </p>
-
-        <div class="math-block">
-          $$
-          \left\{
+<div class="math-block">
+          \[\left\{
           \begin{alignedat}{5}
           c_{11}\underline{\underline{x_1}} &+ \dots + c_{1,j_2}\!x_{j_2} &+ \dots + c_{1,j_r}\!x_{j_r} &+ \dots + c_{1n}x_n &&= \bar{b}_1, \\
           &\phantom{+\dots+{}} c_{2,j_2}\underline{\underline{x_{j_2}}} &+ \dots + c_{2,j_r}\!x_{j_r} &+ \dots + c_{2n}x_n &&= \bar{b}_2, \\
@@ -548,1651 +538,144 @@ SOFTWARE.
           &&&\phantom{+\dots+{}} \vdots && \quad\;\vdots \\
           &&&\phantom{+\dots+{}} 0 &&= \bar{b}_m.
           \end{alignedat}
-          \right. \qquad (3)
-          $$
+          \right. \qquad (3)\]
         </div>
-
-        <p>
+<p>
           Здесь индексы ступенек удовлетворяют неравенствам $1 = j_1 < j_2 < \dots < j_r \le n$ (при необходимости перенумерации или если $c_{11} \neq 0$, в противном случае первая ступенька начинается с $x_{j_1}$), а все диагонально-ступенчатые (ведущие) коэффициенты отличны от нуля:
-          $$c_{11} \neq 0, \quad c_{2,j_2} \neq 0, \quad \dots, \quad c_{r,j_r} \neq 0.$$
+          \[c_{11} \neq 0, \quad c_{2,j_2} \neq 0, \quad \dots, \quad c_{r,j_r} \neq 0.\]
         </p>
-
-        <div class="statement definition" id="def-1">
-  <div class="block-label">Определение 1</div>
-  <h3 id="sub-2" data-toc="Определение 1.1 (Главные и с…">Определение 1.1 (Главные и свободные неизвестные, совместность и определенность)</h3>
-  
-          
-            <span class="callout-badge">Базовые понятия</span>
-          
-</div>
-          <ul>
-            <li><strong>Главные неизвестные</strong> — это неизвестные $\underline{\underline{x_{j_1}}}, \underline{\underline{x_{j_2}}}, \dots, \underline{\underline{x_{j_r}}}$, стоящие первыми (на «ступеньках») в каждом из $r$ ненулевых уравнений ступенчатой системы $(3)$. Число главных неизвестных в точности равно числу ступенек $r$.</li>
-            <li><strong>Свободные неизвестные</strong> — это все остальные неизвестные системы, не попавшие на ступеньки (они могут стоять как в «промежутках» между соседними ступеньками $x_{j_k}$ и $x_{j_{k+1}}$, так и правее последней главной неизвестной $x_{j_r}$). Так как общее число неизвестных равно $n$, а главных среди них $r$, то <strong>количество свободных неизвестных равно $n - r$</strong>.</li>
-            <li>Система называется <strong>совместной</strong>, если она имеет хотя бы одно решение, и <strong>несовместной</strong>, если решений нет. В ступенчатом виде $(3)$ система совместна тогда и только тогда, когда в ней отсутствуют противоречивые уравнения вида $0 = \bar{b}_k$ при $\bar{b}_k \neq 0$ (то есть при $r < m$ выполнено $\bar{b}_{r+1} = \dots = \bar{b}_m = 0$).</li>
-            <li>Совместная система называется <strong>определенной</strong>, если она имеет <em>единственное</em> решение, и <strong>неопределенной</strong>, если она имеет более одного решения.</li>
-          </ul>
-        </div>
-
-        <!-- SVG ILLUSTRATION 1: ECHELON MATRIX & FREE VARIABLES -->
-        <figure class="figure-card">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 820 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Схема ступенчатого вида системы (3)">
-            <defs>
-              <marker id="arrow-ch1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--ch1-color)"/>
-              </marker>
-            </defs>
-            <!-- Background Grid & Frame -->
-            <rect x="20" y="20" width="780" height="260" rx="10" fill="var(--svg-bg)" stroke="var(--border-color)" stroke-width="1.5"/>
-
-            <!-- Left Panel: Echelon staircase -->
-            <text x="50" y="48" fill="var(--svg-text)" font-size="14" font-weight="700">Структура ступенчатой системы (3): всего n неизвестных, r ступенек</text>
-
-            <!-- Column headers -->
-            <rect x="70" y="62" width="62" height="26" rx="5" fill="var(--svg-highlight-soft)" stroke="var(--svg-highlight)"/>
-            <text x="101" y="80" text-anchor="middle" fill="var(--svg-highlight)" font-size="12" font-weight="700">x₁ (гл.)</text>
-
-            <rect x="138" y="62" width="72" height="26" rx="5" fill="var(--svg-amber-soft)" stroke="var(--svg-amber)"/>
-            <text x="174" y="80" text-anchor="middle" fill="var(--svg-amber)" font-size="12" font-weight="700">... своб. ...</text>
-
-            <rect x="216" y="62" width="68" height="26" rx="5" fill="var(--svg-highlight-soft)" stroke="var(--svg-highlight)"/>
-            <text x="250" y="80" text-anchor="middle" fill="var(--svg-highlight)" font-size="12" font-weight="700">x_j₂ (гл.)</text>
-
-            <rect x="290" y="62" width="72" height="26" rx="5" fill="var(--svg-amber-soft)" stroke="var(--svg-amber)"/>
-            <text x="326" y="80" text-anchor="middle" fill="var(--svg-amber)" font-size="12" font-weight="700">... своб. ...</text>
-
-            <rect x="368" y="62" width="68" height="26" rx="5" fill="var(--svg-highlight-soft)" stroke="var(--svg-highlight)"/>
-            <text x="402" y="80" text-anchor="middle" fill="var(--svg-highlight)" font-size="12" font-weight="700">x_jᵣ (гл.)</text>
-
-            <rect x="442" y="62" width="84" height="26" rx="5" fill="var(--svg-amber-soft)" stroke="var(--svg-amber)"/>
-            <text x="484" y="80" text-anchor="middle" fill="var(--svg-amber)" font-size="12" font-weight="700">x_n (своб.)</text>
-
-            <text x="558" y="80" text-anchor="middle" fill="var(--svg-text)" font-size="12" font-weight="700">Правая часть</text>
-
-            <!-- Echelon Staircase Path -->
-            <path d="M 66 95 L 66 128 L 212 128 L 212 162 L 364 162 L 364 198 L 530 198" fill="none" stroke="var(--svg-highlight)" stroke-width="3"/>
-
-            <!-- Row 1 -->
-            <text x="101" y="116" text-anchor="middle" fill="var(--svg-highlight)" font-size="13" font-weight="700">c₁₁ ≠ 0</text>
-            <text x="174" y="116" text-anchor="middle" fill="var(--svg-muted)" font-size="13">* * *</text>
-            <text x="250" y="116" text-anchor="middle" fill="var(--svg-muted)" font-size="13">c₁,j₂</text>
-            <text x="326" y="116" text-anchor="middle" fill="var(--svg-muted)" font-size="13">* * *</text>
-            <text x="402" y="116" text-anchor="middle" fill="var(--svg-muted)" font-size="13">c₁,jᵣ</text>
-            <text x="484" y="116" text-anchor="middle" fill="var(--svg-muted)" font-size="13">c₁ₙ</text>
-            <text x="558" y="116" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="600">= b̄₁</text>
-
-            <!-- Row 2 -->
-            <text x="135" y="150" text-anchor="middle" fill="var(--svg-muted)" font-size="12">0</text>
-            <text x="250" y="150" text-anchor="middle" fill="var(--svg-highlight)" font-size="13" font-weight="700">c₂,j₂ ≠ 0</text>
-            <text x="326" y="150" text-anchor="middle" fill="var(--svg-muted)" font-size="13">* * *</text>
-            <text x="402" y="150" text-anchor="middle" fill="var(--svg-muted)" font-size="13">c₂,jᵣ</text>
-            <text x="484" y="150" text-anchor="middle" fill="var(--svg-muted)" font-size="13">c₂ₙ</text>
-            <text x="558" y="150" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="600">= b̄₂</text>
-
-            <!-- Row r -->
-            <text x="250" y="186" text-anchor="middle" fill="var(--svg-muted)" font-size="12">0 ... 0</text>
-            <text x="402" y="186" text-anchor="middle" fill="var(--svg-highlight)" font-size="13" font-weight="700">cᵣ,jᵣ ≠ 0</text>
-            <text x="484" y="186" text-anchor="middle" fill="var(--svg-muted)" font-size="13">... cᵣₙ</text>
-            <text x="558" y="186" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="600">= b̄ᵣ</text>
-
-            <!-- Zero rows r+1 .. m -->
-            <rect x="66" y="208" width="528" height="48" rx="6" fill="var(--svg-pos-soft)" stroke="var(--svg-pos)" stroke-dasharray="4 3"/>
-            <text x="330" y="228" text-anchor="middle" fill="var(--svg-pos)" font-size="12" font-weight="700">Уравнения r+1, ..., m имеют вид: 0 = b̄ᵣ₊₁, ..., 0 = b̄ₘ</text>
-            <text x="330" y="246" text-anchor="middle" fill="var(--svg-text)" font-size="11">Для совместности системы необходимо и достаточно: b̄ᵣ₊₁ = ... = b̄ₘ = 0</text>
-
-            <!-- Right Summary Box -->
-            <rect x="610" y="62" width="174" height="194" rx="8" fill="var(--bg-elevated)" stroke="var(--border-color)"/>
-            <text x="697" y="86" text-anchor="middle" fill="var(--svg-text)" font-size="12" font-weight="700">Баланс неизвестных</text>
-            <line x1="622" y1="94" x2="772" y2="94" stroke="var(--border-color)"/>
-            <text x="624" y="116" fill="var(--svg-text)" font-size="12">• Всего неизвестных: <tspan font-weight="700">n</tspan></text>
-            <text x="624" y="140" fill="var(--svg-highlight)" font-size="12">• Главных (ступенек): <tspan font-weight="700">r</tspan></text>
-            <text x="624" y="164" fill="var(--svg-amber)" font-size="12">• Свободных: <tspan font-weight="700">n − r</tspan></text>
-            <line x1="622" y1="178" x2="772" y2="178" stroke="var(--border-color)"/>
-            <text x="697" y="200" text-anchor="middle" fill="var(--svg-pos)" font-size="12" font-weight="700">Единственность ⇔</text>
-            <text x="697" y="220" text-anchor="middle" fill="var(--svg-pos)" font-size="13" font-weight="800">n − r = 0  ⇔  r = n</text>
-            <text x="697" y="242" text-anchor="middle" fill="var(--svg-muted)" font-size="11">(нет свободных неизвестных)</text>
-          </svg></div>
-          <figcaption class="figure-caption">
-            <strong>Рис. 1.1.</strong> Геометрия ступенчатой системы $(3)$ (по кадру лекции): на каждой из $r$ ступенек стоит ровно одна главная неизвестная $\underline{\underline{x_{j_k}}}$ с ненулевым коэффициентом $c_{k,j_k} \neq 0$. Все остальные $n - r$ неизвестных являются свободными и переносятся в правую часть при обратном ходе метода Гаусса.
+<div class="statement definition" id="def-1"><div class="block-label">Определение 1</div><h3 data-toc="Определение 1.1 (Главные и сво…" id="sub-2-2">Определение 1.1 (Главные и свободные неизвестные, совместность и определенность)Базовые понятия</h3><div>
+<ul>
+<li><strong>Главные неизвестные</strong> — это неизвестные $\underline{\underline{x_{j_1}}}, \underline{\underline{x_{j_2}}}, \dots, \underline{\underline{x_{j_r}}}$, стоящие первыми (на «ступеньках») в каждом из $r$ ненулевых уравнений ступенчатой системы $(3)$. Число главных неизвестных в точности равно числу ступенек $r$.</li>
+<li><strong>Свободные неизвестные</strong> — это все остальные неизвестные системы, не попавшие на ступеньки (они могут стоять как в «промежутках» между соседними ступеньками $x_{j_k}$ и $x_{j_{k+1}}$, так и правее последней главной неизвестной $x_{j_r}$). Так как общее число неизвестных равно $n$, а главных среди них $r$, то <strong>количество свободных неизвестных равно $n - r$</strong>.</li>
+<li>Система называется <strong>совместной</strong>, если она имеет хотя бы одно решение, и <strong>несовместной</strong>, если решений нет. В ступенчатом виде $(3)$ система совместна тогда и только тогда, когда в ней отсутствуют противоречивые уравнения вида $0 = \bar{b}_k$ при $\bar{b}_k \neq 0$ (то есть при $r < m$ выполнено $\bar{b}_{r+1} = \dots = \bar{b}_m = 0$).</li>
+<li>Совместная система называется <strong>определенной</strong>, если она имеет <em>единственное</em> решение, и <strong>неопределенной</strong>, если она имеет более одного решения.</li>
+</ul>
+</div></div>
+<!-- SVG ILLUSTRATION 1: ECHELON MATRIX & FREE VARIABLES -->
+<figure class="figure-card">
+<svg aria-label="Схема ступенчатого вида системы (3)" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 820 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrow-ch1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1 L 10 5 L 0 9 z" fill="var(--ch1-color)"></path>
+</marker>
+</defs>
+<!-- Background Grid & Frame -->
+<rect fill="var(--svg-bg)" height="260" rx="10" stroke="var(--border-color)" stroke-width="1.5" width="780" x="20" y="20"></rect>
+<!-- Left Panel: Echelon staircase -->
+<text fill="var(--svg-text)" font-size="14" font-weight="700" x="50" y="48">Структура ступенчатой системы (3): всего n неизвестных, r ступенек</text>
+<!-- Column headers -->
+<rect fill="var(--svg-highlight-soft)" height="26" rx="5" stroke="var(--svg-highlight)" width="62" x="70" y="62"></rect>
+<text fill="var(--svg-highlight)" font-size="12" font-weight="700" text-anchor="middle" x="101" y="80">x₁ (гл.)</text>
+<rect fill="var(--svg-amber-soft)" height="26" rx="5" stroke="var(--svg-amber)" width="72" x="138" y="62"></rect>
+<text fill="var(--svg-amber)" font-size="12" font-weight="700" text-anchor="middle" x="174" y="80">... своб. ...</text>
+<rect fill="var(--svg-highlight-soft)" height="26" rx="5" stroke="var(--svg-highlight)" width="68" x="216" y="62"></rect>
+<text fill="var(--svg-highlight)" font-size="12" font-weight="700" text-anchor="middle" x="250" y="80">x_j₂ (гл.)</text>
+<rect fill="var(--svg-amber-soft)" height="26" rx="5" stroke="var(--svg-amber)" width="72" x="290" y="62"></rect>
+<text fill="var(--svg-amber)" font-size="12" font-weight="700" text-anchor="middle" x="326" y="80">... своб. ...</text>
+<rect fill="var(--svg-highlight-soft)" height="26" rx="5" stroke="var(--svg-highlight)" width="68" x="368" y="62"></rect>
+<text fill="var(--svg-highlight)" font-size="12" font-weight="700" text-anchor="middle" x="402" y="80">x_jᵣ (гл.)</text>
+<rect fill="var(--svg-amber-soft)" height="26" rx="5" stroke="var(--svg-amber)" width="84" x="442" y="62"></rect>
+<text fill="var(--svg-amber)" font-size="12" font-weight="700" text-anchor="middle" x="484" y="80">x_n (своб.)</text>
+<text fill="var(--svg-text)" font-size="12" font-weight="700" text-anchor="middle" x="558" y="80">Правая часть</text>
+<!-- Echelon Staircase Path -->
+<path d="M 66 95 L 66 128 L 212 128 L 212 162 L 364 162 L 364 198 L 530 198" fill="none" stroke="var(--svg-highlight)" stroke-width="3"></path>
+<!-- Row 1 -->
+<text fill="var(--svg-highlight)" font-size="13" font-weight="700" text-anchor="middle" x="101" y="116">c₁₁ ≠ 0</text>
+<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="174" y="116">* * *</text>
+<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="250" y="116">c₁,j₂</text>
+<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="326" y="116">* * *</text>
+<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="402" y="116">c₁,jᵣ</text>
+<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="484" y="116">c₁ₙ</text>
+<text fill="var(--svg-text)" font-size="13" font-weight="600" text-anchor="middle" x="558" y="116">= b̄₁</text>
+<!-- Row 2 -->
+<text fill="var(--svg-muted)" font-size="12" text-anchor="middle" x="135" y="150">0</text>
+<text fill="var(--svg-highlight)" font-size="13" font-weight="700" text-anchor="middle" x="250" y="150">c₂,j₂ ≠ 0</text>
+<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="326" y="150">* * *</text>
+<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="402" y="150">c₂,jᵣ</text>
+<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="484" y="150">c₂ₙ</text>
+<text fill="var(--svg-text)" font-size="13" font-weight="600" text-anchor="middle" x="558" y="150">= b̄₂</text>
+<!-- Row r -->
+<text fill="var(--svg-muted)" font-size="12" text-anchor="middle" x="250" y="186">0 ... 0</text>
+<text fill="var(--svg-highlight)" font-size="13" font-weight="700" text-anchor="middle" x="402" y="186">cᵣ,jᵣ ≠ 0</text>
+<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="484" y="186">... cᵣₙ</text>
+<text fill="var(--svg-text)" font-size="13" font-weight="600" text-anchor="middle" x="558" y="186">= b̄ᵣ</text>
+<!-- Zero rows r+1 .. m -->
+<rect fill="var(--svg-pos-soft)" height="48" rx="6" stroke="var(--svg-pos)" stroke-dasharray="4 3" width="528" x="66" y="208"></rect>
+<text fill="var(--svg-pos)" font-size="12" font-weight="700" text-anchor="middle" x="330" y="228">Уравнения r+1, ..., m имеют вид: 0 = b̄ᵣ₊₁, ..., 0 = b̄ₘ</text>
+<text fill="var(--svg-text)" font-size="11" text-anchor="middle" x="330" y="246">Для совместности системы необходимо и достаточно: b̄ᵣ₊₁ = ... = b̄ₘ = 0</text>
+<!-- Right Summary Box -->
+<rect fill="var(--bg-elevated)" height="194" rx="8" stroke="var(--border-color)" width="174" x="610" y="62"></rect>
+<text fill="var(--svg-text)" font-size="12" font-weight="700" text-anchor="middle" x="697" y="86">Баланс неизвестных</text>
+<line stroke="var(--border-color)" x1="622" x2="772" y1="94" y2="94"></line>
+<text fill="var(--svg-text)" font-size="12" x="624" y="116">• Всего неизвестных: <tspan font-weight="700">n</tspan></text>
+<text fill="var(--svg-highlight)" font-size="12" x="624" y="140">• Главных (ступенек): <tspan font-weight="700">r</tspan></text>
+<text fill="var(--svg-amber)" font-size="12" x="624" y="164">• Свободных: <tspan font-weight="700">n − r</tspan></text>
+<line stroke="var(--border-color)" x1="622" x2="772" y1="178" y2="178"></line>
+<text fill="var(--svg-pos)" font-size="12" font-weight="700" text-anchor="middle" x="697" y="200">Единственность ⇔</text>
+<text fill="var(--svg-pos)" font-size="13" font-weight="800" text-anchor="middle" x="697" y="220">n − r = 0  ⇔  r = n</text>
+<text fill="var(--svg-muted)" font-size="11" text-anchor="middle" x="697" y="242">(нет свободных неизвестных)</text>
+</svg>
+<figcaption class="figure-caption">
+<strong>Рис. 1.1.</strong> Геометрия ступенчатой системы $(3)$ (по кадру лекции): на каждой из $r$ ступенек стоит ровно одна главная неизвестная $\underline{\underline{x_{j_k}}}$ с ненулевым коэффициентом $c_{k,j_k} \neq 0$. Все остальные $n - r$ неизвестных являются свободными и переносятся в правую часть при обратном ходе метода Гаусса.
           </figcaption>
-        </figure>
-
-        <!-- SECTION 1.2 -->
-        <h3 id="sub-3" data-toc="1.2 Следствие 1: Критерий оп…">
-          <span class="sec-tag">§ 1.2</span>
-          <span>Следствие 1: Критерий определенности совместной системы ($r = n$)</span>
-        </h3>
-
-        <div class="statement theorem featured" id="thm-1">
-  <div class="block-label">Утверждение 1</div>
-  <h3 id="sub-4" data-toc="Следствие 1 (Критерий единст…">Следствие 1 (Критерий единственности решения совместной СЛАУ)</h3>
-  
-          
-            <span class="callout-badge">Формулировка с доски</span>
-          
+</figure>
+<!-- SECTION 1.2 -->
+<h3 class="sub-heading" data-toc="1.2Следствие 1: Критерий опред…" id="sec-1-2">
+<span class="sec-tag">§ 1.2</span>
+<span>Следствие 1: Критерий определенности совместной системы ($r = n$)</span>
+</h3>
+<div class="statement theorem featured" id="thm-1"><div class="block-label">Утверждение 1</div><h3 data-toc="Следствие 1 (Критерий единстве…" id="sub-2-4">Следствие 1 (Критерий единственности решения совместной СЛАУ)Формулировка с доски</h3><div>
+<p>
+<strong>Совместная система линейных уравнений является определенной (то есть имеет единственное решение) тогда и только тогда, когда после приведения ее к ступенчатому виду количество ступенек совпадает с количеством неизвестных: $r = n$.</strong>
+</p>
+</div></div>
+<div class="proof" data-proof="" id="proof-1">
+<div aria-label="Доказательство Доказательство Следствия 1 (необходимость и достаточность)" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <p>
-            <strong>Совместная система линейных уравнений является определенной (то есть имеет единственное решение) тогда и только тогда, когда после приведения ее к ступенчатому виду количество ступенек совпадает с количеством неизвестных: $r = n$.</strong>
-          </p>
-        </div>
-
-        
-<div class="proof" id="proof-1" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство Следствия 1 (необходимость и достаточность)">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-1" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Поскольку система по условию <strong>совместна</strong>, в ступенчатом виде $(3)$ отсутствуют противоречивые уравнения вида $0 = \bar{b}_k$ ($\bar{b}_k \neq 0$), и ненулевая часть системы состоит ровно из $r$ ступенчатых уравнений.</p>
-  </div>
-  <div class="proof-full" id="full-1" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство Следствия 1 (необходимость и достаточность))</div>
-    <div class="proof-content">
+<div class="proof-idea" data-proof-idea="" id="idea-1">
+<div class="proof-label">Идея</div>
+<p>Поскольку система по условию совместна, в ступенчатом виде $(3)$ отсутствуют противоречивые уравнения вида $0 = \bar{b}_k$ ($\bar{b}_k \neq 0$), и ненулевая часть системы состоит ровно из $r$ ступенчатых уравнений.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-1">
+<div class="proof-label">Доказательство (Доказательство Следствия 1 (необходимость и достаточность))</div>
+<div class="proof-content">
 <span class="callout-badge">Полное доказательство</span>
-          </div>
-          <p>
+</div>
+<p>
             Поскольку система по условию <strong>совместна</strong>, в ступенчатом виде $(3)$ отсутствуют противоречивые уравнения вида $0 = \bar{b}_k$ ($\bar{b}_k \neq 0$), и ненулевая часть системы состоит ровно из $r$ ступенчатых уравнений. Метод Гаусса при обратном ходе состоит в том, что все $r$ главных неизвестных $\underline{\underline{x_1}}, \underline{\underline{x_{j_2}}}, \dots, \underline{\underline{x_{j_r}}}$, стоящих на ступеньках, последовательно (снизу вверх, от $r$-го уравнения к 1-му) выражаются через остальные — свободные — неизвестные, число которых равно $n - r$.
           </p>
-          <p>
-            <strong>1. Достаточность ($\Leftarrow$).</strong> Пусть после приведения к ступенчатому виду выполнено $r = n$. Тогда число свободных неизвестных равно $n - r = 0$, то есть <em>свободных неизвестных нет ни в одном уравнении</em> (все $n$ неизвестных $x_1, x_2, \dots, x_n$ являются главными, $j_r = n$).
+<p>
+<strong>1. Достаточность ($\Leftarrow$).</strong> Пусть после приведения к ступенчатому виду выполнено $r = n$. Тогда число свободных неизвестных равно $n - r = 0$, то есть <em>свободных неизвестных нет ни в одном уравнении</em> (все $n$ неизвестных $x_1, x_2, \dots, x_n$ являются главными, $j_r = n$).
           </p>
-          <ul>
-            <li>В последнем, $r$-м уравнении $c_{rn}x_n = \bar{b}_r$ нет других неизвестных, кроме $x_n$, а ведущий коэффициент $c_{rn} \neq 0$. Следовательно, $x_n$ выражается <strong>однозначно</strong>:
-              $$x_n = \frac{\bar{b}_r}{c_{rn}}.$$
+<ul>
+<li>В последнем, $r$-м уравнении $c_{rn}x_n = \bar{b}_r$ нет других неизвестных, кроме $x_n$, а ведущий коэффициент $c_{rn} \neq 0$. Следовательно, $x_n$ выражается <strong>однозначно</strong>:
+              \[x_n = \frac{\bar{b}_r}{c_{rn}}.\]
             </li>
-            <li>Подставляя найденное число $x_n$ в $(r-1)$-е уравнение, где также нет свободных неизвестных и коэффициент при главной неизвестной $x_{n-1}$ отличен от нуля ($c_{r-1,n-1} \neq 0$), мы <strong>однозначно</strong> находим $x_{n-1}$.</li>
-            <li>Продолжая этот процесс снизу вверх до первого уравнения, мы однозначно выразим все главные неизвестные $x_n, x_{n-1}, \dots, x_1$. Следовательно, система имеет единственное решение, то есть является определенной.</li>
-          </ul>
-          <p>
-            <strong>2. Необходимость ($\Rightarrow$).</strong> Докажем от противного (или через контрапозицию: $r < n \implies$ решение не единственно). Пусть система совместна, но $r \neq n$. Так как число главных неизвестных $r$ не может превышать общего числа неизвестных $n$, неравенство $r \neq n$ означает, что $r < n$, а значит, количество свободных неизвестных $n - r \ge 1$.
+<li>Подставляя найденное число $x_n$ в $(r-1)$-е уравнение, где также нет свободных неизвестных и коэффициент при главной неизвестной $x_{n-1}$ отличен от нуля ($c_{r-1,n-1} \neq 0$), мы <strong>однозначно</strong> находим $x_{n-1}$.</li>
+<li>Продолжая этот процесс снизу вверх до первого уравнения, мы однозначно выразим все главные неизвестные $x_n, x_{n-1}, \dots, x_1$. Следовательно, система имеет единственное решение, то есть является определенной.</li>
+</ul>
+<p>
+<strong>2. Необходимость ($\Rightarrow$).</strong> Докажем от противного (или через контрапозицию: $r < n \implies$ решение не единственно). Пусть система совместна, но $r \neq n$. Так как число главных неизвестных $r$ не может превышать общего числа неизвестных $n$, неравенство $r \neq n$ означает, что $r < n$, а значит, количество свободных неизвестных $n - r \ge 1$.
           </p>
-          <ul>
-            <li>Пусть $x_s$ — одна из свободных неизвестных. По алгоритму метода Гаусса свободные неизвестные могут принимать произвольные значения из поля $P$, после чего главные неизвестные однозначно выражаются через них.</li>
-            <li>Придадим свободной неизвестной $x_s$ некоторое конкретное значение $x_s = \gamma_1$ (а остальным свободным неизвестным, если они есть, — фиксированные значения, например нули) и вычислим главные неизвестные. Мы получим решение системы, у которого на $s$-м месте стоит число $\gamma_1$.</li>
-            <li>Теперь придадим этой же свободной неизвестной другое значение $x_s = \gamma_2 \neq \gamma_1$. Вычислив заново главные неизвестные, мы получим второе решение системы, у которого на $s$-м месте стоит число $\gamma_2$.</li>
-            <li>Так как $\gamma_1 \neq \gamma_2$, эти два решения заведомо различны (они отличаются как минимум в $s$-й компоненте). Следовательно, решение системы не единственно (система неопределенная).</li>
-          </ul>
-          <p>
+<ul>
+<li>Пусть $x_s$ — одна из свободных неизвестных. По алгоритму метода Гаусса свободные неизвестные могут принимать произвольные значения из поля $P$, после чего главные неизвестные однозначно выражаются через них.</li>
+<li>Придадим свободной неизвестной $x_s$ некоторое конкретное значение $x_s = \gamma_1$ (а остальным свободным неизвестным, если они есть, — фиксированные значения, например нули) и вычислим главные неизвестные. Мы получим решение системы, у которого на $s$-м месте стоит число $\gamma_1$.</li>
+<li>Теперь придадим этой же свободной неизвестной другое значение $x_s = \gamma_2 \neq \gamma_1$. Вычислив заново главные неизвестные, мы получим второе решение системы, у которого на $s$-м месте стоит число $\gamma_2$.</li>
+<li>Так как $\gamma_1 \neq \gamma_2$, эти два решения заведомо различны (они отличаются как минимум в $s$-й компоненте). Следовательно, решение системы не единственно (система неопределенная).</li>
+</ul>
+<p>
             Таким образом, совместная система имеет единственное решение в том и только в том случае, когда в ней нет свободных неизвестных ($n - r = 0$), то есть при $r = n$.
           </p>
-          <div class="qed-symbol">$\blacksquare$ Ч.т.д.</div>
-        
+<div class="qed-symbol">$\blacksquare$ Ч.т.д.</div>
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-
-
-        <!-- SECTION 1.3 -->
-        <h3 id="sub-5" data-toc="1.3 Следствие 2: Совместные …">
-          <span class="sec-tag">§ 1.3</span>
-          <span>Следствие 2: Совместные системы с числом уравнений меньше числа неизвестных ($m < n$)</span>
-        </h3>
-
-        <p>
-          Следствия 2 и 3 выделяют важнейшие частные случаи, в которых условие $r < n$ (наличие свободных неизвестных) выполняется <strong>заведомо</strong> в силу самой формы матрицы системы, еще до выполнения вычислений.
-        </p>
-
-        <div class="statement theorem" id="thm-2">
-  <div class="block-label">Утверждение 2</div>
-  <h3 id="sub-6" data-toc="Следствие 2 (Неопределенност…">Следствие 2 (Неопределенность совместной системы при $m < n$)</h3>
-  
-          
-            <span class="callout-badge">Формулировка с доски</span>
-          
 </div>
-          <p>
-            <strong>Совместная система линейных уравнений с количеством уравнений строго меньшим количества неизвестных ($m < n$) всегда является неопределенной.</strong>
-          </p>
-        </div>
-
-        
-<div class="proof" id="proof-2" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство Следствия 2">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-2" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Пусть совместная система состоит из $m$ уравнений и содержит $n$ неизвестных, причем $m < n$ (матрица коэффициентов вытянута по горизонтали). Приведем систему к ступенчатому виду $(3)$, в котором она содержит $r$ ненулевых уравнений (ступенек).</p>
-  </div>
-  <div class="proof-full" id="full-2" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство Следствия 2)</div>
-    <div class="proof-content">
-<span class="callout-badge">Полное доказательство</span>
-          </div>
-          <p>
-            Пусть совместная система состоит из $m$ уравнений и содержит $n$ неизвестных, причем $m < n$ (матрица коэффициентов вытянута по горизонтали). Приведем систему к ступенчатому виду $(3)$, в котором она содержит $r$ ненулевых уравнений (ступенек).
-          </p>
-          <ol>
-            <li>Каждая ступенька соответствует одному ненулевому уравнению ступенчатой системы, а общее количество уравнений при приведении к ступенчатому виду не увеличивается. Следовательно, число ступенек $r$ никогда не превосходит исходного количества уравнений $m$:
-              $$r \le m.$$
-            </li>
-            <li>По условию следствия количество уравнений строго меньше количества неизвестных:
-              $$m < n.$$
-            </li>
-            <li>Объединяя оба соотношения, получаем строгую цепочку неравенств:
-              $$r \le m < n \implies r < n.$$
-            </li>
-            <li>Так как $r < n$ (а значит, $r \neq n$ и число свободных неизвестных $n - r \ge n - m \ge 1$), по доказанному выше <strong>Следствию 1</strong> совместная система не может быть определенной. Следовательно, она всегда является <strong>неопределенной</strong> (имеет более одного решения).</li>
-          </ol>
-          <div class="qed-symbol">$\blacksquare$ Ч.т.д.</div>
-        
-<span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-
-
-        <!-- SVG ILLUSTRATION 2: RECTANGULAR MATRIX m < n -->
-        <figure class="figure-card">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Геометрическая схема прямоугольной системы при m меньше n">
-            <rect x="20" y="15" width="720" height="170" rx="10" fill="var(--svg-bg)" stroke="var(--border-color)"/>
-            <!-- Top brace for n unknowns -->
-            <text x="260" y="42" text-anchor="middle" fill="var(--ch1-color)" font-size="13" font-weight="700">Количество неизвестных: n (ширина матрицы)</text>
-            <line x1="90" y1="50" x2="430" y2="50" stroke="var(--ch1-color)" stroke-width="2"/>
-            <line x1="90" y1="45" x2="90" y2="55" stroke="var(--ch1-color)" stroke-width="2"/>
-            <line x1="430" y1="45" x2="430" y2="55" stroke="var(--ch1-color)" stroke-width="2"/>
-
-            <!-- Left brace for m equations -->
-            <text x="52" y="110" text-anchor="middle" fill="var(--thm-color)" font-size="12" font-weight="700" transform="rotate(-90 52 110)">Кол-во уравнений m</text>
-            <rect x="90" y="62" width="340" height="96" rx="4" fill="var(--bg-elevated)" stroke="var(--thm-color)" stroke-width="2"/>
-
-            <!-- Echelon steps inside m x n rectangle -->
-            <path d="M 90 62 L 90 88 L 155 88 L 155 114 L 230 114 L 230 138 L 430 138" fill="none" stroke="var(--svg-pos)" stroke-width="3"/>
-            <rect x="92" y="64" width="336" height="72" fill="var(--svg-pos-soft)" opacity="0.45"/>
-            <text x="315" y="102" text-anchor="middle" fill="var(--svg-pos)" font-size="13" font-weight="700">r ступенек (r ≤ m)</text>
-            <text x="260" y="153" text-anchor="middle" fill="var(--svg-muted)" font-size="11">Нулевые строки (если r &lt; m)</text>
-
-            <!-- Formula explanation on the right -->
-            <rect x="460" y="45" width="260" height="120" rx="8" fill="var(--cor-bg)" stroke="var(--cor-border)"/>
-            <text x="590" y="74" text-anchor="middle" fill="var(--cor-color)" font-size="14" font-weight="800">Цепочка неравенств (с доски):</text>
-            <text x="590" y="104" text-anchor="middle" fill="var(--svg-text)" font-size="18" font-weight="800">r ≤ m &lt; n  ⇒  r &lt; n</text>
-            <text x="590" y="132" text-anchor="middle" fill="var(--svg-text)" font-size="12">Свободных неизвестных: n − r ≥ n − m ≥ 1</text>
-            <text x="590" y="150" text-anchor="middle" fill="var(--cor-color)" font-size="12" font-weight="700">⇒ Система всегда неопределенная!</text>
-          </svg></div>
-          <figcaption class="figure-caption">
-            <strong>Рис. 1.2.</strong> Иллюстрация к Следствию 2 (воспроизведение рисунка с доски): если прямоугольник матрицы системы имеет высоту $m$ строго меньше ширины $n$, то число ступенек $r$, помещающихся по высоте внутри $m$ строк, удовлетворяет неравенству $r \le m < n$.
-          </figcaption>
-        </figure>
-
-        <!-- SECTION 1.4 -->
-        <h3 id="sub-7" data-toc="1.4 Следствие 3: Однородные …">
-          <span class="sec-tag">§ 1.4</span>
-          <span>Следствие 3: Однородные системы линейных уравнений и нетривиальные решения</span>
-        </h3>
-
-        <div class="statement definition" id="def-2">
-  <div class="block-label">Определение 2</div>
-  <h3 id="sub-8" data-toc="Определение 1.2 (Однородная …">Определение 1.2 (Однородная система, тривиальное и нетривиальное решения)</h3>
-  
-          
-            <span class="callout-badge">Определение</span>
-          
-</div>
-          <p>
-            Система линейных уравнений называется <strong>однородной</strong>, если все свободные члены (коэффициенты в правой части каждого уравнения) равны нулю:
-          </p>
-          <div class="math-block">
-            $$
-            \begin{cases}
-            a_{11}x_1 + a_{12}x_2 + \dots + a_{1n}x_n = 0, \\
-            a_{21}x_1 + a_{22}x_2 + \dots + a_{2n}x_n = 0, \\
-            \dots\dots\dots\dots\dots\dots\dots\dots\dots\dots \\
-            a_{m1}x_1 + a_{m2}x_2 + \dots + a_{mn}x_n = 0.
-            \end{cases}
-            $$
-          </div>
-          <ul>
-            <li><strong>Свойство всегдашней совместности:</strong> Всякая однородная система <strong>всегда совместна</strong>, так как набор из одних нулей $(0, 0, \dots, 0)$ при подстановке в любое уравнение дает верное равенство $0 = 0$.</li>
-            <li>Решение $(0, 0, \dots, 0)$ называется <strong>нулевым</strong> или <strong>тривиальным решением</strong>.</li>
-            <li>Всякое решение $(x_1, x_2, \dots, x_n) \neq (0, 0, \dots, 0)$ (в котором хотя бы одно число $x_k \neq 0$) называется <strong>ненулевым</strong> или <strong>нетривиальным решением</strong>.</li>
-          </ul>
-          <p>
-            Поэтому вопрос об определенности или неопределенности однородной системы равносилен вопросу о том, <em>существует ли у нее нетривиальное решение</em> помимо нулевого.
-          </p>
-        </div>
-
-        <div class="statement theorem" id="thm-3">
-  <div class="block-label">Утверждение 3</div>
-  <h3 id="sub-9" data-toc="Следствие 3 (О существовании…">Следствие 3 (О существовании нетривиального решения однородной системы)</h3>
-  
-          
-            <span class="callout-badge">Формулировка с доски</span>
-          
-</div>
-          <p>
-            <strong>Однородная система линейных уравнений с количеством уравнений строго меньшим количества неизвестных ($m < n$) всегда имеет нетривиальное (отличное от $(0, 0, \dots, 0)$) решение.</strong>
-          </p>
-          <p style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 0.4rem;">
-            <em>Замечание лектора:</em> В формулировке Следствия 3 уже не нужно писать слово «совместная», так как всякая однородная система совместна автоматически!
-          </p>
-        </div>
-
-        
-<div class="proof" id="proof-3" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство Следствия 3">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-3" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (Доказательство Следствия 3).</p>
-  </div>
-  <div class="proof-full" id="full-3" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство Следствия 3)</div>
-    <div class="proof-content">
-<span class="callout-badge">Полное доказательство</span>
-          </div>
-          <ol>
-            <li>Рассматриваемая система является однородной, поэтому она заведомо <strong>совместна</strong>: она всегда имеет по крайней мере тривиальное решение $(0, 0, \dots, 0)$.</li>
-            <li>По условию в этой системе количество уравнений строго меньше количества неизвестных ($m < n$).</li>
-            <li>Применяя к этой совместной системе с $m < n$ доказанное выше <strong>Следствие 2</strong>, заключаем, что данная однородная система является <strong>неопределенной</strong>, то есть имеет более одного решения.</li>
-            <li>Поскольку решений больше одного, а тривиальное решение $(0, 0, \dots, 0)$ — лишь одно конкретное решение, у системы обязательно существует хотя бы одно решение $(c_1, c_2, \dots, c_n) \neq (0, 0, \dots, 0)$, то есть <strong>нетривиальное решение</strong>.</li>
-          </ol>
-          <div class="qed-symbol">$\blacksquare$ Ч.т.д.</div>
-        
-<span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-
-
-        <div class="callout literature">
-          <div class="callout-header">
-            <span>Академический контекст (А. Г. Курош, «Курс высшей алгебры», Гл. 1, § 2; А. И. Кострикин, «Введение в алгебру», Ч. 1, Гл. 1, § 3)</span>
-            <span class="callout-badge">Кострикин &amp; Курош</span>
-          </div>
-          <p>
-            В учебниках А. Г. Куроша и А. И. Кострикина <strong>Следствие 3</strong> выделяется в ранг самостоятельной фундаментальной теоремы теории линейных уравнений: <em>«Если в однородной системе линейных уравнений число уравнений меньше числа неизвестных, то эта система имеет нетривиальные решения»</em>. В последующих главах курса именно из этого факта без всяких дополнительных вычислений доказывается, что любые $n+1$ векторов в $n$-мерном пространстве линейно зависимы.
-          </p>
-        </div>
-      </section>
-
-      <!-- =====================================================================
-           CHAPTER 2: ПРАВИЛО КРАМЕРА И ОПРЕДЕЛИТЕЛИ 2-ГО И 3-ГО ПОРЯДКОВ
-           ===================================================================== -->
-      <section class="chapter-section" id="chapter-2">
-        <div class="chapter-banner ch2">
-          <span class="chapter-kicker">Тема II • Определители малых порядков и квадратные СЛАУ</span>
-</section>
-
-<section class="chapter" aria-labelledby="chapter-3">
-  <div class="chapter-kicker">03 / Правило Крамера для систем 2…</div>
-  <h2 id="chapter-3" data-toc="Правило Крамера для систем 2…">Правило Крамера для систем $2 \times 2$. Определители 2-го и 3-го порядков</h2>
-  </div>
-
-        <h3 id="sub-10" data-toc="2.1 Квадратная система двух …">
-          <span class="sec-tag">§ 2.1</span>
-          <span>Квадратная система двух уравнений с двумя неизвестными: вывод формул</span>
-        </h3>
-
-        <p>
-          <strong>Правило Крамера</strong> формулируется исключительно для <strong>квадратных систем</strong> линейных уравнений, то есть систем, в которых количество уравнений совпадает с количеством неизвестных ($m = n$). В данной лекции мы детально выведем и докажем правило Крамера для случая $n = 2$ (поскольку в дальнейшем, после изучения свойств определителей $n$-го порядка, теорема Крамера будет доказана сразу для произвольного $n$).
-        </p>
-
-        <p>
-          Рассмотрим систему двух линейных уравнений с двумя неизвестными $x$ и $y$ (в общей индексации коэффициентов $a_{ij}$ из поля $P$), которую обозначим номером $(1)$:
-        </p>
-
-        <div class="math-block">
-          $$
-          \begin{cases}
-          a_{11}x + a_{12}y = b_1, \\
-          a_{21}x + a_{22}y = b_2.
-          \end{cases} \qquad (1)
-          $$
-        </div>
-
-        
-<div class="proof" id="proof-4" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Аналитический вывод формул для неизвестных (Метод исключения))">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-4" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Допустим, что система $(1)$ совместна и пара чисел $(\alpha, \beta)$ является ее решением. Подставляя $x = \alpha$ и $y = \beta$ в уравнения системы $(1)$, получаем два верных числовых равенства в поле $P$:</p>
-  </div>
-  <div class="proof-full" id="full-4" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Аналитический вывод формул для неизвестных (Метод исключения)))</div>
-    <div class="proof-content">
-<span class="callout-badge">Вывод с доски</span>
-          </div>
-          <p>
-            Допустим, что система $(1)$ совместна и пара чисел $(\alpha, \beta)$ является ее решением. Подставляя $x = \alpha$ и $y = \beta$ в уравнения системы $(1)$, получаем два верных числовых равенства в поле $P$:
-          </p>
-          <div class="math-block">
-            $$
-            \begin{array}{rcrcr|c|c}
-            a_{11}\alpha &+& a_{12}\beta &=& b_1 & \;\cdot\, a_{22}\; & \;\cdot\, (-a_{21})\; \\[4pt]
-            a_{21}\alpha &+& a_{22}\beta &=& b_2 & \;\cdot\, (-a_{12})\; & \;\cdot\, a_{11}\;
-            \end{array}
-            $$
-          </div>
-          <p>
-            <strong>Шаг 1. Выражение для $\alpha$ (зануление коэффициента при $\beta$).</strong><br>
-            Умножим первое верное равенство на $a_{22}$, а второе — на $(-a_{12})$ и сложим полученные равенства почленно:
-            $$(a_{11}a_{22}\alpha + a_{12}a_{22}\beta) + (-a_{21}a_{12}\alpha - a_{22}a_{12}\beta) = b_1 a_{22} - b_2 a_{12}.$$
-            В силу коммутативности умножения в поле слагаемые $a_{12}a_{22}\beta$ и $-a_{22}a_{12}\beta$ взаимно уничтожаются. Вынося $\alpha$ за скобку, получаем:
-            $$(a_{11}a_{22} - a_{21}a_{12})\alpha = b_1 a_{22} - b_2 a_{12}.$$
-          </p>
-          <p>
-            <strong>Шаг 2. Выражение для $\beta$ (зануление коэффициента при $\alpha$).</strong><br>
-            Чтобы получить перед $\beta$ <em>в точности такой же</em> коэффициент $(a_{11}a_{22} - a_{21}a_{12})$, какой получился перед $\alpha$, умножим первое равенство на $(-a_{21})$, а второе — на $(+a_{11})$ и сложим их:
-            $$(-a_{11}a_{21}\alpha - a_{12}a_{21}\beta) + (a_{21}a_{11}\alpha + a_{22}a_{11}\beta) = -b_1 a_{21} + b_2 a_{11}.$$
-            Слагаемые с $\alpha$ сокращаются, и после группировки при $\beta$ получаем:
-            $$(a_{11}a_{22} - a_{21}a_{12})\beta = b_2 a_{11} - b_1 a_{21}.$$
-          </p>
-          <p>
-            <strong>Шаг 3. Деление на общий коэффициент $\Delta$.</strong><br>
-            Обозначим общее выражение, стоящее в скобках перед $\alpha$ и $\beta$, буквой $\Delta$:
-            $$\Delta = a_{11}a_{22} - a_{21}a_{12}.$$
-            Если $\Delta \neq 0$, то, разделив оба полученных равенства на $\Delta$, мы однозначно находим $\alpha$ и $\beta$:
-            $$\alpha = \frac{b_1 a_{22} - b_2 a_{12}}{\Delta}, \qquad \beta = \frac{-b_1 a_{21} + b_2 a_{11}}{\Delta} = \frac{b_2 a_{11} - b_1 a_{21}}{\Delta}.$$
-          </p>
-        
-<span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-
-
-        <!-- SECTION 2.2 -->
-        <h3 id="sub-11" data-toc="2.2 Принципиальная тонкость:…">
-          <span class="sec-tag">§ 2.2</span>
-          <span>Принципиальная тонкость: почему вывод формул еще не доказывает существование решения?</span>
-        </h3>
-
-        <div class="callout callout-warn">
-          <div class="callout-header">
-            <span>Критически важное замечание лектора (Ловушка неэквивалентных преобразований!)</span>
-            <span class="callout-badge">Внимание: вопрос экзамена</span>
-          </div>
-          <p>
-            <strong>Вопрос:</strong> Почему нельзя сказать, что мы просто применили к системе $(1)$ элементарные преобразования метода Гаусса (умножили строки на $a_{22}, -a_{12}, -a_{21}, a_{11}$ и сложили) и сразу получили эквивалентную систему $\begin{cases} \Delta \cdot x = \Delta_1 \\ \Delta \cdot y = \Delta_2 \end{cases}$ без всякой обратной подстановки?
-          </p>
-          <p>
-            <strong>Ответ и строгое обоснование:</strong> В методе Гаусса элементарное преобразование (умножение уравнения на число или замена уравнения линейной комбинацией) сохраняет эквивалентность системы <strong>только тогда, когда множитель при преобразуемом уравнении заведомо отличен от нуля!</strong>
-          </p>
-          <p>
-            Однако в общей системе $(1)$ мы знаем лишь то, что весь определитель $\Delta = a_{11}a_{22} - a_{21}a_{12} \neq 0$, но мы <strong>не знаем</strong>, равны ли нулю отдельные коэффициенты $a_{22}, a_{12}, a_{21}, a_{11}$!
-          </p>
-          <p>
-            <em>Наглядный контрпример:</em> Рассмотрим систему
-            $$\begin{cases} 0\cdot x + 1\cdot y = b_1, \\ 1\cdot x + 0\cdot y = b_2. \end{cases}$$
-            Здесь $a_{11} = 0, a_{12} = 1, a_{21} = 1, a_{22} = 0$, и определитель $\Delta = 0\cdot 0 - 1\cdot 1 = -1 \neq 0$. Если мы в самом начале умножим первое уравнение на $a_{22} = 0$, оно превратится в $0 = 0$, и информация о первом уравнении потеряется — полученная система перестанет быть эквивалентной исходной!
-          </p>
-          <p>
-            Именно поэтому рассуждение в § 2.1 доказывает только <strong>импликацию в одну сторону (единственность)</strong>:
-            $$\text{«Если }(\alpha, \beta)\text{ --- решение системы }(1),\text{ то обязательно }\alpha = \frac{\Delta_1}{\Delta},\; \beta = \frac{\Delta_2}{\Delta}\text{».}$$
-            А чтобы доказать <strong>существование решения</strong> (то есть что эти числа действительно удовлетворяют исходной системе $(1)$ при любых коэффициентах с $\Delta \neq 0$), мы <strong>обязаны подставить</strong> найденные выражения обратно в систему $(1)$ и проверить, что оба уравнения обращаются в тождества!
-          </p>
-        </div>
-
-        <!-- SECTION 2.3 -->
-        <h3 id="sub-12" data-toc="2.3 Определитель 2-го порядк…">
-          <span class="sec-tag">§ 2.3</span>
-          <span>Определитель 2-го порядка и полное доказательство Правила Крамера</span>
-        </h3>
-
-        <p>
-          Выпишем расширенную матрицу системы $(1)$ и отдельно — квадратную матрицу коэффициентов при неизвестных (основную матрицу системы):
-        </p>
-
-        <div class="math-block">
-          $$
-          (A\,|\,B) = \left(\begin{array}{cc|c} a_{11} & a_{12} & b_1 \\ a_{21} & a_{22} & b_2 \end{array}\right), \qquad
-          A = \begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix}.
-          $$
-        </div>
-
-        <div class="statement definition" id="def-3">
-  <div class="block-label">Определение 3</div>
-  <h3 id="sub-13" data-toc="Определение 2.1 (Определител…">Определение 2.1 (Определитель второго порядка)</h3>
-  
-          
-            <span class="callout-badge">Определение</span>
-          
-</div>
-          <p>
-            <strong>Определителем второго порядка</strong> (или определителем матрицы второго порядка $A$) называется выражение (число из поля $P$), равное разности произведения элементов главной диагонали и произведения элементов побочной диагонали:
-          </p>
-          <div class="math-block">
-            $$
-            \Delta = \det A = \begin{vmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{vmatrix} = a_{11}a_{22} - a_{12}a_{21}.
-            $$
-          </div>
-          <p style="font-size: 0.88rem; color: var(--text-secondary);">
-            <em>Примечание:</em> Определитель обозначается прямыми вертикальными чертами (в отличие от круглых скобок у матрицы). Поскольку элементы лежат в поле $P$, где умножение коммутативно, записи $a_{12}a_{21}$ и $a_{21}a_{12}$ тождественно равны.
-          </p>
-        </div>
-
-        <p>
-          Запишем теперь числители выражений для $\alpha$ и $\beta$ из § 2.1 в виде определителей второго порядка (хотя одно и то же выражение $b_1 a_{22} - b_2 a_{12}$ можно записать в виде определителя разными способами, для единого правила нам нужен именно тот вариант, который получается заменой столбца исходной матрицы):
-        </p>
-
-        <div class="math-block">
-          $$
-          \Delta_1 = b_1 a_{22} - b_2 a_{12} = \begin{vmatrix} b_1 & a_{12} \\ b_2 & a_{22} \end{vmatrix}, \qquad
-          \Delta_2 = b_2 a_{11} - b_1 a_{21} = a_{11}b_2 - a_{21}b_1 = \begin{vmatrix} a_{11} & b_1 \\ a_{21} & b_2 \end{vmatrix}.
-          $$
-        </div>
-
-        <p>
-          Нетрудно заметить красивую закономерность: определитель $\Delta_1$ получается из определителя системы $\Delta$ <strong>заменой первого столбца</strong> на столбец свободных членов $\binom{b_1}{b_2}$, а определитель $\Delta_2$ — <strong>заменой второго столбца</strong> на столбец свободных членов $\binom{b_1}{b_2}$.
-        </p>
-
-        <!-- SVG ILLUSTRATION 3: CRAMER'S RULE 2x2 -->
-        <figure class="figure-card">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 820 215" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Схема правила Крамера и определителей второго порядка">
-            <rect x="15" y="12" width="790" height="190" rx="10" fill="var(--svg-bg)" stroke="var(--border-color)"/>
-
-            <!-- Delta -->
-            <rect x="35" y="32" width="230" height="150" rx="8" fill="var(--bg-elevated)" stroke="var(--ch1-border)"/>
-            <text x="150" y="54" text-anchor="middle" fill="var(--ch1-color)" font-size="13" font-weight="800">Определитель системы Δ</text>
-            <line x1="95" y1="70" x2="95" y2="135" stroke="var(--svg-text)" stroke-width="2"/>
-            <line x1="205" y1="70" x2="205" y2="135" stroke="var(--svg-text)" stroke-width="2"/>
-            <!-- Cross diagonals -->
-            <line x1="115" y1="82" x2="185" y2="122" stroke="var(--svg-pos)" stroke-width="3" opacity="0.6"/>
-            <line x1="185" y1="82" x2="115" y2="122" stroke="var(--svg-neg)" stroke-width="3" opacity="0.6"/>
-            <text x="120" y="90" text-anchor="middle" fill="var(--svg-text)" font-size="14" font-weight="700">a₁₁</text>
-            <text x="180" y="90" text-anchor="middle" fill="var(--svg-text)" font-size="14" font-weight="700">a₁₂</text>
-            <text x="120" y="126" text-anchor="middle" fill="var(--svg-text)" font-size="14" font-weight="700">a₂₁</text>
-            <text x="180" y="126" text-anchor="middle" fill="var(--svg-text)" font-size="14" font-weight="700">a₂₂</text>
-            <text x="150" y="162" text-anchor="middle" fill="var(--svg-text)" font-size="12" font-weight="700">Δ = <tspan fill="var(--svg-pos)">a₁₁a₂₂</tspan> − <tspan fill="var(--svg-neg)">a₁₂a₂₁</tspan></text>
-
-            <!-- Delta 1 -->
-            <rect x="295" y="32" width="230" height="150" rx="8" fill="var(--bg-elevated)" stroke="var(--ch2-border)"/>
-            <text x="410" y="54" text-anchor="middle" fill="var(--ch2-color)" font-size="13" font-weight="800">Замена 1-го столбца → Δ₁</text>
-            <line x1="355" y1="70" x2="355" y2="135" stroke="var(--svg-text)" stroke-width="2"/>
-            <line x1="465" y1="70" x2="465" y2="135" stroke="var(--svg-text)" stroke-width="2"/>
-            <rect x="363" y="72" width="36" height="60" rx="5" fill="var(--svg-amber-soft)" stroke="var(--svg-amber)"/>
-            <text x="381" y="92" text-anchor="middle" fill="var(--svg-amber)" font-size="14" font-weight="800">b₁</text>
-            <text x="381" y="124" text-anchor="middle" fill="var(--svg-amber)" font-size="14" font-weight="800">b₂</text>
-            <text x="440" y="92" text-anchor="middle" fill="var(--svg-text)" font-size="14" font-weight="700">a₁₂</text>
-            <text x="440" y="124" text-anchor="middle" fill="var(--svg-text)" font-size="14" font-weight="700">a₂₂</text>
-            <text x="410" y="162" text-anchor="middle" fill="var(--svg-text)" font-size="12" font-weight="700">Δ₁ = b₁a₂₂ − b₂a₁₂ ⇒ x = Δ₁/Δ</text>
-
-            <!-- Delta 2 -->
-            <rect x="555" y="32" width="230" height="150" rx="8" fill="var(--bg-elevated)" stroke="var(--ch3-border)"/>
-            <text x="670" y="54" text-anchor="middle" fill="var(--ch3-color)" font-size="13" font-weight="800">Замена 2-го столбца → Δ₂</text>
-            <line x1="615" y1="70" x2="615" y2="135" stroke="var(--svg-text)" stroke-width="2"/>
-            <line x1="725" y1="70" x2="725" y2="135" stroke="var(--svg-text)" stroke-width="2"/>
-            <text x="640" y="92" text-anchor="middle" fill="var(--svg-text)" font-size="14" font-weight="700">a₁₁</text>
-            <text x="640" y="124" text-anchor="middle" fill="var(--svg-text)" font-size="14" font-weight="700">a₂₁</text>
-            <rect x="681" y="72" width="36" height="60" rx="5" fill="var(--svg-amber-soft)" stroke="var(--svg-amber)"/>
-            <text x="699" y="92" text-anchor="middle" fill="var(--svg-amber)" font-size="14" font-weight="800">b₁</text>
-            <text x="699" y="124" text-anchor="middle" fill="var(--svg-amber)" font-size="14" font-weight="800">b₂</text>
-            <text x="670" y="162" text-anchor="middle" fill="var(--svg-text)" font-size="12" font-weight="700">Δ₂ = a₁₁b₂ − a₂₁b₁ ⇒ y = Δ₂/Δ</text>
-          </svg></div>
-          <figcaption class="figure-caption">
-            <strong>Рис. 2.1.</strong> Визуализация правила Крамера для системы $2 \times 2$: в определителе $\Delta_k$ ($k=1,2$) $k$-й столбец основной матрицы заменяется на столбец правых частей $(b_1, b_2)^T$.
-          </figcaption>
-        </figure>
-
-        <div class="statement theorem" id="thm-4">
-  <div class="block-label">Утверждение 4</div>
-  <h3 id="sub-14" data-toc="Теорема 2.1 (Правило Крамера…">Теорема 2.1 (Правило Крамера для системы двух линейных уравнений с двумя неизвестными)</h3>
-  
-          
-            <span class="callout-badge">Теорема с доски</span>
-          
-</div>
-          <p>
-            <strong>Если в системе линейных уравнений $(1)$ определитель матрицы системы отличен от нуля:</strong>
-            $$\Delta = \begin{vmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{vmatrix} \neq 0,$$
-            <strong>то система $(1)$ имеет единственное решение, которое находится по формулам:</strong>
-            $$x = \frac{\Delta_1}{\Delta}, \qquad y = \frac{\Delta_2}{\Delta},$$
-            <strong>где $\Delta_1 = \begin{vmatrix} b_1 & a_{12} \\ b_2 & a_{22} \end{vmatrix}$ и $\Delta_2 = \begin{vmatrix} a_{11} & b_1 \\ a_{21} & b_2 \end{vmatrix}$.</strong>
-          </p>
-        </div>
-
-        
-<div class="proof" id="proof-5" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство Теоремы 2.1 (Единственность + Существование подстановкой)">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-5" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Доказательство состоит из двух обязательных частей.</p>
-  </div>
-  <div class="proof-full" id="full-5" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство Теоремы 2.1 (Единственность + Существование подстановкой))</div>
-    <div class="proof-content">
-<span class="callout-badge">Полное доказательство</span>
-          </div>
-          <p>
-            Доказательство состоит из двух обязательных частей.
-          </p>
-          <p>
-            <strong>Часть 1. Доказательство единственности (если решение есть, то оно только такое).</strong><br>
-            Пусть пара чисел $(\alpha, \beta)$ является решением системы $(1)$. Тогда, как было строго выведено в § 2.1 путем умножения уравнений на $a_{22}, -a_{12}$ и на $-a_{21}, a_{11}$ и их почленного сложения, числа $\alpha$ и $\beta$ удовлетворяют соотношениям:
-            $$\Delta \cdot \alpha = \Delta_1, \qquad \Delta \cdot \beta = \Delta_2.$$
-            Поскольку по условию теоремы $\Delta \neq 0$, из этих равенств однозначно следует:
-            $$\alpha = \frac{\Delta_1}{\Delta}, \qquad \beta = \frac{\Delta_2}{\Delta}.$$
-            Это доказывает, что у системы $(1)$ не может быть двух различных решений (решение, если оно существует, единственно).
-          </p>
-          <p>
-            <strong>Часть 2. Доказательство существования (прямая проверка подстановкой в систему $(1)$).</strong><br>
-            Покажем, что пара чисел $x = \frac{\Delta_1}{\Delta}$ и $y = \frac{\Delta_2}{\Delta}$ действительно удовлетворяет обоим уравнениям системы $(1)$.
-          </p>
-          <p>
-            Подставим $x = \frac{\Delta_1}{\Delta}$ и $y = \frac{\Delta_2}{\Delta}$ в левую часть <strong>первого уравнения</strong> $a_{11}x + a_{12}y = b_1$:
-          </p>
-          <div class="math-block">
-            $$
-            \begin{aligned}
-            a_{11}\cdot\frac{\Delta_1}{\Delta} + a_{12}\cdot\frac{\Delta_2}{\Delta}
-            &= \frac{1}{\Delta}\Big( a_{11}(b_1 a_{22} - b_2 a_{12}) + a_{12}(b_2 a_{11} - b_1 a_{21}) \Big) = \\[4pt]
-            &= \frac{1}{\Delta}\Big( a_{11}a_{22}b_1 - \underline{a_{11}a_{12}b_2} + \underline{a_{12}a_{11}b_2} - a_{12}a_{21}b_1 \Big).
-            \end{aligned}
-            $$
-          </div>
-          <p>
-            Подчеркнутые слагаемые $-a_{11}a_{12}b_2$ и $+a_{12}a_{11}b_2$ одинаковы по модулю и противоположны по знаку, поэтому они взаимно уничтожаются. В оставшихся двух слагаемых вынесем общий множитель $b_1$ за скобку:
-          </p>
-          <div class="math-block">
-            $$
-            \frac{1}{\Delta}\cdot b_1 (a_{11}a_{22} - a_{12}a_{21}) = \frac{1}{\Delta}\cdot b_1 \cdot \Delta = b_1.
-            $$
-          </div>
-          <p>
-            Первое уравнение обратилось в верное равенство $b_1 = b_1$.
-          </p>
-          <p>
-            Аналогично подставим $x = \frac{\Delta_1}{\Delta}$ и $y = \frac{\Delta_2}{\Delta}$ в левую часть <strong>второго уравнения</strong> $a_{21}x + a_{22}y = b_2$:
-          </p>
-          <div class="math-block">
-            $$
-            \begin{aligned}
-            a_{21}\cdot\frac{\Delta_1}{\Delta} + a_{22}\cdot\frac{\Delta_2}{\Delta}
-            &= \frac{1}{\Delta}\Big( a_{21}(b_1 a_{22} - b_2 a_{12}) + a_{22}(b_2 a_{11} - b_1 a_{21}) \Big) = \\[4pt]
-            &= \frac{1}{\Delta}\Big( \underline{a_{21}a_{22}b_1} - a_{21}a_{12}b_2 + a_{22}a_{11}b_2 - \underline{a_{22}a_{21}b_1} \Big) = \\[4pt]
-            &= \frac{1}{\Delta}\cdot b_2 (a_{11}a_{22} - a_{12}a_{21}) = \frac{1}{\Delta}\cdot b_2 \cdot \Delta = b_2.
-            \end{aligned}
-            $$
-          </div>
-          <p>
-            Второе уравнение также обратилось в верное равенство $b_2 = b_2$. Следовательно, найденная пара $(\Delta_1/\Delta, \Delta_2/\Delta)$ действительно является решением системы $(1)$, и притом единственным.
-          </p>
-          <div class="qed-symbol">$\blacksquare$ Теорема полностью доказана.</div>
-        
-<span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-
-
-        <div class="callout literature">
-          <div class="callout-header">
-            <span>Дополнение по А. Г. Курошу и А. И. Кострикину: что происходит при $\Delta = 0$?</span>
-            <span class="callout-badge">Кострикин &amp; Курош</span>
-          </div>
-          <p>
-            Как подчеркнуто на лекции, само по себе правило Крамера рассматривает только случай $\Delta \neq 0$. В учебнике А. Г. Куроша («Курс высшей алгебры», § 1) и А. И. Кострикина («Введение в алгебру», ч. 1, гл. 1, § 4) показано, что если $\Delta = 0$, то возможны два исхода:
-          </p>
-          <ul>
-            <li>Если $\Delta = 0$, но хотя бы один из вспомогательных определителей $\Delta_1 \neq 0$ или $\Delta_2 \neq 0$, то из равенств $\Delta \cdot \alpha = \Delta_1$ и $\Delta \cdot \beta = \Delta_2$ сразу следует противоречие ($0 = \Delta_1 \neq 0$), то есть <strong>система несовместна</strong>.</li>
-            <li>Если же $\Delta = \Delta_1 = \Delta_2 = 0$, то система либо неопределенна (если хотя бы один коэффициент $a_{ij} \neq 0$, тогда одно уравнение является следствием другого и $r = 1 < 2$), либо несовместна/неопределенна при всех $a_{ij} = 0$ в зависимости от того, равны ли нулю $b_1, b_2$.</li>
-          </ul>
-        </div>
-
-        <!-- SECTION 2.4 -->
-        <h3 id="sub-15" data-toc="2.4 Определитель третьего по…">
-          <span class="sec-tag">§ 2.4</span>
-          <span>Определитель третьего порядка и правило треугольников (Саррюса)</span>
-        </h3>
-
-        <p>
-          При переходе к квадратным системам из трех уравнений с тремя неизвестными в формулах Крамера возникают определители третьего порядка. Зафиксируем строгое определение определителя матрицы $3 \times 3$.
-        </p>
-
-        <div class="statement definition" id="def-4">
-  <div class="block-label">Определение 4</div>
-  <h3 id="sub-16" data-toc="Определение 2.2 (Определител…">Определение 2.2 (Определитель третьего порядка)</h3>
-  
-          
-            <span class="callout-badge">Определение с доски</span>
-          
-</div>
-          <p>
-            <strong>Определителем матрицы третьего порядка</strong> $A = (a_{ij})_{3 \times 3}$ называется число (алгебраическая сумма из 6 слагаемых: 3 со знаком «плюс» и 3 со знаком «минус»), вычисляемое по формуле:
-          </p>
-          <div class="math-block">
-            $$
-            \begin{vmatrix}
-            a_{11} & a_{12} & a_{13} \\
-            a_{21} & a_{22} & a_{23} \\
-            a_{31} & a_{32} & a_{33}
-            \end{vmatrix}
-            = \underbrace{a_{11}a_{22}a_{33} + a_{31}a_{12}a_{23} + a_{13}a_{21}a_{32}}_{\text{3 слагаемых со знаком «}+\text{»}}
-            - \underbrace{a_{31}a_{22}a_{13} - a_{21}a_{12}a_{33} - a_{11}a_{32}a_{23}}_{\text{3 слагаемых со знаком «}-\text{»}}.
-            $$
-          </div>
-        </div>
-
-        <p>
-          Для безошибочного запоминания того, какие именно тройки элементов входят со знаком «плюс», а какие — со знаком «минус», используется геометрическое <strong>правило треугольников (правило Саррюса)</strong>, подробно нарисованное на лекции:
-        </p>
-        <ul>
-          <li><strong>Слагаемые со знаком «$+$»:</strong> произведение элементов, стоящих на <em>главной диагонали</em> ($a_{11}a_{22}a_{33}$), плюс произведения элементов в вершинах двух равнобедренных треугольников, основания которых <em>параллельны главной диагонали</em>: $(a_{31}a_{12}a_{23})$ и $(a_{13}a_{21}a_{32})$.</li>
-          <li><strong>Слагаемые со знаком «$-$»:</strong> произведение элементов, стоящих на <em>побочной диагонали</em> ($a_{31}a_{22}a_{13}$), минус произведения элементов в вершинах двух треугольников, «нанизанных» на побочную диагональ (с основаниями, <em>параллельными побочной диагонали</em>): $(a_{21}a_{12}a_{33})$ и $(a_{11}a_{32}a_{23})$.</li>
-        </ul>
-
-        <!-- SVG ILLUSTRATION 4: SARRUS TRIANGLES (+ AND -) VERIFIED GEOMETRIC LOGIC -->
-        <figure class="figure-card">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 820 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Правило треугольников Саррюса для определителя 3-го порядка">
-            <rect x="15" y="12" width="790" height="266" rx="10" fill="var(--svg-bg)" stroke="var(--border-color)"/>
-
-            <!-- LEFT PANEL: PLUS TERMS -->
-            <rect x="30" y="28" width="365" height="234" rx="8" fill="var(--bg-elevated)" stroke="var(--svg-pos)" stroke-width="1.5"/>
-            <text x="212" y="52" text-anchor="middle" fill="var(--svg-pos)" font-size="14" font-weight="800">Три слагаемых со знаком « + »</text>
-
-            <!-- Matrix Grid Left:
-                 Col X: c1=120, c2=210, c3=300
-                 Row Y: r1=88,  r2=142, r3=196 -->
-            <!-- Main diagonal a11 - a22 - a33 -->
-            <line x1="120" y1="88" x2="300" y2="196" stroke="var(--svg-pos)" stroke-width="4"/>
-            <!-- Triangle 1 (+): a12(210,88) - a23(300,142) - a31(120,196) -->
-            <polygon points="210,88 300,142 120,196" fill="var(--svg-pos-soft)" fill-opacity="0.45" stroke="var(--svg-pos)" stroke-width="2.2"/>
-            <!-- Triangle 2 (+): a21(120,142) - a32(210,196) - a13(300,88) -->
-            <polygon points="120,142 210,196 300,88" fill="none" stroke="var(--svg-highlight)" stroke-width="2.2" stroke-dasharray="6 3"/>
-
-            <!-- Matrix Vertical Bars Left -->
-            <line x1="82" y1="68" x2="82" y2="214" stroke="var(--svg-text)" stroke-width="2.2"/>
-            <line x1="338" y1="68" x2="338" y2="214" stroke="var(--svg-text)" stroke-width="2.2"/>
-
-            <!-- Nodes Left -->
-            <!-- Row 1 -->
-            <circle cx="120" cy="88" r="18" fill="var(--svg-bg)" stroke="var(--svg-pos)" stroke-width="2.5"/>
-            <text x="120" y="93" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₁₁</text>
-            <circle cx="210" cy="88" r="18" fill="var(--svg-bg)" stroke="var(--svg-pos)" stroke-width="2"/>
-            <text x="210" y="93" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₁₂</text>
-            <circle cx="300" cy="88" r="18" fill="var(--svg-bg)" stroke="var(--svg-highlight)" stroke-width="2"/>
-            <text x="300" y="93" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₁₃</text>
-
-            <!-- Row 2 -->
-            <circle cx="120" cy="142" r="18" fill="var(--svg-bg)" stroke="var(--svg-highlight)" stroke-width="2"/>
-            <text x="120" y="147" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₂₁</text>
-            <circle cx="210" cy="142" r="18" fill="var(--svg-bg)" stroke="var(--svg-pos)" stroke-width="2.5"/>
-            <text x="210" y="147" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₂₂</text>
-            <circle cx="300" cy="142" r="18" fill="var(--svg-bg)" stroke="var(--svg-pos)" stroke-width="2"/>
-            <text x="300" y="147" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₂₃</text>
-
-            <!-- Row 3 -->
-            <circle cx="120" cy="196" r="18" fill="var(--svg-bg)" stroke="var(--svg-pos)" stroke-width="2"/>
-            <text x="120" y="201" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₃₁</text>
-            <circle cx="210" cy="196" r="18" fill="var(--svg-bg)" stroke="var(--svg-highlight)" stroke-width="2"/>
-            <text x="210" y="201" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₃₂</text>
-            <circle cx="300" cy="196" r="18" fill="var(--svg-bg)" stroke="var(--svg-pos)" stroke-width="2.5"/>
-            <text x="300" y="201" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₃₃</text>
-
-            <text x="212" y="242" text-anchor="middle" fill="var(--svg-pos)" font-size="12" font-weight="700">+ a₁₁a₂₂a₃₃  +  a₃₁a₁₂a₂₃  +  a₁₃a₂₁a₃₂</text>
-
-            <!-- RIGHT PANEL: MINUS TERMS -->
-            <rect x="425" y="28" width="365" height="234" rx="8" fill="var(--bg-elevated)" stroke="var(--svg-neg)" stroke-width="1.5"/>
-            <text x="607" y="52" text-anchor="middle" fill="var(--svg-neg)" font-size="14" font-weight="800">Три слагаемых со знаком « − »</text>
-
-            <!-- Matrix Grid Right:
-                 Col X: c1=515, c2=605, c3=695
-                 Row Y: r1=88,  r2=142, r3=196 -->
-            <!-- Secondary diagonal a31(515,196) - a22(605,142) - a13(695,88) -->
-            <line x1="515" y1="196" x2="695" y2="88" stroke="var(--svg-neg)" stroke-width="4"/>
-            <!-- Triangle 1 (-): a21(515,142) - a12(605,88) - a33(695,196) -->
-            <polygon points="515,142 605,88 695,196" fill="var(--svg-neg-soft)" fill-opacity="0.45" stroke="var(--svg-neg)" stroke-width="2.2"/>
-            <!-- Triangle 2 (-): a11(515,88) - a32(605,196) - a23(695,142) -->
-            <polygon points="515,88 605,196 695,142" fill="none" stroke="var(--svg-amber)" stroke-width="2.2" stroke-dasharray="6 3"/>
-
-            <!-- Matrix Vertical Bars Right -->
-            <line x1="477" y1="68" x2="477" y2="214" stroke="var(--svg-text)" stroke-width="2.2"/>
-            <line x1="733" y1="68" x2="733" y2="214" stroke="var(--svg-text)" stroke-width="2.2"/>
-
-            <!-- Nodes Right -->
-            <!-- Row 1 -->
-            <circle cx="515" cy="88" r="18" fill="var(--svg-bg)" stroke="var(--svg-amber)" stroke-width="2"/>
-            <text x="515" y="93" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₁₁</text>
-            <circle cx="605" cy="88" r="18" fill="var(--svg-bg)" stroke="var(--svg-neg)" stroke-width="2"/>
-            <text x="605" y="93" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₁₂</text>
-            <circle cx="695" cy="88" r="18" fill="var(--svg-bg)" stroke="var(--svg-neg)" stroke-width="2.5"/>
-            <text x="695" y="93" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₁₃</text>
-
-            <!-- Row 2 -->
-            <circle cx="515" cy="142" r="18" fill="var(--svg-bg)" stroke="var(--svg-neg)" stroke-width="2"/>
-            <text x="515" y="147" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₂₁</text>
-            <circle cx="605" cy="142" r="18" fill="var(--svg-bg)" stroke="var(--svg-neg)" stroke-width="2.5"/>
-            <text x="605" y="147" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₂₂</text>
-            <circle cx="695" cy="142" r="18" fill="var(--svg-bg)" stroke="var(--svg-amber)" stroke-width="2"/>
-            <text x="695" y="147" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₂₃</text>
-
-            <!-- Row 3 -->
-            <circle cx="515" cy="196" r="18" fill="var(--svg-bg)" stroke="var(--svg-neg)" stroke-width="2.5"/>
-            <text x="515" y="201" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₃₁</text>
-            <circle cx="605" cy="196" r="18" fill="var(--svg-bg)" stroke="var(--svg-amber)" stroke-width="2"/>
-            <text x="605" y="201" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₃₂</text>
-            <circle cx="695" cy="196" r="18" fill="var(--svg-bg)" stroke="var(--svg-neg)" stroke-width="2"/>
-            <text x="695" y="201" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700">a₃₃</text>
-
-            <text x="607" y="242" text-anchor="middle" fill="var(--svg-neg)" font-size="12" font-weight="700">− a₃₁a₂₂a₁₃  −  a₂₁a₁₂a₃₃  −  a₁₁a₃₂a₂₃</text>
-          </svg></div>
-          <figcaption class="figure-caption">
-            <strong>Рис. 2.2.</strong> Геометрическая проверка правила треугольников (Саррюса): слева — главная диагональ и два треугольника с основаниями, параллельными ей ($+$); справа — побочная диагональ и два треугольника с основаниями, параллельными ей ($-$). Каждая фигура захватывает ровно по одному элементу из каждой строки и каждого столбца.
-          </figcaption>
-        </figure>
-
-        <!-- SECTION 2.5 -->
-        <h3 id="sub-17" data-toc="2.5 Комбинаторная структура …">
-          <span class="sec-tag">§ 2.5</span>
-          <span>Комбинаторная структура определителя: переход к произвольному порядку $n$</span>
-        </h3>
-
-        <p>
-          Воспользуемся коммутативностью умножения в поле и перепишем все 6 слагаемых определителя 3-го порядка так, чтобы в каждом слагаемом на первом месте стоял элемент из 1-й строки, на втором — элемент из 2-й строки, а на третьем — элемент из 3-й строки (то есть чтобы <strong>первые индексы всегда шли по порядку: $1, 2, 3$</strong>):
-        </p>
-
-        <div class="math-block">
-          $$
-          \Delta = a_{1\mathbf{1}}a_{2\mathbf{2}}a_{3\mathbf{3}}
-          + a_{1\mathbf{2}}a_{2\mathbf{3}}a_{3\mathbf{1}}
-          + a_{1\mathbf{3}}a_{2\mathbf{1}}a_{3\mathbf{2}}
-          - a_{1\mathbf{3}}a_{2\mathbf{2}}a_{3\mathbf{1}}
-          - a_{1\mathbf{2}}a_{2\mathbf{1}}a_{3\mathbf{3}}
-          - a_{1\mathbf{1}}a_{2\mathbf{3}}a_{3\mathbf{2}}.
-          $$
-        </div>
-
-        <p>
-          Проанализируем строение этой формулы (именно этот анализ в лекции и в учебниках Куроша и Кострикина позволяет дать общее определение определителя $n$-го порядка):
-        </p>
-
-        <ol>
-          <li><strong>По одному элементу из каждой строки и каждого столбца:</strong> В каждом слагаемом первые индексы (номера строк) равны $1, 2, 3$ — то есть из каждой строки взят ровно один элемент. Посмотрим на вторые индексы (номера столбцов): в каждом слагаемом они также представляют собой все числа $\{1, 2, 3\}$ без повторений, но записанные в некотором порядке! Ни из одной строки и ни из одного столбца элементы не берутся дважды.</li>
-          <li><strong>Полный перебор всех расположений столбцов:</strong> Перечислим все возможные способы расположить числа $\{1, 2, 3\}$ по трем местам (лектор упорядочивает их по первому числу: сначала с $1$ на первом месте, затем с $2$, затем с $3$). Таких расположений ровно $3! = 6$, и каждому из них отвечает ровно одно слагаемое определителя:</li>
-        </ol>
-
-        <div class="table-wrap">
-          <div class="table-scroll">
-<table class="academic-table">
-            <thead>
-              <tr>
-                <th>№</th>
-                <th>Расположение вторых индексов $(j_1, j_2, j_3)$</th>
-                <th>Соответствующее произведение $a_{1j_1}a_{2j_2}a_{3j_3}$</th>
-                <th>Пары, образующие инверсию (большее число левее меньшего)</th>
-                <th>Число инверсий $N$</th>
-                <th>Знак слагаемого $(-1)^N$</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td><strong>$(1, 2, 3)$</strong></td>
-                <td>$a_{11}a_{22}a_{33}$</td>
-                <td>Нет (все идут по порядку: $1<2, 1<3, 2<3$)</td>
-                <td>$0$ (четное)</td>
-                <td><span class="sign-plus">$+$</span></td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td><strong>$(1, 3, 2)$</strong></td>
-                <td>$a_{11}a_{23}a_{32}$</td>
-                <td>Пара $(3, 2)$: число $3 > 2$, но стоит раньше</td>
-                <td>$1$ (нечетное)</td>
-                <td><span class="sign-minus">$-$</span></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td><strong>$(2, 3, 1)$</strong></td>
-                <td>$a_{12}a_{23}a_{31}$</td>
-                <td>Пары $(2, 1)$ и $(3, 1)$: числа $2$ и $3$ стоят раньше $1$</td>
-                <td>$2$ (четное)</td>
-                <td><span class="sign-plus">$+$</span></td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td><strong>$(2, 1, 3)$</strong></td>
-                <td>$a_{12}a_{21}a_{33}$</td>
-                <td>Пара $(2, 1)$: число $2 > 1$, но стоит раньше</td>
-                <td>$1$ (нечетное)</td>
-                <td><span class="sign-minus">$-$</span></td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td><strong>$(3, 1, 2)$</strong></td>
-                <td>$a_{13}a_{21}a_{32}$</td>
-                <td>Пары $(3, 1)$ и $(3, 2)$: число $3$ стоит раньше $1$ и $2$</td>
-                <td>$2$ (четное)</td>
-                <td><span class="sign-plus">$+$</span></td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td><strong>$(3, 2, 1)$</strong></td>
-                <td>$a_{13}a_{22}a_{31}$</td>
-                <td>Пары $(3, 2)$, $(3, 1)$ и $(2, 1)$</td>
-                <td>$3$ (нечетное)</td>
-                <td><span class="sign-minus">$-$</span></td>
-              </tr>
-            </tbody>
-          </table>
-</div>
-        </div>
-
-        <p>
-          <strong>Обобщение на определитель 4-го и $n$-го порядков (пример с доски):</strong> В определителе 4-го порядка слагаемыми будут всевозможные произведения четырех элементов вида $a_{1j_1}a_{2j_2}a_{3j_3}a_{4j_4}$, взятых по одному из каждой строки и каждого столбца — например, записанное на доске слагаемое
-          $$a_{14}a_{21}a_{32}a_{43},$$
-          отвечающее расположению вторых индексов $(4, 1, 2, 3)$. Всего в определителе 4-го порядка будет $4! = 24$ слагаемых (их можно получить, вставляя четвёрку на последнее, третье, второе или первое место в каждую из 6 перестановок чисел $1, 2, 3$). А знак каждого слагаемого определяется тем, <strong>четно или нечетно количество инверсий</strong> (нарушений порядка) в расположении вторых индексов! Чтобы работать с определителями любого порядка строго и не выписывать вручную $24$ или $120$ слагаемых, необходимо развить математический аппарат <strong>теории перестановок</strong>.
-        </p>
-      </section>
-
-      <!-- =====================================================================
-           CHAPTER 3: ПЕРЕСТАНОВКИ, ТРАНСПОЗИЦИИ И ТЕОРЕМА О РАСПОЛОЖЕНИИ В РЯД
-           ===================================================================== -->
-      <section class="chapter-section" id="chapter-3">
-        <div class="chapter-banner ch3">
-          <span class="chapter-kicker">Тема III • Комбинаторные основы высшей алгебры</span>
-</section>
-
-<section class="chapter" aria-labelledby="chapter-4">
-  <div class="chapter-kicker">04 / Перестановки, транспозиции и…</div>
-  <h2 id="chapter-4" data-toc="Перестановки, транспозиции и…">Перестановки, транспозиции и теорема о расположении перестановок в ряд</h2>
-  </div>
-
-        <h3 id="sub-18" data-toc="3.1 Понятие перестановки на …">
-          <span class="sec-tag">§ 3.1</span>
-          <span>Понятие перестановки на конечном множестве и теорема о числе перестановок ($n!$)</span>
-        </h3>
-
-        <p>
-          Пусть дано конечное множество $M = \{a_1, a_2, \dots, a_n\}$, состоящее из $n$ попарно различных элементов (в теории множеств запись $\{a_1, \dots, a_n\}$ из $n$ элементов всегда подразумевает, что среди них нет одинаковых).
-        </p>
-
-        <div class="statement definition" id="def-5">
-  <div class="block-label">Определение 5</div>
-  <h3 id="sub-19" data-toc="Определение 3.1 (Перестановк…">Определение 3.1 (Перестановка на множестве $M$)</h3>
-  
-          
-            <span class="callout-badge">Определение с доски</span>
-          
-</div>
-          <p>
-            <strong>Перестановкой на множестве $M = \{a_1, a_2, \dots, a_n\}$</strong> называется упорядоченная последовательность
-            $$(\alpha_1, \alpha_2, \dots, \alpha_n)$$
-            <strong>всех</strong> элементов множества $M$, расположенных в каком-то определенном порядке.
-          </p>
-          <ul>
-            <li><strong>Система обозначений:</strong> В отличие от самого множества $M$, записываемого в фигурных скобках $\{a_1, \dots, a_n\}$ (где порядок не важен), перестановка всегда записывается в <strong>круглых скобках</strong> через запятую: $(\alpha_1, \alpha_2, \dots, \alpha_n)$ (или без запятых, например $(1324)$, когда однозначно понятно, о каких одноразрядных числах идет речь).</li>
-            <li><strong>Важность слова «всех»:</strong> Если бы в определении было сказано просто «последовательность из $n$ элементов множества $M$», то из множества $\{\text{зайчонок}, \text{бельчонок}, \text{волчонок}\}$ можно было бы составить последовательность $(\text{бельчонок}, \text{бельчонок}, \text{волчонок})$ с повторениями. Требование присутствия <strong>всех</strong> $n$ различных элементов множества $M$ в последовательности длины $n$ гарантирует, что все элементы $\alpha_1, \dots, \alpha_n$ в перестановке попарно различны.</li>
-            <li><strong>Перестановки на $n$ символах:</strong> Если в качестве $M$ берется множество из $n$ натуральных чисел (чаще всего стандартный отрезок натурального ряда $M = \{1, 2, \dots, n\}$), то говорят о <strong>перестановке на $n$ символах</strong>.</li>
-          </ul>
-        </div>
-
-        <div class="callout literature">
-          <div class="callout-header">
-            <span>Терминологическое сравнение: Перестановки и Подстановки (Курош vs. Кострикин)</span>
-            <span class="callout-badge">Кострикин &amp; Курош</span>
-          </div>
-          <p>
-            На лекции отмечено: <em>«Не все различают перестановки и подстановки, но мы с вами будем их разделять»</em>. Поясним это различие по классическим учебникам:
-          </p>
-          <ul>
-            <li>В <strong>«Курсе высшей алгебры» А. Г. Куроша (Гл. 1, § 3)</strong> и в нашем лекционном курсе <strong>перестановкой</strong> называется само упорядоченное расположение $(\alpha_1, \alpha_2, \dots, \alpha_n)$ элементов, а <strong>подстановкой</strong> $n$-й степени — взаимно однозначное отображение (биекция) множества $\{1, \dots, n\}$ на себя, записываемое двухрядной матрицей $\begin{pmatrix} 1 & 2 & \dots & n \\ \alpha_1 & \alpha_2 & \dots & \alpha_n \end{pmatrix}$.</li>
-            <li>В учебнике и задачнике <strong>А. И. Кострикина («Введение в алгебру», Ч. 1, Гл. 1, § 4)</strong> оба объекта нередко называют одним термином «перестановка» (или «подстановка»), так как всякому упорядоченному набору $(\alpha_1, \dots, \alpha_n)$ взаимно однозначно отвечает биекция $i \mapsto \alpha_i$. При чтении Кострикина достаточно помнить об этом соответствии.</li>
-          </ul>
-        </div>
-
-        <div class="statement theorem" id="thm-5">
-  <div class="block-label">Утверждение 5</div>
-  <h3 id="sub-20" data-toc="Теорема 3.1 (О числе переста…">Теорема 3.1 (О числе перестановок на $n$ символах)</h3>
-  
-          
-            <span class="callout-badge">Теорема</span>
-          
-</div>
-          <p>
-            <strong>Общее количество различных перестановок на множестве из $n$ символов равно $n!$ (эн-факториал):</strong>
-            $$P_n = n \cdot (n - 1) \cdot (n - 2) \cdots 2 \cdot 1 = n!.$$
-          </p>
-        </div>
-
-        
-<div class="proof" id="proof-6" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство Теоремы 3.1 (Комбинаторное с доски + по индукции из Куроша)">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-6" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>Способ 1 (Прямой комбинаторный подсчет по схеме с доски):</strong><br>
-            Будем последовательно заполнять $n$ позиций в перестановке $(\,\underbrace{\phantom{\alpha_1}}_{n}\,,\,\underbrace{\phantom{\alpha_2}}_{n-1}\,,\,\underbrace{\phantom{\alpha_3}}_{n-2}\,,\,\dots\,,\,\underbrace{\phantom{\alpha_n}}_{1}\,)$ элементами множества $M = \{1, 2, \dots, n\}$:</p>
-  </div>
-  <div class="proof-full" id="full-6" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство Теоремы 3.1 (Комбинаторное с доски + по индукции из Куроша))</div>
-    <div class="proof-content">
-<span class="callout-badge">Два способа доказательства</span>
-          </div>
-          <p>
-            <strong>Способ 1 (Прямой комбинаторный подсчет по схеме с доски):</strong><br>
-            Будем последовательно заполнять $n$ позиций в перестановке $(\,\underbrace{\phantom{\alpha_1}}_{n}\,,\,\underbrace{\phantom{\alpha_2}}_{n-1}\,,\,\underbrace{\phantom{\alpha_3}}_{n-2}\,,\,\dots\,,\,\underbrace{\phantom{\alpha_n}}_{1}\,)$ элементами множества $M = \{1, 2, \dots, n\}$:
-          </p>
-          <ol>
-            <li>На <strong>первое место</strong> можно поставить любой из $n$ имеющихся элементов — это дает ровно $n$ вариантов выбора.</li>
-            <li>После того как первый элемент выбран и зафиксирован, на <strong>второе место</strong> можно поставить любой из оставшихся элементов (так как повторения запрещены) — это дает $(n - 1)$ вариантов выбора при каждом выборе первого элемента.</li>
-            <li>На <strong>третье место</strong> аналогично остается $(n - 2)$ вариантов выбора, и так далее.</li>
-            <li>Наконец, когда первые $(n - 1)$ мест заполнены, на <strong>последнее, $n$-е место</strong> однозначно встает единственный оставшийся неиспользованный элемент — $1$ вариант.</li>
-          </ol>
-          <p>
-            Перемножая число независимых возможностей для каждого места (по комбинаторному правилу произведения), получаем общее число перестановок:
-            $$n \cdot (n - 1) \cdot (n - 2) \cdots 1 = n!.$$
-          </p>
-          <p>
-            <strong>Способ 2 (Строгое доказательство по индукции — по А. Г. Курошу, § 3):</strong><br>
-            При $n = 1$ существует единственная перестановка $(1)$, и $1! = 1$. Пусть для $n - 1$ символов число перестановок равно $(n - 1)!$. Рассмотрим $n$ символов. Зафиксируем на первом месте какой-либо один символ $a_k$. Тогда остальные $n - 1$ символов можно переставить на оставшихся $n - 1$ местах ровно $(n - 1)!$ способами по предположению индукции. Так как на первом месте может стоять любой из $n$ символов ($k = 1, 2, \dots, n$), а группы перестановок с разным первым символом не пересекаются, общее число перестановок на $n$ символах равно $(n - 1)! \cdot n = n!$.
-          </p>
-          <div class="qed-symbol">$\blacksquare$ Ч.т.д.</div>
-        
-<span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-
-
-        <!-- SECTION 3.2 -->
-        <h3 id="sub-21" data-toc="3.2 Определение транспозиции…">
-          <span class="sec-tag">§ 3.2</span>
-          <span>Определение транспозиции. Построение ряда перестановок при $n = 3$</span>
-        </h3>
-
-        <div class="statement definition" id="def-6">
-  <div class="block-label">Определение 6</div>
-  <h3 id="sub-22" data-toc="Определение 3.2 (Транспозиция)">Определение 3.2 (Транспозиция)</h3>
-  
-          
-            <span class="callout-badge">Определение с доски</span>
-          
-</div>
-          <p>
-            Преобразование, при котором перестановка
-            $$(\alpha_1, \dots, \alpha_i, \dots, \alpha_j, \dots, \alpha_n)$$
-            переходит в перестановку
-            $$(\alpha_1, \dots, \alpha_j, \dots, \alpha_i, \dots, \alpha_n)$$
-            (то есть меняются местами ровно два символа $\alpha_i$ и $\alpha_j$, а все остальные символы остаются на своих местах), называется <strong>транспозицией</strong>.
-          </p>
-        </div>
-
-        <p>
-          Прежде чем формулировать и доказывать общую теорему о расположении всех $n!$ перестановок в ряд по индукции, разберем <strong>наглядную конструкцию лектора для $n = 3$</strong>. Этот пример раскрывает весь механизм индуктивного перехода от $n = 2$ к $n = 3$.
-        </p>
-
-        <div class="worked-example" id="ex-1">
-  <div class="block-label">Пример 1</div>
-  <h3 id="sub-23" data-toc="Разбор лектора: Расположение…">Разбор лектора: Расположение всех $3! = 6$ перестановок в ряд, начиная с $(3, 1, 2)$</h3>
-  
-          
-            <span class="callout-badge">Подготовка к индукции</span>
-          
-</div>
-          <p>
-            Для двух символов ($n = 2$) расположить все $2! = 2$ перестановки в ряд, где вторая получается из первой одной транспозицией, элементарно: если начинаем с $(1, 2)$, то ряд имеет вид $(1, 2) \to (2, 1)$; если начинаем с $(2, 1)$, то $(2, 1) \to (1, 2)$. Покажем, как, умея делать это для двух символов, построить ряд для трех символов, начав с произвольной перестановки — например, с $(\underline{3}, \underline{1}, \mathbf{2})$.
-          </p>
-          <ol>
-            <li><strong>Первая группа (на конце фиксирован элемент $\alpha_3 = 2$):</strong><br>
-              В начальной перестановке $(3, 1, \mathbf{2})$ на последнем месте стоит двойка, а первые два символа $(3, 1)$ образуют перестановку на двух символах. Меняя их местами одной транспозицией при фиксированной двойке в хвосте, получаем все $2! = 2$ перестановки, оканчивающиеся на $\mathbf{2}$:
-              $$(3, 1, \mathbf{2}) \xrightarrow{\text{тр. }(3,1)} (1, 3, \mathbf{2}).$$
-              Больше перестановок с двойкой на конце не существует.
-            </li>
-            <li><strong>Переход ко второй группе (выдергиваем в хвост элемент $\alpha_2 = 1$):</strong><br>
-              Посмотрим на исходную перестановку $(3, \mathbf{1}, 2)$: на втором месте в ней стояла единица ($\alpha_2 = 1$). Эта единица обязательно присутствует среди первых двух символов последней выписанной перестановки $(1, 3, \mathbf{2})$. Поменяем местами именно эту единицу и стоящую в хвосте двойку (одна транспозиция символов $1$ и $2$!):
-              $$(1, 3, \mathbf{2}) \xrightarrow{\text{тр. }(1,2)} (2, 3, \mathbf{1}).$$
-            </li>
-            <li><strong>Вторая группа (на конце фиксирован элемент $\alpha_2 = 1$):</strong><br>
-              Теперь на последнем месте стоит единица. Переставляя первые два символа одной транспозицией, получаем все $2! = 2$ перестановки с единицей на конце:
-              $$(2, 3, \mathbf{1}) \xrightarrow{\text{тр. }(2,3)} (3, 2, \mathbf{1}).$$
-            </li>
-            <li><strong>Переход к третьей группе (выдергиваем в хвост элемент $\alpha_1 = 3$):</strong><br>
-              В исходной перестановке $(\mathbf{3}, 1, 2)$ на первом месте стояла тройка ($\alpha_1 = 3$). Она обязательно присутствует среди первых двух символов перестановки $(3, 2, \mathbf{1})$. Меняем местами эту тройку и стоящую в хвосте единицу:
-              $$(3, 2, \mathbf{1}) \xrightarrow{\text{тр. }(3,1)} (1, 2, \mathbf{3}).$$
-            </li>
-            <li><strong>Третья группа (на конце фиксирован элемент $\alpha_1 = 3$):</strong><br>
-              Переставляя первые два символа при фиксированной тройке в хвосте, получаем оставшиеся $2! = 2$ перестановки:
-              $$(1, 2, \mathbf{3}) \xrightarrow{\text{тр. }(1,2)} (2, 1, \mathbf{3}).$$
-            </li>
-          </ol>
-          <p>
-            <strong>Итог:</strong> Мы получили единую цепочку из $3 \cdot 2! = 3! = 6$ попарно различных перестановок (3 группы по $2!$ элементов с разными хвостами $\mathbf{2}, \mathbf{1}, \mathbf{3}$), в которой каждый шаг — ровно одна транспозиция!
-          </p>
-        </div>
-
-        <!-- SECTION 3.3 -->
-        <h3 id="sub-24" data-toc="3.3 Теорема о расположении п…">
-          <span class="sec-tag">§ 3.3</span>
-          <span>Теорема о расположении перестановок в ряд и ее полное доказательство по индукции</span>
-        </h3>
-
-        <div class="statement theorem" id="thm-6">
-  <div class="block-label">Утверждение 6</div>
-  <h3 id="sub-25" data-toc="Теорема 3.2 (О расположении …">Теорема 3.2 (О расположении перестановок в ряд)</h3>
-  
-          
-            <span class="callout-badge">Теорема с доски + Курош, § 3</span>
-          
-</div>
-          <p>
-            <strong>Все $n!$ перестановок на $n$ символах могут быть расположены в один ряд так, что каждая последующая перестановка получается из предыдущей одной транспозицией, причем этот ряд можно начать с любой наперед заданной перестановки.</strong>
-          </p>
-        </div>
-
-        <!-- SVG ILLUSTRATION 5: INDUCTIVE STEP VISUALIZATION -->
-        <figure class="figure-card">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 820 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Схема индуктивного шага в теореме о расположении перестановок в ряд">
-            <defs>
-              <marker id="arr-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--ch3-color)"/>
-              </marker>
-              <marker id="arr-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--svg-amber)"/>
-              </marker>
-            </defs>
-            <rect x="15" y="12" width="790" height="286" rx="10" fill="var(--svg-bg)" stroke="var(--border-color)"/>
-            <text x="410" y="38" text-anchor="middle" fill="var(--svg-text)" font-size="14" font-weight="800">Индуктивный переход (n − 1) → n: разбиение n! перестановок на n групп по (n − 1)! элементов</text>
-
-            <!-- Group 1: Tail alpha_n -->
-            <rect x="35" y="54" width="640" height="54" rx="8" fill="var(--ch1-bg)" stroke="var(--ch1-border)" stroke-width="1.5"/>
-            <text x="50" y="76" fill="var(--ch1-color)" font-size="12" font-weight="800">Группа 1 (хвост αₙ):</text>
-            <text x="50" y="96" fill="var(--svg-text)" font-size="13" font-weight="700">(α₁, α₂, ..., αₙ₋₁, <tspan fill="var(--ch1-color)">[αₙ]</tspan>)  →  ... по предп. индукции ...  →  (β₁, ..., <tspan fill="var(--svg-amber)">αₙ₋₁</tspan>, ..., βₙ₋₁, <tspan fill="var(--ch1-color)">[αₙ]</tspan>)</text>
-            <rect x="690" y="62" width="95" height="38" rx="6" fill="var(--svg-bg)" stroke="var(--ch1-border)"/>
-            <text x="737" y="86" text-anchor="middle" fill="var(--ch1-color)" font-size="13" font-weight="800">(n − 1)! шт.</text>
-
-            <!-- Transition 1 -> 2 -->
-            <path d="M 550 108 L 550 130 L 180 130 L 180 144" fill="none" stroke="var(--svg-amber)" stroke-width="2.2" marker-end="url(#arr-amber)"/>
-            <rect x="245" y="116" width="265" height="22" rx="4" fill="var(--svg-amber-soft)" stroke="var(--svg-amber)"/>
-            <text x="377" y="131" text-anchor="middle" fill="var(--svg-amber)" font-size="11" font-weight="700">1 транспозиция: меняем αₙ₋₁ и хвостовой [αₙ]</text>
-
-            <!-- Group 2: Tail alpha_{n-1} -->
-            <rect x="35" y="146" width="640" height="54" rx="8" fill="var(--ch2-bg)" stroke="var(--ch2-border)" stroke-width="1.5"/>
-            <text x="50" y="168" fill="var(--ch2-color)" font-size="12" font-weight="800">Группа 2 (хвост αₙ₋₁):</text>
-            <text x="50" y="188" fill="var(--svg-text)" font-size="13" font-weight="700">(γ₁, γ₂, ..., γₙ₋₁, <tspan fill="var(--ch2-color)">[αₙ₋₁]</tspan>)  →  ... по предп. индукции ...  →  (δ₁, ..., <tspan fill="var(--svg-amber)">αₙ₋₂</tspan>, ..., δₙ₋₁, <tspan fill="var(--ch2-color)">[αₙ₋₁]</tspan>)</text>
-            <rect x="690" y="154" width="95" height="38" rx="6" fill="var(--svg-bg)" stroke="var(--ch2-border)"/>
-            <text x="737" y="178" text-anchor="middle" fill="var(--ch2-color)" font-size="13" font-weight="800">(n − 1)! шт.</text>
-
-            <!-- Transition 2 -> ... -> n -->
-            <path d="M 550 200 L 550 220 L 180 220 L 180 234" fill="none" stroke="var(--svg-amber)" stroke-width="2.2" stroke-dasharray="4 3" marker-end="url(#arr-amber)"/>
-            <rect x="220" y="207" width="315" height="22" rx="4" fill="var(--svg-amber-soft)" stroke="var(--svg-amber)"/>
-            <text x="377" y="222" text-anchor="middle" fill="var(--svg-amber)" font-size="11" font-weight="700">Аналогично для αₙ₋₂, ..., α₂ → выдергиваем в хвост α₁</text>
-
-            <!-- Group n: Tail alpha_1 -->
-            <rect x="35" y="236" width="640" height="50" rx="8" fill="var(--ch3-bg)" stroke="var(--ch3-border)" stroke-width="1.5"/>
-            <text x="50" y="256" fill="var(--ch3-color)" font-size="12" font-weight="800">Группа n (хвост α₁):</text>
-            <text x="50" y="275" fill="var(--svg-text)" font-size="13" font-weight="700">(ω₁, ω₂, ..., ωₙ₋₁, <tspan fill="var(--ch3-color)">[α₁]</tspan>)  →  ... по предп. индукции ...  →  (τ₁, τ₂, ..., τₙ₋₁, <tspan fill="var(--ch3-color)">[α₁]</tspan>)</text>
-            <rect x="690" y="242" width="95" height="38" rx="6" fill="var(--svg-bg)" stroke="var(--ch3-border)"/>
-            <text x="737" y="266" text-anchor="middle" fill="var(--ch3-color)" font-size="13" font-weight="800">Итого: n!</text>
-          </svg></div>
-          <figcaption class="figure-caption">
-            <strong>Рис. 3.1.</strong> Схема индуктивного доказательства Теоремы 3.2 (воспроизведение блок-схемы с доски): каждая из $n$ групп содержит все $(n-1)!$ перестановок с фиксированным последним символом $\alpha_k$ ($k = n, n-1, \dots, 1$), а переход между соседними группами осуществляется ровно одной транспозицией.
-          </figcaption>
-        </figure>
-
-        
-<div class="proof" id="proof-7" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство Теоремы 3.2 (методом математической индукции по $n$)">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-7" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Проведем доказательство индукцией по числу символов $n$.</p>
-  </div>
-  <div class="proof-full" id="full-7" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство Теоремы 3.2 (методом математической индукции по $n$))</div>
-    <div class="proof-content">
-<span class="callout-badge">Полное доказательство с доски</span>
-          </div>
-          <p>
-            Проведем доказательство индукцией по числу символов $n$.
-          </p>
-          <p>
-            <strong>1. База индукции ($n = 2$).</strong><br>
-            На двух символах $\{1, 2\}$ существует $2! = 2$ перестановки. Если мы начинаем с перестановки $(1, 2)$, то искомый ряд имеет вид:
-            $$(1, 2) \longrightarrow (2, 1).$$
-            Если же мы начинаем с перестановки $(2, 1)$, то искомый ряд имеет вид:
-            $$(2, 1) \longrightarrow (1, 2).$$
-            В обоих случаях вторая перестановка получается из первой одной транспозицией. База индукции верна.
-          </p>
-          <p>
-            <strong>2. Предположение индукции.</strong><br>
-            Допустим, что теорема верна для $(n - 1)$ символов: все $(n - 1)!$ перестановок на любом множестве из $(n - 1)$ символов можно расположить в требуемый ряд, начиная с любой наперед заданной перестановки.
-          </p>
-          <p>
-            <strong>3. Шаг индукции ($n - 1 \to n$).</strong><br>
-            Докажем, что теорема верна для $n$ символов. Пусть
-            $$(\alpha_1, \alpha_2, \dots, \alpha_{n-1}, \alpha_n)$$
-            — произвольная фиксированная перестановка на $n$ символах, с которой мы хотим начать ряд.
-          </p>
-          <ul>
-            <li><strong>Построение 1-й группы (с $\alpha_n$ на конце):</strong> Мысленно «оторвем» у начальной перестановки последний символ $\alpha_n$. Оставшаяся часть $(\alpha_1, \alpha_2, \dots, \alpha_{n-1})$ является перестановкой на $(n - 1)$ символах. По предположению индукции все $(n - 1)!$ перестановок на этих $(n - 1)$ символах можно выстроить в ряд, начинающийся с $(\alpha_1, \dots, \alpha_{n-1})$ и заканчивающийся некоторой перестановкой $(\beta_1, \dots, \beta_{n-1})$, в котором каждая следующая получается из предыдущей одной транспозицией:
-              $$(\alpha_1, \alpha_2, \dots, \alpha_{n-1}) \longrightarrow \dots \longrightarrow (\beta_1, \beta_2, \dots, \beta_{n-1}).$$
-              Припишем теперь к каждой из этих $(n - 1)!$ перестановок в конец (в «хвост») символ $\alpha_n$:
-              $$(\alpha_1, \alpha_2, \dots, \alpha_{n-1}, \boxed{\alpha_n}) \longrightarrow \dots \longrightarrow (\beta_1, \beta_2, \dots, \beta_{n-1}, \boxed{\alpha_n}).$$
-              В полученной цепочке из $(n - 1)!$ перестановок на $n$ символах по-прежнему каждая последующая получается из предыдущей одной транспозицией (так как в хвосте стоит один и тот же символ $\alpha_n$). Более того, тем самым мы перечислили <em>все возможные</em> перестановки на $n$ символах, у которых на последнем месте стоит $\alpha_n$.
-            </li>
-            <li><strong>Переход ко 2-й группе (тонкий момент!):</strong> Обратимся к нашей начальной перестановке $(\alpha_1, \dots, \alpha_{n-1}, \alpha_n)$ и возьмем ее предпоследний элемент $\alpha_{n-1}$. Так как все элементы в перестановке различны ($\alpha_{n-1} \neq \alpha_n$), а множество $\{\beta_1, \dots, \beta_{n-1}\}$ совпадает с $\{\alpha_1, \dots, \alpha_{n-1}\}$, элемент $\alpha_{n-1}$ <strong>обязан присутствовать</strong> среди элементов $\beta_1, \dots, \beta_{n-1}$ на некотором месте $k$ ($1 \le k \le n - 1$).<br>
-              Совершим одну транспозицию в перестановке $(\beta_1, \dots, \beta_{n-1}, \alpha_n)$: поменяем местами этот элемент $\alpha_{n-1}$ (стоящий на $k$-м месте) и хвостовой элемент $\alpha_n$. Мы получим перестановку, которую обозначим:
-              $$(\gamma_1, \gamma_2, \dots, \gamma_{n-1}, \boxed{\alpha_{n-1}}),$$
-              у которой на последнем месте теперь стоит $\alpha_{n-1}$ (а на $k$-м месте оказался $\alpha_n$).
-            </li>
-            <li><strong>Построение 2-й группы (с $\alpha_{n-1}$ на конце):</strong> Отрывая хвостовой элемент $\alpha_{n-1}$, располагаем по предположению индукции все $(n - 1)!$ перестановок на символах $\{\gamma_1, \dots, \gamma_{n-1}\}$ в ряд от $(\gamma_1, \dots, \gamma_{n-1})$ до некоторой $(\delta_1, \dots, \delta_{n-1})$ и приписываем к каждой в конец $\alpha_{n-1}$:
-              $$(\gamma_1, \gamma_2, \dots, \gamma_{n-1}, \boxed{\alpha_{n-1}}) \longrightarrow \dots \longrightarrow (\delta_1, \delta_2, \dots, \delta_{n-1}, \boxed{\alpha_{n-1}}).$$
-              Это дает еще $(n - 1)!$ перестановок, исчерпывающих все перестановки с $\alpha_{n-1}$ на конце.
-            </li>
-            <li><strong>Продолжение процесса для $\alpha_{n-2}, \dots, \alpha_1$:</strong> В перестановке $(\delta_1, \dots, \delta_{n-1}, \alpha_{n-1})$ среди первых $(n-1)$ символов обязательно присутствует элемент $\alpha_{n-2}$ из начальной перестановки. Меняя его одной транспозицией с хвостовым $\alpha_{n-1}$, ставим $\alpha_{n-2}$ на последнее место и выписываем все $(n-1)!$ перестановок с $\alpha_{n-2}$ на конце. Продолжая так же, на последнем этапе мы выдернем в хвост элемент $\alpha_1$ и выпишем последнюю, $n$-ю группу из $(n-1)!$ перестановок с $\alpha_1$ на конце.
-            </li>
-            <li><strong>Подсчет количества и проверка попарной различности:</strong>
-              <ol>
-                <li>Всего построено $n$ групп (на последнем месте последовательно стояли элементы $\alpha_n, \alpha_{n-1}, \dots, \alpha_1$), и в каждой группе ровно $(n - 1)!$ перестановок. Значит, общее число перестановок в построенном ряду равно:
-                  $$(n - 1)! \cdot n = n!.$$
-                </li>
-                <li>Все выписанные перестановки <strong>попарно различны</strong>: внутри одной группы они различны по предположению индукции (различаются на первых $n - 1$ местах), а две перестановки из разных групп не могут совпасть, потому что у них на последнем ($n$-м) месте стоят разные элементы ($\alpha_i \neq \alpha_j$).</li>
-                <li>Так как всего различных перестановок на $n$ символах ровно $n!$ (по Теореме 3.1), построенный ряд содержит <strong>все $n!$ перестановок</strong> без пропусков и повторений, а переход на каждом шаге (как внутри групп, так и между группами) осуществляется ровно одной транспозицией.</li>
-              </ol>
-            </li>
-          </ul>
-          <div class="qed-symbol">$\blacksquare$ Теорема полностью доказана.</div>
-        
-<span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-
-
-        <!-- SECTION 3.4 -->
-        <h3 id="sub-26" data-toc="3.4 Следствие: переход от лю…">
-          <span class="sec-tag">§ 3.4</span>
-          <span>Следствие: переход от любой перестановки к любой другой за конечное число транспозиций</span>
-        </h3>
-
-        <div class="statement theorem" id="thm-7">
-  <div class="block-label">Утверждение 7</div>
-  <h3 id="sub-27" data-toc="Следствие из Теоремы 3.2 (О …">Следствие из Теоремы 3.2 (О связности перестановок относительно транспозиций)</h3>
-  
-          
-            <span class="callout-badge">Следствие с доски</span>
-          
-</div>
-          <p>
-            <strong>От любой перестановки $(\alpha_1, \alpha_2, \dots, \alpha_n)$ на $n$ символах можно перейти к любой другой перестановке $(\beta_1, \beta_2, \dots, \beta_n)$ на тех же символах путем совершения конечного числа транспозиций.</strong>
-          </p>
-        </div>
-
-        
-<div class="proof" id="proof-8" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство Следствия и практический алгоритм">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-8" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>1. Теоретическое доказательство (через Теорему 3.2):</strong><br>
-            По Теореме 3.2 расположим все $n!$ перестановок на данных $n$ символах в ряд, взяв в качестве первой (начальной) перестановку $(\alpha_1, \dots, \alpha_n)$, так, что каждая следующая получается из предыдущей одной транспозицией.</p>
-  </div>
-  <div class="proof-full" id="full-8" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство Следствия и практический алгоритм)</div>
-    <div class="proof-content">
-<span class="callout-badge">Доказательство + пример</span>
-          </div>
-          <p>
-            <strong>1. Теоретическое доказательство (через Теорему 3.2):</strong><br>
-            По Теореме 3.2 расположим все $n!$ перестановок на данных $n$ символах в ряд, взяв в качестве первой (начальной) перестановку $(\alpha_1, \dots, \alpha_n)$, так, что каждая следующая получается из предыдущей одной транспозицией. Поскольку в этом ряду присутствуют все $n!$ перестановок, целевая перестановка $(\beta_1, \dots, \beta_n)$ обязательно встретится в нем на некотором месте $m$ ($1 \le m \le n!$). Оборвав ряд на этом месте, мы получим конечную последовательность из $(m - 1)$ транспозиций, переводящую $(\alpha_1, \dots, \alpha_n)$ в $(\beta_1, \dots, \beta_n)$.
-          </p>
-          <p>
-            <strong>2. Практический способ (поэлементная установка на нужные места — пример с доски):</strong><br>
-            На практике выписывать все $n!$ перестановок не нужно: достаточно поочередно ставить на 1-е, 2-е, ..., $n$-е место те элементы, которые должны стоять там в целевой перестановке (на это потребуется не более $n - 1$ транспозиций).
-          </p>
-          <p>
-            <em>Пример с доски:</em> Перейти от перестановки $(3, 4, 2, 1)$ к перестановке $(1, 3, 2, 4)$:
-          </p>
-          <div class="math-block">
-            $$
-            \boxed{(3, 4, 2, 1)} \xrightarrow{\text{меняем } (1, 3)} (1, 4, 2, 3) \xrightarrow{\text{меняем } (3, 4)} \boxed{(1, 3, 2, 4)}.
-            $$
-          </div>
-          <ul>
-            <li>В целевой перестановке $(1, 3, 2, 4)$ на 1-м месте должна стоять $1$. В $(3, 4, 2, 1)$ меняем местами $3$ и $1$ и получаем $(1, 4, 2, 3)$.</li>
-            <li>На 2-м месте должна стоять $3$. В $(1, 4, 2, 3)$ меняем местами $4$ и $3$ и сразу получаем требуемую перестановку $(1, 3, 2, 4)$ за 2 транспозиции!</li>
-          </ul>
-          <div class="qed-symbol">$\blacksquare$ Ч.т.д.</div>
-        
-<span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-
-      </section>
-
-      <!-- =====================================================================
-           CHAPTER 4: ПОРЯДКИ, ИНВЕРСИИ И ЧЕТНОСТЬ ПЕРЕСТАНОВОК
-           ===================================================================== -->
-      <section class="chapter-section" id="chapter-4">
-        <div class="chapter-banner ch4">
-          <span class="chapter-kicker">Тема IV • Четность перестановок и знак слагаемого в определителе</span>
-</section>
-
-<section class="chapter" aria-labelledby="chapter-5">
-  <div class="chapter-kicker">05 / Порядки, инверсии и четность…</div>
-  <h2 id="chapter-5" data-toc="Порядки, инверсии и четность…">Порядки, инверсии и четность перестановок</h2>
-  </div>
-
-        <h3 id="sub-28" data-toc="4.1 Определение порядка, инв…">
-          <span class="sec-tag">§ 4.1</span>
-          <span>Определение порядка, инверсии и четности перестановки</span>
-        </h3>
-
-        <p>
-          Пусть рассматриваются перестановки на множестве натуральных чисел (например, $M = \{1, 2, \dots, n\}$), где между самими символами существует естественное отношение строгого порядка «меньше / больше». Понятия <strong>порядка</strong> и <strong>инверсии</strong> — это парные понятия: они всегда определяются для <em>пары элементов</em> перестановки.
-        </p>
-
-        <div class="statement definition" id="def-7">
-  <div class="block-label">Определение 7</div>
-  <h3 id="sub-29" data-toc="Определение 4.1 (Порядок, ин…">Определение 4.1 (Порядок, инверсия, четная и нечетная перестановка)</h3>
-  
-          
-            <span class="callout-badge">Определение с доски</span>
-          
-</div>
-          <p>
-            Пусть $(\alpha_1, \alpha_2, \dots, \alpha_i, \dots, \alpha_j, \dots, \alpha_n)$ — перестановка на множестве из $n$ чисел, и пусть $i < j$ (то есть элемент $\alpha_i$ расположен в записи перестановки <strong>раньше / левее</strong> элемента $\alpha_j$).
-          </p>
-          <ul>
-            <li>Говорят, что элементы $\alpha_i$ и $\alpha_j$ образуют <strong>порядок</strong>, если при $i < j$ выполнено $\alpha_i < \alpha_j$ (меньшее число стоит раньше большего).</li>
-            <li>Говорят, что элементы $\alpha_i$ и $\alpha_j$ образуют <strong>инверсию</strong> (или <em>беспорядок</em>), если при $i < j$ выполнено $\alpha_i > \alpha_j$ (большее число стоит раньше меньшего).</li>
-            <li>Перестановка называется <strong>четной</strong>, если общее количество инверсий в ней четно, и <strong>нечетной</strong>, если общее количество инверсий в ней нечетно.</li>
-          </ul>
-          <p style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 0.4rem;">
-            <em>Вопрос из аудитории на лекции:</em> «Могут ли в перестановке стоять одинаковые элементы ($\alpha_i = \alpha_j$)?» — <strong>Нет!</strong> Изначально в множестве $M$ все $n$ элементов попарно различны, поэтому при $i < j$ всегда либо $\alpha_i < \alpha_j$ (порядок), либо $\alpha_i > \alpha_j$ (инверсия); третьего не дано.
-          </p>
-        </div>
-
-        <!-- SECTION 4.2 -->
-        <h3 id="sub-30" data-toc="4.2 Алгоритм подсчета числа …">
-          <span class="sec-tag">§ 4.2</span>
-          <span>Алгоритм подсчета числа инверсий (разбор примера с лекции)</span>
-        </h3>
-
-        <p>
-          Чтобы при подсчете общего числа инверсий в перестановке $(\alpha_1, \alpha_2, \dots, \alpha_n)$ не пропустить ни одной пары и не посчитать одну и ту же пару дважды, применяется упорядоченный алгоритм просмотра <strong>слева направо</strong>:
-        </p>
-        <p>
-          Для каждого очередного элемента $\alpha_i$ ($i = 1, 2, \dots, n-1$) мы считаем только те инверсии, которые он образует с <strong>последующими элементами</strong> (стоящими правее него, при $j > i$), то есть подсчитываем, сколько чисел правее $\alpha_i$ строго меньше $\alpha_i$. Все инверсии, которые $\alpha_i$ образовывал с предыдущими элементами (стоящими левее него), уже были учтены на предыдущих шагах!
-        </p>
-
-        <div class="worked-example" id="ex-2">
-  <div class="block-label">Пример 2</div>
-  <h3 id="sub-31" data-toc="Подробный разбор примера с л…">Подробный разбор примера с лекции: перестановка $(4, 1, 5, 7, 2, 6, 3)$</h3>
-  
-          
-            <span class="callout-badge">Пример с доски</span>
-          
-</div>
-          <p>
-            Найдем количество инверсий и определим четность перестановки на 7 символах:
-            $$\pi = (4,\; 1,\; 5,\; 7,\; 2,\; 6,\; 3).$$
-          </p>
-          <ul>
-            <li>Для числа <strong>$4$</strong> (1-е место): правее него стоят меньшие числа $1, 2, 3$ $\implies$ образует <strong>$3$ инверсии</strong>: $(4,1), (4,2), (4,3)$.</li>
-            <li>Для числа <strong>$1$</strong> (2-е место): правее него нет чисел меньше $1$ $\implies$ с последующими элементами образует <strong>$0$ инверсий</strong>. <em>(Замечание лектора: вообще в перестановке единица входит в одну инверсию с четверкой, но пара $(4,1)$ уже учтена на первом шаге!)</em></li>
-            <li>Для числа <strong>$5$</strong> (3-е место): правее него стоят меньшие числа $2, 3$ $\implies$ образует <strong>$2$ инверсии</strong>: $(5,2), (5,3)$.</li>
-            <li>Для числа <strong>$7$</strong> (4-е место): правее него стоят меньшие числа $2, 6, 3$ $\implies$ образует <strong>$3$ инверсии</strong>: $(7,2), (7,6), (7,3)$.</li>
-            <li>Для числа <strong>$2$</strong> (5-е место): правее него стоят только $6$ и $3$ (оба больше $2$) $\implies$ образует <strong>$0$ инверсий</strong>.</li>
-            <li>Для числа <strong>$6$</strong> (6-е место): правее него стоит меньшее число $3$ $\implies$ образует <strong>$1$ инверсию</strong>: $(6,3)$.</li>
-            <li>Для числа <strong>$3$</strong> (7-е место): правее него элементов нет $\implies$ <strong>$0$ инверсий</strong>.</li>
-          </ul>
-          <div class="math-block">
-            $$
-            N(4, 1, 5, 7, 2, 6, 3) = 3 + 0 + 2 + 3 + 0 + 1 + 0 = 9 \text{ инверсий.}
-            $$
-          </div>
-          <p>
-            Так как число $9$ нечетное, перестановка $(4, 1, 5, 7, 2, 6, 3)$ является <strong>нечетной</strong> (в определителе 7-го порядка слагаемое с такими вторыми индексами входит со знаком $(-1)^9 = -1$, то есть с минусом).
-          </p>
-        </div>
-
-        <!-- SVG ILLUSTRATION 6: INVERSION DIAGRAM FOR (4, 1, 5, 7, 2, 6, 3) -->
-        <figure class="figure-card">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 820 265" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Карта инверсий перестановки (4, 1, 5, 7, 2, 6, 3)">
-            <rect x="15" y="12" width="790" height="240" rx="10" fill="var(--svg-bg)" stroke="var(--border-color)"/>
-            <text x="410" y="38" text-anchor="middle" fill="var(--svg-text)" font-size="14" font-weight="800">Граф всех 9 инверсий перестановки (4, 1, 5, 7, 2, 6, 3): дуги ведут от большего числа к меньшему правее него</text>
-
-            <!-- Node positions X:
-                 idx1(4)=100, idx2(1)=200, idx3(5)=300, idx4(7)=400, idx5(2)=500, idx6(6)=600, idx7(3)=700
-                 Y = 145 -->
-            <!-- Arcs from 4 (x=100) to 1(200), 2(500), 3(700) -->
-            <path d="M 100 123 Q 150 85 200 123" fill="none" stroke="var(--ch1-color)" stroke-width="2.2"/>
-            <path d="M 100 123 Q 300 45 500 123" fill="none" stroke="var(--ch1-color)" stroke-width="2.2"/>
-            <path d="M 100 123 Q 400 25 700 123" fill="none" stroke="var(--ch1-color)" stroke-width="2.2"/>
-
-            <!-- Arcs from 5 (x=300) to 2(500), 3(700) -->
-            <path d="M 300 123 Q 400 72 500 123" fill="none" stroke="var(--ch2-color)" stroke-width="2.2"/>
-            <path d="M 300 123 Q 500 52 700 123" fill="none" stroke="var(--ch2-color)" stroke-width="2.2"/>
-
-            <!-- Arcs from 7 (x=400) to 2(500), 6(600), 3(700) -->
-            <path d="M 400 167 Q 450 205 500 167" fill="none" stroke="var(--svg-neg)" stroke-width="2.2"/>
-            <path d="M 400 167 Q 500 222 600 167" fill="none" stroke="var(--svg-neg)" stroke-width="2.2"/>
-            <path d="M 400 167 Q 550 242 700 167" fill="none" stroke="var(--svg-neg)" stroke-width="2.2"/>
-
-            <!-- Arc from 6 (x=600) to 3(700) -->
-            <path d="M 600 123 Q 650 85 700 123" fill="none" stroke="var(--svg-amber)" stroke-width="2.5"/>
-
-            <!-- Nodes -->
-            <!-- 4 -->
-            <circle cx="100" cy="145" r="22" fill="var(--ch1-bg)" stroke="var(--ch1-color)" stroke-width="2.5"/>
-            <text x="100" y="151" text-anchor="middle" fill="var(--svg-text)" font-size="16" font-weight="800">4</text>
-            <text x="100" y="192" text-anchor="middle" fill="var(--ch1-color)" font-size="12" font-weight="700">+3 инв.</text>
-
-            <!-- 1 -->
-            <circle cx="200" cy="145" r="22" fill="var(--bg-elevated)" stroke="var(--border-color)" stroke-width="2"/>
-            <text x="200" y="151" text-anchor="middle" fill="var(--svg-text)" font-size="16" font-weight="800">1</text>
-            <text x="200" y="192" text-anchor="middle" fill="var(--svg-muted)" font-size="12">+0 инв.</text>
-
-            <!-- 5 -->
-            <circle cx="300" cy="145" r="22" fill="var(--ch2-bg)" stroke="var(--ch2-color)" stroke-width="2.5"/>
-            <text x="300" y="151" text-anchor="middle" fill="var(--svg-text)" font-size="16" font-weight="800">5</text>
-            <text x="300" y="192" text-anchor="middle" fill="var(--ch2-color)" font-size="12" font-weight="700">+2 инв.</text>
-
-            <!-- 7 -->
-            <circle cx="400" cy="145" r="22" fill="var(--svg-neg-soft)" stroke="var(--svg-neg)" stroke-width="2.5"/>
-            <text x="400" y="151" text-anchor="middle" fill="var(--svg-text)" font-size="16" font-weight="800">7</text>
-            <text x="400" y="110" text-anchor="middle" fill="var(--svg-neg)" font-size="12" font-weight="700">+3 инв.</text>
-
-            <!-- 2 -->
-            <circle cx="500" cy="145" r="22" fill="var(--bg-elevated)" stroke="var(--border-color)" stroke-width="2"/>
-            <text x="500" y="151" text-anchor="middle" fill="var(--svg-text)" font-size="16" font-weight="800">2</text>
-            <text x="500" y="192" text-anchor="middle" fill="var(--svg-muted)" font-size="12">+0 инв.</text>
-
-            <!-- 6 -->
-            <circle cx="600" cy="145" r="22" fill="var(--svg-amber-soft)" stroke="var(--svg-amber)" stroke-width="2.5"/>
-            <text x="600" y="151" text-anchor="middle" fill="var(--svg-text)" font-size="16" font-weight="800">6</text>
-            <text x="600" y="192" text-anchor="middle" fill="var(--svg-amber)" font-size="12" font-weight="700">+1 инв.</text>
-
-            <!-- 3 -->
-            <circle cx="700" cy="145" r="22" fill="var(--bg-elevated)" stroke="var(--border-color)" stroke-width="2"/>
-            <text x="700" y="151" text-anchor="middle" fill="var(--svg-text)" font-size="16" font-weight="800">3</text>
-            <text x="700" y="192" text-anchor="middle" fill="var(--svg-muted)" font-size="12">+0 инв.</text>
-
-            <text x="410" y="238" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="800">Сумма инверсий: N = 3 + 0 + 2 + 3 + 0 + 1 + 0 = 9 (нечетное число ⇒ перестановка НЕЧЕТНАЯ)</text>
-          </svg></div>
-          <figcaption class="figure-caption">
-            <strong>Рис. 4.1.</strong> Схема подсчета инверсий в перестановке $(4, 1, 5, 7, 2, 6, 3)$: из каждого элемента проводятся дуги только вправо к меньшим числам. Общее число дуг равно $3 + 0 + 2 + 3 + 0 + 1 + 0 = 9$.
-          </figcaption>
-        </figure>
-
-        <!-- INTERACTIVE CALCULATOR WIDGET (Browser Bonus, Hidden in Print) -->
-        <div class="interactive-widget no-print">
-          <div style="font-weight: 800; font-size: 1.02rem; color: var(--text-main);">
-            🧮 Интерактивный тренажер: проверка инверсий, четности и разложения в транспозиции
-          </div>
-          <p style="font-size: 0.86rem; color: var(--text-secondary); margin: 0.3rem 0 0.6rem;">
-            Введите любую перестановку чисел через запятую или пробел (например, <code>4, 1, 5, 7, 2, 6, 3</code> или <code>4 3 1 2</code>), чтобы мгновенно увидеть пошаговый подсчет инверсий по методу лекции и знак $(-1)^N$:
-          </p>
-          
-          <div class="widget-result" id="perm-output"></div>
-        </div>
-
-        <!-- SECTION 4.3 -->
-        <h3 id="sub-32" data-toc="4.3 Теорема о смене четности…">
-          <span class="sec-tag">§ 4.3</span>
-          <span>Теорема о смене четности при транспозиции и следствие о равенстве числа четных и нечетных перестановок (по А. Г. Курошу и А. И. Кострикину)</span>
-        </h3>
-
-        <p>
-          Зачем в курсе высшей алгебры так подробно доказывалась <strong>Теорема 3.2 о расположении всех $n!$ перестановок в ряд</strong>? В учебнике А. Г. Куроша («Курс высшей алгебры», Гл. 1, § 3) и А. И. Кострикина («Введение в алгебру», Ч. 1, Гл. 1, § 4) сразу вслед за определением четности перестановки доказываются две ключевые теоремы, которые связывают транспозиции с четностью и объясняют, почему в определителе $n$-го порядка ровно половина слагаемых ($n!/2$) входит со знаком «плюс», а ровно половина ($n!/2$) — со знаком «минус». Приведем их с полными доказательствами.
-        </p>
-
-        <div class="statement theorem" id="thm-8">
-  <div class="block-label">Утверждение 8</div>
-  <h3 id="sub-33" data-toc="Теорема 4.1 (О смене четност…">Теорема 4.1 (О смене четности перестановки при одной транспозиции)</h3>
-  
-          
-            <span class="callout-badge">Курош, § 3 • Кострикин, § 4</span>
-          
-</div>
-          <p>
-            <strong>Всякая транспозиция двух элементов в перестановке меняет четность этой перестановки на противоположную (то есть четная перестановка переходит в нечетную, а нечетная — в четную).</strong>
-          </p>
-        </div>
-
-        
-<div class="proof" id="proof-9" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство Теоремы 4.1 (Случай соседних и случай произвольных элементов)">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-9" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Пусть дана перестановка на $n$ символах. Рассмотрим два случая расположения переставляемых символов $\alpha$ и $\beta$.</p>
-  </div>
-  <div class="proof-full" id="full-9" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство Теоремы 4.1 (Случай соседних и случай произвольных элементов))</div>
-    <div class="proof-content">
-<span class="callout-badge">Полное доказательство</span>
-          </div>
-          <p>
-            Пусть дана перестановка на $n$ символах. Рассмотрим два случая расположения переставляемых символов $\alpha$ и $\beta$.
-          </p>
-          <p>
-            <strong>Случай 1. Переставляемые элементы $\alpha$ и $\beta$ стоят рядом (соседняя транспозиция):</strong>
-            $$(\alpha_1, \dots, \alpha_{i-1},\; \mathbf{\alpha, \beta},\; \alpha_{i+2}, \dots, \alpha_n) \longrightarrow (\alpha_1, \dots, \alpha_{i-1},\; \mathbf{\beta, \alpha},\; \alpha_{i+2}, \dots, \alpha_n).$$
-            Заметим, что взаимное расположение (слева/справа) любого из элементов $\alpha, \beta$ с любым третьим элементом $\alpha_k$, стоящим левее или правее этой пары, <strong>не изменилось</strong> (если $\alpha_k$ стоял левее и $\alpha$, и $\beta$, он так и остался левее обоих; если стоял правее — остался правее обоих). Изменилось взаимное расположение <em>только внутри самой пары $(\alpha, \beta)$</em>:
-          </p>
-          <ul>
-            <li>Если до транспозиции пара $(\alpha, \beta)$ составляла порядок ($\alpha < \beta$), то после перестановки в паре $(\beta, \alpha)$ она стала составлять инверсию — общее число инверсий увеличилось ровно на $1$ ($N' = N + 1$).</li>
-            <li>Если до транспозиции пара $(\alpha, \beta)$ составляла инверсию ($\alpha > \beta$), то после перестановки она стала составлять порядок — общее число инверсий уменьшилось ровно на $1$ ($N' = N - 1$).</li>
-          </ul>
-          <p>
-            В обоих случаях изменение числа инверсий равно $\pm 1$, а значит, четность числа инверсий изменилась на противоположную.
-          </p>
-          <p>
-            <strong>Случай 2. Между переставляемыми элементами $\alpha$ и $\beta$ стоит $k$ промежуточных элементов $\gamma_1, \gamma_2, \dots, \gamma_k$ ($k \ge 1$):</strong>
-            $$(\dots,\; \mathbf{\alpha},\; \gamma_1, \gamma_2, \dots, \gamma_k,\; \mathbf{\beta},\; \dots) \longrightarrow (\dots,\; \mathbf{\beta},\; \gamma_1, \gamma_2, \dots, \gamma_k,\; \mathbf{\alpha},\; \dots).$$
-            Осуществим эту транспозицию последовательностью <em>соседних транспозиций</em>:
-          </p>
-          <ol>
-            <li>Сначала последовательно поменяем $\alpha$ местами с каждым из элементов $\gamma_1, \gamma_2, \dots, \gamma_k$, а затем и с $\beta$. На это уйдет ровно <strong>$(k + 1)$ соседних транспозиций</strong>, и в результате получится перестановка $(\dots, \gamma_1, \gamma_2, \dots, \gamma_k, \beta, \alpha, \dots)$.</li>
-            <li>Теперь последовательно поменяем элемент $\beta$ местами справа налево с элементами $\gamma_k, \gamma_{k-1}, \dots, \gamma_1$. На это уйдет еще <strong>$k$ соседних транспозиций</strong>, и элемент $\beta$ встанет на прежнее место элемента $\alpha$: $(\dots, \beta, \gamma_1, \gamma_2, \dots, \gamma_k, \alpha, \dots)$.</li>
-          </ol>
-          <p>
-            В итоге одна произвольная транспозиция элементов $\alpha$ и $\beta$ выполнена путем совершения
-            $$(k + 1) + k = 2k + 1$$
-            соседних транспозиций. По доказанному в Случае 1 каждая соседняя транспозиция меняет четность перестановки на противоположную. Поскольку число $2k + 1$ <strong>нечетно</strong>, после нечетного числа смен четности итоговая перестановка будет иметь четность, противоположную исходной!
-          </p>
-          <div class="qed-symbol">$\blacksquare$ Ч.т.д.</div>
-        
-<span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-
-
-        <div class="statement theorem" id="thm-9">
-  <div class="block-label">Утверждение 9</div>
-  <h3 id="sub-34" data-toc="Следствие (О равенстве колич…">Следствие (О равенстве количества четных и нечетных перестановок при $n \ge 2$)</h3>
-  
-          
-            <span class="callout-badge">Курош, § 3 • Главный результат</span>
-          
-</div>
-          <p>
-            <strong>При $n \ge 2$ среди всех $n!$ перестановок на $n$ символах количество четных перестановок в точности равно количеству нечетных перестановок и составляет $\dfrac{n!}{2}$.</strong>
-          </p>
-        </div>
-
-        
-<div class="proof" id="proof-10" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство Следствия (на основе Теоремы 3.2 о расположении в ряд)">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-10" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (Доказательство Следствия (на основе Теоремы 3.2 о расположении в ряд)).</p>
-  </div>
-  <div class="proof-full" id="full-10" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство Следствия (на основе Теоремы 3.2 о расположении в ряд))</div>
-    <div class="proof-content">
-<span class="callout-badge">Полное доказательство</span>
-          </div>
-          <ol>
-            <li>По <strong>Теореме 3.2</strong> расположим все $n!$ перестановок на $n$ символах в один ряд так, что каждая последующая перестановка получается из предыдущей одной транспозицией (например, начав с четной перестановки $(1, 2, \dots, n)$, имеющей $0$ инверсий).</li>
-            <li>По <strong>Теореме 4.1</strong> при каждой транспозиции четность перестановки меняется на противоположную. Следовательно, в построенном ряду из $n!$ перестановок четные и нечетные перестановки <strong>строго чередуются</strong> (1-я — четная, 2-я — нечетная, 3-я — четная, ..., $n!$-я — нечетная).</li>
-            <li>Так как при $n \ge 2$ число $n! = 1 \cdot 2 \cdots n$ всегда четно, весь ряд из $n!$ перестановок разбивается на $\frac{n!}{2}$ пар соседних перестановок, в каждой из которых ровно одна четная и ровно одна нечетная. Значит, четных и нечетных перестановок поровну — по $\dfrac{n!}{2}$.</li>
-          </ol>
-          <div class="qed-symbol">$\blacksquare$ Ч.т.д.</div>
-        
-<span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-
-
-      </section>
 </section>
 <!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>

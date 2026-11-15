@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Тригонометрическая форма и формула Муавра. Конспект FAM ФПМ НИУ ВШЭ.">
+  <meta name="description" content="ФПМ НИУ ВШЭ · Полный академический лекционный конспект">
   <title>Тригонометрическая форма и формула Муавра — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
@@ -183,8 +183,13 @@ html[data-theme] ::selection{background:var(--gold);color:var(--paper)}
 .themed-figure [data-figure-theme="light"]{display:block}
 html[data-theme="dark"] .themed-figure [data-figure-theme],html[data-theme="parchment"] .themed-figure [data-figure-theme]{display:none}
 html[data-theme="dark"] .themed-figure [data-figure-theme="dark"],html[data-theme="parchment"] .themed-figure [data-figure-theme="parchment"]{display:block}
-/* One neutral/light asset may remain on its own light plate in every theme. Never invert mathematical colours. */
-.figure-plate{background:#fff;color:#202e29;padding:16px;border:1px solid var(--rule)}
+.figure-plate{background:var(--bg-card);color:var(--ink);padding:20px;border:1px solid var(--rule);border-radius:8px;margin:32px 0}
+html[data-theme="light"] .figure-plate{background:#ffffff}
+html[data-theme="dark"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+html[data-theme="parchment"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+@media print{
+ .figure-plate{background:white!important;border:0!important;padding:0!important}
+}
 @media(max-width:760px){.topbar{height:auto;min-height:70px;flex-wrap:wrap;padding:12px 18px;gap:10px}.top-actions{gap:8px;flex-wrap:wrap}.theme-control select{font-size:10px;max-width:103px;padding:8px 4px}.pdf-button{padding:6px 8px}.pdf-button span{margin-left:4px}.wordmark{font-size:24px}}
 @media(max-width:400px){.wordmark{display:none}.top-actions{width:100%;justify-content:space-between}}
 @media print{
@@ -440,1237 +445,1063 @@ SOFTWARE.
     </aside>
     <main id="content">
       <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
-  <div class="lecture-meta"><span class="subject">Алгебра</span><span>ФПМ НИУ ВШЭ</span></div>
-  <h1>Тригонометрическая форма и формула Муавра</h1>
-  <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-  <div class="lecture-abstract">
-    <p>ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-    <div class="abstract-formula" aria-label="Ключевое выражение лекции">\[z = a + bi, \quad a, b \in \mathbb{R}\]</div>
-  </div>
-</header>
-<div class="proof-toolbar" aria-label="Все доказательства">
-  <span class="toolbar-label">Доказательства</span>
-  <div class="segmented" role="group" aria-label="Режим всех доказательств">
-    <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
-    <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
-    <button data-all-proofs="full" aria-pressed="false">Полностью</button>
-  </div>
-  <span id="proof-state" class="proof-state" aria-live="polite"></span>
-</div>
-<noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
-<p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
-
+      <header class="lecture-head" id="top">
+        <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
+        <h1>Тригонометрическая форма и формула Муавра</h1>
+        <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
+        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[z = a + bi, \quad a, b \in \mathbb{R}\]</div></div>
+      </header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
 <section class="chapter" aria-labelledby="chapter-1">
   <div class="chapter-kicker">01 / Введение</div>
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <header class="lecture-monument">
-        <div class="monument-kicker">
-          <span>✦ Алгебра</span>
-          <span style="opacity: 0.4;">/</span>
-          <span>ЛЕКЦИЯ №Лекция 03 ✦</span>
-        </div>
-
-        <h1 id="article-title">ТРИГОНОМЕТРИЧЕСКАЯ ФОРМА И <span class="gold-phrase">ФОРМУЛА МУАВРА</span></h1>
-        <p class="monument-lead" id="article-lead">Полярные координаты на комплексной плоскости, главное значение аргумента, оператор поворота, теорема об умножении и делении в тригонометрической форме, строгий вывод формулы Муавра и аналитическое доказательство неравенства треугольника.</p>
-
-        <div class="monument-clean-meta">
-          <span class="clean-pill">Алгебра</span>
-          <span>•</span>
-          <span>11 сентября 2026</span>
-        </div>
-      </header>
-
-      <!-- 
+<div class="monument-kicker">
+<span>✦ Алгебра</span>
+<span style="opacity: 0.4;">/</span>
+<span>ЛЕКЦИЯ №Лекция 03 ✦</span>
+</div>
+<h1 id="article-title">ТРИГОНОМЕТРИЧЕСКАЯ ФОРМА И <span class="gold-phrase">ФОРМУЛА МУАВРА</span></h1>
+<p class="monument-lead" id="article-lead">Полярные координаты на комплексной плоскости, главное значение аргумента, оператор поворота, теорема об умножении и делении в тригонометрической форме, строгий вывод формулы Муавра и аналитическое доказательство неравенства треугольника.</p>
+<div class="monument-clean-meta">
+<span class="clean-pill">Алгебра</span>
+<span>•</span>
+<span>11 сентября 2026</span>
+</div>
+</header>
+<!-- 
         =============================================================================
         СЮДА НЕЙРОСЕТЬ ВСТАВЛЯЕТ СОДЕРЖИМОЕ КОНСПЕКТА (ARTICLE CONTENT)
         =============================================================================
       -->
-      <article class="content-area" id="lectureContent">
-
-        
-
-      <!-- Заголовочный титул -->
-      <section class="doc-hero">
-        <h1>Комплексные числа: тригонометрическая форма, формула Муавра и корни</h1>
-        <div class="doc-subtitle">
+<article class="content-area" id="lectureContent">
+<!-- Заголовочный титул -->
+<section class="doc-hero">
+<h1>Комплексные числа: тригонометрическая форма, формула Муавра и корни</h1>
+<div class="doc-subtitle">
           Университетский теоретический конспект с исчерпывающими математическими доказательствами, геометрическими интерпретациями и практическими приложениями
         </div>
-        <div class="meta-badges">
-          <span class="badge badge-primary">Фундаментальная математика</span>
-          <span class="badge">Курс высшей алгебры (Курош, Кострикин)</span>
-          <span class="badge">Векторные иллюстрации</span>
-          <span class="badge">Готово к печати A4 / PDF</span>
-        </div>
-      </section>
-
-      <!-- Интерактивное оглавление для печати и PDF (Кликабельно в PDF) -->
-      
-
-      <!-- =====================================================================
+<div class="meta-badges">
+<span class="badge badge-primary">Фундаментальная математика</span>
+<span class="badge">Курс высшей алгебры (Курош, Кострикин)</span>
+<span class="badge">Векторные иллюстрации</span>
+<span class="badge">Готово к печати A4 / PDF</span>
+</div>
+</section>
+<!-- Интерактивное оглавление для печати и PDF (Кликабельно в PDF) -->
+<!-- =====================================================================
            РАЗДЕЛ 1: АЛГЕБРАИЧЕСКАЯ И ГЕОМЕТРИЧЕСКАЯ МОДЕЛЬ
            ===================================================================== -->
-      <section class="section-block" id="sec-model">
+<section class="section-block" id="sec-model">
 </section>
-
 <section class="chapter" aria-labelledby="chapter-2">
-  <div class="chapter-kicker">02 / 1. Алгебраическая и геометри…</div>
-  <h2 id="chapter-2" data-toc="1. Алгебраическая и геометри…">§ 1. Алгебраическая и геометрическая модель комплексных чисел</h2>
-  <p><span class="drop-cap">В</span>          В университетском курсе алгебры поле комплексных чисел $\mathbb{C}$ определяется как расширение поля действительных чисел $\mathbb{R}$, полученное присоединением элемента $i$ (мнимой единицы), удовлетворяющего фундаментальному соотношению $i^2 = -1$.
-        </p>
-
-        <div class="statement definition" id="def-1">
-  <div class="block-label">Определение 1</div>
-  <h3 id="sub-1" data-toc="Определение 1">Определение 1</h3>
+  <div class="chapter-kicker">02 / 1. Алгебраическая и геометриче…</div>
+  <h2 id="chapter-2" data-toc="1. Алгебраическая и геометриче…">§ 1. Алгебраическая и геометрическая модель комплексных чисел</h2>
   
-          <div class="callout-header">Определение 1.1 (Алгебраическая форма)
-</div>
-          Всякое комплексное число $z \in \mathbb{C}$ однозначно представляется в виде:
-          $$z = a + bi, \quad a, b \in \mathbb{R}$$
-          где $a = \operatorname{Re}(z)$ называется <em>действительной (вещественной) частью</em> числа $z$, а $b = \operatorname{Im}(z)$ — его <em>мнимой частью</em>.
-        </div>
+<p><span class="drop-cap">В</span>          В университетском курсе алгебры поле комплексных чисел $\mathbb{C}$ определяется как расширение поля действительных чисел $\mathbb{R}$, полученное присоединением элемента $i$ (мнимой единицы), удовлетворяющего фундаментальному соотношению $i^2 = -1$.
+        </p>
+<div class="statement definition" id="def-1"><div class="block-label">Определение 1</div><h3 data-toc="Определение 1.1 (Алгебраическа…" id="sub-2-1">Определение 1.1 (Алгебраическая форма)</h3><div>
 
-        <p>
+          Всякое комплексное число $z \in \mathbb{C}$ однозначно представляется в виде:
+          \[z = a + bi, \quad a, b \in \mathbb{R}\]
+          где $a = \operatorname{Re}(z)$ называется <em>действительной (вещественной) частью</em> числа $z$, а $b = \operatorname{Im}(z)$ — его <em>мнимой частью</em>.
+        </div></div>
+<p>
           Рассмотрим декартову прямоугольную систему координат на плоскости $\mathbb{R}^2$. Каждому комплексному числу $z = a + bi$ взаимно однозначно сопоставляется точка плоскости с координатами $(a, b)$ или радиус-вектор $\vec{r} = \vec{OZ}$, выходящий из начала координат $O(0, 0)$ в данную точку:
-          $$z = a + bi \quad \Longleftrightarrow \quad M(a, b) \quad \Longleftrightarrow \quad \vec{r} = \begin{pmatrix} a \\ b \end{pmatrix}$$
+          \[z = a + bi \quad \Longleftrightarrow \quad M(a, b) \quad \Longleftrightarrow \quad \vec{r} = \begin{pmatrix} a \\ b \end{pmatrix}\]
           Плоскость, на которой установлена указанная геометрическая биекция, называется <strong>комплексной плоскостью</strong> (или плоскостью Аргана — Гаусса). Горизонтальная ось абсцисс $OX$ называется <em>вещественной осью</em> ($\operatorname{Re}$), а вертикальная ось ординат $OY$ — <em>мнимой осью</em> ($\operatorname{Im}$).
         </p>
-
-        <div class="callout callout-remark">
-          <div class="callout-header">Замечание 1.1 (Векторная интерпретация операций)</div>
-          <ol>
-            <li>
-              <strong>Сложение и вычитание:</strong> Если $z_1 = a_1 + b_1 i$ и $z_2 = a_2 + b_2 i$, то:
-              $$z_1 \pm z_2 = (a_1 \pm a_2) + (b_1 \pm b_2)i$$
+<div class="callout callout-remark">
+<div class="callout-header">Замечание 1.1 (Векторная интерпретация операций)</div>
+<ol>
+<li>
+<strong>Сложение и вычитание:</strong> Если $z_1 = a_1 + b_1 i$ и $z_2 = a_2 + b_2 i$, то:
+              \[z_1 \pm z_2 = (a_1 \pm a_2) + (b_1 \pm b_2)i\]
               В силу линейности координат сложению и вычитанию комплексных чисел точно соответствует сложение и вычитание соответствующих им радиус-векторов по правилу параллелограмма (или треугольника).
             </li>
-            <li>
-              <strong>Умножение на вещественный скаляр:</strong> Для любого $\lambda \in \mathbb{R}$ имеем $\lambda z = (\lambda a) + (\lambda b)i$, что эквивалентно умножению вектора на скаляр (гомотетия с центром в нуле).
+<li>
+<strong>Умножение на вещественный скаляр:</strong> Для любого $\lambda \in \mathbb{R}$ имеем $\lambda z = (\lambda a) + (\lambda b)i$, что эквивалентно умножению вектора на скаляр (гомотетия с центром в нуле).
             </li>
-          </ol>
-        </div>
-
-        <div class="statement definition" id="def-2">
-  <div class="block-label">Определение 2</div>
-  <h3 id="sub-2" data-toc="Определение 2">Определение 2</h3>
-  
-          <div class="callout-header">Определение 1.2 (Комплексное сопряжение и модуль)
+</ol>
 </div>
-          Число $\bar{z} = a - bi$ называется <em>комплексно сопряженным</em> к числу $z = a + bi$.<br>
-          Геометрически операция перехода от $z$ к $\bar{z}$ есть <strong>осевая симметрия</strong> плоскости относительно вещественной оси $\operatorname{Re}$.<br>
-          Длина соответствующего радиус-вектора называется <em>модулем</em> комплексного числа и вычисляется по теореме Пифагора:
-          $$|z| = \sqrt{a^2 + b^2} = \sqrt{z \cdot \bar{z}}$$
-        </div>
-      </section>
+<div class="statement definition" id="def-2"><div class="block-label">Определение 2</div><h3 data-toc="Определение 1.2 (Комплексное с…" id="sub-2-2">Определение 1.2 (Комплексное сопряжение и модуль)</h3><div>
 
-      <!-- =====================================================================
+          Число $\bar{z} = a - bi$ называется <em>комплексно сопряженным</em> к числу $z = a + bi$.<br/>
+          Геометрически операция перехода от $z$ к $\bar{z}$ есть <strong>осевая симметрия</strong> плоскости относительно вещественной оси $\operatorname{Re}$.<br/>
+          Длина соответствующего радиус-вектора называется <em>модулем</em> комплексного числа и вычисляется по теореме Пифагора:
+          \[|z| = \sqrt{a^2 + b^2} = \sqrt{z \cdot \bar{z}}\]
+        </div></div>
+
+<!-- =====================================================================
            РАЗДЕЛ 2: ПОЛЯРНЫЕ КООРДИНАТЫ И ТРИГОНОМЕТРИЧЕСКАЯ ФОРМА
            ===================================================================== -->
-      <section class="section-block" id="sec-polar">
+<section class="section-block" id="sec-polar">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-3">
-  <div class="chapter-kicker">03 / 2. Полярные координаты и три…</div>
-  <h2 id="chapter-3" data-toc="2. Полярные координаты и три…">§ 2. Полярные координаты и тригонометрическая форма</h2>
-  <p>
+  <div class="chapter-kicker">03 / 2. Полярные координаты и триго…</div>
+  <h2 id="chapter-3" data-toc="2. Полярные координаты и триго…">§ 2. Полярные координаты и тригонометрическая форма</h2>
+  
+<p>
           Векторное описание на плоскости позволяет перейти от декартовых координат $(a, b)$ к полярным координатам $(r, \varphi)$.
         </p>
-
-        <!-- Рисунок 1: Тригонометрическая форма комплексного числа -->
-        <div class="svg-figure">
-          <div class="svg-container">
-            <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 520 380" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"/>
-                </marker>
-                <marker id="arrow-vec" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-vector1)"/>
-                </marker>
-              </defs>
-
-              <!-- Координатные оси -->
-              <line x1="40" y1="310" x2="480" y2="310" stroke="var(--svg-axis)" stroke-width="2" marker-end="url(#arrow)"/>
-              <line x1="100" y1="350" x2="100" y2="40" stroke="var(--svg-axis)" stroke-width="2" marker-end="url(#arrow)"/>
-
-              <text x="475" y="335" fill="var(--text-main)" font-size="14" font-weight="600">X (Re)</text>
-              <text x="70" y="45" fill="var(--text-main)" font-size="14" font-weight="600">Y (Im)</text>
-              <text x="80" y="330" fill="var(--text-muted)" font-size="14">O</text>
-
-              <!-- Единичный штрих на осях -->
-              <line x1="180" y1="305" x2="180" y2="315" stroke="var(--text-main)" stroke-width="2"/>
-              <text x="176" y="332" fill="var(--text-muted)" font-size="13">1</text>
-              <line x1="95" y1="230" x2="105" y2="230" stroke="var(--text-main)" stroke-width="2"/>
-              <text x="78" y="234" fill="var(--text-muted)" font-size="13">1</text>
-
-              <!-- Проекции и штриховые линии к точке z -->
-              <!-- z = (360, 110) => a = 260, b = 200 -->
-              <line x1="360" y1="310" x2="360" y2="110" stroke="var(--svg-axis)" stroke-dasharray="5,5" stroke-width="1.5"/>
-              <line x1="100" y1="110" x2="360" y2="110" stroke="var(--svg-axis)" stroke-dasharray="5,5" stroke-width="1.5"/>
-
-              <!-- Засечки a и b -->
-              <text x="355" y="335" fill="var(--accent-primary)" font-size="15" font-weight="700">a</text>
-              <text x="75" y="115" fill="var(--accent-primary)" font-size="15" font-weight="700">b</text>
-
-              <!-- Дуга угла phi -->
-              <path d="M 175 310 A 75 75 0 0 0 157 266" fill="none" stroke="var(--svg-accent)" stroke-width="2"/>
-              <text x="180" y="280" fill="var(--svg-accent)" font-size="16" font-weight="700">φ</text>
-
-              <!-- Радиус-вектор z -->
-              <line x1="100" y1="310" x2="356" y2="113" stroke="var(--svg-vector1)" stroke-width="3" marker-end="url(#arrow-vec)"/>
-              
-              <!-- Точка z -->
-              <circle cx="360" cy="110" r="5" fill="var(--svg-vector1)"/>
-              <text x="372" y="105" fill="var(--text-main)" font-size="16" font-weight="700">z = a + bi</text>
-              <text x="215" y="195" fill="var(--svg-vector1)" font-size="17" font-weight="700">r = |z|</text>
-            </svg></div>
-          </div>
-          <div class="figure-caption">Рис. 1. Представление комплексного числа $z$ в декартовых и полярных координатах на комплексной плоскости</div>
-        </div>
-
-        <p>
+<!-- Рисунок 1: Тригонометрическая форма комплексного числа -->
+<figure class="figure-plate">
+<div class="svg-container">
+<svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 520 380" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"></path>
+</marker>
+<marker id="arrow-vec" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-vector1)"></path>
+</marker>
+</defs>
+<!-- Координатные оси -->
+<line marker-end="url(#arrow)" stroke="var(--svg-axis)" stroke-width="2" x1="40" x2="480" y1="310" y2="310"></line>
+<line marker-end="url(#arrow)" stroke="var(--svg-axis)" stroke-width="2" x1="100" x2="100" y1="350" y2="40"></line>
+<text fill="var(--text-main)" font-size="14" font-weight="600" x="475" y="335">X (Re)</text>
+<text fill="var(--text-main)" font-size="14" font-weight="600" x="70" y="45">Y (Im)</text>
+<text fill="var(--text-muted)" font-size="14" x="80" y="330">O</text>
+<!-- Единичный штрих на осях -->
+<line stroke="var(--text-main)" stroke-width="2" x1="180" x2="180" y1="305" y2="315"></line>
+<text fill="var(--text-muted)" font-size="13" x="176" y="332">1</text>
+<line stroke="var(--text-main)" stroke-width="2" x1="95" x2="105" y1="230" y2="230"></line>
+<text fill="var(--text-muted)" font-size="13" x="78" y="234">1</text>
+<!-- Проекции и штриховые линии к точке z -->
+<!-- z = (360, 110) => a = 260, b = 200 -->
+<line stroke="var(--svg-axis)" stroke-dasharray="5,5" stroke-width="1.5" x1="360" x2="360" y1="310" y2="110"></line>
+<line stroke="var(--svg-axis)" stroke-dasharray="5,5" stroke-width="1.5" x1="100" x2="360" y1="110" y2="110"></line>
+<!-- Засечки a и b -->
+<text fill="var(--accent-primary)" font-size="15" font-weight="700" x="355" y="335">a</text>
+<text fill="var(--accent-primary)" font-size="15" font-weight="700" x="75" y="115">b</text>
+<!-- Дуга угла phi -->
+<path d="M 175 310 A 75 75 0 0 0 157 266" fill="none" stroke="var(--svg-accent)" stroke-width="2"></path>
+<text fill="var(--svg-accent)" font-size="16" font-weight="700" x="180" y="280">φ</text>
+<!-- Радиус-вектор z -->
+<line marker-end="url(#arrow-vec)" stroke="var(--svg-vector1)" stroke-width="3" x1="100" x2="356" y1="310" y2="113"></line>
+<!-- Точка z -->
+<circle cx="360" cy="110" fill="var(--svg-vector1)" r="5"></circle>
+<text fill="var(--text-main)" font-size="16" font-weight="700" x="372" y="105">z = a + bi</text>
+<text fill="var(--svg-vector1)" font-size="17" font-weight="700" x="215" y="195">r = |z|</text>
+</svg>
+</div>
+<div class="figure-caption">Рис. 1. Представление комплексного числа $z$ в декартовых и полярных координатах на комплексной плоскости</div>
+</figure>
+<p>
           Пусть задано ненулевое комплексное число $z = a + bi \ne 0$. Полярный радиус $r \in \mathbb{R}^+$ есть расстояние от начала координат до точки $(a, b)$, а полярный угол $\varphi \in \mathbb{R}$ — угол между положительным направлением действительной оси и вектором $\vec{OZ}$, отсчитываемый против часовой стрелки.
         </p>
-        
-        <p>Из прямоугольного треугольника с катетами $a, b$ и гипотенузой $r$ получаем формулы связи:</p>
-        $$r = |z| = \sqrt{a^2 + b^2} > 0$$
-        $$\cos\varphi = \frac{a}{\sqrt{a^2 + b^2}} = \frac{a}{r}, \qquad \sin\varphi = \frac{b}{\sqrt{a^2 + b^2}} = \frac{b}{r}$$
+<p>Из прямоугольного треугольника с катетами $a, b$ и гипотенузой $r$ получаем формулы связи:</p>
+        \[r = |z| = \sqrt{a^2 + b^2} > 0\]
+        \[\cos\varphi = \frac{a}{\sqrt{a^2 + b^2}} = \frac{a}{r}, \qquad \sin\varphi = \frac{b}{\sqrt{a^2 + b^2}} = \frac{b}{r}\]
         
         <p>Отсюда выражаем декартовы координаты через полярные: $a = r\cos\varphi$, $b = r\sin\varphi$. Подставляя их в алгебраическую форму $z = a + bi$, имеем:</p>
-        $$z = r\cos\varphi + i(r\sin\varphi) = r(\cos\varphi + i\sin\varphi)$$
+        \[z = r\cos\varphi + i(r\sin\varphi) = r(\cos\varphi + i\sin\varphi)\]
 
-        <div class="statement definition" id="def-3">
-  <div class="block-label">Определение 3</div>
-  <h3 id="sub-3" data-toc="Определение 3">Определение 3</h3>
-  
-          <div class="callout-header">Определение 2.1 (Тригонометрическая форма)
-</div>
+        <div class="statement definition" id="def-3"><div class="block-label">Определение 3</div><h3 data-toc="Определение 2.1 (Тригонометрич…" id="sub-3-1">Определение 2.1 (Тригонометрическая форма)</h3><div>
+
           Представление ненулевого комплексного числа $z \ne 0$ в виде:
-          $$z = r(\cos\varphi + i\sin\varphi), \quad r > 0, \quad \varphi \in \mathbb{R}$$
-          называется <strong>тригонометрической формой</strong> комплексного числа $z$.<br>
+          \[z = r(\cos\varphi + i\sin\varphi), \quad r > 0, \quad \varphi \in \mathbb{R}\]
+          называется <strong>тригонометрической формой</strong> комплексного числа $z$.<br/>
           Величина $r = |z|$ называется <em>модулем</em> числа $z$, а угол $\varphi$ называется <em>аргументом</em> комплексного числа и обозначается $\operatorname{Arg}(z)$.
-        </div>
-
-        <div class="callout callout-remark">
-          <div class="callout-header">Замечание 2.1 (Многозначность аргумента и главное значение)</div>
+        </div></div>
+<div class="callout callout-remark">
+<div class="callout-header">Замечание 2.1 (Многозначность аргумента и главное значение)</div>
           В силу $2\pi$-периодичности тригонометрических функций $\sin$ и $\cos$, аргумент определен с точностью до слагаемого, кратного $2\pi$:
-          $$\operatorname{Arg}(z) = \arg(z) + 2\pi k, \quad k \in \mathbb{Z}$$
-          Значение $\arg(z)$, заключенное в полуинтервале $(-\pi, \pi]$ (или в $[0, 2\pi)$), называется <strong>главным значением аргумента</strong>.<br>
+          \[\operatorname{Arg}(z) = \arg(z) + 2\pi k, \quad k \in \mathbb{Z}\]
+          Значение $\arg(z)$, заключенное в полуинтервале $(-\pi, \pi]$ (или в $[0, 2\pi)$), называется <strong>главным значением аргумента</strong>.<br/>
           Для $z = 0$ модуль равен нулю ($|0| = 0$), а аргумент $\operatorname{Arg}(0)$ не определен.
         </div>
+<div class="statement theorem featured" id="thm-1"><div class="block-label">Утверждение 1</div><h3 data-toc="Теорема 2.1 (Аналитическое выч…" id="sub-3-2">Теорема 2.1 (Аналитическое вычисление главного аргумента)</h3><div>
 
-        <div class="statement theorem featured" id="thm-1">
-  <div class="block-label">Утверждение 1</div>
-  <h3 id="sub-4" data-toc="Теорема 1">Теорема 1</h3>
-  
-          <div class="callout-header">Теорема 2.1 (Аналитическое вычисление главного аргумента)
-</div>
           Для ненулевого числа $z = a + bi$ главное значение аргумента $\arg(z) \in (-\pi, \pi]$ выражается через $\operatorname{arctg}$ по формуле:
-          $$\arg(z) = \begin{cases}
+          \[\arg(z) = \begin{cases}
             \operatorname{arctg}\left(\frac{b}{a}\right), & a > 0, \\
             \operatorname{arctg}\left(\frac{b}{a}\right) + \pi, & a < 0, \; b \ge 0, \\
             \operatorname{arctg}\left(\frac{b}{a}\right) - \pi, & a < 0, \; b < 0, \\
             +\frac{\pi}{2}, & a = 0, \; b > 0, \\
             -\frac{\pi}{2}, & a = 0, \; b < 0.
-          \end{cases}$$
-        </div>
+          \end{cases}\]
+        </div></div>
+<div class="worked-example" id="ex-1"><div class="block-label">Пример 1</div><h3 data-toc="Пример 2.1 (Перевод числа в тр…" id="sub-3-3">Пример 2.1 (Перевод числа в тригонометрическую форму)</h3><div>
 
-        <div class="worked-example" id="ex-1">
-  <div class="block-label">Пример 1</div>
-  <h3 id="sub-5" data-toc="Пример 1">Пример 1</h3>
-  
-          <div class="callout-header">Пример 2.1 (Перевод числа в тригонометрическую форму)
-</div>
-          Представить в тригонометрической форме число $z = -4 + 4i$.<br>
-          <em>Решение:</em>
-          <ol>
-            <li>Вычисляем модуль: $r = |z| = \sqrt{(-4)^2 + 4^2} = \sqrt{16 + 16} = \sqrt{32} = 4\sqrt{2}$.</li>
-            <li>Находим угол $\varphi$:
-              $$\cos\varphi = \frac{a}{r} = \frac{-4}{4\sqrt{2}} = -\frac{1}{\sqrt{2}} = -\frac{\sqrt{2}}{2}$$
-              $$\sin\varphi = \frac{b}{r} = \frac{4}{4\sqrt{2}} = \frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2}$$
+          Представить в тригонометрической форме число $z = -4 + 4i$.<br/>
+<em>Решение:</em>
+<ol>
+<li>Вычисляем модуль: $r = |z| = \sqrt{(-4)^2 + 4^2} = \sqrt{16 + 16} = \sqrt{32} = 4\sqrt{2}$.</li>
+<li>Находим угол $\varphi$:
+              \[\cos\varphi = \frac{a}{r} = \frac{-4}{4\sqrt{2}} = -\frac{1}{\sqrt{2}} = -\frac{\sqrt{2}}{2}\]
+              \[\sin\varphi = \frac{b}{r} = \frac{4}{4\sqrt{2}} = \frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2}\]
             </li>
-            <li>Так как $\cos\varphi < 0$, а $\sin\varphi > 0$, точка лежит во II координатной четверти. Следовательно, главное значение аргумента:
-              $$\varphi = \pi - \frac{\pi}{4} = \frac{3\pi}{4}$$
+<li>Так как $\cos\varphi < 0$, а $\sin\varphi > 0$, точка лежит во II координатной четверти. Следовательно, главное значение аргумента:
+              \[\varphi = \pi - \frac{\pi}{4} = \frac{3\pi}{4}\]
             </li>
-            <li>Итоговая тригонометрическая форма:
-              $$z = 4\sqrt{2}\left(\cos\frac{3\pi}{4} + i\sin\frac{3\pi}{4}\right)$$
+<li>Итоговая тригонометрическая форма:
+              \[z = 4\sqrt{2}\left(\cos\frac{3\pi}{4} + i\sin\frac{3\pi}{4}\right)\]
             </li>
-          </ol>
-        </div>
-      </section>
+</ol>
+</div></div>
 
-      <!-- =====================================================================
+<!-- =====================================================================
            РАЗДЕЛ 3: КРИТЕРИЙ РАВЕНСТВА
            ===================================================================== -->
-      <section class="section-block" id="sec-equality">
+<section class="section-block" id="sec-equality">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-4">
-  <div class="chapter-kicker">04 / 3. Критерий равенства в триг…</div>
-  <h2 id="chapter-4" data-toc="3. Критерий равенства в триг…">§ 3. Критерий равенства в тригонометрической форме</h2>
-  <p>
+  <div class="chapter-kicker">04 / 3. Критерий равенства в тригон…</div>
+  <h2 id="chapter-4" data-toc="3. Критерий равенства в тригон…">§ 3. Критерий равенства в тригонометрической форме</h2>
+  
+<p>
           В алгебраической форме два числа равны тогда и только тогда, когда равны их действительные и мнимые части. Сформулируем и строго докажем критерий для тригонометрической формы.
         </p>
+<div class="statement theorem" id="thm-2"><div class="block-label">Утверждение 2</div><h3 data-toc="Теорема 3.1 (Критерий равенств…" id="sub-4-1">Теорема 3.1 (Критерий равенства двух чисел)</h3><div>
 
-        <div class="statement theorem" id="thm-2">
-  <div class="block-label">Утверждение 2</div>
-  <h3 id="sub-6" data-toc="Теорема 2">Теорема 2</h3>
-  
-          <div class="callout-header">Теорема 3.1 (Критерий равенства двух чисел)
-</div>
           Пусть заданы два комплексных числа в тригонометрической форме:
-          $$z_1 = r(\cos\varphi + i\sin\varphi), \quad z_2 = \rho(\cos\theta + i\sin\theta), \quad r > 0, \; \rho > 0$$
+          \[z_1 = r(\cos\varphi + i\sin\varphi), \quad z_2 = \rho(\cos\theta + i\sin\theta), \quad r > 0, \; \rho > 0\]
           Тогда $z_1 = z_2$ тогда и только тогда, когда их модули равны, а аргументы отличаются на целое кратное $2\pi$:
-          $$z_1 = z_2 \quad \Longleftrightarrow \quad \begin{cases} r = \rho, \\ \theta = \varphi + 2\pi k, \quad k \in \mathbb{Z}. \end{cases}$$
-        </div>
-
-        
-<div class="proof" id="proof-1" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-1" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>Необходимость ($\Longrightarrow$):</strong> Пусть $z_1 = z_2$. По определению равенства комплексных чисел в алгебраической форме, равны их действительные и мнимые части:</p>
-  </div>
-  <div class="proof-full" id="full-1" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство)</div>
-    <div class="proof-content">
+          \[z_1 = z_2 \quad \Longleftrightarrow \quad \begin{cases} r = \rho, \\ \theta = \varphi + 2\pi k, \quad k \in \mathbb{Z}. \end{cases}\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-1">
+<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-1">
+<div class="proof-label">Идея</div>
+<p>Необходимость ($\Longrightarrow$): Пусть $z_1 = z_2$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-1">
+<div class="proof-label">Доказательство (Доказательство)</div>
+<div class="proof-content">
 <p>
-            <strong>Необходимость ($\Longrightarrow$):</strong> Пусть $z_1 = z_2$. По определению равенства комплексных чисел в алгебраической форме, равны их действительные и мнимые части:
+<strong>Необходимость ($\Longrightarrow$):</strong> Пусть $z_1 = z_2$. По определению равенства комплексных чисел в алгебраической форме, равны их действительные и мнимые части:
           </p>
-          $$\begin{cases} r\cos\varphi = \rho\cos\theta & (1) \\ r\sin\varphi = \rho\sin\theta & (2) \end{cases}$$
+          \[\begin{cases} r\cos\varphi = \rho\cos\theta & (1) \\ r\sin\varphi = \rho\sin\theta & (2) \end{cases}\]
           <p>Возведем равенства (1) и (2) в квадрат:</p>
-          $$\begin{cases} r^2 \cos^2\varphi = \rho^2 \cos^2\theta \\ r^2 \sin^2\varphi = \rho^2 \sin^2\theta \end{cases}$$
+          \[\begin{cases} r^2 \cos^2\varphi = \rho^2 \cos^2\theta \\ r^2 \sin^2\varphi = \rho^2 \sin^2\theta \end{cases}\]
           <p>Сложим полученные равенства почленно:</p>
-          $$r^2 \cos^2\varphi + r^2 \sin^2\varphi = \rho^2 \cos^2\theta + \rho^2 \sin^2\theta$$
-          $$r^2(\cos^2\varphi + \sin^2\varphi) = \rho^2(\cos^2\theta + \sin^2\theta)$$
+          \[r^2 \cos^2\varphi + r^2 \sin^2\varphi = \rho^2 \cos^2\theta + \rho^2 \sin^2\theta\]
+          \[r^2(\cos^2\varphi + \sin^2\varphi) = \rho^2(\cos^2\theta + \sin^2\theta)\]
           <p>В силу основного тригонометрического тождества $\cos^2\alpha + \sin^2\alpha = 1$, получаем:</p>
-          $$r^2 \cdot 1 = \rho^2 \cdot 1 \quad \implies \quad r^2 = \rho^2$$
+          \[r^2 \cdot 1 = \rho^2 \cdot 1 \quad \implies \quad r^2 = \rho^2\]
           <p>
             По условию тригонометрической формы модули строго положительны ($r > 0, \rho > 0$). Извлекая арифметический квадратный корень, находим:
           </p>
-          $$r = \rho$$
+          \[r = \rho\]
           <p>Подставим $r = \rho$ обратно в систему (1)–(2) и разделим оба равенства на $r > 0$:</p>
-          $$\begin{cases} \cos\theta = \cos\varphi \\ \sin\theta = \sin\varphi \end{cases}$$
+          \[\begin{cases} \cos\theta = \cos\varphi \\ \sin\theta = \sin\varphi \end{cases}\]
           <p>
             Из тригонометрии известно, что точка единичной окружности однозначно задается парой $(\cos\theta, \sin\theta)$. Следовательно, углы $\theta$ и $\varphi$ задают одну и ту же точку на тригонометрической окружности, откуда немедленно следует:
           </p>
-          $$\theta = \varphi + 2\pi k, \quad k \in \mathbb{Z}$$
+          \[\theta = \varphi + 2\pi k, \quad k \in \mathbb{Z}\]
           <p>
-            <strong>Достаточность ($\Longleftarrow$):</strong> Если $r = \rho$ и $\theta = \varphi + 2\pi k$, то в силу периодичности синуса и косинуса:
+<strong>Достаточность ($\Longleftarrow$):</strong> Если $r = \rho$ и $\theta = \varphi + 2\pi k$, то в силу периодичности синуса и косинуса:
           </p>
-          $$\cos\theta = \cos(\varphi + 2\pi k) = \cos\varphi, \qquad \sin\theta = \sin(\varphi + 2\pi k) = \sin\varphi$$
+          \[\cos\theta = \cos(\varphi + 2\pi k) = \cos\varphi, \qquad \sin\theta = \sin(\varphi + 2\pi k) = \sin\varphi\]
           <p>Следовательно, $\rho(\cos\theta + i\sin\theta) = r(\cos\varphi + i\sin\varphi)$, то есть $z_2 = z_1$.</p>
-          <div class="qed">■</div>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<div class="qed">■</div>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
 </div>
 
-      </section>
-
-      <!-- =====================================================================
+<!-- =====================================================================
            РАЗДЕЛ 4: ДЕЙСТВИЯ В ТРИГОНОМЕТРИЧЕСКОЙ ФОРМЕ
            ===================================================================== -->
-      <section class="section-block" id="sec-arithmetic">
+<section class="section-block" id="sec-arithmetic">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-5">
-  <div class="chapter-kicker">05 / 4. Правила действий над комп…</div>
-  <h2 id="chapter-5" data-toc="4. Правила действий над комп…">§ 4. Правила действий над комплексными числами в тригонометрической форме</h2>
-  <p>
+  <div class="chapter-kicker">05 / 4. Правила действий над компле…</div>
+  <h2 id="chapter-5" data-toc="4. Правила действий над компле…">§ 4. Правила действий над комплексными числами в тригонометрической форме</h2>
+  
+<p>
           Главное преимущество тригонометрической формы заключается в исключительной простоте операций умножения, деления и возведения в степень.
         </p>
+<div class="statement theorem" id="thm-3"><div class="block-label">Утверждение 3</div><h3 data-toc="Теорема 4.1 (Умножение и делен…" id="sub-5-1">Теорема 4.1 (Умножение и деление в тригонометрической форме)</h3><div>
 
-        <div class="statement theorem" id="thm-3">
-  <div class="block-label">Утверждение 3</div>
-  <h3 id="sub-7" data-toc="Теорема 3">Теорема 3</h3>
-  
-          <div class="callout-header">Теорема 4.1 (Умножение и деление в тригонометрической форме)
-</div>
           Пусть заданы два числа:
-          $$z_1 = r_1(\cos\varphi_1 + i\sin\varphi_1), \quad z_2 = r_2(\cos\varphi_2 + i\sin\varphi_2)$$
+          \[z_1 = r_1(\cos\varphi_1 + i\sin\varphi_1), \quad z_2 = r_2(\cos\varphi_2 + i\sin\varphi_2)\]
           Тогда:
           <ol>
-            <li>
-              <strong>Произведение:</strong> При умножении комплексных чисел их модули перемножаются, а аргументы складываются:
-              $$z_1 \cdot z_2 = r_1 r_2 \left[\cos(\varphi_1 + \varphi_2) + i\sin(\varphi_1 + \varphi_2)\right]$$
+<li>
+<strong>Произведение:</strong> При умножении комплексных чисел их модули перемножаются, а аргументы складываются:
+              \[z_1 \cdot z_2 = r_1 r_2 \left[\cos(\varphi_1 + \varphi_2) + i\sin(\varphi_1 + \varphi_2)\right]\]
             </li>
-            <li>
-              <strong>Частное (при $z_2 \ne 0$):</strong> При делении комплексных чисел их модули делятся, а аргументы вычитаются:
-              $$\frac{z_1}{z_2} = \frac{r_1}{r_2} \left[\cos(\varphi_1 - \varphi_2) + i\sin(\varphi_1 - \varphi_2)\right]$$
+<li>
+<strong>Частное (при $z_2 \ne 0$):</strong> При делении комплексных чисел их модули делятся, а аргументы вычитаются:
+              \[\frac{z_1}{z_2} = \frac{r_1}{r_2} \left[\cos(\varphi_1 - \varphi_2) + i\sin(\varphi_1 - \varphi_2)\right]\]
             </li>
-          </ol>
-        </div>
-
-        
-<div class="proof" id="proof-2" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-2" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>1. Доказательство формулы умножения:</strong> Перемножим числа почленно, учитывая, что $i^2 = -1$:</p>
-  </div>
-  <div class="proof-full" id="full-2" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство)</div>
-    <div class="proof-content">
+</ol>
+</div></div>
+<div class="proof" data-proof="" id="proof-2">
+<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-2">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-2">
+<div class="proof-label">Доказательство (Доказательство)</div>
+<div class="proof-content">
 <p><strong>1. Доказательство формулы умножения:</strong> Перемножим числа почленно, учитывая, что $i^2 = -1$:</p>
-          $$\begin{aligned}
+          \[\begin{aligned}
             z_1 \cdot z_2 &= \left[r_1(\cos\varphi_1 + i\sin\varphi_1)\right] \cdot \left[r_2(\cos\varphi_2 + i\sin\varphi_2)\right] \\
             &= r_1 r_2 \left[(\cos\varphi_1\cos\varphi_2 + i^2\sin\varphi_1\sin\varphi_2) + i(\sin\varphi_1\cos\varphi_2 + \cos\varphi_1\sin\varphi_2)\right] \\
             &= r_1 r_2 \left[(\cos\varphi_1\cos\varphi_2 - \sin\varphi_1\sin\varphi_2) + i(\sin\varphi_1\cos\varphi_2 + \cos\varphi_1\sin\varphi_2)\right]
-          \end{aligned}$$
+          \end{aligned}\]
           <p>Применяя классические тригонометрические теоремы сложения:</p>
-          $$\cos(\varphi_1 + \varphi_2) = \cos\varphi_1\cos\varphi_2 - \sin\varphi_1\sin\varphi_2$$
-          $$\sin(\varphi_1 + \varphi_2) = \sin\varphi_1\cos\varphi_2 + \cos\varphi_1\sin\varphi_2$$
+          \[\cos(\varphi_1 + \varphi_2) = \cos\varphi_1\cos\varphi_2 - \sin\varphi_1\sin\varphi_2\]
+          \[\sin(\varphi_1 + \varphi_2) = \sin\varphi_1\cos\varphi_2 + \cos\varphi_1\sin\varphi_2\]
           <p>Окончательно получаем требуемое:</p>
-          $$z_1 \cdot z_2 = r_1 r_2 \left[\cos(\varphi_1 + \varphi_2) + i\sin(\varphi_1 + \varphi_2)\right]$$
+          \[z_1 \cdot z_2 = r_1 r_2 \left[\cos(\varphi_1 + \varphi_2) + i\sin(\varphi_1 + \varphi_2)\right]\]
 
           <p><strong>2. Доказательство формулы деления:</strong> Пусть $w = \frac{z_1}{z_2}$. Поскольку $w \in \mathbb{C}$ и $w \ne 0$, запишем его в тригонометрической форме:</p>
-          $$w = \rho(\cos\theta + i\sin\theta)$$
+          \[w = \rho(\cos\theta + i\sin\theta)\]
           <p>Тогда по определению частного $z_1 = z_2 \cdot w$. Применяя доказанную выше формулу произведения к $z_2 \cdot w$:</p>
-          $$z_1 = r_2 \rho \left[\cos(\varphi_2 + \theta) + i\sin(\varphi_2 + \theta)\right]$$
+          \[z_1 = r_2 \rho \left[\cos(\varphi_2 + \theta) + i\sin(\varphi_2 + \theta)\right]\]
           <p>Но с другой стороны, $z_1 = r_1(\cos\varphi_1 + i\sin\varphi_1)$. Согласно <em>Теореме 3.1 о равенстве</em>:</p>
-          $$r_2 \rho = r_1 \implies \rho = \frac{r_1}{r_2}$$
-          $$\varphi_2 + \theta = \varphi_1 + 2\pi k \implies \theta = \varphi_1 - \varphi_2 + 2\pi k$$
+          \[r_2 \rho = r_1 \implies \rho = \frac{r_1}{r_2}\]
+          \[\varphi_2 + \theta = \varphi_1 + 2\pi k \implies \theta = \varphi_1 - \varphi_2 + 2\pi k\]
           <p>Выбирая значение аргумента при $k = 0$, получаем:</p>
-          $$\frac{z_1}{z_2} = \frac{r_1}{r_2}\left[\cos(\varphi_1 - \varphi_2) + i\sin(\varphi_1 - \varphi_2)\right]$$
+          \[\frac{z_1}{z_2} = \frac{r_1}{r_2}\left[\cos(\varphi_1 - \varphi_2) + i\sin(\varphi_1 - \varphi_2)\right]\]
           <div class="qed">■</div>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        <!-- Рисунок 2: Геометрический смысл умножения -->
-        <div class="svg-figure">
-          <div class="svg-container">
-            <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 540 380" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <marker id="arr2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"/>
-                </marker>
-                <marker id="arr-prod" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-accent)"/>
-                </marker>
-              </defs>
-
-              <!-- Оси координат -->
-              <line x1="30" y1="320" x2="500" y2="320" stroke="var(--svg-axis)" stroke-width="2" marker-end="url(#arr2)"/>
-              <line x1="120" y1="360" x2="120" y2="30" stroke="var(--svg-axis)" stroke-width="2" marker-end="url(#arr2)"/>
-              <text x="495" y="340" fill="var(--text-main)" font-size="13" font-weight="600">Re</text>
-              <text x="90" y="35" fill="var(--text-main)" font-size="13" font-weight="600">Im</text>
-              <text x="100" y="340" fill="var(--text-muted)" font-size="13">O</text>
-
-              <!-- Вектор z1: угол 25 град, r1 = 170 -->
-              <!-- x = 120 + 170*cos(25) = 120 + 154 = 274; y = 320 - 170*sin(25) = 320 - 72 = 248 -->
-              <line x1="120" y1="320" x2="274" y2="248" stroke="var(--svg-vector1)" stroke-width="2.5"/>
-              <circle cx="274" cy="248" r="4" fill="var(--svg-vector1)"/>
-              <text x="285" y="250" fill="var(--svg-vector1)" font-size="14" font-weight="700">z₁ (r₁, φ₁)</text>
-
-              <!-- Вектор z2: угол 35 град, r2 = 140 -->
-              <!-- x = 120 + 140*cos(35) = 120 + 115 = 235; y = 320 - 140*sin(35) = 320 - 80 = 240 -->
-              <line x1="120" y1="320" x2="235" y2="240" stroke="var(--svg-vector2)" stroke-width="2.5"/>
-              <circle cx="235" cy="240" r="4" fill="var(--svg-vector2)"/>
-              <text x="175" y="225" fill="var(--svg-vector2)" font-size="14" font-weight="700">z₂ (r₂, φ₂)</text>
-
-              <!-- Вектор z1 * z2: угол 60 град, длина r = 260 -->
-              <!-- x = 120 + 260*cos(60) = 120 + 130 = 250; y = 320 - 260*sin(60) = 320 - 225 = 95 -->
-              <line x1="120" y1="320" x2="248" y2="98" stroke="var(--svg-accent)" stroke-width="3" marker-end="url(#arr-prod)"/>
-              <circle cx="250" cy="95" r="5" fill="var(--svg-accent)"/>
-              <text x="262" y="95" fill="var(--svg-accent)" font-size="15" font-weight="700">z₁·z₂ (r₁r₂, φ₁ + φ₂)</text>
-
-              <!-- Дуги углов -->
-              <path d="M 180 320 A 60 60 0 0 0 174 295" fill="none" stroke="var(--svg-vector1)" stroke-width="1.5"/>
-              <text x="185" y="310" fill="var(--svg-vector1)" font-size="12">φ₁</text>
-
-              <path d="M 220 320 A 100 100 0 0 0 170 233" fill="none" stroke="var(--svg-accent)" stroke-width="1.8" stroke-dasharray="4,3"/>
-              <text x="215" y="275" fill="var(--svg-accent)" font-size="13">φ₁ + φ₂</text>
-            </svg></div>
-          </div>
-          <div class="figure-caption">Рис. 2. Геометрический смысл умножения комплексных чисел: растяжение в $r_2$ раз и поворот на угол $\varphi_2$</div>
-        </div>
-
-        <div class="callout callout-remark">
-          <div class="callout-header">Замечание 4.1 (Геометрический смысл по Курошу и Кострикину)</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<!-- Рисунок 2: Геометрический смысл умножения -->
+<figure class="figure-plate">
+<div class="svg-container">
+<svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 540 380" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arr2" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"></path>
+</marker>
+<marker id="arr-prod" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-accent)"></path>
+</marker>
+</defs>
+<!-- Оси координат -->
+<line marker-end="url(#arr2)" stroke="var(--svg-axis)" stroke-width="2" x1="30" x2="500" y1="320" y2="320"></line>
+<line marker-end="url(#arr2)" stroke="var(--svg-axis)" stroke-width="2" x1="120" x2="120" y1="360" y2="30"></line>
+<text fill="var(--text-main)" font-size="13" font-weight="600" x="495" y="340">Re</text>
+<text fill="var(--text-main)" font-size="13" font-weight="600" x="90" y="35">Im</text>
+<text fill="var(--text-muted)" font-size="13" x="100" y="340">O</text>
+<!-- Вектор z1: угол 25 град, r1 = 170 -->
+<!-- x = 120 + 170*cos(25) = 120 + 154 = 274; y = 320 - 170*sin(25) = 320 - 72 = 248 -->
+<line stroke="var(--svg-vector1)" stroke-width="2.5" x1="120" x2="274" y1="320" y2="248"></line>
+<circle cx="274" cy="248" fill="var(--svg-vector1)" r="4"></circle>
+<text fill="var(--svg-vector1)" font-size="14" font-weight="700" x="285" y="250">z₁ (r₁, φ₁)</text>
+<!-- Вектор z2: угол 35 град, r2 = 140 -->
+<!-- x = 120 + 140*cos(35) = 120 + 115 = 235; y = 320 - 140*sin(35) = 320 - 80 = 240 -->
+<line stroke="var(--svg-vector2)" stroke-width="2.5" x1="120" x2="235" y1="320" y2="240"></line>
+<circle cx="235" cy="240" fill="var(--svg-vector2)" r="4"></circle>
+<text fill="var(--svg-vector2)" font-size="14" font-weight="700" x="175" y="225">z₂ (r₂, φ₂)</text>
+<!-- Вектор z1 * z2: угол 60 град, длина r = 260 -->
+<!-- x = 120 + 260*cos(60) = 120 + 130 = 250; y = 320 - 260*sin(60) = 320 - 225 = 95 -->
+<line marker-end="url(#arr-prod)" stroke="var(--svg-accent)" stroke-width="3" x1="120" x2="248" y1="320" y2="98"></line>
+<circle cx="250" cy="95" fill="var(--svg-accent)" r="5"></circle>
+<text fill="var(--svg-accent)" font-size="15" font-weight="700" x="262" y="95">z₁·z₂ (r₁r₂, φ₁ + φ₂)</text>
+<!-- Дуги углов -->
+<path d="M 180 320 A 60 60 0 0 0 174 295" fill="none" stroke="var(--svg-vector1)" stroke-width="1.5"></path>
+<text fill="var(--svg-vector1)" font-size="12" x="185" y="310">φ₁</text>
+<path d="M 220 320 A 100 100 0 0 0 170 233" fill="none" stroke="var(--svg-accent)" stroke-dasharray="4,3" stroke-width="1.8"></path>
+<text fill="var(--svg-accent)" font-size="13" x="215" y="275">φ₁ + φ₂</text>
+</svg>
+</div>
+<div class="figure-caption">Рис. 2. Геометрический смысл умножения комплексных чисел: растяжение в $r_2$ раз и поворот на угол $\varphi_2$</div>
+</figure>
+<div class="callout callout-remark">
+<div class="callout-header">Замечание 4.1 (Геометрический смысл по Курошу и Кострикину)</div>
           Умножение произвольного комплексного числа $z$ на фиксированное число $w = \rho(\cos\theta + i\sin\theta)$ представляет собой геометрическое линейное преобразование плоскости — <strong>поворотную гомотетию</strong>:
           <ol>
-            <li>Растяжение (гомотетию) с центром в $O$ и коэффициентом $\rho = |w|$;</li>
-            <li>Поворот вокруг начала координат на угол $\theta = \operatorname{Arg}(w)$ против часовой стрелки.</li>
-          </ol>
+<li>Растяжение (гомотетию) с центром в $O$ и коэффициентом $\rho = |w|$;</li>
+<li>Поворот вокруг начала координат на угол $\theta = \operatorname{Arg}(w)$ против часовой стрелки.</li>
+</ol>
           В частности, умножение числа на $i = 1\left(\cos\frac{\pi}{2} + i\sin\frac{\pi}{2}\right)$ соответствует строгому повороту вектора на прямой угол $+90^\circ$.
         </div>
+<div class="statement theorem" id="thm-4"><div class="block-label">Утверждение 4</div><h3 data-toc="Следствие 4.1 (Обратный элемент)" id="sub-5-2">Следствие 4.1 (Обратный элемент)</h3><div>
 
-        <div class="statement theorem" id="thm-4">
-  <div class="block-label">Утверждение 4</div>
-  <h3 id="sub-8" data-toc="Теорема 4">Теорема 4</h3>
-  
-          <div class="callout-header">Следствие 4.1 (Обратный элемент)
-</div>
           Для любого $z = r(\cos\varphi + i\sin\varphi) \ne 0$ обратный элемент $z^{-1} = \frac{1}{z}$ имеет тригонометрическую форму:
-          $$z^{-1} = \frac{1}{r}\left[\cos(-\varphi) + i\sin(-\varphi)\right]$$
-        </div>
-        
-<div class="proof" id="proof-3" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-3" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
-  </div>
-  <div class="proof-full" id="full-3" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство)</div>
-    <div class="proof-content">
+          \[z^{-1} = \frac{1}{r}\left[\cos(-\varphi) + i\sin(-\varphi)\right]\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-3">
+<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-3">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-3">
+<div class="proof-label">Доказательство (Доказательство)</div>
+<div class="proof-content">
 Число $1$ в тригонометрической форме имеет вид $1 = 1(\cos 0 + i\sin 0)$. Применяя формулу частного для $\frac{1}{z}$:
-          $$z^{-1} = \frac{1(\cos 0 + i\sin 0)}{r(\cos\varphi + i\sin\varphi)} = \frac{1}{r}\left[\cos(0 - \varphi) + i\sin(0 - \varphi)\right] = \frac{1}{r}\left[\cos(-\varphi) + i\sin(-\varphi)\right]$$
+          \[z^{-1} = \frac{1(\cos 0 + i\sin 0)}{r(\cos\varphi + i\sin\varphi)} = \frac{1}{r}\left[\cos(0 - \varphi) + i\sin(0 - \varphi)\right] = \frac{1}{r}\left[\cos(-\varphi) + i\sin(-\varphi)\right]\]
           <div class="qed">■</div>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
 </div>
 
-      </section>
-
-      <!-- =====================================================================
+<!-- =====================================================================
            РАЗДЕЛ 5: СВОЙСТВА МОДУЛЯ И НЕРАВЕНСТВО ТРЕУГОЛЬНИКА
            ===================================================================== -->
-      <section class="section-block" id="sec-triangle">
+<section class="section-block" id="sec-triangle">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-6">
-  <div class="chapter-kicker">06 / 5. Свойства модуля и неравен…</div>
-  <h2 id="chapter-6" data-toc="5. Свойства модуля и неравен…">§ 5. Свойства модуля и неравенство треугольника</h2>
-  <div class="statement theorem" id="thm-5">
-  <div class="block-label">Утверждение 5</div>
-  <h3 id="sub-9" data-toc="Теорема 5">Теорема 5</h3>
+  <div class="chapter-kicker">06 / 5. Свойства модуля и неравенст…</div>
+  <h2 id="chapter-6" data-toc="5. Свойства модуля и неравенст…">§ 5. Свойства модуля и неравенство треугольника</h2>
   
-          <div class="callout-header">Теорема 5.1 (Свойства модуля комплексных чисел)
-</div>
+<div class="statement theorem" id="thm-5"><div class="block-label">Утверждение 5</div><h3 data-toc="Теорема 5.1 (Свойства модуля к…" id="sub-6-1">Теорема 5.1 (Свойства модуля комплексных чисел)</h3><div>
+
           Для любых комплексных чисел $z, z_1, z_2 \in \mathbb{C}$ справедливы соотношения:
           <ol>
-            <li><strong>Мультипликативность:</strong> $|z_1 \cdot z_2| = |z_1| \cdot |z_2|$;</li>
-            <li><strong>Модуль частного:</strong> $\left|\frac{z_1}{z_2}\right| = \frac{|z_1|}{|z_2|}$ (при $z_2 \ne 0$);</li>
-            <li><strong>Модуль обратного:</strong> $|z^{-1}| = \frac{1}{|z|}$;</li>
-            <li><strong>Симметрия сопряжения и знака:</strong> $|z| = |\bar{z}| = |-z|$;</li>
-            <li><strong>Неравенство треугольника (двустороннее):</strong>
-              $$\big||z_1| - |z_2|\big| \le |z_1 \pm z_2| \le |z_1| + |z_2|$$
+<li><strong>Мультипликативность:</strong> $|z_1 \cdot z_2| = |z_1| \cdot |z_2|$;</li>
+<li><strong>Модуль частного:</strong> $\left|\frac{z_1}{z_2}\right| = \frac{|z_1|}{|z_2|}$ (при $z_2 \ne 0$);</li>
+<li><strong>Модуль обратного:</strong> $|z^{-1}| = \frac{1}{|z|}$;</li>
+<li><strong>Симметрия сопряжения и знака:</strong> $|z| = |\bar{z}| = |-z|$;</li>
+<li><strong>Неравенство треугольника (двустороннее):</strong>
+              \[\big||z_1| - |z_2|\big| \le |z_1 \pm z_2| \le |z_1| + |z_2|\]
             </li>
-          </ol>
-        </div>
-
-        
-<div class="proof" id="proof-4" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство свойств 1–4">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-4" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Свойства 1, 2 и 3 напрямую следуют из формул умножения, деления и обратного элемента в тригонометрической форме (Теорема 4.1 и Следствие 4.1), так как модуль результирующего числа равен соответственно $r_1 r_2$, $r_1 / r_2$ и $1/r$.</p>
-  </div>
-  <div class="proof-full" id="full-4" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство свойств 1–4)</div>
-    <div class="proof-content">
+</ol>
+</div></div>
+<div class="proof" data-proof="" id="proof-4">
+<div aria-label="Доказательство Доказательство свойств 1–4" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-4">
+<div class="proof-label">Идея</div>
+<p>Свойства 1, 2 и 3 напрямую следуют из формул умножения, деления и обратного элемента в тригонометрической форме (Теорема 4.1 и Следствие 4.1), так как модуль результирующего числа равен соответственно $r_1 r_2$, $r_1 / r_2$ и $1/r$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-4">
+<div class="proof-label">Доказательство (Доказательство свойств 1–4)</div>
+<div class="proof-content">
 <p>
             Свойства 1, 2 и 3 напрямую следуют из формул умножения, деления и обратного элемента в тригонометрической форме (Теорема 4.1 и Следствие 4.1), так как модуль результирующего числа равен соответственно $r_1 r_2$, $r_1 / r_2$ и $1/r$.
           </p>
-          <p>Свойство 4 проверяется непосредственно в декартовых координатах для $z = a + bi$:</p>
-          $$|\bar{z}| = |a - bi| = \sqrt{a^2 + (-b)^2} = \sqrt{a^2 + b^2} = |z|$$
-          $$|-z| = |-a - bi| = \sqrt{(-a)^2 + (-b)^2} = \sqrt{a^2 + b^2} = |z|$$
+<p>Свойство 4 проверяется непосредственно в декартовых координатах для $z = a + bi$:</p>
+          \[|\bar{z}| = |a - bi| = \sqrt{a^2 + (-b)^2} = \sqrt{a^2 + b^2} = |z|\]
+          \[|-z| = |-a - bi| = \sqrt{(-a)^2 + (-b)^2} = \sqrt{a^2 + b^2} = |z|\]
           <div class="qed">■</div>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        <!-- Рисунок 3: Неравенство треугольника на плоскости -->
-        <div class="svg-figure">
-          <div class="svg-container">
-            <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 540 380" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <marker id="arr3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"/>
-                </marker>
-                <marker id="arr-sum" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-accent)"/>
-                </marker>
-              </defs>
-
-              <line x1="30" y1="320" x2="510" y2="320" stroke="var(--svg-axis)" stroke-width="2" marker-end="url(#arr3)"/>
-              <line x1="80" y1="360" x2="80" y2="40" stroke="var(--svg-axis)" stroke-width="2" marker-end="url(#arr3)"/>
-              <text x="500" y="340" fill="var(--text-main)" font-size="13">X</text>
-              <text x="60" y="45" fill="var(--text-main)" font-size="13">Y</text>
-              <text x="65" y="335" fill="var(--text-muted)" font-size="13">O</text>
-
-              <!-- z1 = (190, 140) => вектор из (80, 320) в (190, 140), dx=110, dy=-180 -->
-              <line x1="80" y1="320" x2="190" y2="140" stroke="var(--svg-vector1)" stroke-width="2.5"/>
-              <circle cx="190" cy="140" r="4" fill="var(--svg-vector1)"/>
-              <text x="140" y="130" fill="var(--svg-vector1)" font-size="15" font-weight="700">z₁</text>
-
-              <!-- z2 = (330, 240) => вектор из (80, 320) в (330, 240), dx=250, dy=-80 -->
-              <line x1="80" y1="320" x2="330" y2="240" stroke="var(--svg-vector2)" stroke-width="2.5"/>
-              <circle cx="330" cy="240" r="4" fill="var(--svg-vector2)"/>
-              <text x="340" y="255" fill="var(--svg-vector2)" font-size="15" font-weight="700">z₂</text>
-
-              <!-- Сумма z1 + z2: конец в (80 + 110 + 250, 320 - 180 - 80) = (440, 60) -->
-              <line x1="80" y1="320" x2="436" y2="63" stroke="var(--svg-accent)" stroke-width="3" marker-end="url(#arr-sum)"/>
-              <circle cx="440" cy="60" r="5" fill="var(--svg-accent)"/>
-              <text x="450" y="60" fill="var(--svg-accent)" font-size="16" font-weight="700">z₁ + z₂</text>
-
-              <!-- Стороны параллелограмма -->
-              <line x1="190" y1="140" x2="440" y2="60" stroke="var(--svg-vector2)" stroke-width="1.8" stroke-dasharray="5,4"/>
-              <line x1="330" y1="240" x2="440" y2="60" stroke="var(--svg-vector1)" stroke-width="1.8" stroke-dasharray="5,4"/>
-
-              <!-- Разность z1 - z2: соединяет конец z2 с концом z1 -->
-              <line x1="330" y1="240" x2="190" y2="140" stroke="var(--svg-vector3)" stroke-width="2.5"/>
-              <text x="265" y="180" fill="var(--svg-vector3)" font-size="15" font-weight="700">z₁ - z₂</text>
-            </svg></div>
-          </div>
-          <div class="figure-caption">Рис. 3. Геометрическая иллюстрация неравенства треугольника: стороны параллелограмма $|z_1|$, $|z_2|$ и диагонали $|z_1 + z_2|$, $|z_1 - z_2|$</div>
-        </div>
-
-        
-<div class="proof" id="proof-5" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство неравенства треугольника тремя способами">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-5" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>Способ I: Векторно-геометрический</strong></p>
-  </div>
-  <div class="proof-full" id="full-5" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство неравенства треугольника тремя способами)</div>
-    <div class="proof-content">
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<!-- Рисунок 3: Неравенство треугольника на плоскости -->
+<figure class="figure-plate">
+<div class="svg-container">
+<svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 540 380" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arr3" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"></path>
+</marker>
+<marker id="arr-sum" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-accent)"></path>
+</marker>
+</defs>
+<line marker-end="url(#arr3)" stroke="var(--svg-axis)" stroke-width="2" x1="30" x2="510" y1="320" y2="320"></line>
+<line marker-end="url(#arr3)" stroke="var(--svg-axis)" stroke-width="2" x1="80" x2="80" y1="360" y2="40"></line>
+<text fill="var(--text-main)" font-size="13" x="500" y="340">X</text>
+<text fill="var(--text-main)" font-size="13" x="60" y="45">Y</text>
+<text fill="var(--text-muted)" font-size="13" x="65" y="335">O</text>
+<!-- z1 = (190, 140) => вектор из (80, 320) в (190, 140), dx=110, dy=-180 -->
+<line stroke="var(--svg-vector1)" stroke-width="2.5" x1="80" x2="190" y1="320" y2="140"></line>
+<circle cx="190" cy="140" fill="var(--svg-vector1)" r="4"></circle>
+<text fill="var(--svg-vector1)" font-size="15" font-weight="700" x="140" y="130">z₁</text>
+<!-- z2 = (330, 240) => вектор из (80, 320) в (330, 240), dx=250, dy=-80 -->
+<line stroke="var(--svg-vector2)" stroke-width="2.5" x1="80" x2="330" y1="320" y2="240"></line>
+<circle cx="330" cy="240" fill="var(--svg-vector2)" r="4"></circle>
+<text fill="var(--svg-vector2)" font-size="15" font-weight="700" x="340" y="255">z₂</text>
+<!-- Сумма z1 + z2: конец в (80 + 110 + 250, 320 - 180 - 80) = (440, 60) -->
+<line marker-end="url(#arr-sum)" stroke="var(--svg-accent)" stroke-width="3" x1="80" x2="436" y1="320" y2="63"></line>
+<circle cx="440" cy="60" fill="var(--svg-accent)" r="5"></circle>
+<text fill="var(--svg-accent)" font-size="16" font-weight="700" x="450" y="60">z₁ + z₂</text>
+<!-- Стороны параллелограмма -->
+<line stroke="var(--svg-vector2)" stroke-dasharray="5,4" stroke-width="1.8" x1="190" x2="440" y1="140" y2="60"></line>
+<line stroke="var(--svg-vector1)" stroke-dasharray="5,4" stroke-width="1.8" x1="330" x2="440" y1="240" y2="60"></line>
+<!-- Разность z1 - z2: соединяет конец z2 с концом z1 -->
+<line stroke="var(--svg-vector3)" stroke-width="2.5" x1="330" x2="190" y1="240" y2="140"></line>
+<text fill="var(--svg-vector3)" font-size="15" font-weight="700" x="265" y="180">z₁ - z₂</text>
+</svg>
+</div>
+<div class="figure-caption">Рис. 3. Геометрическая иллюстрация неравенства треугольника: стороны параллелограмма $|z_1|$, $|z_2|$ и диагонали $|z_1 + z_2|$, $|z_1 - z_2|$</div>
+</figure>
+<div class="proof" data-proof="" id="proof-5">
+<div aria-label="Доказательство Доказательство неравенства треугольника тремя способами" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-5">
+<div class="proof-label">Идея</div>
+<p>Способ I: Векторно-геометрический</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-5">
+<div class="proof-label">Доказательство (Доказательство неравенства треугольника тремя способами)</div>
+<div class="proof-content">
 <p><strong>Способ I: Векторно-геометрический</strong></p>
-          <p>
+<p>
             На комплексной плоскости векторы $\vec{OZ_1}$, $\vec{Z_1 S}$ (равный $\vec{OZ_2}$) и $\vec{OS}$ (равный $\vec{OZ_1} + \vec{OZ_2}$) образуют треугольник $O Z_1 S$. Из планиметрии известно, что длина любой стороны треугольника не превосходит суммы длин двух других сторон:
           </p>
-          $$OS \le OZ_1 + Z_1 S \quad \iff \quad |z_1 + z_2| \le |z_1| + |z_2|$$
+          \[OS \le OZ_1 + Z_1 S \quad \iff \quad |z_1 + z_2| \le |z_1| + |z_2|\]
           <p>
             Заменяя $z_2$ на $-z_2$ и учитывая, что $|-z_2| = |z_2|$, сразу получаем:
           </p>
-          $$|z_1 - z_2| = |z_1 + (-z_2)| \le |z_1| + |-z_2| = |z_1| + |z_2|$$
+          \[|z_1 - z_2| = |z_1 + (-z_2)| \le |z_1| + |-z_2| = |z_1| + |z_2|\]
 
           <p><strong>Способ II: Тригонометрический (через косинус разности аргументов)</strong></p>
-          <p>
+<p>
             Пусть $z_1 = r_1(\cos\varphi_1 + i\sin\varphi_1)$ и $z_2 = r_2(\cos\varphi_2 + i\sin\varphi_2)$. Сложим их вещественные и мнимые части:
           </p>
-          $$z_1 + z_2 = (r_1\cos\varphi_1 + r_2\cos\varphi_2) + i(r_1\sin\varphi_1 + r_2\sin\varphi_2)$$
+          \[z_1 + z_2 = (r_1\cos\varphi_1 + r_2\cos\varphi_2) + i(r_1\sin\varphi_1 + r_2\sin\varphi_2)\]
           <p>Вычислим квадрат модуля суммы:</p>
-          $$\begin{aligned}
+          \[\begin{aligned}
             |z_1 + z_2|^2 &= (r_1\cos\varphi_1 + r_2\cos\varphi_2)^2 + (r_1\sin\varphi_1 + r_2\sin\varphi_2)^2 \\
             &= r_1^2(\cos^2\varphi_1 + \sin^2\varphi_1) + r_2^2(\cos^2\varphi_2 + \sin^2\varphi_2) + 2r_1 r_2(\cos\varphi_1\cos\varphi_2 + \sin\varphi_1\sin\varphi_2) \\
             &= r_1^2 + r_2^2 + 2r_1 r_2 \cos(\varphi_1 - \varphi_2)
-          \end{aligned}$$
+          \end{aligned}\]
           <p>Так как для любого угла $\cos(\varphi_1 - \varphi_2) \le 1$, а $r_1, r_2 \ge 0$, то:</p>
-          $$|z_1 + z_2|^2 \le r_1^2 + r_2^2 + 2r_1 r_2 \cdot 1 = (r_1 + r_2)^2 = (|z_1| + |z_2|)^2$$
+          \[|z_1 + z_2|^2 \le r_1^2 + r_2^2 + 2r_1 r_2 \cdot 1 = (r_1 + r_2)^2 = (|z_1| + |z_2|)^2\]
           <p>Извлекая квадратный корень из обеих частей неотрицательных величин, получаем $|z_1 + z_2| \le |z_1| + |z_2|$.</p>
-
-          <p><strong>Способ III: Алгебраический через сопряжение (метод Кострикина)</strong></p>
-          <p>Используем тождество $|w|^2 = w \cdot \bar{w}$:</p>
-          $$|z_1 + z_2|^2 = (z_1 + z_2)\overline{(z_1 + z_2)} = (z_1 + z_2)(\bar{z}_1 + \bar{z}_2) = z_1 \bar{z}_1 + z_1 \bar{z}_2 + z_2 \bar{z}_1 + z_2 \bar{z}_2$$
+<p><strong>Способ III: Алгебраический через сопряжение (метод Кострикина)</strong></p>
+<p>Используем тождество $|w|^2 = w \cdot \bar{w}$:</p>
+          \[|z_1 + z_2|^2 = (z_1 + z_2)\overline{(z_1 + z_2)} = (z_1 + z_2)(\bar{z}_1 + \bar{z}_2) = z_1 \bar{z}_1 + z_1 \bar{z}_2 + z_2 \bar{z}_1 + z_2 \bar{z}_2\]
           <p>Заметим, что $z_2 \bar{z}_1 = \overline{z_1 \bar{z}_2}$. Сумма взаимно сопряженных чисел равна удвоенной действительной части: $w + \bar{w} = 2\operatorname{Re}(w)$. Поэтому:</p>
-          $$|z_1 + z_2|^2 = |z_1|^2 + 2\operatorname{Re}(z_1 \bar{z}_2) + |z_2|^2$$
+          \[|z_1 + z_2|^2 = |z_1|^2 + 2\operatorname{Re}(z_1 \bar{z}_2) + |z_2|^2\]
           <p>Так как $\operatorname{Re}(w) \le |w|$, а $|\bar{z}_2| = |z_2|$:</p>
-          $$\operatorname{Re}(z_1 \bar{z}_2) \le |z_1 \bar{z}_2| = |z_1| |\bar{z}_2| = |z_1| |z_2|$$
+          \[\operatorname{Re}(z_1 \bar{z}_2) \le |z_1 \bar{z}_2| = |z_1| |\bar{z}_2| = |z_1| |z_2|\]
           <p>Следовательно:</p>
-          $$|z_1 + z_2|^2 \le |z_1|^2 + 2|z_1||z_2| + |z_2|^2 = (|z_1| + |z_2|)^2 \implies |z_1 + z_2| \le |z_1| + |z_2|$$
+          \[|z_1 + z_2|^2 \le |z_1|^2 + 2|z_1||z_2| + |z_2|^2 = (|z_1| + |z_2|)^2 \implies |z_1 + z_2| \le |z_1| + |z_2|\]
 
           <p><strong>Вывод левого неравенства:</strong></p>
-          <p>Представим $z_1$ в виде $z_1 = (z_1 \pm z_2) \mp z_2$. Применяя доказанное правое неравенство:</p>
-          $$|z_1| = |(z_1 \pm z_2) \mp z_2| \le |z_1 \pm z_2| + |\mp z_2| = |z_1 \pm z_2| + |z_2|$$
+<p>Представим $z_1$ в виде $z_1 = (z_1 \pm z_2) \mp z_2$. Применяя доказанное правое неравенство:</p>
+          \[|z_1| = |(z_1 \pm z_2) \mp z_2| \le |z_1 \pm z_2| + |\mp z_2| = |z_1 \pm z_2| + |z_2|\]
           <p>Перенося $|z_2|$ в левую часть:</p>
-          $$|z_1| - |z_2| \le |z_1 \pm z_2| \quad (3)$$
+          \[|z_1| - |z_2| \le |z_1 \pm z_2| \quad (3)\]
           <p>Аналогично, поменяв $z_1$ и $z_2$ местами в силу симметрии:</p>
-          $$|z_2| - |z_1| \le |z_2 \pm z_1| = |z_1 \pm z_2| \implies -(|z_1| - |z_2|) \le |z_1 \pm z_2| \quad (4)$$
+          \[|z_2| - |z_1| \le |z_2 \pm z_1| = |z_1 \pm z_2| \implies -(|z_1| - |z_2|) \le |z_1 \pm z_2| \quad (4)\]
           <p>Объединяя неравенства (3) и (4), получаем оценку абсолютной величины:</p>
-          $$\big||z_1| - |z_2|\big| \le |z_1 \pm z_2|$$
+          \[\big||z_1| - |z_2|\big| \le |z_1 \pm z_2|\]
           <div class="qed">■</div>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
 </div>
 
-      </section>
-
-      <!-- =====================================================================
+<!-- =====================================================================
            РАЗДЕЛ 6: ФОРМУЛА МУАВРА
            ===================================================================== -->
-      <section class="section-block" id="sec-moivre">
+<section class="section-block" id="sec-moivre">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-7">
-  <div class="chapter-kicker">07 / 6. Целые степени комплексног…</div>
-  <h2 id="chapter-7" data-toc="6. Целые степени комплексног…">§ 6. Целые степени комплексного числа и формула Муавра</h2>
-  <div class="statement definition" id="def-4">
-  <div class="block-label">Определение 4</div>
-  <h3 id="sub-10" data-toc="Определение 4">Определение 4</h3>
+  <div class="chapter-kicker">07 / 6. Целые степени комплексного …</div>
+  <h2 id="chapter-7" data-toc="6. Целые степени комплексного …">§ 6. Целые степени комплексного числа и формула Муавра</h2>
   
-          <div class="callout-header">Определение 6.1 (Степень с целым показателем)
-</div>
+<div class="statement definition" id="def-4"><div class="block-label">Определение 4</div><h3 data-toc="Определение 6.1 (Степень с цел…" id="sub-7-1">Определение 6.1 (Степень с целым показателем)</h3><div>
+
           Для любого $z \in \mathbb{C}$ и натурального $n \in \mathbb{N}$ по индукции определяется $n$-я степень:
-          $$z^1 = z, \qquad z^{n+1} = z^n \cdot z \quad \iff \quad z^n = \underbrace{z \cdot z \cdots z}_{n \text{ раз}}$$
-          По определению для ненулевого $z \ne 0$ полагают $z^0 = 1$.<br>
+          \[z^1 = z, \qquad z^{n+1} = z^n \cdot z \quad \iff \quad z^n = \underbrace{z \cdot z \cdots z}_{n \text{ раз}}\]
+          По определению для ненулевого $z \ne 0$ полагают $z^0 = 1$.<br/>
           Для отрицательного целого показателя $n < 0$ (где $-n \in \mathbb{N}$):
-          $$z^n = (z^{-1})^{-n} = \underbrace{z^{-1} \cdot z^{-1} \cdots z^{-1}}_{-n \text{ раз}}$$
-        </div>
+          \[z^n = (z^{-1})^{-n} = \underbrace{z^{-1} \cdot z^{-1} \cdots z^{-1}}_{-n \text{ раз}}\]
+        </div></div>
+<div class="statement theorem" id="thm-6"><div class="block-label">Утверждение 6</div><h3 data-toc="Теорема 6.1 (Формула Муавра дл…" id="sub-7-2">Теорема 6.1 (Формула Муавра для целых показателей)</h3><div>
 
-        <div class="statement theorem" id="thm-6">
-  <div class="block-label">Утверждение 6</div>
-  <h3 id="sub-11" data-toc="Теорема 6">Теорема 6</h3>
-  
-          <div class="callout-header">Теорема 6.1 (Формула Муавра для целых показателей)
-</div>
           Для всякого ненулевого комплексного числа $z = r(\cos\varphi + i\sin\varphi)$ и любого целого числа $n \in \mathbb{Z}$ справедлива формула Муавра:
-          $$z^n = r^n\left(\cos(n\varphi) + i\sin(n\varphi)\right)$$
-        </div>
-
-        
-<div class="proof" id="proof-6" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-6" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>Случай 1: $n \in \mathbb{N}$ (Математическая индукция).</strong></p>
-  </div>
-  <div class="proof-full" id="full-6" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство)</div>
-    <div class="proof-content">
+          \[z^n = r^n\left(\cos(n\varphi) + i\sin(n\varphi)\right)\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-6">
+<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-6">
+<div class="proof-label">Идея</div>
+<p>Случай 1: $n \in \mathbb{N}$ (Математическая индукция).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-6">
+<div class="proof-label">Доказательство (Доказательство)</div>
+<div class="proof-content">
 <p><strong>Случай 1: $n \in \mathbb{N}$ (Математическая индукция).</strong></p>
-          <ul>
-            <li><em>База индукции ($n = 1$):</em> $z^1 = r^1(\cos(1\cdot\varphi) + i\sin(1\cdot\varphi)) = r(\cos\varphi + i\sin\varphi)$ — верно.</li>
-            <li><em>Индукционный переход:</em> Предположим, что формула верна для $n = k$:
-              $$z^k = r^k(\cos(k\varphi) + i\sin(k\varphi))$$
+<ul>
+<li><em>База индукции ($n = 1$):</em> $z^1 = r^1(\cos(1\cdot\varphi) + i\sin(1\cdot\varphi)) = r(\cos\varphi + i\sin\varphi)$ — верно.</li>
+<li><em>Индукционный переход:</em> Предположим, что формула верна для $n = k$:
+              \[z^k = r^k(\cos(k\varphi) + i\sin(k\varphi))\]
               Докажем формулу для $n = k + 1$. По определению степени и теореме об умножении чисел в тригонометрической форме (Теорема 4.1):
-              $$\begin{aligned}
+              \[\begin{aligned}
                 z^{k+1} &= z^k \cdot z = \left[r^k(\cos(k\varphi) + i\sin(k\varphi))\right] \cdot \left[r(\cos\varphi + i\sin\varphi)\right] \\
                 &= (r^k \cdot r) \left[\cos(k\varphi + \varphi) + i\sin(k\varphi + \varphi)\right] \\
                 &= r^{k+1}\left[\cos((k+1)\varphi) + i\sin((k+1)\varphi)\right]
-              \end{aligned}$$
+              \end{aligned}\]
             </li>
-          </ul>
-          <p>Следовательно, по принципу математической индукции формула верна для всех $n \in \mathbb{N}$.</p>
-
-          <p><strong>Случай 2: $n = 0$.</strong></p>
-          <p>В левой части по определению $z^0 = 1$. В правой части формулы:</p>
-          $$r^0\left(\cos(0\cdot\varphi) + i\sin(0\cdot\varphi)\right) = 1 \cdot (\cos 0 + i\sin 0) = 1 \cdot (1 + 0) = 1$$
+</ul>
+<p>Следовательно, по принципу математической индукции формула верна для всех $n \in \mathbb{N}$.</p>
+<p><strong>Случай 2: $n = 0$.</strong></p>
+<p>В левой части по определению $z^0 = 1$. В правой части формулы:</p>
+          \[r^0\left(\cos(0\cdot\varphi) + i\sin(0\cdot\varphi)\right) = 1 \cdot (\cos 0 + i\sin 0) = 1 \cdot (1 + 0) = 1\]
           <p>Равенство верно.</p>
-
-          <p><strong>Случай 3: $n < 0$.</strong></p>
-          <p>
+<p><strong>Случай 3: $n < 0$.</strong></p>
+<p>
             Пусть $m = -n > 0$. Тогда $m \in \mathbb{N}$. По определению отрицательной степени и Следствию 4.1:
           </p>
-          $$z^n = (z^{-1})^m = \left[\frac{1}{r}\left(\cos(-\varphi) + i\sin(-\varphi)\right)\right]^m$$
+          \[z^n = (z^{-1})^m = \left[\frac{1}{r}\left(\cos(-\varphi) + i\sin(-\varphi)\right)\right]^m\]
           <p>Так как $m \in \mathbb{N}$, применяем доказанную формулу для натурального показателя $m$:</p>
-          $$z^n = \left(\frac{1}{r}\right)^m \left[\cos(m(-\varphi)) + i\sin(m(-\varphi))\right] = r^{-m} \left[\cos(-m\varphi) + i\sin(-m\varphi)\right]$$
+          \[z^n = \left(\frac{1}{r}\right)^m \left[\cos(m(-\varphi)) + i\sin(m(-\varphi))\right] = r^{-m} \left[\cos(-m\varphi) + i\sin(-m\varphi)\right]\]
           <p>Подставляя обратно $-m = n$, получаем:</p>
-          $$z^n = r^n\left(\cos(n\varphi) + i\sin(n\varphi)\right)$$
+          \[z^n = r^n\left(\cos(n\varphi) + i\sin(n\varphi)\right)\]
           <p>Таким образом, формула Муавра доказана для всех $n \in \mathbb{Z}$.</p>
-          <div class="qed">■</div>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<div class="qed">■</div>
 </div>
-
-
-        <div class="callout callout-remark">
-          <div class="callout-header">Теоретическое расширение (Вывод формул кратных углов по Курошу)</div>
-          Полагая в формуле Муавра $r = 1$, получаем тождество $(\cos\varphi + i\sin\varphi)^n = \cos(n\varphi) + i\sin(n\varphi)$.<br>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="callout callout-remark">
+<div class="callout-header">Теоретическое расширение (Вывод формул кратных углов по Курошу)</div>
+          Полагая в формуле Муавра $r = 1$, получаем тождество $(\cos\varphi + i\sin\varphi)^n = \cos(n\varphi) + i\sin(n\varphi)$.<br/>
           Раскладывая левую часть по биному Ньютона:
-          $$\cos(n\varphi) + i\sin(n\varphi) = \sum_{k=0}^n \binom{n}{k} (\cos\varphi)^{n-k} (i\sin\varphi)^k$$
+          \[\cos(n\varphi) + i\sin(n\varphi) = \sum_{k=0}^n \binom{n}{k} (\cos\varphi)^{n-k} (i\sin\varphi)^k\]
           Приравнивая действительные и мнимые части, получаем явные полиномиальные выражения для тригонометрических функций кратных углов:
-          $$\cos(n\varphi) = \sum_{k \text{ четное}} (-1)^{k/2} \binom{n}{k} \cos^{n-k}\varphi \sin^k\varphi$$
-          $$\sin(n\varphi) = \sum_{k \text{ нечетное}} (-1)^{(k-1)/2} \binom{n}{k} \cos^{n-k}\varphi \sin^k\varphi$$
+          \[\cos(n\varphi) = \sum_{k \text{ четное}} (-1)^{k/2} \binom{n}{k} \cos^{n-k}\varphi \sin^k\varphi\]
+          \[\sin(n\varphi) = \sum_{k \text{ нечетное}} (-1)^{(k-1)/2} \binom{n}{k} \cos^{n-k}\varphi \sin^k\varphi\]
           <em>Например, для $n = 3$:</em>
-          $$\cos(3\varphi) = \cos^3\varphi - 3\cos\varphi\sin^2\varphi = 4\cos^3\varphi - 3\cos\varphi$$
-          $$\sin(3\varphi) = 3\cos^2\varphi\sin\varphi - \sin^3\varphi = 3\sin\varphi - 4\sin^3\varphi$$
+          \[\cos(3\varphi) = \cos^3\varphi - 3\cos\varphi\sin^2\varphi = 4\cos^3\varphi - 3\cos\varphi\]
+          \[\sin(3\varphi) = 3\cos^2\varphi\sin\varphi - \sin^3\varphi = 3\sin\varphi - 4\sin^3\varphi\]
         </div>
-      </section>
 
-      <!-- =====================================================================
+<!-- =====================================================================
            РАЗДЕЛ 7: ИЗВЛЕЧЕНИЕ КОРНЯ
            ===================================================================== -->
-      <section class="section-block" id="sec-roots">
+<section class="section-block" id="sec-roots">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-8">
-  <div class="chapter-kicker">08 / 7. Извлечение корня n-й степ…</div>
-  <h2 id="chapter-8" data-toc="7. Извлечение корня n-й степ…">§ 7. Извлечение корня $n$-й степени из комплексного числа</h2>
-  <div class="statement definition" id="def-5">
-  <div class="block-label">Определение 5</div>
-  <h3 id="sub-12" data-toc="Определение 5">Определение 5</h3>
+  <div class="chapter-kicker">08 / 7. Извлечение корня n-й степен…</div>
+  <h2 id="chapter-8" data-toc="7. Извлечение корня n-й степен…">§ 7. Извлечение корня $n$-й степени из комплексного числа</h2>
   
-          <div class="callout-header">Определение 7.1 (Корень степени $n$)
-</div>
+<div class="statement definition" id="def-5"><div class="block-label">Определение 5</div><h3 data-toc="Определение 7.1 (Корень степен…" id="sub-8-1">Определение 7.1 (Корень степени $n$)</h3><div>
+
           Корнем степени $n \in \mathbb{N}$ из комплексного числа $z$ называется всякое такое комплексное число $w \in \mathbb{C}$, которое при возведении в $n$-ю степень дает число $z$:
-          $$w^n = z$$
+          \[w^n = z\]
           Обозначение множества всех таких корней: $\sqrt[n]{z}$.
-        </div>
-
-        <p>
-          <em>Случай $z = 0$:</em> Единственным решением уравнения $w^n = 0$ является $w = 0$, так как $|w^n| = |w|^n = 0 \iff |w| = 0 \iff w = 0$.
+        </div></div>
+<p>
+<em>Случай $z = 0$:</em> Единственным решением уравнения $w^n = 0$ является $w = 0$, так как $|w^n| = |w|^n = 0 \iff |w| = 0 \iff w = 0$.
         </p>
+<div class="statement theorem" id="thm-7"><div class="block-label">Утверждение 7</div><h3 data-toc="Теорема 7.1 (О корнях n-й степ…" id="sub-8-2">Теорема 7.1 (О корнях $n$-й степени)</h3><div>
 
-        <div class="statement theorem" id="thm-7">
-  <div class="block-label">Утверждение 7</div>
-  <h3 id="sub-13" data-toc="Теорема 7">Теорема 7</h3>
-  
-          <div class="callout-header">Теорема 7.1 (О корнях $n$-й степени)
-</div>
           Для всякого ненулевого комплексного числа $z = r(\cos\varphi + i\sin\varphi) \ne 0$ и любого натурального $n \in \mathbb{N}$ существует <strong>ровно $n$ различных</strong> значений корня $n$-й степени из $z$, которые вычисляются по формуле:
-          $$w_k = \sqrt[n]{r}\left[\cos\left(\frac{\varphi + 2\pi k}{n}\right) + i\sin\left(\frac{\varphi + 2\pi k}{n}\right)\right], \quad k = 0, 1, 2, \dots, n-1$$
+          \[w_k = \sqrt[n]{r}\left[\cos\left(\frac{\varphi + 2\pi k}{n}\right) + i\sin\left(\frac{\varphi + 2\pi k}{n}\right)\right], \quad k = 0, 1, 2, \dots, n-1\]
           где $\sqrt[n]{r}$ понимается в смысле стандартного <em>арифметического корня</em> из положительного вещественного числа.
-        </div>
-
-        
-<div class="proof" id="proof-7" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (в 3 шага)">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-7" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>Шаг 1. Вывод формулы для корней.</strong></p>
-  </div>
-  <div class="proof-full" id="full-7" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (в 3 шага))</div>
-    <div class="proof-content">
+        </div></div>
+<div class="proof" data-proof="" id="proof-7">
+<div aria-label="Доказательство Строгое доказательство (в 3 шага)" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-7">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Строгое доказательство (в 3 шага)).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-7">
+<div class="proof-label">Доказательство (Строгое доказательство (в 3 шага))</div>
+<div class="proof-content">
 <p><strong>Шаг 1. Вывод формулы для корней.</strong></p>
-          <p>
+<p>
             Пусть $w = \rho(\cos\theta + i\sin\theta)$ — искомый корень, то есть $w^n = z$. По формуле Муавра:
           </p>
-          $$w^n = \rho^n\left(\cos(n\theta) + i\sin(n\theta)\right)$$
+          \[w^n = \rho^n\left(\cos(n\theta) + i\sin(n\theta)\right)\]
           <p>Приравнивая к $z = r(\cos\varphi + i\sin\varphi)$ и применяя критерий равенства (Теорема 3.1):</p>
-          $$\begin{cases} \rho^n = r \\ n\theta = \varphi + 2\pi q, \quad q \in \mathbb{Z} \end{cases} \implies \begin{cases} \rho = \sqrt[n]{r} \\ \theta_q = \dfrac{\varphi + 2\pi q}{n}, \quad q \in \mathbb{Z} \end{cases}$$
+          \[\begin{cases} \rho^n = r \\ n\theta = \varphi + 2\pi q, \quad q \in \mathbb{Z} \end{cases} \implies \begin{cases} \rho = \sqrt[n]{r} \\ \theta_q = \dfrac{\varphi + 2\pi q}{n}, \quad q \in \mathbb{Z} \end{cases}\]
           <p>Проверим подстановкой, что для любого $q \in \mathbb{Z}$ число $w_q$ действительно является корнем:</p>
-          $$(w_q)^n = (\sqrt[n]{r})^n\left[\cos\left(n \cdot \frac{\varphi + 2\pi q}{n}\right) + i\sin\left(n \cdot \frac{\varphi + 2\pi q}{n}\right)\right] = r(\cos(\varphi + 2\pi q) + i\sin(\varphi + 2\pi q)) = z$$
+          \[(w_q)^n = (\sqrt[n]{r})^n\left[\cos\left(n \cdot \frac{\varphi + 2\pi q}{n}\right) + i\sin\left(n \cdot \frac{\varphi + 2\pi q}{n}\right)\right] = r(\cos(\varphi + 2\pi q) + i\sin(\varphi + 2\pi q)) = z\]
 
           <p><strong>Шаг 2. Попарное различие значений для $k \in \{0, 1, \dots, n-1\}$.</strong></p>
-          <p>
+<p>
             Пусть $0 \le k < l \le n - 1$. Предположим от противного, что $w_k = w_l$. Так как их модули совпадают ($\sqrt[n]{r} = \sqrt[n]{r}$), равенство чисел означает совпадение аргументов с точностью до периода $2\pi m$ ($m \in \mathbb{Z}$):
           </p>
-          $$\frac{\varphi + 2\pi l}{n} - \frac{\varphi + 2\pi k}{n} = 2\pi m$$
-          $$\frac{2\pi(l - k)}{n} = 2\pi m \implies \frac{l - k}{n} = m \implies l - k = m \cdot n$$
+          \[\frac{\varphi + 2\pi l}{n} - \frac{\varphi + 2\pi k}{n} = 2\pi m\]
+          \[\frac{2\pi(l - k)}{n} = 2\pi m \implies \frac{l - k}{n} = m \implies l - k = m \cdot n\]
           <p>
             Однако по нашему выбору индексов $0 \le k < l \le n - 1$, откуда строго следует:
           </p>
-          $$0 < l - k \le n - 1 < n$$
+          \[0 < l - k \le n - 1 < n\]
           <p>
             Разность $l - k$ заключена строго между $0$ и $n$. Целое число $l - k$ из этого диапазона не может делиться на $n$ ни при каком $m \in \mathbb{Z}$, кроме случая $m = 0$, что означало бы $l = k$. Полученное противоречие доказывает, что все $n$ чисел $w_0, w_1, \dots, w_{n-1}$ <strong>попарно различны</strong>.
           </p>
-
-          <p><strong>Шаг 3. Отсутствие других корней (полнота системы).</strong></p>
-          <p>
+<p><strong>Шаг 3. Отсутствие других корней (полнота системы).</strong></p>
+<p>
             Пусть теперь $s \in \mathbb{Z}$ — совершенно произвольный целый индекс. Разделим $s$ на $n$ с остатком по теореме о делении с остатком в кольце $\mathbb{Z}$:
           </p>
-          $$s = q \cdot n + k, \quad \text{где } 0 \le k \le n - 1, \; q \in \mathbb{Z}$$
+          \[s = q \cdot n + k, \quad \text{где } 0 \le k \le n - 1, \; q \in \mathbb{Z}\]
           <p>Подставим выражение для $s$ в аргумент корня $w_s$:</p>
-          $$\theta_s = \frac{\varphi + 2\pi s}{n} = \frac{\varphi + 2\pi(qn + k)}{n} = \frac{\varphi + 2\pi k + 2\pi qn}{n} = \frac{\varphi + 2\pi k}{n} + 2\pi q$$
+          \[\theta_s = \frac{\varphi + 2\pi s}{n} = \frac{\varphi + 2\pi(qn + k)}{n} = \frac{\varphi + 2\pi k + 2\pi qn}{n} = \frac{\varphi + 2\pi k}{n} + 2\pi q\]
           <p>В силу $2\pi$-периодичности тригонометрических функций слагаемое $2\pi q$ не меняет значения косинуса и синуса:</p>
-          $$\cos\theta_s = \cos\left(\frac{\varphi + 2\pi k}{n}\right), \qquad \sin\theta_s = \sin\left(\frac{\varphi + 2\pi k}{n}\right)$$
+          \[\cos\theta_s = \cos\left(\frac{\varphi + 2\pi k}{n}\right), \qquad \sin\theta_s = \sin\left(\frac{\varphi + 2\pi k}{n}\right)\]
           <p>Следовательно:</p>
-          $$w_s = w_k, \quad \text{где } 0 \le k \le n - 1$$
+          \[w_s = w_k, \quad \text{где } 0 \le k \le n - 1\]
           <p>
             Это завершает доказательство: любое значение корня при любом целом индексе тождественно совпадает с одним из значений из набора $\{w_0, w_1, \dots, w_{n-1}\}$. Число различных корней ровно $n$.
           </p>
-          <div class="qed">■</div>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<div class="qed">■</div>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
 </div>
 
-      </section>
-
-      <!-- =====================================================================
+<!-- =====================================================================
            РАЗДЕЛ 8: КОРНИ ИЗ ЕДИНИЦЫ
            ===================================================================== -->
-      <section class="section-block" id="sec-roots-of-unity">
+<section class="section-block" id="sec-roots-of-unity">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-9">
-  <div class="chapter-kicker">09 / 8. Алгебра корней из единицы…</div>
-  <h2 id="chapter-9" data-toc="8. Алгебра корней из единицы…">§ 8. Алгебра корней из единицы и циклическая группа $U_n$</h2>
-  <p>
+  <div class="chapter-kicker">09 / 8. Алгебра корней из единицы и…</div>
+  <h2 id="chapter-9" data-toc="8. Алгебра корней из единицы и…">§ 8. Алгебра корней из единицы и циклическая группа $U_n$</h2>
+  
+<p>
           В курсах А. И. Кострикина и А. Г. Куроша фундаментальную роль играет изучение корней из единицы. Рассмотрим частный случай Теоремы 7.1 для $z = 1 = 1(\cos 0 + i\sin 0)$.
         </p>
+<div class="statement definition" id="def-6"><div class="block-label">Определение 6</div><h3 data-toc="Определение 8.1 (Корни n-й сте…" id="sub-9-1">Определение 8.1 (Корни $n$-й степени из единицы)</h3><div>
 
-        <div class="statement definition" id="def-6">
-  <div class="block-label">Определение 6</div>
-  <h3 id="sub-14" data-toc="Определение 6">Определение 6</h3>
-  
-          <div class="callout-header">Определение 8.1 (Корни $n$-й степени из единицы)
-</div>
           Корни $n$-й степени из числа $1$ определяются формулой:
-          $$\varepsilon_k = \cos\left(\frac{2\pi k}{n}\right) + i\sin\left(\frac{2\pi k}{n}\right), \quad k = 0, 1, \dots, n-1$$
+          \[\varepsilon_k = \cos\left(\frac{2\pi k}{n}\right) + i\sin\left(\frac{2\pi k}{n}\right), \quad k = 0, 1, \dots, n-1\]
           Полагая $\varepsilon = \varepsilon_1 = \cos\frac{2\pi}{n} + i\sin\frac{2\pi}{n}$, по формуле Муавра имеем:
-          $$\varepsilon_k = \varepsilon^k, \quad k = 0, 1, \dots, n-1$$
-        </div>
+          \[\varepsilon_k = \varepsilon^k, \quad k = 0, 1, \dots, n-1\]
+        </div></div>
+<div class="statement theorem" id="thm-8"><div class="block-label">Утверждение 8</div><h3 data-toc="Теорема 8.1 (Связь произвольно…" id="sub-9-2">Теорема 8.1 (Связь произвольного корня с корнями из единицы)</h3><div>
 
-        <div class="statement theorem" id="thm-8">
-  <div class="block-label">Утверждение 8</div>
-  <h3 id="sub-15" data-toc="Теорема 8">Теорема 8</h3>
-  
-          <div class="callout-header">Теорема 8.1 (Связь произвольного корня с корнями из единицы)
-</div>
           Если $w_0$ — какое-либо одно (фиксированное) значение корня $n$-й степени из числа $z \ne 0$, то все $n$ значений корня $\sqrt[n]{z}$ получаются умножением $w_0$ на все корни $n$-й степени из единицы:
-          $$w_k = w_0 \cdot \varepsilon_k = w_0 \cdot \varepsilon^k, \quad k = 0, 1, \dots, n-1$$
-        </div>
-
-        <div class="callout callout-remark">
-          <div class="callout-header">Алгебраическая структура: Группа $U_n$ и примитивные корни (по Кострикину)</div>
+          \[w_k = w_0 \cdot \varepsilon_k = w_0 \cdot \varepsilon^k, \quad k = 0, 1, \dots, n-1\]
+        </div></div>
+<div class="callout callout-remark">
+<div class="callout-header">Алгебраическая структура: Группа $U_n$ и примитивные корни (по Кострикину)</div>
           Множество корней $n$-й степени из единицы $U_n = \{\varepsilon_0, \varepsilon_1, \dots, \varepsilon_{n-1}\}$ образует <strong>мультипликативную циклическую группу</strong> порядка $n$ с нейтральным элементом $\varepsilon_0 = 1$.
           <ul>
-            <li>
-              <strong>Примитивные (первообразные) корни:</strong> Корень $\varepsilon_k$ называется <em>примитивным</em> корнем степени $n$, если наименьшее натуральное число $m$, при котором $\varepsilon_k^m = 1$, равно $n$ (то есть его степени исчерпывают всю группу $U_n$).
+<li>
+<strong>Примитивные (первообразные) корни:</strong> Корень $\varepsilon_k$ называется <em>примитивным</em> корнем степени $n$, если наименьшее натуральное число $m$, при котором $\varepsilon_k^m = 1$, равно $n$ (то есть его степени исчерпывают всю группу $U_n$).
             </li>
-            <li>
-              <strong>Критерий примитивности:</strong> Корень $\varepsilon_k = \varepsilon^k$ является примитивным тогда и только тогда, когда $k$ взаимно просто с $n$:
-              $$\gcd(k, n) = 1$$
+<li>
+<strong>Критерий примитивности:</strong> Корень $\varepsilon_k = \varepsilon^k$ является примитивным тогда и только тогда, когда $k$ взаимно просто с $n$:
+              \[\gcd(k, n) = 1\]
               Количество примитивных корней степени $n$ в точности равно значению функции Эйлера $\varphi(n)$.
             </li>
-            <li>
-              <strong>Сумма корней:</strong> Для любого $n \ge 2$ сумма всех корней $n$-й степени из единицы тождественно равна нулю:
-              $$\sum_{k=0}^{n-1} \varepsilon_k = 1 + \varepsilon + \varepsilon^2 + \dots + \varepsilon^{n-1} = \frac{1 - \varepsilon^n}{1 - \varepsilon} = \frac{1 - 1}{1 - \varepsilon} = 0$$
+<li>
+<strong>Сумма корней:</strong> Для любого $n \ge 2$ сумма всех корней $n$-й степени из единицы тождественно равна нулю:
+              \[\sum_{k=0}^{n-1} \varepsilon_k = 1 + \varepsilon + \varepsilon^2 + \dots + \varepsilon^{n-1} = \frac{1 - \varepsilon^n}{1 - \varepsilon} = \frac{1 - 1}{1 - \varepsilon} = 0\]
               <em>Геометрический смысл:</em> центр масс вершин правильного $n$-угольника находится в начале координат $O(0, 0)$.
             </li>
-            <li>
-              <strong>Произведение корней:</strong> Произведение всех корней $n$-й степени из единицы равно:
-              $$\prod_{k=0}^{n-1} \varepsilon_k = (-1)^{n-1}$$
+<li>
+<strong>Произведение корней:</strong> Произведение всех корней $n$-й степени из единицы равно:
+              \[\prod_{k=0}^{n-1} \varepsilon_k = (-1)^{n-1}\]
             </li>
-          </ul>
-        </div>
-      </section>
+</ul>
+</div>
 
-      <!-- =====================================================================
+<!-- =====================================================================
            РАЗДЕЛ 9: ГЕОМЕТРИЧЕСКОЕ РАСПОЛОЖЕНИЕ КОРНЕЙ
            ===================================================================== -->
-      <section class="section-block" id="sec-geometry">
+<section class="section-block" id="sec-geometry">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-10">
-  <div class="chapter-kicker">10 / 9. Геометрическое расположен…</div>
-  <h2 id="chapter-10" data-toc="9. Геометрическое расположен…">§ 9. Геометрическое расположение корней на комплексной плоскости</h2>
-  <div class="statement theorem" id="thm-9">
-  <div class="block-label">Утверждение 9</div>
-  <h3 id="sub-16" data-toc="Теорема 9">Теорема 9</h3>
+  <div class="chapter-kicker">10 / 9. Геометрическое расположение…</div>
+  <h2 id="chapter-10" data-toc="9. Геометрическое расположение…">§ 9. Геометрическое расположение корней на комплексной плоскости</h2>
   
-          <div class="callout-header">Теорема 9.1 (О геометрическом расположении корней)
-</div>
-          Все $n$ корней степени $n$ из ненулевого комплексного числа $z = r(\cos\varphi + i\sin\varphi)$ расположены на комплексной плоскости на окружности радиуса $R = \sqrt[n]{r} = \sqrt[n]{|z|}$ с центром в начале координат $O(0, 0)$ и являются вершинами правильного $n$-угольника, вписанного в эту окружность.
-        </div>
+<div class="statement theorem" id="thm-9"><div class="block-label">Утверждение 9</div><h3 data-toc="Теорема 9.1 (О геометрическом …" id="sub-10-1">Теорема 9.1 (О геометрическом расположении корней)</h3><div>
 
-        
-<div class="proof" id="proof-8" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-8" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Обозначим точки на плоскости, соответствующие числам $w_k$, через $A_k$.</p>
-  </div>
-  <div class="proof-full" id="full-8" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство)</div>
-    <div class="proof-content">
+          Все $n$ корней степени $n$ из ненулевого комплексного числа $z = r(\cos\varphi + i\sin\varphi)$ расположены на комплексной плоскости на окружности радиуса $R = \sqrt[n]{r} = \sqrt[n]{|z|}$ с центром в начале координат $O(0, 0)$ и являются вершинами правильного $n$-угольника, вписанного в эту окружность.
+        </div></div>
+<div class="proof" data-proof="" id="proof-8">
+<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-8">
+<div class="proof-label">Идея</div>
 <p>Обозначим точки на плоскости, соответствующие числам $w_k$, через $A_k$.</p>
-          <ol>
-            <li>
-              <strong>Равенство модулей:</strong> Для всех $k = 0, 1, \dots, n-1$ модуль корня одинаков:
-              $$|w_k| = \sqrt[n]{r} = R$$
+</div>
+<div class="proof-full" data-proof-full="" id="full-8">
+<div class="proof-label">Доказательство (Доказательство)</div>
+<div class="proof-content">
+<p>Обозначим точки на плоскости, соответствующие числам $w_k$, через $A_k$.</p>
+<ol>
+<li>
+<strong>Равенство модулей:</strong> Для всех $k = 0, 1, \dots, n-1$ модуль корня одинаков:
+              \[|w_k| = \sqrt[n]{r} = R\]
               Следовательно, расстояния от начала координат до всех точек $A_k$ равны $R$, то есть все вершины $A_k$ лежат на окружности радиуса $\sqrt[n]{r}$ с центром в точке $O(0, 0)$.
             </li>
-            <li>
-              <strong>Постоянство углового шага:</strong> Найдем угол $\psi_k$ между радиус-векторами соседних точек $A_k$ и $A_{k+1}$:
-              $$\psi_k = \arg(w_{k+1}) - \arg(w_k) = \frac{\varphi + 2\pi(k+1)}{n} - \frac{\varphi + 2\pi k}{n} = \frac{2\pi}{n}$$
+<li>
+<strong>Постоянство углового шага:</strong> Найдем угол $\psi_k$ между радиус-векторами соседних точек $A_k$ и $A_{k+1}$:
+              \[\psi_k = \arg(w_{k+1}) - \arg(w_k) = \frac{\varphi + 2\pi(k+1)}{n} - \frac{\varphi + 2\pi k}{n} = \frac{2\pi}{n}\]
               Полученная величина $\frac{2\pi}{n}$ является константой и не зависит от индекса $k$.
             </li>
-          </ol>
-          <p>
+</ol>
+<p>
             Таким образом, радиус-векторы последовательно поворачиваются на один и тот же центральный угол $\Delta\psi = \frac{2\pi}{n}$, разбивая окружность на $n$ равных дуг. Длины всех сторон многоугольника равны хордам, стягивающим эти дуги:
           </p>
-          $$d = 2R \sin\left(\frac{\pi}{n}\right)$$
+          \[d = 2R \sin\left(\frac{\pi}{n}\right)\]
           <p>По определению планиметрии, многоугольник с равными сторонами, вписанный в окружность с равными центральными углами, является правильным $n$-угольником.</p>
-          <div class="qed">■</div>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<div class="qed">■</div>
 </div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<!-- Рисунок 4: Корни 8-й степени из единицы -->
+<figure class="figure-plate">
+<div class="svg-container">
+<svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arr4" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"></path>
+</marker>
+</defs>
+<!-- Координатные оси -->
+<line marker-end="url(#arr4)" stroke="var(--svg-axis)" stroke-width="1.8" x1="30" x2="490" y1="260" y2="260"></line>
+<line marker-end="url(#arr4)" stroke="var(--svg-axis)" stroke-width="1.8" x1="260" x2="260" y1="490" y2="30"></line>
+<text fill="var(--text-main)" font-size="14" font-weight="600" x="480" y="280">Re</text>
+<text fill="var(--text-main)" font-size="14" font-weight="600" x="235" y="35">Im</text>
+<text fill="var(--text-muted)" font-size="14" x="245" y="280">O</text>
+<!-- Окружность единичного радиуса R = 180 -->
+<circle cx="260" cy="260" fill="none" r="180" stroke="var(--svg-axis)" stroke-dasharray="4,4" stroke-width="1.5"></circle>
+<!-- Вершины правильного восьмиугольника R = 180 -->
+<!-- w0: (260 + 180, 260) = (440, 260) -->
+<!-- w1: (260 + 127.3, 260 - 127.3) = (387.3, 132.7) -->
+<!-- w2: (260, 260 - 180) = (260, 80) -->
+<!-- w3: (260 - 127.3, 260 - 127.3) = (132.7, 132.7) -->
+<!-- w4: (260 - 180, 260) = (80, 260) -->
+<!-- w5: (260 - 127.3, 260 + 127.3) = (132.7, 387.3) -->
+<!-- w6: (260, 260 + 180) = (260, 440) -->
+<!-- w7: (260 + 127.3, 260 + 127.3) = (387.3, 387.3) -->
+<!-- Стороны правильного восьмиугольника -->
+<polygon fill="rgba(129, 140, 248, 0.08)" points="440,260 387.3,132.7 260,80 132.7,132.7 80,260 132.7,387.3 260,440 387.3,387.3" stroke="var(--svg-poly)" stroke-width="2.5"></polygon>
+<!-- Лучи из начала координат к вершинам -->
+<line stroke="var(--svg-axis)" stroke-width="1.2" x1="260" x2="440" y1="260" y2="260"></line>
+<line stroke="var(--svg-axis)" stroke-width="1.2" x1="260" x2="387.3" y1="260" y2="132.7"></line>
+<line stroke="var(--svg-axis)" stroke-width="1.2" x1="260" x2="260" y1="260" y2="80"></line>
+<line stroke="var(--svg-axis)" stroke-width="1.2" x1="260" x2="132.7" y1="260" y2="132.7"></line>
+<line stroke="var(--svg-axis)" stroke-width="1.2" x1="260" x2="80" y1="260" y2="260"></line>
+<line stroke="var(--svg-axis)" stroke-width="1.2" x1="260" x2="132.7" y1="260" y2="387.3"></line>
+<line stroke="var(--svg-axis)" stroke-width="1.2" x1="260" x2="260" y1="260" y2="440"></line>
+<line stroke="var(--svg-axis)" stroke-width="1.2" x1="260" x2="387.3" y1="260" y2="387.3"></line>
+<!-- Точки-вершины -->
+<circle cx="440" cy="260" fill="var(--svg-accent)" r="5"></circle>
+<circle cx="387.3" cy="132.7" fill="var(--svg-poly)" r="5"></circle>
+<circle cx="260" cy="80" fill="var(--svg-poly)" r="5"></circle>
+<circle cx="132.7" cy="132.7" fill="var(--svg-poly)" r="5"></circle>
+<circle cx="80" cy="260" fill="var(--svg-poly)" r="5"></circle>
+<circle cx="132.7" cy="387.3" fill="var(--svg-poly)" r="5"></circle>
+<circle cx="260" cy="440" fill="var(--svg-poly)" r="5"></circle>
+<circle cx="387.3" cy="387.3" fill="var(--svg-poly)" r="5"></circle>
+<!-- Подписи вершин -->
+<text fill="var(--text-main)" font-size="14" font-weight="700" x="448" y="255">w₀ = 1</text>
+<text fill="var(--text-main)" font-size="14" font-weight="700" x="395" y="125">w₁</text>
+<text fill="var(--text-main)" font-size="14" font-weight="700" x="268" y="75">w₂ = i</text>
+<text fill="var(--text-main)" font-size="14" font-weight="700" x="95" y="125">w₃</text>
+<text fill="var(--text-main)" font-size="14" font-weight="700" x="25" y="255">w₄ = -1</text>
+<text fill="var(--text-main)" font-size="14" font-weight="700" x="95" y="405">w₅</text>
+<text fill="var(--text-main)" font-size="14" font-weight="700" x="268" y="460">w₆ = -i</text>
+<text fill="var(--text-main)" font-size="14" font-weight="700" x="395" y="405">w₇</text>
+</svg>
+</div>
+<div class="figure-caption">Рис. 4. Корни 8-й степени из единицы: вершины правильного восьмиугольника на единичной окружности ($\Delta\psi = \frac{2\pi}{8} = \frac{\pi}{4} = 45^\circ$)</div>
+</figure>
 
-
-        <!-- Рисунок 4: Корни 8-й степени из единицы -->
-        <div class="svg-figure">
-          <div class="svg-container">
-            <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <marker id="arr4" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"/>
-                </marker>
-              </defs>
-
-              <!-- Координатные оси -->
-              <line x1="30" y1="260" x2="490" y2="260" stroke="var(--svg-axis)" stroke-width="1.8" marker-end="url(#arr4)"/>
-              <line x1="260" y1="490" x2="260" y2="30" stroke="var(--svg-axis)" stroke-width="1.8" marker-end="url(#arr4)"/>
-              <text x="480" y="280" fill="var(--text-main)" font-size="14" font-weight="600">Re</text>
-              <text x="235" y="35" fill="var(--text-main)" font-size="14" font-weight="600">Im</text>
-              <text x="245" y="280" fill="var(--text-muted)" font-size="14">O</text>
-
-              <!-- Окружность единичного радиуса R = 180 -->
-              <circle cx="260" cy="260" r="180" fill="none" stroke="var(--svg-axis)" stroke-width="1.5" stroke-dasharray="4,4"/>
-
-              <!-- Вершины правильного восьмиугольника R = 180 -->
-              <!-- w0: (260 + 180, 260) = (440, 260) -->
-              <!-- w1: (260 + 127.3, 260 - 127.3) = (387.3, 132.7) -->
-              <!-- w2: (260, 260 - 180) = (260, 80) -->
-              <!-- w3: (260 - 127.3, 260 - 127.3) = (132.7, 132.7) -->
-              <!-- w4: (260 - 180, 260) = (80, 260) -->
-              <!-- w5: (260 - 127.3, 260 + 127.3) = (132.7, 387.3) -->
-              <!-- w6: (260, 260 + 180) = (260, 440) -->
-              <!-- w7: (260 + 127.3, 260 + 127.3) = (387.3, 387.3) -->
-
-              <!-- Стороны правильного восьмиугольника -->
-              <polygon points="440,260 387.3,132.7 260,80 132.7,132.7 80,260 132.7,387.3 260,440 387.3,387.3" 
-                       fill="rgba(129, 140, 248, 0.08)" stroke="var(--svg-poly)" stroke-width="2.5"/>
-
-              <!-- Лучи из начала координат к вершинам -->
-              <line x1="260" y1="260" x2="440" y2="260" stroke="var(--svg-axis)" stroke-width="1.2"/>
-              <line x1="260" y1="260" x2="387.3" y2="132.7" stroke="var(--svg-axis)" stroke-width="1.2"/>
-              <line x1="260" y1="260" x2="260" y2="80" stroke="var(--svg-axis)" stroke-width="1.2"/>
-              <line x1="260" y1="260" x2="132.7" y2="132.7" stroke="var(--svg-axis)" stroke-width="1.2"/>
-              <line x1="260" y1="260" x2="80" y2="260" stroke="var(--svg-axis)" stroke-width="1.2"/>
-              <line x1="260" y1="260" x2="132.7" y2="387.3" stroke="var(--svg-axis)" stroke-width="1.2"/>
-              <line x1="260" y1="260" x2="260" y2="440" stroke="var(--svg-axis)" stroke-width="1.2"/>
-              <line x1="260" y1="260" x2="387.3" y2="387.3" stroke="var(--svg-axis)" stroke-width="1.2"/>
-
-              <!-- Точки-вершины -->
-              <circle cx="440" cy="260" r="5" fill="var(--svg-accent)"/>
-              <circle cx="387.3" cy="132.7" r="5" fill="var(--svg-poly)"/>
-              <circle cx="260" cy="80" r="5" fill="var(--svg-poly)"/>
-              <circle cx="132.7" cy="132.7" r="5" fill="var(--svg-poly)"/>
-              <circle cx="80" cy="260" r="5" fill="var(--svg-poly)"/>
-              <circle cx="132.7" cy="387.3" r="5" fill="var(--svg-poly)"/>
-              <circle cx="260" cy="440" r="5" fill="var(--svg-poly)"/>
-              <circle cx="387.3" cy="387.3" r="5" fill="var(--svg-poly)"/>
-
-              <!-- Подписи вершин -->
-              <text x="448" y="255" fill="var(--text-main)" font-size="14" font-weight="700">w₀ = 1</text>
-              <text x="395" y="125" fill="var(--text-main)" font-size="14" font-weight="700">w₁</text>
-              <text x="268" y="75" fill="var(--text-main)" font-size="14" font-weight="700">w₂ = i</text>
-              <text x="95" y="125" fill="var(--text-main)" font-size="14" font-weight="700">w₃</text>
-              <text x="25" y="255" fill="var(--text-main)" font-size="14" font-weight="700">w₄ = -1</text>
-              <text x="95" y="405" fill="var(--text-main)" font-size="14" font-weight="700">w₅</text>
-              <text x="268" y="460" fill="var(--text-main)" font-size="14" font-weight="700">w₆ = -i</text>
-              <text x="395" y="405" fill="var(--text-main)" font-size="14" font-weight="700">w₇</text>
-            </svg></div>
-          </div>
-          <div class="figure-caption">Рис. 4. Корни 8-й степени из единицы: вершины правильного восьмиугольника на единичной окружности ($\Delta\psi = \frac{2\pi}{8} = \frac{\pi}{4} = 45^\circ$)</div>
-        </div>
-      </section>
-
-      <!-- =====================================================================
+<!-- =====================================================================
            РАЗДЕЛ 10: ПРАКТИЧЕСКИЕ ПРИМЕРЫ
            ===================================================================== -->
-      <section class="section-block" id="sec-examples">
+<section class="section-block" id="sec-examples">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-11">
-  <div class="chapter-kicker">11 / 10. Подробный разбор практич…</div>
-  <h2 id="chapter-11" data-toc="10. Подробный разбор практич…">§ 10. Подробный разбор практических задач</h2>
-  <div class="worked-example" id="ex-2">
-  <div class="block-label">Пример 2</div>
-  <h3 id="sub-17" data-toc="Пример 2">Пример 2</h3>
+  <div class="chapter-kicker">11 / 10. Подробный разбор практичес…</div>
+  <h2 id="chapter-11" data-toc="10. Подробный разбор практичес…">§ 10. Подробный разбор практических задач</h2>
   
-          <div class="callout-header">Задача 10.1 (Извлечение кубического корня $\sqrt[3]{-2 - 2i}$)
-</div>
-          <em>Условие:</em> Найти все значения корня $\sqrt[3]{-2 - 2i}$ и представить их в алгебраической форме.<br>
-          <em>Пошаговое решение:</em>
-          <ol>
-            <li>
-              <strong>Представление подкоренного числа $z = -2 - 2i$ в тригонометрической форме:</strong>
-              <ul>
-                <li>Модуль: $r = |z| = \sqrt{(-2)^2 + (-2)^2} = \sqrt{4 + 4} = \sqrt{8} = 2\sqrt{2} = 2^{3/2}$.</li>
-                <li>Аргумент: $\cos\varphi = \frac{-2}{2\sqrt{2}} = -\frac{\sqrt{2}}{2}$, $\sin\varphi = \frac{-2}{2\sqrt{2}} = -\frac{\sqrt{2}}{2}$. Точка находится в III четверти, поэтому главное значение:
-                  $$\varphi = -\frac{3\pi}{4}$$
+<div class="worked-example" id="ex-2"><div class="block-label">Пример 2</div><h3 data-toc="Задача 10.1 (Извлечение кубиче…" id="sub-11-1">Задача 10.1 (Извлечение кубического корня $\sqrt[3]{-2 - 2i}$)</h3><div>
+<em>Условие:</em> Найти все значения корня $\sqrt[3]{-2 - 2i}$ и представить их в алгебраической форме.<br/>
+<em>Пошаговое решение:</em>
+<ol>
+<li>
+<strong>Представление подкоренного числа $z = -2 - 2i$ в тригонометрической форме:</strong>
+<ul>
+<li>Модуль: $r = |z| = \sqrt{(-2)^2 + (-2)^2} = \sqrt{4 + 4} = \sqrt{8} = 2\sqrt{2} = 2^{3/2}$.</li>
+<li>Аргумент: $\cos\varphi = \frac{-2}{2\sqrt{2}} = -\frac{\sqrt{2}}{2}$, $\sin\varphi = \frac{-2}{2\sqrt{2}} = -\frac{\sqrt{2}}{2}$. Точка находится в III четверти, поэтому главное значение:
+                  \[\varphi = -\frac{3\pi}{4}\]
                 </li>
-                <li>Тригонометрическая форма: $z = 2\sqrt{2}\left[\cos\left(-\frac{3\pi}{4}\right) + i\sin\left(-\frac{3\pi}{4}\right)\right]$.</li>
-              </ul>
+<li>Тригонометрическая форма: $z = 2\sqrt{2}\left[\cos\left(-\frac{3\pi}{4}\right) + i\sin\left(-\frac{3\pi}{4}\right)\right]$.</li>
+</ul>
+</li>
+<li>
+<strong>Применение общей формулы корней для $n = 3$:</strong>
+              \[R = \sqrt[3]{r} = \sqrt[3]{2\sqrt{2}} = \sqrt[3]{\sqrt{8}} = \sqrt[6]{8} = \sqrt{2}\]
+              \[w_k = \sqrt{2}\left[\cos\left(\frac{-\frac{3\pi}{4} + 2\pi k}{3}\right) + i\sin\left(\frac{-\frac{3\pi}{4} + 2\pi k}{3}\right)\right], \quad k \in \{0, 1, 2\}\]
             </li>
-            <li>
-              <strong>Применение общей формулы корней для $n = 3$:</strong>
-              $$R = \sqrt[3]{r} = \sqrt[3]{2\sqrt{2}} = \sqrt[3]{\sqrt{8}} = \sqrt[6]{8} = \sqrt{2}$$
-              $$w_k = \sqrt{2}\left[\cos\left(\frac{-\frac{3\pi}{4} + 2\pi k}{3}\right) + i\sin\left(\frac{-\frac{3\pi}{4} + 2\pi k}{3}\right)\right], \quad k \in \{0, 1, 2\}$$
-            </li>
-            <li>
-              <strong>Вычисление значений для каждого $k$:</strong>
-              <ul>
-                <li>
-                  <strong>При $k = 0$:</strong>
-                  $$\theta_0 = \frac{-\frac{3\pi}{4}}{3} = -\frac{\pi}{4}$$
-                  $$w_0 = \sqrt{2}\left[\cos\left(-\frac{\pi}{4}\right) + i\sin\left(-\frac{\pi}{4}\right)\right] = \sqrt{2}\left(\frac{\sqrt{2}}{2} - i\frac{\sqrt{2}}{2}\right) = 1 - i$$
+<li>
+<strong>Вычисление значений для каждого $k$:</strong>
+<ul>
+<li>
+<strong>При $k = 0$:</strong>
+                  \[\theta_0 = \frac{-\frac{3\pi}{4}}{3} = -\frac{\pi}{4}\]
+                  \[w_0 = \sqrt{2}\left[\cos\left(-\frac{\pi}{4}\right) + i\sin\left(-\frac{\pi}{4}\right)\right] = \sqrt{2}\left(\frac{\sqrt{2}}{2} - i\frac{\sqrt{2}}{2}\right) = 1 - i\]
                 </li>
-                <li>
-                  <strong>При $k = 1$:</strong>
-                  $$\theta_1 = \frac{-\frac{3\pi}{4} + 2\pi}{3} = \frac{\frac{5\pi}{4}}{3} = \frac{5\pi}{12}$$
-                  $$w_1 = \sqrt{2}\left(\cos\frac{5\pi}{12} + i\sin\frac{5\pi}{12}\right)$$
+<li>
+<strong>При $k = 1$:</strong>
+                  \[\theta_1 = \frac{-\frac{3\pi}{4} + 2\pi}{3} = \frac{\frac{5\pi}{4}}{3} = \frac{5\pi}{12}\]
+                  \[w_1 = \sqrt{2}\left(\cos\frac{5\pi}{12} + i\sin\frac{5\pi}{12}\right)\]
                   <em>Точные значения:</em> $\cos\frac{5\pi}{12} = \frac{\sqrt{6}-\sqrt{2}}{4}$, $\sin\frac{5\pi}{12} = \frac{\sqrt{6}+\sqrt{2}}{4}$. Подставляя:
-                  $$w_1 = \sqrt{2}\left(\frac{\sqrt{6}-\sqrt{2}}{4} + i\frac{\sqrt{6}+\sqrt{2}}{4}\right) = \frac{\sqrt{3}-1}{2} + i\frac{\sqrt{3}+1}{2}$$
+                  \[w_1 = \sqrt{2}\left(\frac{\sqrt{6}-\sqrt{2}}{4} + i\frac{\sqrt{6}+\sqrt{2}}{4}\right) = \frac{\sqrt{3}-1}{2} + i\frac{\sqrt{3}+1}{2}\]
                 </li>
-                <li>
-                  <strong>При $k = 2$:</strong>
-                  $$\theta_2 = \frac{-\frac{3\pi}{4} + 4\pi}{3} = \frac{\frac{13\pi}{4}}{3} = \frac{13\pi}{12}$$
-                  $$w_2 = \sqrt{2}\left(\cos\frac{13\pi}{12} + i\sin\frac{13\pi}{12}\right)$$
+<li>
+<strong>При $k = 2$:</strong>
+                  \[\theta_2 = \frac{-\frac{3\pi}{4} + 4\pi}{3} = \frac{\frac{13\pi}{4}}{3} = \frac{13\pi}{12}\]
+                  \[w_2 = \sqrt{2}\left(\cos\frac{13\pi}{12} + i\sin\frac{13\pi}{12}\right)\]
                   <em>Точные значения:</em> $\cos\frac{13\pi}{12} = -\frac{\sqrt{6}+\sqrt{2}}{4}$, $\sin\frac{13\pi}{12} = -\frac{\sqrt{6}-\sqrt{2}}{4}$. Отсюда:
-                  $$w_2 = -\frac{\sqrt{3}+1}{2} - i\frac{\sqrt{3}-1}{2}$$
+                  \[w_2 = -\frac{\sqrt{3}+1}{2} - i\frac{\sqrt{3}-1}{2}\]
                 </li>
-              </ul>
-            </li>
-            <li>
-              <strong>Математическая проверка:</strong>
+</ul>
+</li>
+<li>
+<strong>Математическая проверка:</strong>
               Возведем $w_0 = 1 - i$ в куб:
-              $$(1 - i)^3 = 1 - 3i + 3i^2 - i^3 = 1 - 3i - 3 + i = -2 - 2i \quad \checkmark$$
+              \[(1 - i)^3 = 1 - 3i + 3i^2 - i^3 = 1 - 3i - 3 + i = -2 - 2i \quad \checkmark\]
               Проверим сумму корней:
-              $$w_0 + w_1 + w_2 = (1 - i) + \left(\frac{\sqrt{3}-1}{2} + i\frac{\sqrt{3}+1}{2}\right) + \left(-\frac{\sqrt{3}+1}{2} - i\frac{\sqrt{3}-1}{2}\right) = 0 \quad \checkmark$$
+              \[w_0 + w_1 + w_2 = (1 - i) + \left(\frac{\sqrt{3}-1}{2} + i\frac{\sqrt{3}+1}{2}\right) + \left(-\frac{\sqrt{3}+1}{2} - i\frac{\sqrt{3}-1}{2}\right) = 0 \quad \checkmark\]
             </li>
-          </ol>
-        </div>
-
-        <div class="worked-example" id="ex-3">
-  <div class="block-label">Пример 3</div>
-  <h3 id="sub-18" data-toc="Пример 3">Пример 3</h3>
-  
-          <div class="callout-header">Задача 10.2 (Решение уравнения $z^4 + 16 = 0$ и факторизация)
-</div>
-          <em>Условие:</em> Решить двучленное уравнение $z^4 = -16$ и разложить многочлен $P(z) = z^4 + 16$ на неприводимые множители над полем $\mathbb{R}$.<br>
-          <em>Пошаговое решение:</em>
-          <ol>
-            <li>Число $-16$ в тригонометрической форме: $-16 = 16(\cos\pi + i\sin\pi)$.</li>
-            <li>Модуль корней: $R = \sqrt[4]{16} = 2$.</li>
-            <li>Формула корней:
-              $$w_k = 2\left[\cos\left(\frac{\pi + 2\pi k}{4}\right) + i\sin\left(\frac{\pi + 2\pi k}{4}\right)\right], \quad k \in \{0, 1, 2, 3\}$$
+</ol>
+</div></div>
+<div class="worked-example" id="ex-3"><div class="block-label">Пример 3</div><h3 data-toc="Задача 10.2 (Решение уравнения…" id="sub-11-2">Задача 10.2 (Решение уравнения $z^4 + 16 = 0$ и факторизация)</h3><div>
+<em>Условие:</em> Решить двучленное уравнение $z^4 = -16$ и разложить многочлен $P(z) = z^4 + 16$ на неприводимые множители над полем $\mathbb{R}$.<br/>
+<em>Пошаговое решение:</em>
+<ol>
+<li>Число $-16$ в тригонометрической форме: $-16 = 16(\cos\pi + i\sin\pi)$.</li>
+<li>Модуль корней: $R = \sqrt[4]{16} = 2$.</li>
+<li>Формула корней:
+              \[w_k = 2\left[\cos\left(\frac{\pi + 2\pi k}{4}\right) + i\sin\left(\frac{\pi + 2\pi k}{4}\right)\right], \quad k \in \{0, 1, 2, 3\}\]
             </li>
-            <li>Вычисляем корни:
+<li>Вычисляем корни:
               <ul>
-                <li>$k = 0$: $w_0 = 2\left(\cos\frac{\pi}{4} + i\sin\frac{\pi}{4}\right) = 2\left(\frac{\sqrt{2}}{2} + i\frac{\sqrt{2}}{2}\right) = \sqrt{2} + i\sqrt{2}$.</li>
-                <li>$k = 1$: $w_1 = 2\left(\cos\frac{3\pi}{4} + i\sin\frac{3\pi}{4}\right) = -\sqrt{2} + i\sqrt{2}$.</li>
-                <li>$k = 2$: $w_2 = 2\left(\cos\frac{5\pi}{4} + i\sin\frac{5\pi}{4}\right) = -\sqrt{2} - i\sqrt{2} = \bar{w}_1$.</li>
-                <li>$k = 3$: $w_3 = 2\left(\cos\frac{7\pi}{4} + i\sin\frac{7\pi}{4}\right) = \sqrt{2} - i\sqrt{2} = \bar{w}_0$.</li>
-              </ul>
-            </li>
-            <li>
-              <strong>Факторизация над $\mathbb{R}$ (по методу Куроша):</strong>
+<li>$k = 0$: $w_0 = 2\left(\cos\frac{\pi}{4} + i\sin\frac{\pi}{4}\right) = 2\left(\frac{\sqrt{2}}{2} + i\frac{\sqrt{2}}{2}\right) = \sqrt{2} + i\sqrt{2}$.</li>
+<li>$k = 1$: $w_1 = 2\left(\cos\frac{3\pi}{4} + i\sin\frac{3\pi}{4}\right) = -\sqrt{2} + i\sqrt{2}$.</li>
+<li>$k = 2$: $w_2 = 2\left(\cos\frac{5\pi}{4} + i\sin\frac{5\pi}{4}\right) = -\sqrt{2} - i\sqrt{2} = \bar{w}_1$.</li>
+<li>$k = 3$: $w_3 = 2\left(\cos\frac{7\pi}{4} + i\sin\frac{7\pi}{4}\right) = \sqrt{2} - i\sqrt{2} = \bar{w}_0$.</li>
+</ul>
+</li>
+<li>
+<strong>Факторизация над $\mathbb{R}$ (по методу Куроша):</strong>
               Группируем комплексно сопряженные пары корней $(z - w_0)(z - \bar{w}_0)$ и $(z - w_1)(z - \bar{w}_1)$:
-              $$(z - (\sqrt{2} + i\sqrt{2}))(z - (\sqrt{2} - i\sqrt{2})) = ((z - \sqrt{2}) - i\sqrt{2})((z - \sqrt{2}) + i\sqrt{2}) = (z - \sqrt{2})^2 + 2 = z^2 - 2\sqrt{2}z + 4$$
-              $$(z - (-\sqrt{2} + i\sqrt{2}))(z - (-\sqrt{2} - i\sqrt{2})) = (z + \sqrt{2})^2 + 2 = z^2 + 2\sqrt{2}z + 4$$
+              \[(z - (\sqrt{2} + i\sqrt{2}))(z - (\sqrt{2} - i\sqrt{2})) = ((z - \sqrt{2}) - i\sqrt{2})((z - \sqrt{2}) + i\sqrt{2}) = (z - \sqrt{2})^2 + 2 = z^2 - 2\sqrt{2}z + 4\]
+              \[(z - (-\sqrt{2} + i\sqrt{2}))(z - (-\sqrt{2} - i\sqrt{2})) = (z + \sqrt{2})^2 + 2 = z^2 + 2\sqrt{2}z + 4\]
               Итоговое вещественное разложение:
-              $$z^4 + 16 = (z^2 - 2\sqrt{2}z + 4)(z^2 + 2\sqrt{2}z + 4)$$
+              \[z^4 + 16 = (z^2 - 2\sqrt{2}z + 4)(z^2 + 2\sqrt{2}z + 4)\]
             </li>
-          </ol>
-        </div>
-      </section>
+</ol>
+</div></div>
 
-      <!-- =====================================================================
+<!-- =====================================================================
            РАЗДЕЛ 11: СВОДНЫЙ СПРАВОЧНИК ФОРМУЛ
            ===================================================================== -->
-      <section class="section-block" id="sec-summary">
+<section class="section-block" id="sec-summary">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-12">
-  <div class="chapter-kicker">12 / 11. Сводная таблица фундамен…</div>
-  <h2 id="chapter-12" data-toc="11. Сводная таблица фундамен…">§ 11. Сводная таблица фундаментальных формул</h2>
-  <div class="table-wrapper">
-          <div class="table-scroll">
+  <div class="chapter-kicker">12 / 11. Сводная таблица фундамента…</div>
+  <h2 id="chapter-12" data-toc="11. Сводная таблица фундамента…">§ 11. Сводная таблица фундаментальных формул</h2>
+  
+<div class="table-wrapper">
 <table>
-            <thead>
-              <tr>
-                <th style="width: 25%;">Понятие / Операция</th>
-                <th style="width: 45%;">Математическая формула</th>
-                <th style="width: 30%;">Геометрический смысл</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Тригонометрическая форма</strong></td>
-                <td>$z = r(\cos\varphi + i\sin\varphi), \; r = |z| > 0$</td>
-                <td>Точка с полярным радиусом $r$ и углом $\varphi$</td>
-              </tr>
-              <tr>
-                <td><strong>Критерий равенства</strong></td>
-                <td>$z_1 = z_2 \iff r_1 = r_2 \;\land\; \varphi_2 = \varphi_1 + 2\pi k$</td>
-                <td>Совпадение радиус-векторов на плоскости</td>
-              </tr>
-              <tr>
-                <td><strong>Умножение</strong></td>
-                <td>$z_1 z_2 = r_1 r_2 [\cos(\varphi_1 + \varphi_2) + i\sin(\varphi_1 + \varphi_2)]$</td>
-                <td>Поворотная гомотетия (растяжение в $r_2$ раз, поворот на $\varphi_2$)</td>
-              </tr>
-              <tr>
-                <td><strong>Деление</strong></td>
-                <td>$\frac{z_1}{z_2} = \frac{r_1}{r_2} [\cos(\varphi_1 - \varphi_2) + i\sin(\varphi_1 - \varphi_2)]$</td>
-                <td>Сжатие в $r_2$ раз и поворот на угол $-\varphi_2$</td>
-              </tr>
-              <tr>
-                <td><strong>Неравенство треугольника</strong></td>
-                <td>$\big||z_1| - |z_2|\big| \le |z_1 \pm z_2| \le |z_1| + |z_2|$</td>
-                <td>Отношение сторон и диагоналей параллелограмма</td>
-              </tr>
-              <tr>
-                <td><strong>Формула Муавра</strong></td>
-                <td>$z^n = r^n [\cos(n\varphi) + i\sin(n\varphi)], \quad n \in \mathbb{Z}$</td>
-                <td>Многократное растяжение и поворот на $n\varphi$</td>
-              </tr>
-              <tr>
-                <td><strong>Корни $n$-й степени</strong></td>
-                <td>$w_k = \sqrt[n]{r}\left[\cos\left(\frac{\varphi + 2\pi k}{n}\right) + i\sin\left(\frac{\varphi + 2\pi k}{n}\right)\right]$</td>
-                <td>Вершины правильного $n$-угольника радиуса $\sqrt[n]{r}$</td>
-              </tr>
-              <tr>
-                <td><strong>Корни из единицы</strong></td>
-                <td>$\varepsilon_k = \cos\frac{2\pi k}{n} + i\sin\frac{2\pi k}{n} = \varepsilon^k$</td>
-                <td>Циклическая группа $U_n$, делящая единичную окружность на $n$ дуг</td>
-              </tr>
-              <tr>
-                <td><strong>Сумма корней</strong></td>
-                <td>$\sum_{k=0}^{n-1} w_k = 0 \quad (n \ge 2)$</td>
-                <td>Центр тяжести вершин $n$-угольника лежит в начале координат</td>
-              </tr>
-            </tbody>
-          </table>
+<thead>
+<tr>
+<th style="width: 25%;">Понятие / Операция</th>
+<th style="width: 45%;">Математическая формула</th>
+<th style="width: 30%;">Геометрический смысл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Тригонометрическая форма</strong></td>
+<td>$z = r(\cos\varphi + i\sin\varphi), \; r = |z| > 0$</td>
+<td>Точка с полярным радиусом $r$ и углом $\varphi$</td>
+</tr>
+<tr>
+<td><strong>Критерий равенства</strong></td>
+<td>$z_1 = z_2 \iff r_1 = r_2 \;\land\; \varphi_2 = \varphi_1 + 2\pi k$</td>
+<td>Совпадение радиус-векторов на плоскости</td>
+</tr>
+<tr>
+<td><strong>Умножение</strong></td>
+<td>$z_1 z_2 = r_1 r_2 [\cos(\varphi_1 + \varphi_2) + i\sin(\varphi_1 + \varphi_2)]$</td>
+<td>Поворотная гомотетия (растяжение в $r_2$ раз, поворот на $\varphi_2$)</td>
+</tr>
+<tr>
+<td><strong>Деление</strong></td>
+<td>$\frac{z_1}{z_2} = \frac{r_1}{r_2} [\cos(\varphi_1 - \varphi_2) + i\sin(\varphi_1 - \varphi_2)]$</td>
+<td>Сжатие в $r_2$ раз и поворот на угол $-\varphi_2$</td>
+</tr>
+<tr>
+<td><strong>Неравенство треугольника</strong></td>
+<td>$\big||z_1| - |z_2|\big| \le |z_1 \pm z_2| \le |z_1| + |z_2|$</td>
+<td>Отношение сторон и диагоналей параллелограмма</td>
+</tr>
+<tr>
+<td><strong>Формула Муавра</strong></td>
+<td>$z^n = r^n [\cos(n\varphi) + i\sin(n\varphi)], \quad n \in \mathbb{Z}$</td>
+<td>Многократное растяжение и поворот на $n\varphi$</td>
+</tr>
+<tr>
+<td><strong>Корни $n$-й степени</strong></td>
+<td>$w_k = \sqrt[n]{r}\left[\cos\left(\frac{\varphi + 2\pi k}{n}\right) + i\sin\left(\frac{\varphi + 2\pi k}{n}\right)\right]$</td>
+<td>Вершины правильного $n$-угольника радиуса $\sqrt[n]{r}$</td>
+</tr>
+<tr>
+<td><strong>Корни из единицы</strong></td>
+<td>$\varepsilon_k = \cos\frac{2\pi k}{n} + i\sin\frac{2\pi k}{n} = \varepsilon^k$</td>
+<td>Циклическая группа $U_n$, делящая единичную окружность на $n$ дуг</td>
+</tr>
+<tr>
+<td><strong>Сумма корней</strong></td>
+<td>$\sum_{k=0}^{n-1} w_k = 0 \quad (n \ge 2)$</td>
+<td>Центр тяжести вершин $n$-угольника лежит в начале координат</td>
+</tr>
+</tbody>
+</table>
 </div>
-        </div>
-      </section>
+
+
+
 </section>
 <!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>

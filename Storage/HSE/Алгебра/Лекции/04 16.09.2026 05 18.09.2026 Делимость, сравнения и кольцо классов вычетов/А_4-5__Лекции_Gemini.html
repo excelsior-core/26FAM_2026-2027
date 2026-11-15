@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Делимость, сравнения и кольцо классов вычетов. Конспект FAM ФПМ НИУ ВШЭ.">
+  <meta name="description" content="Теория делимости в кольце целых чисел, строгое доказательство теоремы о делении с остатком, отношение сравнимости по модулю, алгебраическая структура кольца классов вычетов Z_m и критерий поля.">
   <title>Делимость, сравнения и кольцо классов вычетов — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
@@ -183,8 +183,13 @@ html[data-theme] ::selection{background:var(--gold);color:var(--paper)}
 .themed-figure [data-figure-theme="light"]{display:block}
 html[data-theme="dark"] .themed-figure [data-figure-theme],html[data-theme="parchment"] .themed-figure [data-figure-theme]{display:none}
 html[data-theme="dark"] .themed-figure [data-figure-theme="dark"],html[data-theme="parchment"] .themed-figure [data-figure-theme="parchment"]{display:block}
-/* One neutral/light asset may remain on its own light plate in every theme. Never invert mathematical colours. */
-.figure-plate{background:#fff;color:#202e29;padding:16px;border:1px solid var(--rule)}
+.figure-plate{background:var(--bg-card);color:var(--ink);padding:20px;border:1px solid var(--rule);border-radius:8px;margin:32px 0}
+html[data-theme="light"] .figure-plate{background:#ffffff}
+html[data-theme="dark"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+html[data-theme="parchment"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+@media print{
+ .figure-plate{background:white!important;border:0!important;padding:0!important}
+}
 @media(max-width:760px){.topbar{height:auto;min-height:70px;flex-wrap:wrap;padding:12px 18px;gap:10px}.top-actions{gap:8px;flex-wrap:wrap}.theme-control select{font-size:10px;max-width:103px;padding:8px 4px}.pdf-button{padding:6px 8px}.pdf-button span{margin-left:4px}.wordmark{font-size:24px}}
 @media(max-width:400px){.wordmark{display:none}.top-actions{width:100%;justify-content:space-between}}
 @media print{
@@ -440,1339 +445,1085 @@ SOFTWARE.
     </aside>
     <main id="content">
       <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
-  <div class="lecture-meta"><span class="subject">Алгебра</span><span>ФПМ НИУ ВШЭ</span></div>
-  <h1>Делимость, сравнения и кольцо классов вычетов</h1>
-  <p class="subtitle">Теория делимости в кольце целых чисел, строгое доказательство теоремы о делении с остатком, отношение сравнимости по модулю, алгебраическая структура кольца классов вычетов Z_m и критерий поля.</p>
-  <div class="lecture-abstract">
-    <p>Теория делимости в кольце целых чисел, строгое доказательство теоремы о делении с остатком, отношение сравнимости по модулю, алгебраическая структура кольца классов вычетов Z_m и критерий поля.</p>
-    <div class="abstract-formula" aria-label="Ключевое выражение лекции">\[a = bq + r, \quad \text{где } 0 \le r < |b|.\]</div>
-  </div>
-</header>
-<div class="proof-toolbar" aria-label="Все доказательства">
-  <span class="toolbar-label">Доказательства</span>
-  <div class="segmented" role="group" aria-label="Режим всех доказательств">
-    <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
-    <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
-    <button data-all-proofs="full" aria-pressed="false">Полностью</button>
-  </div>
-  <span id="proof-state" class="proof-state" aria-live="polite"></span>
-</div>
-<noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
-<p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
-
+      <header class="lecture-head" id="top">
+        <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
+        <h1>Делимость, сравнения и кольцо классов вычетов</h1>
+        <p class="subtitle">Теория делимости в кольце целых чисел, строгое доказательство теоремы о делении с остатком, отношение сравнимости по модулю, алгебраическая структура кольца классов вычетов Z_m и критерий поля.</p>
+        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[a = bq + r, \quad \text{где } 0 \le r < |b|.\]</div></div>
+      </header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
 <section class="chapter" aria-labelledby="chapter-1">
   <div class="chapter-kicker">01 / Введение</div>
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <header class="lecture-monument">
-        <div class="monument-kicker">
-          <span>✦ Алгебра</span>
-          <span style="opacity: 0.4;">/</span>
-          <span>ЛЕКЦИЯ №Лекция 04–05 ✦</span>
-        </div>
-
-        <h1 id="article-title">ДЕЛИМОСТЬ, СРАВНЕНИЯ И <span class="gold-phrase">КОЛЬЦО КЛАССОВ ВЫЧЕТОВ</span></h1>
-        <p class="monument-lead" id="article-lead">Теория делимости в кольце целых чисел, строгое доказательство теоремы о делении с остатком, отношение сравнимости по модулю, алгебраическая структура кольца классов вычетов Z_m и критерий поля.</p>
-
-        <div class="monument-clean-meta">
-          <span class="clean-pill">Алгебра</span>
-          <span>•</span>
-          <span>16, 18 сентября 2026</span>
-        </div>
-      </header>
-
-      <!-- 
+<div class="monument-kicker">
+<span>✦ Алгебра</span>
+<span style="opacity: 0.4;">/</span>
+<span>ЛЕКЦИЯ №Лекция 04–05 ✦</span>
+</div>
+<h1 id="article-title">ДЕЛИМОСТЬ, СРАВНЕНИЯ И <span class="gold-phrase">КОЛЬЦО КЛАССОВ ВЫЧЕТОВ</span></h1>
+<p class="monument-lead" id="article-lead">Теория делимости в кольце целых чисел, строгое доказательство теоремы о делении с остатком, отношение сравнимости по модулю, алгебраическая структура кольца классов вычетов Z_m и критерий поля.</p>
+<div class="monument-clean-meta">
+<span class="clean-pill">Алгебра</span>
+<span>•</span>
+<span>16, 18 сентября 2026</span>
+</div>
+</header>
+<!-- 
         =============================================================================
         СЮДА НЕЙРОСЕТЬ ВСТАВЛЯЕТ СОДЕРЖИМОЕ КОНСПЕКТА (ARTICLE CONTENT)
         =============================================================================
       -->
-      <article class="content-area" id="lectureContent">
-
-        
-      
-      <!-- Титульная карточка -->
-      
-
-      <!-- Интерактивное кликабельное оглавление документа (сохраняется в PDF) -->
-      
-
-      <!-- РАЗДЕЛ 1 -->
-      <section class="lecture-section" id="sec-intro">
+<article class="content-area" id="lectureContent">
+<!-- Титульная карточка -->
+<!-- Интерактивное кликабельное оглавление документа (сохраняется в PDF) -->
+<!-- РАЗДЕЛ 1 -->
+<section class="lecture-section" id="sec-intro">
 </section>
-
 <section class="chapter" aria-labelledby="chapter-2">
-  <div class="chapter-kicker">02 / 1 Алгебраическая структура ц…</div>
-  <h2 id="chapter-2" data-toc="1 Алгебраическая структура ц…">1 Алгебраическая структура целых чисел $\mathbb{Z}$</h2>
-  <div id="sec-intro-ring"></div>
-        <p><span class="drop-cap">В</span>          В современной математике изучение числовых систем строится на аксиоматическом фундаменте теории колец и полей. 
+  <div class="chapter-kicker">02 / 1Алгебраическая структура целы…</div>
+  <h2 id="chapter-2" data-toc="1Алгебраическая структура целы…">1Алгебраическая структура целых чисел $\mathbb{Z}$</h2>
+  
+<div id="sec-intro-ring"></div>
+<p><span class="drop-cap">В</span>          В современной математике изучение числовых систем строится на аксиоматическом фундаменте теории колец и полей. 
           Множество целых чисел $\mathbb{Z} = \{ \dots, -2, -1, 0, 1, 2, \dots \}$ относительно стандартных арифметических 
           операций сложения ($+$) и умножения ($\cdot$) образует канонический пример фундаментальной алгебраической структуры.
         </p>
+<div class="statement definition" id="def-1"><div class="block-label">Определение 1</div><h3 data-toc="📌 Определение 1.1 (Кольцо целы…" id="sub-2-1">📌 Определение 1.1 (Кольцо целых чисел)</h3><div>
 
-        <div class="statement definition" id="def-1">
-  <div class="block-label">Определение 1</div>
-  <h3 id="sub-1" data-toc="Определение 1">Определение 1</h3>
-  
-          <div class="box-header">📌 Определение 1.1 (Кольцо целых чисел)
-</div>
           Тройка $(\mathbb{Z}, +, \cdot)$ является <strong>коммутативным ассоциативным кольцом с единицей</strong>, поскольку удовлетворяет следующим требованиям:
           <ol class="prop-list" style="margin-top: 0.5rem;">
-            <li>Относительно сложения $(\mathbb{Z}, +)$ — абелева группа (ассоциативность, коммутативность, существование нейтрального элемента $0$, существование противоположного $-a$ для каждого $a \in \mathbb{Z}$).</li>
-            <li>Относительно умножения $(\mathbb{Z}, \cdot)$ — коммутативный моноид с единицей $1$ ($a \cdot b = b \cdot a$, $(ab)c = a(bc)$, $a \cdot 1 = a$).</li>
-            <li>Умножение дистрибутивно относительно сложения: $\forall a, b, c \in \mathbb{Z} \implies a(b + c) = ab + ac$.</li>
-            <li>В $\mathbb{Z}$ отсутствуют делители нуля: из $a \cdot b = 0$ следует, что $a = 0$ или $b = 0$ (область целостности).</li>
-          </ol>
-        </div>
-      </section>
+<li>Относительно сложения $(\mathbb{Z}, +)$ — абелева группа (ассоциативность, коммутативность, существование нейтрального элемента $0$, существование противоположного $-a$ для каждого $a \in \mathbb{Z}$).</li>
+<li>Относительно умножения $(\mathbb{Z}, \cdot)$ — коммутативный моноид с единицей $1$ ($a \cdot b = b \cdot a$, $(ab)c = a(bc)$, $a \cdot 1 = a$).</li>
+<li>Умножение дистрибутивно относительно сложения: $\forall a, b, c \in \mathbb{Z} \implies a(b + c) = ab + ac$.</li>
+<li>В $\mathbb{Z}$ отсутствуют делители нуля: из $a \cdot b = 0$ следует, что $a = 0$ или $b = 0$ (область целостности).</li>
+</ol>
+</div></div>
 
-      <!-- РАЗДЕЛ 2 -->
-      <section class="lecture-section" id="sec-div-theory">
+<!-- РАЗДЕЛ 2 -->
+<section class="lecture-section" id="sec-div-theory">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-3">
-  <div class="chapter-kicker">03 / 2 Теория делимости в</div>
-  <h2 id="chapter-3" data-toc="2 Теория делимости в">2 Теория делимости в $\mathbb{Z}$</h2>
-  <h3 id="sub-2" data-toc="1. Теорема о делении с остат…">2.1. Теорема о делении с остатком (Алгоритм Евклида)</h3>
-        <p>
+  <div class="chapter-kicker">03 / 2Теория делимости в</div>
+  <h2 id="chapter-3" data-toc="2Теория делимости в">2Теория делимости в $\mathbb{Z}$</h2>
+  
+<h3 class="subsection-heading" data-toc="1. Теорема о делении с остатко…" id="sec-division-theorem">2.1. Теорема о делении с остатком (Алгоритм Евклида)</h3>
+<p>
           Краеугольным камнем всей элементарной и абстрактной арифметики целых чисел является возможность деления с остатком.
         </p>
+<div class="statement theorem featured" id="thm-1"><div class="block-label">Утверждение 1</div><h3 data-toc="⚖️ Теорема 2.1 (О делении с ос…" id="sub-3-2">⚖️ Теорема 2.1 (О делении с остатком)</h3><div>
 
-        <div class="statement theorem featured" id="thm-1">
-  <div class="block-label">Утверждение 1</div>
-  <h3 id="sub-3" data-toc="Теорема 1">Теорема 1</h3>
-  
-          <div class="box-header">⚖️ Теорема 2.1 (О делении с остатком)
-</div>
           Пусть $a, b \in \mathbb{Z}$, причём $b \neq 0$. Тогда существует и притом <strong>единственная</strong> пара целых чисел $q, r \in \mathbb{Z}$, такая что:
-          $$a = bq + r, \quad \text{где } 0 \le r < |b|.$$
+          \[a = bq + r, \quad \text{где } 0 \le r < |b|.\]
           Число $q$ называется <em>неполным частным</em>, а число $r$ — <em>остатком</em> от деления $a$ на $b$.
-        </div>
-
-        
-<div class="proof" id="proof-1" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство. Разделим доказательство на два этапа: существование и единственность.">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-1" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>1. Существование пары $(q, r)$.</strong></p>
-  </div>
-  <div class="proof-full" id="full-1" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство. Разделим доказательство на два этапа: существование и единственность.)</div>
-    <div class="proof-content">
+        </div></div>
+<div class="proof" data-proof="" id="proof-1">
+<div aria-label="Доказательство Доказательство. Разделим доказательство на два этапа: существование и единственность." class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-1">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство. Разделим доказательство на два этапа: существование и единственность.).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-1">
+<div class="proof-label">Доказательство (Доказательство. Разделим доказательство на два этапа: существование и единственность.)</div>
+<div class="proof-content">
 <p><strong>1. Существование пары $(q, r)$.</strong></p>
-          <p>
+<p>
             Рассмотрим вспомогательное подмножество целых чисел:
-            $$S = \{ a - bx \mid x \in \mathbb{Z}, \; a - bx \ge 0 \}.$$
+            \[S = \{ a - bx \mid x \in \mathbb{Z}, \; a - bx \ge 0 \}.\]
             Покажем, что множество $S$ не пусто ($S \ne \emptyset$). Для этого достаточно предъявить целое число $x$, при котором $a - bx \ge 0$.
             Возьмём, например, $x = -b a^2$ (как предложено в лекционном курсе). Тогда:
-            $$a - bx = a - b(-b a^2) = a + b^2 a^2.$$
+            \[a - bx = a - b(-b a^2) = a + b^2 a^2.\]
             Поскольку $b \in \mathbb{Z} \setminus \{0\}$, то $b^2 \ge 1$, а значит $b^2 a^2 \ge a^2$.
             Если $a = 0$, то $a - bx = 0 \ge 0 \implies 0 \in S$.
             Если $a > 0$, то $a + b^2 a^2 > 0$.
             Если $a < 0$, то $b^2 a^2 \ge a^2 = |a|^2 \ge |a| > -a$, следовательно, $a + b^2 a^2 \ge a + |a| = 0$.
             Таким образом, при любом $a \in \mathbb{Z}$ число $a - b(-b a^2) \ge 0$, то есть $S \ne \emptyset$.
           </p>
-          <p>
+<p>
             Итак, $S$ — непустое подмножество неотрицательных целых чисел ($\mathbb{N}_0 \subset \mathbb{Z}$). 
             В силу <em>принципа наименьшего элемента</em> (аксиомы вполне упорядоченности множества неотрицательных чисел) в множестве $S$ существует минимальный элемент. Обозначим его через $r$.
           </p>
-          <p>
+<p>
             Поскольку $r \in S$, по определению $S$ найдётся такое $q \in \mathbb{Z}$, что:
-            $$r = a - bq \quad \text{и} \quad r \ge 0 \implies a = bq + r.$$
+            \[r = a - bq \quad \text{и} \quad r \ge 0 \implies a = bq + r.\]
             Осталось доказать, что $r < |b|$. Предположим противное: пусть $r \ge |b|$.
             Рассмотрим число $r' = r - |b|$. Так как $r \ge |b|$, то $r' \ge 0$.
             С другой стороны, поскольку $b \neq 0$, имеем $|b| > 0$, откуда:
-            $$r' = r - |b| < r.$$
+            \[r' = r - |b| < r.\]
             Однако преобразуем выражение для $r'$:
-            $$r' = (a - bq) - |b| = a - b(q \pm 1) \quad (\text{где знак выбирается так, чтобы } \pm b = |b|).$$
+            \[r' = (a - bq) - |b| = a - b(q \pm 1) \quad (\text{где знак выбирается так, чтобы } \pm b = |b|).\]
             Поскольку $(q \pm 1) \in \mathbb{Z}$ и $r' \ge 0$, то $r' \in S$.
             Но мы получили, что $r' \in S$ и $r' < r$, что напрямую противоречит минимальности $r$ в множестве $S$.
             Следовательно, наше предположение неверно, и строго выполняется неравенство $0 \le r < |b|$. Существование доказано.
           </p>
-
-          <p><strong>2. Единственность пары $(q, r)$.</strong></p>
-          <p>
+<p><strong>2. Единственность пары $(q, r)$.</strong></p>
+<p>
             Предположим, что существуют два таких разложения числа $a$:
-            $$a = bq + r, \quad 0 \le r < |b|,$$
-            $$a = bq_1 + r_1, \quad 0 \le r_1 < |b|.$$
+            \[a = bq + r, \quad 0 \le r < |b|,\]
+            \[a = bq_1 + r_1, \quad 0 \le r_1 < |b|.\]
             Вычтем второе равенство из первого:
-            $$(bq + r) - (bq_1 + r_1) = 0 \iff b(q - q_1) + (r - r_1) = 0 \iff r - r_1 = b(q_1 - q).$$
+            \[(bq + r) - (bq_1 + r_1) = 0 \iff b(q - q_1) + (r - r_1) = 0 \iff r - r_1 = b(q_1 - q).\]
             Без ограничения общности положим $r \ge r_1$. Тогда $r - r_1 \ge 0$. 
             Поскольку $r < |b|$ и $r_1 \ge 0$, имеет место строгая оценка:
-            $$0 \le r - r_1 \le r < |b| \implies 0 \le b(q_1 - q) < |b|.$$
+            \[0 \le r - r_1 \le r < |b| \implies 0 \le b(q_1 - q) < |b|.\]
             Перейдём к абсолютным величинам:
-            $$|b| \cdot |q_1 - q| = r - r_1 < |b|.$$
+            \[|b| \cdot |q_1 - q| = r - r_1 < |b|.\]
             Разделим обе части неравенства на положительное число $|b| > 0$:
-            $$|q_1 - q| < 1.$$
+            \[|q_1 - q| < 1.\]
             Поскольку $q, q_1 \in \mathbb{Z}$, разность $q_1 - q$ является целым числом. Единственным целым числом, чей модуль строго меньше $1$, является $0$:
-            $$q_1 - q = 0 \implies q_1 = q.$$
+            \[q_1 - q = 0 \implies q_1 = q.\]
             Подставляя $q_1 = q$ в выражение для разности остатков, получаем:
-            $$r - r_1 = b \cdot 0 = 0 \implies r = r_1.$$
+            \[r - r_1 = b \cdot 0 = 0 \implies r = r_1.\]
             Единственность разложения доказана полностью.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        <!-- SVG 1: Геометрическая иллюстрация деления с остатком -->
-        <div class="svg-wrapper">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg">
-            <!-- Координатная прямая -->
-            <line x1="40" y1="100" x2="760" y2="100" stroke="var(--text-muted)" stroke-width="2.5" />
-            <polygon points="765,100 750,94 750,106" fill="var(--text-muted)" />
-            
-            <!-- Отрезок bq до b(q+1) -->
-            <!-- Засечки -->
-            <line x1="120" y1="85" x2="120" y2="115" stroke="var(--text-heading)" stroke-width="3" />
-            <line x1="620" y1="85" x2="620" y2="115" stroke="var(--text-heading)" stroke-width="3" />
-            
-            <!-- Точка a -->
-            <circle cx="430" cy="100" r="7" fill="#38bdf8" stroke="var(--bg-body)" stroke-width="2" />
-            
-            <!-- Текстовые метки точек -->
-            <text x="120" y="140" fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle">bq</text>
-            <text x="620" y="140" fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle">b(q+1)</text>
-            <text x="430" y="75" fill="#38bdf8" font-size="18" font-weight="800" text-anchor="middle">a = bq + r</text>
-
-            <!-- Интервал длины |b| (верхняя дуга) -->
-            <path d="M 125,50 L 370,50 Q 375,50 375,40 Q 375,50 380,50 L 615,50" fill="none" stroke="var(--border-accent)" stroke-width="2" />
-            <text x="375" y="30" fill="var(--border-accent)" font-size="15" font-weight="600" text-anchor="middle">Шаг длины |b|</text>
-
-            <!-- Интервал остатка r (нижняя скобка) -->
-            <path d="M 125,165 L 270,165 Q 275,165 275,175 Q 275,165 280,165 L 425,165" fill="none" stroke="#10b8a6" stroke-width="2" />
-            <text x="275" y="195" fill="#10b8a6" font-size="15" font-weight="600" text-anchor="middle">Остаток r (0 ≤ r &lt; |b|)</text>
-          </svg></div>
-          <div class="svg-caption">Рисунок 2.1: Геометрическая модель деления с остатком на числовой прямой $\mathbb{Z}$. Число $a$ лежит строго внутри полуинтервала $[bq, b(q+1))$.</div>
-        </div>
-
-        <h3 id="sub-4" data-toc="2. Отношение делимости">2.2. Отношение делимости</h3>
-        <div class="statement definition" id="def-2">
-  <div class="block-label">Определение 2</div>
-  <h3 id="sub-5" data-toc="Определение 2">Определение 2</h3>
-  
-          <div class="box-header">📌 Определение 2.2 (Отношение делимости)
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<!-- SVG 1: Геометрическая иллюстрация деления с остатком -->
+<div class="svg-wrapper">
+<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 800 180" xmlns="http://www.w3.org/2000/svg">
+<!-- Координатная прямая -->
+<line stroke="var(--text-muted)" stroke-width="2.5" x1="40" x2="760" y1="100" y2="100"></line>
+<polygon fill="var(--text-muted)" points="765,100 750,94 750,106"></polygon>
+<!-- Отрезок bq до b(q+1) -->
+<!-- Засечки -->
+<line stroke="var(--text-heading)" stroke-width="3" x1="120" x2="120" y1="85" y2="115"></line>
+<line stroke="var(--text-heading)" stroke-width="3" x1="620" x2="620" y1="85" y2="115"></line>
+<!-- Точка a -->
+<circle cx="430" cy="100" fill="#38bdf8" r="7" stroke="var(--bg-body)" stroke-width="2"></circle>
+<!-- Текстовые метки точек -->
+<text fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle" x="120" y="140">bq</text>
+<text fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle" x="620" y="140">b(q+1)</text>
+<text fill="#38bdf8" font-size="18" font-weight="800" text-anchor="middle" x="430" y="75">a = bq + r</text>
+<!-- Интервал длины |b| (верхняя дуга) -->
+<path d="M 125,50 L 370,50 Q 375,50 375,40 Q 375,50 380,50 L 615,50" fill="none" stroke="var(--border-accent)" stroke-width="2"></path>
+<text fill="var(--border-accent)" font-size="15" font-weight="600" text-anchor="middle" x="375" y="30">Шаг длины |b|</text>
+<!-- Интервал остатка r (нижняя скобка) -->
+<path d="M 125,165 L 270,165 Q 275,165 275,175 Q 275,165 280,165 L 425,165" fill="none" stroke="#10b8a6" stroke-width="2"></path>
+<text fill="#10b8a6" font-size="15" font-weight="600" text-anchor="middle" x="275" y="195">Остаток r (0 ≤ r &lt; |b|)</text>
+</svg></figure>
+<div class="svg-caption">Рисунок 2.1: Геометрическая модель деления с остатком на числовой прямой $\mathbb{Z}$. Число $a$ лежит строго внутри полуинтервала $[bq, b(q+1))$.</div>
+</div>
+<h3 class="subsection-heading" data-toc="2. Отношение делимости" id="sec-div-def">2.2. Отношение делимости</h3>
+<div class="statement definition" id="def-2"><div class="block-label">Определение 2</div><h3 data-toc="📌 Определение 2.2 (Отношение д…" id="sub-3-4">📌 Определение 2.2 (Отношение делимости)</h3><div>
+
           Пусть $a, b \in \mathbb{Z}, b \neq 0$. Говорят, что <strong>$b$ делит $a$</strong> (или $a$ делится на $b$), если существует такое целое число $q \in \mathbb{Z}$, что:
-          $$a = bq.$$
+          \[a = bq.\]
           Обозначение: $b \mid a$. В этом случае $b$ называется <em>делителем</em> числа $a$, а $q$ — <em>частным</em>. Если такого $q$ не существует, пишут $b \nmid a$.
-          <br><br>
-          <em>Связь с остатком:</em> Утверждение $b \mid a$ равносильно тому, что остаток от деления $a$ на $b$ в силу Теоремы 2.1 равен нулю ($r = 0$).
-        </div>
+          <br/><br/>
+<em>Связь с остатком:</em> Утверждение $b \mid a$ равносильно тому, что остаток от деления $a$ на $b$ в силу Теоремы 2.1 равен нулю ($r = 0$).
+        </div></div>
+<div class="worked-example" id="ex-1"><div class="block-label">Пример 1</div><h3 data-toc="💡 Примеры" id="sub-3-5">💡 Примеры</h3><div>
 
-        <div class="worked-example" id="ex-1">
-  <div class="block-label">Пример 1</div>
-  <h3 id="sub-6" data-toc="Пример 1">Пример 1</h3>
-  
-          <div class="box-header">💡 Примеры
-</div>
-          1) $6 \mid 24$, так как $24 = 6 \cdot 4$.<br>
-          2) $6 \mid (-24)$, так как $-24 = 6 \cdot (-4)$.<br>
+          1) $6 \mid 24$, так как $24 = 6 \cdot 4$.<br/>
+          2) $6 \mid (-24)$, так как $-24 = 6 \cdot (-4)$.<br/>
           3) $7 \nmid (-24)$, так как $-24 = 7 \cdot (-4) + 4$, остаток $r = 4 \neq 0$.
-        </div>
+        </div></div>
+<h3 class="subsection-heading" data-toc="3. Свойства отношения делимости" id="sec-div-props">2.3. Свойства отношения делимости</h3>
+<div class="statement theorem" id="thm-2"><div class="block-label">Утверждение 2</div><h3 data-toc="📜 Предложение 2.1 (Свойства де…" id="sub-3-7">📜 Предложение 2.1 (Свойства делимости в $\mathbb{Z}$)</h3><div>
 
-        <h3 id="sub-7" data-toc="3. Свойства отношения делимо…">2.3. Свойства отношения делимости</h3>
-        <div class="statement theorem" id="thm-2">
-  <div class="block-label">Утверждение 2</div>
-  <h3 id="sub-8" data-toc="Теорема 2">Теорема 2</h3>
-  
-          <div class="box-header">📜 Предложение 2.1 (Свойства делимости в $\mathbb{Z}$)
-</div>
           Отношение делимости на множестве $\mathbb{Z}$ обладает следующими фундаментальными свойствами:
           <ol class="prop-list" style="margin-top: 0.5rem;">
-            <li>$\forall a \in \mathbb{Z} \setminus \{0\} \implies a \mid 0$.</li>
-            <li>$\forall a \in \mathbb{Z} \implies a \mid (\pm a)$ и $(\pm 1) \mid a$.</li>
-            <li>$\forall a, b \in \mathbb{Z} \implies (a \mid b \land b \mid a) \iff a = \pm b$.</li>
-            <li>Транзитивность: $\forall a, b, c \in \mathbb{Z} \implies (c \mid b \land b \mid a) \implies c \mid a$.</li>
-            <li>Линейность по сложению: $\forall a, b, c \in \mathbb{Z} \implies (c \mid a \land c \mid b) \implies c \mid (a \pm b)$.</li>
-            <li>Мультипликативность: $\forall a, b, c \in \mathbb{Z} \implies b \mid a \implies b \mid (ac)$ и $(bc) \mid (ac)$ (при $c \ne 0$).</li>
-            <li>Обобщённая линейность: если число $m$ делит числа $a_1, a_2, \dots, a_k$, то для любых целых коэффициентов $t_1, t_2, \dots, t_k \in \mathbb{Z}$:
-              $$m \mid (t_1 a_1 + t_2 a_2 + \dots + t_k a_k).$$
+<li>$\forall a \in \mathbb{Z} \setminus \{0\} \implies a \mid 0$.</li>
+<li>$\forall a \in \mathbb{Z} \implies a \mid (\pm a)$ и $(\pm 1) \mid a$.</li>
+<li>$\forall a, b \in \mathbb{Z} \implies (a \mid b \land b \mid a) \iff a = \pm b$.</li>
+<li>Транзитивность: $\forall a, b, c \in \mathbb{Z} \implies (c \mid b \land b \mid a) \implies c \mid a$.</li>
+<li>Линейность по сложению: $\forall a, b, c \in \mathbb{Z} \implies (c \mid a \land c \mid b) \implies c \mid (a \pm b)$.</li>
+<li>Мультипликативность: $\forall a, b, c \in \mathbb{Z} \implies b \mid a \implies b \mid (ac)$ и $(bc) \mid (ac)$ (при $c \ne 0$).</li>
+<li>Обобщённая линейность: если число $m$ делит числа $a_1, a_2, \dots, a_k$, то для любых целых коэффициентов $t_1, t_2, \dots, t_k \in \mathbb{Z}$:
+              \[m \mid (t_1 a_1 + t_2 a_2 + \dots + t_k a_k).\]
             </li>
-          </ol>
-        </div>
-
-        
-<div class="proof" id="proof-2" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательства свойств 1–7:">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-2" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>1)</strong> По определению $0 = a \cdot 0$. Так как $0 \in \mathbb{Z}$, то $a \mid 0$.</p>
-  </div>
-  <div class="proof-full" id="full-2" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательства свойств 1–7:)</div>
-    <div class="proof-content">
+</ol>
+</div></div>
+<div class="proof" data-proof="" id="proof-2">
+<div aria-label="Доказательство Доказательства свойств 1–7:" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-2">
+<div class="proof-label">Идея</div>
+<p>1) По определению $0 = a \cdot 0$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-2">
+<div class="proof-label">Доказательство (Доказательства свойств 1–7:)</div>
+<div class="proof-content">
 <p>
-            <strong>1)</strong> По определению $0 = a \cdot 0$. Так как $0 \in \mathbb{Z}$, то $a \mid 0$.
+<strong>1)</strong> По определению $0 = a \cdot 0$. Так как $0 \in \mathbb{Z}$, то $a \mid 0$.
           </p>
-          <p>
-            <strong>2)</strong> Имеем $\pm a = a \cdot (\pm 1)$ и $a = (\pm 1) \cdot (\pm a)$. Так как $\pm 1, \pm a \in \mathbb{Z}$, свойства доказаны.
+<p>
+<strong>2)</strong> Имеем $\pm a = a \cdot (\pm 1)$ и $a = (\pm 1) \cdot (\pm a)$. Так как $\pm 1, \pm a \in \mathbb{Z}$, свойства доказаны.
           </p>
-          <p>
-            <strong>3)</strong> Пусть $a \mid b$ и $b \mid a$. Тогда существуют $q, \tilde{q} \in \mathbb{Z}$, такие что $b = a q$ и $a = b \tilde{q}$.
+<p>
+<strong>3)</strong> Пусть $a \mid b$ и $b \mid a$. Тогда существуют $q, \tilde{q} \in \mathbb{Z}$, такие что $b = a q$ и $a = b \tilde{q}$.
             Подставим первое во второе:
-            $$a = (a q) \tilde{q} = a (q \tilde{q}) \iff a(1 - q \tilde{q}) = 0.$$
+            \[a = (a q) \tilde{q} = a (q \tilde{q}) \iff a(1 - q \tilde{q}) = 0.\]
             Если $a = 0$, то из $b = a q$ сразу следует $b = 0$, то есть $a = \pm b = 0$.
             Если $a \ne 0$, то в силу отсутствия делителей нуля в $\mathbb{Z}$ получаем:
-            $$1 - q \tilde{q} = 0 \implies q \tilde{q} = 1.$$
+            \[1 - q \tilde{q} = 0 \implies q \tilde{q} = 1.\]
             Поскольку $q, \tilde{q} \in \mathbb{Z}$, делителями единицы в кольце целых чисел являются только $\pm 1$. Следовательно, $q = \pm 1$, откуда $b = \pm a$.
           </p>
-          <p>
-            <strong>4)</strong> Пусть $a = b q$ и $b = c \tilde{q}$ для $q, \tilde{q} \in \mathbb{Z}$.
+<p>
+<strong>4)</strong> Пусть $a = b q$ и $b = c \tilde{q}$ для $q, \tilde{q} \in \mathbb{Z}$.
             Тогда $a = (c \tilde{q}) q = c (\tilde{q} q)$. Так как $\tilde{q} q \in \mathbb{Z}$, то $c \mid a$.
           </p>
-          <p>
-            <strong>5)</strong> Пусть $a = c q$ и $b = c \tilde{q}$. Тогда:
-            $$a \pm b = c q \pm c \tilde{q} = c(q \pm \tilde{q}).$$
+<p>
+<strong>5)</strong> Пусть $a = c q$ и $b = c \tilde{q}$. Тогда:
+            \[a \pm b = c q \pm c \tilde{q} = c(q \pm \tilde{q}).\]
             Поскольку $(q \pm \tilde{q}) \in \mathbb{Z}$, то $c \mid (a \pm b)$.
           </p>
-          <p>
-            <strong>6)</strong> Если $a = b q$, то домножая на $c \in \mathbb{Z}$, имеем $ac = (bq)c = b(qc)$. Так как $qc \in \mathbb{Z}$, то $b \mid (ac)$.
+<p>
+<strong>6)</strong> Если $a = b q$, то домножая на $c \in \mathbb{Z}$, имеем $ac = (bq)c = b(qc)$. Так как $qc \in \mathbb{Z}$, то $b \mid (ac)$.
             Аналогично $ac = (bc)q$, откуда $(bc) \mid (ac)$.
           </p>
-          <p>
-            <strong>7)</strong> Доказывается по индукции по количеству слагаемых $k$. Для $k = 1$ утверждение следует из п. 6: если $m \mid a_1$, то $m \mid (t_1 a_1)$.
+<p>
+<strong>7)</strong> Доказывается по индукции по количеству слагаемых $k$. Для $k = 1$ утверждение следует из п. 6: если $m \mid a_1$, то $m \mid (t_1 a_1)$.
             Шаг индукции: пусть утверждение верно для $k-1$ слагаемых, то есть $m \mid \sum_{i=1}^{k-1} t_i a_i$. 
             По п. 6 $m \mid (t_k a_k)$. Применяя свойство 5 к сумме двух величин $\left(\sum_{i=1}^{k-1} t_i a_i\right) + t_k a_k$, получаем $m \mid \sum_{i=1}^{k} t_i a_i$.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
 </div>
 
-      </section>
-
-      <!-- РАЗДЕЛ 3 -->
-      <section class="lecture-section" id="sec-congruence">
+<!-- РАЗДЕЛ 3 -->
+<section class="lecture-section" id="sec-congruence">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-4">
-  <div class="chapter-kicker">04 / 3 Отношение сравнимости по м…</div>
-  <h2 id="chapter-4" data-toc="3 Отношение сравнимости по м…">3 Отношение сравнимости по модулю</h2>
-  <h3 id="sub-9" data-toc="1. Определение сравнимости (…">3.1. Определение сравнимости (К. Ф. Гаусс)</h3>
-        <p>
+  <div class="chapter-kicker">04 / 3Отношение сравнимости по модулю</div>
+  <h2 id="chapter-4" data-toc="3Отношение сравнимости по модулю">3Отношение сравнимости по модулю</h2>
+  
+<h3 class="subsection-heading" data-toc="1. Определение сравнимости (К.…" id="sec-cong-def">3.1. Определение сравнимости (К. Ф. Гаусс)</h3>
+<p>
           Понятие сравнимости по модулю было введено Карлом Фридрихом Гауссом в его фундаментальном труде «Арифметические исследования» (1801 г.) и является языком современной модулярной арифметики и криптографии.
         </p>
+<div class="statement definition" id="def-3"><div class="block-label">Определение 3</div><h3 data-toc="📌 Определение 3.1 (Сравнимость…" id="sub-4-2">📌 Определение 3.1 (Сравнимость по модулю)</h3><div>
 
-        <div class="statement definition" id="def-3">
-  <div class="block-label">Определение 3</div>
-  <h3 id="sub-10" data-toc="Определение 3">Определение 3</h3>
-  
-          <div class="box-header">📌 Определение 3.1 (Сравнимость по модулю)
-</div>
           Пусть $a, b, m \in \mathbb{Z}$, причём $m \neq 0$. Число $a$ называется <strong>сравнимым с числом $b$ по модулю $m$</strong>, если разность $(a - b)$ делится на $m$:
-          $$a \equiv b \pmod m \iff m \mid (a - b).$$
+          \[a \equiv b \pmod m \iff m \mid (a - b).\]
           <em>Замечание:</em> В дальнейшем, без ограничения общности, модуль $m$ всегда предполагается натуральным числом ($m \in \mathbb{N}, m \ge 1$), поскольку $m \mid (a - b) \iff (-m) \mid (a - b)$.
-        </div>
+        </div></div>
+<div class="worked-example" id="ex-2"><div class="block-label">Пример 2</div><h3 data-toc="💡 Примеры сравнений" id="sub-4-3">💡 Примеры сравнений</h3><div>
 
-        <div class="worked-example" id="ex-2">
-  <div class="block-label">Пример 2</div>
-  <h3 id="sub-11" data-toc="Пример 2">Пример 2</h3>
-  
-          <div class="box-header">💡 Примеры сравнений
-</div>
-          1) $5 \equiv -2 \pmod 7$, так как $5 - (-2) = 7$, и $7 \mid 7$.<br>
-          2) $-3 \equiv -13 \pmod 5$, так как $-3 - (-13) = 10$, и $5 \mid 10$.<br>
-          3) $7 \equiv -4 \pmod{11}$, так как $7 - (-4) = 11$, и $11 \mid 11$.<br>
+          1) $5 \equiv -2 \pmod 7$, так как $5 - (-2) = 7$, и $7 \mid 7$.<br/>
+          2) $-3 \equiv -13 \pmod 5$, так как $-3 - (-13) = 10$, и $5 \mid 10$.<br/>
+          3) $7 \equiv -4 \pmod{11}$, так как $7 - (-4) = 11$, и $11 \mid 11$.<br/>
           4) $3 \not\equiv 5 \pmod 7$, так как $3 - 5 = -2$, а $7 \nmid (-2)$.
-        </div>
+        </div></div>
+<h3 class="subsection-heading" data-toc="2. Критерий сравнимости через …" id="sec-congruence-props">3.2. Критерий сравнимости через остатки и свойства эквивалентности</h3>
+<div class="statement theorem" id="thm-3"><div class="block-label">Утверждение 3</div><h3 data-toc="📜 Предложение 3.1 (Критерий од…" id="sub-4-5">📜 Предложение 3.1 (Критерий одинаковых остатков)</h3><div>
 
-        <h3 id="sub-12" data-toc="2. Критерий сравнимости чере…">3.2. Критерий сравнимости через остатки и свойства эквивалентности</h3>
-        
-        <div class="statement theorem" id="thm-3">
-  <div class="block-label">Утверждение 3</div>
-  <h3 id="sub-13" data-toc="Теорема 3">Теорема 3</h3>
-  
-          <div class="box-header">📜 Предложение 3.1 (Критерий одинаковых остатков)
-</div>
           Целые числа $a$ и $b$ сравнимы по модулю $m$ тогда и только тогда, когда они дают <strong>одинаковые остатки</strong> при делении на $m$:
-          $$a \equiv b \pmod m \iff \operatorname{rem}(a, m) = \operatorname{rem}(b, m).$$
-        </div>
-
-        
-<div class="proof" id="proof-3" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство.">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-3" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>По теореме о делении с остатком (Теорема 2.1) разложим числа $a$ и $b$ при делении на $m$:</p>
-  </div>
-  <div class="proof-full" id="full-3" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство.)</div>
-    <div class="proof-content">
+          \[a \equiv b \pmod m \iff \operatorname{rem}(a, m) = \operatorname{rem}(b, m).\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-3">
+<div aria-label="Доказательство Доказательство." class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-3">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство.).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-3">
+<div class="proof-label">Доказательство (Доказательство.)</div>
+<div class="proof-content">
 <p>
             По теореме о делении с остатком (Теорема 2.1) разложим числа $a$ и $b$ при делении на $m$:
-            $$a = m q_1 + r_1, \quad 0 \le r_1 < m,$$
-            $$b = m q_2 + r_2, \quad 0 \le r_2 < m.$$
+            \[a = m q_1 + r_1, \quad 0 \le r_1 < m,\]
+            \[b = m q_2 + r_2, \quad 0 \le r_2 < m.\]
             Тогда разность $(a - b)$ записывается в виде:
-            $$a - b = (m q_1 + r_1) - (m q_2 + r_2) = m(q_1 - q_2) + (r_1 - r_2).$$
+            \[a - b = (m q_1 + r_1) - (m q_2 + r_2) = m(q_1 - q_2) + (r_1 - r_2).\]
             По определению сравнимости:
-            $$a \equiv b \pmod m \iff m \mid (a - b) \iff m \mid \Big(m(q_1 - q_2) + (r_1 - r_2)\Big).$$
+            \[a \equiv b \pmod m \iff m \mid (a - b) \iff m \mid \Big(m(q_1 - q_2) + (r_1 - r_2)\Big).\]
             Так как $m \mid m(q_1 - q_2)$, в силу свойства линейности делимости (Предложение 2.1, п. 5):
-            $$m \mid (a - b) \iff m \mid (r_1 - r_2).$$
+            \[m \mid (a - b) \iff m \mid (r_1 - r_2).\]
             Оценим величину разности остатков. Поскольку $0 \le r_1 < m$ и $0 \le r_2 < m$, имеем:
-            $$-(m - 1) \le r_1 - r_2 \le m - 1 \implies |r_1 - r_2| < m.$$
+            \[-(m - 1) \le r_1 - r_2 \le m - 1 \implies |r_1 - r_2| < m.\]
             Единственным целым числом, кратным $m$, модуль которого строго меньше $m$, является ноль.
             Следовательно:
-            $$m \mid (r_1 - r_2) \iff r_1 - r_2 = 0 \iff r_1 = r_2.$$
+            \[m \mid (r_1 - r_2) \iff r_1 - r_2 = 0 \iff r_1 = r_2.\]
             Критерий полностью доказан в обе стороны.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        <div class="statement theorem" id="thm-4">
-  <div class="block-label">Утверждение 4</div>
-  <h3 id="sub-14" data-toc="Теорема 4">Теорема 4</h3>
-  
-          <div class="box-header">📜 Предложение 3.2 (Свойства эквивалентности)
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<div class="statement theorem" id="thm-4"><div class="block-label">Утверждение 4</div><h3 data-toc="📜 Предложение 3.2 (Свойства эк…" id="sub-4-6">📜 Предложение 3.2 (Свойства эквивалентности)</h3><div>
+
           Отношение сравнимости по модулю $m$ на множестве целых чисел $\mathbb{Z}$ является <strong>отношением эквивалентности</strong>, то есть обладает свойствами:
           <ol class="prop-list" style="margin-top: 0.5rem;">
-            <li><strong>Рефлексивность:</strong> $\forall a \in \mathbb{Z} \implies a \equiv a \pmod m$.</li>
-            <li><strong>Симметричность:</strong> $\forall a, b \in \mathbb{Z} \implies a \equiv b \pmod m \implies b \equiv a \pmod m$.</li>
-            <li><strong>Транзитивность:</strong> $\forall a, b, c \in \mathbb{Z} \implies (a \equiv b \pmod m \land b \equiv c \pmod m) \implies a \equiv c \pmod m$.</li>
-          </ol>
-        </div>
-
-        
-<div class="proof" id="proof-4" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство.">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-4" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>1. Рефлексивность:</strong> Разность $a - a = 0 = m \cdot 0$. Так как $0 \in \mathbb{Z}$, $m \mid (a - a)$, следовательно $a \equiv a \pmod m$.</p>
-  </div>
-  <div class="proof-full" id="full-4" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство.)</div>
-    <div class="proof-content">
+<li><strong>Рефлексивность:</strong> $\forall a \in \mathbb{Z} \implies a \equiv a \pmod m$.</li>
+<li><strong>Симметричность:</strong> $\forall a, b \in \mathbb{Z} \implies a \equiv b \pmod m \implies b \equiv a \pmod m$.</li>
+<li><strong>Транзитивность:</strong> $\forall a, b, c \in \mathbb{Z} \implies (a \equiv b \pmod m \land b \equiv c \pmod m) \implies a \equiv c \pmod m$.</li>
+</ol>
+</div></div>
+<div class="proof" data-proof="" id="proof-4">
+<div aria-label="Доказательство Доказательство." class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-4">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство.).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-4">
+<div class="proof-label">Доказательство (Доказательство.)</div>
+<div class="proof-content">
 <p>
-            <strong>1. Рефлексивность:</strong> Разность $a - a = 0 = m \cdot 0$. Так как $0 \in \mathbb{Z}$, $m \mid (a - a)$, следовательно $a \equiv a \pmod m$.
+<strong>1. Рефлексивность:</strong> Разность $a - a = 0 = m \cdot 0$. Так как $0 \in \mathbb{Z}$, $m \mid (a - a)$, следовательно $a \equiv a \pmod m$.
           </p>
-          <p>
-            <strong>2. Симметричность:</strong> Пусть $a \equiv b \pmod m \implies m \mid (a - b)$. Тогда существует $q \in \mathbb{Z}$, такое что $a - b = m q$.
+<p>
+<strong>2. Симметричность:</strong> Пусть $a \equiv b \pmod m \implies m \mid (a - b)$. Тогда существует $q \in \mathbb{Z}$, такое что $a - b = m q$.
             Умножим обе части на $-1$:
-            $$b - a = -(a - b) = - (m q) = m (-q).$$
+            \[b - a = -(a - b) = - (m q) = m (-q).\]
             Так как $-q \in \mathbb{Z}$, то $m \mid (b - a)$, что означает $b \equiv a \pmod m$.
           </p>
-          <p>
-            <strong>3. Транзитивность:</strong> Пусть $a \equiv b \pmod m$ и $b \equiv c \pmod m$.
+<p>
+<strong>3. Транзитивность:</strong> Пусть $a \equiv b \pmod m$ и $b \equiv c \pmod m$.
             Это означает, что $m \mid (a - b)$ и $m \mid (b - c)$.
             Представим разность $(a - c)$ как тождественную сумму:
-            $$a - c = (a - b) + (b - c).$$
+            \[a - c = (a - b) + (b - c).\]
             По свойству линейности делимости (Предложение 2.1, п. 5) сумма чисел, делящихся на $m$, делится на $m$:
-            $$m \mid \Big((a - b) + (b - c)\Big) \implies m \mid (a - c) \implies a \equiv c \pmod m.$$
+            \[m \mid \Big((a - b) + (b - c)\Big) \implies m \mid (a - c) \implies a \equiv c \pmod m.\]
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        <h3 id="sub-15" data-toc="3. Арифметика сравнений: сло…">3.3. Арифметика сравнений: сложение и умножение</h3>
-        
-        <div class="statement theorem" id="thm-5">
-  <div class="block-label">Утверждение 5</div>
-  <h3 id="sub-16" data-toc="Теорема 5">Теорема 5</h3>
-  
-          <div class="box-header">📜 Предложение 3.3 (Алгебраические действия со сравнениями)
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<h3 class="subsection-heading" data-toc="3. Арифметика сравнений: сложе…" id="sec-cong-arithmetic">3.3. Арифметика сравнений: сложение и умножение</h3>
+<div class="statement theorem" id="thm-5"><div class="block-label">Утверждение 5</div><h3 data-toc="📜 Предложение 3.3 (Алгебраичес…" id="sub-4-8">📜 Предложение 3.3 (Алгебраические действия со сравнениями)</h3><div>
+
           Сравнения по одному и тому же модулю можно почленно складывать и перемножать. То есть если:
-          $$a \equiv b \pmod m \quad \text{и} \quad c \equiv d \pmod m,$$
+          \[a \equiv b \pmod m \quad \text{и} \quad c \equiv d \pmod m,\]
           то справедливы следующие соотношения:
           <ol class="prop-list" style="margin-top: 0.5rem;">
-            <li>$a + c \equiv b + d \pmod m$;</li>
-            <li>$a \cdot c \equiv b \cdot d \pmod m$.</li>
-          </ol>
-        </div>
-
-        
-<div class="proof" id="proof-5" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство.">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-5" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>По условию $a \equiv b \pmod m$ и $c \equiv d \pmod m$, что равносильно $m \mid (a - b)$ и $m \mid (c - d)$.</p>
-  </div>
-  <div class="proof-full" id="full-5" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство.)</div>
-    <div class="proof-content">
+<li>$a + c \equiv b + d \pmod m$;</li>
+<li>$a \cdot c \equiv b \cdot d \pmod m$.</li>
+</ol>
+</div></div>
+<div class="proof" data-proof="" id="proof-5">
+<div aria-label="Доказательство Доказательство." class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-5">
+<div class="proof-label">Идея</div>
+<p>По условию $a \equiv b \pmod m$ и $c \equiv d \pmod m$, что равносильно $m \mid (a - b)$ и $m \mid (c - d)$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-5">
+<div class="proof-label">Доказательство (Доказательство.)</div>
+<div class="proof-content">
 <p>
             По условию $a \equiv b \pmod m$ и $c \equiv d \pmod m$, что равносильно $m \mid (a - b)$ и $m \mid (c - d)$.
           </p>
-          <p>
-            <strong>1. Сложение:</strong> Рассмотрим разность левой и правой частей предполагаемого сравнения:
-            $$(a + c) - (b + d) = (a - b) + (c - d).$$
+<p>
+<strong>1. Сложение:</strong> Рассмотрим разность левой и правой частей предполагаемого сравнения:
+            \[(a + c) - (b + d) = (a - b) + (c - d).\]
             Поскольку $m \mid (a - b)$ и $m \mid (c - d)$, сумма этих разностей делится на $m$:
-            $$m \mid \Big((a + c) - (b + d)\Big) \implies a + c \equiv b + d \pmod m.$$
+            \[m \mid \Big((a + c) - (b + d)\Big) \implies a + c \equiv b + d \pmod m.\]
           </p>
-          <p>
-            <strong>2. Умножение:</strong> Прибавим и вычтем слагаемое $bc$ в разности $(ac - bd)$:
-            $$ac - bd = ac - bc + bc - bd = c(a - b) + b(c - d).$$
+<p>
+<strong>2. Умножение:</strong> Прибавим и вычтем слагаемое $bc$ в разности $(ac - bd)$:
+            \[ac - bd = ac - bc + bc - bd = c(a - b) + b(c - d).\]
             Поскольку $m \mid (a - b)$, то $m \mid c(a - b)$.
             Поскольку $m \mid (c - d)$, то $m \mid b(c - d)$.
             Следовательно, их сумма также делится на $m$:
-            $$m \mid \Big(c(a - b) + b(c - d)\Big) \implies m \mid (ac - bd) \implies ac \equiv bd \pmod m.$$
+            \[m \mid \Big(c(a - b) + b(c - d)\Big) \implies m \mid (ac - bd) \implies ac \equiv bd \pmod m.\]
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
 </div>
 
-      </section>
-
-      <!-- РАЗДЕЛ 4 -->
-      <section class="lecture-section" id="sec-residue-classes">
+<!-- РАЗДЕЛ 4 -->
+<section class="lecture-section" id="sec-residue-classes">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-5">
-  <div class="chapter-kicker">05 / 4 Классы вычетов по модулю m</div>
-  <h2 id="chapter-5" data-toc="4 Классы вычетов по модулю m">4 Классы вычетов по модулю $m$</h2>
-  <h3 id="sub-17" data-toc="1. Определение классов вычет…">4.1. Определение классов вычетов и разбиение $\mathbb{Z}$</h3>
-        <p>
+  <div class="chapter-kicker">05 / 4Классы вычетов по модулю m</div>
+  <h2 id="chapter-5" data-toc="4Классы вычетов по модулю m">4Классы вычетов по модулю $m$</h2>
+  
+<h3 class="subsection-heading" data-toc="1. Определение классов вычетов…" id="sec-classes-def">4.1. Определение классов вычетов и разбиение $\mathbb{Z}$</h3>
+<p>
           Поскольку отношение сравнимости по модулю $m$ является отношением эквивалентности (Предложение 3.2), по фундаментальной теореме теории множеств оно разбивает всё множество целых чисел $\mathbb{Z}$ на попарно непересекающиеся классы эквивалентности.
         </p>
+<div class="statement definition" id="def-4"><div class="block-label">Определение 4</div><h3 data-toc="📌 Определение 4.1 (Класс вычет…" id="sub-5-2">📌 Определение 4.1 (Класс вычетов)</h3><div>
 
-        <div class="statement definition" id="def-4">
-  <div class="block-label">Определение 4</div>
-  <h3 id="sub-18" data-toc="Определение 4">Определение 4</h3>
-  
-          <div class="box-header">📌 Определение 4.1 (Класс вычетов)
-</div>
           Для любого $a \in \mathbb{Z}$ <strong>классом вычетов по модулю $m$</strong>, порождённым элементом $a$ (обозначается $\bar{a}$ или $[a]_m$), называется множество всех целых чисел, сравнимых с $a$ по модулю $m$:
-          $$\bar{a} = \{ t \in \mathbb{Z} \mid t \equiv a \pmod m \} = a + m\mathbb{Z} = \{ a + mq \mid q \in \mathbb{Z} \}.$$
+          \[\bar{a} = \{ t \in \mathbb{Z} \mid t \equiv a \pmod m \} = a + m\mathbb{Z} = \{ a + mq \mid q \in \mathbb{Z} \}.\]
           В силу Предложения 3.1 класс вычетов $\bar{a}$ — это совокупность всех целых чисел, дающих ровно такой же остаток при делении на $m$, что и число $a$.
-        </div>
-
-        <div class="statement theorem" id="thm-6">
-  <div class="block-label">Утверждение 6</div>
-  <h3 id="sub-19" data-toc="Теорема 6">Теорема 6</h3>
-  
-          <div class="box-header">📜 Предложение 4.1 (Свойства классов вычетов)
+        </div></div>
+<div class="statement theorem" id="thm-6"><div class="block-label">Утверждение 6</div><h3 data-toc="📜 Предложение 4.1 (Свойства кл…" id="sub-5-3">📜 Предложение 4.1 (Свойства классов вычетов)</h3><div>
+<ol class="prop-list">
+<li>Два класса совпадают тогда и только тогда, когда их представители сравнимы:
+              \[\bar{x} = \bar{y} \iff x \equiv y \pmod m.\]
+            </li>
+<li>Любые два класса либо не пересекаются, либо полностью совпадают:
+              \[\bar{x} \cap \bar{y} \neq \emptyset \implies \bar{x} = \bar{y}.\]
+            </li>
+<li>Множество целых чисел является объединением классов вычетов:
+              \[\mathbb{Z} = \bigcup_{a \in \mathbb{Z}} \bar{a}.\]
+            </li>
+</ol>
+</div></div>
+<div class="proof" data-proof="" id="proof-6">
+<div aria-label="Доказательство Доказательство." class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <ol class="prop-list">
-            <li>Два класса совпадают тогда и только тогда, когда их представители сравнимы:
-              $$\bar{x} = \bar{y} \iff x \equiv y \pmod m.$$
-            </li>
-            <li>Любые два класса либо не пересекаются, либо полностью совпадают:
-              $$\bar{x} \cap \bar{y} \neq \emptyset \implies \bar{x} = \bar{y}.$$
-            </li>
-            <li>Множество целых чисел является объединением классов вычетов:
-              $$\mathbb{Z} = \bigcup_{a \in \mathbb{Z}} \bar{a}.$$
-            </li>
-          </ol>
-        </div>
-
-        
-<div class="proof" id="proof-6" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство.">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-6" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>1.</strong> Пусть $\bar{x} = \bar{y}$.</p>
-  </div>
-  <div class="proof-full" id="full-6" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство.)</div>
-    <div class="proof-content">
+<div class="proof-idea" data-proof-idea="" id="idea-6">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство.).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-6">
+<div class="proof-label">Доказательство (Доказательство.)</div>
+<div class="proof-content">
 <p>
-            <strong>1.</strong> Пусть $\bar{x} = \bar{y}$. Поскольку по рефлексивности $x \equiv x \pmod m$, элемент $x \in \bar{x}$.
+<strong>1.</strong> Пусть $\bar{x} = \bar{y}$. Поскольку по рефлексивности $x \equiv x \pmod m$, элемент $x \in \bar{x}$.
             Так как $\bar{x} = \bar{y}$, то $x \in \bar{y}$. Но по определению класса $\bar{y}$ принадлежность $x \in \bar{y}$ означает, что $x \equiv y \pmod m$.
             Обратно: пусть $x \equiv y \pmod m$. Возьмём произвольный $t \in \bar{x}$. Тогда $t \equiv x \pmod m$.
             По транзитивности $t \equiv x \equiv y \implies t \equiv y \pmod m$, следовательно $t \in \bar{y}$, что даёт $\bar{x} \subseteq \bar{y}$.
             Аналогично из симметрии $y \equiv x \pmod m$ получаем $\bar{y} \subseteq \bar{x}$. Значит, $\bar{x} = \bar{y}$.
           </p>
-          <p>
-            <strong>2.</strong> Пусть $\bar{x} \cap \bar{y} \neq \emptyset$, то есть существует $c \in \bar{x} \cap \bar{y}$.
+<p>
+<strong>2.</strong> Пусть $\bar{x} \cap \bar{y} \neq \emptyset$, то есть существует $c \in \bar{x} \cap \bar{y}$.
             Тогда $c \in \bar{x} \implies c \equiv x \pmod m$ и $c \in \bar{y} \implies c \equiv y \pmod m$.
             По симметрии $x \equiv c \pmod m$, а по транзитивности $x \equiv c \equiv y \implies x \equiv y \pmod m$.
             В силу пункта 1 получаем $\bar{x} = \bar{y}$.
           </p>
-          <p>
-            <strong>3.</strong> По рефлексивности $\forall a \in \mathbb{Z} \implies a \equiv a \pmod m \implies a \in \bar{a}$.
+<p>
+<strong>3.</strong> По рефлексивности $\forall a \in \mathbb{Z} \implies a \equiv a \pmod m \implies a \in \bar{a}$.
             Следовательно, каждый элемент $a \in \mathbb{Z}$ покрыт хотя бы одним классом, что доказывает равенство $\mathbb{Z} = \bigcup_{a \in \mathbb{Z}} \bar{a}$.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        <h3 id="sub-20" data-toc="2. Полная система вычетов и …">4.2. Полная система вычетов и мощность $\mathbb{Z}_m$</h3>
-        
-        <div class="statement theorem" id="thm-7">
-  <div class="block-label">Утверждение 7</div>
-  <h3 id="sub-21" data-toc="Теорема 7">Теорема 7</h3>
-  
-          <div class="box-header">⚖️ Теорема 4.1 (О количестве классов вычетов)
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<h3 class="subsection-heading" data-toc="2. Полная система вычетов и мо…" id="sec-complete-system">4.2. Полная система вычетов и мощность $\mathbb{Z}_m$</h3>
+<div class="statement theorem" id="thm-7"><div class="block-label">Утверждение 7</div><h3 data-toc="⚖️ Теорема 4.1 (О количестве к…" id="sub-5-5">⚖️ Теорема 4.1 (О количестве классов вычетов)</h3><div>
+
           Множество всех классов вычетов по модулю $m$ состоит ровно из $m$ различных элементов:
-          $$\mathbb{Z}_m = \{ \bar{0}, \bar{1}, \bar{2}, \dots, \overline{m-1} \}.$$
-        </div>
-
-        
-<div class="proof" id="proof-7" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство.">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-7" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>Шаг 1: Классы $\bar{0}, \bar{1}, \dots, \overline{m-1}$ попарно различны.</strong><br>
-            Предположим противное: пусть существуют целые числа $k$ и $l$, такие что $0 \le k < l \le m - 1$ и $\bar{k} = \bar{l}$.
-            В силу Предложения 4.1 это означает, что $k \equiv l \pmod m \implies m \mid (l - k)$.
-            Однако в силу условий на $k$ и $l$ имеем строгие неравенства:</p>
-  </div>
-  <div class="proof-full" id="full-7" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство.)</div>
-    <div class="proof-content">
+          \[\mathbb{Z}_m = \{ \bar{0}, \bar{1}, \bar{2}, \dots, \overline{m-1} \}.\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-7">
+<div aria-label="Доказательство Доказательство." class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-7">
+<div class="proof-label">Идея</div>
+<p>Шаг 1: Классы $\bar{0}, \bar{1}, \dots, \overline{m-1}$ попарно различны.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-7">
+<div class="proof-label">Доказательство (Доказательство.)</div>
+<div class="proof-content">
 <p>
-            <strong>Шаг 1: Классы $\bar{0}, \bar{1}, \dots, \overline{m-1}$ попарно различны.</strong><br>
+<strong>Шаг 1: Классы $\bar{0}, \bar{1}, \dots, \overline{m-1}$ попарно различны.</strong><br/>
             Предположим противное: пусть существуют целые числа $k$ и $l$, такие что $0 \le k < l \le m - 1$ и $\bar{k} = \bar{l}$.
             В силу Предложения 4.1 это означает, что $k \equiv l \pmod m \implies m \mid (l - k)$.
             Однако в силу условий на $k$ и $l$ имеем строгие неравенства:
-            $$0 < l - k \le m - 1 < m.$$
+            \[0 < l - k \le m - 1 < m.\]
             Но натуральное число, строго меньшее $m$, не может делиться нацело на $m$. Полученное противоречие показывает, что все классы $\bar{0}, \bar{1}, \dots, \overline{m-1}$ различны между собой.
           </p>
-          <p>
-            <strong>Шаг 2: Классы исчерпывают всё множество $\mathbb{Z}$.</strong><br>
+<p>
+<strong>Шаг 2: Классы исчерпывают всё множество $\mathbb{Z}$.</strong><br/>
             Возьмём произвольное целое число $a \in \mathbb{Z}$. Разделим $a$ на $m$ с остатком по Теореме 2.1:
-            $$a = mq + r, \quad \text{где } 0 \le r \le m - 1.$$
+            \[a = mq + r, \quad \text{где } 0 \le r \le m - 1.\]
             Отсюда $a - r = mq \implies m \mid (a - r) \implies a \equiv r \pmod m$.
             Следовательно, $\bar{a} = \bar{r}$.
             Так как $r \in \{0, 1, \dots, m-1\}$, то любой класс $\bar{a}$ совпадает с одним из классов перечня $\bar{0}, \bar{1}, \dots, \overline{m-1}$.
           </p>
-          <p>
+<p>
             Таким образом, $\mathbb{Z} = \bar{0} \cup \bar{1} \cup \dots \cup \overline{m-1}$, а фактор-множество $\mathbb{Z}_m = \{ \bar{0}, \bar{1}, \dots, \overline{m-1} \}$ имеет мощность $|\mathbb{Z}_m| = m$.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        <div class="worked-example" id="ex-3">
-  <div class="block-label">Пример 3</div>
-  <h3 id="sub-22" data-toc="Пример 3">Пример 3</h3>
-  
-          <div class="box-header">💡 Пример: Структура классов для модуля $m = 4$
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<div class="worked-example" id="ex-3"><div class="block-label">Пример 3</div><h3 data-toc="💡 Пример: Структура классов дл…" id="sub-5-6">💡 Пример: Структура классов для модуля $m = 4$</h3><div>
+
           Для модуля $m = 4$ имеем ровно 4 непересекающихся класса:
-          $$\bar{0} = \{ \dots, -8, -4, 0, 4, 8, 12, \dots \} = \overline{4} = \overline{8} = \overline{120};$$
-          $$\bar{1} = \{ \dots, -7, -3, 1, 5, 9, 13, \dots \} = \overline{5} = \overline{9} = \overline{49};$$
-          $$\bar{2} = \{ \dots, -6, -2, 2, 6, 10, 14, \dots \} = \overline{6} = \overline{10} = \overline{50};$$
-          $$\bar{3} = \{ \dots, -5, -1, 3, 7, 11, 15, \dots \} = \overline{7} = \overline{11} = \overline{51}.$$
+          \[\bar{0} = \{ \dots, -8, -4, 0, 4, 8, 12, \dots \} = \overline{4} = \overline{8} = \overline{120};\]
+          \[\bar{1} = \{ \dots, -7, -3, 1, 5, 9, 13, \dots \} = \overline{5} = \overline{9} = \overline{49};\]
+          \[\bar{2} = \{ \dots, -6, -2, 2, 6, 10, 14, \dots \} = \overline{6} = \overline{10} = \overline{50};\]
+          \[\bar{3} = \{ \dots, -5, -1, 3, 7, 11, 15, \dots \} = \overline{7} = \overline{11} = \overline{51}.\]
           Множество $\mathbb{Z}_4 = \{ \bar{0}, \bar{1}, \bar{2}, \bar{3} \}$.
-        </div>
+        </div></div>
+<!-- SVG 2: Циклическая диаграмма классов вычетов -->
+<div class="svg-wrapper" id="sec-clock-model">
+<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 340" xmlns="http://www.w3.org/2000/svg">
+<!-- Окружность циферблата -->
+<circle cx="325" cy="170" fill="none" r="110" stroke="var(--border-color)" stroke-dasharray="6,6" stroke-width="3"></circle>
+<!-- Стрелка обхода -->
+<path d="M 325,45 A 125,125 0 0,1 445,145" fill="none" marker-end="url(#arrow)" stroke="var(--border-accent)" stroke-width="2"></path>
+<!-- Узлы классов вычетов Z6 (0..5) -->
+<!-- 0 (верх) -->
+<circle cx="325" cy="60" fill="var(--bg-card)" r="22" stroke="var(--border-accent)" stroke-width="2.5"></circle>
+<text fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle" x="325" y="66">0̄</text>
+<text fill="var(--text-muted)" font-size="12" text-anchor="middle" x="325" y="26">{..., -6, 0, 6, 12, ...}</text>
+<!-- 1 (справа вверху) -->
+<circle cx="420" cy="115" fill="var(--bg-card)" r="22" stroke="var(--border-accent)" stroke-width="2.5"></circle>
+<text fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle" x="420" y="121">1̄</text>
+<text fill="var(--text-muted)" font-size="12" text-anchor="start" x="515" y="118">{..., -5, 1, 7, ...}</text>
+<!-- 2 (справа внизу) -->
+<circle cx="420" cy="225" fill="var(--bg-card)" r="22" stroke="var(--border-accent)" stroke-width="2.5"></circle>
+<text fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle" x="420" y="231">2̄</text>
+<text fill="var(--text-muted)" font-size="12" text-anchor="start" x="515" y="230">{..., -4, 2, 8, ...}</text>
+<!-- 3 (низ) -->
+<circle cx="325" cy="280" fill="var(--bg-card)" r="22" stroke="var(--border-accent)" stroke-width="2.5"></circle>
+<text fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle" x="325" y="286">3̄</text>
+<text fill="var(--text-muted)" font-size="12" text-anchor="middle" x="325" y="322">{..., -3, 3, 9, ...}</text>
+<!-- 4 (слева внизу) -->
+<circle cx="230" cy="225" fill="var(--bg-card)" r="22" stroke="var(--border-accent)" stroke-width="2.5"></circle>
+<text fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle" x="230" y="231">4̄</text>
+<text fill="var(--text-muted)" font-size="12" text-anchor="end" x="135" y="230">{..., -2, 4, 10, ...}</text>
+<!-- 5 (слева вверху) -->
+<circle cx="230" cy="115" fill="var(--bg-card)" r="22" stroke="var(--border-accent)" stroke-width="2.5"></circle>
+<text fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle" x="230" y="121">5̄</text>
+<text fill="var(--text-muted)" font-size="12" text-anchor="end" x="135" y="118">{..., -1, 5, 11, ...}</text>
+<!-- Центр -->
+<text fill="var(--text-heading)" font-size="18" font-weight="800" text-anchor="middle" x="325" y="166">ℤ₆</text>
+<text fill="var(--text-muted)" font-size="12" text-anchor="middle" x="325" y="185">Шаг +1 mod 6</text>
+</svg></figure>
+<div class="svg-caption">Рисунок 4.1: Геометрическая модель кольца вычетов $\mathbb{Z}_6$ в виде циклического циферблата периода $m = 6$.</div>
+</div>
 
-        <!-- SVG 2: Циклическая диаграмма классов вычетов -->
-        <div class="svg-wrapper" id="sec-clock-model">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 650 340" xmlns="http://www.w3.org/2000/svg">
-            <!-- Окружность циферблата -->
-            <circle cx="325" cy="170" r="110" fill="none" stroke="var(--border-color)" stroke-width="3" stroke-dasharray="6,6" />
-            
-            <!-- Стрелка обхода -->
-            <path d="M 325,45 A 125,125 0 0,1 445,145" fill="none" stroke="var(--border-accent)" stroke-width="2" marker-end="url(#arrow)" />
-
-            <!-- Узлы классов вычетов Z6 (0..5) -->
-            <!-- 0 (верх) -->
-            <circle cx="325" cy="60" r="22" fill="var(--bg-card)" stroke="var(--border-accent)" stroke-width="2.5" />
-            <text x="325" y="66" fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle">0̄</text>
-            <text x="325" y="26" fill="var(--text-muted)" font-size="12" text-anchor="middle">{..., -6, 0, 6, 12, ...}</text>
-
-            <!-- 1 (справа вверху) -->
-            <circle cx="420" cy="115" r="22" fill="var(--bg-card)" stroke="var(--border-accent)" stroke-width="2.5" />
-            <text x="420" y="121" fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle">1̄</text>
-            <text x="515" y="118" fill="var(--text-muted)" font-size="12" text-anchor="start">{..., -5, 1, 7, ...}</text>
-
-            <!-- 2 (справа внизу) -->
-            <circle cx="420" cy="225" r="22" fill="var(--bg-card)" stroke="var(--border-accent)" stroke-width="2.5" />
-            <text x="420" y="231" fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle">2̄</text>
-            <text x="515" y="230" fill="var(--text-muted)" font-size="12" text-anchor="start">{..., -4, 2, 8, ...}</text>
-
-            <!-- 3 (низ) -->
-            <circle cx="325" cy="280" r="22" fill="var(--bg-card)" stroke="var(--border-accent)" stroke-width="2.5" />
-            <text x="325" y="286" fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle">3̄</text>
-            <text x="325" y="322" fill="var(--text-muted)" font-size="12" text-anchor="middle">{..., -3, 3, 9, ...}</text>
-
-            <!-- 4 (слева внизу) -->
-            <circle cx="230" cy="225" r="22" fill="var(--bg-card)" stroke="var(--border-accent)" stroke-width="2.5" />
-            <text x="230" y="231" fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle">4̄</text>
-            <text x="135" y="230" fill="var(--text-muted)" font-size="12" text-anchor="end">{..., -2, 4, 10, ...}</text>
-
-            <!-- 5 (слева вверху) -->
-            <circle cx="230" cy="115" r="22" fill="var(--bg-card)" stroke="var(--border-accent)" stroke-width="2.5" />
-            <text x="230" y="121" fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle">5̄</text>
-            <text x="135" y="118" fill="var(--text-muted)" font-size="12" text-anchor="end">{..., -1, 5, 11, ...}</text>
-
-            <!-- Центр -->
-            <text x="325" y="166" fill="var(--text-heading)" font-size="18" font-weight="800" text-anchor="middle">ℤ₆</text>
-            <text x="325" y="185" fill="var(--text-muted)" font-size="12" text-anchor="middle">Шаг +1 mod 6</text>
-          </svg></div>
-          <div class="svg-caption">Рисунок 4.1: Геометрическая модель кольца вычетов $\mathbb{Z}_6$ в виде циклического циферблата периода $m = 6$.</div>
-        </div>
-      </section>
-
-      <!-- РАЗДЕЛ 5 -->
-      <section class="lecture-section" id="sec-ring-zm">
+<!-- РАЗДЕЛ 5 -->
+<section class="lecture-section" id="sec-ring-zm">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-6">
-  <div class="chapter-kicker">06 / 5 Алгебраическая структура н…</div>
-  <h2 id="chapter-6" data-toc="5 Алгебраическая структура н…">5 Алгебраическая структура на $\mathbb{Z}_m$: Кольцо классов вычетов</h2>
-  <p>
+  <div class="chapter-kicker">06 / 5Алгебраическая структура на _…</div>
+  <h2 id="chapter-6" data-toc="5Алгебраическая структура на _…">5Алгебраическая структура на $\mathbb{Z}_m$: Кольцо классов вычетов</h2>
+  
+<p>
           Чтобы наделить конечное множество $\mathbb{Z}_m$ алгебраической структурой, необходимо определить бинарные операции сложения ($+$) и умножения ($\cdot$).
         </p>
+<div class="statement definition" id="def-5"><div class="block-label">Определение 5</div><h3 data-toc="📌 Определение 5.1 (Операции в …" id="sub-6-1">📌 Определение 5.1 (Операции в $\mathbb{Z}_m$)</h3><div>
 
-        <div class="statement definition" id="def-5">
-  <div class="block-label">Определение 5</div>
-  <h3 id="sub-23" data-toc="Определение 5">Определение 5</h3>
-  
-          <div class="box-header">📌 Определение 5.1 (Операции в $\mathbb{Z}_m$)
-</div>
           Сложением и умножением классов вычетов называются операции:
-          $$\bar{a} + \bar{b} \stackrel{\text{def}}{=} \overline{a + b},$$
-          $$\bar{a} \cdot \bar{b} \stackrel{\text{def}}{=} \overline{a \cdot b}.$$
-        </div>
-
-        <h3 id="sub-24" data-toc="1. Теорема о корректности (н…">5.1. Теорема о корректности (независимости от представителей)</h3>
-        <p>
+          \[\bar{a} + \bar{b} \stackrel{\text{def}}{=} \overline{a + b},\]
+          \[\bar{a} \cdot \bar{b} \stackrel{\text{def}}{=} \overline{a \cdot b}.\]
+        </div></div>
+<h3 class="subsection-heading" data-toc="1. Теорема о корректности (нез…" id="sec-operations-proof">5.1. Теорема о корректности (независимости от представителей)</h3>
+<p>
           Поскольку один и тот же класс может быть представлен бесконечным числом различных целых чисел (например, в $\mathbb{Z}_4$ класс $\bar{1}$ — это и $1$, и $5$, и $-3$), мы обязаны доказать, что результат операций зависит <em>только от самих классов</em>, а не от случайно выбранных представителей $a$ и $b$.
         </p>
+<div class="statement theorem" id="thm-8"><div class="block-label">Утверждение 8</div><h3 data-toc="⚖️ Теорема 5.1 (Корректность о…" id="sub-6-3">⚖️ Теорема 5.1 (Корректность операций над классами)</h3><div>
 
-        <div class="statement theorem" id="thm-8">
-  <div class="block-label">Утверждение 8</div>
-  <h3 id="sub-25" data-toc="Теорема 8">Теорема 8</h3>
-  
-          <div class="box-header">⚖️ Теорема 5.1 (Корректность операций над классами)
-</div>
           Операции сложения и умножения классов вычетов корректно определены (инвариантны относительно выбора представителей). 
           То есть если $\bar{a} = \bar{c}$ и $\bar{b} = \bar{d}$, то:
-          $$\overline{a + b} = \overline{c + d} \quad \text{и} \quad \overline{a \cdot b} = \overline{c \cdot d}.$$
-        </div>
-
-        
-<div class="proof" id="proof-8" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство.">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-8" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Пусть $\bar{a} = \bar{c}$ и $\bar{b} = \bar{d}$.
-            По Предложению 4.1 равенство классов равносильно сравнимости их представителей:</p>
-  </div>
-  <div class="proof-full" id="full-8" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство.)</div>
-    <div class="proof-content">
+          \[\overline{a + b} = \overline{c + d} \quad \text{и} \quad \overline{a \cdot b} = \overline{c \cdot d}.\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-8">
+<div aria-label="Доказательство Доказательство." class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-8">
+<div class="proof-label">Идея</div>
+<p>Пусть $\bar{a} = \bar{c}$ и $\bar{b} = \bar{d}$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-8">
+<div class="proof-label">Доказательство (Доказательство.)</div>
+<div class="proof-content">
 <p>
             Пусть $\bar{a} = \bar{c}$ и $\bar{b} = \bar{d}$.
             По Предложению 4.1 равенство классов равносильно сравнимости их представителей:
-            $$a \equiv c \pmod m \quad \text{и} \quad b \equiv d \pmod m.$$
+            \[a \equiv c \pmod m \quad \text{и} \quad b \equiv d \pmod m.\]
             Применяя Предложение 3.3 (свойства действий со сравнениями):
             <ol class="prop-list">
-              <li>Сравнения можно складывать: $a + b \equiv c + d \pmod m$. Отсюда по Предложению 4.1:
-                $$\overline{a + b} = \overline{c + d} \implies \bar{a} + \bar{b} = \bar{c} + \bar{d}.$$
+<li>Сравнения можно складывать: $a + b \equiv c + d \pmod m$. Отсюда по Предложению 4.1:
+                \[\overline{a + b} = \overline{c + d} \implies \bar{a} + \bar{b} = \bar{c} + \bar{d}.\]
                 Таким образом, класс суммы не зависит от выбора представителей.
               </li>
-              <li>Сравнения можно перемножать: $a \cdot b \equiv c \cdot d \pmod m$. Отсюда:
-                $$\overline{a \cdot b} = \overline{c \cdot d} \implies \bar{a} \cdot \bar{b} = \bar{c} \cdot \bar{d}.$$
+<li>Сравнения можно перемножать: $a \cdot b \equiv c \cdot d \pmod m$. Отсюда:
+                \[\overline{a \cdot b} = \overline{c \cdot d} \implies \bar{a} \cdot \bar{b} = \bar{c} \cdot \bar{d}.\]
                 Таким образом, класс произведения не зависит от выбора представителей.
               </li>
-            </ol>
-          </p>
-          
-        
+</ol>
+</p>
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        <h3 id="sub-26" data-toc="2. Проверка 8 аксиом кольца">5.2. Проверка 8 аксиом кольца</h3>
-        
-        <div class="statement theorem" id="thm-9">
-  <div class="block-label">Утверждение 9</div>
-  <h3 id="sub-27" data-toc="Теорема 9">Теорема 9</h3>
-  
-          <div class="box-header">⚖️ Теорема 5.2 (О кольце классов вычетов)
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<h3 class="subsection-heading" data-toc="2. Проверка 8 аксиом кольца" id="sec-axioms-proof">5.2. Проверка 8 аксиом кольца</h3>
+<div class="statement theorem" id="thm-9"><div class="block-label">Утверждение 9</div><h3 data-toc="⚖️ Теорема 5.2 (О кольце класс…" id="sub-6-5">⚖️ Теорема 5.2 (О кольце классов вычетов)</h3><div>
+
           Алгебраическая система $(\mathbb{Z}_m, +, \cdot)$ является <strong>коммутативным ассоциативным кольцом с единицей</strong> при любом $m \ge 2$.
-        </div>
-
-        
-<div class="proof" id="proof-9" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство. Проверим выполнение всех восьми кольцевых аксиом:">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-9" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>1. Существование нейтрального элемента по сложению (нуля):</strong><br>
-            Элемент $\bar{0} \in \mathbb{Z}_m$ является нулём:</p>
-  </div>
-  <div class="proof-full" id="full-9" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство. Проверим выполнение всех восьми кольцевых аксиом:)</div>
-    <div class="proof-content">
-<p><strong>1. Существование нейтрального элемента по сложению (нуля):</strong><br>
+        </div></div>
+<div class="proof" data-proof="" id="proof-9">
+<div aria-label="Доказательство Доказательство. Проверим выполнение всех восьми кольцевых аксиом:" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-9">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство. Проверим выполнение всех восьми кольцевых аксиом:).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-9">
+<div class="proof-label">Доказательство (Доказательство. Проверим выполнение всех восьми кольцевых аксиом:)</div>
+<div class="proof-content">
+<p><strong>1. Существование нейтрального элемента по сложению (нуля):</strong><br/>
             Элемент $\bar{0} \in \mathbb{Z}_m$ является нулём:
-            $$\bar{a} + \bar{0} = \overline{a + 0} = \bar{a} = \overline{0 + a} = \bar{0} + \bar{a}.$$
+            \[\bar{a} + \bar{0} = \overline{a + 0} = \bar{a} = \overline{0 + a} = \bar{0} + \bar{a}.\]
           </p>
-
-          <p><strong>2. Существование противоположного элемента по сложению:</strong><br>
+<p><strong>2. Существование противоположного элемента по сложению:</strong><br/>
             Для любого $\bar{a} \in \mathbb{Z}_m$ противоположным является элемент $-\bar{a} = \overline{-a} = \overline{m - a}$:
-            $$\bar{a} + \overline{-a} = \overline{a + (-a)} = \bar{0} = \overline{-a + a} = \overline{-a} + \bar{a}.$$
+            \[\bar{a} + \overline{-a} = \overline{a + (-a)} = \bar{0} = \overline{-a + a} = \overline{-a} + \bar{a}.\]
           </p>
-
-          <p><strong>3. Ассоциативность сложения:</strong><br>
+<p><strong>3. Ассоциативность сложения:</strong><br/>
             Для любых $\bar{a}, \bar{b}, \bar{c} \in \mathbb{Z}_m$, сводя к ассоциативности в $\mathbb{Z}$:
-            $$(\bar{a} + \bar{b}) + \bar{c} = \overline{a + b} + \bar{c} = \overline{(a + b) + c} = \overline{a + (b + c)} = \bar{a} + \overline{b + c} = \bar{a} + (\bar{b} + \bar{c}).$$
+            \[(\bar{a} + \bar{b}) + \bar{c} = \overline{a + b} + \bar{c} = \overline{(a + b) + c} = \overline{a + (b + c)} = \bar{a} + \overline{b + c} = \bar{a} + (\bar{b} + \bar{c}).\]
           </p>
-
-          <p><strong>4. Коммутативность сложения:</strong><br>
+<p><strong>4. Коммутативность сложения:</strong><br/>
             В силу коммутативности сложения в $\mathbb{Z}$:
-            $$\bar{a} + \bar{b} = \overline{a + b} = \overline{b + a} = \bar{b} + \bar{a}.$$
+            \[\bar{a} + \bar{b} = \overline{a + b} = \overline{b + a} = \bar{b} + \bar{a}.\]
             <em>(Свойства 1–4 показывают, что $(\mathbb{Z}_m, +)$ — абелева группа).</em>
-          </p>
-
-          <p><strong>5. Существование нейтрального элемента по умножению (единицы):</strong><br>
+</p>
+<p><strong>5. Существование нейтрального элемента по умножению (единицы):</strong><br/>
             Элемент $\bar{1} \in \mathbb{Z}_m$ является единицей:
-            $$\bar{a} \cdot \bar{1} = \overline{a \cdot 1} = \bar{a} = \overline{1 \cdot a} = \bar{1} \cdot \bar{a}.$$
+            \[\bar{a} \cdot \bar{1} = \overline{a \cdot 1} = \bar{a} = \overline{1 \cdot a} = \bar{1} \cdot \bar{a}.\]
             При $m > 1$ классы $\bar{1} \neq \bar{0}$, так как $m \nmid (1 - 0)$.
           </p>
-
-          <p><strong>6. Ассоциативность умножения:</strong><br>
+<p><strong>6. Ассоциативность умножения:</strong><br/>
             В силу ассоциативности умножения целых чисел:
-            $$(\bar{a} \cdot \bar{b}) \cdot \bar{c} = \overline{ab} \cdot \bar{c} = \overline{(ab)c} = \overline{a(bc)} = \bar{a} \cdot \overline{bc} = \bar{a} \cdot (\bar{b} \cdot \bar{c}).$$
+            \[(\bar{a} \cdot \bar{b}) \cdot \bar{c} = \overline{ab} \cdot \bar{c} = \overline{(ab)c} = \overline{a(bc)} = \bar{a} \cdot \overline{bc} = \bar{a} \cdot (\bar{b} \cdot \bar{c}).\]
           </p>
-
-          <p><strong>7. Коммутативность умножения:</strong><br>
+<p><strong>7. Коммутативность умножения:</strong><br/>
             В силу коммутативности умножения в $\mathbb{Z}$:
-            $$\bar{a} \cdot \bar{b} = \overline{a \cdot b} = \overline{b \cdot a} = \bar{b} \cdot \bar{a}.$$
+            \[\bar{a} \cdot \bar{b} = \overline{a \cdot b} = \overline{b \cdot a} = \bar{b} \cdot \bar{a}.\]
           </p>
-
-          <p><strong>8. Дистрибутивность умножения относительно сложения:</strong><br>
+<p><strong>8. Дистрибутивность умножения относительно сложения:</strong><br/>
             В силу дистрибутивности в кольце $\mathbb{Z}$:
-            $$(\bar{a} + \bar{b}) \cdot \bar{c} = \overline{a + b} \cdot \bar{c} = \overline{(a + b)c} = \overline{ac + bc} = \overline{ac} + \overline{bc} = \bar{a} \cdot \bar{c} + \bar{b} \cdot \bar{c}.$$
+            \[(\bar{a} + \bar{b}) \cdot \bar{c} = \overline{a + b} \cdot \bar{c} = \overline{(a + b)c} = \overline{ac + bc} = \overline{ac} + \overline{bc} = \bar{a} \cdot \bar{c} + \bar{b} \cdot \bar{c}.\]
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        <h3 id="sub-28" data-toc="3. Арифметика в _4: Таблицы …">5.3. Арифметика в $\mathbb{Z}_4$: Таблицы Кэли</h3>
-        <p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<h3 class="subsection-heading" data-toc="3. Арифметика в _4: Таблицы Кэли" id="sec-cayley-z4">5.3. Арифметика в $\mathbb{Z}_4$: Таблицы Кэли</h3>
+<p>
           Проиллюстрируем операции сложения и умножения в кольце классов вычетов по модулю $m = 4$.
         </p>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-          <!-- Таблица сложения Z4 -->
-          <div class="table-container">
-            <div class="table-scroll">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+<!-- Таблица сложения Z4 -->
+<div class="table-container">
 <table class="cayley-table">
-              <thead>
-                <tr>
-                  <th>$+$</th>
-                  <th>$\bar{0}$</th>
-                  <th>$\bar{1}$</th>
-                  <th>$\bar{2}$</th>
-                  <th>$\bar{3}$</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th>$\bar{0}$</th>
-                  <td>$\bar{0}$</td><td>$\bar{1}$</td><td>$\bar{2}$</td><td>$\bar{3}$</td>
-                </tr>
-                <tr>
-                  <th>$\bar{1}$</th>
-                  <td>$\bar{1}$</td><td>$\bar{2}$</td><td>$\bar{3}$</td><td>$\bar{0}$</td>
-                </tr>
-                <tr>
-                  <th>$\bar{2}$</th>
-                  <td>$\bar{2}$</td><td>$\bar{3}$</td><td>$\bar{0}$</td><td>$\bar{1}$</td>
-                </tr>
-                <tr>
-                  <th>$\bar{3}$</th>
-                  <td>$\bar{3}$</td><td>$\bar{0}$</td><td>$\bar{1}$</td><td>$\bar{2}$</td>
-                </tr>
-              </tbody>
-            </table>
+<thead>
+<tr>
+<th>$+$</th>
+<th>$\bar{0}$</th>
+<th>$\bar{1}$</th>
+<th>$\bar{2}$</th>
+<th>$\bar{3}$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>$\bar{0}$</th>
+<td>$\bar{0}$</td><td>$\bar{1}$</td><td>$\bar{2}$</td><td>$\bar{3}$</td>
+</tr>
+<tr>
+<th>$\bar{1}$</th>
+<td>$\bar{1}$</td><td>$\bar{2}$</td><td>$\bar{3}$</td><td>$\bar{0}$</td>
+</tr>
+<tr>
+<th>$\bar{2}$</th>
+<td>$\bar{2}$</td><td>$\bar{3}$</td><td>$\bar{0}$</td><td>$\bar{1}$</td>
+</tr>
+<tr>
+<th>$\bar{3}$</th>
+<td>$\bar{3}$</td><td>$\bar{0}$</td><td>$\bar{1}$</td><td>$\bar{2}$</td>
+</tr>
+</tbody>
+</table>
+<div class="svg-caption">Таблица 5.1: Сложение в $\mathbb{Z}_4$ (абелева группа)</div>
 </div>
-            <div class="svg-caption">Таблица 5.1: Сложение в $\mathbb{Z}_4$ (абелева группа)</div>
-          </div>
-
-          <!-- Таблица умножения Z4 -->
-          <div class="table-container">
-            <div class="table-scroll">
+<!-- Таблица умножения Z4 -->
+<div class="table-container">
 <table class="cayley-table">
-              <thead>
-                <tr>
-                  <th>$\cdot$</th>
-                  <th>$\bar{0}$</th>
-                  <th>$\bar{1}$</th>
-                  <th>$\bar{2}$</th>
-                  <th>$\bar{3}$</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th>$\bar{0}$</th>
-                  <td>$\bar{0}$</td><td>$\bar{0}$</td><td>$\bar{0}$</td><td>$\bar{0}$</td>
-                </tr>
-                <tr>
-                  <th>$\bar{1}$</th>
-                  <td>$\bar{0}$</td><td class="identity-highlight">$\bar{1}$</td><td>$\bar{2}$</td><td>$\bar{3}$</td>
-                </tr>
-                <tr>
-                  <th>$\bar{2}$</th>
-                  <td>$\bar{0}$</td><td>$\bar{2}$</td><td class="zero-div-highlight">$\bar{0}$</td><td>$\bar{2}$</td>
-                </tr>
-                <tr>
-                  <th>$\bar{3}$</th>
-                  <td>$\bar{0}$</td><td>$\bar{3}$</td><td>$\bar{2}$</td><td class="identity-highlight">$\bar{1}$</td>
-                </tr>
-              </tbody>
-            </table>
+<thead>
+<tr>
+<th>$\cdot$</th>
+<th>$\bar{0}$</th>
+<th>$\bar{1}$</th>
+<th>$\bar{2}$</th>
+<th>$\bar{3}$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>$\bar{0}$</th>
+<td>$\bar{0}$</td><td>$\bar{0}$</td><td>$\bar{0}$</td><td>$\bar{0}$</td>
+</tr>
+<tr>
+<th>$\bar{1}$</th>
+<td>$\bar{0}$</td><td class="identity-highlight">$\bar{1}$</td><td>$\bar{2}$</td><td>$\bar{3}$</td>
+</tr>
+<tr>
+<th>$\bar{2}$</th>
+<td>$\bar{0}$</td><td>$\bar{2}$</td><td class="zero-div-highlight">$\bar{0}$</td><td>$\bar{2}$</td>
+</tr>
+<tr>
+<th>$\bar{3}$</th>
+<td>$\bar{0}$</td><td>$\bar{3}$</td><td>$\bar{2}$</td><td class="identity-highlight">$\bar{1}$</td>
+</tr>
+</tbody>
+</table>
+<div class="svg-caption">Таблица 5.2: Умножение в $\mathbb{Z}_4$. Красным выделен делитель нуля: $\bar{2} \cdot \bar{2} = \bar{0}$.</div>
 </div>
-            <div class="svg-caption">Таблица 5.2: Умножение в $\mathbb{Z}_4$. Красным выделен делитель нуля: $\bar{2} \cdot \bar{2} = \bar{0}$.</div>
-          </div>
-        </div>
-      </section>
+</div>
 
-      <!-- РАЗДЕЛ 6 -->
-      <section class="lecture-section" id="sec-zero-divisors">
+<!-- РАЗДЕЛ 6 -->
+<section class="lecture-section" id="sec-zero-divisors">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-7">
-  <div class="chapter-kicker">07 / 6 Делители нуля и целостные …</div>
-  <h2 id="chapter-7" data-toc="6 Делители нуля и целостные …">6 Делители нуля и целостные кольца</h2>
-  <h3 id="sub-29" data-toc="1. Определение делителей нул…">6.1. Определение делителей нуля и областей целостности</h3>
-        <p>
+  <div class="chapter-kicker">07 / 6Делители нуля и целостные кол…</div>
+  <h2 id="chapter-7" data-toc="6Делители нуля и целостные кол…">6Делители нуля и целостные кольца</h2>
+  
+<h3 class="subsection-heading" data-toc="1. Определение делителей нуля …" id="sec-zero-def">6.1. Определение делителей нуля и областей целостности</h3>
+<p>
           В обычных числовых системах ($\mathbb{Z}, \mathbb{Q}, \mathbb{R}, \mathbb{C}$) произведение двух чисел равно нулю тогда и только тогда, когда хотя бы один из сомножителей равен нулю. Однако в абстрактных кольцах это фундаментальное свойство может нарушаться!
         </p>
+<div class="statement definition" id="def-6"><div class="block-label">Определение 6</div><h3 data-toc="📌 Определение 6.1 (Делители ну…" id="sub-7-2">📌 Определение 6.1 (Делители нуля и область целостности)</h3><div>
 
-        <div class="statement definition" id="def-6">
-  <div class="block-label">Определение 6</div>
-  <h3 id="sub-30" data-toc="Определение 6">Определение 6</h3>
-  
-          <div class="box-header">📌 Определение 6.1 (Делители нуля и область целостности)
-</div>
           Пусть $K$ — коммутативное ассоциативное кольцо.
           <ol class="prop-list" style="margin-top: 0.5rem;">
-            <li>Элементы $x, y \in K$ называются <strong>делителями нуля</strong>, если:
-              $$x \neq 0, \quad y \neq 0, \quad \text{но } x \cdot y = 0.$$
+<li>Элементы $x, y \in K$ называются <strong>делителями нуля</strong>, если:
+              \[x \neq 0, \quad y \neq 0, \quad \text{но } x \cdot y = 0.\]
             </li>
-            <li>Ненулевое коммутативное ассоциативное кольцо с единицей ($K \neq \{0\}$), которое <strong>не имеет делителей нуля</strong>, называется <strong>целостным кольцом</strong> (или <em>областью целостности</em>).
-              $$\forall x, y \in K: \quad x \cdot y = 0 \implies (x = 0 \lor y = 0).$$
+<li>Ненулевое коммутативное ассоциативное кольцо с единицей ($K \neq \{0\}$), которое <strong>не имеет делителей нуля</strong>, называется <strong>целостным кольцом</strong> (или <em>областью целостности</em>).
+              \[\forall x, y \in K: \quad x \cdot y = 0 \implies (x = 0 \lor y = 0).\]
             </li>
-          </ol>
-        </div>
+</ol>
+</div></div>
+<h3 class="subsection-heading" data-toc="2. Обратимые элементы и целост…" id="sec-invertible-lem">6.2. Обратимые элементы и целостность</h3>
+<div class="statement theorem" id="thm-10"><div class="block-label">Утверждение 10</div><h3 data-toc="📜 Предложение 6.1 (Обратимый э…" id="sub-7-4">📜 Предложение 6.1 (Обратимый элемент не делитель нуля)</h3><div>
 
-        <h3 id="sub-31" data-toc="2. Обратимые элементы и цело…">6.2. Обратимые элементы и целостность</h3>
-        
-        <div class="statement theorem" id="thm-10">
-  <div class="block-label">Утверждение 10</div>
-  <h3 id="sub-32" data-toc="Теорема 10">Теорема 10</h3>
-  
-          <div class="box-header">📜 Предложение 6.1 (Обратимый элемент не делитель нуля)
-</div>
           Если элемент $a \in K$ обратим (то есть существует $a^{-1} \in K$, такой что $a^{-1} a = 1$), то $a$ <strong>не может быть делителем нуля</strong>.
-        </div>
-
-        
-<div class="proof" id="proof-10" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство.">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-10" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Пусть $a$ обратим и пусть для некоторого $b \in K$ выполнено равенство $a \cdot b = 0$.
-            Умножим обе части этого равенства слева на обратный элемент $a^{-1}$:</p>
-  </div>
-  <div class="proof-full" id="full-10" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство.)</div>
-    <div class="proof-content">
+        </div></div>
+<div class="proof" data-proof="" id="proof-10">
+<div aria-label="Доказательство Доказательство." class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-10">
+<div class="proof-label">Идея</div>
+<p>Пусть $a$ обратим и пусть для некоторого $b \in K$ выполнено равенство $a \cdot b = 0$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-10">
+<div class="proof-label">Доказательство (Доказательство.)</div>
+<div class="proof-content">
 <p>
             Пусть $a$ обратим и пусть для некоторого $b \in K$ выполнено равенство $a \cdot b = 0$.
             Умножим обе части этого равенства слева на обратный элемент $a^{-1}$:
-            $$a^{-1} \cdot (a \cdot b) = a^{-1} \cdot 0 \iff (a^{-1} a) \cdot b = 0 \iff 1 \cdot b = 0 \implies b = 0.$$
+            \[a^{-1} \cdot (a \cdot b) = a^{-1} \cdot 0 \iff (a^{-1} a) \cdot b = 0 \iff 1 \cdot b = 0 \implies b = 0.\]
             Следовательно, не существует ненулевого элемента $b \neq 0$, дающего в произведении с $a$ ноль. 
             Значит, обратимый элемент $a$ не может являться делителем нуля.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        <div class="callout callout-remark">
-          <div class="box-header">💬 Следствие: Всякое поле является областью целостности</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="callout callout-remark">
+<div class="box-header">💬 Следствие: Всякое поле является областью целостности</div>
           По определению <em>поля</em> каждый его ненулевой элемент обратим. В силу Предложения 6.1 ни один ненулевой элемент поля не может быть делителем нуля.
           Следовательно, поля $\mathbb{Q}, \mathbb{R}, \mathbb{C}$ — целостные кольца.
         </div>
-
-        <div class="worked-example" id="ex-4">
-  <div class="block-label">Пример 4</div>
-  <h3 id="sub-33" data-toc="Пример 4">Пример 4</h3>
-  
-          <div class="box-header">💡 Примеры делителей нуля в кольцах
-</div>
-          <p>
-            <strong>1. Кольцо $\mathbb{Z}_{12}$:</strong><br>
+<div class="worked-example" id="ex-4"><div class="block-label">Пример 4</div><h3 data-toc="💡 Примеры делителей нуля в кол…" id="sub-7-5">💡 Примеры делителей нуля в кольцах</h3><div>
+<p>
+<strong>1. Кольцо $\mathbb{Z}_{12}$:</strong><br/>
             В $\mathbb{Z}_{12}$ имеем: $\bar{3} \neq \bar{0}$ и $\bar{4} \neq \bar{0}$, однако:
-            $$\bar{3} \cdot \bar{4} = \overline{12} = \bar{0}.$$
+            \[\bar{3} \cdot \bar{4} = \overline{12} = \bar{0}.\]
             Следовательно, $\bar{3}$ и $\bar{4}$ — делители нуля в $\mathbb{Z}_{12}$. Также делителями нуля являются $\bar{2}, \bar{6}, \bar{8}, \bar{9}, \bar{10}$ (например, $\bar{2} \cdot \bar{6} = \bar{0}$).
           </p>
-          <p>
-            <strong>2. Прямое произведение колец $\mathbb{R} \times \mathbb{R}$:</strong><br>
+<p>
+<strong>2. Прямое произведение колец $\mathbb{R} \times \mathbb{R}$:</strong><br/>
             Определим сложение и умножение пар покомпонентно:
-            $$(a, b) + (c, d) = (a + c, b + d), \quad (a, b) \cdot (c, d) = (ac, bd).$$
+            \[(a, b) + (c, d) = (a + c, b + d), \quad (a, b) \cdot (c, d) = (ac, bd).\]
             Тогда $(\mathbb{R} \times \mathbb{R}, +, \cdot)$ образует кольцо с нулём $(0, 0)$ и единицей $(1, 1)$.
             Рассмотрим элементы $x = (1, 0) \neq (0, 0)$ и $y = (0, 1) \neq (0, 0)$. Их произведение:
-            $$x \cdot y = (1, 0) \cdot (0, 1) = (1 \cdot 0, 0 \cdot 1) = (0, 0).$$
+            \[x \cdot y = (1, 0) \cdot (0, 1) = (1 \cdot 0, 0 \cdot 1) = (0, 0).\]
             Следовательно, пары $(1, 0)$ и $(0, 1)$ являются делителями нуля, а кольцо $\mathbb{R} \times \mathbb{R}$ не является целостным.
           </p>
-        </div>
-
-        <h3 id="sub-34" data-toc="3. Фундаментальный критерий …">6.3. Фундаментальный критерий целостности $\mathbb{Z}_m$</h3>
-        <p>
+</div></div>
+<h3 class="subsection-heading" data-toc="3. Фундаментальный критерий це…" id="sec-domain-criterion">6.3. Фундаментальный критерий целостности $\mathbb{Z}_m$</h3>
+<p>
           Сформулируем и докажем центральную теорему темы (согласно А. И. Кострикину и А. Г. Курошу), связывающую алгебраическую структуру кольца $\mathbb{Z}_m$ с арифметической природой модуля $m$.
         </p>
+<div class="statement theorem" id="thm-11"><div class="block-label">Утверждение 11</div><h3 data-toc="⚖️ Теорема 6.1 (Критерий целос…" id="sub-7-7">⚖️ Теорема 6.1 (Критерий целостности $\mathbb{Z}_m$)</h3><div>
 
-        <div class="statement theorem" id="thm-11">
-  <div class="block-label">Утверждение 11</div>
-  <h3 id="sub-35" data-toc="Теорема 11">Теорема 11</h3>
-  
-          <div class="box-header">⚖️ Теорема 6.1 (Критерий целостности $\mathbb{Z}_m$)
-</div>
           Кольцо классов вычетов $\mathbb{Z}_m$ является <strong>целостным кольцом</strong> тогда и только тогда, когда модуль $m$ — <strong>простое число</strong>:
-          $$\mathbb{Z}_m \text{ --- область целостности} \iff m \in \mathbb{P}.$$
-        </div>
-
-        
-<div class="proof" id="proof-11" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство. Докажем обе стороны эквивалентности:">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-11" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>Необходимость ($\implies$):</strong><br>
-            Докажем от противного. Предположим, что $\mathbb{Z}_m$ — целостное кольцо, но $m$ — составное число ($m \notin \mathbb{P}$).
-            Поскольку $m$ составное, его можно представить в виде произведения двух целых чисел:</p>
-  </div>
-  <div class="proof-full" id="full-11" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство. Докажем обе стороны эквивалентности:)</div>
-    <div class="proof-content">
-<p><strong>Необходимость ($\implies$):</strong><br>
+          \[\mathbb{Z}_m \text{ --- область целостности} \iff m \in \mathbb{P}.\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-11">
+<div aria-label="Доказательство Доказательство. Докажем обе стороны эквивалентности:" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-11">
+<div class="proof-label">Идея</div>
+<p>Необходимость ($\implies$):
+            Докажем от противного.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-11">
+<div class="proof-label">Доказательство (Доказательство. Докажем обе стороны эквивалентности:)</div>
+<div class="proof-content">
+<p><strong>Необходимость ($\implies$):</strong><br/>
             Докажем от противного. Предположим, что $\mathbb{Z}_m$ — целостное кольцо, но $m$ — составное число ($m \notin \mathbb{P}$).
             Поскольку $m$ составное, его можно представить в виде произведения двух целых чисел:
-            $$m = u \cdot v, \quad \text{где } 1 < u < m \quad \text{и} \quad 1 < v < m.$$
+            \[m = u \cdot v, \quad \text{где } 1 < u < m \quad \text{и} \quad 1 < v < m.\]
             Перейдём к соответствующим классам вычетов в $\mathbb{Z}_m$:
             Поскольку $0 < u < m$ и $0 < v < m$, эти числа не делятся на $m$, а значит:
-            $$\bar{u} \neq \bar{0} \quad \text{и} \quad \bar{v} \neq \bar{0}.$$
+            \[\bar{u} \neq \bar{0} \quad \text{и} \quad \bar{v} \neq \bar{0}.\]
             Однако вычислим их произведение в кольце $\mathbb{Z}_m$:
-            $$\bar{u} \cdot \bar{v} = \overline{u \cdot v} = \bar{m} = \bar{0}.$$
+            \[\bar{u} \cdot \bar{v} = \overline{u \cdot v} = \bar{m} = \bar{0}.\]
             Мы нашли два ненулевых элемента $\bar{u}, \bar{v} \in \mathbb{Z}_m$, чьё произведение равно нулевому классу $\bar{0}$. 
             Это означает, что $\bar{u}$ и $\bar{v}$ — делители нуля в $\mathbb{Z}_m$, что напрямую противоречит предположению о целостности $\mathbb{Z}_m$.
             Следовательно, $m$ не может быть составным, то есть $m$ — простое число.
           </p>
-
-          <p><strong>Достаточность ($\implies$):</strong><br>
+<p><strong>Достаточность ($\implies$):</strong><br/>
             Пусть $m = p$ — простое число ($p \in \mathbb{P}$).
             Предположим, что для некоторых классов $\bar{a}, \bar{b} \in \mathbb{Z}_p$ выполнено равенство:
-            $$\bar{a} \cdot \bar{b} = \bar{0}.$$
+            \[\bar{a} \cdot \bar{b} = \bar{0}.\]
             По определению умножения в $\mathbb{Z}_p$:
-            $$\overline{ab} = \bar{0} \implies ab \equiv 0 \pmod p \implies p \mid (ab).$$
+            \[\overline{ab} = \bar{0} \implies ab \equiv 0 \pmod p \implies p \mid (ab).\]
             По фундаментальной лемме Евклида для простых чисел, если простое число $p$ делит произведение двух целых чисел $ab$, то оно обязано делить хотя бы один из сомножителей:
-            $$p \mid (ab) \implies p \mid a \quad \text{или} \quad p \mid b.$$
+            \[p \mid (ab) \implies p \mid a \quad \text{или} \quad p \mid b.\]
             Но это означает:
-            $$a \equiv 0 \pmod p \implies \bar{a} = \bar{0} \quad \text{или} \quad b \equiv 0 \pmod p \implies \bar{b} = \bar{0}.$$
+            \[a \equiv 0 \pmod p \implies \bar{a} = \bar{0} \quad \text{или} \quad b \equiv 0 \pmod p \implies \bar{b} = \bar{0}.\]
             Таким образом, из $\bar{a} \cdot \bar{b} = \bar{0}$ неизбежно следует, что $\bar{a} = \bar{0}$ или $\bar{b} = \bar{0}$.
             Следовательно, в $\mathbb{Z}_p$ отсутствуют делители нуля, и $\mathbb{Z}_p$ является целостным кольцом.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        <h3 id="sub-36" data-toc="4. Поле классов вычетов _p (…">6.4. Поле классов вычетов $\mathbb{Z}_p$ ($\mathbb{F}_p$)</h3>
-        
-        <div class="statement theorem" id="thm-12">
-  <div class="block-label">Утверждение 12</div>
-  <h3 id="sub-37" data-toc="Теорема 12">Теорема 12</h3>
-  
-          <div class="box-header">⚖️ Теорема 6.2 (Обратимость в $\mathbb{Z}_p$ и структура поля)
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<h3 class="subsection-heading" data-toc="4. Поле классов вычетов _p (_p)" id="sec-field-zp">6.4. Поле классов вычетов $\mathbb{Z}_p$ ($\mathbb{F}_p$)</h3>
+<div class="statement theorem" id="thm-12"><div class="block-label">Утверждение 12</div><h3 data-toc="⚖️ Теорема 6.2 (Обратимость в …" id="sub-7-9">⚖️ Теорема 6.2 (Обратимость в $\mathbb{Z}_p$ и структура поля)</h3><div>
+
           Для любого простого числа $p$ целостное кольцо $\mathbb{Z}_p$ является <strong>полем</strong> (обозначается $\mathbb{F}_p$ или $\mathbb{Z}/p\mathbb{Z}$).
-        </div>
-
-        
-<div class="proof" id="proof-12" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Доказательство через соотношение Безу (А. И. Кострикин).">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-12" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Чтобы доказать, что коммутативное ассоциативное кольцо с единицей является полем, достаточно показать, что <strong>каждый ненулевой элемент обратим</strong>.</p>
-  </div>
-  <div class="proof-full" id="full-12" data-proof-full>
-    <div class="proof-label">Доказательство (Доказательство через соотношение Безу (А. И. Кострикин).)</div>
-    <div class="proof-content">
+        </div></div>
+<div class="proof" data-proof="" id="proof-12">
+<div aria-label="Доказательство Доказательство через соотношение Безу (А. И. Кострикин)." class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-12">
+<div class="proof-label">Идея</div>
+<p>Чтобы доказать, что коммутативное ассоциативное кольцо с единицей является полем, достаточно показать, что каждый ненулевой элемент обратим.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-12">
+<div class="proof-label">Доказательство (Доказательство через соотношение Безу (А. И. Кострикин).)</div>
+<div class="proof-content">
 <p>
             Чтобы доказать, что коммутативное ассоциативное кольцо с единицей является полем, достаточно показать, что <strong>каждый ненулевой элемент обратим</strong>.
           </p>
-          <p>
+<p>
             Пусть $\bar{a} \in \mathbb{Z}_p$ и $\bar{a} \neq \bar{0}$. Это означает, что $a$ не делится на простое число $p$.
             Следовательно, наибольший общий делитель чисел $a$ и $p$ равен единице:
-            $$\operatorname{gcd}(a, p) = 1.$$
+            \[\operatorname{gcd}(a, p) = 1.\]
             По расширенному алгоритму Евклида (тождеству Безу) существуют такие целые числа $u, v \in \mathbb{Z}$, что:
-            $$a \cdot u + p \cdot v = 1.$$
+            \[a \cdot u + p \cdot v = 1.\]
             Перейдём к классам вычетов по модулю $p$ в обеих частях равенства:
-            $$\overline{a u + p v} = \bar{1} \iff \overline{a u} + \overline{p v} = \bar{1}.$$
+            \[\overline{a u + p v} = \bar{1} \iff \overline{a u} + \overline{p v} = \bar{1}.\]
             Так как $p v$ делится на $p$, то $\overline{p v} = \bar{0}$, следовательно:
-            $$\bar{a} \cdot \bar{u} + \bar{0} = \bar{1} \implies \bar{a} \cdot \bar{u} = \bar{1}.$$
+            \[\bar{a} \cdot \bar{u} + \bar{0} = \bar{1} \implies \bar{a} \cdot \bar{u} = \bar{1}.\]
             Мы нашли элемент $\bar{u} \in \mathbb{Z}_p$, который является мультипликативно обратным к $\bar{a}$:
-            $$\bar{a}^{-1} = \bar{u}.$$
+            \[\bar{a}^{-1} = \bar{u}.\]
             Таким образом, любой ненулевой элемент кольца $\mathbb{Z}_p$ обратим, что завершает доказательство того, что $\mathbb{Z}_p$ — поле.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
 </div>
 
-      </section>
-
-      <!-- РАЗДЕЛ 7 -->
-      <section class="lecture-section" id="sec-hierarchy">
+<!-- РАЗДЕЛ 7 -->
+<section class="lecture-section" id="sec-hierarchy">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-8">
-  <div class="chapter-kicker">08 / 7 Алгебраическая иерархия и …</div>
-  <h2 id="chapter-8" data-toc="7 Алгебраическая иерархия и …">7 Алгебраическая иерархия и сравнительный анализ</h2>
-  <p id="sec-hierarchy-chart">
+  <div class="chapter-kicker">08 / 7Алгебраическая иерархия и сра…</div>
+  <h2 id="chapter-8" data-toc="7Алгебраическая иерархия и сра…">7Алгебраическая иерархия и сравнительный анализ</h2>
+  
+<p id="sec-hierarchy-chart">
           Обобщая изученные понятия, выстроим чёткую классификационную иерархию алгебраических структур от общего понятия кольца до поля.
         </p>
-
-        <!-- SVG 3: Структурная диаграмма классов систем -->
-        <div class="svg-wrapper">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 840 220" xmlns="http://www.w3.org/2000/svg">
-            <!-- Блок 1: Кольцо -->
-            <rect x="20" y="30" width="170" height="150" rx="10" fill="var(--bg-card)" stroke="var(--border-color)" stroke-width="2" />
-            <text x="105" y="60" fill="var(--text-heading)" font-size="15" font-weight="700" text-anchor="middle">Кольцо (K, +, ·)</text>
-            <text x="105" y="85" fill="var(--text-muted)" font-size="11" text-anchor="middle">• Абелева группа (K, +)</text>
-            <text x="105" y="105" fill="var(--text-muted)" font-size="11" text-anchor="middle">• Дистрибутивность</text>
-            <text x="105" y="145" fill="var(--border-accent)" font-size="12" font-weight="600" text-anchor="middle">Пример: 2ℤ, Матрицы Mₙ</text>
-
-            <!-- Стрелка 1 -->
-            <path d="M 195,105 L 235,105" stroke="var(--border-accent)" stroke-width="2.5" marker-end="url(#arrow)" />
-
-            <!-- Блок 2: Комм. кольцо с 1 -->
-            <rect x="240" y="30" width="170" height="150" rx="10" fill="var(--bg-card)" stroke="var(--border-color)" stroke-width="2" />
-            <text x="325" y="60" fill="var(--text-heading)" font-size="14" font-weight="700" text-anchor="middle">Комм. кольцо с 1</text>
-            <text x="325" y="85" fill="var(--text-muted)" font-size="11" text-anchor="middle">• ab = ba</text>
-            <text x="325" y="105" fill="var(--text-muted)" font-size="11" text-anchor="middle">• Есть единица 1 ≠ 0</text>
-            <text x="325" y="145" fill="#ef4444" font-size="12" font-weight="600" text-anchor="middle">ℤ₄, ℤ₁₂, ℝ×ℝ (Делители 0!)</text>
-
-            <!-- Стрелка 2 -->
-            <path d="M 415,105 L 455,105" stroke="var(--border-accent)" stroke-width="2.5" marker-end="url(#arrow)" />
-
-            <!-- Блок 3: Область целостности -->
-            <rect x="460" y="30" width="170" height="150" rx="10" fill="var(--bg-card)" stroke="var(--border-color)" stroke-width="2" />
-            <text x="545" y="60" fill="var(--text-heading)" font-size="14" font-weight="700" text-anchor="middle">Область целостности</text>
-            <text x="545" y="85" fill="var(--text-muted)" font-size="11" text-anchor="middle">• Нет делителей нуля</text>
-            <text x="545" y="105" fill="var(--text-muted)" font-size="11" text-anchor="middle">• xy = 0 ⇒ x=0 ∨ y=0</text>
-            <text x="545" y="145" fill="#10b8a6" font-size="12" font-weight="600" text-anchor="middle">Пример: ℤ, ℤ[x]</text>
-
-            <!-- Стрелка 3 -->
-            <path d="M 635,105 L 675,105" stroke="var(--border-accent)" stroke-width="2.5" marker-end="url(#arrow)" />
-
-            <!-- Блок 4: Поле -->
-            <rect x="680" y="30" width="140" height="150" rx="10" fill="var(--bg-card)" stroke="#10b8a6" stroke-width="2.5" />
-            <text x="750" y="60" fill="#10b8a6" font-size="16" font-weight="800" text-anchor="middle">Поле</text>
-            <text x="750" y="85" fill="var(--text-muted)" font-size="11" text-anchor="middle">• Все x ≠ 0 обратимы</text>
-            <text x="750" y="105" fill="var(--text-muted)" font-size="11" text-anchor="middle">• (K \ {0}, ·) — группа</text>
-            <text x="750" y="145" fill="#10b8a6" font-size="12" font-weight="700" text-anchor="middle">ℚ, ℝ, ℂ, ℤₚ (p ∈ ℙ)</text>
-          </svg></div>
-          <div class="svg-caption">Рисунок 7.1: Вложение и специализация классов алгебраических структур.</div>
-        </div>
-
-        <h3 id="sub-38" data-toc="1. Сравнительная аналитическ…">7.1. Сравнительная аналитическая таблица структур</h3>
-        
-        <div class="table-container">
-          <div class="table-scroll">
-<table class="cayley-table">
-            <thead>
-              <tr>
-                <th>Алгебраическая система</th>
-                <th>Мощность</th>
-                <th>Наличие единицы</th>
-                <th>Наличие делителей нуля</th>
-                <th>Целостное кольцо?</th>
-                <th>Поле?</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>$(\mathbb{Z}, +, \cdot)$</strong></td>
-                <td>Бесконечная ($\aleph_0$)</td>
-                <td>Да ($1$)</td>
-                <td>Нет</td>
-                <td style="color:#10b8a6; font-weight:700;">Да</td>
-                <td style="color:#ef4444;">Нет (только $\pm 1$ обратимы)</td>
-              </tr>
-              <tr>
-                <td><strong>$(\mathbb{Z}_4, +, \cdot)$</strong></td>
-                <td>Конечная ($4$)</td>
-                <td>Да ($\bar{1}$)</td>
-                <td style="color:#ef4444; font-weight:700;">Да ($\bar{2} \cdot \bar{2} = \bar{0}$)</td>
-                <td style="color:#ef4444;">Нет</td>
-                <td style="color:#ef4444;">Нет</td>
-              </tr>
-              <tr>
-                <td><strong>$(\mathbb{Z}_5, +, \cdot)$</strong></td>
-                <td>Конечная ($5$)</td>
-                <td>Да ($\bar{1}$)</td>
-                <td>Нет ($5 \in \mathbb{P}$)</td>
-                <td style="color:#10b8a6; font-weight:700;">Да</td>
-                <td style="color:#10b8a6; font-weight:700;">Да ($\mathbb{F}_5$)</td>
-              </tr>
-              <tr>
-                <td><strong>$(\mathbb{Z}_{12}, +, \cdot)$</strong></td>
-                <td>Конечная ($12$)</td>
-                <td>Да ($\bar{1}$)</td>
-                <td style="color:#ef4444; font-weight:700;">Да ($\bar{3} \cdot \bar{4} = \bar{0}$)</td>
-                <td style="color:#ef4444;">Нет</td>
-                <td style="color:#ef4444;">Нет</td>
-              </tr>
-              <tr>
-                <td><strong>$(\mathbb{R} \times \mathbb{R}, +, \cdot)$</strong></td>
-                <td>Континуум ($\mathfrak{c}$)</td>
-                <td>Да ($(1, 1)$)</td>
-                <td style="color:#ef4444; font-weight:700;">Да ($(1, 0) \cdot (0, 1) = (0, 0)$)</td>
-                <td style="color:#ef4444;">Нет</td>
-                <td style="color:#ef4444;">Нет</td>
-              </tr>
-              <tr>
-                <td><strong>$(\mathbb{Q}, +, \cdot), (\mathbb{R}, +, \cdot)$</strong></td>
-                <td>Бесконечная</td>
-                <td>Да ($1$)</td>
-                <td>Нет</td>
-                <td style="color:#10b8a6; font-weight:700;">Да</td>
-                <td style="color:#10b8a6; font-weight:700;">Да</td>
-              </tr>
-            </tbody>
-          </table>
+<!-- SVG 3: Структурная диаграмма классов систем -->
+<div class="svg-wrapper">
+<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 840 220" xmlns="http://www.w3.org/2000/svg">
+<!-- Блок 1: Кольцо -->
+<rect fill="var(--bg-card)" height="150" rx="10" stroke="var(--border-color)" stroke-width="2" width="170" x="20" y="30"></rect>
+<text fill="var(--text-heading)" font-size="15" font-weight="700" text-anchor="middle" x="105" y="60">Кольцо (K, +, ·)</text>
+<text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="105" y="85">• Абелева группа (K, +)</text>
+<text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="105" y="105">• Дистрибутивность</text>
+<text fill="var(--border-accent)" font-size="12" font-weight="600" text-anchor="middle" x="105" y="145">Пример: 2ℤ, Матрицы Mₙ</text>
+<!-- Стрелка 1 -->
+<path d="M 195,105 L 235,105" marker-end="url(#arrow)" stroke="var(--border-accent)" stroke-width="2.5"></path>
+<!-- Блок 2: Комм. кольцо с 1 -->
+<rect fill="var(--bg-card)" height="150" rx="10" stroke="var(--border-color)" stroke-width="2" width="170" x="240" y="30"></rect>
+<text fill="var(--text-heading)" font-size="14" font-weight="700" text-anchor="middle" x="325" y="60">Комм. кольцо с 1</text>
+<text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="325" y="85">• ab = ba</text>
+<text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="325" y="105">• Есть единица 1 ≠ 0</text>
+<text fill="#ef4444" font-size="12" font-weight="600" text-anchor="middle" x="325" y="145">ℤ₄, ℤ₁₂, ℝ×ℝ (Делители 0!)</text>
+<!-- Стрелка 2 -->
+<path d="M 415,105 L 455,105" marker-end="url(#arrow)" stroke="var(--border-accent)" stroke-width="2.5"></path>
+<!-- Блок 3: Область целостности -->
+<rect fill="var(--bg-card)" height="150" rx="10" stroke="var(--border-color)" stroke-width="2" width="170" x="460" y="30"></rect>
+<text fill="var(--text-heading)" font-size="14" font-weight="700" text-anchor="middle" x="545" y="60">Область целостности</text>
+<text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="545" y="85">• Нет делителей нуля</text>
+<text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="545" y="105">• xy = 0 ⇒ x=0 ∨ y=0</text>
+<text fill="#10b8a6" font-size="12" font-weight="600" text-anchor="middle" x="545" y="145">Пример: ℤ, ℤ[x]</text>
+<!-- Стрелка 3 -->
+<path d="M 635,105 L 675,105" marker-end="url(#arrow)" stroke="var(--border-accent)" stroke-width="2.5"></path>
+<!-- Блок 4: Поле -->
+<rect fill="var(--bg-card)" height="150" rx="10" stroke="#10b8a6" stroke-width="2.5" width="140" x="680" y="30"></rect>
+<text fill="#10b8a6" font-size="16" font-weight="800" text-anchor="middle" x="750" y="60">Поле</text>
+<text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="750" y="85">• Все x ≠ 0 обратимы</text>
+<text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="750" y="105">• (K \ {0}, ·) — группа</text>
+<text fill="#10b8a6" font-size="12" font-weight="700" text-anchor="middle" x="750" y="145">ℚ, ℝ, ℂ, ℤₚ (p ∈ ℙ)</text>
+</svg></figure>
+<div class="svg-caption">Рисунок 7.1: Вложение и специализация классов алгебраических структур.</div>
 </div>
-          <div class="svg-caption">Таблица 7.1: Сравнительная характеристика свойств ассоциативно-коммутативных колец.</div>
-        </div>
-
-        <div class="callout callout-remark">
-          <div class="box-header">💡 Итоговое резюме лекции</div>
-          <p>
+<h3 class="subsection-heading" data-toc="1. Сравнительная аналитическая…" id="sec-summary-table">7.1. Сравнительная аналитическая таблица структур</h3>
+<div class="table-container">
+<table class="cayley-table">
+<thead>
+<tr>
+<th>Алгебраическая система</th>
+<th>Мощность</th>
+<th>Наличие единицы</th>
+<th>Наличие делителей нуля</th>
+<th>Целостное кольцо?</th>
+<th>Поле?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>$(\mathbb{Z}, +, \cdot)$</strong></td>
+<td>Бесконечная ($\aleph_0$)</td>
+<td>Да ($1$)</td>
+<td>Нет</td>
+<td style="color:#10b8a6; font-weight:700;">Да</td>
+<td style="color:#ef4444;">Нет (только $\pm 1$ обратимы)</td>
+</tr>
+<tr>
+<td><strong>$(\mathbb{Z}_4, +, \cdot)$</strong></td>
+<td>Конечная ($4$)</td>
+<td>Да ($\bar{1}$)</td>
+<td style="color:#ef4444; font-weight:700;">Да ($\bar{2} \cdot \bar{2} = \bar{0}$)</td>
+<td style="color:#ef4444;">Нет</td>
+<td style="color:#ef4444;">Нет</td>
+</tr>
+<tr>
+<td><strong>$(\mathbb{Z}_5, +, \cdot)$</strong></td>
+<td>Конечная ($5$)</td>
+<td>Да ($\bar{1}$)</td>
+<td>Нет ($5 \in \mathbb{P}$)</td>
+<td style="color:#10b8a6; font-weight:700;">Да</td>
+<td style="color:#10b8a6; font-weight:700;">Да ($\mathbb{F}_5$)</td>
+</tr>
+<tr>
+<td><strong>$(\mathbb{Z}_{12}, +, \cdot)$</strong></td>
+<td>Конечная ($12$)</td>
+<td>Да ($\bar{1}$)</td>
+<td style="color:#ef4444; font-weight:700;">Да ($\bar{3} \cdot \bar{4} = \bar{0}$)</td>
+<td style="color:#ef4444;">Нет</td>
+<td style="color:#ef4444;">Нет</td>
+</tr>
+<tr>
+<td><strong>$(\mathbb{R} \times \mathbb{R}, +, \cdot)$</strong></td>
+<td>Континуум ($\mathfrak{c}$)</td>
+<td>Да ($(1, 1)$)</td>
+<td style="color:#ef4444; font-weight:700;">Да ($(1, 0) \cdot (0, 1) = (0, 0)$)</td>
+<td style="color:#ef4444;">Нет</td>
+<td style="color:#ef4444;">Нет</td>
+</tr>
+<tr>
+<td><strong>$(\mathbb{Q}, +, \cdot), (\mathbb{R}, +, \cdot)$</strong></td>
+<td>Бесконечная</td>
+<td>Да ($1$)</td>
+<td>Нет</td>
+<td style="color:#10b8a6; font-weight:700;">Да</td>
+<td style="color:#10b8a6; font-weight:700;">Да</td>
+</tr>
+</tbody>
+</table>
+<div class="svg-caption">Таблица 7.1: Сравнительная характеристика свойств ассоциативно-коммутативных колец.</div>
+</div>
+<div class="callout callout-remark">
+<div class="box-header">💡 Итоговое резюме лекции</div>
+<p>
             1. <strong>Деление с остатком</strong> — строгий фундамент для построения фактор-структур в $\mathbb{Z}$. Существование и единственность остатка $0 \le r < m$ гарантируют однозначность перехода к классам вычетов.
           </p>
-          <p>
+<p>
             2. <strong>Сравнимость по модулю $m$</strong> — это отношение эквивалентности, которое склеивает числа с одинаковыми остатками, разбивая $\mathbb{Z}$ ровно на $m$ классов: $\mathbb{Z}_m = \{ \bar{0}, \bar{1}, \dots, \overline{m-1} \}$.
           </p>
-          <p>
+<p>
             3. Операции над классами $\bar{a} + \bar{b} = \overline{a+b}$ и $\bar{a} \cdot \bar{b} = \overline{ab}$ <strong>корректны</strong> (не зависят от представителей) благодаря замкнутости сравнений относительно сложения и умножения. Они превращают $\mathbb{Z}_m$ в коммутативное ассоциативное кольцо с единицей $\bar{1}$.
           </p>
-          <p>
+<p>
             4. Если $m$ составное, в $\mathbb{Z}_m$ неизбежно возникают <strong>делители нуля</strong> ($\bar{u} \cdot \bar{v} = \bar{0}$), разрушающие целостность. Если же $m = p$ — простое число, то по тождеству Безу каждый ненулевой вычет обратим, и кольцо классов вычетов превращается в конечное поле $\mathbb{F}_p$.
           </p>
-        </div>
-      </section>
+</div>
+
+
+
 </section>
 <!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>

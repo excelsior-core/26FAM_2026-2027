@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Аналитическая геометрия  6: Плоскость и прямая в пространстве. Конспект FAM ФПМ НИУ ВШЭ.">
+  <meta name="description" content="ФПМ НИУ ВШЭ · Полный академический лекционный конспект">
   <title>Аналитическая геометрия  6: Плоскость и прямая в пространстве — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
@@ -183,8 +183,13 @@ html[data-theme] ::selection{background:var(--gold);color:var(--paper)}
 .themed-figure [data-figure-theme="light"]{display:block}
 html[data-theme="dark"] .themed-figure [data-figure-theme],html[data-theme="parchment"] .themed-figure [data-figure-theme]{display:none}
 html[data-theme="dark"] .themed-figure [data-figure-theme="dark"],html[data-theme="parchment"] .themed-figure [data-figure-theme="parchment"]{display:block}
-/* One neutral/light asset may remain on its own light plate in every theme. Never invert mathematical colours. */
-.figure-plate{background:#fff;color:#202e29;padding:16px;border:1px solid var(--rule)}
+.figure-plate{background:var(--bg-card);color:var(--ink);padding:20px;border:1px solid var(--rule);border-radius:8px;margin:32px 0}
+html[data-theme="light"] .figure-plate{background:#ffffff}
+html[data-theme="dark"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+html[data-theme="parchment"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+@media print{
+ .figure-plate{background:white!important;border:0!important;padding:0!important}
+}
 @media(max-width:760px){.topbar{height:auto;min-height:70px;flex-wrap:wrap;padding:12px 18px;gap:10px}.top-actions{gap:8px;flex-wrap:wrap}.theme-control select{font-size:10px;max-width:103px;padding:8px 4px}.pdf-button{padding:6px 8px}.pdf-button span{margin-left:4px}.wordmark{font-size:24px}}
 @media(max-width:400px){.wordmark{display:none}.top-actions{width:100%;justify-content:space-between}}
 @media print{
@@ -440,230 +445,1155 @@ SOFTWARE.
     </aside>
     <main id="content">
       <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
-  <div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>ФПМ НИУ ВШЭ</span></div>
-  <h1>Аналитическая геометрия  6: Плоскость и прямая в пространстве</h1>
-  <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-  <div class="lecture-abstract">
-    <p>ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-    <div class="abstract-formula" aria-label="Ключевое выражение лекции">\[', right: '\]</div>
-  </div>
-</header>
-<div class="proof-toolbar" aria-label="Все доказательства">
-  <span class="toolbar-label">Доказательства</span>
-  <div class="segmented" role="group" aria-label="Режим всех доказательств">
-    <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
-    <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
-    <button data-all-proofs="full" aria-pressed="false">Полностью</button>
-  </div>
-  <span id="proof-state" class="proof-state" aria-live="polite"></span>
-</div>
-<noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
-<p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
-
+      <header class="lecture-head" id="top">
+        <div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>Академический конспект ФПМ</span></div>
+        <h1>Аналитическая геометрия  6: Плоскость и прямая в пространстве</h1>
+        <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
+        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[', right: '\]</div></div>
+      </header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
 <section class="chapter" aria-labelledby="chapter-1">
   <div class="chapter-kicker">01 / Введение</div>
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <!-- ШАПКА ЛЕКЦИИ -->
-    <header class="lecture-header">
-      <div class="badge-row">
-        <span class="badge badge-primary">Курс «Аналитическая геометрия»</span>
-        <span class="badge badge-teal">Лекция 6 • I модуль 2026–2027 уч. года</span>
-      </div>
-      <h1>Плоскость и прямая в пространстве</h1>
-      <p class="lecture-subtitle">
+<header class="lecture-header">
+<div class="badge-row">
+<span class="badge badge-primary">Курс «Аналитическая геометрия»</span>
+<span class="badge badge-teal">Лекция 6 • I модуль 2026–2027 уч. года</span>
+</div>
+<h1>Плоскость и прямая в пространстве</h1>
+<p class="lecture-subtitle">
         Академический конспект лекции Г. М. Полотовского: все виды уравнений плоскости и прямой в трёхмерном пространстве, строгие доказательства теорем, разбор вопросов лектора, геометрический вывод расстояния от точки до плоскости и алгоритмы взаимного перехода между системами уравнений.
       </p>
-      <div class="lecture-meta-grid">
-        <div class="meta-card">
-          <div class="meta-card-label">Лектор курса</div>
-          <div class="meta-card-value">Г. М. Полотовский</div>
-        </div>
-        <div class="meta-card">
-          <div class="meta-card-label">Дата проведения</div>
-          <div class="meta-card-value">12 октября 2026 г.</div>
-        </div>
-        <div class="meta-card">
-          <div class="meta-card-label">Разделы программы</div>
-          <div class="meta-card-value">§ II.2 (п. 1–7), § II.3 (п. 1–6)</div>
-        </div>
-        <div class="meta-card">
-          <div class="meta-card-label">Операции с векторами</div>
-          <div class="meta-card-value">$(\bar{a},\bar{b})$, $[\bar{a},\bar{b}]$, $\langle\bar{a},\bar{b},\bar{c}\rangle$</div>
-        </div>
-      </div>
-    </header>
-
-    <!-- ======================================================================
+<div class="lecture-meta-grid">
+<div class="meta-card">
+<div class="meta-card-label">Лектор курса</div>
+<div class="meta-card-value">Г. М. Полотовский</div>
+</div>
+<div class="meta-card">
+<div class="meta-card-label">Дата проведения</div>
+<div class="meta-card-value">12 октября 2026 г.</div>
+</div>
+<div class="meta-card">
+<div class="meta-card-label">Разделы программы</div>
+<div class="meta-card-value">§ II.2 (п. 1–7), § II.3 (п. 1–6)</div>
+</div>
+<div class="meta-card">
+<div class="meta-card-label">Операции с векторами</div>
+<div class="meta-card-value">$(\bar{a},\bar{b})$, $[\bar{a},\bar{b}]$, $\langle\bar{a},\bar{b},\bar{c}\rangle$</div>
+</div>
+</div>
+</header>
+<!-- ======================================================================
          РАЗДЕЛ II.2. ПЛОСКОСТЬ В ПРОСТРАНСТВЕ
          ====================================================================== -->
-    <section class="chapter-section" id="chapter-plane">
-      <div class="chapter-banner">
-        <div class="chapter-badge">§ II.2</div>
-        <div class="chapter-title-wrap">
+<section class="chapter-section" id="chapter-plane">
+<div class="chapter-banner">
+<div class="chapter-badge">§ II.2</div>
+<div class="chapter-title-wrap">
 </section>
-
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Плоскость в пространстве</div>
   <h2 id="chapter-2" data-toc="Плоскость в пространстве">Плоскость в пространстве</h2>
-  <p>Векторные, параметрические, координатные и метрические формы задания плоскости в $\mathbb{R}^3$</p>
-        </div>
-      </div>
+  
+<p>Векторные, параметрические, координатные и метрические формы задания плоскости в $\mathbb{R}^3$</p>
 
-      <!-- 1. Векторно-параметрическое уравнение плоскости -->
-      <article class="topic-card" id="sec-plane-1">
-        <div class="topic-header">
-          <span class="topic-num-pill">Пункт 1</span>
-          <h3 id="sub-1" data-toc="Векторно-параметрическое и п…">Векторно-параметрическое и параметрические уравнения плоскости</h3>
-        </div>
 
-        <p>
+<!-- 1. Векторно-параметрическое уравнение плоскости -->
+<article class="topic-card" id="sec-plane-1">
+<div class="topic-header">
+<span class="topic-num-pill">Пункт 1</span>
+<h3 class="topic-title" data-toc="Векторно-параметрическое и пар…" id="sub-2-1">Векторно-параметрическое и параметрические уравнения плоскости</h3>
+</div>
+<p>
           Определим плоскость $P$ в пространстве какой-либо фиксированной точкой $M_0 \in P$ с радиус-вектором $\bar{r}_0 = \overrightarrow{OM_0}$ и парой <strong>неколлинеарных векторов</strong> $\bar{a} \nparallel \bar{b}$, параллельных плоскости $P$ (такие векторы называют <em>направляющими векторами плоскости</em>).
         </p>
-
-        <p>
+<p>
           Поскольку векторы $\bar{a}$ и $\bar{b}$ неколлинеарны и параллельны плоскости $P$, их можно принять за <strong>двумерный базис на плоскости $P$</strong>. Это означает, что любой вектор, параллельный плоскости $P$, единственным образом раскладывается в линейную комбинацию векторов $\bar{a}$ и $\bar{b}$.
         </p>
-
-        <p>
+<p>
           Легко видеть, что любая точка $M$ плоскости $P$ имеет радиус-вектор $\bar{r} = \overrightarrow{OM}$, равный сумме радиус-вектора $\bar{r}_0$ и какого-либо вектора $\overrightarrow{M_0M} = u\bar{a} + v\bar{b}$, параллельного плоскости, и обратно: все радиус-векторы такого вида имеют концы на плоскости $P$. Другими словами, плоскость $P$ задаётся уравнением:
         </p>
-
-        <div class="eq-box eq-highlight">
-          <div class="eq-content">
-            $$\bar{r} = \bar{r}_0 + u\bar{a} + v\bar{b}, \quad \text{где } u, v \in \mathbb{R} \text{ --- независимые параметры.}$$
+<div class="eq-box eq-highlight">
+<div class="eq-content">
+            \[\bar{r} = \bar{r}_0 + u\bar{a} + v\bar{b}, \quad \text{где } u, v \in \mathbb{R} \text{ --- независимые параметры.}\]
           </div>
-          <div class="eq-num">(1)</div>
-        </div>
-
-        <p>
+<div class="eq-num">(1)</div>
+</div>
+<p>
           Уравнение (1) называется <strong>векторно-параметрическим уравнением плоскости</strong>. Числа $(u, v)$ являются аффинными координатами точки $M$ на самой плоскости $P$ относительно локального репера $(M_0; \bar{a}, \bar{b})$.
         </p>
-
-        <!-- SVG 1: Векторно-параметрическое задание плоскости -->
-        <div class="figure-box">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 680 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Векторно-параметрическое уравнение плоскости">
-            <defs>
-              <linearGradient id="planeGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="var(--accent-blue)" stop-opacity="0.28"/>
-                <stop offset="100%" stop-color="var(--accent-teal)" stop-opacity="0.10"/>
-              </linearGradient>
-              <marker id="m-axis" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--text-muted)"/>
-              </marker>
-              <marker id="m-rose" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
-                <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose)"/>
-              </marker>
-              <marker id="m-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
-                <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue)"/>
-              </marker>
-              <marker id="m-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
-                <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-teal)"/>
-              </marker>
-              <marker id="m-prim" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
-                <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--text-primary)"/>
-              </marker>
-            </defs>
-
-            <!-- Фоновая координатная сетка -->
-            <g stroke="var(--svg-grid)" stroke-width="1" opacity="0.55">
-              <line x1="20" y1="60" x2="660" y2="60"/>
-              <line x1="20" y1="120" x2="660" y2="120"/>
-              <line x1="20" y1="180" x2="660" y2="180"/>
-              <line x1="20" y1="240" x2="660" y2="240"/>
-              <line x1="120" y1="20" x2="120" y2="295"/>
-              <line x1="260" y1="20" x2="260" y2="295"/>
-              <line x1="400" y1="20" x2="400" y2="295"/>
-              <line x1="540" y1="20" x2="540" y2="295"/>
-            </g>
-
-            <!-- Плоскость P (параллелограмм с внутренними линиями координатной сетки u,v) -->
-            <polygon points="215,190 320,58 595,128 490,260" fill="url(#planeGrad1)" stroke="var(--accent-blue)" stroke-width="1.8"/>
-            <line x1="250" y1="146" x2="525" y2="216" stroke="var(--accent-blue)" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.5"/>
-            <line x1="285" y1="102" x2="560" y2="172" stroke="var(--accent-blue)" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.5"/>
-            <line x1="306" y1="213" x2="411" y2="81" stroke="var(--accent-blue)" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.5"/>
-            <line x1="398" y1="236" x2="503" y2="104" stroke="var(--accent-blue)" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.5"/>
-
-            <rect x="548" y="132" width="32" height="24" rx="5" fill="var(--svg-label-bg)" stroke="var(--accent-blue)" stroke-width="1"/>
-            <text x="564" y="149" text-anchor="middle" fill="var(--accent-blue)" font-weight="800" font-size="15" font-style="italic">P</text>
-
-            <!-- Оси координат OXYZ (как на слайде 2) -->
-            <line x1="145" y1="248" x2="145" y2="140" stroke="var(--text-muted)" stroke-width="2" marker-end="url(#m-axis)"/>
-            <line x1="145" y1="248" x2="245" y2="248" stroke="var(--text-muted)" stroke-width="2" marker-end="url(#m-axis)"/>
-            <line x1="145" y1="248" x2="92" y2="294" stroke="var(--text-muted)" stroke-width="2" marker-end="url(#m-axis)"/>
-            <text x="128" y="148" fill="var(--text-secondary)" font-size="14" font-weight="700" font-style="italic">Z</text>
-            <text x="252" y="253" fill="var(--text-secondary)" font-size="14" font-weight="700" font-style="italic">X</text>
-            <text x="75" y="298" fill="var(--text-secondary)" font-size="14" font-weight="700" font-style="italic">Y</text>
-            <text x="126" y="244" fill="var(--text-heading)" font-size="14" font-weight="800" font-style="italic">O</text>
-            <circle cx="145" cy="248" r="3.5" fill="var(--text-heading)"/>
-
-            <!-- Параллелограмм разложения вектора M0M = ua + vb на плоскости P -->
-            <!-- M0 = (305, 168), M0 + ua = (365, 118), M0 + vb = (430, 203), M = (490, 153) -->
-            <line x1="365" y1="118" x2="490" y2="153" stroke="var(--accent-teal)" stroke-width="1.6" stroke-dasharray="5,4"/>
-            <line x1="430" y1="203" x2="490" y2="153" stroke="var(--accent-teal)" stroke-width="1.6" stroke-dasharray="5,4"/>
-
-            <line x1="305" y1="168" x2="365" y2="118" stroke="var(--accent-teal)" stroke-width="2.3" marker-end="url(#m-teal)"/>
-            <line x1="305" y1="168" x2="430" y2="203" stroke="var(--accent-teal)" stroke-width="2.3" marker-end="url(#m-teal)"/>
-            <line x1="305" y1="168" x2="490" y2="153" stroke="var(--accent-blue)" stroke-width="2.5" marker-end="url(#m-blue)"/>
-
-            <text x="318" y="132" fill="var(--accent-teal)" font-size="14" font-weight="700" font-style="italic">uā</text>
-            <text x="355" y="203" fill="var(--accent-teal)" font-size="14" font-weight="700" font-style="italic">vb̄</text>
-            <text x="382" y="148" fill="var(--accent-blue)" font-size="13.5" font-weight="700">uā + vb̄</text>
-
-            <!-- Свободные направляющие векторы a и b вне плоскости (как на слайде 2) -->
-            <line x1="325" y1="45" x2="385" y2="33" stroke="var(--accent-blue)" stroke-width="2.3" marker-end="url(#m-blue)"/>
-            <text x="350" y="28" fill="var(--accent-blue)" font-size="15" font-weight="800" font-style="italic">ā</text>
-
-            <line x1="370" y1="248" x2="445" y2="270" stroke="var(--accent-blue)" stroke-width="2.3" marker-end="url(#m-blue)"/>
-            <text x="402" y="284" fill="var(--accent-blue)" font-size="15" font-weight="800" font-style="italic">b̄</text>
-
-            <!-- Радиус-векторы r0 и r -->
-            <line x1="145" y1="248" x2="305" y2="168" stroke="var(--accent-rose)" stroke-width="2.5" marker-end="url(#m-rose)"/>
-            <line x1="145" y1="248" x2="490" y2="153" stroke="var(--text-primary)" stroke-width="2.3" marker-end="url(#m-prim)"/>
-
-            <rect x="202" y="182" width="28" height="22" rx="4" fill="var(--svg-label-bg)"/>
-            <text x="216" y="198" text-anchor="middle" fill="var(--accent-rose)" font-size="15" font-weight="800" font-style="italic">r̄₀</text>
-
-            <rect x="308" y="205" width="24" height="22" rx="4" fill="var(--svg-label-bg)"/>
-            <text x="320" y="221" text-anchor="middle" fill="var(--text-primary)" font-size="15" font-weight="800" font-style="italic">r̄</text>
-
-            <!-- Точки M0 и M -->
-            <circle cx="305" cy="168" r="4.5" fill="var(--accent-rose)" stroke="var(--bg-surface)" stroke-width="1.5"/>
-            <text x="275" y="160" fill="var(--text-heading)" font-size="15" font-weight="800" font-style="italic">M₀</text>
-
-            <circle cx="490" cy="153" r="4.5" fill="var(--accent-blue)" stroke="var(--bg-surface)" stroke-width="1.5"/>
-            <text x="502" y="157" fill="var(--text-heading)" font-size="15" font-weight="800" font-style="italic">M(r̄)</text>
-          </svg></div>
-          <div class="figure-caption">
-            <strong>Рис. 1 (к слайду 2).</strong> Векторно-параметрическое задание плоскости $P$ начальной точкой $M_0(\bar{r}_0)$ и парой неколлинеарных направляющих векторов $\bar{a} \nparallel \bar{b}$: радиус-вектор любой точки $M \in P$ складывается из $\bar{r}_0$ и линейной комбинации $u\bar{a} + v\bar{b}$.
+<!-- SVG 1: Векторно-параметрическое задание плоскости -->
+<figure class="figure-plate">
+<svg aria-label="Векторно-параметрическое уравнение плоскости" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 315" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="planeGrad1" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="var(--accent-blue)" stop-opacity="0.28"></stop>
+<stop offset="100%" stop-color="var(--accent-teal)" stop-opacity="0.10"></stop>
+</lineargradient>
+<marker id="m-axis" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--text-muted)"></path>
+</marker>
+<marker id="m-rose" markerheight="6.5" markerwidth="6.5" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose)"></path>
+</marker>
+<marker id="m-blue" markerheight="6.5" markerwidth="6.5" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue)"></path>
+</marker>
+<marker id="m-teal" markerheight="6.5" markerwidth="6.5" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-teal)"></path>
+</marker>
+<marker id="m-prim" markerheight="6.5" markerwidth="6.5" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--text-primary)"></path>
+</marker>
+</defs>
+<!-- Фоновая координатная сетка -->
+<g opacity="0.55" stroke="var(--svg-grid)" stroke-width="1">
+<line x1="20" x2="660" y1="60" y2="60"></line>
+<line x1="20" x2="660" y1="120" y2="120"></line>
+<line x1="20" x2="660" y1="180" y2="180"></line>
+<line x1="20" x2="660" y1="240" y2="240"></line>
+<line x1="120" x2="120" y1="20" y2="295"></line>
+<line x1="260" x2="260" y1="20" y2="295"></line>
+<line x1="400" x2="400" y1="20" y2="295"></line>
+<line x1="540" x2="540" y1="20" y2="295"></line>
+</g>
+<!-- Плоскость P (параллелограмм с внутренними линиями координатной сетки u,v) -->
+<polygon fill="url(#planeGrad1)" points="215,190 320,58 595,128 490,260" stroke="var(--accent-blue)" stroke-width="1.8"></polygon>
+<line opacity="0.5" stroke="var(--accent-blue)" stroke-dasharray="4,4" stroke-width="0.8" x1="250" x2="525" y1="146" y2="216"></line>
+<line opacity="0.5" stroke="var(--accent-blue)" stroke-dasharray="4,4" stroke-width="0.8" x1="285" x2="560" y1="102" y2="172"></line>
+<line opacity="0.5" stroke="var(--accent-blue)" stroke-dasharray="4,4" stroke-width="0.8" x1="306" x2="411" y1="213" y2="81"></line>
+<line opacity="0.5" stroke="var(--accent-blue)" stroke-dasharray="4,4" stroke-width="0.8" x1="398" x2="503" y1="236" y2="104"></line>
+<rect fill="var(--svg-label-bg)" height="24" rx="5" stroke="var(--accent-blue)" stroke-width="1" width="32" x="548" y="132"></rect>
+<text fill="var(--accent-blue)" font-size="15" font-style="italic" font-weight="800" text-anchor="middle" x="564" y="149">P</text>
+<!-- Оси координат OXYZ (как на слайде 2) -->
+<line marker-end="url(#m-axis)" stroke="var(--text-muted)" stroke-width="2" x1="145" x2="145" y1="248" y2="140"></line>
+<line marker-end="url(#m-axis)" stroke="var(--text-muted)" stroke-width="2" x1="145" x2="245" y1="248" y2="248"></line>
+<line marker-end="url(#m-axis)" stroke="var(--text-muted)" stroke-width="2" x1="145" x2="92" y1="248" y2="294"></line>
+<text fill="var(--text-secondary)" font-size="14" font-style="italic" font-weight="700" x="128" y="148">Z</text>
+<text fill="var(--text-secondary)" font-size="14" font-style="italic" font-weight="700" x="252" y="253">X</text>
+<text fill="var(--text-secondary)" font-size="14" font-style="italic" font-weight="700" x="75" y="298">Y</text>
+<text fill="var(--text-heading)" font-size="14" font-style="italic" font-weight="800" x="126" y="244">O</text>
+<circle cx="145" cy="248" fill="var(--text-heading)" r="3.5"></circle>
+<!-- Параллелограмм разложения вектора M0M = ua + vb на плоскости P -->
+<!-- M0 = (305, 168), M0 + ua = (365, 118), M0 + vb = (430, 203), M = (490, 153) -->
+<line stroke="var(--accent-teal)" stroke-dasharray="5,4" stroke-width="1.6" x1="365" x2="490" y1="118" y2="153"></line>
+<line stroke="var(--accent-teal)" stroke-dasharray="5,4" stroke-width="1.6" x1="430" x2="490" y1="203" y2="153"></line>
+<line marker-end="url(#m-teal)" stroke="var(--accent-teal)" stroke-width="2.3" x1="305" x2="365" y1="168" y2="118"></line>
+<line marker-end="url(#m-teal)" stroke="var(--accent-teal)" stroke-width="2.3" x1="305" x2="430" y1="168" y2="203"></line>
+<line marker-end="url(#m-blue)" stroke="var(--accent-blue)" stroke-width="2.5" x1="305" x2="490" y1="168" y2="153"></line>
+<text fill="var(--accent-teal)" font-size="14" font-style="italic" font-weight="700" x="318" y="132">uā</text>
+<text fill="var(--accent-teal)" font-size="14" font-style="italic" font-weight="700" x="355" y="203">vb̄</text>
+<text fill="var(--accent-blue)" font-size="13.5" font-weight="700" x="382" y="148">uā + vb̄</text>
+<!-- Свободные направляющие векторы a и b вне плоскости (как на слайде 2) -->
+<line marker-end="url(#m-blue)" stroke="var(--accent-blue)" stroke-width="2.3" x1="325" x2="385" y1="45" y2="33"></line>
+<text fill="var(--accent-blue)" font-size="15" font-style="italic" font-weight="800" x="350" y="28">ā</text>
+<line marker-end="url(#m-blue)" stroke="var(--accent-blue)" stroke-width="2.3" x1="370" x2="445" y1="248" y2="270"></line>
+<text fill="var(--accent-blue)" font-size="15" font-style="italic" font-weight="800" x="402" y="284">b̄</text>
+<!-- Радиус-векторы r0 и r -->
+<line marker-end="url(#m-rose)" stroke="var(--accent-rose)" stroke-width="2.5" x1="145" x2="305" y1="248" y2="168"></line>
+<line marker-end="url(#m-prim)" stroke="var(--text-primary)" stroke-width="2.3" x1="145" x2="490" y1="248" y2="153"></line>
+<rect fill="var(--svg-label-bg)" height="22" rx="4" width="28" x="202" y="182"></rect>
+<text fill="var(--accent-rose)" font-size="15" font-style="italic" font-weight="800" text-anchor="middle" x="216" y="198">r̄₀</text>
+<rect fill="var(--svg-label-bg)" height="22" rx="4" width="24" x="308" y="205"></rect>
+<text fill="var(--text-primary)" font-size="15" font-style="italic" font-weight="800" text-anchor="middle" x="320" y="221">r̄</text>
+<!-- Точки M0 и M -->
+<circle cx="305" cy="168" fill="var(--accent-rose)" r="4.5" stroke="var(--bg-surface)" stroke-width="1.5"></circle>
+<text fill="var(--text-heading)" font-size="15" font-style="italic" font-weight="800" x="275" y="160">M₀</text>
+<circle cx="490" cy="153" fill="var(--accent-blue)" r="4.5" stroke="var(--bg-surface)" stroke-width="1.5"></circle>
+<text fill="var(--text-heading)" font-size="15" font-style="italic" font-weight="800" x="502" y="157">M(r̄)</text>
+</svg>
+<div class="figure-caption">
+<strong>Рис. 1 (к слайду 2).</strong> Векторно-параметрическое задание плоскости $P$ начальной точкой $M_0(\bar{r}_0)$ и парой неколлинеарных направляющих векторов $\bar{a} \nparallel \bar{b}$: радиус-вектор любой точки $M \in P$ складывается из $\bar{r}_0$ и линейной комбинации $u\bar{a} + v\bar{b}$.
           </div>
-        </div>
-
-        <div class="callout callout-rem">
-          <div class="callout-header">
-            <span class="callout-badge">Замечание лектора</span>
-            <span class="callout-title-text">Параметрические уравнения плоскости в координатах (Слайд 3)</span>
-          </div>
-          <p>
+</figure>
+<div class="callout callout-rem">
+<div class="callout-header">
+<span class="callout-badge">Замечание лектора</span>
+<span class="callout-title-text">Параметрические уравнения плоскости в координатах (Слайд 3)</span>
+</div>
+<p>
             Так же, как для случая прямой на плоскости, введём в пространстве систему координат и обозначим координаты векторов:
-            $$\bar{r} = (x, y, z), \quad \bar{r}_0 = (x_0, y_0, z_0), \quad \bar{a} = (a_1, a_2, a_3), \quad \bar{b} = (b_1, b_2, b_3).$$
+            \[\bar{r} = (x, y, z), \quad \bar{r}_0 = (x_0, y_0, z_0), \quad \bar{a} = (a_1, a_2, a_3), \quad \bar{b} = (b_1, b_2, b_3).\]
             Расписав векторное равенство (1) покоординатно, мы получаем систему трёх равенств с двумя независимыми параметрами $u, v \in \mathbb{R}$ — <strong>параметрические уравнения плоскости</strong>:
           </p>
-          <div class="eq-box">
-            <div class="eq-content">
-              $$\begin{cases}
+<div class="eq-box">
+<div class="eq-content">
+              \[\begin{cases}
                 x = x_0 + a_1 u + b_1 v, \\
                 y = y_0 + a_2 u + b_2 v, \\
                 z = z_0 + a_3 u + b_3 v,
-              \end{cases} \qquad (u, v \in \mathbb{R}).$$
+              \end{cases} \qquad (u, v \in \mathbb{R}).\]
             </div>
-            <div class="eq-num">(1')</div>
-          </div>
-          <p>
+<div class="eq-num">(1')</div>
+</div>
+<p>
             Условие неколлинеарности направляющих векторов $\bar{a} \nparallel \bar{b}$ в координатах равносильно тому, что ранг матрицы из их координат равен двум:
-            $$\operatorname{rg}\begin{pmatrix} a_1 & a_2 & a_3 \\ b_1 & b_2 & b_3 \end{pmatrix} = 2.$$
+            \[\operatorname{rg}\begin{pmatrix} a_1 & a_2 & a_3 \\ b_1 & b_2 & b_3 \end{pmatrix} = 2.\]
           </p>
-        </div>
+</div>
+</article>
+<!-- 2. Уравнение плоскости, проходящей через три заданные точки -->
+<article class="topic-card" id="sec-plane-2">
+<div class="topic-header">
+<span class="topic-num-pill">Пункт 2</span>
+<h3 class="topic-title" data-toc="Уравнение плоскости, проходяще…" id="sub-2-2">Уравнение плоскости, проходящей через три заданные точки</h3>
+</div>
+<p>
+          Пусть точки $M_1(x_1, y_1, z_1)$, $M_2(x_2, y_2, z_2)$ и $M_3(x_3, y_3, z_3)$ лежат на плоскости $P$, а $M(x, y, z)$ — произвольная текущая точка этой плоскости.
+        </p>
+<p>
+          Тогда, очевидно, три вектора с общим началом в точке $M_1$:
+          \[\begin{aligned}
+            \overrightarrow{M_1M} &= (x - x_1,\, y - y_1,\, z - z_1), \\
+            \overrightarrow{M_1M_2} &= (x_2 - x_1,\, y_2 - y_1,\, z_2 - z_1), \\
+            \overrightarrow{M_1M_3} &= (x_3 - x_1,\, y_3 - y_1,\, z_3 - z_1)
+          \end{aligned}\]
+          лежат в одной плоскости $P$, т. е. являются <strong>компланарными</strong>. Записывая критерий компланарности трёх векторов через равенство нулю определителя из их координат, получаем <strong>уравнение плоскости, проходящей через три заданные точки</strong>:
+        </p>
+<div class="eq-box eq-highlight">
+<div class="eq-content">
+            \[\begin{vmatrix}
+              x - x_1 & y - y_1 & z - z_1 \\
+              x_2 - x_1 & y_2 - y_1 & z_2 - z_1 \\
+              x_3 - x_1 & y_3 - y_1 & z_3 - z_1
+            \end{vmatrix} = 0.\]
+          </div>
+<div class="eq-num">(2)</div>
+</div>
+<p>
+          Раскрывая этот определитель по элементам первой строки, получаем линейное уравнение относительно $x, y, z$:
+        </p>
+<div class="eq-box">
+<div class="eq-content">
+            \[\begin{aligned}
+              (x - x_1)\begin{vmatrix} y_2 - y_1 & z_2 - z_1 \\ y_3 - y_1 & z_3 - z_1 \end{vmatrix}
+              &- (y - y_1)\begin{vmatrix} x_2 - x_1 & z_2 - z_1 \\ x_3 - x_1 & z_3 - z_1 \end{vmatrix} + \\
+              &+ (z - z_1)\begin{vmatrix} x_2 - x_1 & y_2 - y_1 \\ x_3 - x_1 & y_3 - y_1 \end{vmatrix} = 0.
+            \end{aligned}\]
+          </div>
+</div>
+<div class="callout callout-q">
+<div class="callout-header">
+<span class="callout-badge">Вопрос лекции (Слайд 3)</span>
+<span class="callout-title-text">Что произойдёт, если три заданные точки лежат на одной прямой?</span>
+</div>
+<p>
+<strong>Исчерпывающий ответ (алгебраический и геометрический):</strong>
+</p>
+<ul>
+<li>
+<strong>Алгебраическое вырождение:</strong> Если точки $M_1, M_2, M_3$ лежат на одной прямой, то векторы $\overrightarrow{M_1M_2}$ и $\overrightarrow{M_1M_3}$ коллинеарны. Следовательно, вторая и третья строки определителя (2) пропорциональны. По свойству определителей, определитель с двумя пропорциональными строками <strong>тождественно равен нулю</strong> при любых значениях первой строки $(x - x_1,\, y - y_1,\, z - z_1)$. Все три алгебраических дополнения элементов первой строки обращаются в нуль одновременно, и уравнение (2) превращается в тривиальное тождество:
+              \[0 \cdot (x - x_1) + 0 \cdot (y - y_1) + 0 \cdot (z - z_1) = 0 \quad \Longleftrightarrow \quad 0 = 0.\]
+              Этому тождеству удовлетворяют координаты $(x, y, z)$ вообще <em>любой</em> точки пространства $\mathbb{R}^3$, поэтому уравнение (2) перестаёт определять плоскость.
+            </li>
+<li>
+<strong>Геометрическая картина:</strong> Через три точки, лежащие на одной прямой $L$, проходит не единственная плоскость, а бесконечное семейство плоскостей — <strong>пучок плоскостей</strong> с осью $L$. Любая точка $M$ пространства вместе с прямой $L$ лежит в какой-то плоскости этого пучка, поэтому векторы $\overrightarrow{M_1M}, \overrightarrow{M_1M_2}, \overrightarrow{M_1M_3}$ оказываются компланарными для всякой точки $M \in \mathbb{R}^3$.
+            </li>
+</ul>
+</div>
+</article>
+<!-- 3. Уравнение плоскости в отрезках -->
+<article class="topic-card" id="sec-plane-3">
+<div class="topic-header">
+<span class="topic-num-pill">Пункт 3</span>
+<h3 class="topic-title" data-toc="Уравнение плоскости в отрезках" id="sub-2-3">Уравнение плоскости в отрезках</h3>
+</div>
+<p>
+          Пусть плоскость $P$ пересекает оси координат $OX, OY, OZ$ в точках
+          \[M_1(a, 0, 0), \qquad M_2(0, b, 0), \qquad M_3(0, 0, c)\]
+          соответственно, причём $abc \neq 0$ (плоскость не проходит через начало координат). Запишем для этого случая уравнение (2) плоскости, проходящей через три эти точки:
+        </p>
+<div class="eq-box">
+<div class="eq-content">
+            \[\begin{vmatrix}
+              x - a & y - 0 & z - 0 \\
+              0 - a & b - 0 & 0 - 0 \\
+              0 - a & 0 - 0 & c - 0
+            \end{vmatrix} = 0.\]
+          </div>
+</div>
+<p>
+          Перестав писать «лишние» нули, раскроем полученный определитель третьего порядка по элементам первой строки:
+        </p>
+<div class="eq-box">
+<div class="eq-content">
+            \[\begin{aligned}
+              \begin{vmatrix}
+                x - a & y & z \\
+                -a & b & 0 \\
+                -a & 0 & c
+              \end{vmatrix}
+              &= (x - a)bc - y(-ac - 0) + z(0 - (-ab)) = \\
+              &= xbc + zba + yac - abc = 0.
+            \end{aligned}\]
+          </div>
+</div>
+<p>
+          Разделив последнее равенство на $abc \neq 0$ и перенеся единицу в правую часть, окончательно получаем <strong>уравнение плоскости в отрезках</strong>:
+        </p>
+<div class="eq-box eq-highlight">
+<div class="eq-content">
+            \[\frac{x}{a} + \frac{y}{b} + \frac{z}{c} = 1.\]
+          </div>
+<div class="eq-num">(3)</div>
+</div>
+<!-- SVG 2: Плоскость в отрезках и векторные формы -->
+<figure class="figure-plate">
+<svg aria-label="Уравнение плоскости в отрезках и нормальный вектор плоскости" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 290" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="planeGrad2" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="var(--accent-blue)" stop-opacity="0.32"></stop>
+<stop offset="100%" stop-color="var(--accent-purple)" stop-opacity="0.14"></stop>
+</lineargradient>
+<lineargradient id="planeGrad3" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="var(--accent-teal)" stop-opacity="0.28"></stop>
+<stop offset="100%" stop-color="var(--accent-blue)" stop-opacity="0.12"></stop>
+</lineargradient>
+</defs>
+<!-- Панель А: Плоскость в отрезках -->
+<g transform="translate(10, 10)">
+<rect fill="none" height="266" rx="10" stroke="var(--border-color)" stroke-width="1" width="310" x="8" y="4"></rect>
+<text fill="var(--text-heading)" font-size="13.5" font-weight="800" text-anchor="middle" x="163" y="28">а) Плоскость в отрезках (п. 3)</text>
+<!-- Оси координат -->
+<line marker-end="url(#m-axis)" stroke="var(--text-muted)" stroke-width="1.8" x1="115" x2="115" y1="172" y2="45"></line>
+<line marker-end="url(#m-axis)" stroke="var(--text-muted)" stroke-width="1.8" x1="115" x2="280" y1="172" y2="172"></line>
+<line marker-end="url(#m-axis)" stroke="var(--text-muted)" stroke-width="1.8" x1="115" x2="32" y1="172" y2="246"></line>
+<text fill="var(--text-secondary)" font-size="13" font-style="italic" font-weight="700" x="98" y="52">Z</text>
+<text fill="var(--text-secondary)" font-size="13" font-style="italic" font-weight="700" x="286" y="176">Y</text>
+<text fill="var(--text-secondary)" font-size="13" font-style="italic" font-weight="700" x="18" y="253">X</text>
+<text fill="var(--text-heading)" font-size="13" font-style="italic" font-weight="800" x="100" y="168">O</text>
+<!-- Треугольник отсечения M1(a,0,0), M2(0,b,0), M3(0,0,c) -->
+<polygon fill="url(#planeGrad2)" points="56,224 242,172 115,72" stroke="var(--accent-blue)" stroke-width="2.2"></polygon>
+<!-- Подписи отрезков a, b, c -->
+<text fill="var(--accent-rose)" font-size="13" font-style="italic" font-weight="800" x="75" y="196">a</text>
+<text fill="var(--accent-teal)" font-size="13" font-style="italic" font-weight="800" x="175" y="166">b</text>
+<text fill="var(--accent-amber)" font-size="13" font-style="italic" font-weight="800" x="100" y="125">c</text>
+<circle cx="56" cy="224" fill="var(--accent-rose)" r="4.5" stroke="var(--bg-surface)" stroke-width="1.5"></circle>
+<text fill="var(--text-primary)" font-size="12" font-weight="700" x="64" y="242">M₁(a, 0, 0)</text>
+<circle cx="242" cy="172" fill="var(--accent-teal)" r="4.5" stroke="var(--bg-surface)" stroke-width="1.5"></circle>
+<text fill="var(--text-primary)" font-size="12" font-weight="700" x="208" y="194">M₂(0, b, 0)</text>
+<circle cx="115" cy="72" fill="var(--accent-amber)" r="4.5" stroke="var(--bg-surface)" stroke-width="1.5"></circle>
+<text fill="var(--text-primary)" font-size="12" font-weight="700" x="125" y="76">M₃(0, 0, c)</text>
+</g>
+<!-- Панель Б: Векторное уравнение через нормаль -->
+<g transform="translate(345, 10)">
+<rect fill="none" height="266" rx="10" stroke="var(--border-color)" stroke-width="1" width="315" x="8" y="4"></rect>
+<text fill="var(--text-heading)" font-size="13.5" font-weight="800" text-anchor="middle" x="165" y="28">б) Нормальный вектор n̄ ⊥ P (п. 4–5)</text>
+<!-- Плоскость P -->
+<polygon fill="url(#planeGrad3)" points="24,205 102,120 305,140 228,225" stroke="var(--accent-teal)" stroke-width="1.8"></polygon>
+<text fill="var(--accent-teal)" font-size="15" font-style="italic" font-weight="800" x="278" y="160">P</text>
+<!-- Прямой угол между нормалью и вектором на плоскости -->
+<polyline fill="none" points="130,160 144,161.5 144,175.5" stroke="var(--accent-rose)" stroke-width="1.8"></polyline>
+<!-- Нормаль n = [p, q] -->
+<line marker-end="url(#m-rose)" stroke="var(--accent-rose)" stroke-width="2.6" x1="130" x2="130" y1="174" y2="56"></line>
+<text fill="var(--accent-rose)" font-size="14.5" font-style="italic" font-weight="800" x="142" y="72">n̄ = [p̄, q̄] ⊥ P</text>
+<!-- Вектор r - r0 -->
+<line marker-end="url(#m-blue)" stroke="var(--accent-blue)" stroke-width="2.4" x1="130" x2="238" y1="174" y2="186"></line>
+<text fill="var(--accent-blue)" font-size="14" font-style="italic" font-weight="800" x="168" y="205">r̄ − r̄₀</text>
+<!-- Направляющие векторы p и q -->
+<line marker-end="url(#m-teal)" stroke="var(--accent-teal)" stroke-width="1.8" x1="130" x2="90" y1="174" y2="198"></line>
+<line marker-end="url(#m-teal)" stroke="var(--accent-teal)" stroke-width="1.8" x1="130" x2="175" y1="174" y2="145"></line>
+<text fill="var(--accent-teal)" font-size="13" font-style="italic" font-weight="700" x="74" y="196">p̄</text>
+<text fill="var(--accent-teal)" font-size="13" font-style="italic" font-weight="700" x="178" y="144">q̄</text>
+<!-- Точки M0 и M -->
+<circle cx="130" cy="174" fill="var(--accent-rose)" r="4.5" stroke="var(--bg-surface)" stroke-width="1.5"></circle>
+<text fill="var(--text-heading)" font-size="13" font-weight="800" x="82" y="172">M₀(r̄₀)</text>
+<circle cx="238" cy="186" fill="var(--accent-blue)" r="4.5" stroke="var(--bg-surface)" stroke-width="1.5"></circle>
+<text fill="var(--text-heading)" font-size="13" font-weight="800" x="246" y="190">M(r̄)</text>
+</g>
+</svg>
+<div class="figure-caption">
+<strong>Рис. 2 (к слайдам 4–5).</strong> а) Плоскость в отрезках $\frac{x}{a} + \frac{y}{b} + \frac{z}{c} = 1$, отсекающая на осях координат отрезки $a, b, c$. б) Задание плоскости точкой $M_0(\bar{r}_0)$ и нормальным вектором $\bar{n} \perp P$: вектор $\bar{r} - \bar{r}_0$ лежит в плоскости $P$ тогда и только тогда, когда $(\bar{r} - \bar{r}_0, \bar{n}) = 0$.
+          </div>
+</figure>
+</article>
+<!-- 4–5. Первая и вторая формы векторного уравнения плоскости -->
+<article class="topic-card" id="sec-plane-4">
+<div class="topic-header">
+<span class="topic-num-pill">Пункты 4–5</span>
+<h3 class="topic-title" data-toc="Первая и вторая формы векторно…" id="sub-2-4">Первая и вторая формы векторного уравнения плоскости</h3>
+</div>
+<div class="statement definition" id="def-1"><div class="block-label">Определение 1</div><h3 data-toc="ОпределениеНормальный вектор п…" id="sub-2-5">ОпределениеНормальный вектор плоскости (Слайд 5)</h3><div>
+<p>
+            Любой <strong>ненулевой вектор</strong>, ортогональный (перпендикулярный) данной плоскости $P$, называется <strong>нормальным вектором</strong> этой плоскости ($\bar{n} \perp P$, $\bar{n} \neq \bar{0}$).
+          </p>
+</div></div>
+<h4 class="subtopic-title" data-toc=". Векторное уравнение плоскост…" id="sub-2-6">4). Векторное уравнение плоскости (первая форма)</h4>
+<p>
+          Плоскость $P$ можно однозначно задать какой-либо одной её точкой $M_0 \in P$ с радиус-вектором $\bar{r}_0$ и нормальным вектором $\bar{n} \perp P$. Пусть $\bar{r}$ — радиус-вектор произвольной точки $M$ плоскости $P$.
+        </p>
+<p>
+          Очевидно, $(\bar{r} - \bar{r}_0) \perp \bar{n}$, откуда, применив критерий ортогональности векторов (равенство нулю скалярного произведения), получаем <strong>векторное уравнение плоскости</strong>:
+        </p>
+<div class="eq-box eq-highlight">
+<div class="eq-content">
+            \[(\bar{r} - \bar{r}_0, \bar{n}) = 0.\]
+          </div>
+<div class="eq-num">(4)</div>
+</div>
+<h4 class="subtopic-title" data-toc=". Вторая форма векторного урав…" id="sub-2-7">5). Вторая форма векторного уравнения плоскости</h4>
+<p>
+          Пусть, как и в п. 1), плоскость $P$ определяется точкой с радиус-вектором $\bar{r}_0$ и парой неколлинеарных направляющих векторов $\bar{p}, \bar{q}$ ($\bar{p} \nparallel \bar{q}$). Очевидно, если $\bar{r}$ — радиус-вектор произвольной точки плоскости, то векторы $\bar{r} - \bar{r}_0, \bar{p}, \bar{q}$ <strong>компланарны</strong>. Записывая для этих векторов условие компланарности через смешанное произведение, получаем уравнение плоскости во второй векторной форме:
+        </p>
+<div class="eq-box eq-highlight">
+<div class="eq-content">
+            \[\langle \bar{r} - \bar{r}_0, \bar{p}, \bar{q} \rangle = 0.\]
+          </div>
+<div class="eq-num">(5)</div>
+</div>
+<p>
+          Заметим, что по свойству смешанного произведения $\langle \bar{r} - \bar{r}_0, \bar{p}, \bar{q} \rangle = (\bar{r} - \bar{r}_0, [\bar{p}, \bar{q}])$. Полагая $\bar{n} = [\bar{p}, \bar{q}] \neq \bar{0}$, мы сразу переходим от второй векторной формы (5) к первой векторной форме (4).
+        </p>
+</article>
+<!-- 6. Общее уравнение плоскости -->
+<article class="topic-card" id="sec-plane-6">
+<div class="topic-header">
+<span class="topic-num-pill">Пункт 6</span>
+<h3 class="topic-title" data-toc="Общее уравнение плоскости и ге…" id="sub-2-8">Общее уравнение плоскости и геометрический смысл коэффициентов</h3>
+</div>
+<p>
+          Введём обозначения координат для векторов из п. 4):
+          \[\bar{r} = \bar{r}(x, y, z), \qquad \bar{r}_0 = \bar{r}_0(x_0, y_0, z_0), \qquad \bar{n} = \bar{n}(A, B, C) \neq \bar{0}.\]
+          Вычислим скалярное произведение $(\bar{r} - \bar{r}_0, \bar{n})$ из (4), считая, что <strong>система координат ортонормированная (ОНСК)</strong>:
+        </p>
+<div class="eq-box">
+<div class="eq-content">
+            \[\begin{aligned}
+              (\bar{r} - \bar{r}_0, \bar{n})
+              &= ((x - x_0,\, y - y_0,\, z - z_0),\, (A, B, C)) = \\
+              &= A(x - x_0) + B(y - y_0) + C(z - z_0) = \\
+              &= Ax + By + Cz - (Ax_0 + By_0 + Cz_0) = 0.
+            \end{aligned}\]
+          </div>
+</div>
+<p>
+          Обозначив число, записанное в последних скобках со знаком минус, через $D = -(Ax_0 + By_0 + Cz_0)$, окончательно получим уравнение:
+        </p>
+<div class="eq-box eq-highlight">
+<div class="eq-content">
+            \[Ax + By + Cz + D = 0, \qquad (A^2 + B^2 + C^2 > 0),\]
+          </div>
+<div class="eq-num">(6)</div>
+</div>
+<p>
+          которое и называется <strong>общим уравнением плоскости</strong>.
+        </p>
+<div class="statement theorem featured" id="thm-1"><div class="block-label">Утверждение 1</div><h3 data-toc="Теорема (Слайд 6)Геометрически…" id="sub-2-9">3. Теорема (Слайд 6)Геометрический смысл коэффициентов общего уравнения плоскости в ОНСК</h3><div>
+<p>
+            Пусть $Ax + By + Cz + D = 0$ ($A^2 + B^2 + C^2 > 0$) — общее уравнение плоскости <u>в ортонормированной системе координат</u>. Тогда вектор $\bar{n} = (A, B, C)$ является <strong>нормальным вектором</strong> этой плоскости.
+          </p>
+</div></div>
+<div class="callout callout-proof">
+<div class="callout-header">
+<span class="callout-badge">Доказательство</span>
+<span class="callout-title-text">Строгий вывод (по аналогии с теоремой 1 для прямой на плоскости)</span>
+</div>
+<p>
+            Пусть плоскость $P$ задана в ОНСК уравнением $Ax + By + Cz + D = 0$, где $A^2 + B^2 + C^2 > 0$, и пусть $M_0(x_0, y_0, z_0) \in P$ — некоторая фиксированная точка этой плоскости. Тогда её координаты удовлетворяют уравнению плоскости:
+            \[Ax_0 + By_0 + Cz_0 + D = 0 \quad \Longrightarrow \quad D = -(Ax_0 + By_0 + Cz_0).\]
+            Подставляя выражение для $D$ в уравнение (6), получаем для любой точки $M(x, y, z) \in P$:
+            \[A(x - x_0) + B(y - y_0) + C(z - z_0) = 0.\]
+            Так как система координат <strong>ортонормированная</strong>, левая часть этого равенства есть скалярное произведение ненулевого вектора $\bar{n} = (A, B, C)$ и вектора $\overrightarrow{M_0M} = \bar{r} - \bar{r}_0 = (x - x_0,\, y - y_0,\, z - z_0)$, лежащего в плоскости $P$:
+            \[(\bar{r} - \bar{r}_0, \bar{n}) = 0.\]
+            Следовательно, вектор $\bar{n} = (A, B, C)$ перпендикулярен любому вектору на плоскости $P$, а значит, является нормальным вектором этой плоскости: $\bar{n} \perp P$.
+          </p>
+<div class="qed">∎</div>
+</div>
+<div class="callout callout-rem">
+<div class="callout-header">
+<span class="callout-badge">Замечание (Слайд 7)</span>
+<span class="callout-title-text">Общее уравнение плоскости в неортонормированной (аффинной) СК — Доказательство</span>
+</div>
+<p>
+<em>«Легко видеть (докажите!), что общее уравнение (6) определяет плоскость в любой, не обязательно ортонормированной, системе координат, но в неортонормированной системе $(A, B, C)$ не будет нормальным вектором плоскости.»</em>
+</p>
+<ul class="step-list">
+<li class="step-item">
+<div class="step-item-title">Часть 1. Почему уравнение (6) задаёт плоскость в любой аффинной СК?</div>
+<p>
+                Так как $A^2 + B^2 + C^2 > 0$, хотя бы один из коэффициентов не равен нулю — пусть, например, $C \neq 0$. Выразим $z$ через свободные переменные $x = u \in \mathbb{R}$ и $y = v \in \mathbb{R}$:
+                \[\begin{cases}
+                  x = 0 + 1 \cdot u + 0 \cdot v, \\
+                  y = 0 + 0 \cdot u + 1 \cdot v, \\
+                  z = -\dfrac{D}{C} - \dfrac{A}{C} u - \dfrac{B}{C} v.
+                \end{cases}\]
+                В векторной форме это равенство имеет вид $\bar{r} = \bar{r}_0 + u\bar{a} + v\bar{b}$ с начальной точкой $\bar{r}_0 = \left(0, 0, -\frac{D}{C}\right)$ и неколлинеарными векторами $\bar{a} = \left(1, 0, -\frac{A}{C}\right) \nparallel \bar{b} = \left(0, 1, -\frac{B}{C}\right)$. Поскольку вывод векторно-параметрического уравнения (1) опирался исключительно на линейные операции над векторами и не зависел от углов между осями или длин базисных векторов, уравнение (6) определяет плоскость в любой аффинной системе координат.
+              </p>
+</li>
+<li class="step-item">
+<div class="step-item-title">Часть 2. Почему вектор (A, B, C) не является нормалью в косоугольной СК?</div>
+<p>
+                В общей аффинной системе координат с базисом $(\bar{e}_1, \bar{e}_2, \bar{e}_3)$ скалярное произведение векторов $\bar{u}$ и $\bar{v}$ вычисляется через матрицу Грама $G = (g_{ij})$, где $g_{ij} = (\bar{e}_i, \bar{e}_j)$:
+                \[(\bar{u}, \bar{v}) = \sum_{i,j=1}^3 g_{ij} u_i v_j.\]
+                Оно равно простой сумме $u_1v_1 + u_2v_2 + u_3v_3$ только при $G = E$ (в ОНСК). В косоугольной или разномасштабной системе координат равенство $A(x-x_0) + B(y-y_0) + C(z-z_0) = 0$ <em>не означает</em> равенства нулю скалярного произведения векторов $(A, B, C)$ и $(x-x_0, y-y_0, z-z_0)$, поэтому вектор $(A, B, C)$ не перпендикулярен плоскости.
+              </p>
+</li>
+</ul>
+</div>
+<h4 class="subtopic-title" data-toc="Справочник: Неполные уравнения…" id="sub-2-10">Справочник: Неполные уравнения плоскости ($Ax + By + Cz + D = 0$)</h4>
+<div class="table-wrap">
+<table class="data-table">
+<thead>
+<tr>
+<th>Условие на коэффициенты</th>
+<th>Уравнение плоскости</th>
+<th>Геометрическая особенность расположения плоскости</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$D = 0$</td>
+<td>$Ax + By + Cz = 0$</td>
+<td>Проходит через начало координат $O(0, 0, 0)$.</td>
+</tr>
+<tr>
+<td>$A = 0$ <em>(или $B=0$, или $C=0$)</em></td>
+<td>$By + Cz + D = 0$</td>
+<td>Параллельна оси $OX$ <em>(при $B=0$ — параллельна $OY$; при $C=0$ — параллельна $OZ$)</em>.</td>
+</tr>
+<tr>
+<td>$A = 0,\; D = 0$</td>
+<td>$By + Cz = 0$</td>
+<td>Проходит через ось $OX$ (содержит ось $OX$ целиком).</td>
+</tr>
+<tr>
+<td>$A = 0,\; B = 0$</td>
+<td>$Cz + D = 0 \iff z = -D/C$</td>
+<td>Параллельна координатной плоскости $OXY$ ($\perp OZ$).</td>
+</tr>
+<tr>
+<td>$A = 0,\; B = 0,\; D = 0$</td>
+<td>$z = 0$ <em>(аналогично $x=0, y=0$)</em></td>
+<td>Совпадает с координатной плоскостью $OXY$ <em>(соответственно $OYZ$, $OXZ$)</em>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</article>
+<!-- Задача 4. Расстояние от заданной точки до заданной плоскости -->
+<article class="topic-card" id="sec-plane-dist">
+<div class="topic-header">
+<span class="topic-num-pill">4. Задача</span>
+<h3 class="topic-title" data-toc="Расстояние от заданной точки д…" id="sub-2-11">Расстояние от заданной точки до заданной плоскости (Слайды 7–9)</h3>
+</div>
+<p>
+<strong>Постановка задачи:</strong> Найти расстояние $\rho(M, P)$ от заданной точки $M(x_1, y_1, z_1)$ с радиус-вектором $\bar{R}(x_1, y_1, z_1)$ до плоскости $P$, заданной начальной точкой $M_0$ с радиус-вектором $\bar{r}_0(x_0, y_0, z_0)$ и парой неколлинеарных направляющих векторов $\bar{p}, \bar{q}$.<br/>
+<em>Далее система координат предполагается ортонормированной!</em>
+</p>
+<h4 class="subtopic-title" data-toc="Решение (через объём параллеле…" id="sub-2-12">Решение (через объём параллелепипеда)</h4>
+<p>
+          Запишем уравнение плоскости $P$ во второй векторной форме:
+          \[\langle \bar{r} - \bar{r}_0, \bar{p}, \bar{q} \rangle = 0.\]
+          Построим параллелепипед на трёх векторах, приложенных к начальной точке $M_0(\bar{r}_0)$: направляющих векторах плоскости $\bar{p}, \bar{q}$ и векторе $\bar{R} - \bar{r}_0 = \overrightarrow{M_0M}$ (рис. 3).
+        </p>
+<!-- SVG 3: Параллелепипед и высота h = расстояние от точки до плоскости -->
+<figure class="figure-plate">
+<svg aria-label="Вывод расстояния от точки до плоскости через объём параллелепипеда" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 315" xmlns="http://www.w3.org/2000/svg">
+<!-- Фоновая координатная сетка -->
+<g opacity="0.5" stroke="var(--svg-grid)" stroke-width="1">
+<line x1="20" x2="660" y1="60" y2="60"></line>
+<line x1="20" x2="660" y1="120" y2="120"></line>
+<line x1="20" x2="660" y1="180" y2="180"></line>
+<line x1="20" x2="660" y1="240" y2="240"></line>
+<line x1="140" x2="140" y1="20" y2="295"></line>
+<line x1="280" x2="280" y1="20" y2="295"></line>
+<line x1="420" x2="420" y1="20" y2="295"></line>
+<line x1="560" x2="560" y1="20" y2="295"></line>
+</g>
+<!-- Плоскость P -->
+<polygon fill="url(#planeGrad1)" points="185,228 275,132 585,132 495,228" stroke="var(--accent-blue)" stroke-width="1.8"></polygon>
+<rect fill="var(--svg-label-bg)" height="24" rx="5" stroke="var(--accent-blue)" stroke-width="1" width="32" x="535" y="195"></rect>
+<text fill="var(--accent-blue)" font-size="15" font-style="italic" font-weight="800" text-anchor="middle" x="551" y="212">P</text>
+<!-- Начало координат O -->
+<line marker-end="url(#m-rose)" stroke="var(--accent-rose)" stroke-width="2" x1="125" x2="125" y1="274" y2="215"></line>
+<line marker-end="url(#m-rose)" stroke="var(--accent-rose)" stroke-width="2" x1="125" x2="185" y1="274" y2="274"></line>
+<line marker-end="url(#m-rose)" stroke="var(--accent-rose)" stroke-width="2" x1="125" x2="92" y1="274" y2="302"></line>
+<circle cx="125" cy="274" fill="var(--accent-rose)" r="3.5"></circle>
+<text fill="var(--text-heading)" font-size="14" font-style="italic" font-weight="800" x="105" y="298">O</text>
+<!-- Полупрозрачная заливка граней параллелепипеда -->
+<!-- M0=(320,200), p=(115,0)->(435,200), q=(42,-48)->(362,152), M0+p+q=(477,152) -->
+<!-- M=(355,82), M+p=(470,82), M+q=(397,34), M+p+q=(512,34) -->
+<polygon fill="var(--svg-plane-teal)" opacity="0.6" points="320,200 435,200 477,152 362,152"></polygon>
+<polygon fill="var(--svg-plane-purple)" opacity="0.45" points="355,82 470,82 512,34 397,34"></polygon>
+<!-- Пунктирные рёбра параллелепипеда -->
+<line stroke="var(--text-muted)" stroke-dasharray="5,4" stroke-width="1.5" x1="362" x2="477" y1="152" y2="152"></line>
+<line stroke="var(--text-muted)" stroke-dasharray="5,4" stroke-width="1.5" x1="435" x2="477" y1="200" y2="152"></line>
+<line stroke="var(--text-secondary)" stroke-dasharray="5,4" stroke-width="1.6" x1="355" x2="470" y1="82" y2="82"></line>
+<line stroke="var(--text-secondary)" stroke-dasharray="5,4" stroke-width="1.6" x1="355" x2="397" y1="82" y2="34"></line>
+<line stroke="var(--text-secondary)" stroke-dasharray="5,4" stroke-width="1.6" x1="397" x2="512" y1="34" y2="34"></line>
+<line stroke="var(--text-secondary)" stroke-dasharray="5,4" stroke-width="1.6" x1="470" x2="512" y1="82" y2="34"></line>
+<line stroke="var(--text-secondary)" stroke-dasharray="5,4" stroke-width="1.6" x1="435" x2="470" y1="200" y2="82"></line>
+<line stroke="var(--text-secondary)" stroke-dasharray="5,4" stroke-width="1.6" x1="362" x2="397" y1="152" y2="34"></line>
+<line stroke="var(--text-secondary)" stroke-dasharray="5,4" stroke-width="1.6" x1="477" x2="512" y1="152" y2="34"></line>
+<!-- Высота h из M(355, 82) на плоскость P в точку H(355, 182) -->
+<line stroke="var(--accent-teal)" stroke-width="2.8" x1="355" x2="355" y1="82" y2="182"></line>
+<polyline fill="none" points="355,170 366,170 366,182" stroke="var(--accent-teal)" stroke-width="1.8"></polyline>
+<rect fill="var(--svg-label-bg)" height="22" rx="4" width="24" x="362" y="118"></rect>
+<text fill="var(--accent-teal)" font-size="15" font-style="italic" font-weight="800" text-anchor="middle" x="374" y="135">h</text>
+<!-- Векторы основания p и q -->
+<line marker-end="url(#m-prim)" stroke="var(--text-primary)" stroke-width="2.4" x1="320" x2="435" y1="200" y2="200"></line>
+<line marker-end="url(#m-prim)" stroke="var(--text-primary)" stroke-width="2.4" x1="320" x2="362" y1="200" y2="152"></line>
+<text fill="var(--text-heading)" font-size="15" font-style="italic" font-weight="800" x="378" y="218">p̄</text>
+<text fill="var(--text-heading)" font-size="15" font-style="italic" font-weight="800" x="324" y="172">q̄</text>
+<!-- Боковое ребро R - r0 -->
+<line marker-end="url(#m-blue)" stroke="var(--accent-blue)" stroke-width="2.6" x1="320" x2="355" y1="200" y2="82"></line>
+<rect fill="var(--svg-label-bg)" height="24" rx="5" stroke="var(--border-color)" width="62" x="242" y="96"></rect>
+<text fill="var(--accent-blue)" font-size="14.5" font-style="italic" font-weight="800" text-anchor="middle" x="273" y="113">R̄ − r̄₀</text>
+<!-- Радиус-векторы r0 и R -->
+<line marker-end="url(#m-prim)" stroke="var(--text-primary)" stroke-width="2.2" x1="125" x2="320" y1="274" y2="200"></line>
+<line marker-end="url(#m-prim)" stroke="var(--text-primary)" stroke-width="2.2" x1="125" x2="355" y1="274" y2="82"></line>
+<text fill="var(--text-heading)" font-size="15" font-style="italic" font-weight="800" x="242" y="252">r̄₀</text>
+<text fill="var(--text-heading)" font-size="15" font-style="italic" font-weight="800" x="215" y="172">R̄</text>
+<!-- Точки M0 и M -->
+<circle cx="320" cy="200" fill="var(--text-heading)" r="4.5" stroke="var(--bg-surface)" stroke-width="1.5"></circle>
+<text fill="var(--text-heading)" font-size="14" font-weight="800" x="290" y="216">M₀</text>
+<circle cx="355" cy="82" fill="var(--accent-blue)" r="4.5" stroke="var(--bg-surface)" stroke-width="1.5"></circle>
+<text fill="var(--text-heading)" font-size="14" font-weight="800" x="315" y="68">M(x₁, y₁, z₁)</text>
+</svg>
+<div class="figure-caption">
+<strong>Рис. 3 (к слайду 8).</strong> Вычисление расстояния $h = \rho(M, P)$ от точки $M(\bar{R})$ до плоскости $P$: объём параллелепипеда $V_{\text{пар-да}} = |\langle \bar{R} - \bar{r}_0, \bar{p}, \bar{q} \rangle|$ равен произведению высоты $h$ на площадь основания $S_{\text{осн}} = |[\bar{p}, \bar{q}]|$.
+          </div>
+</figure>
+<p>
+          Запишем объём этого параллелепипеда двумя способами:
+        </p>
+<div class="eq-box">
+<div class="eq-content">
+            \[V_{\text{пар-да}} = |\langle \bar{R} - \bar{r}_0, \bar{p}, \bar{q} \rangle| = h \cdot S_{\text{осн}} = h \cdot |[\bar{p}, \bar{q}]|.\]
+          </div>
+</div>
+<p>
+          Отсюда выражаем высоту $h$ и обозначаем нормальный вектор плоскости через $\bar{n} = [\bar{p}, \bar{q}]$:
+        </p>
+<div class="eq-box eq-highlight">
+<div class="eq-content">
+            \[h = \frac{|\langle \bar{R} - \bar{r}_0, \bar{p}, \bar{q} \rangle|}{|[\bar{p}, \bar{q}]|} = \frac{|(\bar{R} - \bar{r}_0, [\bar{p}, \bar{q}])|}{|[\bar{p}, \bar{q}]|} = \frac{|(\bar{R} - \bar{r}_0, \bar{n})|}{|\bar{n}|}.\]
+          </div>
+<div class="eq-num">(*)</div>
+</div>
+<p>
+          Пусть теперь $\bar{n} = (A, B, C)$, т. е. общее уравнение нашей плоскости — это $Ax + By + Cz + D = 0$. Тогда в ортонормированной системе координат числитель дроби $(*)$ преобразуется следующим образом:
+        </p>
+<div class="eq-box">
+<div class="eq-content">
+            \[\begin{aligned}
+              \text{Числитель } (*)
+              &= |((x_1 - x_0,\, y_1 - y_0,\, z_1 - z_0),\, (A, B, C))| = \\
+              &= |Ax_1 + By_1 + Cz_1 - (Ax_0 + By_0 + Cz_0)| = \\
+              &= |Ax_1 + By_1 + Cz_1 + D|,
+            \end{aligned}\]
+          </div>
+</div>
+<p>
+          поскольку $Ax_0 + By_0 + Cz_0 + D = 0$, так как начальная точка $(x_0, y_0, z_0) \in P$. Деля на длину нормали $|\bar{n}| = \sqrt{A^2 + B^2 + C^2}$, получаем итоговую формулу расстояния (Слайд 9):
+        </p>
+<div class="eq-box eq-highlight">
+<div class="eq-content">
+            \[\rho(M, P) = h = \frac{|(\bar{R} - \bar{r}_0, \bar{n})|}{|\bar{n}|} = \frac{|Ax_1 + By_1 + Cz_1 + D|}{\sqrt{A^2 + B^2 + C^2}}.\]
+          </div>
+</div>
+<div class="statement definition" id="def-2"><div class="block-label">Определение 2</div><h3 data-toc="Правило (Слайд 9)Как найти рас…" id="sub-2-13">Правило (Слайд 9)Как найти расстояние от точки до плоскости в ОНСК</h3><div>
+<p>
+<em>Чтобы в ортонормированной системе координат найти расстояние от точки до плоскости, достаточно подставить координаты этой точки в общее уравнение плоскости и модуль полученного числа разделить на корень квадратный из суммы квадратов коэффициентов $A, B$ и $C$ общего уравнения плоскости.</em>
+</p>
+</div></div>
+</article>
+<!-- 7. Нормальное уравнение плоскости -->
+<article class="topic-card" id="sec-plane-7">
+<div class="topic-header">
+<span class="topic-num-pill">Пункт 7</span>
+<h3 class="topic-title" data-toc="Нормальное уравнение плоскости" id="sub-2-14">Нормальное уравнение плоскости</h3>
+</div>
+<div class="statement definition" id="def-3"><div class="block-label">Определение 3</div><h3 data-toc="ОпределениеНормальное уравнени…" id="sub-2-15">ОпределениеНормальное уравнение плоскости (Слайд 9)</h3><div>
+              \[\frac{Ax + By + Cz + D}{\sqrt{A^2 + B^2 + C^2}} = 0,\]
+            </div></div>
+<p>
+          Уравнение (7) можно переписать в виде:
+        </p>
+<div class="eq-box eq-highlight">
+<div class="eq-content">
+            \[x \cos\alpha + y \cos\beta + z \cos\gamma + p = 0,\]
+          </div>
+<div class="eq-num">(7')</div>
+</div>
+<p>
+          где коэффициенты определяются формулами:
+        </p>
+<ul>
+<li>
+            \[\cos\alpha = \frac{A}{\sqrt{A^2 + B^2 + C^2}}, \quad \cos\beta = \frac{B}{\sqrt{A^2 + B^2 + C^2}}, \quad \cos\gamma = \frac{C}{\sqrt{A^2 + B^2 + C^2}}\]
+            — косинусы углов, образуемых нормальным вектором плоскости с осями координат $OX, OY, OZ$, т. е. <strong>направляющие косинусы нормального вектора</strong> ($\cos^2\alpha + \cos^2\beta + \cos^2\gamma = 1$);
+          </li>
+<li>
+            \[|p| = \frac{|D|}{\sqrt{A^2 + B^2 + C^2}}\]
+            — <strong>расстояние от начала координат $O(0, 0, 0)$ до плоскости</strong>.
+          </li>
+</ul>
+<div class="worked-example" id="ex-1"><div class="block-label">Пример 1</div><h3 data-toc="Практический пример 1Построени…" id="sub-2-16">Практический пример 1Построение уравнений плоскости и вычисление расстояния</h3><div>
+<p>
+<strong>Задача:</strong> В ОНСК плоскость $P$ отсекает на осях координат отрезки $a = 2$, $b = -2$, $c = 1$. Записать уравнение плоскости в отрезках, общее и нормальное уравнения, а также найти расстояние от точки $M(3, 1, -2)$ до плоскости $P$.
+          </p>
+<ul class="step-list">
+<li class="step-item">
+<div class="step-item-title">Шаг 1. Уравнение в отрезках и общее уравнение</div>
+<p>
+                По формуле (3) записываем уравнение в отрезках и умножаем на $2$:
+                \[\frac{x}{2} + \frac{y}{-2} + \frac{z}{1} = 1 \quad \Longleftrightarrow \quad x - y + 2z - 2 = 0.\]
+                Здесь нормальный вектор $\bar{n} = (1, -1, 2)$, а его длина $|\bar{n}| = \sqrt{1^2 + (-1)^2 + 2^2} = \sqrt{6}$.
+              </p>
+</li>
+<li class="step-item">
+<div class="step-item-title">Шаг 2. Нормальное уравнение и расстояние от точки M(3, 1, −2)</div>
+<p>
+                Делим общее уравнение на $\sqrt{6}$, получая нормальное уравнение (7):
+                \[\frac{1}{\sqrt{6}}x - \frac{1}{\sqrt{6}}y + \frac{2}{\sqrt{6}}z - \frac{2}{\sqrt{6}} = 0 \qquad \left(|p| = \frac{2}{\sqrt{6}} = \frac{\sqrt{6}}{3}\right).\]
+                Подставляем координаты точки $M(3, 1, -2)$ в формулу расстояния:
+                \[\rho(M, P) = \frac{|1 \cdot 3 - 1 \cdot 1 + 2 \cdot (-2) - 2|}{\sqrt{6}} = \frac{|-4|}{\sqrt{6}} = \frac{4}{\sqrt{6}} = \frac{2\sqrt{6}}{3}.\]
+              </p>
+</li>
+</ul>
+</div></div>
+</article>
+
+<!-- ======================================================================
+         РАЗДЕЛ II.3. УРАВНЕНИЯ ПРЯМОЙ В ПРОСТРАНСТВЕ
+         ====================================================================== -->
+<section class="chapter-section" id="chapter-line">
+<div class="chapter-banner">
+<div class="chapter-badge">§ II.3</div>
+<div class="chapter-title-wrap">
+</div></div></section>
+</section>
+<section class="chapter" aria-labelledby="chapter-3">
+  <div class="chapter-kicker">03 / Уравнения прямой в пространстве</div>
+  <h2 id="chapter-3" data-toc="Уравнения прямой в пространстве">Уравнения прямой в пространстве</h2>
+  
+<p>Векторные, параметрические, канонические и общие уравнения прямой и переходы между ними</p>
+
+
+<!-- 1, 2, 3. Векторное параметрическое, параметрические и векторное уравнения -->
+<article class="topic-card" id="sec-line-1">
+<div class="topic-header">
+<span class="topic-num-pill">Пункты 1–3</span>
+<h3 class="topic-title" data-toc="Векторно-параметрическое, пара…" id="sub-3-1">Векторно-параметрическое, параметрические и векторное уравнения прямой</h3>
+</div>
+<h4 class="subtopic-title" data-toc=". Векторное параметрическое ур…" id="sub-3-2">1). Векторное параметрическое уравнение прямой (Слайд 10)</h4>
+<p>
+          Пусть задана точка $M_0$ с радиус-вектором $\bar{r}_0$, принадлежащая прямой, и ненулевой <strong>направляющий вектор</strong> $\bar{a} \neq \bar{0}$ этой прямой. Точно так же, как для случая прямой на плоскости, получаем уравнение:
+        </p>
+<div class="eq-box eq-highlight">
+<div class="eq-content">
+            \[\bar{r} = \bar{r}_0 + t\bar{a}, \qquad (t \in \mathbb{R}).\]
+          </div>
+<div class="eq-num">(1)</div>
+</div>
+<h4 class="subtopic-title" data-toc=". Параметрические уравнения пр…" id="sub-3-3">2). Параметрические уравнения прямой (Слайд 10)</h4>
+<p>
+          Если в уравнении (1) обозначить координаты $\bar{r} = (x, y, z)$, $\bar{r}_0 = (x_0, y_0, z_0)$ и $\bar{a} = (a_1, a_2, a_3)$, то покоординатная запись даёт <strong>параметрические уравнения прямой в пространстве</strong>:
+        </p>
+<div class="eq-box eq-highlight">
+<div class="eq-content">
+            \[\begin{cases}
+              x = x_0 + a_1 t, \\
+              y = y_0 + a_2 t, \\
+              z = z_0 + a_3 t,
+            \end{cases} \qquad (t \in \mathbb{R}).\]
+          </div>
+<div class="eq-num">(2)</div>
+</div>
+<h4 class="subtopic-title" data-toc=". Векторное уравнение прямой (…" id="sub-3-4">3). Векторное уравнение прямой (Слайд 10)</h4>
+<p>
+          Коллинеарность векторов $\overrightarrow{M_0M} = \bar{r} - \bar{r}_0$ и $\bar{a}$ равносильна равенству нулевому вектору их векторного произведения. Получаем <strong>векторное уравнение прямой</strong>:
+        </p>
+<div class="eq-box eq-highlight">
+<div class="eq-content">
+            \[[\bar{r} - \bar{r}_0, \bar{a}] = \bar{0}.\]
+          </div>
+<div class="eq-num">(3)</div>
+</div>
+</article>
+<!-- 4 & 5. Каноническое уравнение и уравнение прямой через две точки -->
+<article class="topic-card" id="sec-line-4">
+<div class="topic-header">
+<span class="topic-num-pill">Пункты 4–5</span>
+<h3 class="topic-title" data-toc="Каноническое уравнение прямой …" id="sub-3-5">Каноническое уравнение прямой и уравнение через две заданные точки</h3>
+</div>
+<h4 class="subtopic-title" data-toc=". Каноническое уравнение прямо…" id="sub-3-6">4). Каноническое уравнение прямой (Слайд 11)</h4>
+<p>
+          Так же, как в случае прямой на плоскости, исключая параметр $t$ из параметрических уравнений (2), находим <strong>каноническое уравнение прямой в пространстве</strong>:
+        </p>
+<div class="eq-box eq-highlight">
+<div class="eq-content">
+            \[\frac{x - x_0}{a_1} = \frac{y - y_0}{a_2} = \frac{z - z_0}{a_3}.\]
+          </div>
+<div class="eq-num">(4)</div>
+</div>
+<div class="callout callout-rem">
+<div class="callout-header">
+<span class="callout-badge">Важное соглашение</span>
+<span class="callout-title-text">О нулях в знаменателях канонического уравнения (Слайд 11)</span>
+</div>
+<p>
+            В записи (4) действует точно такое же соглашение про нули в знаменателях, как и в случае канонического уравнения прямой на плоскости: равенство (4) понимается как пропорция $(x - x_0) : (y - y_0) : (z - z_0) = a_1 : a_2 : a_3$. Если какая-либо координата направляющего вектора $a_i = 0$, то обязан обращаться в нуль и стоящий над ней числитель!
+          </p>
+</div>
+<div class="callout callout-q">
+<div class="callout-header">
+<span class="callout-badge">Замечание-вопрос (Слайд 11)</span>
+<span class="callout-title-text">Сколько уравнений в системе (4)?</span>
+</div>
+<p>
+<strong>Ответ:</strong> В каноническом уравнении (4) содержатся <strong>два независимых линейных уравнения</strong>!
+          </p>
+<p>
+            Двойное равенство $U = V = W$ распадается на систему из двух уравнений (например, $U = V$ и $V = W$), тогда как третье равенство $U = W$ является их следствием. Геометрически каждое из двух уравнений, например
+            \[\frac{x - x_0}{a_1} = \frac{y - y_0}{a_2} \quad \text{и} \quad \frac{y - y_0}{a_2} = \frac{z - z_0}{a_3},\]
+            определяет в пространстве плоскость (проектирующую прямую на координатную плоскость $OXY$ и $OYZ$ соответственно), а сама прямая задаётся как линия пересечения этих <strong>двух</strong> плоскостей.
+          </p>
+</div>
+<h4 class="subtopic-title" data-toc=". Уравнение прямой, проходящей…" id="sub-3-7">5). Уравнение прямой, проходящей через две заданные точки (Слайд 11)</h4>
+<p>
+          Пусть заданы две различные точки $M_0(x_0, y_0, z_0)$ и $M_1(x_1, y_1, z_1)$. Принимая вектор $\overrightarrow{M_0M_1} = (x_1 - x_0,\, y_1 - y_0,\, z_1 - z_0)$ за направляющий вектор прямой, из (4) сразу получаем <strong>уравнение прямой $M_0M_1$</strong>:
+        </p>
+<div class="eq-box eq-highlight">
+<div class="eq-content">
+            \[\frac{x - x_0}{x_1 - x_0} = \frac{y - y_0}{y_1 - y_0} = \frac{z - z_0}{z_1 - z_0}.\]
+          </div>
+<div class="eq-num">(5)</div>
+</div>
+</article>
+<!-- 6. Общее уравнение прямой в пространстве и взаимные переходы -->
+<article class="topic-card" id="sec-line-6">
+<div class="topic-header">
+<span class="topic-num-pill">Пункт 6</span>
+<h3 class="topic-title" data-toc="Общее уравнение прямой в прост…" id="sub-3-8">Общее уравнение прямой в пространстве и переходы между формами</h3>
+</div>
+<p>
+          Пусть прямая определяется как линия пересечения двух непараллельных плоскостей, заданных общими уравнениями:
+          \[A_1x + B_1y + C_1z + D_1 = 0 \quad \text{и} \quad A_2x + B_2y + C_2z + D_2 = 0,\]
+          где нормальные векторы плоскостей неколлинеарны:
+          \[[(A_1, B_1, C_1),\, (A_2, B_2, C_2)] \neq \bar{0} \qquad (\text{условие непараллельности}).\]
+          Тогда прямая — это множество точек, удовлетворяющих системе уравнений, называемой <strong>общим уравнением прямой в пространстве</strong>:
+        </p>
+<div class="eq-box eq-highlight">
+<div class="eq-content">
+            \[\begin{cases}
+              A_1x + B_1y + C_1z + D_1 = 0, \\
+              A_2x + B_2y + C_2z + D_2 = 0.
+            \end{cases}\]
+          </div>
+<div class="eq-num">(6)</div>
+</div>
+<!-- SVG 4: Общее уравнение прямой как пересечение двух плоскостей -->
+<figure class="figure-plate">
+<svg aria-label="Прямая как пересечение двух плоскостей и направляющий вектор a = [n1, n2]" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 295" xmlns="http://www.w3.org/2000/svg">
+<!-- Фоновая координатная сетка -->
+<g opacity="0.5" stroke="var(--svg-grid)" stroke-width="1">
+<line x1="20" x2="660" y1="60" y2="60"></line>
+<line x1="20" x2="660" y1="120" y2="120"></line>
+<line x1="20" x2="660" y1="180" y2="180"></line>
+<line x1="20" x2="660" y1="240" y2="240"></line>
+<line x1="140" x2="140" y1="20" y2="280"></line>
+<line x1="340" x2="340" y1="20" y2="280"></line>
+<line x1="540" x2="540" y1="20" y2="280"></line>
+</g>
+<!-- Задние полы плоскостей (I) и (II) -->
+<polygon fill="url(#planeGrad1)" points="340,42 485,12 485,212 340,242" stroke="var(--accent-blue)" stroke-width="1.5"></polygon>
+<polygon fill="url(#planeGrad3)" points="340,42 215,22 215,222 340,242" stroke="var(--accent-teal)" stroke-width="1.5"></polygon>
+<!-- Передние полы плоскостей (I) и (II) -->
+<polygon fill="url(#planeGrad1)" points="340,42 195,72 195,272 340,242" stroke="var(--accent-blue)" stroke-width="1.8"></polygon>
+<polygon fill="url(#planeGrad3)" points="340,42 465,62 465,262 340,242" stroke="var(--accent-teal)" stroke-width="1.8"></polygon>
+<!-- Прямая пересечения (**) -->
+<line stroke="var(--text-primary)" stroke-dasharray="5,4" stroke-width="2.4" x1="340" x2="340" y1="24" y2="266"></line>
+<!-- Уголки прямых углов между a и n1, n2 -->
+<polyline fill="none" points="340,145 352,149 352,162" stroke="var(--accent-blue)" stroke-width="1.5"></polyline>
+<polyline fill="none" points="340,145 328,149 328,162" stroke="var(--accent-teal)" stroke-width="1.5"></polyline>
+<!-- Нормальный вектор n1 (к плоскости I) -->
+<line marker-end="url(#m-blue)" stroke="var(--accent-blue)" stroke-width="2.6" x1="340" x2="442" y1="158" y2="188"></line>
+<rect fill="var(--svg-label-bg)" height="26" rx="6" stroke="var(--accent-blue)" stroke-width="1" width="155" x="450" y="172"></rect>
+<text fill="var(--accent-blue)" font-size="14" font-style="italic" font-weight="800" text-anchor="middle" x="527" y="190">n̄₁ = (A₁, B₁, C₁)</text>
+<!-- Нормальный вектор n2 (к плоскости II) -->
+<line marker-end="url(#m-teal)" stroke="var(--accent-teal)" stroke-width="2.6" x1="340" x2="238" y1="158" y2="188"></line>
+<rect fill="var(--svg-label-bg)" height="26" rx="6" stroke="var(--accent-teal)" stroke-width="1" width="155" x="72" y="172"></rect>
+<text fill="var(--accent-teal)" font-size="14" font-style="italic" font-weight="800" text-anchor="middle" x="149" y="190">n̄₂ = (A₂, B₂, C₂)</text>
+<!-- Направляющий вектор прямой a = [n1, n2] -->
+<line marker-end="url(#m-rose)" stroke="var(--accent-rose)" stroke-width="3.2" x1="340" x2="340" y1="158" y2="68"></line>
+<rect fill="var(--svg-label-bg)" height="26" rx="6" stroke="var(--accent-rose)" stroke-width="1" width="118" x="352" y="68"></rect>
+<text fill="var(--accent-rose)" font-size="14.5" font-style="italic" font-weight="800" text-anchor="middle" x="411" y="86">ā = [n̄₁, n̄₂]</text>
+<circle cx="340" cy="158" fill="var(--text-heading)" r="4.5" stroke="var(--bg-surface)" stroke-width="1.5"></circle>
+<!-- Метки плоскостей (I) и (II) -->
+<rect fill="var(--svg-label-bg)" height="24" rx="5" stroke="var(--accent-blue)" stroke-width="1" width="36" x="208" y="236"></rect>
+<text fill="var(--accent-blue)" font-size="13.5" font-weight="800" text-anchor="middle" x="226" y="253">(I)</text>
+<rect fill="var(--svg-label-bg)" height="24" rx="5" stroke="var(--accent-teal)" stroke-width="1" width="38" x="420" y="230"></rect>
+<text fill="var(--accent-teal)" font-size="13.5" font-weight="800" text-anchor="middle" x="439" y="247">(II)</text>
+</svg>
+<div class="figure-caption">
+<strong>Рис. 4 (к слайду 13).</strong> Нахождение направляющего вектора прямой $(**)$, заданной пересечением двух плоскостей $(\text{I})$ и $(\text{II})$: векторное произведение $\bar{a} = [\bar{n}_1, \bar{n}_2]$ ортогонально обеим нормалям $\bar{n}_1$ и $\bar{n}_2$, а значит, параллельно линии пересечения плоскостей.
+          </div>
+</figure>
+<h4 class="subtopic-title" data-toc="Задача (Слайды 12–14): Переход…" id="sub-3-9">Задача (Слайды 12–14): Переход от канонического уравнения к общему и обратно</h4>
+<div class="grid-2col">
+<div class="mini-card">
+<h4 data-toc="а) Каноническое Общее (Слайд 12)" id="sub-3-10">а) Каноническое $\longrightarrow$ Общее (Слайд 12)</h4>
+<p>
+              Расписываем двойное равенство канонического уравнения в систему двух уравнений:
+            </p>
+            \[\frac{x - x_0}{a_1} = \frac{y - y_0}{a_2} = \frac{z - z_0}{a_3}\]
+            \[\Downarrow\]
+            \[\begin{cases}
+              \dfrac{x - x_0}{a_1} = \dfrac{y - y_0}{a_2}, \\[8pt]
+              \dfrac{y - y_0}{a_2} = \dfrac{z - z_0}{a_3}.
+            \end{cases}\]
+            <p style="margin-top: 0.55rem;">
+              Перемножая пропорции крест-накрест, получаем систему двух общих уравнений плоскостей.
+            </p>
+</div>
+<div class="mini-card teal-top">
+<h4 data-toc="б) Общее Каноническое (Слайды …" id="sub-3-11">б) Общее $\longrightarrow$ Каноническое (Слайды 13–14)</h4>
+<p>
+              Пусть прямая задана общим уравнением $(**)$:
+            </p>
+            \[\begin{cases}
+              A_1x + B_1y + C_1z + D_1 = 0, & (\text{I}) \\
+              A_2x + B_2y + C_2z + D_2 = 0. & (\text{II})
+            \end{cases}\]
+            <p style="margin-top: 0.55rem;">
+              Перейти к каноническому уравнению можно <strong>двумя способами</strong>:
+            </p>
+<ul>
+<li><strong>Способ 1:</strong> найти $\bar{a} = [\bar{n}_1, \bar{n}_2]$ и подобрать 1 точку $M_0$.</li>
+<li><strong>Способ 2:</strong> подобрать 2 точки $M_0, M_1$ и применить формулу (5).</li>
+</ul>
+</div>
+</div>
+<h4 class="subtopic-title" data-toc="Пошаговый разбор обоих способо…" id="sub-3-12">Пошаговый разбор обоих способов перехода «Общее $\longrightarrow$ Каноническое»</h4>
+<ul class="step-list">
+<li class="step-item">
+<div class="step-item-title">Способ 1 (Слайд 13): Через векторное произведение нормалей и одну начальную точку</div>
+<p>
+<strong>Шаг 1.</strong> Векторное произведение $[\bar{n}_1, \bar{n}_2]$ нормальных векторов плоскостей $(\text{I})$ и $(\text{II})$ является направляющим вектором $\bar{a}$ прямой $(**)$:
+            </p>
+<div class="eq-box">
+<div class="eq-content">
+                \[\begin{aligned}
+                  \bar{a} = [\bar{n}_1, \bar{n}_2]
+                  &= [(A_1, B_1, C_1),\, (A_2, B_2, C_2)] = \begin{vmatrix} \bar{i} & \bar{j} & \bar{k} \\ A_1 & B_1 & C_1 \\ A_2 & B_2 & C_2 \end{vmatrix} = \\
+                  &= \left(
+                    \begin{vmatrix} B_1 & C_1 \\ B_2 & C_2 \end{vmatrix},\;
+                    -\begin{vmatrix} A_1 & C_1 \\ A_2 & C_2 \end{vmatrix},\;
+                    \begin{vmatrix} A_1 & B_1 \\ A_2 & B_2 \end{vmatrix}
+                  \right).
+                \end{aligned}\]
+              </div>
+</div>
+<p>
+<strong>Шаг 2.</strong> Осталось <em>подобрать</em> какую-то одну точку на прямой $(**)$, т. е. общую точку плоскостей $(\text{I})$ и $(\text{II})$, и взять её в качестве начальной точки $(x_0, y_0, z_0)$ в каноническом уравнении прямой. Например, если прямая $(**)$ пересекает плоскость $z = 0$ (что равносильно условию $a_3 = \begin{vmatrix} A_1 & B_1 \\ A_2 & B_2 \end{vmatrix} \neq 0$), то можно положить $z_0 = 0$, а в качестве $x_0, y_0$ взять решение системы:
+            </p>
+<div class="eq-box">
+<div class="eq-content">
+                \[\begin{cases}
+                  A_1x + B_1y = -D_1, \\
+                  A_2x + B_2y = -D_2.
+                \end{cases}\]
+              </div>
+</div>
+</li>
+<li class="step-item">
+<div class="step-item-title">Способ 2 (Замечание со слайда 14): Через подбор двух точек на прямой</div>
+<p>
+              Другой способ — подобрать <strong>две различные точки</strong> $M_0(x_0, y_0, z_0)$ и $M_1(x_1, y_1, z_1)$, удовлетворяющие системе $(**)$, и записать уравнение прямой через две точки по формуле (5):
+              \[\frac{x - x_0}{x_1 - x_0} = \frac{y - y_0}{y_1 - y_0} = \frac{z - z_0}{z_1 - z_0}.\]
+              Понятно, что оно же будет и каноническим уравнением прямой!
+            </p>
+</li>
+</ul>
+<div class="worked-example" id="ex-2"><div class="block-label">Пример 2</div><h3 data-toc="Практический пример 2Перевод о…" id="sub-3-13">Практический пример 2Перевод общего уравнения прямой в каноническое обоими способами</h3><div>
+<p>
+<strong>Задача:</strong> Привести к каноническому виду общее уравнение прямой:
+            \[\begin{cases}
+              x + y - 2z - 2 = 0, & (\text{I}) \\
+              2x - y + z + 5 = 0. & (\text{II})
+            \end{cases}\]
+          </p>
+<ul class="step-list">
+<li class="step-item">
+<div class="step-item-title">Решение первым способом (через [n̄₁, n̄₂] и одну точку)</div>
+<p>
+                Нормали плоскостей: $\bar{n}_1 = (1, 1, -2)$, $\bar{n}_2 = (2, -1, 1)$. Вычисляем направляющий вектор:
+                \[\bar{a} = [\bar{n}_1, \bar{n}_2] = \begin{vmatrix} \bar{i} & \bar{j} & \bar{k} \\ 1 & 1 & -2 \\ 2 & -1 & 1 \end{vmatrix} = (-1, -5, -3) \;\sim\; (1, 5, 3).\]
+                Полагаем $z_0 = 0$, получаем систему $x + y = 2,\; 2x - y = -5$, откуда $3x = -3 \implies x_0 = -1,\; y_0 = 3$, т. е. $M_0(-1, 3, 0)$. Каноническое уравнение:
+                \[\frac{x + 1}{1} = \frac{y - 3}{5} = \frac{z}{3}.\]
+              </p>
+</li>
+<li class="step-item">
+<div class="step-item-title">Решение вторым способом (через две точки)</div>
+<p>
+                Первая точка при $z_0 = 0$: $M_0(-1, 3, 0)$. Найдём вторую точку, положив $z_1 = 3$: система $x + y = 8,\; 2x - y = -8$ даёт $x_1 = 0,\; y_1 = 8$, т. е. $M_1(0, 8, 3)$. Подставляя $M_0$ и $M_1$ в уравнение через две точки (5), получаем:
+                \[\frac{x - (-1)}{0 - (-1)} = \frac{y - 3}{8 - 3} = \frac{z - 0}{3 - 0} \quad \Longleftrightarrow \quad \frac{x + 1}{1} = \frac{y - 3}{5} = \frac{z}{3}.\]
+              </p>
+</li>
+</ul>
+</div></div>
+</article>
+
+<!-- ======================================================================
+         ИТОГОВАЯ СВОДНАЯ ТАБЛИЦА ВСЕХ УРАВНЕНИЙ ЛЕКЦИИ 6
+         ====================================================================== -->
+<section class="chapter-section" id="sec-summary">
+<div class="chapter-banner">
+<div class="chapter-badge">Итоги</div>
+<div class="chapter-title-wrap">
+</div></div></section>
+</section>
+<section class="chapter" aria-labelledby="chapter-4">
+  <div class="chapter-kicker">04 / Сводная таблица всех уравнений…</div>
+  <h2 id="chapter-4" data-toc="Сводная таблица всех уравнений…">Сводная таблица всех уравнений Лекции 6</h2>
+  
+<p>Быстрый справочник по всем формам уравнений плоскости и прямой в пространстве</p>
+
+
+<article class="topic-card">
+<div class="topic-header">
+<span class="topic-num-pill">Таблица 1</span>
+<h3 class="topic-title" data-toc="Все виды уравнений плоскости в…" id="sub-4-1">Все виды уравнений плоскости в пространстве (§ II.2)</h3>
+</div>
+<div class="table-wrap">
+<table class="data-table">
+<thead>
+<tr>
+<th>Вид уравнения</th>
+<th>Исходные данные</th>
+<th>Формула</th>
+<th>Система координат</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Векторно-параметрическое</strong></td>
+<td>Точка $M_0(\bar{r}_0)$, направляющие векторы $\bar{a} \nparallel \bar{b}$</td>
+<td>$\bar{r} = \bar{r}_0 + u\bar{a} + v\bar{b} \quad (u, v \in \mathbb{R})$</td>
+<td>Вне координат</td>
+</tr>
+<tr>
+<td><strong>1'. Параметрические</strong></td>
+<td>$M_0(x_0, y_0, z_0)$, $\bar{a}(a_1, a_2, a_3) \nparallel \bar{b}(b_1, b_2, b_3)$</td>
+<td>$\begin{cases} x = x_0 + a_1u + b_1v \\ y = y_0 + a_2u + b_2v \\ z = z_0 + a_3u + b_3v \end{cases}$</td>
+<td>Любая аффинная СК</td>
+</tr>
+<tr>
+<td><strong>2. Через три точки</strong></td>
+<td>$M_1, M_2, M_3$ не на одной прямой</td>
+<td>$\begin{vmatrix} x-x_1 & y-y_1 & z-z_1 \\ x_2-x_1 & y_2-y_1 & z_2-z_1 \\ x_3-x_1 & y_3-y_1 & z_3-z_1 \end{vmatrix} = 0$</td>
+<td>Любая аффинная СК</td>
+</tr>
+<tr>
+<td><strong>3. В отрезках</strong></td>
+<td>Пересечения с осями $(a,0,0), (0,b,0), (0,0,c)$</td>
+<td>$\dfrac{x}{a} + \dfrac{y}{b} + \dfrac{z}{c} = 1 \quad (abc \neq 0)$</td>
+<td>Любая аффинная СК</td>
+</tr>
+<tr>
+<td><strong>4. Векторное (1-я форма)</strong></td>
+<td>Точка $M_0(\bar{r}_0)$ и нормаль $\bar{n} \perp P$</td>
+<td>$(\bar{r} - \bar{r}_0, \bar{n}) = 0$</td>
+<td>Векторная (с метрикой)</td>
+</tr>
+<tr>
+<td><strong>5. Векторное (2-я форма)</strong></td>
+<td>Точка $M_0(\bar{r}_0)$ и векторы $\bar{p} \nparallel \bar{q}$</td>
+<td>$\langle \bar{r} - \bar{r}_0, \bar{p}, \bar{q} \rangle = 0$</td>
+<td>Векторная</td>
+</tr>
+<tr>
+<td><strong>6. Общее уравнение</strong></td>
+<td>$A, B, C, D$ ($A^2+B^2+C^2 > 0$)</td>
+<td>$Ax + By + Cz + D = 0$</td>
+<td>Плоскость — в любой СК; $\bar{n}=(A,B,C)\perp P$ — <strong>в ОНСК</strong></td>
+</tr>
+<tr>
+<td><strong>Задача 4. Расстояние</strong></td>
+<td>Точка $M(x_1, y_1, z_1)$ и плоскость $P$</td>
+<td>$\rho(M, P) = \dfrac{|Ax_1 + By_1 + Cz_1 + D|}{\sqrt{A^2 + B^2 + C^2}}$</td>
+<td>Координатная формула — <strong>только в ОНСК</strong></td>
+</tr>
+<tr>
+<td><strong>7. Нормальное уравнение</strong></td>
+<td>Направляющие косинусы нормали и $|p| = \rho(O, P)$</td>
+<td>$x\cos\alpha + y\cos\beta + z\cos\gamma + p = 0$</td>
+<td><strong>Только в ОНСК</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="topic-header" style="margin-top: 2rem;">
+<span class="topic-num-pill">Таблица 2</span>
+<h3 class="topic-title" data-toc="Все виды уравнений прямой в пр…" id="sub-4-2">Все виды уравнений прямой в пространстве (§ II.3)</h3>
+</div>
+<div class="table-wrap">
+<table class="data-table">
+<thead>
+<tr>
+<th>Вид уравнения</th>
+<th>Исходные данные</th>
+<th>Формула</th>
+<th>Примечание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Векторное параметрическое</strong></td>
+<td>Точка $M_0(\bar{r}_0)$ и вектор $\bar{a} \neq \bar{0}$</td>
+<td>$\bar{r} = \bar{r}_0 + t\bar{a} \quad (t \in \mathbb{R})$</td>
+<td>Аналогично прямой на плоскости</td>
+</tr>
+<tr>
+<td><strong>2. Параметрические</strong></td>
+<td>$M_0(x_0, y_0, z_0)$ и $\bar{a}(a_1, a_2, a_3) \neq \bar{0}$</td>
+<td>$\begin{cases} x = x_0 + a_1t \\ y = y_0 + a_2t \\ z = z_0 + a_3t \end{cases}$</td>
+<td>Удобно при подстановке в уравнение плоскости</td>
+</tr>
+<tr>
+<td><strong>3. Векторное</strong></td>
+<td>Точка $M_0(\bar{r}_0)$ и вектор $\bar{a} \neq \bar{0}$</td>
+<td>$[\bar{r} - \bar{r}_0, \bar{a}] = \bar{0}$</td>
+<td>Задаёт коллинеарность $(\bar{r}-\bar{r}_0) \parallel \bar{a}$</td>
+</tr>
+<tr>
+<td><strong>4. Каноническое</strong></td>
+<td>$M_0(x_0, y_0, z_0)$ и $\bar{a}(a_1, a_2, a_3) \neq \bar{0}$</td>
+<td>$\dfrac{x - x_0}{a_1} = \dfrac{y - y_0}{a_2} = \dfrac{z - z_0}{a_3}$</td>
+<td>Содержит <strong>2 независимых уравнения</strong></td>
+</tr>
+<tr>
+<td><strong>5. Через две точки</strong></td>
+<td>Точки $M_0(x_0,y_0,z_0)$ и $M_1(x_1,y_1,z_1)$</td>
+<td>$\dfrac{x - x_0}{x_1 - x_0} = \dfrac{y - y_0}{y_1 - y_0} = \dfrac{z - z_0}{z_1 - z_0}$</td>
+<td>Направляющий вектор $\bar{a} = \overrightarrow{M_0M_1}$</td>
+</tr>
+<tr>
+<td><strong>6. Общее уравнение</strong></td>
+<td>Две плоскости с $[\bar{n}_1, \bar{n}_2] \neq \bar{0}$</td>
+<td>$\begin{cases} A_1x + B_1y + C_1z + D_1 = 0 \\ A_2x + B_2y + C_2z + D_2 = 0 \end{cases}$</td>
+<td>Переход к каноническому: $\bar{a} = [\bar{n}_1, \bar{n}_2]$</td>
+</tr>
+</tbody>
+</table>
+</div>
+</article>
+
+
 </section>
 <!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>

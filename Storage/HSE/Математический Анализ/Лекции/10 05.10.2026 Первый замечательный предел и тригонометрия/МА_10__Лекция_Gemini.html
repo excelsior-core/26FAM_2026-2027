@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Математический анализ  7: Пределы функций и замечательные пределы. Конспект FAM ФПМ НИУ ВШЭ.">
+  <meta name="description" content="ФПМ НИУ ВШЭ · Полный академический лекционный конспект">
   <title>Математический анализ  7: Пределы функций и замечательные пределы — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
@@ -183,8 +183,13 @@ html[data-theme] ::selection{background:var(--gold);color:var(--paper)}
 .themed-figure [data-figure-theme="light"]{display:block}
 html[data-theme="dark"] .themed-figure [data-figure-theme],html[data-theme="parchment"] .themed-figure [data-figure-theme]{display:none}
 html[data-theme="dark"] .themed-figure [data-figure-theme="dark"],html[data-theme="parchment"] .themed-figure [data-figure-theme="parchment"]{display:block}
-/* One neutral/light asset may remain on its own light plate in every theme. Never invert mathematical colours. */
-.figure-plate{background:#fff;color:#202e29;padding:16px;border:1px solid var(--rule)}
+.figure-plate{background:var(--bg-card);color:var(--ink);padding:20px;border:1px solid var(--rule);border-radius:8px;margin:32px 0}
+html[data-theme="light"] .figure-plate{background:#ffffff}
+html[data-theme="dark"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+html[data-theme="parchment"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+@media print{
+ .figure-plate{background:white!important;border:0!important;padding:0!important}
+}
 @media(max-width:760px){.topbar{height:auto;min-height:70px;flex-wrap:wrap;padding:12px 18px;gap:10px}.top-actions{gap:8px;flex-wrap:wrap}.theme-control select{font-size:10px;max-width:103px;padding:8px 4px}.pdf-button{padding:6px 8px}.pdf-button span{margin-left:4px}.wordmark{font-size:24px}}
 @media(max-width:400px){.wordmark{display:none}.top-actions{width:100%;justify-content:space-between}}
 @media print{
@@ -440,812 +445,746 @@ SOFTWARE.
     </aside>
     <main id="content">
       <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
-  <div class="lecture-meta"><span class="subject">Математический анализ</span><span>ФПМ НИУ ВШЭ</span></div>
-  <h1>Математический анализ  7: Пределы функций и замечательные пределы</h1>
-  <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-  <div class="lecture-abstract">
-    <p>ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-    <div class="abstract-formula" aria-label="Ключевое выражение лекции">\[', right: '\]</div>
-  </div>
-</header>
-<div class="proof-toolbar" aria-label="Все доказательства">
-  <span class="toolbar-label">Доказательства</span>
-  <div class="segmented" role="group" aria-label="Режим всех доказательств">
-    <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
-    <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
-    <button data-all-proofs="full" aria-pressed="false">Полностью</button>
-  </div>
-  <span id="proof-state" class="proof-state" aria-live="polite"></span>
-</div>
-<noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
-<p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
-
+      <header class="lecture-head" id="top">
+        <div class="lecture-meta"><span class="subject">Математический анализ</span><span>Академический конспект ФПМ</span></div>
+        <h1>Математический анализ  7: Пределы функций и замечательные пределы</h1>
+        <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
+        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[', right: '\]</div></div>
+      </header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
 <section class="chapter" aria-labelledby="chapter-1">
   <div class="chapter-kicker">01 / Введение</div>
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <!-- ПАНЕЛЬ УПРАВЛЕНИЯ ТЕМАМИ И ПЕЧАТЬЮ (СКРЫВАЕТСЯ ПРИ ЭКСПОРТЕ В PDF) -->
-    
-      <button class="btn btn-pdf" onclick="window.print()">
-        <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="6 9 6 2 18 2 18 9"></polyline>
-          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-          <rect x="6" y="14" width="12" height="8"></rect>
-        </svg></div>
-        Сохранить в PDF (Печать)
-      </button>
-    </div>
 
-    <!-- ТИТУЛЬНЫЙ БЛОК -->
-    <header class="header-card">
-      <div class="header-tag">Курс: Математический анализ • Модуль 1</div>
-      <h1 class="doc-title">Лекция: Критерий Коши, арифметика пределов, сложная функция и замечательные пределы</h1>
-      <div class="doc-meta">
-        <span>📖 Теоретический базис: Л.Д. Кудрявцев, В.А. Зорич</span>
-        <span>🎯 Семинарские группы: ПМИ / ФПМИ</span>
-        <span>📌 Подготовка к коллоквиуму</span>
-      </div>
-    </header>
+<!-- ТИТУЛЬНЫЙ БЛОК -->
+<header class="header-card">
+<div class="header-tag">Курс: Математический анализ • Модуль 1</div>
+<h1 class="doc-title">Лекция: Критерий Коши, арифметика пределов, сложная функция и замечательные пределы</h1>
+<div class="doc-meta">
+<span>📖 Теоретический базис: Л.Д. Кудрявцев, В.А. Зорич</span>
+<span>🎯 Семинарские группы: ПМИ / ФПМИ</span>
+<span>📌 Подготовка к коллоквиуму</span>
+</div>
+</header>
+<!-- ПОЛНОЕ ИНТЕРАКТИВНОЕ ОГЛАВЛЕНИЕ (КЛИКАБЕЛЬНО В БРАУЗЕРЕ И СОХРАНЯЕТСЯ В PDF) -->
 
-    <!-- ПОЛНОЕ ИНТЕРАКТИВНОЕ ОГЛАВЛЕНИЕ (КЛИКАБЕЛЬНО В БРАУЗЕРЕ И СОХРАНЯЕТСЯ В PDF) -->
-    
-
-    <!-- РАЗДЕЛ 1: КРИТЕРИЙ КОШИ -->
-    <section id="sec-cauchy">
+<!-- РАЗДЕЛ 1: КРИТЕРИЙ КОШИ -->
+<section id="sec-cauchy">
 </section>
-
 <section class="chapter" aria-labelledby="chapter-2">
-  <div class="chapter-kicker">02 / 1. Критерий Коши существован…</div>
-  <h2 id="chapter-2" data-toc="1. Критерий Коши существован…">§ 1. Критерий Коши существования конечного предела функции</h2>
-  <p>
+  <div class="chapter-kicker">02 / 1. Критерий Коши существования…</div>
+  <h2 id="chapter-2" data-toc="1. Критерий Коши существования…">§ 1. Критерий Коши существования конечного предела функции</h2>
+  
+<p>
         Критерий Коши является внутренним критерием сходимости: он даёт необходимое и достаточное условие существования конечного предела функции в точке <em>без априорного знания значения самого предела</em>.
       </p>
-
-      <div class="callout theorem">
-        <div class="callout-title">Теорема 7 (Критерий Коши для функции)</div>
-        <p>
+<div class="callout theorem">
+<div class="callout-title">Теорема 7 (Критерий Коши для функции)</div>
+<p>
           Пусть функция $f: X \to \mathbb{R}$ определена на множестве $X \subseteq \mathbb{R}$, и пусть точка $a \in \mathbb{R}$ является предельной точкой множества $X$.
         </p>
-        <p>
+<p>
           Конечный предел $\lim_{x \to a} f(x) = A \in \mathbb{R}$ существует тогда и только тогда, когда выполняется <strong>условие Коши</strong>:
         </p>
-        $$ \forall \varepsilon > 0 \;\; \exists \delta = \delta(\varepsilon) > 0 \;\; \forall x, \tilde{x} \in \dot{U}_\delta(a) \cap X \implies |f(x) - f(\tilde{x})| < \varepsilon \quad (*) $$
+        \[\forall \varepsilon > 0 \;\; \exists \delta = \delta(\varepsilon) > 0 \;\; \forall x, \tilde{x} \in \dot{U}_\delta(a) \cap X \implies |f(x) - f(\tilde{x})| < \varepsilon \quad (*)\]
         <p>
           где $\dot{U}_\delta(a) = \{x \in \mathbb{R} : 0 < |x - a| < \delta\}$ — проколотая $\delta$-окрестность точки $a$.
         </p>
-      </div>
-
-      <div class="callout proof">
-        <div class="callout-title">Доказательство</div>
-        
-        <p><strong>Необходимость ($\implies$):</strong></p>
-        <p>
+</div>
+<div class="callout proof">
+<div class="callout-title">Доказательство</div>
+<p><strong>Необходимость ($\implies$):</strong></p>
+<p>
           Пусть существует конечный предел $\lim_{x \to a} f(x) = A$. Зафиксируем произвольное $\varepsilon > 0$. По определению предела по Коши для величины $\frac{\varepsilon}{2} > 0$ найдётся такое $\delta > 0$, что:
         </p>
-        $$ \forall x \in \dot{U}_\delta(a) \cap X \implies |f(x) - A| < \frac{\varepsilon}{2} $$
+        \[\forall x \in \dot{U}_\delta(a) \cap X \implies |f(x) - A| < \frac{\varepsilon}{2}\]
         <p>
           Возьмем две произвольные точки $x, \tilde{x} \in \dot{U}_\delta(a) \cap X$. Используя неравенство треугольника для модуля:
         </p>
-        $$ |f(x) - f(\tilde{x})| = |(f(x) - A) - (f(\tilde{x}) - A)| \le |f(x) - A| + |f(\tilde{x}) - A| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon $$
+        \[|f(x) - f(\tilde{x})| = |(f(x) - A) - (f(\tilde{x}) - A)| \le |f(x) - A| + |f(\tilde{x}) - A| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon\]
         <p>Необходимость доказана.</p>
-
-        <p><strong>Достаточность ($\impliedby$):</strong></p>
-        <p>
+<p><strong>Достаточность ($\impliedby$):</strong></p>
+<p>
           Пусть выполняется условие Коши $(*)$. Докажем существование конечного предела, воспользовавшись <em>определением предела по Гейне</em>.
         </p>
-        <ol>
-          <li>
-            <strong>Шаг 1 (Конструирование сходящейся последовательности):</strong><br>
-            Возьмём произвольную числовую последовательность $\{x_n\}_{n=1}^\infty \subset X$, удовлетворяющую условиям: $x_n \neq a$ для всех $n$, и $x_n \to a$ при $n \to \infty$.<br>
+<ol>
+<li>
+<strong>Шаг 1 (Конструирование сходящейся последовательности):</strong><br/>
+            Возьмём произвольную числовую последовательность $\{x_n\}_{n=1}^\infty \subset X$, удовлетворяющую условиям: $x_n \neq a$ для всех $n$, и $x_n \to a$ при $n \to \infty$.<br/>
             По определению предела последовательности, для найденного по $\varepsilon$ числа $\delta > 0$ найдётся номер $n_0 \in \mathbb{N}$, такой что:
-            $$ \forall n > n_0 \implies x_n \in \dot{U}_\delta(a) $$
+            \[\forall n > n_0 \implies x_n \in \dot{U}_\delta(a)\]
           </li>
-          <li>
-            <strong>Шаг 2 (Фундаментальность $\{f(x_n)\}$):</strong><br>
+<li>
+<strong>Шаг 2 (Фундаментальность $\{f(x_n)\}$):</strong><br/>
             Тогда для любых номеров $n, m > n_0$ обе точки попадают в проколотую окрестность: $x_n, x_m \in \dot{U}_\delta(a)$. В силу условия Коши $(*)$ имеем:
-            $$ |f(x_n) - f(x_m)| < \varepsilon $$
+            \[|f(x_n) - f(x_m)| < \varepsilon\]
             Это означает, что числовая последовательность значений $\{f(x_n)\}_{n=1}^\infty$ является <em>фундаментальной (последовательностью Коши)</em>.
           </li>
-          <li>
-            <strong>Шаг 3 (Применение критерия Коши для числовых последовательностей):</strong><br>
+<li>
+<strong>Шаг 3 (Применение критерия Коши для числовых последовательностей):</strong><br/>
             В силу полноты поля вещественных чисел $\mathbb{R}$, по критерию Коши для числовых последовательностей фундаментальная последовательность обязана иметь конечный предел:
-            $$ \exists \lim_{n \to \infty} f(x_n) = A \in \mathbb{R} $$
+            \[\exists \lim_{n \to \infty} f(x_n) = A \in \mathbb{R}\]
           </li>
-          <li>
-            <strong>Шаг 4 (Независимость предела от выбора последовательности):</strong><br>
-            Покажем, что число $A$ не зависит от выбора последовательности $\{x_n\}$. Предположим, что взята другая последовательность $\{\tilde{x}_n\} \subset X$, $\tilde{x}_n \neq a$, $\tilde{x}_n \to a$. По аналогичным рассуждениям существует предел $\lim_{n \to \infty} f(\tilde{x}_n) = B$. Докажем, что $A = B$.<br>
+<li>
+<strong>Шаг 4 (Независимость предела от выбора последовательности):</strong><br/>
+            Покажем, что число $A$ не зависит от выбора последовательности $\{x_n\}$. Предположим, что взята другая последовательность $\{\tilde{x}_n\} \subset X$, $\tilde{x}_n \neq a$, $\tilde{x}_n \to a$. По аналогичным рассуждениям существует предел $\lim_{n \to \infty} f(\tilde{x}_n) = B$. Докажем, что $A = B$.<br/>
             Составим новую «чередующуюся» (перемешанную) последовательность $\{z_k\}_{k=1}^\infty$:
-            $$ z_1 = x_1, \;\; z_2 = \tilde{x}_1, \;\; z_3 = x_2, \;\; z_4 = \tilde{x}_2, \;\; \dots, \;\; z_{2n-1} = x_n, \;\; z_{2n} = \tilde{x}_n $$
-            Очевидно, что $z_k \in X$, $z_k \neq a$, и $z_k \to a$ при $k \to \infty$ (так как обе подпоследовательности с нечетными и четными номерами сходятся к $a$).<br>
+            \[z_1 = x_1, \;\; z_2 = \tilde{x}_1, \;\; z_3 = x_2, \;\; z_4 = \tilde{x}_2, \;\; \dots, \;\; z_{2n-1} = x_n, \;\; z_{2n} = \tilde{x}_n\]
+            Очевидно, что $z_k \in X$, $z_k \neq a$, и $z_k \to a$ при $k \to \infty$ (так как обе подпоследовательности с нечетными и четными номерами сходятся к $a$).<br/>
             Следовательно, по доказанному выше в пунктах 1–3, последовательность $\{f(z_k)\}$ также является фундаментальной и сходится к некоторому пределу $C$:
-            $$ \lim_{k \to \infty} f(z_k) = C $$
+            \[\lim_{k \to \infty} f(z_k) = C\]
             Но последовательности $\{f(x_n)\}$ и $\{f(\tilde{x}_n)\}$ являются подпоследовательностями $\{f(z_k)\}$ (с нечетными и четными номерами соответственно). Так как любая подпоследовательность сходящейся последовательности обязана сходиться к тому же самому пределу, получаем:
-            $$ A = C \quad \text{и} \quad B = C \implies A = B $$
+            \[A = C \quad \text{и} \quad B = C \implies A = B\]
           </li>
-        </ol>
-        <p>
+</ol>
+<p>
           Таким образом, для <em>любой</em> последовательности $\{x_n\} \subset X \setminus \{a\}$, сходящейся к $a$, последовательность $\{f(x_n)\}$ сходится к одному и тому же числу $A$. По определению предела функции по Гейне, это означает, что $\lim_{x \to a} f(x) = A$.
         </p>
-        <div class="qed">■</div>
-      </div>
-
-      <div class="callout example">
-        <div class="callout-title">Пример применения критерия Коши (отсутствие предела)</div>
-        <p>
-          Докажем, что не существует предела функции $f(x) = \sin(1/x)$ при $x \to 0$.<br>
+<div class="qed">■</div>
+</div>
+<div class="callout example">
+<div class="callout-title">Пример применения критерия Коши (отсутствие предела)</div>
+<p>
+          Докажем, что не существует предела функции $f(x) = \sin(1/x)$ при $x \to 0$.<br/>
           Запишем отрицание условия Коши:
         </p>
-        $$ \exists \varepsilon_0 > 0 \;\; \forall \delta > 0 \;\; \exists x, \tilde{x} \in \dot{U}_\delta(0): |f(x) - f(\tilde{x})| \ge \varepsilon_0 $$
+        \[\exists \varepsilon_0 > 0 \;\; \forall \delta > 0 \;\; \exists x, \tilde{x} \in \dot{U}_\delta(0): |f(x) - f(\tilde{x})| \ge \varepsilon_0\]
         <p>
           Положим $\varepsilon_0 = 1$. Для любого сколь угодно малого $\delta > 0$ выберем целое число $k \in \mathbb{N}$ настолько большим, чтобы точки:
         </p>
-        $$ x_k = \frac{1}{\frac{\pi}{2} + 2\pi k}, \qquad \tilde{x}_k = \frac{1}{-\frac{\pi}{2} + 2\pi k} $$
+        \[x_k = \frac{1}{\frac{\pi}{2} + 2\pi k}, \qquad \tilde{x}_k = \frac{1}{-\frac{\pi}{2} + 2\pi k}\]
         <p>
           лежали в интервале $(-\delta, \delta)$. При этом:
         </p>
-        $$ f(x_k) = \sin\left(\frac{\pi}{2} + 2\pi k\right) = 1, \qquad f(\tilde{x}_k) = \sin\left(-\frac{\pi}{2} + 2\pi k\right) = -1 $$
-        $$ |f(x_k) - f(\tilde{x}_k)| = |1 - (-1)| = 2 \ge \varepsilon_0 = 1 $$
+        \[f(x_k) = \sin\left(\frac{\pi}{2} + 2\pi k\right) = 1, \qquad f(\tilde{x}_k) = \sin\left(-\frac{\pi}{2} + 2\pi k\right) = -1\]
+        \[|f(x_k) - f(\tilde{x}_k)| = |1 - (-1)| = 2 \ge \varepsilon_0 = 1\]
         <p>Условие Коши нарушено, следовательно, предел $\lim_{x \to 0} \sin(1/x)$ не существует.</p>
-      </div>
-    </section>
+</div>
 
-    <!-- РАЗДЕЛ 2: БЕСКОНЕЧНО МАЛЫЕ ФУНКЦИИ -->
-    <section id="sec-infinitesimal">
+<!-- РАЗДЕЛ 2: БЕСКОНЕЧНО МАЛЫЕ ФУНКЦИИ -->
+<section id="sec-infinitesimal">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-3">
-  <div class="chapter-kicker">03 / 2. Бесконечно малые функции …</div>
-  <h2 id="chapter-3" data-toc="2. Бесконечно малые функции …">§ 2. Бесконечно малые функции и их свойства</h2>
-  <div class="callout definition">
-        <div class="callout-title">Определение (Бесконечно малая функция)</div>
-        <p>
+  <div class="chapter-kicker">03 / 2. Бесконечно малые функции и …</div>
+  <h2 id="chapter-3" data-toc="2. Бесконечно малые функции и …">§ 2. Бесконечно малые функции и их свойства</h2>
+  
+<div class="statement definition" id="def-1"><div class="block-label">Определение 1</div><h3 data-toc="Определение (Бесконечно малая …" id="sub-3-1">Определение (Бесконечно малая функция)</h3><div>
+<p>
           Функция $\alpha(x)$ называется <strong>бесконечно малой (б.м.) при $x \to a$</strong>, если её предел в точке $a$ равен нулю:
         </p>
-        $$ \lim_{x \to a} \alpha(x) = 0 \iff \forall \varepsilon > 0 \;\; \exists \delta > 0 \;\; \forall x \in \dot{U}_\delta(a) \implies |\alpha(x)| < \varepsilon $$
-      </div>
-
-      <div class="callout warning">
-        <div class="callout-title">Важное замечание лектора о локальности понятия</div>
-        <p>
+        \[\lim_{x \to a} \alpha(x) = 0 \iff \forall \varepsilon > 0 \;\; \exists \delta > 0 \;\; \forall x \in \dot{U}_\delta(a) \implies |\alpha(x)| < \varepsilon\]
+      </div></div>
+<div class="callout warning">
+<div class="callout-title">Важное замечание лектора о локальности понятия</div>
+<p>
           Фраза «функция $\alpha(x)$ является бесконечно малой» <em>сама по себе лишена математического смысла</em> без указания предельного перехода! Например:
         </p>
-        <ul>
-          <li>Функция $\cos x$ является бесконечно малой при $x \to \frac{\pi}{2}$, поскольку $\lim_{x \to \pi/2} \cos x = 0$.</li>
-          <li>Однако при $x \to 0$ функция $\cos x$ <strong>не является</strong> бесконечно малой, так как $\lim_{x \to 0} \cos x = 1 \neq 0$.</li>
-          <li>Функция $f(x) = \frac{1}{x}$ является бесконечно малой при $x \to +\infty$, но не при $x \to 0$.</li>
-        </ul>
-      </div>
-
-      <div class="callout theorem">
-        <div class="callout-title">Теорема о связи функции, её предела и бесконечно малой</div>
-        <p>
+<ul>
+<li>Функция $\cos x$ является бесконечно малой при $x \to \frac{\pi}{2}$, поскольку $\lim_{x \to \pi/2} \cos x = 0$.</li>
+<li>Однако при $x \to 0$ функция $\cos x$ <strong>не является</strong> бесконечно малой, так как $\lim_{x \to 0} \cos x = 1 \neq 0$.</li>
+<li>Функция $f(x) = \frac{1}{x}$ является бесконечно малой при $x \to +\infty$, но не при $x \to 0$.</li>
+</ul>
+</div>
+<div class="callout theorem">
+<div class="callout-title">Теорема о связи функции, её предела и бесконечно малой</div>
+<p>
           Равенство $\lim_{x \to a} f(x) = A$ выполняется тогда и только тогда, когда функцию $f(x)$ в некоторой окрестности точки $a$ можно представить в виде:
         </p>
-        $$ f(x) = A + \alpha(x) $$
+        \[f(x) = A + \alpha(x)\]
         <p>где $\alpha(x)$ — бесконечно малая функция при $x \to a$.</p>
-      </div>
-
-      <div class="callout theorem">
-        <div class="callout-title">Теорема 8 (Основные свойства бесконечно малых)</div>
-        <ol>
-          <li>
-            <strong>Сумма б.м. функций:</strong> Если $\alpha(x)$ и $\beta(x)$ — бесконечно малые при $x \to a$, то их алгебраическая сумма $(\alpha(x) + \beta(x))$ также является бесконечно малой при $x \to a$.
+</div>
+<div class="callout theorem">
+<div class="callout-title">Теорема 8 (Основные свойства бесконечно малых)</div>
+<ol>
+<li>
+<strong>Сумма б.м. функций:</strong> Если $\alpha(x)$ и $\beta(x)$ — бесконечно малые при $x \to a$, то их алгебраическая сумма $(\alpha(x) + \beta(x))$ также является бесконечно малой при $x \to a$.
           </li>
-          <li>
-            <strong>Произведение б.м. на ограниченную:</strong> Если $\alpha(x)$ — бесконечно малая при $x \to a$, а функция $\beta(x)$ ограничена в некоторой проколотой окрестности $\dot{U}_{\delta_0}(a)$, то их произведение $\alpha(x) \cdot \beta(x)$ является бесконечно малой функцией при $x \to a$.
+<li>
+<strong>Произведение б.м. на ограниченную:</strong> Если $\alpha(x)$ — бесконечно малая при $x \to a$, а функция $\beta(x)$ ограничена в некоторой проколотой окрестности $\dot{U}_{\delta_0}(a)$, то их произведение $\alpha(x) \cdot \beta(x)$ является бесконечно малой функцией при $x \to a$.
           </li>
-        </ol>
-      </div>
-
-      <div class="callout proof">
-        <div class="callout-title">Доказательство свойств бесконечно малых</div>
-        
-        <p><strong>Доказательство свойства 1 (Сумма):</strong></p>
-        <p>
+</ol>
+</div>
+<div class="callout proof">
+<div class="callout-title">Доказательство свойств бесконечно малых</div>
+<p><strong>Доказательство свойства 1 (Сумма):</strong></p>
+<p>
           Зафиксируем произвольное $\varepsilon > 0$. По условию $\lim_{x \to a} \alpha(x) = 0$ и $\lim_{x \to a} \beta(x) = 0$. По определению предела для величины $\frac{\varepsilon}{2} > 0$:
         </p>
-        $$ \exists \delta_1 > 0 \;\; \forall x \in \dot{U}_{\delta_1}(a) \implies |\alpha(x)| < \frac{\varepsilon}{2} $$
-        $$ \exists \delta_2 > 0 \;\; \forall x \in \dot{U}_{\delta_2}(a) \implies |\beta(x)| < \frac{\varepsilon}{2} $$
+        \[\exists \delta_1 > 0 \;\; \forall x \in \dot{U}_{\delta_1}(a) \implies |\alpha(x)| < \frac{\varepsilon}{2}\]
+        \[\exists \delta_2 > 0 \;\; \forall x \in \dot{U}_{\delta_2}(a) \implies |\beta(x)| < \frac{\varepsilon}{2}\]
         <p>
           Положим $\delta = \min(\delta_1, \delta_2) > 0$. Тогда проколотая окрестность $\dot{U}_\delta(a) \subseteq \dot{U}_{\delta_1}(a) \cap \dot{U}_{\delta_2}(a)$. Для любого $x \in \dot{U}_\delta(a)$ выполняются оба неравенства:
         </p>
-        $$ |\alpha(x) + \beta(x)| \le |\alpha(x)| + |\beta(x)| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon $$
+        \[|\alpha(x) + \beta(x)| \le |\alpha(x)| + |\beta(x)| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon\]
         <p>Следовательно, $\lim_{x \to a} (\alpha(x) + \beta(x)) = 0$.</p>
-
-        <p><strong>Доказательство свойства 2 (Произведение):</strong></p>
-        <p>
+<p><strong>Доказательство свойства 2 (Произведение):</strong></p>
+<p>
           Так как функция $\beta(x)$ ограничена в окрестности точки $a$, существуют число $M > 0$ и радиус $\delta_0 > 0$, такие что:
         </p>
-        $$ \forall x \in \dot{U}_{\delta_0}(a) \implies |\beta(x)| \le M $$
+        \[\forall x \in \dot{U}_{\delta_0}(a) \implies |\beta(x)| \le M\]
         <p>
           Для заданного $\varepsilon > 0$ рассмотрим число $\frac{\varepsilon}{M} > 0$. Поскольку $\lim_{x \to a} \alpha(x) = 0$, для него найдётся такое $\delta_1 > 0$, что:
         </p>
-        $$ \forall x \in \dot{U}_{\delta_1}(a) \implies |\alpha(x)| < \frac{\varepsilon}{M} $$
+        \[\forall x \in \dot{U}_{\delta_1}(a) \implies |\alpha(x)| < \frac{\varepsilon}{M}\]
         <p>
           Выбираем $\delta = \min(\delta_0, \delta_1) > 0$. Тогда для всех $x \in \dot{U}_\delta(a)$ получаем:
         </p>
-        $$ |\alpha(x) \cdot \beta(x)| = |\alpha(x)| \cdot |\beta(x)| < \frac{\varepsilon}{M} \cdot M = \varepsilon $$
+        \[|\alpha(x) \cdot \beta(x)| = |\alpha(x)| \cdot |\beta(x)| < \frac{\varepsilon}{M} \cdot M = \varepsilon\]
         <p>Это доказывает, что $\lim_{x \to a} (\alpha(x) \cdot \beta(x)) = 0$.</p>
-        <div class="qed">■</div>
-      </div>
+<div class="qed">■</div>
+</div>
+<div class="callout theorem">
+<div class="callout-title">Следствия из свойств бесконечно малых</div>
+<ul>
+<li><strong>Произведение двух б.м. функций</strong> есть бесконечно малая функция (частный случай, так как любая б.м. функция локально ограничена).</li>
+<li><strong>Произведение б.м. функции на константу $c$</strong> есть бесконечно малая функция.</li>
+<li><strong>Произведение б.м. функции на функцию, имеющую конечный предел</strong>, есть бесконечно малая функция.</li>
+</ul>
+</div>
 
-      <div class="callout theorem">
-        <div class="callout-title">Следствия из свойств бесконечно малых</div>
-        <ul>
-          <li><strong>Произведение двух б.м. функций</strong> есть бесконечно малая функция (частный случай, так как любая б.м. функция локально ограничена).</li>
-          <li><strong>Произведение б.м. функции на константу $c$</strong> есть бесконечно малая функция.</li>
-          <li><strong>Произведение б.м. функции на функцию, имеющую конечный предел</strong>, есть бесконечно малая функция.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- РАЗДЕЛ 3: АРИФМЕТИКА ПРЕДЕЛОВ -->
-    <section id="sec-arithmetic">
+<!-- РАЗДЕЛ 3: АРИФМЕТИКА ПРЕДЕЛОВ -->
+<section id="sec-arithmetic">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-4">
-  <div class="chapter-kicker">04 / 3. Арифметические действия н…</div>
-  <h2 id="chapter-4" data-toc="3. Арифметические действия н…">§ 3. Арифметические действия над пределами функций</h2>
-  <div class="callout theorem">
-        <div class="callout-title">Теорема 9 (Об арифметических действиях)</div>
-        <p>
+  <div class="chapter-kicker">04 / 3. Арифметические действия над…</div>
+  <h2 id="chapter-4" data-toc="3. Арифметические действия над…">§ 3. Арифметические действия над пределами функций</h2>
+  
+<div class="callout theorem">
+<div class="callout-title">Теорема 9 (Об арифметических действиях)</div>
+<p>
           Пусть функции $f(x)$ и $g(x)$ имеют в точке $a$ конечные пределы:
         </p>
-        $$ \lim_{x \to a} f(x) = A \in \mathbb{R}, \qquad \lim_{x \to a} g(x) = B \in \mathbb{R} $$
+        \[\lim_{x \to a} f(x) = A \in \mathbb{R}, \qquad \lim_{x \to a} g(x) = B \in \mathbb{R}\]
         <p>Тогда справедливы следующие свойства:</p>
-        <ol>
-          <li><strong>Вынесение константы:</strong> $\lim_{x \to a} (c \cdot f(x)) = c \cdot \lim_{x \to a} f(x) = c \cdot A$ для любого $c \in \mathbb{R}$.</li>
-          <li><strong>Предел суммы и разности:</strong> $\lim_{x \to a} (f(x) \pm g(x)) = \lim_{x \to a} f(x) \pm \lim_{x \to a} g(x) = A \pm B$.</li>
-          <li><strong>Предел произведения:</strong> $\lim_{x \to a} (f(x) \cdot g(x)) = \lim_{x \to a} f(x) \cdot \lim_{x \to a} g(x) = A \cdot B$.</li>
-          <li>
-            <strong>Предел частного:</strong> Если $B \neq 0$, то функция $\frac{f(x)}{g(x)}$ определена в некоторой проколотой окрестности $\dot{U}(a)$ и:
-            $$ \lim_{x \to a} \frac{f(x)}{g(x)} = \frac{\lim_{x \to a} f(x)}{\lim_{x \to a} g(x)} = \frac{A}{B} $$
+<ol>
+<li><strong>Вынесение константы:</strong> $\lim_{x \to a} (c \cdot f(x)) = c \cdot \lim_{x \to a} f(x) = c \cdot A$ для любого $c \in \mathbb{R}$.</li>
+<li><strong>Предел суммы и разности:</strong> $\lim_{x \to a} (f(x) \pm g(x)) = \lim_{x \to a} f(x) \pm \lim_{x \to a} g(x) = A \pm B$.</li>
+<li><strong>Предел произведения:</strong> $\lim_{x \to a} (f(x) \cdot g(x)) = \lim_{x \to a} f(x) \cdot \lim_{x \to a} g(x) = A \cdot B$.</li>
+<li>
+<strong>Предел частного:</strong> Если $B \neq 0$, то функция $\frac{f(x)}{g(x)}$ определена в некоторой проколотой окрестности $\dot{U}(a)$ и:
+            \[\lim_{x \to a} \frac{f(x)}{g(x)} = \frac{\lim_{x \to a} f(x)}{\lim_{x \to a} g(x)} = \frac{A}{B}\]
           </li>
-        </ol>
-      </div>
-
-      <div class="callout proof">
-        <div class="callout-title">Три метода доказательства теоремы об арифметике пределов</div>
-        
-        <p><strong>Метод 1 (Через свойства бесконечно малых функций — основной):</strong></p>
-        <p>
+</ol>
+</div>
+<div class="callout proof">
+<div class="callout-title">Три метода доказательства теоремы об арифметике пределов</div>
+<p><strong>Метод 1 (Через свойства бесконечно малых функций — основной):</strong></p>
+<p>
           Представим функции в виде $f(x) = A + \alpha(x)$ и $g(x) = B + \beta(x)$, где $\alpha(x), \beta(x) \to 0$ при $x \to a$.
         </p>
-        <ul>
-          <li>
-            <em>Для суммы:</em><br>
-            $(f(x) + g(x)) - (A + B) = \alpha(x) + \beta(x)$.<br>
+<ul>
+<li>
+<em>Для суммы:</em><br/>
+            $(f(x) + g(x)) - (A + B) = \alpha(x) + \beta(x)$.<br/>
             Так как сумма двух б.м. функций есть б.м. функция, по определению $\lim_{x \to a} (f(x) + g(x)) = A + B$.
           </li>
-          <li>
-            <em>Для произведения:</em><br>
-            $f(x)g(x) - AB = (A + \alpha(x))(B + \beta(x)) - AB = A\beta(x) + B\alpha(x) + \alpha(x)\beta(x)$.<br>
+<li>
+<em>Для произведения:</em><br/>
+            $f(x)g(x) - AB = (A + \alpha(x))(B + \beta(x)) - AB = A\beta(x) + B\alpha(x) + \alpha(x)\beta(x)$.<br/>
             Здесь $A\beta(x)$ и $B\alpha(x)$ — б.м. (константа $\times$ б.м.), а $\alpha(x)\beta(x)$ — б.м. (б.м. $\times$ б.м.). Сумма трёх б.м. есть б.м., следовательно, $\lim_{x \to a} f(x)g(x) = AB$.
           </li>
-          <li>
-            <em>Для частного ($B \neq 0$):</em><br>
-            Так как $\lim_{x \to a} g(x) = B \neq 0$, по теореме об устойчивости знака существует окрестность $\dot{U}_{\delta_0}(a)$, в которой $|g(x)| \ge \frac{|B|}{2} > 0$. Значит, функция $\frac{1}{g(x)}$ ограничена: $\left|\frac{1}{g(x)}\right| \le \frac{2}{|B|}$.<br>
+<li>
+<em>Для частного ($B \neq 0$):</em><br/>
+            Так как $\lim_{x \to a} g(x) = B \neq 0$, по теореме об устойчивости знака существует окрестность $\dot{U}_{\delta_0}(a)$, в которой $|g(x)| \ge \frac{|B|}{2} > 0$. Значит, функция $\frac{1}{g(x)}$ ограничена: $\left|\frac{1}{g(x)}\right| \le \frac{2}{|B|}$.<br/>
             Рассмотрим разность:
-            $$ \frac{f(x)}{g(x)} - \frac{A}{B} = \frac{B f(x) - A g(x)}{B g(x)} = \frac{B(A + \alpha(x)) - A(B + \beta(x))}{B g(x)} = \frac{B\alpha(x) - A\beta(x)}{B g(x)} = (B\alpha(x) - A\beta(x)) \cdot \frac{1}{B g(x)} $$
+            \[\frac{f(x)}{g(x)} - \frac{A}{B} = \frac{B f(x) - A g(x)}{B g(x)} = \frac{B(A + \alpha(x)) - A(B + \beta(x))}{B g(x)} = \frac{B\alpha(x) - A\beta(x)}{B g(x)} = (B\alpha(x) - A\beta(x)) \cdot \frac{1}{B g(x)}\]
             Числитель $(B\alpha(x) - A\beta(x))$ является бесконечно малой функцией, а множитель $\frac{1}{B g(x)}$ ограничен в $\dot{U}_{\delta_0}(a)$ величиной $\frac{2}{B^2}$. Произведение б.м. на ограниченную есть б.м. Следовательно, предел равен $\frac{A}{B}$.
           </li>
-        </ul>
-
-        <p><strong>Метод 2 (Через определение предела по Гейне):</strong></p>
-        <p>
+</ul>
+<p><strong>Метод 2 (Через определение предела по Гейне):</strong></p>
+<p>
           Возьмём произвольную последовательность $\{x_n\} \subset X \setminus \{a\}$, сходящуюся к $a$. По определению предела по Гейне:
-          $f(x_n) \to A$ и $g(x_n) \to B$ при $n \to \infty$.<br>
+          $f(x_n) \to A$ и $g(x_n) \to B$ при $n \to \infty$.<br/>
           По ранее доказанной теореме об арифметических свойствах пределов <em>числовых последовательностей</em>:
-          $f(x_n) \pm g(x_n) \to A \pm B$, $f(x_n) \cdot g(x_n) \to A \cdot B$ и $\frac{f(x_n)}{g(x_n)} \to \frac{A}{B}$.<br>
+          $f(x_n) \pm g(x_n) \to A \pm B$, $f(x_n) \cdot g(x_n) \to A \cdot B$ и $\frac{f(x_n)}{g(x_n)} \to \frac{A}{B}$.<br/>
           Так как это справедливо для любой такой последовательности $\{x_n\}$, по определению Гейне соответствующие равенства верны и для пределов функций.
         </p>
-
-        <p><strong>Метод 3 (Прямое $\varepsilon-\delta$ доказательство по Коши):</strong></p>
-        <p>
+<p><strong>Метод 3 (Прямое $\varepsilon-\delta$ доказательство по Коши):</strong></p>
+<p>
           Для суммы фиксируем $\varepsilon > 0$. Выбираем $\delta_1, \delta_2$ для $\frac{\varepsilon}{2}$, берем $\delta = \min(\delta_1, \delta_2)$, и неравенство треугольника сразу дает $|(f(x)+g(x)) - (A+B)| \le |f(x)-A| + |g(x)-B| < \varepsilon$.
         </p>
-        <div class="qed">■</div>
-      </div>
-    </section>
+<div class="qed">■</div>
+</div>
 
-    <!-- РАЗДЕЛ 4: ПРЕДЕЛ КОМПОЗИЦИИ -->
-    <section id="sec-composition">
+<!-- РАЗДЕЛ 4: ПРЕДЕЛ КОМПОЗИЦИИ -->
+<section id="sec-composition">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-5">
-  <div class="chapter-kicker">05 / 4. Теорема о пределе компози…</div>
-  <h2 id="chapter-5" data-toc="4. Теорема о пределе компози…">§ 4. Теорема о пределе композиции (сложной функции)</h2>
-  <div class="callout theorem">
-        <div class="callout-title">Теорема 10 (О пределе композиции)</div>
-        <p>
+  <div class="chapter-kicker">05 / 4. Теорема о пределе композици…</div>
+  <h2 id="chapter-5" data-toc="4. Теорема о пределе композици…">§ 4. Теорема о пределе композиции (сложной функции)</h2>
+  
+<div class="callout theorem">
+<div class="callout-title">Теорема 10 (О пределе композиции)</div>
+<p>
           Пусть заданы функции $f: X \to Y$ и $g: Y \to Z$. Пусть $a$ — предельная точка множества $X$, $A$ — предельная точка множества $Y$.
         </p>
-        <p>Пусть выполнены следующие условия:</p>
-        <ol>
-          <li>$\lim_{x \to a} f(x) = A$;</li>
-          <li>$\lim_{y \to A} g(y) = B$;</li>
-          <li>
-            <strong>Условие изоляции:</strong> существует такая проколотая окрестность $\dot{U}(a)$, что:
-            $$ \forall x \in \dot{U}(a) \cap X \implies f(x) \neq A $$
+<p>Пусть выполнены следующие условия:</p>
+<ol>
+<li>$\lim_{x \to a} f(x) = A$;</li>
+<li>$\lim_{y \to A} g(y) = B$;</li>
+<li>
+<strong>Условие изоляции:</strong> существует такая проколотая окрестность $\dot{U}(a)$, что:
+            \[\forall x \in \dot{U}(a) \cap X \implies f(x) \neq A\]
           </li>
-        </ol>
-        <p>
+</ol>
+<p>
           Тогда определена сложная функция $(g \circ f)(x) = g(f(x))$ и существует её предел в точке $a$:
         </p>
-        $$ \lim_{x \to a} g(f(x)) = B $$
+        \[\lim_{x \to a} g(f(x)) = B\]
       </div>
-
-      <div class="callout proof">
-        <div class="callout-title">Доказательство (по Гейне)</div>
-        <p>
+<div class="callout proof">
+<div class="callout-title">Доказательство (по Гейне)</div>
+<p>
           Возьмём произвольную последовательность $\{x_n\}_{n=1}^\infty \subset X$, такую что $x_n \neq a$ и $x_n \to a$ при $n \to \infty$.
         </p>
-        <ol>
-          <li>
+<ol>
+<li>
             В силу условия (1) и определения предела по Гейне числовая последовательность значений $y_n = f(x_n)$ сходится к $A$:
-            $$ y_n \to A \quad \text{при} \quad n \to \infty $$
+            \[y_n \to A \quad \text{при} \quad n \to \infty\]
           </li>
-          <li>
+<li>
             В силу условия (3) начиная с некоторого номера все члены последовательности $x_n$ попадают в проколотую окрестность $\dot{U}(a)$, а значит:
-            $$ y_n = f(x_n) \neq A \quad \text{для всех достаточно больших } n $$
+            \[y_n = f(x_n) \neq A \quad \text{для всех достаточно больших } n\]
           </li>
-          <li>
+<li>
             Следовательно, последовательность $\{y_n\}$ лежит в множестве $Y$, $y_n \neq A$ и $y_n \to A$. В силу условия (2) по определению предела по Гейне для функции $g(y)$ получаем:
-            $$ g(y_n) = g(f(x_n)) \to B \quad \text{при} \quad n \to \infty $$
+            \[g(y_n) = g(f(x_n)) \to B \quad \text{при} \quad n \to \infty\]
           </li>
-        </ol>
-        <p>
+</ol>
+<p>
           Так как это выполнено для любой последовательности $\{x_n\} \subset X \setminus \{a\}$, сходящейся к $a$, по определению Гейне $\lim_{x \to a} g(f(x)) = B$.
         </p>
-        <div class="qed">■</div>
-      </div>
-
-      <div class="callout warning">
-        <div class="callout-title">Ловушка анализа: Почему условие $f(x) \neq A$ строго необходимо?</div>
-        <p>
+<div class="qed">■</div>
+</div>
+<div class="callout warning">
+<div class="callout-title">Ловушка анализа: Почему условие $f(x) \neq A$ строго необходимо?</div>
+<p>
           Если опустить условие $f(x) \neq A$, утверждение теоремы может оказаться <strong>ложным</strong>, если функция $g(y)$ не является непрерывной в точке $A$.
         </p>
-        <p><strong>Классический контрпример:</strong></p>
-        <p>
+<p><strong>Классический контрпример:</strong></p>
+<p>
           Рассмотрим функцию $f(x) \equiv 0$ (константа) и функцию:
         </p>
-        $$ g(y) = \begin{cases} 0, & y \neq 0 \\ 1, & y = 0 \end{cases} $$
+        \[g(y) = \begin{cases} 0, & y \neq 0 \\ 1, & y = 0 \end{cases}\]
         <p>
-          Имеем: $\lim_{x \to 0} f(x) = 0$ (здесь $a=0, A=0$). Также $\lim_{y \to 0} g(y) = 0$ (так как в любой проколотой окрестности нуля $y \neq 0$, где $g(y) = 0$, поэтому предел $B = 0$).<br>
+          Имеем: $\lim_{x \to 0} f(x) = 0$ (здесь $a=0, A=0$). Также $\lim_{y \to 0} g(y) = 0$ (так как в любой проколотой окрестности нуля $y \neq 0$, где $g(y) = 0$, поэтому предел $B = 0$).<br/>
           Однако для сложной функции при всех $x \in \mathbb{R}$:
         </p>
-        $$ (g \circ f)(x) = g(f(x)) = g(0) = 1 \implies \lim_{x \to 0} g(f(x)) = 1 \neq B = 0 $$
+        \[(g \circ f)(x) = g(f(x)) = g(0) = 1 \implies \lim_{x \to 0} g(f(x)) = 1 \neq B = 0\]
         <p>
-          <em>Вывод:</em> Теорема верна без требования $f(x) \neq A$ только в том случае, если функция $g(y)$ <strong>непрерывна</strong> в точке $A$ (то есть $g(A) = B$).
+<em>Вывод:</em> Теорема верна без требования $f(x) \neq A$ только в том случае, если функция $g(y)$ <strong>непрерывна</strong> в точке $A$ (то есть $g(A) = B$).
         </p>
-      </div>
-    </section>
+</div>
 
-    <!-- РАЗДЕЛ 5: ПЕРВЫЙ ЗАМЕЧАТЕЛЬНЫЙ ПРЕДЕЛ -->
-    <section id="sec-first-limit">
+<!-- РАЗДЕЛ 5: ПЕРВЫЙ ЗАМЕЧАТЕЛЬНЫЙ ПРЕДЕЛ -->
+<section id="sec-first-limit">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-6">
   <div class="chapter-kicker">06 / 5. Первый замечательный предел</div>
   <h2 id="chapter-6" data-toc="5. Первый замечательный предел">§ 5. Первый замечательный предел</h2>
-  <div class="callout theorem">
-        <div class="callout-title">Теорема (Первый замечательный предел)</div>
-        $$ \lim_{x \to 0} \frac{\sin x}{x} = 1 $$
+  
+<div class="callout theorem">
+<div class="callout-title">Теорема (Первый замечательный предел)</div>
+        \[\lim_{x \to 0} \frac{\sin x}{x} = 1\]
       </div>
-
-      <!-- ВЕКТОРНАЯ ИЛЛЮСТРАЦИЯ SVG ДЛЯ ДОКАЗАТЕЛЬСТВА -->
-      <div class="svg-wrapper">
-        <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 520 380" width="100%" max-width="500" height="auto" style="max-height: 340px;">
-          <defs>
-            <!-- Маркер стрелки для координатных осей -->
-            <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-reverse">
-              <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--text-main)"/>
-            </marker>
-          </defs>
-
-          <!-- Координатные оси -->
-          <line x1="40" y1="310" x2="480" y2="310" stroke="var(--text-muted)" stroke-width="1.8" marker-end="url(#arrow)"/>
-          <line x1="80" y1="340" x2="80" y2="30" stroke="var(--text-muted)" stroke-width="1.8" marker-end="url(#arrow)"/>
-          <text x="475" y="332" font-size="14" font-weight="bold" fill="var(--text-main)">u</text>
-          <text x="60" y="35" font-size="14" font-weight="bold" fill="var(--text-main)">v</text>
-
-          <!-- Начало координат O -->
-          <text x="64" y="328" font-size="14" font-weight="bold" fill="var(--text-main)">O</text>
-
-          <!-- Единичная дуга окружности R = 240px -->
-          <!-- Центр (80, 310), Радиус R = 240. Точка A = (320, 310) -->
-          <path d="M 320 310 A 240 240 0 0 0 80 70" fill="none" stroke="var(--border-color)" stroke-width="2" stroke-dasharray="4 4"/>
-
-          <!-- Закраска треугольника OAC: O(80,310), A(320,310), C(320,142) -->
-          <polygon points="80,310 320,310 320,142" fill="rgba(245, 158, 11, 0.15)"/>
-
-          <!-- Закраска сектора OAB: угол 35 градусов (0.61 рад) -->
-          <!-- B = (80 + 240*cos(35°), 310 - 240*sin(35°)) ≈ (80 + 196.6, 310 - 137.6) = (276.6, 172.4) -->
-          <path d="M 80 310 L 320 310 A 240 240 0 0 0 276.6 172.4 Z" fill="rgba(2, 132, 199, 0.22)"/>
-
-          <!-- Треугольник OAB (линия OB и хорда AB) -->
-          <polygon points="80,310 320,310 276.6,172.4" fill="rgba(79, 70, 229, 0.25)"/>
-
-          <!-- Касательная AC (вертикальный отрезок при u = 1) -->
-          <!-- C = (320, 310 - 240*tg(35°)) = (320, 310 - 240*0.700) = (320, 142) -->
-          <line x1="320" y1="310" x2="320" y2="142" stroke="var(--box-warn-border)" stroke-width="3"/>
-
-          <!-- Луч OC, проходящий через B -->
-          <line x1="80" y1="310" x2="320" y2="142" stroke="var(--accent-secondary)" stroke-width="2"/>
-
-          <!-- Хорда AB -->
-          <line x1="320" y1="310" x2="276.6" y2="172.4" stroke="var(--accent-primary)" stroke-width="2"/>
-
-          <!-- Отрезок перпендикуляра из B на ось (ордината sin x) -->
-          <line x1="276.6" y1="172.4" x2="276.6" y2="310" stroke="var(--accent-primary)" stroke-width="1.5" stroke-dasharray="3 3"/>
-
-          <!-- Обозначение прямого угла в точке A -->
-          <path d="M 305 310 L 305 295 L 320 295" fill="none" stroke="var(--text-muted)" stroke-width="1.5"/>
-
-          <!-- Дуга угла x при вершине O -->
-          <path d="M 135 310 A 55 55 0 0 0 125 278" fill="none" stroke="var(--accent-primary)" stroke-width="2"/>
-          <text x="140" y="295" font-size="14" font-weight="bold" fill="var(--accent-primary)">x</text>
-
-          <!-- Точки и подписи вершин -->
-          <circle cx="320" cy="310" r="4.5" fill="var(--text-main)"/>
-          <text x="326" y="328" font-size="14" font-weight="bold" fill="var(--text-main)">A (1, 0)</text>
-
-          <circle cx="276.6" cy="172.4" r="4.5" fill="var(--accent-primary)"/>
-          <text x="250" y="160" font-size="14" font-weight="bold" fill="var(--accent-primary)">B</text>
-
-          <circle cx="320" cy="142" r="4.5" fill="var(--box-warn-border)"/>
-          <text x="328" y="142" font-size="14" font-weight="bold" fill="var(--box-warn-border)">C (1, tg x)</text>
-
-          <!-- Подписи сторон -->
-          <text x="332" y="235" font-size="13" font-weight="bold" fill="var(--box-warn-border)">AC = tg x</text>
-          <text x="200" y="328" font-size="13" fill="var(--text-muted)">OA = R = 1</text>
-        </svg></div>
-        <div class="svg-caption">
-          <strong>Геометрическая интерпретация на единичной окружности:</strong> соотношение включения фигур $\triangle OAB \subset \text{Сектор } OAB \subset \triangle OAC$ порождает фундаментальное тригонометрическое неравенство $\sin x < x < \operatorname{tg} x$.
+<!-- ВЕКТОРНАЯ ИЛЛЮСТРАЦИЯ SVG ДЛЯ ДОКАЗАТЕЛЬСТВА -->
+<div class="svg-wrapper">
+<figure class="figure-plate"><svg max-width="500" style="max-height: 340px;; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 520 380">
+<defs>
+<!-- Маркер стрелки для координатных осей -->
+<marker id="arrow" markerheight="6" markerwidth="6" orient="auto-reverse" refx="6" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--text-main)"></path>
+</marker>
+</defs>
+<!-- Координатные оси -->
+<line marker-end="url(#arrow)" stroke="var(--text-muted)" stroke-width="1.8" x1="40" x2="480" y1="310" y2="310"></line>
+<line marker-end="url(#arrow)" stroke="var(--text-muted)" stroke-width="1.8" x1="80" x2="80" y1="340" y2="30"></line>
+<text fill="var(--text-main)" font-size="14" font-weight="bold" x="475" y="332">u</text>
+<text fill="var(--text-main)" font-size="14" font-weight="bold" x="60" y="35">v</text>
+<!-- Начало координат O -->
+<text fill="var(--text-main)" font-size="14" font-weight="bold" x="64" y="328">O</text>
+<!-- Единичная дуга окружности R = 240px -->
+<!-- Центр (80, 310), Радиус R = 240. Точка A = (320, 310) -->
+<path d="M 320 310 A 240 240 0 0 0 80 70" fill="none" stroke="var(--border-color)" stroke-dasharray="4 4" stroke-width="2"></path>
+<!-- Закраска треугольника OAC: O(80,310), A(320,310), C(320,142) -->
+<polygon fill="rgba(245, 158, 11, 0.15)" points="80,310 320,310 320,142"></polygon>
+<!-- Закраска сектора OAB: угол 35 градусов (0.61 рад) -->
+<!-- B = (80 + 240*cos(35°), 310 - 240*sin(35°)) ≈ (80 + 196.6, 310 - 137.6) = (276.6, 172.4) -->
+<path d="M 80 310 L 320 310 A 240 240 0 0 0 276.6 172.4 Z" fill="rgba(2, 132, 199, 0.22)"></path>
+<!-- Треугольник OAB (линия OB и хорда AB) -->
+<polygon fill="rgba(79, 70, 229, 0.25)" points="80,310 320,310 276.6,172.4"></polygon>
+<!-- Касательная AC (вертикальный отрезок при u = 1) -->
+<!-- C = (320, 310 - 240*tg(35°)) = (320, 310 - 240*0.700) = (320, 142) -->
+<line stroke="var(--box-warn-border)" stroke-width="3" x1="320" x2="320" y1="310" y2="142"></line>
+<!-- Луч OC, проходящий через B -->
+<line stroke="var(--accent-secondary)" stroke-width="2" x1="80" x2="320" y1="310" y2="142"></line>
+<!-- Хорда AB -->
+<line stroke="var(--accent-primary)" stroke-width="2" x1="320" x2="276.6" y1="310" y2="172.4"></line>
+<!-- Отрезок перпендикуляра из B на ось (ордината sin x) -->
+<line stroke="var(--accent-primary)" stroke-dasharray="3 3" stroke-width="1.5" x1="276.6" x2="276.6" y1="172.4" y2="310"></line>
+<!-- Обозначение прямого угла в точке A -->
+<path d="M 305 310 L 305 295 L 320 295" fill="none" stroke="var(--text-muted)" stroke-width="1.5"></path>
+<!-- Дуга угла x при вершине O -->
+<path d="M 135 310 A 55 55 0 0 0 125 278" fill="none" stroke="var(--accent-primary)" stroke-width="2"></path>
+<text fill="var(--accent-primary)" font-size="14" font-weight="bold" x="140" y="295">x</text>
+<!-- Точки и подписи вершин -->
+<circle cx="320" cy="310" fill="var(--text-main)" r="4.5"></circle>
+<text fill="var(--text-main)" font-size="14" font-weight="bold" x="326" y="328">A (1, 0)</text>
+<circle cx="276.6" cy="172.4" fill="var(--accent-primary)" r="4.5"></circle>
+<text fill="var(--accent-primary)" font-size="14" font-weight="bold" x="250" y="160">B</text>
+<circle cx="320" cy="142" fill="var(--box-warn-border)" r="4.5"></circle>
+<text fill="var(--box-warn-border)" font-size="14" font-weight="bold" x="328" y="142">C (1, tg x)</text>
+<!-- Подписи сторон -->
+<text fill="var(--box-warn-border)" font-size="13" font-weight="bold" x="332" y="235">AC = tg x</text>
+<text fill="var(--text-muted)" font-size="13" x="200" y="328">OA = R = 1</text>
+</svg></figure>
+<div class="svg-caption">
+<strong>Геометрическая интерпретация на единичной окружности:</strong> соотношение включения фигур $\triangle OAB \subset \text{Сектор } OAB \subset \triangle OAC$ порождает фундаментальное тригонометрическое неравенство $\sin x < x < \operatorname{tg} x$.
         </div>
-      </div>
-
-      <div class="callout proof">
-        <div class="callout-title">Строгое аналитическое доказательство</div>
-        
-        <p><strong>Шаг 1: Рассмотрение в первой четверти $x \in \left(0, \frac{\pi}{2}\right)$:</strong></p>
-        <p>
+</div>
+<div class="callout proof">
+<div class="callout-title">Строгое аналитическое доказательство</div>
+<p><strong>Шаг 1: Рассмотрение в первой четверти $x \in \left(0, \frac{\pi}{2}\right)$:</strong></p>
+<p>
           Рассмотрим тригонометрическую окружность радиуса $R = 1$ с центром в начале координат $O(0,0)$. Отложим от положительного направления оси угол величиной $x$ радиан.
         </p>
-        <p>Вычислим площади трёх геометрических фигур:</p>
-        <ul>
-          <li>
-            <strong>Площадь треугольника $\triangle OAB$:</strong><br>
+<p>Вычислим площади трёх геометрических фигур:</p>
+<ul>
+<li>
+<strong>Площадь треугольника $\triangle OAB$:</strong><br/>
             Стороны $OA = OB = R = 1$. Угол между ними равен $x$.
-            $$ S_{\triangle OAB} = \frac{1}{2} \cdot OA \cdot OB \cdot \sin x = \frac{1}{2} \cdot 1 \cdot 1 \cdot \sin x = \frac{1}{2} \sin x $$
+            \[S_{\triangle OAB} = \frac{1}{2} \cdot OA \cdot OB \cdot \sin x = \frac{1}{2} \cdot 1 \cdot 1 \cdot \sin x = \frac{1}{2} \sin x\]
           </li>
-          <li>
-            <strong>Площадь кругового сектора $OAB$:</strong><br>
+<li>
+<strong>Площадь кругового сектора $OAB$:</strong><br/>
             В радианах площадь сектора равна половине квадрата радиуса на угол:
-            $$ S_{\text{сект } OAB} = \frac{1}{2} R^2 x = \frac{1}{2} \cdot 1^2 \cdot x = \frac{1}{2} x $$
+            \[S_{\text{сект } OAB} = \frac{1}{2} R^2 x = \frac{1}{2} \cdot 1^2 \cdot x = \frac{1}{2} x\]
           </li>
-          <li>
-            <strong>Площадь прямоугольного треугольника $\triangle OAC$:</strong><br>
+<li>
+<strong>Площадь прямоугольного треугольника $\triangle OAC$:</strong><br/>
             Катет $OA = 1$, угол $\angle AOC = x$, угол $\angle OAC = 90^\circ$. Второй катет $AC = OA \cdot \operatorname{tg} x = \operatorname{tg} x$.
-            $$ S_{\triangle OAC} = \frac{1}{2} \cdot OA \cdot AC = \frac{1}{2} \cdot 1 \cdot \operatorname{tg} x = \frac{1}{2} \operatorname{tg} x $$
+            \[S_{\triangle OAC} = \frac{1}{2} \cdot OA \cdot AC = \frac{1}{2} \cdot 1 \cdot \operatorname{tg} x = \frac{1}{2} \operatorname{tg} x\]
           </li>
-        </ul>
-
-        <p>Из очевидного геометрического включения $\triangle OAB \subset \text{Сектор } OAB \subset \triangle OAC$ следует строгое неравенство площадей:</p>
-        $$ S_{\triangle OAB} < S_{\text{сект } OAB} < S_{\triangle OAC} \iff \frac{1}{2} \sin x < \frac{1}{2} x < \frac{1}{2} \operatorname{tg} x $$
-        $$ \sin x < x < \operatorname{tg} x $$
+</ul>
+<p>Из очевидного геометрического включения $\triangle OAB \subset \text{Сектор } OAB \subset \triangle OAC$ следует строгое неравенство площадей:</p>
+        \[S_{\triangle OAB} < S_{\text{сект } OAB} < S_{\triangle OAC} \iff \frac{1}{2} \sin x < \frac{1}{2} x < \frac{1}{2} \operatorname{tg} x\]
+        \[\sin x < x < \operatorname{tg} x\]
 
         <p><strong>Шаг 2: Алгебраические преобразования:</strong></p>
-        <p>
+<p>
           Так как $x \in \left(0, \frac{\pi}{2}\right)$, величина $\sin x > 0$. Разделим все части неравенства на $\sin x$:
         </p>
-        $$ 1 < \frac{x}{\sin x} < \frac{1}{\cos x} $$
+        \[1 < \frac{x}{\sin x} < \frac{1}{\cos x}\]
         <p>
           Так как все части неравенства строго положительны, перевернём дроби (функция $t \mapsto \frac{1}{t}$ строго убывает на $(0, +\infty)$):
         </p>
-        $$ \cos x < \frac{\sin x}{x} < 1 \quad \forall x \in \left(0, \frac{\pi}{2}\right) $$
+        \[\cos x < \frac{\sin x}{x} < 1 \quad \forall x \in \left(0, \frac{\pi}{2}\right)\]
 
         <p><strong>Шаг 3: Распространение на проколотую окрестность нуля $\dot{U}_{\pi/2}(0)$:</strong></p>
-        <p>
+<p>
           Заметим, что функции $\cos x$, $1$ и $\frac{\sin x}{x}$ являются <strong>чётными</strong>:
         </p>
-        $$ \frac{\sin(-x)}{-x} = \frac{-\sin x}{-x} = \frac{\sin x}{x}, \qquad \cos(-x) = \cos x $$
+        \[\frac{\sin(-x)}{-x} = \frac{-\sin x}{-x} = \frac{\sin x}{x}, \qquad \cos(-x) = \cos x\]
         <p>
           Следовательно, для любого $x \in \left(-\frac{\pi}{2}, 0\right)$ при замене $t = -x > 0$ выполняется то же самое неравенство. Таким образом:
         </p>
-        $$ \cos x < \frac{\sin x}{x} < 1 \quad \forall x \in \dot{U}_{\pi/2}(0) = \left(-\frac{\pi}{2}, 0\right) \cup \left(0, \frac{\pi}{2}\right) $$
+        \[\cos x < \frac{\sin x}{x} < 1 \quad \forall x \in \dot{U}_{\pi/2}(0) = \left(-\frac{\pi}{2}, 0\right) \cup \left(0, \frac{\pi}{2}\right)\]
 
         <p><strong>Шаг 4: Предельный переход по теореме о зажатой функции (Теорема 6 / «О двух милиционерах»):</strong></p>
-        <p>
+<p>
           Вычислим пределы крайних функций при $x \to 0$:
         </p>
-        $$ \lim_{x \to 0} \cos x = 1, \qquad \lim_{x \to 0} 1 = 1 $$
+        \[\lim_{x \to 0} \cos x = 1, \qquad \lim_{x \to 0} 1 = 1\]
         <p>
           Так как обе охватывающие функции сходятся к единице, находящаяся между ними функция также имеет конечный предел, равный единице:
         </p>
-        $$ \lim_{x \to 0} \frac{\sin x}{x} = 1 $$
+        \[\lim_{x \to 0} \frac{\sin x}{x} = 1\]
         <div class="qed">■</div>
-      </div>
-
-      <div class="callout theorem">
-        <div class="callout-title">Обобщение I замечательного предела (через теорему о композиции)</div>
-        <p>
+</div>
+<div class="callout theorem">
+<div class="callout-title">Обобщение I замечательного предела (через теорему о композиции)</div>
+<p>
           Если $\alpha(x)$ — бесконечно малая функция при $x \to a$ и $\alpha(x) \neq 0$ в некоторой окрестности $\dot{U}(a)$, то по теореме о пределе сложной функции:
         </p>
-        $$ \lim_{x \to a} \frac{\sin \alpha(x)}{\alpha(x)} = 1 $$
+        \[\lim_{x \to a} \frac{\sin \alpha(x)}{\alpha(x)} = 1\]
       </div>
-    </section>
 
-    <!-- РАЗДЕЛ 6: СЛЕДСТВИЯ ПЕРВОГО ЗАМЕЧАТЕЛЬНОГО ПРЕДЕЛА -->
-    <section id="sec-first-corollaries">
+<!-- РАЗДЕЛ 6: СЛЕДСТВИЯ ПЕРВОГО ЗАМЕЧАТЕЛЬНОГО ПРЕДЕЛА -->
+<section id="sec-first-corollaries">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-7">
-  <div class="chapter-kicker">07 / 6. Следствия первого замечат…</div>
-  <h2 id="chapter-7" data-toc="6. Следствия первого замечат…">§ 6. Следствия первого замечательного предела</h2>
-  <p>
+  <div class="chapter-kicker">07 / 6. Следствия первого замечател…</div>
+  <h2 id="chapter-7" data-toc="6. Следствия первого замечател…">§ 6. Следствия первого замечательного предела</h2>
+  
+<p>
         Из первого замечательного предела и непрерывности основных функций вытекает ряд пределов, которые на практике применяются для замены бесконечно малых на эквивалентные.
       </p>
-
-      <div class="callout theorem">
-        <div class="callout-title">Следствие 1 (Предел тангенса)</div>
-        $$ \lim_{x \to 0} \frac{\operatorname{tg} x}{x} = 1 $$
+<div class="callout theorem">
+<div class="callout-title">Следствие 1 (Предел тангенса)</div>
+        \[\lim_{x \to 0} \frac{\operatorname{tg} x}{x} = 1\]
       </div>
-      <div class="callout proof">
-        <div class="callout-title">Доказательство</div>
-        $$ \lim_{x \to 0} \frac{\operatorname{tg} x}{x} = \lim_{x \to 0} \left( \frac{\sin x}{x} \cdot \frac{1}{\cos x} \right) = \left(\lim_{x \to 0} \frac{\sin x}{x}\right) \cdot \left(\lim_{x \to 0} \frac{1}{\cos x}\right) = 1 \cdot \frac{1}{1} = 1 $$
+<div class="callout proof">
+<div class="callout-title">Доказательство</div>
+        \[\lim_{x \to 0} \frac{\operatorname{tg} x}{x} = \lim_{x \to 0} \left( \frac{\sin x}{x} \cdot \frac{1}{\cos x} \right) = \left(\lim_{x \to 0} \frac{\sin x}{x}\right) \cdot \left(\lim_{x \to 0} \frac{1}{\cos x}\right) = 1 \cdot \frac{1}{1} = 1\]
         <div class="qed">■</div>
+</div>
+<div class="callout theorem">
+<div class="callout-title">Следствие 2 (Предел арксинуса)</div>
+        \[\lim_{x \to 0} \frac{\arcsin x}{x} = 1\]
       </div>
-
-      <div class="callout theorem">
-        <div class="callout-title">Следствие 2 (Предел арксинуса)</div>
-        $$ \lim_{x \to 0} \frac{\arcsin x}{x} = 1 $$
-      </div>
-      <div class="callout proof">
-        <div class="callout-title">Доказательство</div>
-        <p>
-          Выполним замену переменной: положим $t = \arcsin x$. Тогда $x = \sin t$.<br>
+<div class="callout proof">
+<div class="callout-title">Доказательство</div>
+<p>
+          Выполним замену переменной: положим $t = \arcsin x$. Тогда $x = \sin t$.<br/>
           Поскольку функция $t = \arcsin x$ непрерывна в нуле и $\arcsin 0 = 0$, то при $x \to 0$ переменная $t \to 0$, причём $t \neq 0$ при $x \neq 0$. Получаем:
         </p>
-        $$ \lim_{x \to 0} \frac{\arcsin x}{x} = \lim_{t \to 0} \frac{t}{\sin t} = \lim_{t \to 0} \frac{1}{\frac{\sin t}{t}} = \frac{1}{1} = 1 $$
+        \[\lim_{x \to 0} \frac{\arcsin x}{x} = \lim_{t \to 0} \frac{t}{\sin t} = \lim_{t \to 0} \frac{1}{\frac{\sin t}{t}} = \frac{1}{1} = 1\]
         <div class="qed">■</div>
+</div>
+<div class="callout theorem">
+<div class="callout-title">Следствие 3 (Предел арктангенса)</div>
+        \[\lim_{x \to 0} \frac{\operatorname{arctg} x}{x} = 1\]
       </div>
-
-      <div class="callout theorem">
-        <div class="callout-title">Следствие 3 (Предел арктангенса)</div>
-        $$ \lim_{x \to 0} \frac{\operatorname{arctg} x}{x} = 1 $$
-      </div>
-      <div class="callout proof">
-        <div class="callout-title">Доказательство</div>
-        <p>
+<div class="callout proof">
+<div class="callout-title">Доказательство</div>
+<p>
           Аналогично положим $t = \operatorname{arctg} x \iff x = \operatorname{tg} t$. При $x \to 0$ получаем $t \to 0$ ($t \neq 0$):
         </p>
-        $$ \lim_{x \to 0} \frac{\operatorname{arctg} x}{x} = \lim_{t \to 0} \frac{t}{\operatorname{tg} t} = \lim_{t \to 0} \frac{1}{\frac{\operatorname{tg} t}{t}} = \frac{1}{1} = 1 $$
+        \[\lim_{x \to 0} \frac{\operatorname{arctg} x}{x} = \lim_{t \to 0} \frac{t}{\operatorname{tg} t} = \lim_{t \to 0} \frac{1}{\frac{\operatorname{tg} t}{t}} = \frac{1}{1} = 1\]
         <div class="qed">■</div>
+</div>
+<div class="callout theorem">
+<div class="callout-title">Следствие 4 (Предел с косинусом)</div>
+        \[\lim_{x \to 0} \frac{1 - \cos x}{x^2} = \frac{1}{2}\]
       </div>
-
-      <div class="callout theorem">
-        <div class="callout-title">Следствие 4 (Предел с косинусом)</div>
-        $$ \lim_{x \to 0} \frac{1 - \cos x}{x^2} = \frac{1}{2} $$
-      </div>
-      <div class="callout proof">
-        <div class="callout-title">Доказательство</div>
-        <p>Используем тригонометрическую формулу половинного аргумента $1 - \cos x = 2 \sin^2\left(\frac{x}{2}\right)$:</p>
-        $$ \lim_{x \to 0} \frac{1 - \cos x}{x^2} = \lim_{x \to 0} \frac{2 \sin^2\left(\frac{x}{2}\right)}{x^2} = 2 \lim_{x \to 0} \left( \frac{\sin(x/2)}{x} \right)^2 = 2 \lim_{x \to 0} \left( \frac{\sin(x/2)}{x/2} \cdot \frac{1}{2} \right)^2 = 2 \cdot \left(1 \cdot \frac{1}{2}\right)^2 = \frac{2}{4} = \frac{1}{2} $$
+<div class="callout proof">
+<div class="callout-title">Доказательство</div>
+<p>Используем тригонометрическую формулу половинного аргумента $1 - \cos x = 2 \sin^2\left(\frac{x}{2}\right)$:</p>
+        \[\lim_{x \to 0} \frac{1 - \cos x}{x^2} = \lim_{x \to 0} \frac{2 \sin^2\left(\frac{x}{2}\right)}{x^2} = 2 \lim_{x \to 0} \left( \frac{\sin(x/2)}{x} \right)^2 = 2 \lim_{x \to 0} \left( \frac{\sin(x/2)}{x/2} \cdot \frac{1}{2} \right)^2 = 2 \cdot \left(1 \cdot \frac{1}{2}\right)^2 = \frac{2}{4} = \frac{1}{2}\]
         <div class="qed">■</div>
-      </div>
-    </section>
+</div>
 
-    <!-- РАЗДЕЛ 7: ПРИМЕР С ДОСКИ -->
-    <section id="sec-example-board">
+<!-- РАЗДЕЛ 7: ПРИМЕР С ДОСКИ -->
+<section id="sec-example-board">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-8">
-  <div class="chapter-kicker">08 / 7. Разбор практического прим…</div>
-  <h2 id="chapter-8" data-toc="7. Разбор практического прим…">§ 7. Разбор практического примера с лекции</h2>
-  <div class="callout example">
-        <div class="callout-title">Задача с доски (Раскрытие неопределенности типа $[0/0]$)</div>
-        <p><strong>Вычислить предел:</strong></p>
-        $$ L = \lim_{x \to 0} \frac{x - \sin 2x}{x + \sin 3x} $$
+  <div class="chapter-kicker">08 / 7. Разбор практического пример…</div>
+  <h2 id="chapter-8" data-toc="7. Разбор практического пример…">§ 7. Разбор практического примера с лекции</h2>
+  
+<div class="callout example">
+<div class="callout-title">Задача с доски (Раскрытие неопределенности типа $[0/0]$)</div>
+<p><strong>Вычислить предел:</strong></p>
+        \[L = \lim_{x \to 0} \frac{x - \sin 2x}{x + \sin 3x}\]
         
         <p><strong>Решение:</strong></p>
-        <ol>
-          <li>
-            <strong>Анализ неопределённости:</strong><br>
+<ol>
+<li>
+<strong>Анализ неопределённости:</strong><br/>
             При непосредственной подстановке $x = 0$:
-            $$ x - \sin(2 \cdot 0) = 0 - 0 = 0, \qquad x + \sin(3 \cdot 0) = 0 + 0 = 0 $$
+            \[x - \sin(2 \cdot 0) = 0 - 0 = 0, \qquad x + \sin(3 \cdot 0) = 0 + 0 = 0\]
             Имеем неопределённость вида $\left[\frac{0}{0}\right]$.
           </li>
-          <li>
-            <strong>Искусственное выделение первого замечательного предела:</strong><br>
+<li>
+<strong>Искусственное выделение первого замечательного предела:</strong><br/>
             Разделим почленно числитель и знаменатель дроби на $x \neq 0$:
-            $$ \frac{x - \sin 2x}{x + \sin 3x} = \frac{1 - \frac{\sin 2x}{x}}{1 + \frac{\sin 3x}{x}} $$
+            \[\frac{x - \sin 2x}{x + \sin 3x} = \frac{1 - \frac{\sin 2x}{x}}{1 + \frac{\sin 3x}{x}}\]
           </li>
-          <li>
-            <strong>Приведение к стандартному виду:</strong><br>
+<li>
+<strong>Приведение к стандартному виду:</strong><br/>
             Домножим и разделим аргументы синусов на соответствующие константы:
-            $$ \frac{\sin 2x}{x} = \frac{\sin 2x}{2x} \cdot 2, \qquad \frac{\sin 3x}{x} = \frac{\sin 3x}{3x} \cdot 3 $$
+            \[\frac{\sin 2x}{x} = \frac{\sin 2x}{2x} \cdot 2, \qquad \frac{\sin 3x}{x} = \frac{\sin 3x}{3x} \cdot 3\]
             Тогда дробь принимает вид:
-            $$ \frac{1 - 2 \cdot \left(\frac{\sin 2x}{2x}\right)}{1 + 3 \cdot \left(\frac{\sin 3x}{3x}\right)} $$
+            \[\frac{1 - 2 \cdot \left(\frac{\sin 2x}{2x}\right)}{1 + 3 \cdot \left(\frac{\sin 3x}{3x}\right)}\]
           </li>
-          <li>
-            <strong>Применение теорем об арифметике пределов:</strong><br>
+<li>
+<strong>Применение теорем об арифметике пределов:</strong><br/>
             Так как при $x \to 0$ величины $2x \to 0$ и $3x \to 0$, по первому замечательному пределу:
-            $$ \lim_{x \to 0} \frac{\sin 2x}{2x} = 1, \qquad \lim_{x \to 0} \frac{\sin 3x}{3x} = 1 $$
+            \[\lim_{x \to 0} \frac{\sin 2x}{2x} = 1, \qquad \lim_{x \to 0} \frac{\sin 3x}{3x} = 1\]
             Применяя теорему о пределе частного, разности, суммы и произведения:
-            $$ L = \frac{\lim_{x \to 0} \left(1 - 2 \cdot \frac{\sin 2x}{2x}\right)}{\lim_{x \to 0} \left(1 + 3 \cdot \frac{\sin 3x}{3x}\right)} = \frac{1 - 2 \cdot 1}{1 + 3 \cdot 1} = \frac{1 - 2}{1 + 3} = \frac{-1}{4} = -\frac{1}{4} $$
+            \[L = \frac{\lim_{x \to 0} \left(1 - 2 \cdot \frac{\sin 2x}{2x}\right)}{\lim_{x \to 0} \left(1 + 3 \cdot \frac{\sin 3x}{3x}\right)} = \frac{1 - 2 \cdot 1}{1 + 3 \cdot 1} = \frac{1 - 2}{1 + 3} = \frac{-1}{4} = -\frac{1}{4}\]
           </li>
-        </ol>
-        <p><strong>Ответ:</strong> $-\frac{1}{4}$.</p>
-      </div>
-    </section>
+</ol>
+<p><strong>Ответ:</strong> $-\frac{1}{4}$.</p>
+</div>
 
-    <!-- РАЗДЕЛ 8: ВТОРОЙ ЗАМЕЧАТЕЛЬНЫЙ ПРЕДЕЛ -->
-    <section id="sec-second-limit">
+<!-- РАЗДЕЛ 8: ВТОРОЙ ЗАМЕЧАТЕЛЬНЫЙ ПРЕДЕЛ -->
+<section id="sec-second-limit">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-9">
   <div class="chapter-kicker">09 / 8. Второй замечательный предел</div>
   <h2 id="chapter-9" data-toc="8. Второй замечательный предел">§ 8. Второй замечательный предел</h2>
-  <p>
+  
+<p>
         В теории числовых последовательностей фундаментальным результатом является сходимость монотонной ограниченной последовательности $\left(1 + \frac{1}{n}\right)^n$, предел которой определяет число Непера $e \approx 2.71828...$:
       </p>
-      $$ \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e \quad (n \in \mathbb{N}) $$
+      \[\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e \quad (n \in \mathbb{N})\]
       <p>
         Второй замечательный предел распространяет этот факт на функции с <em>непрерывным</em> аргументом $x \in \mathbb{R}$.
       </p>
-
-      <div class="callout theorem">
-        <div class="callout-title">Теорема (Второй замечательный предел для функции)</div>
-        $$ \lim_{x \to +\infty} \left(1 + \frac{1}{x}\right)^x = e $$
+<div class="callout theorem">
+<div class="callout-title">Теорема (Второй замечательный предел для функции)</div>
+        \[\lim_{x \to +\infty} \left(1 + \frac{1}{x}\right)^x = e\]
       </div>
-
-      <div class="callout proof">
-        <div class="callout-title">Строгое доказательство (через целую часть аргумента)</div>
-        
-        <p><strong>Шаг 1: Двусторонняя оценка непрерывного аргумента через целые числа:</strong></p>
-        <p>
+<div class="callout proof">
+<div class="callout-title">Строгое доказательство (через целую часть аргумента)</div>
+<p><strong>Шаг 1: Двусторонняя оценка непрерывного аргумента через целые числа:</strong></p>
+<p>
           Пусть $x > 1$. Обозначим через $n = [x] \in \mathbb{N}$ целую часть числа $x$. По определению целой части:
         </p>
-        $$ n \le x < n + 1 $$
+        \[n \le x < n + 1\]
         <p>Отсюда для обратных величин справедливо двойное неравенство:</p>
-        $$ \frac{1}{n + 1} < \frac{1}{x} \le \frac{1}{n} \implies 1 + \frac{1}{n + 1} < 1 + \frac{1}{x} \le 1 + \frac{1}{n} $$
+        \[\frac{1}{n + 1} < \frac{1}{x} \le \frac{1}{n} \implies 1 + \frac{1}{n + 1} < 1 + \frac{1}{x} \le 1 + \frac{1}{n}\]
 
         <p><strong>Шаг 2: Оценка степенного выражения:</strong></p>
-        <p>
+<p>
           Так как основание степени больше единицы, возведение в степень с сохранением порядка даёт:
         </p>
-        $$ \left(1 + \frac{1}{n + 1}\right)^n < \left(1 + \frac{1}{x}\right)^x < \left(1 + \frac{1}{n}\right)^{n + 1} $$
+        \[\left(1 + \frac{1}{n + 1}\right)^n < \left(1 + \frac{1}{x}\right)^x < \left(1 + \frac{1}{n}\right)^{n + 1}\]
 
         <p><strong>Шаг 3: Вычисление пределов левой и правой границ при $x \to +\infty$ (то есть $n \to \infty$):</strong></p>
-        <ul>
-          <li>
-            <em>Преобразуем правую границу:</em>
-            $$ \left(1 + \frac{1}{n}\right)^{n + 1} = \left(1 + \frac{1}{n}\right)^n \cdot \left(1 + \frac{1}{n}\right) $$
+<ul>
+<li>
+<em>Преобразуем правую границу:</em>
+            \[\left(1 + \frac{1}{n}\right)^{n + 1} = \left(1 + \frac{1}{n}\right)^n \cdot \left(1 + \frac{1}{n}\right)\]
             Так как $\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e$, а $\lim_{n \to \infty} \left(1 + \frac{1}{n}\right) = 1$, по теореме о пределе произведения:
-            $$ \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^{n + 1} = e \cdot 1 = e $$
+            \[\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^{n + 1} = e \cdot 1 = e\]
           </li>
-          <li>
-            <em>Преобразуем левую границу:</em>
-            $$ \left(1 + \frac{1}{n + 1}\right)^n = \frac{\left(1 + \frac{1}{n + 1}\right)^{n + 1}}{1 + \frac{1}{n + 1}} $$
+<li>
+<em>Преобразуем левую границу:</em>
+            \[\left(1 + \frac{1}{n + 1}\right)^n = \frac{\left(1 + \frac{1}{n + 1}\right)^{n + 1}}{1 + \frac{1}{n + 1}}\]
             При $n \to \infty$ индекс $k = n + 1 \to \infty$. Следовательно:
-            $$ \lim_{n \to \infty} \left(1 + \frac{1}{n + 1}\right)^{n + 1} = e, \qquad \lim_{n \to \infty} \left(1 + \frac{1}{n + 1}\right) = 1 $$
+            \[\lim_{n \to \infty} \left(1 + \frac{1}{n + 1}\right)^{n + 1} = e, \qquad \lim_{n \to \infty} \left(1 + \frac{1}{n + 1}\right) = 1\]
             По теореме о пределе частного:
-            $$ \lim_{n \to \infty} \left(1 + \frac{1}{n + 1}\right)^n = \frac{e}{1} = e $$
+            \[\lim_{n \to \infty} \left(1 + \frac{1}{n + 1}\right)^n = \frac{e}{1} = e\]
           </li>
-        </ul>
-
-        <p><strong>Шаг 4: Применение теоремы о зажатой функции:</strong></p>
-        <p>
+</ul>
+<p><strong>Шаг 4: Применение теоремы о зажатой функции:</strong></p>
+<p>
           Так как при $x \to +\infty$ целая часть $n = [x] \to \infty$, обе граничные последовательности сходятся к одному и тому же числу $e$. По теореме о двух милиционерах (теорема 6):
         </p>
-        $$ \lim_{x \to +\infty} \left(1 + \frac{1}{x}\right)^x = e $$
+        \[\lim_{x \to +\infty} \left(1 + \frac{1}{x}\right)^x = e\]
         <div class="qed">■</div>
-      </div>
-
-      <div class="callout theorem">
-        <div class="callout-title">Эквивалентные формы и следствия второго замечательного предела</div>
-        <ol>
-          <li>
-            <strong>Предел при $x \to -\infty$:</strong>
-            $$ \lim_{x \to -\infty} \left(1 + \frac{1}{x}\right)^x = e $$
+</div>
+<div class="callout theorem">
+<div class="callout-title">Эквивалентные формы и следствия второго замечательного предела</div>
+<ol>
+<li>
+<strong>Предел при $x \to -\infty$:</strong>
+            \[\lim_{x \to -\infty} \left(1 + \frac{1}{x}\right)^x = e\]
             <em>Доказательство:</em> Замена $x = -(t + 1)$, где $t \to +\infty$.
           </li>
-          <li>
-            <strong>Форма бесконечно малой величины ($\alpha \to 0$):</strong>
-            $$ \lim_{\alpha \to 0} (1 + \alpha)^{\frac{1}{\alpha}} = e $$
+<li>
+<strong>Форма бесконечно малой величины ($\alpha \to 0$):</strong>
+            \[\lim_{\alpha \to 0} (1 + \alpha)^{\frac{1}{\alpha}} = e\]
             <em>Доказательство:</em> Замена $\alpha = \frac{1}{x}$.
           </li>
-          <li>
-            <strong>Следствие для натурального логарифма:</strong>
-            $$ \lim_{t \to 0} \frac{\ln(1 + t)}{t} = 1 $$
+<li>
+<strong>Следствие для натурального логарифма:</strong>
+            \[\lim_{t \to 0} \frac{\ln(1 + t)}{t} = 1\]
             <em>Доказательство:</em> В силу непрерывности логарифма: $\lim_{t \to 0} \ln\left((1+t)^{1/t}\right) = \ln e = 1$.
           </li>
-          <li>
-            <strong>Следствие для показательной функции:</strong>
-            $$ \lim_{t \to 0} \frac{e^t - 1}{t} = 1 $$
+<li>
+<strong>Следствие для показательной функции:</strong>
+            \[\lim_{t \to 0} \frac{e^t - 1}{t} = 1\]
             <em>Доказательство:</em> Замена $u = e^t - 1 \iff t = \ln(1 + u)$, $u \to 0$.
           </li>
-          <li>
-            <strong>Следствие для степенной функции:</strong>
-            $$ \lim_{t \to 0} \frac{(1 + t)^\mu - 1}{t} = \mu \quad (\mu \in \mathbb{R}) $$
+<li>
+<strong>Следствие для степенной функции:</strong>
+            \[\lim_{t \to 0} \frac{(1 + t)^\mu - 1}{t} = \mu \quad (\mu \in \mathbb{R})\]
           </li>
-        </ol>
-      </div>
-    </section>
+</ol>
+</div>
 
-    <!-- РАЗДЕЛ 9: СВОДНАЯ ТАБЛИЦА ЭКВИВАЛЕНТНОСТЕЙ -->
-    <section id="sec-cheatsheet">
+<!-- РАЗДЕЛ 9: СВОДНАЯ ТАБЛИЦА ЭКВИВАЛЕНТНОСТЕЙ -->
+<section id="sec-cheatsheet">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-10">
-  <div class="chapter-kicker">10 / 9. Сводная таблица асимптоти…</div>
-  <h2 id="chapter-10" data-toc="9. Сводная таблица асимптоти…">§ 9. Сводная таблица асимптотических эквивалентностей при $x \to 0$</h2>
-  <p>
+  <div class="chapter-kicker">10 / 9. Сводная таблица асимптотиче…</div>
+  <h2 id="chapter-10" data-toc="9. Сводная таблица асимптотиче…">§ 9. Сводная таблица асимптотических эквивалентностей при $x \to 0$</h2>
+  
+<p>
         Две бесконечно малые функции $\alpha(x)$ и $\beta(x)$ при $x \to a$ называются <strong>эквивалентными</strong> ($\alpha(x) \sim \beta(x)$), если $\lim_{x \to a} \frac{\alpha(x)}{\beta(x)} = 1$. В мультипликативных выражениях бесконечно малые можно заменять на эквивалентные.
       </p>
-
-      <div class="table-container">
-        <div class="table-scroll">
+<div class="table-container">
 <table>
-          <thead>
-            <tr>
-              <th>Исходная функция $f(x)$</th>
-              <th>Эквивалентная при $x \to 0$</th>
-              <th>Обоснование / Замечательный предел</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>$\sin x$</td>
-              <td>$x$</td>
-              <td>Первый замечательный предел: $\lim_{x \to 0} \frac{\sin x}{x} = 1$</td>
-            </tr>
-            <tr>
-              <td>$\operatorname{tg} x$</td>
-              <td>$x$</td>
-              <td>Следствие I зам. предела: $\lim_{x \to 0} \frac{\operatorname{tg} x}{x} = 1$</td>
-            </tr>
-            <tr>
-              <td>$\arcsin x$</td>
-              <td>$x$</td>
-              <td>Следствие I зам. предела: $\lim_{x \to 0} \frac{\arcsin x}{x} = 1$</td>
-            </tr>
-            <tr>
-              <td>$\operatorname{arctg} x$</td>
-              <td>$x$</td>
-              <td>Следствие I зам. предела: $\lim_{x \to 0} \frac{\operatorname{arctg} x}{x} = 1$</td>
-            </tr>
-            <tr>
-              <td>$1 - \cos x$</td>
-              <td>$\frac{x^2}{2}$</td>
-              <td>Следствие I зам. предела: $\lim_{x \to 0} \frac{1 - \cos x}{x^2} = \frac{1}{2}$</td>
-            </tr>
-            <tr>
-              <td>$\ln(1 + x)$</td>
-              <td>$x$</td>
-              <td>Следствие II зам. предела: $\lim_{x \to 0} \frac{\ln(1+x)}{x} = 1$</td>
-            </tr>
-            <tr>
-              <td>$e^x - 1$</td>
-              <td>$x$</td>
-              <td>Следствие II зам. предела: $\lim_{x \to 0} \frac{e^x - 1}{x} = 1$</td>
-            </tr>
-            <tr>
-              <td>$a^x - 1$</td>
-              <td>$x \ln a$</td>
-              <td>Обобщение: $a^x - 1 = e^{x \ln a} - 1 \sim x \ln a$ ($a > 0$)</td>
-            </tr>
-            <tr>
-              <td>$(1 + x)^\mu - 1$</td>
-              <td>$\mu x$</td>
-              <td>Следствие II зам. предела: $\lim_{x \to 0} \frac{(1+x)^\mu - 1}{x} = \mu$</td>
-            </tr>
-          </tbody>
-        </table>
+<thead>
+<tr>
+<th>Исходная функция $f(x)$</th>
+<th>Эквивалентная при $x \to 0$</th>
+<th>Обоснование / Замечательный предел</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\sin x$</td>
+<td>$x$</td>
+<td>Первый замечательный предел: $\lim_{x \to 0} \frac{\sin x}{x} = 1$</td>
+</tr>
+<tr>
+<td>$\operatorname{tg} x$</td>
+<td>$x$</td>
+<td>Следствие I зам. предела: $\lim_{x \to 0} \frac{\operatorname{tg} x}{x} = 1$</td>
+</tr>
+<tr>
+<td>$\arcsin x$</td>
+<td>$x$</td>
+<td>Следствие I зам. предела: $\lim_{x \to 0} \frac{\arcsin x}{x} = 1$</td>
+</tr>
+<tr>
+<td>$\operatorname{arctg} x$</td>
+<td>$x$</td>
+<td>Следствие I зам. предела: $\lim_{x \to 0} \frac{\operatorname{arctg} x}{x} = 1$</td>
+</tr>
+<tr>
+<td>$1 - \cos x$</td>
+<td>$\frac{x^2}{2}$</td>
+<td>Следствие I зам. предела: $\lim_{x \to 0} \frac{1 - \cos x}{x^2} = \frac{1}{2}$</td>
+</tr>
+<tr>
+<td>$\ln(1 + x)$</td>
+<td>$x$</td>
+<td>Следствие II зам. предела: $\lim_{x \to 0} \frac{\ln(1+x)}{x} = 1$</td>
+</tr>
+<tr>
+<td>$e^x - 1$</td>
+<td>$x$</td>
+<td>Следствие II зам. предела: $\lim_{x \to 0} \frac{e^x - 1}{x} = 1$</td>
+</tr>
+<tr>
+<td>$a^x - 1$</td>
+<td>$x \ln a$</td>
+<td>Обобщение: $a^x - 1 = e^{x \ln a} - 1 \sim x \ln a$ ($a > 0$)</td>
+</tr>
+<tr>
+<td>$(1 + x)^\mu - 1$</td>
+<td>$\mu x$</td>
+<td>Следствие II зам. предела: $\lim_{x \to 0} \frac{(1+x)^\mu - 1}{x} = \mu$</td>
+</tr>
+</tbody>
+</table>
 </div>
-      </div>
-    </section>
+
+
 </section>
 <!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>

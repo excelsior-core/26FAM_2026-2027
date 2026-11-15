@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Математический анализ — Лекции 1 и 2 | ФПМ НИУ ВШЭ. Конспект FAM ФПМ НИУ ВШЭ.">
+  <meta name="description" content="НИУ ВШЭ • ФПМ • Лекции 1–2">
   <title>Математический анализ — Лекции 1 и 2 | ФПМ НИУ ВШЭ — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
@@ -183,8 +183,13 @@ html[data-theme] ::selection{background:var(--gold);color:var(--paper)}
 .themed-figure [data-figure-theme="light"]{display:block}
 html[data-theme="dark"] .themed-figure [data-figure-theme],html[data-theme="parchment"] .themed-figure [data-figure-theme]{display:none}
 html[data-theme="dark"] .themed-figure [data-figure-theme="dark"],html[data-theme="parchment"] .themed-figure [data-figure-theme="parchment"]{display:block}
-/* One neutral/light asset may remain on its own light plate in every theme. Never invert mathematical colours. */
-.figure-plate{background:#fff;color:#202e29;padding:16px;border:1px solid var(--rule)}
+.figure-plate{background:var(--bg-card);color:var(--ink);padding:20px;border:1px solid var(--rule);border-radius:8px;margin:32px 0}
+html[data-theme="light"] .figure-plate{background:#ffffff}
+html[data-theme="dark"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+html[data-theme="parchment"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+@media print{
+ .figure-plate{background:white!important;border:0!important;padding:0!important}
+}
 @media(max-width:760px){.topbar{height:auto;min-height:70px;flex-wrap:wrap;padding:12px 18px;gap:10px}.top-actions{gap:8px;flex-wrap:wrap}.theme-control select{font-size:10px;max-width:103px;padding:8px 4px}.pdf-button{padding:6px 8px}.pdf-button span{margin-left:4px}.wordmark{font-size:24px}}
 @media(max-width:400px){.wordmark{display:none}.top-actions{width:100%;justify-content:space-between}}
 @media print{
@@ -440,1510 +445,1225 @@ SOFTWARE.
     </aside>
     <main id="content">
       <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
-  <div class="lecture-meta"><span class="subject">Математический анализ</span><span>ФПМ НИУ ВШЭ</span></div>
-  <h1>Математический анализ — Лекции 1 и 2 | ФПМ НИУ ВШЭ</h1>
-  <p class="subtitle">НИУ ВШЭ • ФПМ • Лекции 1–2</p>
-  <div class="lecture-abstract">
-    <p>НИУ ВШЭ • ФПМ • Лекции 1–2</p>
-    <div class="abstract-formula" aria-label="Ключевое выражение лекции">\[', right: '\]</div>
-  </div>
-</header>
-<div class="proof-toolbar" aria-label="Все доказательства">
-  <span class="toolbar-label">Доказательства</span>
-  <div class="segmented" role="group" aria-label="Режим всех доказательств">
-    <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
-    <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
-    <button data-all-proofs="full" aria-pressed="false">Полностью</button>
-  </div>
-  <span id="proof-state" class="proof-state" aria-live="polite"></span>
-</div>
-<noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
-<p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
-
+      <header class="lecture-head" id="top">
+        <div class="lecture-meta"><span class="subject">Математический анализ</span><span>Академический конспект ФПМ</span></div>
+        <h1>Математический анализ — Лекции 1 и 2 | ФПМ НИУ ВШЭ</h1>
+        <p class="subtitle">НИУ ВШЭ • ФПМ • Лекции 1–2</p>
+        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[', right: '\]</div></div>
+      </header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
 <section class="chapter" aria-labelledby="chapter-1">
   <div class="chapter-kicker">01 / Введение</div>
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <!-- Верхняя панель управления: Темы и Печать -->
-    
-      <div>
-        <button class="btn-action" onclick="window.print()" style="background-color: var(--accent-primary); color: #fff; border-color: var(--accent-primary);">
+<div class="toolbar-container no-print">
+
+<div>
+<button class="btn-action" onclick="window.print()" style="background-color: var(--accent-primary); color: #fff; border-color: var(--accent-primary);">
           🖨️ Экспорт в PDF / Печать
         </button>
-      </div>
-    </div>
-
-    <!-- Титульная карточка -->
-    <header class="header-card" id="sec-intro">
-      <span class="badge-fpm">НИУ ВШЭ • Факультет информатики, математики и компьютерных наук</span>
-      <h1 class="header-title">Курс математического анализа: Введение в анализ</h1>
-      <p style="color: var(--text-muted); font-size: 1.05rem;">
+</div>
+</div>
+<!-- Титульная карточка -->
+<header class="header-card" id="sec-intro">
+<span class="badge-fpm">НИУ ВШЭ • Факультет информатики, математики и компьютерных наук</span>
+<h1 class="header-title">Курс математического анализа: Введение в анализ</h1>
+<p style="color: var(--text-muted); font-size: 1.05rem;">
         Полный конспект-учебник по материалам лекций №1 и №2 для образовательной программы «Фундаментальная и прикладная математика» (ФПМ, поток МА26ФПМ). Составлен с привлечением академических курсов В. А. Зорича и Л. Д. Кудрявцева.
       </p>
-
-      <div class="header-info-grid">
-        <div class="info-box-item">
-          <div class="info-label">Лектор потока</div>
-          <div class="info-val">Светлана Юрьевна Галкина</div>
-          <div style="font-size: 0.78rem; color: var(--accent-primary);">sgalkina@hse.ru</div>
-        </div>
-        <div class="info-box-item">
-          <div class="info-label">Академический год</div>
-          <div class="info-val">2026 / 2027 уч. год (1 семестр)</div>
-        </div>
-        <div class="info-box-item">
-          <div class="info-label">Формула оценивания курса</div>
-          <div class="info-val">0.25·КР₁ + 0.25·Коллоквиум + 0.25·КР₂ + 0.25·Экзамен</div>
-        </div>
-      </div>
-    </header>
-
-    <!-- §1. Множества и математическая логика -->
-    <section id="sec-1">
+<div class="header-info-grid">
+<div class="info-box-item">
+<div class="info-label">Лектор потока</div>
+<div class="info-val">Светлана Юрьевна Галкина</div>
+<div style="font-size: 0.78rem; color: var(--accent-primary);">sgalkina@hse.ru</div>
+</div>
+<div class="info-box-item">
+<div class="info-label">Академический год</div>
+<div class="info-val">2026 / 2027 уч. год (1 семестр)</div>
+</div>
+<div class="info-box-item">
+<div class="info-label">Формула оценивания курса</div>
+<div class="info-val">0.25·КР₁ + 0.25·Коллоквиум + 0.25·КР₂ + 0.25·Экзамен</div>
+</div>
+</div>
+</header>
+<!-- §1. Множества и математическая логика -->
+<section id="sec-1">
 </section>
-
 <section class="chapter" aria-labelledby="chapter-2">
-  <div class="chapter-kicker">02 / 1. Множества, операции над м…</div>
-  <h2 id="chapter-2" data-toc="1. Множества, операции над м…">§ 1. Множества, операции над множествами и логическая символика</h2>
-  <p id="sec-1-1">
+  <div class="chapter-kicker">02 / 1. Множества, операции над мно…</div>
+  <h2 id="chapter-2" data-toc="1. Множества, операции над мно…">§ 1. Множества, операции над множествами и логическая символика</h2>
+  
+<p id="sec-1-1">
         Математический анализ, в отличие от элементарной школьной математики, оперирует предельно строгими логическими конструкциями. Первичным понятием современной математики является понятие <em>множества</em>. По выражению Георга Кантора (основателя наивной теории множеств), множество есть «объединение в единое общее объектов, мыслимых нашей интуицией или интеллектом как различимые».
       </p>
-
-      <div class="statement definition" id="def-1">
-  <div class="block-label">Определение 1</div>
-  <h3 id="sub-1" data-toc="Определение 1">Определение 1</h3>
-  
-        <div class="block-card-title">Определение 1.1 (Множество и элемент)
-</div>
-        <p>
-          <strong>Множеством</strong> называется совокупность (набор) определенных и различимых объектов произвольной природы, объединенных по некоторому характеристическому признаку (свойству). Объекты, составляющие множество, называются его <strong>элементами</strong>.
+<div class="statement definition" id="def-1"><div class="block-label">Определение 1</div><h3 data-toc="Определение 1.1 (Множество и э…" id="sub-2-1">Определение 1.1 (Множество и элемент)</h3><div>
+<p>
+<strong>Множеством</strong> называется совокупность (набор) определенных и различимых объектов произвольной природы, объединенных по некоторому характеристическому признаку (свойству). Объекты, составляющие множество, называются его <strong>элементами</strong>.
         </p>
-        <p>
+<p>
           Множества обозначаются заглавными буквами латинского алфавита: $A, B, C, \dots, X, Y$, а их элементы — строчными буквами: $a, b, c, \dots, x, y$.
         </p>
-        <ul style="margin-bottom: 0;">
-          <li>Запись $a \in A$ означает: «элемент $a$ принадлежит множеству $A$» (лежит в множестве $A$).</li>
-          <li>Запись $a \notin A$ означает: «элемент $a$ не принадлежит множеству $A$».</li>
-          <li>Множество, не содержащее ни одного элемента, называется <strong>пустым множеством</strong> и обозначается символом $\emptyset$.</li>
-        </ul>
-      </div>
-
-      <div class="statement definition" id="def-2">
-  <div class="block-label">Определение 2</div>
-  <h3 id="sub-2" data-toc="Определение 2">Определение 2</h3>
-  
-        <div class="block-card-title">Определение 1.2 (Подмножество и равенство множеств)
-</div>
-        <p>
+<ul style="margin-bottom: 0;">
+<li>Запись $a \in A$ означает: «элемент $a$ принадлежит множеству $A$» (лежит в множестве $A$).</li>
+<li>Запись $a \notin A$ означает: «элемент $a$ не принадлежит множеству $A$».</li>
+<li>Множество, не содержащее ни одного элемента, называется <strong>пустым множеством</strong> и обозначается символом $\emptyset$.</li>
+</ul>
+</div></div>
+<div class="statement definition" id="def-2"><div class="block-label">Определение 2</div><h3 data-toc="Определение 1.2 (Подмножество …" id="sub-2-2">Определение 1.2 (Подмножество и равенство множеств)</h3><div>
+<p>
           Множество $A$ называется <strong>подмножеством</strong> множества $B$ (обозначается $A \subset B$ или $A \subseteq B$), если каждый элемент множества $A$ одновременно является элементом множества $B$:
-          $$A \subset B \iff (\forall x: x \in A \implies x \in B)$$
+          \[A \subset B \iff (\forall x: x \in A \implies x \in B)\]
         </p>
-        <p style="margin-bottom: 0;">
+<p style="margin-bottom: 0;">
           Два множества $A$ и $B$ называются <strong>равными</strong> ($A = B$), если они состоят из одних и тех же элементов, то есть одновременно $A \subset B$ и $B \subset A$:
-          $$A = B \iff (A \subset B \land B \subset A)$$
+          \[A = B \iff (A \subset B \land B \subset A)\]
         </p>
-      </div>
-
-      <h3 id="sub-3" data-toc="2. Операции над множествами …">1.2. Операции над множествами и диаграммы Эйлера–Венна</h3>
-      <p>
+</div></div>
+<h3 class="sub-header" data-toc="2. Операции над множествами и …" id="sec-1-2">1.2. Операции над множествами и диаграммы Эйлера–Венна</h3>
+<p>
         Пусть заданы два произвольных множества $A$ и $B$. В математическом анализе вводятся четыре основные операции: пересечение, объединение, разность и прямое (декартово) произведение.
       </p>
-
-      <div class="euler-grid">
-        <!-- Пересечение -->
-        <div class="euler-item">
-          <div class="euler-item-title">Пересечение: $A \cap B$</div>
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 200 120" width="100%" height="110">
-            <rect width="200" height="120" fill="transparent"/>
-            <defs>
-              <clipPath id="clipA"><circle cx="75" cy="60" r="42"/></clipPath>
-            </defs>
-            <circle cx="75" cy="60" r="42" fill="none" stroke="var(--accent-primary)" stroke-width="2"/>
-            <circle cx="125" cy="60" r="42" fill="none" stroke="var(--accent-primary)" stroke-width="2"/>
-            <!-- Штриховка пересечения -->
-            <circle cx="125" cy="60" r="42" fill="var(--accent-primary)" fill-opacity="0.45" clip-path="url(#clipA)"/>
-            <text x="50" y="65" fill="var(--text-main)" font-size="13" font-weight="bold">A</text>
-            <text x="140" y="65" fill="var(--text-main)" font-size="13" font-weight="bold">B</text>
-          </svg></div>
-          <div style="font-size: 0.8rem; margin-top: 6px;">$$A \cap B = \{x \mid x \in A \land x \in B\}$$</div>
-        </div>
-
-        <!-- Объединение -->
-        <div class="euler-item">
-          <div class="euler-item-title">Объединение: $A \cup B$</div>
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 200 120" width="100%" height="110">
-            <rect width="200" height="120" fill="transparent"/>
-            <circle cx="75" cy="60" r="42" fill="var(--thm-border)" fill-opacity="0.35" stroke="var(--thm-border)" stroke-width="2"/>
-            <circle cx="125" cy="60" r="42" fill="var(--thm-border)" fill-opacity="0.35" stroke="var(--thm-border)" stroke-width="2"/>
-            <text x="50" y="65" fill="var(--text-main)" font-size="13" font-weight="bold">A</text>
-            <text x="140" y="65" fill="var(--text-main)" font-size="13" font-weight="bold">B</text>
-          </svg></div>
-          <div style="font-size: 0.8rem; margin-top: 6px;">$$A \cup B = \{x \mid x \in A \lor x \in B\}$$</div>
-        </div>
-
-        <!-- Разность -->
-        <div class="euler-item">
-          <div class="euler-item-title">Разность: $A \setminus B$</div>
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 200 120" width="100%" height="110">
-            <rect width="200" height="120" fill="transparent"/>
-            <mask id="diffMask">
-              <rect width="200" height="120" fill="white"/>
-              <circle cx="125" cy="60" r="42" fill="black"/>
-            </mask>
-            <circle cx="75" cy="60" r="42" fill="var(--axiom-border)" fill-opacity="0.4" mask="url(#diffMask)"/>
-            <circle cx="75" cy="60" r="42" fill="none" stroke="var(--axiom-border)" stroke-width="2"/>
-            <circle cx="125" cy="60" r="42" fill="none" stroke="var(--axiom-border)" stroke-width="2"/>
-            <text x="50" y="65" fill="var(--text-main)" font-size="13" font-weight="bold">A</text>
-            <text x="140" y="65" fill="var(--text-main)" font-size="13" font-weight="bold">B</text>
-          </svg></div>
-          <div style="font-size: 0.8rem; margin-top: 6px;">$$A \setminus B = \{x \mid x \in A \land x \notin B\}$$</div>
-        </div>
-
-        <!-- Декартово произведение -->
-        <div class="euler-item">
-          <div class="euler-item-title">Произведение: $A \times B$</div>
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 200 120" width="100%" height="110">
-            <rect width="200" height="120" fill="transparent"/>
-            <line x1="30" y1="95" x2="180" y2="95" stroke="var(--text-muted)" stroke-width="1.5"/>
-            <line x1="45" y1="105" x2="45" y2="15" stroke="var(--text-muted)" stroke-width="1.5"/>
-            <rect x="75" y="35" width="70" height="45" fill="var(--ex-border)" fill-opacity="0.35" stroke="var(--ex-border)" stroke-width="1.5" stroke-dasharray="3,3"/>
-            <line x1="75" y1="93" x2="145" y2="93" stroke="var(--accent-primary)" stroke-width="3"/>
-            <line x1="43" y1="35" x2="43" y2="80" stroke="var(--thm-border)" stroke-width="3"/>
-            <text x="105" y="110" fill="var(--accent-primary)" font-size="11" font-weight="bold">A</text>
-            <text x="25" y="60" fill="var(--thm-border)" font-size="11" font-weight="bold">B</text>
-            <text x="88" y="62" fill="var(--text-main)" font-size="12" font-weight="bold">(a, b)</text>
-          </svg></div>
-          <div style="font-size: 0.8rem; margin-top: 6px;">$$A \times B = \{(a, b) \mid a \in A, b \in B\}$$</div>
-        </div>
-      </div>
-
-      <aside class="note">
-        <div class="block-card-title">Замечание о декартовом произведении пространств</aside>
-        <p style="margin-bottom: 0;">
+<div class="euler-grid">
+<!-- Пересечение -->
+<div class="euler-item">
+<div class="euler-item-title">Пересечение: $A \cap B$</div>
+<figure class="figure-plate"><svg height="110" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 200 120">
+<rect fill="transparent" height="120" width="200"></rect>
+<defs>
+<clippath id="clipA"><circle cx="75" cy="60" r="42"></circle></clippath>
+</defs>
+<circle cx="75" cy="60" fill="none" r="42" stroke="var(--accent-primary)" stroke-width="2"></circle>
+<circle cx="125" cy="60" fill="none" r="42" stroke="var(--accent-primary)" stroke-width="2"></circle>
+<!-- Штриховка пересечения -->
+<circle clip-path="url(#clipA)" cx="125" cy="60" fill="var(--accent-primary)" fill-opacity="0.45" r="42"></circle>
+<text fill="var(--text-main)" font-size="13" font-weight="bold" x="50" y="65">A</text>
+<text fill="var(--text-main)" font-size="13" font-weight="bold" x="140" y="65">B</text>
+</svg></figure>
+<div style="font-size: 0.8rem; margin-top: 6px;">\[A \cap B = \{x \mid x \in A \land x \in B\}\]</div>
+</div>
+<!-- Объединение -->
+<div class="euler-item">
+<div class="euler-item-title">Объединение: $A \cup B$</div>
+<figure class="figure-plate"><svg height="110" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 200 120">
+<rect fill="transparent" height="120" width="200"></rect>
+<circle cx="75" cy="60" fill="var(--thm-border)" fill-opacity="0.35" r="42" stroke="var(--thm-border)" stroke-width="2"></circle>
+<circle cx="125" cy="60" fill="var(--thm-border)" fill-opacity="0.35" r="42" stroke="var(--thm-border)" stroke-width="2"></circle>
+<text fill="var(--text-main)" font-size="13" font-weight="bold" x="50" y="65">A</text>
+<text fill="var(--text-main)" font-size="13" font-weight="bold" x="140" y="65">B</text>
+</svg></figure>
+<div style="font-size: 0.8rem; margin-top: 6px;">\[A \cup B = \{x \mid x \in A \lor x \in B\}\]</div>
+</div>
+<!-- Разность -->
+<div class="euler-item">
+<div class="euler-item-title">Разность: $A \setminus B$</div>
+<figure class="figure-plate"><svg height="110" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 200 120">
+<rect fill="transparent" height="120" width="200"></rect>
+<mask id="diffMask">
+<rect fill="white" height="120" width="200"></rect>
+<circle cx="125" cy="60" fill="black" r="42"></circle>
+</mask>
+<circle cx="75" cy="60" fill="var(--axiom-border)" fill-opacity="0.4" mask="url(#diffMask)" r="42"></circle>
+<circle cx="75" cy="60" fill="none" r="42" stroke="var(--axiom-border)" stroke-width="2"></circle>
+<circle cx="125" cy="60" fill="none" r="42" stroke="var(--axiom-border)" stroke-width="2"></circle>
+<text fill="var(--text-main)" font-size="13" font-weight="bold" x="50" y="65">A</text>
+<text fill="var(--text-main)" font-size="13" font-weight="bold" x="140" y="65">B</text>
+</svg></figure>
+<div style="font-size: 0.8rem; margin-top: 6px;">\[A \setminus B = \{x \mid x \in A \land x \notin B\}\]</div>
+</div>
+<!-- Декартово произведение -->
+<div class="euler-item">
+<div class="euler-item-title">Произведение: $A \times B$</div>
+<figure class="figure-plate"><svg height="110" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 200 120">
+<rect fill="transparent" height="120" width="200"></rect>
+<line stroke="var(--text-muted)" stroke-width="1.5" x1="30" x2="180" y1="95" y2="95"></line>
+<line stroke="var(--text-muted)" stroke-width="1.5" x1="45" x2="45" y1="105" y2="15"></line>
+<rect fill="var(--ex-border)" fill-opacity="0.35" height="45" stroke="var(--ex-border)" stroke-dasharray="3,3" stroke-width="1.5" width="70" x="75" y="35"></rect>
+<line stroke="var(--accent-primary)" stroke-width="3" x1="75" x2="145" y1="93" y2="93"></line>
+<line stroke="var(--thm-border)" stroke-width="3" x1="43" x2="43" y1="35" y2="80"></line>
+<text fill="var(--accent-primary)" font-size="11" font-weight="bold" x="105" y="110">A</text>
+<text fill="var(--thm-border)" font-size="11" font-weight="bold" x="25" y="60">B</text>
+<text fill="var(--text-main)" font-size="12" font-weight="bold" x="88" y="62">(a, b)</text>
+</svg></figure>
+<div style="font-size: 0.8rem; margin-top: 6px;">\[A \times B = \{(a, b) \mid a \in A, b \in B\}\]</div>
+</div>
+</div>
+<aside class="note">
+<div class="block-card-title">Замечание о декартовом произведении пространств</div>
+<p style="margin-bottom: 0;">
           Если $A = \mathbb{R}$ и $B = \mathbb{R}$, то их декартовым произведением является числовая плоскость:
-          $$\mathbb{R}^2 = \mathbb{R} \times \mathbb{R} = \{(x, y) \mid x \in \mathbb{R}, y \in \mathbb{R}\}$$
+          \[\mathbb{R}^2 = \mathbb{R} \times \mathbb{R} = \{(x, y) \mid x \in \mathbb{R}, y \in \mathbb{R}\}\]
           Каждой точке геометрической плоскости ставится во взаимно однозначное соответствие упорядоченная пара чисел $(x, y)$ — декартовы координаты точки.
         </p>
-      </div>
-
-      <h3 id="sub-4" data-toc="3. Логическая символика и кв…">1.3. Логическая символика и кванторы</h3>
-      <p>
+</aside>
+<h3 class="sub-header" data-toc="3. Логическая символика и кван…" id="sec-1-3">1.3. Логическая символика и кванторы</h3>
+<p>
         В математическом анализе для лаконичной, однозначной и строгой записи утверждений и теорем традиционно используется язык логики предикатов.
       </p>
-
-      <div class="table-container">
-        <div class="table-scroll">
+<div class="table-container">
 <table>
-          <thead>
-            <tr>
-              <th style="width: 14%;">Символ</th>
-              <th style="width: 28%;">Название</th>
-              <th style="width: 58%;">Семантический смысл и чтение</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>$\forall$</td>
-              <td><strong>Квантор всеобщности</strong> (от англ. <em>All / Any</em>)</td>
-              <td>«Для любого», «для каждого», «для всякого». Утверждение истинно для всех элементов рассматриваемого множества.</td>
-            </tr>
-            <tr>
-              <td>$\exists$</td>
-              <td><strong>Квантор существования</strong> (от англ. <em>Exists</em>)</td>
-              <td>«Существует», «найдется», «хотя бы один». В множестве есть по крайней мере один элемент, удовлетворяющий условию.</td>
-            </tr>
-            <tr>
-              <td>$\exists!$</td>
-              <td><strong>Квантор единственности</strong></td>
-              <td>«Существует единственный». Элемент существует, и он строго один.</td>
-            </tr>
-            <tr>
-              <td>$\implies$</td>
-              <td><strong>Импликация</strong> (следование)</td>
-              <td>«Из $P$ следует $Q$», «$P$ влечет $Q$», «достаточное условие». Ложно только когда $P$ истинно, а $Q$ ложно.</td>
-            </tr>
-            <tr>
-              <td>$\iff$</td>
-              <td><strong>Эквиваленция</strong> (равносильность)</td>
-              <td>«Тогда и только тогда, когда», «необходимо и достаточно». Истинно, когда оба высказывания одновременно истинны или ложны.</td>
-            </tr>
-            <tr>
-              <td>$:$ или $\mid$</td>
-              <td><strong>Знак условия</strong></td>
-              <td>«Такой, что», «для которого выполняется».</td>
-            </tr>
-          </tbody>
-        </table>
+<thead>
+<tr>
+<th style="width: 14%;">Символ</th>
+<th style="width: 28%;">Название</th>
+<th style="width: 58%;">Семантический смысл и чтение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\forall$</td>
+<td><strong>Квантор всеобщности</strong> (от англ. <em>All / Any</em>)</td>
+<td>«Для любого», «для каждого», «для всякого». Утверждение истинно для всех элементов рассматриваемого множества.</td>
+</tr>
+<tr>
+<td>$\exists$</td>
+<td><strong>Квантор существования</strong> (от англ. <em>Exists</em>)</td>
+<td>«Существует», «найдется», «хотя бы один». В множестве есть по крайней мере один элемент, удовлетворяющий условию.</td>
+</tr>
+<tr>
+<td>$\exists!$</td>
+<td><strong>Квантор единственности</strong></td>
+<td>«Существует единственный». Элемент существует, и он строго один.</td>
+</tr>
+<tr>
+<td>$\implies$</td>
+<td><strong>Импликация</strong> (следование)</td>
+<td>«Из $P$ следует $Q$», «$P$ влечет $Q$», «достаточное условие». Ложно только когда $P$ истинно, а $Q$ ложно.</td>
+</tr>
+<tr>
+<td>$\iff$</td>
+<td><strong>Эквиваленция</strong> (равносильность)</td>
+<td>«Тогда и только тогда, когда», «необходимо и достаточно». Истинно, когда оба высказывания одновременно истинны или ложны.</td>
+</tr>
+<tr>
+<td>$:$ или $\mid$</td>
+<td><strong>Знак условия</strong></td>
+<td>«Такой, что», «для которого выполняется».</td>
+</tr>
+</tbody>
+</table>
 </div>
-      </div>
-
-      <aside class="note">
-        <div class="block-card-title">Методическое правило: Отрицание кванторных утверждений (законы де Моргана)</aside>
-        <p>
+<aside class="note">
+<div class="block-card-title">Методическое правило: Отрицание кванторных утверждений (законы де Моргана)</div>
+<p>
           При построении логического отрицания (инверсии) утверждения, содержащего кванторы, квантор всеобщности заменяется на квантор существования, квантор существования — на квантор всеобщности, а конечное высказывание отрицается:
-          $$\neg \Big( \forall x \in X : P(x) \Big) \iff \exists x \in X : \neg P(x)$$
-          $$\neg \Big( \exists x \in X : P(x) \Big) \iff \forall x \in X : \neg P(x)$$
+          \[\neg \Big( \forall x \in X : P(x) \Big) \iff \exists x \in X : \neg P(x)\]
+          \[\neg \Big( \exists x \in X : P(x) \Big) \iff \forall x \in X : \neg P(x)\]
         </p>
-        <p style="margin-bottom: 0;">
+<p style="margin-bottom: 0;">
           Это фундаментальное правило активно применяется при формулировке отрицаний понятий предела, непрерывности и ограниченности числовых множеств.
         </p>
-      </div>
-
-      <h3 id="sub-5" data-toc="4. Отображения и функции">1.4. Отображения и функции</h3>
-      <div class="statement definition" id="def-3">
-  <div class="block-label">Определение 3</div>
-  <h3 id="sub-6" data-toc="Определение 3">Определение 3</h3>
-  
-        <div class="block-card-title">Определение 1.3 (Отображение / Функция)
-</div>
-        <p>
+</aside>
+<h3 class="sub-header" data-toc="4. Отображения и функции" id="sec-1-4">1.4. Отображения и функции</h3>
+<div class="statement definition" id="def-3"><div class="block-label">Определение 3</div><h3 data-toc="Определение 1.3 (Отображение /…" id="sub-2-6">Определение 1.3 (Отображение / Функция)</h3><div>
+<p>
           Пусть $X$ и $Y$ — два непустых множества. <strong>Отображением</strong> (или <strong>функцией</strong>) множества $X$ в множество $Y$ (обозначается $f: X \to Y$) называется правило (закон соответствия), по которому <em>каждому</em> элементу $x \in X$ ставится в соответствие <em>единственный</em> определенный элемент $y \in Y$.
         </p>
-        <p style="margin-bottom: 0;">
+<p style="margin-bottom: 0;">
           Обозначения:
-          $$f: X \to Y \quad \text{или} \quad x \mapsto y = f(x)$$
+          \[f: X \to Y \quad \text{или} \quad x \mapsto y = f(x)\]
           Здесь $X$ называется <strong>областью определения</strong> функции ($D(f)$), а элемент $y = f(x)$ — <strong>образом</strong> элемента $x$ (или значением функции). Множество $f(X) = \{f(x) \in Y \mid x \in X\} \subset Y$ называется <strong>областью значений</strong> (образом) отображения $f$.
         </p>
-      </div>
-    </section>
+</div></div>
 
-    <!-- §2. Натуральные числа и метод математической индукции -->
-    <section id="sec-2">
+<!-- §2. Натуральные числа и метод математической индукции -->
+<section id="sec-2">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-3">
-  <div class="chapter-kicker">03 / 2. Натуральные числа и метод…</div>
-  <h2 id="chapter-3" data-toc="2. Натуральные числа и метод…">§ 2. Натуральные числа и метод математической индукции</h2>
-  <p id="sec-2-1">
+  <div class="chapter-kicker">03 / 2. Натуральные числа и метод м…</div>
+  <h2 id="chapter-3" data-toc="2. Натуральные числа и метод м…">§ 2. Натуральные числа и метод математической индукции</h2>
+  
+<p id="sec-2-1">
         Числовые системы строятся иерархически:
-        $$\mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R}$$
+        \[\mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R}\]
         Исходным пунктом числовой шкалы является множество натуральных чисел $\mathbb{N} = \{1, 2, 3, \dots\}$, возникающих естественным образом при счете предметов.
       </p>
-
-      <div class="statement theorem featured" id="thm-1">
-  <div class="block-label">Утверждение 1</div>
-  <h3 id="sub-7" data-toc="Теорема 1">Теорема 1</h3>
-  
-        <div class="block-card-title">Историко-аксиоматическая справка: Система аксиом Джузеппе Пеано (1858–1932)
-</div>
-        <p>
+<div class="statement theorem featured" id="thm-1"><div class="block-label">Утверждение 1</div><h3 data-toc="Историко-аксиоматическая справ…" id="sub-3-1">Историко-аксиоматическая справка: Система аксиом Джузеппе Пеано (1858–1932)</h3><div>
+<p>
           В 1889 г. итальянский математик Джузеппе Пеано формализовал арифметику натуральных чисел с помощью пяти основных положений (аксиом Пеано):
         </p>
-        <ol style="margin-bottom: 0;">
-          <li><strong>Существование начального элемента:</strong> $1$ есть натуральное число ($1 \in \mathbb{N}$).</li>
-          <li><strong>Функция следования:</strong> Для всякого $n \in \mathbb{N}$ существует единственный непосредственно следующий за ним элемент $n^+ \in \mathbb{N}$ (обозначаемый обычно как $n+1$).</li>
-          <li><strong>Единственность начального элемента:</strong> Единица не следует ни за каким натуральным числом ($\forall n \in \mathbb{N}: n^+ \neq 1$).</li>
-          <li><strong>Инъективность следования:</strong> Различные числа имеют различные последующие: если $n^+ = m^+$, то $n = m$ (то есть число имеет не более одного предшествующего).</li>
-          <li><strong>Аксиома математической индукции:</strong> Если подмножество $M \subseteq \mathbb{N}$ обладает свойствами:
-            <br>а) $1 \in M$;
-            <br>б) Для любого $m \in \mathbb{N}$ из $m \in M$ следует, что $m^+ \in M$,
-            <br>тогда множество $M$ совпадает со всем множеством натуральных чисел: $M = \mathbb{N}$.
+<ol style="margin-bottom: 0;">
+<li><strong>Существование начального элемента:</strong> $1$ есть натуральное число ($1 \in \mathbb{N}$).</li>
+<li><strong>Функция следования:</strong> Для всякого $n \in \mathbb{N}$ существует единственный непосредственно следующий за ним элемент $n^+ \in \mathbb{N}$ (обозначаемый обычно как $n+1$).</li>
+<li><strong>Единственность начального элемента:</strong> Единица не следует ни за каким натуральным числом ($\forall n \in \mathbb{N}: n^+ \neq 1$).</li>
+<li><strong>Инъективность следования:</strong> Различные числа имеют различные последующие: если $n^+ = m^+$, то $n = m$ (то есть число имеет не более одного предшествующего).</li>
+<li><strong>Аксиома математической индукции:</strong> Если подмножество $M \subseteq \mathbb{N}$ обладает свойствами:
+            <br/>а) $1 \in M$;
+            <br/>б) Для любого $m \in \mathbb{N}$ из $m \in M$ следует, что $m^+ \in M$,
+            <br/>тогда множество $M$ совпадает со всем множеством натуральных чисел: $M = \mathbb{N}$.
           </li>
-        </ol>
-      </div>
-
-      <h3 id="sub-8" data-toc="2. Метод математической инду…">2.2. Метод математической индукции (ММИ)</h3>
-      <p>
+</ol>
+</div></div>
+<h3 class="sub-header" data-toc="2. Метод математической индукц…" id="sec-2-2">2.2. Метод математической индукции (ММИ)</h3>
+<p>
         Пятая аксиома Пеано лежит в основе универсального дедуктивного метода доказательства утверждений, зависящих от натурального параметра $n$.
       </p>
-
-      <div class="statement theorem" id="thm-2">
-  <div class="block-label">Утверждение 2</div>
-  <h3 id="sub-9" data-toc="Теорема 2">Теорема 2</h3>
-  
-        <div class="block-card-title">Принцип математической индукции
-</div>
-        <p>
+<div class="statement theorem" id="thm-2"><div class="block-label">Утверждение 2</div><h3 data-toc="Принцип математической индукции" id="sub-3-3">Принцип математической индукции</h3><div>
+<p>
           Пусть $A(n)$ — математическое утверждение, сформулированное для всех натуральных чисел $n \in \mathbb{N}$ (или $n \ge n_0$, где $n_0 \in \mathbb{Z}$). Утверждение $A(n)$ считается истинным для всех $n \ge n_0$, если строго выполнены следующие два этапа:
         </p>
-        <ol style="margin-bottom: 0;">
-          <li><strong>База индукции:</strong> Проверяется истинность утверждения для начального значения параметра: доказывается $A(n_0)$ (при $n_0=1$ проверяется $A(1)$).</li>
-          <li><strong>Индукционный переход:</strong>
-            <br>— <em>Предположение индукции:</em> предполагается, что утверждение справедливо для некоторого произвольного фиксированного шага $n = k$ ($k \ge n_0$), то есть истинно $A(k)$.
-            <br>— <em>Шаг индукции:</em> строго логически доказывается истинность утверждения для следующего значения $n = k + 1$, опираясь на предположение индукции $A(k)$.
+<ol style="margin-bottom: 0;">
+<li><strong>База индукции:</strong> Проверяется истинность утверждения для начального значения параметра: доказывается $A(n_0)$ (при $n_0=1$ проверяется $A(1)$).</li>
+<li><strong>Индукционный переход:</strong>
+<br/>— <em>Предположение индукции:</em> предполагается, что утверждение справедливо для некоторого произвольного фиксированного шага $n = k$ ($k \ge n_0$), то есть истинно $A(k)$.
+            <br/>— <em>Шаг индукции:</em> строго логически доказывается истинность утверждения для следующего значения $n = k + 1$, опираясь на предположение индукции $A(k)$.
           </li>
-        </ol>
-      </div>
-
-      <h3 id="sub-10" data-toc="3. Применение ММИ: Числовые …">2.3. Применение ММИ: Числовые прогрессии</h3>
-
-      <!-- Пример 1: Геометрическая прогрессия -->
-      <div class="worked-example" id="ex-1">
-  <div class="block-label">Пример 1</div>
-  <h3 id="sub-11" data-toc="Пример 1">Пример 1</h3>
-  
-        <div class="block-card-title">Пример 2.1 (Геометрическая прогрессия)
-</div>
-        <p>
-          <strong>Геометрической прогрессией</strong> называется последовательность чисел $\{b_n\}_{n=1}^\infty$, в которой первый член $b_1 \neq 0$, а каждый последующий получается умножением предыдущего на постоянное ненулевое число $q$ (знаменатель прогрессии):
-          $$b_{n+1} = b_n \cdot q, \quad q \neq 0$$
+</ol>
+</div></div>
+<h3 class="sub-header" data-toc="3. Применение ММИ: Числовые пр…" id="sec-2-3">2.3. Применение ММИ: Числовые прогрессии</h3>
+<!-- Пример 1: Геометрическая прогрессия -->
+<div class="worked-example" id="ex-1"><div class="block-label">Идея</div><h3 data-toc="Пример 2.1 (Геометрическая про…" id="sub-3-5">Пример 2.1 (Геометрическая прогрессия)</h3><div>
+<p>
+<strong>Геометрической прогрессией</strong> называется последовательность чисел $\{b_n\}_{n=1}^\infty$, в которой первый член $b_1 \neq 0$, а каждый последующий получается умножением предыдущего на постоянное ненулевое число $q$ (знаменатель прогрессии):
+          \[b_{n+1} = b_n \cdot q, \quad q \neq 0\]
         </p>
-        <p>
-          <strong>Задача 1:</strong> Доказать формулу общего члена $b_n = b_1 \cdot q^{n-1}$ при всех $n \in \mathbb{N}$.
+<p>
+<strong>Задача 1:</strong> Доказать формулу общего члена $b_n = b_1 \cdot q^{n-1}$ при всех $n \in \mathbb{N}$.
         </p>
-        <div class="proof" id="proof-1" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-1" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-1" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="block-card-title">Доказательство по ММИ:
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<div class="proof" data-proof="" id="proof-1">
+<div aria-label="Доказательство Доказательство по ММИ:" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <p>
-            <strong>1. База индукции ($n=1$):</strong>
-            $$b_1 = b_1 \cdot q^{1-1} = b_1 \cdot q^0 = b_1 \cdot 1 = b_1$$
+<div class="proof-idea" data-proof-idea="" id="idea-1">
+<p>Прямое аналитическое доказательство утверждения (Доказательство по ММИ:).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-1">
+<div class="proof-label">Доказательство (Доказательство по ММИ:)</div>
+<p>
+<strong>1. База индукции ($n=1$):</strong>
+            \[b_1 = b_1 \cdot q^{1-1} = b_1 \cdot q^0 = b_1 \cdot 1 = b_1\]
             Равенство тождественно верно. База доказана.
           </p>
-          <p>
-            <strong>2. Индукционное предположение ($n=k$):</strong> Пусть формула верна при $n=k$:
-            $$b_k = b_1 \cdot q^{k-1}$$
+<p>
+<strong>2. Индукционное предположение ($n=k$):</strong> Пусть формула верна при $n=k$:
+            \[b_k = b_1 \cdot q^{k-1}\]
           </p>
-          <p>
-            <strong>3. Индукционный переход ($n=k+1$):</strong> Докажем, что $b_{k+1} = b_1 \cdot q^{(k+1)-1} = b_1 \cdot q^k$.
-            <br>По рекуррентному определению геометрической прогрессии:
-            $$b_{k+1} = b_k \cdot q$$
+<p>
+<strong>3. Индукционный переход ($n=k+1$):</strong> Докажем, что $b_{k+1} = b_1 \cdot q^{(k+1)-1} = b_1 \cdot q^k$.
+            <br/>По рекуррентному определению геометрической прогрессии:
+            \[b_{k+1} = b_k \cdot q\]
             Подставляя сюда выражение $b_k$ из предположения индукции, получаем:
-            $$b_{k+1} = (b_1 \cdot q^{k-1}) \cdot q = b_1 \cdot (q^{k-1} \cdot q^1) = b_1 \cdot q^k$$
+            \[b_{k+1} = (b_1 \cdot q^{k-1}) \cdot q = b_1 \cdot (q^{k-1} \cdot q^1) = b_1 \cdot q^k\]
             Что и требовалось доказать. В силу аксиомы индукции формула верна при всех $n \in \mathbb{N}$. <span class="qed">$\blacksquare$</span>
-          </p>
-        </div>
-
-        <p>
-          <strong>Задача 2:</strong> Доказать формулу суммы первых $n$ членов геометрической прогрессии при $q \neq 1$:
-          $$S_n = \sum_{k=1}^n b_k = \frac{b_1(1 - q^n)}{1 - q}$$
-        </p>
-        <div class="proof" id="proof-2" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-2" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-2" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="block-card-title">Доказательство по ММИ:
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-          <p>
-            <strong>1. База индукции ($n=1$):</strong>
-            $$S_1 = \frac{b_1(1 - q^1)}{1 - q} = b_1$$
+</div>
+<p>
+<strong>Задача 2:</strong> Доказать формулу суммы первых $n$ членов геометрической прогрессии при $q \neq 1$:
+          \[S_n = \sum_{k=1}^n b_k = \frac{b_1(1 - q^n)}{1 - q}\]
+        </p>
+<div class="proof" data-proof="" id="proof-2">
+<div aria-label="Доказательство Доказательство по ММИ:" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-2">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство по ММИ:).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-2">
+<div class="proof-label">Доказательство (Доказательство по ММИ:)</div>
+<p>
+<strong>1. База индукции ($n=1$):</strong>
+            \[S_1 = \frac{b_1(1 - q^1)}{1 - q} = b_1\]
             Поскольку $S_1 = b_1$, база индукции проверена.
           </p>
-          <p>
-            <strong>2. Индукционное предположение ($n=k$):</strong> Предположим, что при $n=k$ верно:
-            $$S_k = \frac{b_1(1 - q^k)}{1 - q}$$
+<p>
+<strong>2. Индукционное предположение ($n=k$):</strong> Предположим, что при $n=k$ верно:
+            \[S_k = \frac{b_1(1 - q^k)}{1 - q}\]
           </p>
-          <p>
-            <strong>3. Индукционный переход ($n=k+1$):</strong> Требуется доказать, что:
-            $$S_{k+1} = \frac{b_1(1 - q^{k+1})}{1 - q}$$
+<p>
+<strong>3. Индукционный переход ($n=k+1$):</strong> Требуется доказать, что:
+            \[S_{k+1} = \frac{b_1(1 - q^{k+1})}{1 - q}\]
             По определению суммы членов и формуле общего члена:
-            $$S_{k+1} = S_k + b_{k+1} = \frac{b_1(1 - q^k)}{1 - q} + b_1 \cdot q^k$$
+            \[S_{k+1} = S_k + b_{k+1} = \frac{b_1(1 - q^k)}{1 - q} + b_1 \cdot q^k\]
             Приведем слагаемые к общему знаменателю $(1 - q)$:
-            $$S_{k+1} = \frac{b_1(1 - q^k) + b_1 q^k(1 - q)}{1 - q} = \frac{b_1(1 - q^k + q^k - q^{k+1})}{1 - q} = \frac{b_1(1 - q^{k+1})}{1 - q}$$
+            \[S_{k+1} = \frac{b_1(1 - q^k) + b_1 q^k(1 - q)}{1 - q} = \frac{b_1(1 - q^k + q^k - q^{k+1})}{1 - q} = \frac{b_1(1 - q^{k+1})}{1 - q}\]
             Равенство установлено для $n = k+1$. Теорема полностью доказана для всех $n \in \mathbb{N}$. <span class="qed">$\blacksquare$</span>
-          </p>
-        </div>
-      </div>
-
-      <!-- Пример 2: Арифметическая прогрессия -->
-      <div class="worked-example" id="ex-2">
-  <div class="block-label">Пример 2</div>
-  <h3 id="sub-12" data-toc="Пример 2">Пример 2</h3>
-  
-        <div class="block-card-title">Пример 2.2 (Арифметическая прогрессия)
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-        <p>
-          <strong>Арифметической прогрессией</strong> называется числовая последовательность $\{a_n\}_{n=1}^\infty$, в которой каждый последующий элемент получается прибавлением одного и того же постоянного числа $d$ (разности прогрессии):
-          $$a_{n+1} = a_n + d, \quad d \in \mathbb{R}$$
-        </p>
-        <p>
-          <strong>Задача 1:</strong> Доказать по ММИ формулу общего члена $a_n = a_1 + d(n - 1)$.
-        </p>
-        <div class="proof" id="proof-3" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-3" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-3" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="block-card-title">Доказательство по ММИ:
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-          <p>
-            <strong>1. База ($n=1$):</strong> $a_1 = a_1 + d \cdot (1 - 1) = a_1 + 0 = a_1$ — верно.
+</div></div>
+<!-- Пример 2: Арифметическая прогрессия -->
+<div class="worked-example" id="ex-2"><div class="block-label">Идея</div><h3 data-toc="Пример 2.2 (Арифметическая про…" id="sub-3-6">Пример 2.2 (Арифметическая прогрессия)</h3><div>
+<p>
+<strong>Арифметической прогрессией</strong> называется числовая последовательность $\{a_n\}_{n=1}^\infty$, в которой каждый последующий элемент получается прибавлением одного и того же постоянного числа $d$ (разности прогрессии):
+          \[a_{n+1} = a_n + d, \quad d \in \mathbb{R}\]
+        </p>
+<p>
+<strong>Задача 1:</strong> Доказать по ММИ формулу общего члена $a_n = a_1 + d(n - 1)$.
+        </p>
+<div class="proof" data-proof="" id="proof-3">
+<div aria-label="Доказательство Доказательство по ММИ:" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-3">
+<p>Прямое аналитическое доказательство утверждения (Доказательство по ММИ:).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-3">
+<div class="proof-label">Доказательство (Доказательство по ММИ:)</div>
+<p>
+<strong>1. База ($n=1$):</strong> $a_1 = a_1 + d \cdot (1 - 1) = a_1 + 0 = a_1$ — верно.
           </p>
-          <p>
-            <strong>2. Предположение ($n=k$):</strong> Пусть $a_k = a_1 + d(k - 1)$ истинно.
+<p>
+<strong>2. Предположение ($n=k$):</strong> Пусть $a_k = a_1 + d(k - 1)$ истинно.
           </p>
-          <p>
-            <strong>3. Переход ($n=k+1$):</strong> Докажем, что $a_{k+1} = a_1 + d \cdot k$.
-            <br>Действительно, используя рекуррентное определение и гипотезу индукции:
-            $$a_{k+1} = a_k + d = [a_1 + d(k - 1)] + d = a_1 + dk - d + d = a_1 + dk$$
+<p>
+<strong>3. Переход ($n=k+1$):</strong> Докажем, что $a_{k+1} = a_1 + d \cdot k$.
+            <br/>Действительно, используя рекуррентное определение и гипотезу индукции:
+            \[a_{k+1} = a_k + d = [a_1 + d(k - 1)] + d = a_1 + dk - d + d = a_1 + dk\]
             Шаг индукции выполнен. Формула справедлива $\forall n \in \mathbb{N}$. <span class="qed">$\blacksquare$</span>
-          </p>
-        </div>
-
-        <p>
-          <strong>Задача 2:</strong> Доказать по ММИ формулу суммы первых $n$ членов арифметической прогрессии:
-          $$S_n = \frac{a_1 + a_n}{2} \cdot n$$
-        </p>
-        <div class="proof" id="proof-4" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-4" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-4" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="block-card-title">Доказательство по ММИ:
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-          <p>
-            <strong>1. База ($n=1$):</strong> $S_1 = \frac{a_1 + a_1}{2} \cdot 1 = \frac{2a_1}{2} = a_1$ — верно.
+</div>
+<p>
+<strong>Задача 2:</strong> Доказать по ММИ формулу суммы первых $n$ членов арифметической прогрессии:
+          \[S_n = \frac{a_1 + a_n}{2} \cdot n\]
+        </p>
+<div class="proof" data-proof="" id="proof-4">
+<div aria-label="Доказательство Доказательство по ММИ:" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-4">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство по ММИ:).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-4">
+<div class="proof-label">Доказательство (Доказательство по ММИ:)</div>
+<p>
+<strong>1. База ($n=1$):</strong> $S_1 = \frac{a_1 + a_1}{2} \cdot 1 = \frac{2a_1}{2} = a_1$ — верно.
           </p>
-          <p>
-            <strong>2. Предположение ($n=k$):</strong> $S_k = \frac{a_1 + a_k}{2} \cdot k$.
+<p>
+<strong>2. Предположение ($n=k$):</strong> $S_k = \frac{a_1 + a_k}{2} \cdot k$.
           </p>
-          <p>
-            <strong>3. Переход ($n=k+1$):</strong> Докажем, что $S_{k+1} = \frac{a_1 + a_{k+1}}{2} \cdot (k+1)$.
-            <br>Имеем:
-            $$S_{k+1} = S_k + a_{k+1} = \frac{a_1 + a_k}{2} \cdot k + a_{k+1}$$
+<p>
+<strong>3. Переход ($n=k+1$):</strong> Докажем, что $S_{k+1} = \frac{a_1 + a_{k+1}}{2} \cdot (k+1)$.
+            <br/>Имеем:
+            \[S_{k+1} = S_k + a_{k+1} = \frac{a_1 + a_k}{2} \cdot k + a_{k+1}\]
             Подставим $a_k = a_1 + d(k-1)$ и $a_{k+1} = a_1 + dk$:
-            $$\begin{aligned}
+            \[\begin{aligned}
               S_{k+1} &= \frac{a_1 + [a_1 + d(k-1)]}{2} \cdot k + (a_1 + dk) = \frac{2a_1 + dk - d}{2} \cdot k + a_1 + dk \\
               &= \frac{2a_1 k + dk^2 - dk + 2a_1 + 2dk}{2} = \frac{2a_1(k+1) + dk(k+1)}{2} \\
               &= \frac{k+1}{2} \cdot [2a_1 + dk] = \frac{k+1}{2} \cdot [a_1 + (a_1 + dk)] = \frac{a_1 + a_{k+1}}{2} \cdot (k+1)
-            \end{aligned}$$
+            \end{aligned}\]
             Формула доказана для любого $n \in \mathbb{N}$. <span class="qed">$\blacksquare$</span>
-          </p>
-        </div>
-      </div>
-
-      <h3 id="sub-13" data-toc="4. Бином Ньютона: Формула и …">2.4. Бином Ньютона: Формула и полное индуктивное доказательство</h3>
-      
-      <div class="statement theorem" id="thm-3">
-  <div class="block-label">Утверждение 3</div>
-  <h3 id="sub-14" data-toc="Теорема 3">Теорема 3</h3>
-  
-        <div class="block-card-title">Теорема 2.1 (Формула бинома Ньютона)
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-        <p>
+</div>
+</div></div>
+<h3 class="sub-header" data-toc="4. Бином Ньютона: Формула и по…" id="sec-2-4">2.4. Бином Ньютона: Формула и полное индуктивное доказательство</h3>
+<div class="statement theorem" id="thm-3"><div class="block-label">Утверждение 3</div><h3 data-toc="Теорема 2.1 (Формула бинома Нь…" id="sub-3-8">Теорема 2.1 (Формула бинома Ньютона)</h3><div>
+<p>
           Для любых действительных (или комплексных) чисел $a$ и $b$ и любого натурального показателя $n \in \mathbb{N}$ справедлива формула:
-          $$(a + b)^n = \sum_{k=0}^n C_n^k a^{n-k} b^k$$
+          \[(a + b)^n = \sum_{k=0}^n C_n^k a^{n-k} b^k\]
           где биномиальные коэффициенты $C_n^k$ (число сочетаний из $n$ по $k$) определяются выражением:
-          $$C_n^k = \binom{n}{k} = \frac{n!}{k!(n-k)!}, \quad 0 \le k \le n$$
+          \[C_n^k = \binom{n}{k} = \frac{n!}{k!(n-k)!}, \quad 0 \le k \le n\]
           при этом по соглашению полагается $0! = 1$, откуда $C_n^0 = 1$ и $C_n^n = 1$.
         </p>
-      </div>
-
-      <div class="statement theorem" id="thm-4">
-  <div class="block-label">Утверждение 4</div>
-  <h3 id="sub-15" data-toc="Теорема 4">Теорема 4</h3>
-  
-        <div class="block-card-title">Лемма 2.1 (Основное свойство биномиальных коэффициентов — правило треугольника Паскаля)
-</div>
-        <p>
+</div></div>
+<div class="statement theorem" id="thm-4"><div class="block-label">Утверждение 4</div><h3 data-toc="Лемма 2.1 (Основное свойство б…" id="sub-3-9">Лемма 2.1 (Основное свойство биномиальных коэффициентов — правило треугольника Паскаля)</h3><div>
+<p>
           Для любых натуральных $n$ и $k$ ($1 \le k \le n$) выполняется тождество:
-          $$C_n^k + C_n^{k-1} = C_{n+1}^k$$
+          \[C_n^k + C_n^{k-1} = C_{n+1}^k\]
         </p>
-      </div>
-
-      <div class="proof" id="proof-5" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-5" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-5" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-        <div class="block-card-title">Доказательство леммы 2.1:
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div></div>
+<div class="proof" data-proof="" id="proof-5">
+<div aria-label="Доказательство Доказательство леммы 2.1:" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-        <p>
+<div class="proof-idea" data-proof-idea="" id="idea-5">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство леммы 2.1:).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-5">
+<div class="proof-label">Доказательство (Доказательство леммы 2.1:)</div>
+<p>
           Воспользуемся факториальным определением биномиальных коэффициентов:
-          $$C_n^k + C_n^{k-1} = \frac{n!}{k!(n-k)!} + \frac{n!}{(k-1)!(n - (k-1))!} = \frac{n!}{k!(n-k)!} + \frac{n!}{(k-1)!(n-k+1)!}$$
+          \[C_n^k + C_n^{k-1} = \frac{n!}{k!(n-k)!} + \frac{n!}{(k-1)!(n - (k-1))!} = \frac{n!}{k!(n-k)!} + \frac{n!}{(k-1)!(n-k+1)!}\]
           Заметим, что $k! = k \cdot (k-1)!$ и $(n-k+1)! = (n-k+1) \cdot (n-k)!$. Приведем обе дроби к общему знаменателю $k!(n-k+1)!$:
-          $$\begin{aligned}
+          \[\begin{aligned}
             C_n^k + C_n^{k-1} &= \frac{n! \cdot (n-k+1)}{k!(n-k+1)!} + \frac{n! \cdot k}{k!(n-k+1)!} = \frac{n! \cdot \big((n-k+1) + k\big)}{k!(n-k+1)!} \\
             &= \frac{n! \cdot (n+1)}{k!(n+1-k)!} = \frac{(n+1)!}{k!(n+1-k)!} = C_{n+1}^k
-          \end{aligned}$$
+          \end{aligned}\]
           Тождество доказано. <span class="qed">$\blacksquare$</span>
-        </p>
-      </div>
-
-      <div class="proof" id="proof-6" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-6" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-6" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-        <div class="block-card-title">Строгое доказательство формулы бинома Ньютона методом мат. индукции:
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-        <p>
-          <strong>1. База индукции ($n=1$):</strong>
-          $$(a+b)^1 = \sum_{k=0}^1 C_1^k a^{1-k} b^k = C_1^0 a^{1-0} b^0 + C_1^1 a^{1-1} b^1 = 1 \cdot a \cdot 1 + 1 \cdot 1 \cdot b = a + b$$
+</div>
+<div class="proof" data-proof="" id="proof-6">
+<div aria-label="Доказательство Строгое доказательство формулы бинома Ньютона методом мат. индукции:" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-6">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Строгое доказательство формулы бинома Ньютона методом мат. индукции:).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-6">
+<div class="proof-label">Доказательство (Строгое доказательство формулы бинома Ньютона методом мат. индукции:)</div>
+<p>
+<strong>1. База индукции ($n=1$):</strong>
+          \[(a+b)^1 = \sum_{k=0}^1 C_1^k a^{1-k} b^k = C_1^0 a^{1-0} b^0 + C_1^1 a^{1-1} b^1 = 1 \cdot a \cdot 1 + 1 \cdot 1 \cdot b = a + b\]
           База индукции выполняется тривиально.
         </p>
-        <p>
-          <strong>2. Предположение индукции:</strong> Пусть формула верна для некоторого фиксированного натурального $n$:
-          $$(a+b)^n = \sum_{k=0}^n C_n^k a^{n-k} b^k$$
+<p>
+<strong>2. Предположение индукции:</strong> Пусть формула верна для некоторого фиксированного натурального $n$:
+          \[(a+b)^n = \sum_{k=0}^n C_n^k a^{n-k} b^k\]
         </p>
-        <p>
-          <strong>3. Индукционный переход к $n+1$:</strong> Рассмотрим $(a+b)^{n+1}$:
-          $$(a+b)^{n+1} = (a+b)^n \cdot (a+b) = a \cdot (a+b)^n + b \cdot (a+b)^n$$
+<p>
+<strong>3. Индукционный переход к $n+1$:</strong> Рассмотрим $(a+b)^{n+1}$:
+          \[(a+b)^{n+1} = (a+b)^n \cdot (a+b) = a \cdot (a+b)^n + b \cdot (a+b)^n\]
           Подставим выражение суммы из предположения индукции:
-          $$(a+b)^{n+1} = a \sum_{k=0}^n C_n^k a^{n-k} b^k + b \sum_{k=0}^n C_n^k a^{n-k} b^k = \sum_{k=0}^n C_n^k a^{n-k+1} b^k + \sum_{k=0}^n C_n^k a^{n-k} b^{k+1}$$
+          \[(a+b)^{n+1} = a \sum_{k=0}^n C_n^k a^{n-k} b^k + b \sum_{k=0}^n C_n^k a^{n-k} b^k = \sum_{k=0}^n C_n^k a^{n-k+1} b^k + \sum_{k=0}^n C_n^k a^{n-k} b^{k+1}\]
           Преобразуем вторую сумму посредством сдвига индекса суммирования. Положим $m = k + 1$, тогда при изменении $k$ от $0$ до $n$ новый индекс $m$ меняется от $1$ до $n+1$, а $k = m - 1$:
-          $$\sum_{k=0}^n C_n^k a^{n-k} b^{k+1} = \sum_{m=1}^{n+1} C_n^{m-1} a^{n-(m-1)} b^m = \sum_{m=1}^{n+1} C_n^{m-1} a^{n-m+1} b^m$$
+          \[\sum_{k=0}^n C_n^k a^{n-k} b^{k+1} = \sum_{m=1}^{n+1} C_n^{m-1} a^{n-(m-1)} b^m = \sum_{m=1}^{n+1} C_n^{m-1} a^{n-m+1} b^m\]
           Так как буква индекса суммирования немая, заменим $m$ обратно на $k$:
-          $$\sum_{k=0}^n C_n^k a^{n-k} b^{k+1} = \sum_{k=1}^{n+1} C_n^{k-1} a^{n-k+1} b^k$$
+          \[\sum_{k=0}^n C_n^k a^{n-k} b^{k+1} = \sum_{k=1}^{n+1} C_n^{k-1} a^{n-k+1} b^k\]
           Теперь объединим обе суммы:
-          $$(a+b)^{n+1} = \sum_{k=0}^n C_n^k a^{n+1-k} b^k + \sum_{k=1}^{n+1} C_n^{k-1} a^{n+1-k} b^k$$
+          \[(a+b)^{n+1} = \sum_{k=0}^n C_n^k a^{n+1-k} b^k + \sum_{k=1}^{n+1} C_n^{k-1} a^{n+1-k} b^k\]
           Выделим из первой суммы слагаемое при $k=0$, а из второй суммы — слагаемое при $k=n+1$:
-          $$(a+b)^{n+1} = C_n^0 a^{n+1} b^0 + \sum_{k=1}^n C_n^k a^{n+1-k} b^k + \sum_{k=1}^n C_n^{k-1} a^{n+1-k} b^k + C_n^n a^0 b^{n+1}$$
+          \[(a+b)^{n+1} = C_n^0 a^{n+1} b^0 + \sum_{k=1}^n C_n^k a^{n+1-k} b^k + \sum_{k=1}^n C_n^{k-1} a^{n+1-k} b^k + C_n^n a^0 b^{n+1}\]
           Учитывая, что $C_n^0 = 1 = C_{n+1}^0$ и $C_n^n = 1 = C_{n+1}^{n+1}$, а также группируя центральные суммы:
-          $$(a+b)^{n+1} = a^{n+1} + \sum_{k=1}^n \Big( C_n^k + C_n^{k-1} \Big) a^{n+1-k} b^k + b^{n+1}$$
+          \[(a+b)^{n+1} = a^{n+1} + \sum_{k=1}^n \Big( C_n^k + C_n^{k-1} \Big) a^{n+1-k} b^k + b^{n+1}\]
           Применим доказанную лемму 2.1: $C_n^k + C_n^{k-1} = C_{n+1}^k$:
-          $$(a+b)^{n+1} = C_{n+1}^0 a^{n+1} b^0 + \sum_{k=1}^n C_{n+1}^k a^{n+1-k} b^k + C_{n+1}^{n+1} a^0 b^{n+1} = \sum_{k=0}^{n+1} C_{n+1}^k a^{n+1-k} b^k$$
+          \[(a+b)^{n+1} = C_{n+1}^0 a^{n+1} b^0 + \sum_{k=1}^n C_{n+1}^k a^{n+1-k} b^k + C_{n+1}^{n+1} a^0 b^{n+1} = \sum_{k=0}^{n+1} C_{n+1}^k a^{n+1-k} b^k\]
           Шаг индукции полностью обоснован. Теорема доказана для всех $n \in \mathbb{N}$. <span class="qed">$\blacksquare$</span>
-        </p>
-      </div>
-    </section>
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
 
-    <!-- §3. Расширение числовых систем: от целых к действительным -->
-    <section id="sec-3">
+<!-- §3. Расширение числовых систем: от целых к действительным -->
+<section id="sec-3">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-4">
-  <div class="chapter-kicker">04 / 3. Расширение числовых систе…</div>
-  <h2 id="chapter-4" data-toc="3. Расширение числовых систе…">§ 3. Расширение числовых систем: Целые, рациональные и иррациональные числа</h2>
-  <p id="sec-3-1">
+  <div class="chapter-kicker">04 / 3. Расширение числовых систем:…</div>
+  <h2 id="chapter-4" data-toc="3. Расширение числовых систем:…">§ 3. Расширение числовых систем: Целые, рациональные и иррациональные числа</h2>
+  
+<p id="sec-3-1">
         Потребности математических операций приводят к последовательному расширению множества $\mathbb{N}$:
       </p>
-
-      <div class="statement definition" id="def-4">
-  <div class="block-label">Определение 4</div>
-  <h3 id="sub-16" data-toc="Определение 4">Определение 4</h3>
-  
-        <div class="block-card-title">Определение 3.1 (Целые и рациональные числа)
-</div>
-        <p>
+<div class="statement definition" id="def-4"><div class="block-label">Определение 4</div><h3 data-toc="Определение 3.1 (Целые и рацио…" id="sub-4-1">Определение 3.1 (Целые и рациональные числа)</h3><div>
+<p>
           1. <strong>Множество целых чисел</strong> $\mathbb{Z}$ формируется добавлением к $\mathbb{N}$ нуля и противоположных (отрицательных) чисел:
-          $$\mathbb{Z} = \{\dots, -3, -2, -1, 0, 1, 2, 3, \dots\}$$
+          \[\mathbb{Z} = \{\dots, -3, -2, -1, 0, 1, 2, 3, \dots\}\]
           В $\mathbb{Z}$ операция вычитания становится безусловно выполнимой.
         </p>
-        <p style="margin-bottom: 0;">
+<p style="margin-bottom: 0;">
           2. <strong>Множество рациональных чисел</strong> $\mathbb{Q}$ есть множество всевозможных несократимых обыкновенных дробей вида:
-          $$\mathbb{Q} = \left\{ \frac{m}{n} \;\middle|\; m \in \mathbb{Z}, \; n \in \mathbb{N} \right\}$$
+          \[\mathbb{Q} = \left\{ \frac{m}{n} \;\middle|\; m \in \mathbb{Z}, \; n \in \mathbb{N} \right\}\]
           В $\mathbb{Q}$ безусловно выполнимо деление на любое ненулевое число. Рациональные числа обладают свойством <em>плотности</em>: между любыми двумя различными рациональными числами всегда лежит бесконечно много других рациональных чисел.
         </p>
-      </div>
-
-      <h3 id="sub-17" data-toc="2. Неполнота поля и открытие…">3.2. Неполнота поля $\mathbb{Q}$ и открытие иррациональных чисел</h3>
-      <p>
+</div></div>
+<h3 class="sub-header" data-toc="2. Неполнота поля и открытие и…" id="sec-3-2">3.2. Неполнота поля $\mathbb{Q}$ и открытие иррациональных чисел</h3>
+<p>
         Несмотря на бесконечную плотность, прямая рациональных чисел «изобилует дырами» (пустотами). Геометрически длина диагонали единичного квадрата равна $\sqrt{2}$ (по теореме Пифагора: $1^2 + 1^2 = d^2 \implies d = \sqrt{2}$), однако отложить точную рациональную координату для этой точки принципиально невозможно.
       </p>
-
-      <div class="statement theorem" id="thm-5">
-  <div class="block-label">Утверждение 5</div>
-  <h3 id="sub-18" data-toc="Теорема 5">Теорема 5</h3>
-  
-        <div class="block-card-title">Теорема 3.1 (Иррациональность числа $\sqrt{2}$)
-</div>
-        <p style="margin-bottom: 0;">
+<div class="statement theorem" id="thm-5"><div class="block-label">Утверждение 5</div><h3 data-toc="Теорема 3.1 (Иррациональность …" id="sub-4-3">Теорема 3.1 (Иррациональность числа $\sqrt{2}$)</h3><div>
+<p style="margin-bottom: 0;">
           Не существует рационального числа, квадрат которого равен 2:
-          $$\sqrt{2} \notin \mathbb{Q}$$
+          \[\sqrt{2} \notin \mathbb{Q}\]
         </p>
-      </div>
-
-      <div class="proof" id="proof-7" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-7" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-7" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-        <div class="block-card-title">Доказательство методом от противного (классическое евклидово доказательство):
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div></div>
+<div class="proof" data-proof="" id="proof-7">
+<div aria-label="Доказательство Доказательство методом от противного (классическое евклидово доказательство):" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-        <p>
+<div class="proof-idea" data-proof-idea="" id="idea-7">
+<div class="proof-label">Идея</div>
+<p>Предположим противное: пусть $\sqrt{2} \in \mathbb{Q}$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-7">
+<div class="proof-label">Доказательство (Доказательство методом от противного (классическое евклидово доказательство):)</div>
+<p>
           Предположим противное: пусть $\sqrt{2} \in \mathbb{Q}$. Тогда его можно представить в виде обыкновенной несократимой дроби:
-          $$\sqrt{2} = \frac{m}{n}, \quad m \in \mathbb{Z}, \; n \in \mathbb{N}, \quad \text{НОД}(m, n) = 1$$
+          \[\sqrt{2} = \frac{m}{n}, \quad m \in \mathbb{Z}, \; n \in \mathbb{N}, \quad \text{НОД}(m, n) = 1\]
           Условие $\text{НОД}(m, n) = 1$ означает, что дробь несократима, то есть целые числа $m$ и $n$ не имеют общих простых делителей (в частности, они не могут быть одновременно четными).
         </p>
-        <p>
+<p>
           Возведем обе части равенства в квадрат:
-          $$2 = \frac{m^2}{n^2} \implies m^2 = 2n^2$$
+          \[2 = \frac{m^2}{n^2} \implies m^2 = 2n^2\]
           Отсюда следует, что целое число $m^2$ делится на $2$ без остатка (является четным).
         </p>
-        <p>
-          <em>Лемма о четности:</em> Если квадрат целого числа четен, то и само число четно (действительно, квадрат любого нечетного числа $(2k+1)^2 = 4k^2 + 4k + 1 = 2(2k^2+2k) + 1$ нечетен).
-          <br>Следовательно, $m$ четно, то есть $m = 2k$ для некоторого $k \in \mathbb{Z}$.
+<p>
+<em>Лемма о четности:</em> Если квадрат целого числа четен, то и само число четно (действительно, квадрат любого нечетного числа $(2k+1)^2 = 4k^2 + 4k + 1 = 2(2k^2+2k) + 1$ нечетен).
+          <br/>Следовательно, $m$ четно, то есть $m = 2k$ для некоторого $k \in \mathbb{Z}$.
         </p>
-        <p>
+<p>
           Подставим выражение $m = 2k$ обратно в равенство:
-          $$(2k)^2 = 2n^2 \implies 4k^2 = 2n^2 \implies 2k^2 = n^2 \implies n^2 = 2k^2$$
+          \[(2k)^2 = 2n^2 \implies 4k^2 = 2n^2 \implies 2k^2 = n^2 \implies n^2 = 2k^2\]
           Из полученного равенства видно, что $n^2$ также делится нацело на 2. В силу приведенной леммы, это означает, что и число $n$ обязано быть четным: $n = 2l$ ($l \in \mathbb{N}$).
         </p>
-        <p>
+<p>
           Мы получили, что оба числа $m$ и $n$ кратны двум: $2 \mid m$ и $2 \mid n$, а значит, $\text{НОД}(m, n) \ge 2$. Это входит в фундаментальное противоречие с исходной несократимостью дроби ($\text{НОД}(m, n) = 1$).
         </p>
-        <p style="margin-bottom: 0;">
+<p style="margin-bottom: 0;">
           Полученное логическое противоречие доказывает ложность исходной посылки. Следовательно, $\sqrt{2} \notin \mathbb{Q}$. Число $\sqrt{2}$ принадлежит множеству <strong>иррациональных чисел</strong> $\mathbb{I} = \mathbb{R} \setminus \mathbb{Q}$ (к которым также относятся числа $\pi, e, \sqrt{3}$ и др.). <span class="qed">$\blacksquare$</span>
-        </p>
-      </div>
-    </section>
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
 
-    <!-- §4. Аксиоматическая теория действительных чисел R -->
-    <section id="sec-4">
+<!-- §4. Аксиоматическая теория действительных чисел R -->
+<section id="sec-4">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-5">
-  <div class="chapter-kicker">05 / 4. Аксиоматическая теория мн…</div>
-  <h2 id="chapter-5" data-toc="4. Аксиоматическая теория мн…">§ 4. Аксиоматическая теория множества действительных чисел $\mathbb{R}$</h2>
-  <p id="sec-4-1">
+  <div class="chapter-kicker">05 / 4. Аксиоматическая теория множ…</div>
+  <h2 id="chapter-5" data-toc="4. Аксиоматическая теория множ…">§ 4. Аксиоматическая теория множества действительных чисел $\mathbb{R}$</h2>
+  
+<p id="sec-4-1">
         В современном математическом анализе (в курсах В. А. Зорича и Л. Д. Кудрявцева) множество вещественных чисел определяется строго аксиоматически. Множество действительных чисел $\mathbb{R}$ объединяет в себе рациональные и иррациональные числа: $\mathbb{R} = \mathbb{Q} \cup \mathbb{I}$.
       </p>
-
-      <div class="statement definition" id="def-5">
-  <div class="block-label">Определение 5</div>
-  <h3 id="sub-19" data-toc="Определение 5">Определение 5</h3>
-  
-        <div class="block-card-title">Определение 4.1 (Строгое аксиоматическое определение множества $\mathbb{R}$)
-</div>
-        <p style="margin-bottom: 0;">
-          <strong>Множеством действительных (вещественных) чисел</strong> $\mathbb{R}$ называется непустое множество элементов (чисел), на котором определены две бинарные алгебраические операции — <strong>сложение</strong> ($+$) и <strong>умножение</strong> ($\cdot$), а также бинарное <strong>отношение порядка</strong> ($\le$), удовлетворяющие приведенной ниже системе аксиом I–V.
+<div class="statement definition" id="def-5"><div class="block-label">Определение 5</div><h3 data-toc="Определение 4.1 (Строгое аксио…" id="sub-5-1">Определение 4.1 (Строгое аксиоматическое определение множества $\mathbb{R}$)</h3><div>
+<p style="margin-bottom: 0;">
+<strong>Множеством действительных (вещественных) чисел</strong> $\mathbb{R}$ называется непустое множество элементов (чисел), на котором определены две бинарные алгебраические операции — <strong>сложение</strong> ($+$) и <strong>умножение</strong> ($\cdot$), а также бинарное <strong>отношение порядка</strong> ($\le$), удовлетворяющие приведенной ниже системе аксиом I–V.
         </p>
-      </div>
-
-      <!-- I. Аксиомы сложения -->
-      <div class="statement theorem" id="thm-6">
-  <div class="block-label">Утверждение 6</div>
-  <h3 id="sub-20" data-toc="Теорема 6">Теорема 6</h3>
-  
-        <div class="block-card-title">I. Аксиомы сложения (Абелева группа $(\mathbb{R}, +)$)
-</div>
-        <ol>
-          <li><strong>Ассоциативность:</strong> $\forall a, b, c \in \mathbb{R}: (a + b) + c = a + (b + c)$.</li>
-          <li><strong>Существование нейтрального элемента (нуля):</strong> Существует такой фиксированный элемент, обозначаемый $0 \in \mathbb{R}$, что:
-            $$\forall a \in \mathbb{R}: a + 0 = a \quad (\text{и } 0 + a = a)$$
+</div></div>
+<!-- I. Аксиомы сложения -->
+<div class="statement theorem" id="thm-6"><div class="block-label">Утверждение 6</div><h3 data-toc="I. Аксиомы сложения (Абелева г…" id="sub-5-2">I. Аксиомы сложения (Абелева группа $(\mathbb{R}, +)$)</h3><div>
+<ol>
+<li><strong>Ассоциативность:</strong> $\forall a, b, c \in \mathbb{R}: (a + b) + c = a + (b + c)$.</li>
+<li><strong>Существование нейтрального элемента (нуля):</strong> Существует такой фиксированный элемент, обозначаемый $0 \in \mathbb{R}$, что:
+            \[\forall a \in \mathbb{R}: a + 0 = a \quad (\text{и } 0 + a = a)\]
           </li>
-          <li><strong>Существование противоположного элемента:</strong> Для каждого элемента $a \in \mathbb{R}$ найдется элемент, обозначаемый $(-a) \in \mathbb{R}$, такой, что:
-            $$a + (-a) = 0 \quad (\text{и } (-a) + a = 0)$$
+<li><strong>Существование противоположного элемента:</strong> Для каждого элемента $a \in \mathbb{R}$ найдется элемент, обозначаемый $(-a) \in \mathbb{R}$, такой, что:
+            \[a + (-a) = 0 \quad (\text{и } (-a) + a = 0)\]
           </li>
-          <li><strong>Коммутативность:</strong> $\forall a, b \in \mathbb{R}: a + b = b + a$.</li>
-        </ol>
-      </div>
-
-      <!-- II. Аксиомы умножения -->
-      <div class="statement theorem" id="thm-7">
-  <div class="block-label">Утверждение 7</div>
-  <h3 id="sub-21" data-toc="Теорема 7">Теорема 7</h3>
-  
-        <div class="block-card-title">II. Аксиомы умножения (Абелева группа $(\mathbb{R} \setminus \{0\}, \cdot)$)
-</div>
-        <ol>
-          <li><strong>Ассоциативность:</strong> $\forall a, b, c \in \mathbb{R}: (a \cdot b) \cdot c = a \cdot (b \cdot c)$.</li>
-          <li><strong>Существование единичного элемента:</strong> Существует элемент $1 \in \mathbb{R}$ ($1 \neq 0$) такой, что:
-            $$\forall a \in \mathbb{R}: a \cdot 1 = a \quad (\text{и } 1 \cdot a = a)$$
+<li><strong>Коммутативность:</strong> $\forall a, b \in \mathbb{R}: a + b = b + a$.</li>
+</ol>
+</div></div>
+<!-- II. Аксиомы умножения -->
+<div class="statement theorem" id="thm-7"><div class="block-label">Утверждение 7</div><h3 data-toc="II. Аксиомы умножения (Абелева…" id="sub-5-3">II. Аксиомы умножения (Абелева группа $(\mathbb{R} \setminus \{0\}, \cdot)$)</h3><div>
+<ol>
+<li><strong>Ассоциативность:</strong> $\forall a, b, c \in \mathbb{R}: (a \cdot b) \cdot c = a \cdot (b \cdot c)$.</li>
+<li><strong>Существование единичного элемента:</strong> Существует элемент $1 \in \mathbb{R}$ ($1 \neq 0$) такой, что:
+            \[\forall a \in \mathbb{R}: a \cdot 1 = a \quad (\text{и } 1 \cdot a = a)\]
           </li>
-          <li><strong>Существование обратного элемента:</strong> Для всякого ненулевого числа $a \in \mathbb{R}$ ($a \neq 0$) существует обратный элемент $a^{-1} = \frac{1}{a} \in \mathbb{R}$ такой, что:
-            $$a \cdot \frac{1}{a} = 1$$
+<li><strong>Существование обратного элемента:</strong> Для всякого ненулевого числа $a \in \mathbb{R}$ ($a \neq 0$) существует обратный элемент $a^{-1} = \frac{1}{a} \in \mathbb{R}$ такой, что:
+            \[a \cdot \frac{1}{a} = 1\]
           </li>
-          <li><strong>Коммутативность:</strong> $\forall a, b \in \mathbb{R}: a \cdot b = b \cdot a$.</li>
-        </ol>
-      </div>
-
-      <!-- III. Связь сложения и умножения -->
-      <div class="statement theorem" id="thm-8">
-  <div class="block-label">Утверждение 8</div>
-  <h3 id="sub-22" data-toc="Теорема 8">Теорема 8</h3>
-  
-        <div class="block-card-title">III. Связь операций (Аксиома дистрибутивности)
-</div>
-        <p style="margin-bottom: 0;">
+<li><strong>Коммутативность:</strong> $\forall a, b \in \mathbb{R}: a \cdot b = b \cdot a$.</li>
+</ol>
+</div></div>
+<!-- III. Связь сложения и умножения -->
+<div class="statement theorem" id="thm-8"><div class="block-label">Утверждение 8</div><h3 data-toc="III. Связь операций (Аксиома д…" id="sub-5-4">III. Связь операций (Аксиома дистрибутивности)</h3><div>
+<p style="margin-bottom: 0;">
           Умножение дистрибутивно относительно сложения:
-          $$\forall a, b, c \in \mathbb{R}: (a + b) \cdot c = a \cdot c + b \cdot c$$
+          \[\forall a, b, c \in \mathbb{R}: (a + b) \cdot c = a \cdot c + b \cdot c\]
           <em>Алгебраический итог:</em> Множество, удовлетворяющее аксиомам групп I, II и III, называется <strong>числовым полем</strong>.
         </p>
-      </div>
-
-      <!-- IV. Аксиомы порядка -->
-      <div class="statement theorem" id="thm-9">
-  <div class="block-label">Утверждение 9</div>
-  <h3 id="sub-23" data-toc="Теорема 9">Теорема 9</h3>
-  
-        <div class="block-card-title">IV. Аксиомы линейного порядка (Упорядоченное поле)
-</div>
-        <ol>
-          <li><strong>Трихотомия:</strong> Для любых двух элементов $a, b \in \mathbb{R}$ выполняется строго одно из трех взаимоисключающих соотношений:
-            $$a < b, \quad a = b, \quad \text{или } a > b$$
+</div></div>
+<!-- IV. Аксиомы порядка -->
+<div class="statement theorem" id="thm-9"><div class="block-label">Утверждение 9</div><h3 data-toc="IV. Аксиомы линейного порядка …" id="sub-5-5">IV. Аксиомы линейного порядка (Упорядоченное поле)</h3><div>
+<ol>
+<li><strong>Трихотомия:</strong> Для любых двух элементов $a, b \in \mathbb{R}$ выполняется строго одно из трех взаимоисключающих соотношений:
+            \[a < b, \quad a = b, \quad \text{или } a > b\]
             (В частности, для любого $a \in \mathbb{R}$ либо $a > 0$, либо $a < 0$, либо $a = 0$).
           </li>
-          <li><strong>Сохранение порядка при сложении:</strong> $\forall a, b \in \mathbb{R}: a > 0 \land b > 0 \implies a + b > 0$.</li>
-          <li><strong>Сохранение порядка при умножении:</strong> $\forall a, b \in \mathbb{R}: a > 0 \land b > 0 \implies a \cdot b > 0$.</li>
-        </ol>
-      </div>
-
-      <aside class="note">
-        <div class="block-card-title">Важное замечание: Сравнение с полем комплексных чисел $\mathbb{C}$</aside>
-        <p style="margin-bottom: 0;">
+<li><strong>Сохранение порядка при сложении:</strong> $\forall a, b \in \mathbb{R}: a > 0 \land b > 0 \implies a + b > 0$.</li>
+<li><strong>Сохранение порядка при умножении:</strong> $\forall a, b \in \mathbb{R}: a > 0 \land b > 0 \implies a \cdot b > 0$.</li>
+</ol>
+</div></div>
+<aside class="note">
+<div class="block-card-title">Важное замечание: Сравнение с полем комплексных чисел $\mathbb{C}$</div>
+<p style="margin-bottom: 0;">
           Поле комплексных чисел $\mathbb{C}$ также удовлетворяет аксиомам I, II и III (является полем), но <strong>не является упорядоченным полем</strong>! На поле $\mathbb{C}$ невозможно ввести отношение порядка, согласованное с алгебраическими операциями, так как в любом упорядоченном поле квадрат любого ненулевого элемента положителен ($x^2 > 0$), тогда как в $\mathbb{C}$ мнимая единица дает $i^2 = -1 < 0$. Знаки неравенства («$>$», «$<$») для комплексных чисел бессмысленны.
         </p>
-      </div>
-
-      <h3 id="sub-24" data-toc="2. Алгебраические следствия …">4.2. Алгебраические следствия из аксиом поля (Теоремы единственности)</h3>
-      <p>
+</aside>
+<h3 class="sub-header" data-toc="2. Алгебраические следствия из…" id="sec-4-2">4.2. Алгебраические следствия из аксиом поля (Теоремы единственности)</h3>
+<p>
         В аксиомах постулируется <em>существование</em> нуля, единицы, противоположного и обратного элементов. Их <em>единственность</em> выводится строго логически как теорема.
       </p>
-
-      <div class="statement theorem" id="thm-10">
-  <div class="block-label">Утверждение 10</div>
-  <h3 id="sub-25" data-toc="Теорема 10">Теорема 10</h3>
-  
-        <div class="block-card-title">Теорема 4.1 (Единственность нейтрального элемента — нуля)
-</div>
-        <p style="margin-bottom: 0;">
+<div class="statement theorem" id="thm-10"><div class="block-label">Утверждение 10</div><h3 data-toc="Теорема 4.1 (Единственность не…" id="sub-5-7">Теорема 4.1 (Единственность нейтрального элемента — нуля)</h3><div>
+<p style="margin-bottom: 0;">
           Нейтральный элемент относительно сложения в $\mathbb{R}$ единственен.
         </p>
-      </div>
-      <div class="proof" id="proof-8" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-8" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-8" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-        <div class="block-card-title">Доказательство:
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div></div>
+<div class="proof" data-proof="" id="proof-8">
+<div aria-label="Доказательство Доказательство:" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-        <p>
+<div class="proof-idea" data-proof-idea="" id="idea-8">
+<div class="proof-label">Идея</div>
+<p>Предположим, что в $\mathbb{R}$ существуют два нейтральных элемента: $0$ и $0'$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-8">
+<div class="proof-label">Доказательство (Доказательство:)</div>
+<p>
           Предположим, что в $\mathbb{R}$ существуют два нейтральных элемента: $0$ и $0'$.
-          <br>1) Поскольку $0$ — нейтральный элемент, для любого числа $a$ верно $a + 0 = a$. Положив $a = 0'$, имеем:
-          $$0' + 0 = 0'$$
+          <br/>1) Поскольку $0$ — нейтральный элемент, для любого числа $a$ верно $a + 0 = a$. Положив $a = 0'$, имеем:
+          \[0' + 0 = 0'\]
           2) Поскольку $0'$ — также нейтральный элемент, для любого $b$ верно $b + 0' = b$. Положив $b = 0$, имеем:
-          $$0 + 0' = 0$$
+          \[0 + 0' = 0\]
           3) В силу коммутативности сложения (аксиома I.4) левые части совпадают: $0' + 0 = 0 + 0'$. Следовательно, равны и правые части:
-          $$0' = 0$$
+          \[0' = 0\]
           Единственность доказана. <span class="qed">$\blacksquare$</span>
-        </p>
-      </div>
-
-      <div class="statement theorem" id="thm-11">
-  <div class="block-label">Утверждение 11</div>
-  <h3 id="sub-26" data-toc="Теорема 11">Теорема 11</h3>
-  
-        <div class="block-card-title">Теорема 4.2 (Единственность противоположного элемента)
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-        <p style="margin-bottom: 0;">
+</div>
+<div class="statement theorem" id="thm-11"><div class="block-label">Утверждение 11</div><h3 data-toc="Теорема 4.2 (Единственность пр…" id="sub-5-8">Теорема 4.2 (Единственность противоположного элемента)</h3><div>
+<p style="margin-bottom: 0;">
           Для каждого $a \in \mathbb{R}$ противоположный элемент $(-a)$ единственен.
         </p>
-      </div>
-      <div class="proof" id="proof-9" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-9" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-9" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-        <div class="block-card-title">Доказательство:
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div></div>
+<div class="proof" data-proof="" id="proof-9">
+<div aria-label="Доказательство Доказательство:" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-        <p>
+<div class="proof-idea" data-proof-idea="" id="idea-9">
+<div class="proof-label">Идея</div>
+<p>Пусть для элемента $a$ существуют два противоположных элемента: $a'$ и $a''$, удовлетворяющих свойствам $a + a' = 0$ и $a + a'' = 0$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-9">
+<div class="proof-label">Доказательство (Доказательство:)</div>
+<p>
           Пусть для элемента $a$ существуют два противоположных элемента: $a'$ и $a''$, удовлетворяющих свойствам $a + a' = 0$ и $a + a'' = 0$. Рассмотрим сумму $a' + a + a''$ и вычислим ее двумя способами с помощью ассоциативности (аксиома I.1):
-          $$a' + (a + a'') = (a' + a) + a''$$
+          \[a' + (a + a'') = (a' + a) + a''\]
           Подставляя соотношения:
-          $$a' + 0 = 0 + a'' \implies a' = a''$$
+          \[a' + 0 = 0 + a'' \implies a' = a''\]
           Противоположный элемент строго единственен. <span class="qed">$\blacksquare$</span>
-        </p>
-      </div>
-
-      <aside class="note">
-        <div class="block-card-title">Следствия: Правила арифметических знаков</aside>
-        <ul style="margin-bottom: 0;">
-          <li>Для любого $a \in \mathbb{R}: a \cdot 0 = 0$. (Действительно: $a \cdot 0 = a \cdot (0 + 0) = a \cdot 0 + a \cdot 0$, прибавляя противоположное к $a \cdot 0$, получаем $0 = a \cdot 0$).</li>
-          <li>$(-1) \cdot a = -a$.</li>
-          <li>$(-a) \cdot (-b) = a \cdot b$.</li>
-        </ul>
-      </div>
-
-      <h3 id="sub-27" data-toc="3. Аксиома непрерывности (ак…">4.3. Аксиома непрерывности (аксиома Дедекинда)</h3>
-      <p>
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<aside class="note">
+<div class="block-card-title">Следствия: Правила арифметических знаков</div>
+<ul style="margin-bottom: 0;">
+<li>Для любого $a \in \mathbb{R}: a \cdot 0 = 0$. (Действительно: $a \cdot 0 = a \cdot (0 + 0) = a \cdot 0 + a \cdot 0$, прибавляя противоположное к $a \cdot 0$, получаем $0 = a \cdot 0$).</li>
+<li>$(-1) \cdot a = -a$.</li>
+<li>$(-a) \cdot (-b) = a \cdot b$.</li>
+</ul>
+</aside>
+<h3 class="sub-header" data-toc="3. Аксиома непрерывности (акси…" id="sec-4-3">4.3. Аксиома непрерывности (аксиома Дедекинда)</h3>
+<p>
         Рациональные числа $\mathbb{Q}$ образуют упорядоченное поле, удовлетворяя группам аксиом I–IV. Что же отличает действительные числа $\mathbb{R}$ от рациональных $\mathbb{Q}$? Это <strong>аксиома непрерывности</strong> (полноты).
       </p>
-
-      <div class="statement theorem" id="thm-12">
-  <div class="block-label">Утверждение 12</div>
-  <h3 id="sub-28" data-toc="Теорема 12">Теорема 12</h3>
-  
-        <div class="block-card-title">V. Аксиома непрерывности Дедекинда (о разделяющем элементе)
-</div>
-        <p>
+<div class="statement theorem" id="thm-12"><div class="block-label">Утверждение 12</div><h3 data-toc="V. Аксиома непрерывности Дедек…" id="sub-5-10">V. Аксиома непрерывности Дедекинда (о разделяющем элементе)</h3><div>
+<p>
           Каковы бы ни были два непустых подмножества $A \subset \mathbb{R}$ и $B \subset \mathbb{R}$ такие, что каждый элемент множества $A$ не превосходит любого элемента множества $B$ (то есть множество $A$ целиком лежит левее множества $B$):
-          $$\forall a \in A \quad \forall b \in B : a \le b$$
+          \[\forall a \in A \quad \forall b \in B : a \le b\]
           существует хотя бы одно действительное число $c \in \mathbb{R}$, разделяющее эти множества, то есть удовлетворяющее неравенствам:
-          $$\forall a \in A \quad \forall b \in B : a \le c \le b$$
+          \[\forall a \in A \quad \forall b \in B : a \le c \le b\]
         </p>
-        <p style="margin-bottom: 0;">
+<p style="margin-bottom: 0;">
           В кванторной формулировке:
-          $$\forall A, B \subset \mathbb{R}, \; (A \neq \emptyset, B \neq \emptyset) : (\forall a \in A, \forall b \in B: a \le b) \implies \Big(\exists c \in \mathbb{R} : \forall a \in A, \forall b \in B \implies a \le c \le b\Big)$$
+          \[\forall A, B \subset \mathbb{R}, \; (A \neq \emptyset, B \neq \emptyset) : (\forall a \in A, \forall b \in B: a \le b) \implies \Big(\exists c \in \mathbb{R} : \forall a \in A, \forall b \in B \implies a \le c \le b\Big)\]
         </p>
-      </div>
-
-      <!-- Векторная иллюстрация Аксиомы непрерывности -->
-      <div class="illustration-wrapper">
-        <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 650 130" width="100%" height="130">
-          <!-- Числовая ось -->
-          <line x1="30" y1="70" x2="620" y2="70" stroke="var(--text-muted)" stroke-width="2.5"/>
-          <polygon points="620,65 632,70 620,75" fill="var(--text-muted)"/>
-          <text x="625" y="65" fill="var(--text-muted)" font-size="14" font-weight="bold">R</text>
-
-          <!-- Множество A -->
-          <rect x="60" y="58" width="220" height="24" rx="5" fill="var(--accent-primary)" fill-opacity="0.3" stroke="var(--accent-primary)" stroke-width="1.5"/>
-          <text x="150" y="50" fill="var(--accent-primary)" font-size="14" font-weight="bold">Множество A</text>
-          <circle cx="210" cy="70" r="4.5" fill="var(--accent-primary)"/>
-          <text x="207" y="94" fill="var(--text-main)" font-size="12">a</text>
-
-          <!-- Разделяющий элемент c -->
-          <circle cx="330" cy="70" r="7" fill="var(--axiom-border)"/>
-          <line x1="330" y1="35" x2="330" y2="105" stroke="var(--axiom-border)" stroke-width="2" stroke-dasharray="4,4"/>
-          <text x="323" y="28" fill="var(--axiom-border)" font-size="16" font-weight="bold">c</text>
-          <text x="300" y="122" fill="var(--axiom-border)" font-size="12">Разделяющая точка</text>
-
-          <!-- Множество B -->
-          <rect x="380" y="58" width="220" height="24" rx="5" fill="var(--thm-border)" fill-opacity="0.3" stroke="var(--thm-border)" stroke-width="1.5"/>
-          <text x="470" y="50" fill="var(--thm-border)" font-size="14" font-weight="bold">Множество B</text>
-          <circle cx="440" cy="70" r="4.5" fill="var(--thm-border)"/>
-          <text x="437" y="94" fill="var(--text-main)" font-size="12">b</text>
-        </svg></div>
-        <div class="illustration-caption">Рис. 1. Геометрическая интерпретация непрерывности Дедекинда на числовой прямой: точка $c$ разделяет $A$ и $B$ ($a \le c \le b$).</div>
-      </div>
-
-      <!-- Контрпример в Q -->
-      <div class="worked-example" id="ex-3">
-  <div class="block-label">Пример 3</div>
-  <h3 id="sub-29" data-toc="Пример 3">Пример 3</h3>
-  
-        <div class="block-card-title">Контрпример: Невыполнение аксиомы непрерывности в поле $\mathbb{Q}$
+</div></div>
+<!-- Векторная иллюстрация Аксиомы непрерывности -->
+<div class="illustration-wrapper">
+<figure class="figure-plate"><svg height="130" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 130">
+<!-- Числовая ось -->
+<line stroke="var(--text-muted)" stroke-width="2.5" x1="30" x2="620" y1="70" y2="70"></line>
+<polygon fill="var(--text-muted)" points="620,65 632,70 620,75"></polygon>
+<text fill="var(--text-muted)" font-size="14" font-weight="bold" x="625" y="65">R</text>
+<!-- Множество A -->
+<rect fill="var(--accent-primary)" fill-opacity="0.3" height="24" rx="5" stroke="var(--accent-primary)" stroke-width="1.5" width="220" x="60" y="58"></rect>
+<text fill="var(--accent-primary)" font-size="14" font-weight="bold" x="150" y="50">Множество A</text>
+<circle cx="210" cy="70" fill="var(--accent-primary)" r="4.5"></circle>
+<text fill="var(--text-main)" font-size="12" x="207" y="94">a</text>
+<!-- Разделяющий элемент c -->
+<circle cx="330" cy="70" fill="var(--axiom-border)" r="7"></circle>
+<line stroke="var(--axiom-border)" stroke-dasharray="4,4" stroke-width="2" x1="330" x2="330" y1="35" y2="105"></line>
+<text fill="var(--axiom-border)" font-size="16" font-weight="bold" x="323" y="28">c</text>
+<text fill="var(--axiom-border)" font-size="12" x="300" y="122">Разделяющая точка</text>
+<!-- Множество B -->
+<rect fill="var(--thm-border)" fill-opacity="0.3" height="24" rx="5" stroke="var(--thm-border)" stroke-width="1.5" width="220" x="380" y="58"></rect>
+<text fill="var(--thm-border)" font-size="14" font-weight="bold" x="470" y="50">Множество B</text>
+<circle cx="440" cy="70" fill="var(--thm-border)" r="4.5"></circle>
+<text fill="var(--text-main)" font-size="12" x="437" y="94">b</text>
+</svg></figure>
+<div class="illustration-caption">Рис. 1. Геометрическая интерпретация непрерывности Дедекинда на числовой прямой: точка $c$ разделяет $A$ и $B$ ($a \le c \le b$).</div>
 </div>
-        <p>
+<!-- Контрпример в Q -->
+<div class="worked-example" id="ex-3"><div class="block-label">Пример 3</div><h3 data-toc="Контрпример: Невыполнение акси…" id="sub-5-11">Контрпример: Невыполнение аксиомы непрерывности в поле $\mathbb{Q}$</h3><div>
+<p>
           Рассмотрим в упорядоченном поле рациональных чисел $\mathbb{Q}$ два подмножества положительных чисел:
-          $$A = \{r \in \mathbb{Q} \mid r > 0 \land r^2 < 2\}$$
-          $$B = \{r \in \mathbb{Q} \mid r > 0 \land r^2 > 2\}$$
+          \[A = \{r \in \mathbb{Q} \mid r > 0 \land r^2 < 2\}\]
+          \[B = \{r \in \mathbb{Q} \mid r > 0 \land r^2 > 2\}\]
         </p>
-        <p>
+<p>
           Очевидно, что оба множества непусты ($1 \in A$, так как $1^2 = 1 < 2$; $2 \in B$, так как $2^2 = 4 > 2$).
-          <br>Более того, для любых $a \in A$ и $b \in B$ выполняется: $a^2 < 2 < b^2 \implies a < b$, то есть множество $A$ лежит строго левее $B$.
+          <br/>Более того, для любых $a \in A$ и $b \in B$ выполняется: $a^2 < 2 < b^2 \implies a < b$, то есть множество $A$ лежит строго левее $B$.
         </p>
-        <p style="margin-bottom: 0;">
+<p style="margin-bottom: 0;">
           Однако в множестве $\mathbb{Q}$ <strong>не существует разделяющего числа $c \in \mathbb{Q}$</strong>! Единственным числом на числовой прямой, способным разделить эти множества, является точка $c = \sqrt{2}$. Но, как доказано в Теореме 3.1, $\sqrt{2} \notin \mathbb{Q}$. На месте числа $\sqrt{2}$ в поле рациональных чисел зияет разрыв («пустота»). Именно аксиома V гарантирует отсутствие «дыр» в пространстве действительных чисел $\mathbb{R}$.
         </p>
-      </div>
-
-      <h3 id="sub-30" data-toc="4. Основные свойства числовы…">4.4. Основные свойства числовых неравенств</h3>
-      <p>
+</div></div>
+<h3 class="sub-header" data-toc="4. Основные свойства числовых …" id="sec-4-4">4.4. Основные свойства числовых неравенств</h3>
+<p>
         Непосредственно из аксиом порядка IV и аксиом поля следуют свойства числовых неравенств, используемые при всех аналитических выкладках:
       </p>
-      <ol>
-        <li>$\forall a, b \in \mathbb{R}$: верно строго одно из: $a < b$, $a = b$, $a > b$.</li>
-        <li>$\forall a, b \in \mathbb{R}: a < b \iff b > a$.</li>
-        <li><strong>Транзитивность:</strong> $\forall a, b, c \in \mathbb{R}: (a < b) \land (b < c) \implies a < c$.</li>
-        <li><strong>Прибавление числа к неравенству:</strong> $a < b \implies a + c < b + c \quad (\forall c \in \mathbb{R})$.</li>
-        <li><strong>Умножение неравенства на число:</strong>
-          <br>— Если $a < b$ и $c > 0$, то $a \cdot c < b \cdot c$ (знак неравенства сохраняется);
-          <br>— Если $a < b$ и $c < 0$, то $a \cdot c > b \cdot c$ (знак неравенства меняется на противоположный).
+<ol>
+<li>$\forall a, b \in \mathbb{R}$: верно строго одно из: $a < b$, $a = b$, $a > b$.</li>
+<li>$\forall a, b \in \mathbb{R}: a < b \iff b > a$.</li>
+<li><strong>Транзитивность:</strong> $\forall a, b, c \in \mathbb{R}: (a < b) \land (b < c) \implies a < c$.</li>
+<li><strong>Прибавление числа к неравенству:</strong> $a < b \implies a + c < b + c \quad (\forall c \in \mathbb{R})$.</li>
+<li><strong>Умножение неравенства на число:</strong>
+<br/>— Если $a < b$ и $c > 0$, то $a \cdot c < b \cdot c$ (знак неравенства сохраняется);
+          <br/>— Если $a < b$ и $c < 0$, то $a \cdot c > b \cdot c$ (знак неравенства меняется на противоположный).
         </li>
-        <li><strong>Почленное сложение неравенств одного знака:</strong>
-          $$a < b \land c < d \implies a + c < b + d$$
+<li><strong>Почленное сложение неравенств одного знака:</strong>
+          \[a < b \land c < d \implies a + c < b + d\]
         </li>
-        <li><strong>Почленное умножение положительных неравенств:</strong>
-          $$0 < a < b \land 0 < c < d \implies a \cdot c < b \cdot d$$
+<li><strong>Почленное умножение положительных неравенств:</strong>
+          \[0 < a < b \land 0 < c < d \implies a \cdot c < b \cdot d\]
         </li>
-      </ol>
-    </section>
+</ol>
 
-    <!-- §5. Модуль действительного числа -->
-    <section id="sec-5">
+<!-- §5. Модуль действительного числа -->
+<section id="sec-5">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-6">
-  <div class="chapter-kicker">06 / 5. Модуль действительного чи…</div>
-  <h2 id="chapter-6" data-toc="5. Модуль действительного чи…">§ 5. Модуль действительного числа и его свойства</h2>
-  <p id="sec-5-1">
+  <div class="chapter-kicker">06 / 5. Модуль действительного числ…</div>
+  <h2 id="chapter-6" data-toc="5. Модуль действительного числ…">§ 5. Модуль действительного числа и его свойства</h2>
+  
+<p id="sec-5-1">
         Понятие модуля лежит в основе определения метрики (расстояния) и предела в математическом анализе.
       </p>
-
-      <div class="statement definition" id="def-6">
-  <div class="block-label">Определение 6</div>
-  <h3 id="sub-31" data-toc="Определение 6">Определение 6</h3>
-  
-        <div class="block-card-title">Определение 5.1 (Аналитическое и геометрическое определения модуля)
-</div>
-        <p>
-          <strong>1. Аналитическое определение:</strong> Модулем (абсолютной величиной) действительного числа $a \in \mathbb{R}$ (обозначается $|a|$) называется само число $a$, если оно неотрицательно, и противоположное число $-a$, если $a$ отрицательно:
-          $$|a| = \begin{cases} a, & \text{если } a \ge 0; \\ -a, & \text{если } a < 0. \end{cases}$$
+<div class="statement definition" id="def-6"><div class="block-label">Определение 6</div><h3 data-toc="Определение 5.1 (Аналитическое…" id="sub-6-1">Определение 5.1 (Аналитическое и геометрическое определения модуля)</h3><div>
+<p>
+<strong>1. Аналитическое определение:</strong> Модулем (абсолютной величиной) действительного числа $a \in \mathbb{R}$ (обозначается $|a|$) называется само число $a$, если оно неотрицательно, и противоположное число $-a$, если $a$ отрицательно:
+          \[|a| = \begin{cases} a, & \text{если } a \ge 0; \\ -a, & \text{если } a < 0. \end{cases}\]
         </p>
-        <p style="margin-bottom: 0;">
-          <strong>2. Геометрическое определение:</strong> Модуль $|a|$ есть евклидово расстояние на вещественной оси от начала отсчета (точки $0$) до точки $a$:
-          $$|a| = \rho(0, a)$$
+<p style="margin-bottom: 0;">
+<strong>2. Геометрическое определение:</strong> Модуль $|a|$ есть евклидово расстояние на вещественной оси от начала отсчета (точки $0$) до точки $a$:
+          \[|a| = \rho(0, a)\]
           Соответственно, модуль разности двух чисел $|a - b| = \rho(a, b)$ выражает геометрическое расстояние между точками $a$ и $b$ на числовой прямой.
         </p>
-      </div>
-
-      <!-- Векторная иллюстрация Модуля -->
-      <div class="illustration-wrapper">
-        <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 600 110" width="100%" height="110">
-          <line x1="30" y1="65" x2="570" y2="65" stroke="var(--text-muted)" stroke-width="2"/>
-          <polygon points="570,60 582,65 570,70" fill="var(--text-muted)"/>
-
-          <!-- Ноль -->
-          <circle cx="300" cy="65" r="5" fill="var(--text-main)"/>
-          <text x="296" y="88" fill="var(--text-main)" font-size="14" font-weight="bold">0</text>
-
-          <!-- -k и k -->
-          <circle cx="160" cy="65" r="4.5" fill="var(--accent-primary)"/>
-          <text x="148" y="88" fill="var(--accent-primary)" font-size="13" font-weight="bold">-k</text>
-
-          <circle cx="440" cy="65" r="4.5" fill="var(--accent-primary)"/>
-          <text x="435" y="88" fill="var(--accent-primary)" font-size="13" font-weight="bold">k</text>
-
-          <!-- Интервал между -k и k -->
-          <line x1="160" y1="65" x2="440" y2="65" stroke="var(--accent-primary)" stroke-width="4.5" stroke-opacity="0.5"/>
-          <line x1="300" y1="40" x2="440" y2="40" stroke="var(--accent-primary)" stroke-width="1.5" marker-end="url(#arrow)"/>
-          <text x="345" y="32" fill="var(--accent-primary)" font-size="12">|a| ≤ k ⟺ -k ≤ a ≤ k</text>
-        </svg></div>
-        <div class="illustration-caption">Рис. 2. Геометрический смысл основного модульного неравенства: множество точек, удаленных от нуля не далее чем на $k$.</div>
-      </div>
-
-      <div class="statement theorem" id="thm-13">
-  <div class="block-label">Утверждение 13</div>
-  <h3 id="sub-32" data-toc="Теорема 13">Теорема 13</h3>
-  
-        <div class="block-card-title">Теорема 5.1 (Фундаментальные свойства модуля)
+</div></div>
+<!-- Векторная иллюстрация Модуля -->
+<div class="illustration-wrapper">
+<figure class="figure-plate"><svg height="110" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 600 110">
+<line stroke="var(--text-muted)" stroke-width="2" x1="30" x2="570" y1="65" y2="65"></line>
+<polygon fill="var(--text-muted)" points="570,60 582,65 570,70"></polygon>
+<!-- Ноль -->
+<circle cx="300" cy="65" fill="var(--text-main)" r="5"></circle>
+<text fill="var(--text-main)" font-size="14" font-weight="bold" x="296" y="88">0</text>
+<!-- -k и k -->
+<circle cx="160" cy="65" fill="var(--accent-primary)" r="4.5"></circle>
+<text fill="var(--accent-primary)" font-size="13" font-weight="bold" x="148" y="88">-k</text>
+<circle cx="440" cy="65" fill="var(--accent-primary)" r="4.5"></circle>
+<text fill="var(--accent-primary)" font-size="13" font-weight="bold" x="435" y="88">k</text>
+<!-- Интервал между -k и k -->
+<line stroke="var(--accent-primary)" stroke-opacity="0.5" stroke-width="4.5" x1="160" x2="440" y1="65" y2="65"></line>
+<line marker-end="url(#arrow)" stroke="var(--accent-primary)" stroke-width="1.5" x1="300" x2="440" y1="40" y2="40"></line>
+<text fill="var(--accent-primary)" font-size="12" x="345" y="32">|a| ≤ k ⟺ -k ≤ a ≤ k</text>
+</svg></figure>
+<div class="illustration-caption">Рис. 2. Геометрический смысл основного модульного неравенства: множество точек, удаленных от нуля не далее чем на $k$.</div>
 </div>
-        <ol>
-          <li>$\forall a \in \mathbb{R}: -|a| \le a \le |a|$ и $a \le |a|, -a \le |a|$.</li>
-          <li>$|a| \ge 0$, причем $|a| = 0 \iff a = 0$.</li>
-          <li>$|a| = |-a|$.</li>
-          <li>$|a \cdot b| = |a| \cdot |b|$ и $\left| \frac{a}{b} \right| = \frac{|a|}{|b|}$ (при $b \neq 0$).</li>
-          <li><strong>Критерий попадания в симметричный отрезок:</strong> Для любого $k > 0$:
-            $$|a| \le k \iff -k \le a \le k$$
+<div class="statement theorem" id="thm-13"><div class="block-label">Утверждение 13</div><h3 data-toc="Теорема 5.1 (Фундаментальные с…" id="sub-6-2">Теорема 5.1 (Фундаментальные свойства модуля)</h3><div>
+<ol>
+<li>$\forall a \in \mathbb{R}: -|a| \le a \le |a|$ и $a \le |a|, -a \le |a|$.</li>
+<li>$|a| \ge 0$, причем $|a| = 0 \iff a = 0$.</li>
+<li>$|a| = |-a|$.</li>
+<li>$|a \cdot b| = |a| \cdot |b|$ и $\left| \frac{a}{b} \right| = \frac{|a|}{|b|}$ (при $b \neq 0$).</li>
+<li><strong>Критерий попадания в симметричный отрезок:</strong> Для любого $k > 0$:
+            \[|a| \le k \iff -k \le a \le k\]
           </li>
-        </ol>
-      </div>
-
-      <h3 id="sub-33" data-toc="2. Неравенства треугольника">5.2. Неравенства треугольника</h3>
-
-      <div class="statement theorem" id="thm-14">
-  <div class="block-label">Утверждение 14</div>
-  <h3 id="sub-34" data-toc="Теорема 14">Теорема 14</h3>
-  
-        <div class="block-card-title">Теорема 5.2 (Неравенство треугольника для двух слагаемых)
-</div>
-        <p style="margin-bottom: 0;">
+</ol>
+</div></div>
+<h3 class="sub-header" data-toc="2. Неравенства треугольника" id="sec-5-2">5.2. Неравенства треугольника</h3>
+<div class="statement theorem" id="thm-14"><div class="block-label">Утверждение 14</div><h3 data-toc="Теорема 5.2 (Неравенство треуг…" id="sub-6-4">Теорема 5.2 (Неравенство треугольника для двух слагаемых)</h3><div>
+<p style="margin-bottom: 0;">
           Модуль суммы двух действительных чисел не превосходит суммы их модулей:
-          $$|a + b| \le |a| + |b|$$
+          \[|a + b| \le |a| + |b|\]
         </p>
-      </div>
-
-      <div class="proof" id="proof-10" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-10" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-10" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-        <div class="block-card-title">Доказательство:
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div></div>
+<div class="proof" data-proof="" id="proof-10">
+<div aria-label="Доказательство Доказательство:" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-        <p>
-          В силу свойства 1 модуля имеем систему двух очевидных неравенств:
-          $$\begin{cases} a \le |a| \\ b \le |b| \end{cases} \implies a + b \le |a| + |b| \qquad (1)$$
+<div class="proof-idea" data-proof-idea="" id="idea-10">
+<div class="proof-label">Идея</div>
+<p>В силу свойства 1 модуля имеем систему двух очевидных неравенств:
+          
           Аналогично для отрицательных значений:
-          $$\begin{cases} -a \le |a| \\ -b \le |b| \end{cases} \implies -(a + b) \le |a| + |b| \qquad (2)$$
+          
+          Умножая неравенство $(2)$ на $-1$ (со сменой знака): $-(|a| + |b|) \le a + b$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-10">
+<div class="proof-label">Доказательство (Доказательство:)</div>
+<p>
+          В силу свойства 1 модуля имеем систему двух очевидных неравенств:
+          \[\begin{cases} a \le |a| \\ b \le |b| \end{cases} \implies a + b \le |a| + |b| \qquad (1)\]
+          Аналогично для отрицательных значений:
+          \[\begin{cases} -a \le |a| \\ -b \le |b| \end{cases} \implies -(a + b) \le |a| + |b| \qquad (2)\]
           Умножая неравенство $(2)$ на $-1$ (со сменой знака): $-(|a| + |b|) \le a + b$. Объединяя с $(1)$:
-          $$-(|a| + |b|) \le a + b \le |a| + |b|$$
+          \[-(|a| + |b|) \le a + b \le |a| + |b|\]
           В силу свойства 5 ($|x| \le k \iff -k \le x \le k$, где $k = |a| + |b| \ge 0$), это двойное неравенство в точности равносильно:
-          $$|a + b| \le |a| + |b|$$
+          \[|a + b| \le |a| + |b|\]
           Что и требовалось доказать. <span class="qed">$\blacksquare$</span>
-        </p>
-      </div>
-
-      <div class="statement theorem" id="thm-15">
-  <div class="block-label">Утверждение 15</div>
-  <h3 id="sub-35" data-toc="Теорема 15">Теорема 15</h3>
-  
-        <div class="block-card-title">Теорема 5.3 (Обобщенное неравенство треугольника для $n$ слагаемых)
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-        <p style="margin-bottom: 0;">
+</div>
+<div class="statement theorem" id="thm-15"><div class="block-label">Утверждение 15</div><h3 data-toc="Теорема 5.3 (Обобщенное нераве…" id="sub-6-5">Теорема 5.3 (Обобщенное неравенство треугольника для $n$ слагаемых)</h3><div>
+<p style="margin-bottom: 0;">
           Для любых $n \ge 2$ ($n \in \mathbb{N}$) действительных чисел $a_1, a_2, \dots, a_n$ выполняется неравенство:
-          $$|a_1 + a_2 + \dots + a_n| \le |a_1| + |a_2| + \dots + |a_n|$$
+          \[|a_1 + a_2 + \dots + a_n| \le |a_1| + |a_2| + \dots + |a_n|\]
         </p>
-      </div>
-
-      <div class="proof" id="proof-11" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-11" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-11" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-        <div class="block-card-title">Доказательство по ММИ:
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div></div>
+<div class="proof" data-proof="" id="proof-11">
+<div aria-label="Доказательство Доказательство по ММИ:" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-        <p>
-          <strong>1. База индукции ($n=2$):</strong> Формула $|a_1 + a_2| \le |a_1| + |a_2|$ верна по теореме 5.2.
+<div class="proof-idea" data-proof-idea="" id="idea-11">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство по ММИ:).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-11">
+<div class="proof-label">Доказательство (Доказательство по ММИ:)</div>
+<p>
+<strong>1. База индукции ($n=2$):</strong> Формула $|a_1 + a_2| \le |a_1| + |a_2|$ верна по теореме 5.2.
         </p>
-        <p>
-          <strong>2. Предположение ($n=k$):</strong> Пусть неравенство истинно для произвольных $k$ чисел:
-          $$|a_1 + a_2 + \dots + a_k| \le |a_1| + |a_2| + \dots + |a_k|$$
+<p>
+<strong>2. Предположение ($n=k$):</strong> Пусть неравенство истинно для произвольных $k$ чисел:
+          \[|a_1 + a_2 + \dots + a_k| \le |a_1| + |a_2| + \dots + |a_k|\]
         </p>
-        <p>
-          <strong>3. Переход ($n=k+1$):</strong> Сгруппируем сумму первых $k$ слагаемых как единое число:
-          $$|a_1 + \dots + a_k + a_{k+1}| = |(a_1 + \dots + a_k) + a_{k+1}|$$
+<p>
+<strong>3. Переход ($n=k+1$):</strong> Сгруппируем сумму первых $k$ слагаемых как единое число:
+          \[|a_1 + \dots + a_k + a_{k+1}| = |(a_1 + \dots + a_k) + a_{k+1}|\]
           Применяя базу индукции (неравенство треугольника для двух слагаемых):
-          $$|(a_1 + \dots + a_k) + a_{k+1}| \le |a_1 + \dots + a_k| + |a_{k+1}|$$
+          \[|(a_1 + \dots + a_k) + a_{k+1}| \le |a_1 + \dots + a_k| + |a_{k+1}|\]
           Опираясь на индукционное предположение, заменим первое слагаемое суммой модулей:
-          $$|a_1 + \dots + a_k| + |a_{k+1}| \le (|a_1| + \dots + |a_k|) + |a_{k+1}| = |a_1| + \dots + |a_k| + |a_{k+1}|$$
+          \[|a_1 + \dots + a_k| + |a_{k+1}| \le (|a_1| + \dots + |a_k|) + |a_{k+1}| = |a_1| + \dots + |a_k| + |a_{k+1}|\]
           В силу транзитивности числовых неравенств утверждение справедливо $\forall n \in \mathbb{N}$. <span class="qed">$\blacksquare$</span>
-        </p>
-      </div>
-
-      <div class="statement theorem" id="thm-16">
-  <div class="block-label">Утверждение 16</div>
-  <h3 id="sub-36" data-toc="Теорема 16">Теорема 16</h3>
-  
-        <div class="block-card-title">Теорема 5.4 (Обратное неравенство треугольника)
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-        <p style="margin-bottom: 0;">
+</div>
+<div class="statement theorem" id="thm-16"><div class="block-label">Утверждение 16</div><h3 data-toc="Теорема 5.4 (Обратное неравенс…" id="sub-6-6">Теорема 5.4 (Обратное неравенство треугольника)</h3><div>
+<p style="margin-bottom: 0;">
           Для любых чисел $a, b \in \mathbb{R}$ модуль разности не меньше модуля разности их модулей:
-          $$|a - b| \ge \big| |a| - |b| \big|$$
+          \[|a - b| \ge \big| |a| - |b| \big|\]
         </p>
-      </div>
-
-      <div class="proof" id="proof-12" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-12" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-12" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-        <div class="block-card-title">Доказательство:
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div></div>
+<div class="proof" data-proof="" id="proof-12">
+<div aria-label="Доказательство Доказательство:" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-        <p>
+<div class="proof-idea" data-proof-idea="" id="idea-12">
+<div class="proof-label">Идея</div>
+<p>Представим число $a$ в виде тождества: $a = (a - b) + b$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-12">
+<div class="proof-label">Доказательство (Доказательство:)</div>
+<p>
           Представим число $a$ в виде тождества: $a = (a - b) + b$. Применяя обычное неравенство треугольника:
-          $$|a| = |(a - b) + b| \le |a - b| + |b| \implies |a - b| \ge |a| - |b| \qquad (1)$$
+          \[|a| = |(a - b) + b| \le |a - b| + |b| \implies |a - b| \ge |a| - |b| \qquad (1)\]
           Аналогично представим $b = (b - a) + a$:
-          $$|b| = |(b - a) + a| \le |b - a| + |a| = |a - b| + |a|$$
+          \[|b| = |(b - a) + a| \le |b - a| + |a| = |a - b| + |a|\]
           Отсюда:
-          $$|a - b| \ge |b| - |a| = -(|a| - |b|) \qquad (2)$$
+          \[|a - b| \ge |b| - |a| = -(|a| - |b|) \qquad (2)\]
           Объединяя неравенства (1) и (2):
-          $$-|a - b| \le |a| - |b| \le |a - b|$$
+          \[-|a - b| \le |a| - |b| \le |a - b|\]
           В силу свойства 5 это означает, что:
-          $$\big| |a| - |b| \big| \le |a - b| \iff |a - b| \ge \big| |a| - |b| \big|$$
+          \[\big| |a| - |b| \big| \le |a - b| \iff |a - b| \ge \big| |a| - |b| \big|\]
           Что и требовалось доказать. <span class="qed">$\blacksquare$</span>
-        </p>
-      </div>
-    </section>
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
 
-    <!-- §6. Подмножества R, теория граней и предельный переход -->
-    <section id="sec-6">
+<!-- §6. Подмножества R, теория граней и предельный переход -->
+<section id="sec-6">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-7">
-  <div class="chapter-kicker">07 / 6. Подмножества , промежутки…</div>
-  <h2 id="chapter-7" data-toc="6. Подмножества , промежутки…">§ 6. Подмножества $\mathbb{R}$, промежутки и теория точных граней (sup и inf)</h2>
-  <p id="sec-6-1">
+  <div class="chapter-kicker">07 / 6. Подмножества , промежутки и…</div>
+  <h2 id="chapter-7" data-toc="6. Подмножества , промежутки и…">§ 6. Подмножества $\mathbb{R}$, промежутки и теория точных граней (sup и inf)</h2>
+  
+<p id="sec-6-1">
         Рассмотрим важнейшие классы числовых подмножеств на числовой оси $\mathbb{R}$.
       </p>
-
-      <div class="statement definition" id="def-7">
-  <div class="block-label">Определение 7</div>
-  <h3 id="sub-37" data-toc="Определение 7">Определение 7</h3>
-  
-        <div class="block-card-title">Определение 6.1 (Числовой промежуток)
-</div>
-        <p>
+<div class="statement definition" id="def-7"><div class="block-label">Определение 7</div><h3 data-toc="Определение 6.1 (Числовой пром…" id="sub-7-1">Определение 6.1 (Числовой промежуток)</h3><div>
+<p>
           Множество $P \subset \mathbb{R}$ называется <strong>числовым промежутком</strong>, если вместе с любыми двумя своими точками оно содержит и все точки, лежащие между ними:
-          $$\forall x, y \in P \quad \forall z \in \mathbb{R} : (x < z < y) \implies z \in P$$
+          \[\forall x, y \in P \quad \forall z \in \mathbb{R} : (x < z < y) \implies z \in P\]
         </p>
-        <p>Промежутки на числовой прямой классифицируются следующим образом:</p>
-        <ul style="margin-bottom: 0;">
-          <li>$[a, b] = \{x \in \mathbb{R} \mid a \le x \le b\}$ — <strong>отрезок</strong> (сегмент, замкнутый промежуток);</li>
-          <li>$(a, b) = \{x \in \mathbb{R} \mid a < x < b\}$ — <strong>интервал</strong> (открытый промежуток);</li>
-          <li>$[a, b) = \{x \in \mathbb{R} \mid a \le x < b\}$ и $(a, b] = \{x \in \mathbb{R} \mid a < x \le b\}$ — <strong>полуинтервалы</strong>;</li>
-          <li>$[a, +\infty) = \{x \in \mathbb{R} \mid x \ge a\}$ — правый замкнутый луч;</li>
-          <li>$(a, +\infty) = \{x \in \mathbb{R} \mid x > a\}$ — правый открытый луч;</li>
-          <li>$(-\infty, b] = \{x \in \mathbb{R} \mid x \le b\}$ — левый замкнутый луч;</li>
-          <li>$(-\infty, b) = \{x \in \mathbb{R} \mid x < b\}$ — левый открытый луч;</li>
-          <li>$(-\infty, +\infty) = \mathbb{R}$ — вся числовая прямая.</li>
-        </ul>
-      </div>
-
-      <h3 id="sub-38" data-toc="2. Ограниченные и неограниче…">6.2. Ограниченные и неограниченные множества</h3>
-
-      <div class="statement definition" id="def-8">
-  <div class="block-label">Определение 8</div>
-  <h3 id="sub-39" data-toc="Определение 8">Определение 8</h3>
-  
-        <div class="block-card-title">Определение 6.2 (Ограниченность сверху и снизу)
-</div>
-        <p>
+<p>Промежутки на числовой прямой классифицируются следующим образом:</p>
+<ul style="margin-bottom: 0;">
+<li>$[a, b] = \{x \in \mathbb{R} \mid a \le x \le b\}$ — <strong>отрезок</strong> (сегмент, замкнутый промежуток);</li>
+<li>$(a, b) = \{x \in \mathbb{R} \mid a < x < b\}$ — <strong>интервал</strong> (открытый промежуток);</li>
+<li>$[a, b) = \{x \in \mathbb{R} \mid a \le x < b\}$ и $(a, b] = \{x \in \mathbb{R} \mid a < x \le b\}$ — <strong>полуинтервалы</strong>;</li>
+<li>$[a, +\infty) = \{x \in \mathbb{R} \mid x \ge a\}$ — правый замкнутый луч;</li>
+<li>$(a, +\infty) = \{x \in \mathbb{R} \mid x > a\}$ — правый открытый луч;</li>
+<li>$(-\infty, b] = \{x \in \mathbb{R} \mid x \le b\}$ — левый замкнутый луч;</li>
+<li>$(-\infty, b) = \{x \in \mathbb{R} \mid x < b\}$ — левый открытый луч;</li>
+<li>$(-\infty, +\infty) = \mathbb{R}$ — вся числовая прямая.</li>
+</ul>
+</div></div>
+<h3 class="sub-header" data-toc="2. Ограниченные и неограниченн…" id="sec-6-2">6.2. Ограниченные и неограниченные множества</h3>
+<div class="statement definition" id="def-8"><div class="block-label">Определение 8</div><h3 data-toc="Определение 6.2 (Ограниченност…" id="sub-7-3">Определение 6.2 (Ограниченность сверху и снизу)</h3><div>
+<p>
           1. Множество $A \subset \mathbb{R}$ называется <strong>ограниченным сверху</strong>, если существует такое вещественное число $M \in \mathbb{R}$, что всякий элемент множества $A$ не превосходит $M$:
-          $$\exists M \in \mathbb{R} : \forall a \in A \implies a \le M$$
+          \[\exists M \in \mathbb{R} : \forall a \in A \implies a \le M\]
           Число $M$ при этом называется <strong>верхней границей</strong> (мажорантой) множества $A$. Если у множества есть хотя бы одна верхняя граница, то их существует бесконечно много (любое число $M' > M$ также будет верхней границей).
         </p>
-        <p>
-          <em>Отрицание:</em> Множество $A$ <strong>не ограничено сверху</strong>, если для любого числа $M$ найдется хотя бы один элемент из $A$, строго превосходящий $M$:
-          $$\forall M \in \mathbb{R} \quad \exists a \in A : a > M$$
+<p>
+<em>Отрицание:</em> Множество $A$ <strong>не ограничено сверху</strong>, если для любого числа $M$ найдется хотя бы один элемент из $A$, строго превосходящий $M$:
+          \[\forall M \in \mathbb{R} \quad \exists a \in A : a > M\]
         </p>
-        <p>
+<p>
           2. Множество $A \subset \mathbb{R}$ называется <strong>ограниченным снизу</strong>, если:
-          $$\exists m \in \mathbb{R} : \forall a \in A \implies a \ge m$$
+          \[\exists m \in \mathbb{R} : \forall a \in A \implies a \ge m\]
           Число $m$ называется <strong>нижней границей</strong> (минорантой) множества $A$.
         </p>
-        <p>
-          <em>Отрицание:</em> Множество $A$ <strong>не ограничено снизу</strong>, если:
-          $$\forall m \in \mathbb{R} \quad \exists a \in A : a < m$$
+<p>
+<em>Отрицание:</em> Множество $A$ <strong>не ограничено снизу</strong>, если:
+          \[\forall m \in \mathbb{R} \quad \exists a \in A : a < m\]
         </p>
-        <p style="margin-bottom: 0;">
+<p style="margin-bottom: 0;">
           3. Множество $A$ называется <strong>ограниченным</strong>, если оно ограничено <em>и сверху, и снизу</em>:
-          $$\exists m, M \in \mathbb{R} : \forall a \in A \implies m \le a \le M \iff \exists C > 0 : \forall a \in A \implies |a| \le C$$
+          \[\exists m, M \in \mathbb{R} : \forall a \in A \implies m \le a \le M \iff \exists C > 0 : \forall a \in A \implies |a| \le C\]
           Множество называется <strong>неограниченным</strong>, если оно не ограничено сверху или не ограничено снизу.
         </p>
-      </div>
-
-      <h3 id="sub-40" data-toc="3. Точные грани: Супремум ()…">6.3. Точные грани: Супремум ($\sup$) и Инфимум ($\inf$)</h3>
-      <p>
+</div></div>
+<h3 class="sub-header" data-toc="3. Точные грани: Супремум () и…" id="sec-6-3">6.3. Точные грани: Супремум ($\sup$) и Инфимум ($\inf$)</h3>
+<p>
         Среди бесчисленного множества верхних (или нижних) границ ограниченного множества особый интерес представляют экстремальные — наименьшая из верхних и наибольшая из нижних.
       </p>
-
-      <div class="statement definition" id="def-9">
-  <div class="block-label">Определение 9</div>
-  <h3 id="sub-41" data-toc="Определение 9">Определение 9</h3>
-  
-        <div class="block-card-title">Определение 6.3 (Точная верхняя грань — Супремум)
-</div>
-        <p>
+<div class="statement definition" id="def-9"><div class="block-label">Определение 9</div><h3 data-toc="Определение 6.3 (Точная верхня…" id="sub-7-5">Определение 6.3 (Точная верхняя грань — Супремум)</h3><div>
+<p>
           Число $\xi \in \mathbb{R}$ называется <strong>точной верхней гранью</strong> (или <strong>супремумом</strong>, от лат. <em>supremum</em> — наивысший) множества $A$ (обозначается $\xi = \sup A$), если оно является <strong>наименьшей из всех верхних границ</strong> этого множества.
         </p>
-        <p>
+<p>
           Это определение разворачивается в два характеристических условия:
         </p>
-        <ol>
-          <li>$\forall a \in A: a \le \xi$ ($\xi$ действительно является верхней границей);</li>
-          <li>$\forall \xi_1 < \xi \ \exists a_0 \in A: a_0 > \xi_1$ (ни одно число, меньшее $\xi$, верхней границей быть не может).</li>
-        </ol>
-        <p style="margin-bottom: 0;">
-          <strong>Эквивалентная $\varepsilon$-формулировка (язык математического анализа):</strong>
-          <br>Полагая $\xi_1 = \xi - \varepsilon$, где $\varepsilon > 0$ — сколь угодно малое положительное число, условие (2) принимает стандартный вид:
-          $$\forall \varepsilon > 0 \quad \exists a_0 \in A : a_0 > \xi - \varepsilon$$
+<ol>
+<li>$\forall a \in A: a \le \xi$ ($\xi$ действительно является верхней границей);</li>
+<li>$\forall \xi_1 < \xi \ \exists a_0 \in A: a_0 > \xi_1$ (ни одно число, меньшее $\xi$, верхней границей быть не может).</li>
+</ol>
+<p style="margin-bottom: 0;">
+<strong>Эквивалентная $\varepsilon$-формулировка (язык математического анализа):</strong>
+<br/>Полагая $\xi_1 = \xi - \varepsilon$, где $\varepsilon > 0$ — сколь угодно малое положительное число, условие (2) принимает стандартный вид:
+          \[\forall \varepsilon > 0 \quad \exists a_0 \in A : a_0 > \xi - \varepsilon\]
         </p>
-      </div>
-
-      <div class="statement definition" id="def-10">
-  <div class="block-label">Определение 10</div>
-  <h3 id="sub-42" data-toc="Определение 10">Определение 10</h3>
-  
-        <div class="block-card-title">Определение 6.4 (Точная нижняя грань — Инфимум)
-</div>
-        <p>
+</div></div>
+<div class="statement definition" id="def-10"><div class="block-label">Определение 10</div><h3 data-toc="Определение 6.4 (Точная нижняя…" id="sub-7-6">Определение 6.4 (Точная нижняя грань — Инфимум)</h3><div>
+<p>
           Число $\eta \in \mathbb{R}$ называется <strong>точной нижней гранью</strong> (или <strong>инфимумом</strong>, от лат. <em>infimum</em> — низший) множества $A$ (обозначается $\eta = \inf A$), если оно является <strong>наибольшей из всех нижних границ</strong> множества $A$:
         </p>
-        <ol>
-          <li>$\forall a \in A: a \ge \eta$ ($\eta$ является нижней границей);</li>
-          <li>$\forall \eta_1 > \eta \ \exists a_0 \in A: a_0 < \eta_1$ (ни одно число, большее $\eta$, не может служить нижней границей).</li>
-        </ol>
-        <p style="margin-bottom: 0;">
-          <strong>Эквивалентная $\varepsilon$-формулировка:</strong>
-          $$\forall \varepsilon > 0 \quad \exists a_0 \in A : a_0 < \eta + \varepsilon$$
+<ol>
+<li>$\forall a \in A: a \ge \eta$ ($\eta$ является нижней границей);</li>
+<li>$\forall \eta_1 > \eta \ \exists a_0 \in A: a_0 < \eta_1$ (ни одно число, большее $\eta$, не может служить нижней границей).</li>
+</ol>
+<p style="margin-bottom: 0;">
+<strong>Эквивалентная $\varepsilon$-формулировка:</strong>
+          \[\forall \varepsilon > 0 \quad \exists a_0 \in A : a_0 < \eta + \varepsilon\]
         </p>
-      </div>
-
-      <!-- Векторная иллюстрация Супремума и Инфимума -->
-      <div class="illustration-wrapper">
-        <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 680 140" width="100%" height="140">
-          <line x1="20" y1="75" x2="650" y2="75" stroke="var(--text-muted)" stroke-width="2.5"/>
-          <polygon points="650,70 662,75 650,80" fill="var(--text-muted)"/>
-
-          <!-- Инфимум eta -->
-          <line x1="80" y1="40" x2="80" y2="110" stroke="var(--ex-border)" stroke-width="2.5"/>
-          <text x="73" y="30" fill="var(--ex-border)" font-size="15" font-weight="bold">η = inf A</text>
-
-          <!-- eta + eps -->
-          <circle cx="130" cy="75" r="4" fill="var(--ex-border)"/>
-          <text x="110" y="100" fill="var(--ex-border)" font-size="11">η + ε</text>
-          <circle cx="105" cy="75" r="5" fill="var(--accent-primary)"/>
-          <text x="100" y="60" fill="var(--accent-primary)" font-size="12" font-weight="bold">a₀</text>
-
-          <!-- Тело множества A -->
-          <rect x="140" y="66" width="370" height="18" rx="4" fill="var(--accent-primary)" fill-opacity="0.35"/>
-          <text x="310" y="55" fill="var(--accent-primary)" font-size="14" font-weight="bold">Множество A</text>
-
-          <!-- Супремум xi -->
-          <line x1="560" y1="40" x2="560" y2="110" stroke="var(--thm-border)" stroke-width="2.5"/>
-          <text x="548" y="30" fill="var(--thm-border)" font-size="15" font-weight="bold">ξ = sup A</text>
-
-          <!-- xi - eps -->
-          <circle cx="505" cy="75" r="4" fill="var(--thm-border)"/>
-          <text x="485" y="100" fill="var(--thm-border)" font-size="11">ξ - ε</text>
-          <circle cx="535" cy="75" r="5" fill="var(--accent-primary)"/>
-          <text x="530" y="60" fill="var(--accent-primary)" font-size="12" font-weight="bold">a₀'</text>
-
-          <!-- Дужки окрестности -->
-          <path d="M 505,75 Q 532,88 560,75" fill="none" stroke="var(--thm-border)" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <path d="M 80,75 Q 105,88 130,75" fill="none" stroke="var(--ex-border)" stroke-width="1.5" stroke-dasharray="3,3"/>
-        </svg></div>
-        <div class="illustration-caption">Рис. 3. Геометрическая структура точных граней: в любую сколь угодно малую левую полуокрестность $(\xi - \varepsilon, \xi]$ гарантированно попадает хотя бы одна точка $a_0 \in A$.</div>
-      </div>
-
-      <aside class="note">
-        <div class="block-card-title">Принципиальное отличие: Супремум vs Максимум ($\sup$ vs $\max$)</aside>
-        <p>
+</div></div>
+<!-- Векторная иллюстрация Супремума и Инфимума -->
+<div class="illustration-wrapper">
+<figure class="figure-plate"><svg height="140" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 140">
+<line stroke="var(--text-muted)" stroke-width="2.5" x1="20" x2="650" y1="75" y2="75"></line>
+<polygon fill="var(--text-muted)" points="650,70 662,75 650,80"></polygon>
+<!-- Инфимум eta -->
+<line stroke="var(--ex-border)" stroke-width="2.5" x1="80" x2="80" y1="40" y2="110"></line>
+<text fill="var(--ex-border)" font-size="15" font-weight="bold" x="73" y="30">η = inf A</text>
+<!-- eta + eps -->
+<circle cx="130" cy="75" fill="var(--ex-border)" r="4"></circle>
+<text fill="var(--ex-border)" font-size="11" x="110" y="100">η + ε</text>
+<circle cx="105" cy="75" fill="var(--accent-primary)" r="5"></circle>
+<text fill="var(--accent-primary)" font-size="12" font-weight="bold" x="100" y="60">a₀</text>
+<!-- Тело множества A -->
+<rect fill="var(--accent-primary)" fill-opacity="0.35" height="18" rx="4" width="370" x="140" y="66"></rect>
+<text fill="var(--accent-primary)" font-size="14" font-weight="bold" x="310" y="55">Множество A</text>
+<!-- Супремум xi -->
+<line stroke="var(--thm-border)" stroke-width="2.5" x1="560" x2="560" y1="40" y2="110"></line>
+<text fill="var(--thm-border)" font-size="15" font-weight="bold" x="548" y="30">ξ = sup A</text>
+<!-- xi - eps -->
+<circle cx="505" cy="75" fill="var(--thm-border)" r="4"></circle>
+<text fill="var(--thm-border)" font-size="11" x="485" y="100">ξ - ε</text>
+<circle cx="535" cy="75" fill="var(--accent-primary)" r="5"></circle>
+<text fill="var(--accent-primary)" font-size="12" font-weight="bold" x="530" y="60">a₀'</text>
+<!-- Дужки окрестности -->
+<path d="M 505,75 Q 532,88 560,75" fill="none" stroke="var(--thm-border)" stroke-dasharray="3,3" stroke-width="1.5"></path>
+<path d="M 80,75 Q 105,88 130,75" fill="none" stroke="var(--ex-border)" stroke-dasharray="3,3" stroke-width="1.5"></path>
+</svg></figure>
+<div class="illustration-caption">Рис. 3. Геометрическая структура точных граней: в любую сколь угодно малую левую полуокрестность $(\xi - \varepsilon, \xi]$ гарантированно попадает хотя бы одна точка $a_0 \in A$.</div>
+</div>
+<aside class="note">
+<div class="block-card-title">Принципиальное отличие: Супремум vs Максимум ($\sup$ vs $\max$)</div>
+<p>
           Если точная верхняя грань $\xi = \sup A$ <strong>принадлежит</strong> самому множеству $A$ ($\xi \in A$), то она называется <strong>максимумом</strong> множества: $\xi = \max A$.
-          <br>Однако супремум вовсе не обязан принадлежать множеству!
+          <br/>Однако супремум вовсе не обязан принадлежать множеству!
         </p>
-        <ul style="margin-bottom: 0;">
-          <li>Для отрезка $A = [0, 1]$: $\sup A = 1 \in A \implies \max A = 1$.</li>
-          <li>Для интервала $B = (0, 1)$: $\sup B = 1 \notin B$. Максимума у множества $B$ <strong>не существует</strong>, однако супремум существует и равен строго $1$.</li>
-        </ul>
-      </div>
-
-      <div class="statement theorem" id="thm-17">
-  <div class="block-label">Утверждение 17</div>
-  <h3 id="sub-43" data-toc="Теорема 17">Теорема 17</h3>
-  
-        <div class="block-card-title">Теорема 6.1 (Теорема о существовании точной верхней грани — Вейерштрасс)
-</div>
-        <p style="margin-bottom: 0;">
+<ul style="margin-bottom: 0;">
+<li>Для отрезка $A = [0, 1]$: $\sup A = 1 \in A \implies \max A = 1$.</li>
+<li>Для интервала $B = (0, 1)$: $\sup B = 1 \notin B$. Максимума у множества $B$ <strong>не существует</strong>, однако супремум существует и равен строго $1$.</li>
+</ul>
+</aside>
+<div class="statement theorem" id="thm-17"><div class="block-label">Утверждение 17</div><h3 data-toc="Теорема 6.1 (Теорема о существ…" id="sub-7-7">Теорема 6.1 (Теорема о существовании точной верхней грани — Вейерштрасс)</h3><div>
+<p style="margin-bottom: 0;">
           Всякое непустое ограниченное сверху подмножество действительных чисел имеет в $\mathbb{R}$ точную верхнюю грань:
-          $$\forall A \subset \mathbb{R}, \; (A \neq \emptyset, \; A \text{ ограничено сверху}) \implies \exists! \sup A \in \mathbb{R}$$
+          \[\forall A \subset \mathbb{R}, \; (A \neq \emptyset, \; A \text{ ограничено сверху}) \implies \exists! \sup A \in \mathbb{R}\]
         </p>
-      </div>
-
-      <div class="proof" id="proof-13" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-13" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-13" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-        <div class="block-card-title">Строгое доказательство (опора на аксиому непрерывности Дедекинда):
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div></div>
+<div class="proof" data-proof="" id="proof-13">
+<div aria-label="Доказательство Строгое доказательство (опора на аксиому непрерывности Дедекинда):" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-        <p>
+<div class="proof-idea" data-proof-idea="" id="idea-13">
+<div class="proof-label">Идея</div>
+<p>Пусть $A \subset \mathbb{R}$ — непустое множество, ограниченное сверху.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-13">
+<div class="proof-label">Доказательство (Строгое доказательство (опора на аксиому непрерывности Дедекинда):)</div>
+<p>
           Пусть $A \subset \mathbb{R}$ — непустое множество, ограниченное сверху.
-          <br>Определим множество $B$ как совокупность <strong>всех верхних границ</strong> множества $A$:
-          $$B = \{b \in \mathbb{R} \mid \forall a \in A: a \le b\}$$
+          <br/>Определим множество $B$ как совокупность <strong>всех верхних границ</strong> множества $A$:
+          \[B = \{b \in \mathbb{R} \mid \forall a \in A: a \le b\}\]
         </p>
-        <p>
+<p>
           Проверим условия аксиомы непрерывности Дедекинда (аксиома V):
-          <br>1) $A \neq \emptyset$ по исходному условию теоремы;
-          <br>2) $B \neq \emptyset$, поскольку множество $A$ ограничено сверху (существует хотя бы одна мажоранта);
-          <br>3) По самому определению множества $B$, каков бы ни был элемент $a \in A$ и каков бы ни был элемент $b \in B$, справедливо неравенство:
-          $$a \le b$$
+          <br/>1) $A \neq \emptyset$ по исходному условию теоремы;
+          <br/>2) $B \neq \emptyset$, поскольку множество $A$ ограничено сверху (существует хотя бы одна мажоранта);
+          <br/>3) По самому определению множества $B$, каков бы ни был элемент $a \in A$ и каков бы ни был элемент $b \in B$, справедливо неравенство:
+          \[a \le b\]
         </p>
-        <p>
+<p>
           Следовательно, к множествам $A$ и $B$ применима аксиома непрерывности Дедекинда: найдется действительное число $c \in \mathbb{R}$ такое, что:
-          $$\forall a \in A \quad \forall b \in B : a \le c \le b$$
+          \[\forall a \in A \quad \forall b \in B : a \le c \le b\]
         </p>
-        <p>
+<p>
           Докажем, что это число $c$ и есть искомый $\sup A$:
-          <br>а) Из неравенства $a \le c$ (выполненного для всех $a \in A$) следует, что число $c$ является верхней границей множества $A$, а значит, по определению принадлежит множеству мажорант: $c \in B$.
-          <br>б) С другой стороны, из неравенства $c \le b$ (выполненного для всех мажорант $b \in B$) следует, что $c$ есть <em>наименьший</em> элемент множества всех верхних границ.
+          <br/>а) Из неравенства $a \le c$ (выполненного для всех $a \in A$) следует, что число $c$ является верхней границей множества $A$, а значит, по определению принадлежит множеству мажорант: $c \in B$.
+          <br/>б) С другой стороны, из неравенства $c \le b$ (выполненного для всех мажорант $b \in B$) следует, что $c$ есть <em>наименьший</em> элемент множества всех верхних границ.
         </p>
-        <p style="margin-bottom: 0;">
+<p style="margin-bottom: 0;">
           Таким образом, число $c$ удовлетворяет всем критериям точной верхней грани: $c = \sup A$. Единственность следует из того, что наименьший элемент числового множества всегда единственен. <span class="qed">$\blacksquare$</span>
-        </p>
-      </div>
-
-      <h3 id="sub-44" data-toc="4. Разбор лекционной практич…">6.4. Разбор лекционной практической задачи на $\sup$</h3>
-
-      <div class="worked-example" id="ex-4">
-  <div class="block-label">Пример 4</div>
-  <h3 id="sub-45" data-toc="Пример 4">Пример 4</h3>
-  
-        <div class="block-card-title">Задача из лекции (НИУ ВШЭ ФПМ): Доказательство по определению
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-        <p>
+</div>
+<h3 class="sub-header" data-toc="4. Разбор лекционной практичес…" id="sec-6-4">6.4. Разбор лекционной практической задачи на $\sup$</h3>
+<div class="worked-example" id="ex-4"><div class="block-label">Идея</div><h3 data-toc="Задача из лекции (НИУ ВШЭ ФПМ)…" id="sub-7-9">Задача из лекции (НИУ ВШЭ ФПМ): Доказательство по определению</h3><div>
+<p>
           Дано числовое множество:
-          $$A = \left\{ \frac{2n}{n+1} \;\middle|\; n \in \mathbb{N} \right\} = \left\{ 1, \; \frac{4}{3}, \; \frac{6}{4}, \; \frac{8}{5}, \; \dots \right\}$$
+          \[A = \left\{ \frac{2n}{n+1} \;\middle|\; n \in \mathbb{N} \right\} = \left\{ 1, \; \frac{4}{3}, \; \frac{6}{4}, \; \frac{8}{5}, \; \dots \right\}\]
           Доказать строго по $\varepsilon$-определению точной грани, что:
-          $$\sup A = 2$$
+          \[\sup A = 2\]
         </p>
-        
-        <div class="proof" id="proof-14" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-14" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-14" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="block-card-title">Строгое поэтапное доказательство:
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<div class="proof" data-proof="" id="proof-14">
+<div aria-label="Доказательство Строгое поэтапное доказательство:" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <p>
+<div class="proof-idea" data-proof-idea="" id="idea-14">
+<p>Преобразуем формулу общего элемента множества, выделив целую часть:</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-14">
+<div class="proof-label">Доказательство (Строгое поэтапное доказательство:)</div>
+<p>
             Преобразуем формулу общего элемента множества, выделив целую часть:
-            $$a_n = \frac{2n}{n+1} = \frac{2(n+1) - 2}{n+1} = 2 - \frac{2}{n+1}$$
+            \[a_n = \frac{2n}{n+1} = \frac{2(n+1) - 2}{n+1} = 2 - \frac{2}{n+1}\]
           </p>
-
-          <p>
-            <strong>Пункт 1: Проверка условия верхней границы ($\forall a \in A: a \le 2$).</strong>
-            <br>Для любого натурального числа $n \in \mathbb{N} = \{1, 2, 3, \dots\}$ знаменатель $n+1 \ge 2 > 0$.
-            <br>Следовательно, дробь $\frac{2}{n+1} > 0$. Отсюда:
-            $$a_n = 2 - \frac{2}{n+1} < 2 \quad (\forall n \in \mathbb{N})$$
+<p>
+<strong>Пункт 1: Проверка условия верхней границы ($\forall a \in A: a \le 2$).</strong>
+<br/>Для любого натурального числа $n \in \mathbb{N} = \{1, 2, 3, \dots\}$ знаменатель $n+1 \ge 2 > 0$.
+            <br/>Следовательно, дробь $\frac{2}{n+1} > 0$. Отсюда:
+            \[a_n = 2 - \frac{2}{n+1} < 2 \quad (\forall n \in \mathbb{N})\]
             Число $2$ строго превосходит любой элемент множества $A$. Таким образом, число $2$ является верхней границей множества $A$. Первое условие супремума выполнено.
           </p>
-
-          <p>
-            <strong>Пункт 2: Проверка условия наименьшей верхней границы ($\varepsilon$-язык).</strong>
-            <br>Требуется доказать, что:
-            $$\forall \varepsilon > 0 \quad \exists n_0 \in \mathbb{N} : a_{n_0} > 2 - \varepsilon$$
+<p>
+<strong>Пункт 2: Проверка условия наименьшей верхней границы ($\varepsilon$-язык).</strong>
+<br/>Требуется доказать, что:
+            \[\forall \varepsilon > 0 \quad \exists n_0 \in \mathbb{N} : a_{n_0} > 2 - \varepsilon\]
             Подставим аналитическое выражение для $a_{n_0}$:
-            $$2 - \frac{2}{n_0 + 1} > 2 - \varepsilon$$
+            \[2 - \frac{2}{n_0 + 1} > 2 - \varepsilon\]
             Решим это строгое неравенство относительно переменной $n_0$:
-            $$-\frac{2}{n_0 + 1} > -\varepsilon \iff \frac{2}{n_0 + 1} < \varepsilon$$
+            \[-\frac{2}{n_0 + 1} > -\varepsilon \iff \frac{2}{n_0 + 1} < \varepsilon\]
             Так как $\varepsilon > 0$ и $n_0 + 1 > 0$, домножим обе части на $(n_0 + 1)$ и разделим на $\varepsilon$:
-            $$n_0 + 1 > \frac{2}{\varepsilon} \iff n_0 > \frac{2}{\varepsilon} - 1$$
+            \[n_0 + 1 > \frac{2}{\varepsilon} \iff n_0 > \frac{2}{\varepsilon} - 1\]
             По <em>аксиоме Архимеда</em> для любого действительного числа $\frac{2}{\varepsilon} - 1$ всегда существует строго большее натуральное число $n_0$.
             В качестве искомого натурального индекса $n_0$ достаточно положить:
-            $$n_0 = \max\left(1, \; \left\lfloor \frac{2}{\varepsilon} - 1 \right\rfloor + 1\right)$$
+            \[n_0 = \max\left(1, \; \left\lfloor \frac{2}{\varepsilon} - 1 \right\rfloor + 1\right)\]
             где $\lfloor x \rfloor$ — целая часть числа (пол).
           </p>
-
-          <p>
-            <strong>Численная иллюстрация (для закрепления понимания):</strong>
-            <br>Пусть задан уровень точности $\varepsilon = 0.1$.
-            <br>Тогда пороговое значение:
-            $$\frac{2}{\varepsilon} - 1 = \frac{2}{0.1} - 1 = 20 - 1 = 19$$
+<p>
+<strong>Численная иллюстрация (для закрепления понимания):</strong>
+<br/>Пусть задан уровень точности $\varepsilon = 0.1$.
+            <br/>Тогда пороговое значение:
+            \[\frac{2}{\varepsilon} - 1 = \frac{2}{0.1} - 1 = 20 - 1 = 19\]
             Неравенство требует $n_0 > 19$. Возьмем, например, $n_0 = 20 \in \mathbb{N}$.
-            <br>Вычислим соответствующий элемент множества:
-            $$a_{20} = \frac{2 \cdot 20}{20 + 1} = \frac{40}{21} \approx 1.90476$$
+            <br/>Вычислим соответствующий элемент множества:
+            \[a_{20} = \frac{2 \cdot 20}{20 + 1} = \frac{40}{21} \approx 1.90476\]
             Сравним с порогом $\xi - \varepsilon$:
-            $$2 - \varepsilon = 2 - 0.1 = 1.9 = \frac{39.9}{21}$$
+            \[2 - \varepsilon = 2 - 0.1 = 1.9 = \frac{39.9}{21}\]
             Действительно:
-            $$a_{20} = \frac{40}{21} > 1.9$$
+            \[a_{20} = \frac{40}{21} > 1.9\]
             Элемент $a_{20} \in A$ гарантированно попал в $\varepsilon$-окрестность супремума!
           </p>
-          <p style="margin-bottom: 0;">
+<p style="margin-bottom: 0;">
             Оба пункта определения проверены. Тем самым строго доказано, что $\sup A = 2$. При этом заметим, что $\max A$ не существует, так как $2 \notin A$. <span class="qed">$\blacksquare$</span>
-          </p>
-        </div>
-      </div>
-    </section>
+</p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+</div></div>
+
+
 </section>
 <!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>

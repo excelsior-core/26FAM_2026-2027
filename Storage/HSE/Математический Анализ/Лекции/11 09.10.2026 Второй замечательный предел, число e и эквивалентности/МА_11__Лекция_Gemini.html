@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Математический анализ: Второй замечательный предел, шкала эквивалентностей и техника вычисления пределов. Конспект FAM ФПМ НИУ ВШЭ.">
+  <meta name="description" content="Университетский курс • НИУ ВШЭ">
   <title>Математический анализ: Второй замечательный предел, шкала эквивалентностей и техника вычисления пределов — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
@@ -183,8 +183,13 @@ html[data-theme] ::selection{background:var(--gold);color:var(--paper)}
 .themed-figure [data-figure-theme="light"]{display:block}
 html[data-theme="dark"] .themed-figure [data-figure-theme],html[data-theme="parchment"] .themed-figure [data-figure-theme]{display:none}
 html[data-theme="dark"] .themed-figure [data-figure-theme="dark"],html[data-theme="parchment"] .themed-figure [data-figure-theme="parchment"]{display:block}
-/* One neutral/light asset may remain on its own light plate in every theme. Never invert mathematical colours. */
-.figure-plate{background:#fff;color:#202e29;padding:16px;border:1px solid var(--rule)}
+.figure-plate{background:var(--bg-card);color:var(--ink);padding:20px;border:1px solid var(--rule);border-radius:8px;margin:32px 0}
+html[data-theme="light"] .figure-plate{background:#ffffff}
+html[data-theme="dark"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+html[data-theme="parchment"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+@media print{
+ .figure-plate{background:white!important;border:0!important;padding:0!important}
+}
 @media(max-width:760px){.topbar{height:auto;min-height:70px;flex-wrap:wrap;padding:12px 18px;gap:10px}.top-actions{gap:8px;flex-wrap:wrap}.theme-control select{font-size:10px;max-width:103px;padding:8px 4px}.pdf-button{padding:6px 8px}.pdf-button span{margin-left:4px}.wordmark{font-size:24px}}
 @media(max-width:400px){.wordmark{display:none}.top-actions{width:100%;justify-content:space-between}}
 @media print{
@@ -440,1345 +445,1094 @@ SOFTWARE.
     </aside>
     <main id="content">
       <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
-  <div class="lecture-meta"><span class="subject">Математический анализ</span><span>ФПМ НИУ ВШЭ</span></div>
-  <h1>Математический анализ: Второй замечательный предел, шкала эквивалентностей и техника вычисления пределов</h1>
-  <p class="subtitle">Университетский курс • НИУ ВШЭ</p>
-  <div class="lecture-abstract">
-    <p>Университетский курс • НИУ ВШЭ</p>
-    <div class="abstract-formula" aria-label="Ключевое выражение лекции">\[', right: '\]</div>
-  </div>
-</header>
-<div class="proof-toolbar" aria-label="Все доказательства">
-  <span class="toolbar-label">Доказательства</span>
-  <div class="segmented" role="group" aria-label="Режим всех доказательств">
-    <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
-    <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
-    <button data-all-proofs="full" aria-pressed="false">Полностью</button>
-  </div>
-  <span id="proof-state" class="proof-state" aria-live="polite"></span>
-</div>
-<noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
-<p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
-
+      <header class="lecture-head" id="top">
+        <div class="lecture-meta"><span class="subject">Математический анализ</span><span>Академический конспект ФПМ</span></div>
+        <h1>Математический анализ: Второй замечательный предел, шкала эквивалентностей и техника вычисления пределов</h1>
+        <p class="subtitle">Университетский курс • НИУ ВШЭ</p>
+        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[', right: '\]</div></div>
+      </header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
 <section class="chapter" aria-labelledby="chapter-1">
   <div class="chapter-kicker">01 / Введение</div>
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <header class="hero-header" id="intro">
-          <span class="course-badge">Фундаментальный математический анализ • I курс</span>
-          <h1 class="doc-title">Второй замечательный предел, шкала эквивалентностей и техника вычисления пределов функций</h1>
-          <div class="doc-meta">
-            <div class="doc-meta-item"><span>📖</span> На основе лекций и учебников В.А. Зорича и Л.Д. Кудрявцева</div>
-            <div class="doc-meta-item"><span>📐</span> Полные доказательства, теоремы и векторная графика</div>
-            <div class="doc-meta-item"><span>🖨️</span> Подготовлено для печати в PDF</div>
-          </div>
-        </header>
+<span class="course-badge">Фундаментальный математический анализ • I курс</span>
+<h1 class="doc-title">Второй замечательный предел, шкала эквивалентностей и техника вычисления пределов функций</h1>
+<div class="doc-meta">
+<div class="doc-meta-item"><span>📖</span> На основе лекций и учебников В.А. Зорича и Л.Д. Кудрявцева</div>
+<div class="doc-meta-item"><span>📐</span> Полные доказательства, теоремы и векторная графика</div>
+<div class="doc-meta-item"><span>🖨️</span> Подготовлено для печати в PDF</div>
+</div>
+</header>
 
-        <section class="in-document-toc" id="doc-toc">
-          <div class="toc-title">
-            <span>📑</span> Оглавление конспекта
-          </div>
-          <div class="toc-grid">
-            <div class="toc-item">
-              <a href="#sec-arithmetic" class="toc-link">
-                <span class="toc-number">1.</span>
-                <span>Арифметика пределов и свойства б.м. функций</span>
-              </a>
-            </div>
-            <div class="toc-item">
-              <a href="#sec-second-limit" class="toc-link">
-                <span class="toc-number">2.</span>
-                <span>Число $e$ и второй замечательный предел</span>
-              </a>
-            </div>
-            <div class="toc-item">
-              <a href="#sec-corollaries" class="toc-link">
-                <span class="toc-number">3.</span>
-                <span>Пять фундаментальных следствий второго предела</span>
-              </a>
-            </div>
-            <div class="toc-item">
-              <a href="#sec-comparison" class="toc-link">
-                <span class="toc-number">4.</span>
-                <span>Теория сравнения б.м. функций и шкала эквивалентностей</span>
-              </a>
-            </div>
-            <div class="toc-item">
-              <a href="#sec-pitfalls" class="toc-link">
-                <span class="toc-number">5.</span>
-                <span>Ловушки вычитания эквивалентностей и анализ ошибок</span>
-              </a>
-            </div>
-            <div class="toc-item">
-              <a href="#sec-advanced-problems" class="toc-link">
-                <span class="toc-number">6.</span>
-                <span>Разбор сложных университетских задач с доски</span>
-              </a>
-            </div>
-            <div class="toc-item">
-              <a href="#sec-summary" class="toc-link">
-                <span class="toc-number">7.</span>
-                <span>Сводный справочник и чек-лист решения пределов</span>
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <!-- 1. Арифметика пределов -->
-        <section id="sec-arithmetic">
+<!-- 1. Арифметика пределов -->
+<section id="sec-arithmetic">
 </section>
-
 <section class="chapter" aria-labelledby="chapter-2">
-  <div class="chapter-kicker">02 / Арифметика пределов и свойст…</div>
-  <h2 id="chapter-2" data-toc="Арифметика пределов и свойст…">1. Арифметика пределов и свойства бесконечно малых (Теорема о пределе суммы)</h2>
-  <p>
+  <div class="chapter-kicker">02 / Арифметика пределов и свойства…</div>
+  <h2 id="chapter-2" data-toc="Арифметика пределов и свойства…">1. Арифметика пределов и свойства бесконечно малых (Теорема о пределе суммы)</h2>
+  
+<p>
             Фундаментом математического анализа является корректный перенос алгебраических операций на класс сходящихся функций. На лекции детально разбирается вопрос: как строго доказать аддитивность предела, не допуская логического круга, на который часто попадаются студенты.
           </p>
-
-          <div class="callout callout-theorem">
-            <div class="callout-header">
-              <div class="callout-title-text">
-                <span>📘</span> <strong>Теорема $T^*$ (О пределе суммы функций)</strong>
-              </div>
-              <span class="badge">Базовая теорема</span>
-            </div>
-            <p>
+<div class="statement theorem featured" id="thm-1"><div class="block-label">Утверждение 1</div><h3 data-toc="📘Теорема T^* (О пределе суммы …" id="sub-2-1">📘Теорема $T^*$ (О пределе суммы функций)Базовая теорема</h3><div>
+<p>
               Пусть функции $f(x)$ и $g(x)$ определены в проколотой окрестности $\dot{U}(a)$ предельной точки $a \in \overline{\mathbb{R}}$, и существуют конечные пределы:
             </p>
-            <div class="formula-block">
-              $$\lim_{x \to a} f(x) = A \quad \text{и} \quad \lim_{x \to a} g(x) = B.$$
+<div class="equation">
+              \[\lim_{x \to a} f(x) = A \quad \text{и} \quad \lim_{x \to a} g(x) = B.\]
             </div>
-            <p>
+<p>
               Тогда функция $(f + g)(x) = f(x) + g(x)$ также имеет конечный предел при $x \to a$, причём:
             </p>
-            <div class="formula-block">
-              $$\lim_{x \to a} \big(f(x) + g(x)\big) = A + B.$$
+<div class="equation">
+              \[\lim_{x \to a} \big(f(x) + g(x)\big) = A + B.\]
             </div>
-          </div>
-
-          <div class="statement definition" id="def-1">
-  <div class="block-label">Определение 1</div>
-  <h3 id="sub-1" data-toc="📗">📗</h3>
-  
-             <strong>Теорема-критерий $T^{**}$ (Связь функции, предела и бесконечно малой)</strong>
-              
-</div>
-              <span class="badge">Критерий</span>
-            </div>
-            <p>
+</div></div>
+<div class="statement definition" id="def-1"><div class="block-label">Определение 1</div><h3 data-toc="📗Теорема-критерий T^** (Связь …" id="sub-2-2">📗Теорема-критерий $T^{**}$ (Связь функции, предела и бесконечно малой)Критерий</h3><div>
+<p>
               Число $A \in \mathbb{R}$ является пределом функции $f(x)$ в точке $a$ тогда и только тогда, когда разность между функцией и этим числом представляет собой бесконечно малую функцию $\alpha(x)$ при $x \to a$:
             </p>
-            <div class="formula-block">
-              $$\lim_{x \to a} f(x) = A \iff f(x) - A = \alpha(x), \quad \text{где } \lim_{x \to a} \alpha(x) = 0.$$
+<div class="equation">
+              \[\lim_{x \to a} f(x) = A \iff f(x) - A = \alpha(x), \quad \text{где } \lim_{x \to a} \alpha(x) = 0.\]
             </div>
-            <p>
-              <strong>Обоснование равносильности на языке Коши ($\varepsilon-\delta$):</strong>
-            </p>
-            <ol>
-              <li>
+<p>
+<strong>Обоснование равносильности на языке Коши ($\varepsilon-\delta$):</strong>
+</p>
+<ol>
+<li>
                 Утверждение (1): $\lim_{x \to a} f(x) = A \iff \forall \varepsilon > 0 \; \exists \delta > 0 \; \forall x \in X \cap \dot{U}_\delta(a) \implies |f(x) - A| < \varepsilon$.
               </li>
-              <li>
+<li>
                 Утверждение (2): $\lim_{x \to a} (f(x) - A) = 0 \iff \forall \varepsilon > 0 \; \exists \delta > 0 \; \forall x \in X \cap \dot{U}_\delta(a) \implies |(f(x) - A) - 0| < \varepsilon$.
               </li>
-            </ol>
-            <p>
+</ol>
+<p>
               Поскольку выражения $|f(x) - A|$ и $|(f(x) - A) - 0|$ тождественно совпадают при всех значениях аргумента, кванторные структуры формул (1) и (2) логически неразличимы. Следовательно, переход от предельного соотношения к функциональному равенству $f(x) = A + \alpha(x)$ является строгим тождеством.
             </p>
-          </div>
-
-          <div id="sec-sum-pitfall">
-            <div class="callout callout-warning">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>⚠️</span> <strong>Логический капкан: Способ 1 (Неправильный — порочный круг)</strong>
-                </div>
-                <span class="badge">Грубая ошибка</span>
-              </div>
-              <p>
-                <strong>Типичное некорректное рассуждение:</strong>
-              </p>
-              <ol>
-                <li>Представим: $f(x) = A + \alpha(x)$, где $\lim_{x \to a} \alpha(x) = 0$.</li>
-                <li>Представим: $g(x) = B + \beta(x)$, где $\lim_{x \to a} \beta(x) = 0$.</li>
-                <li>Сложим равенства: $f(x) + g(x) = (A + B) + (\alpha(x) + \beta(x))$.</li>
-                <li>
-                  <em>Недопустимый шаг:</em> «Возьмём предел от левой и правой части»:
-                  $$\lim_{x \to a} \big(f(x) + g(x)\big) = \lim_{x \to a}(A + B) + \lim_{x \to a}(\alpha(x) + \beta(x)) = (A + B) + 0 = A + B.$$
+</div></div>
+<div id="sec-sum-pitfall">
+<aside class="note">
+<div class="callout-header">
+<div class="callout-title-text">
+<span>⚠️</span> <strong>Логический капкан: Способ 1 (Неправильный — порочный круг)</strong>
+</div>
+<span class="badge">Грубая ошибка</span>
+</div>
+<p>
+<strong>Типичное некорректное рассуждение:</strong>
+</p>
+<ol>
+<li>Представим: $f(x) = A + \alpha(x)$, где $\lim_{x \to a} \alpha(x) = 0$.</li>
+<li>Представим: $g(x) = B + \beta(x)$, где $\lim_{x \to a} \beta(x) = 0$.</li>
+<li>Сложим равенства: $f(x) + g(x) = (A + B) + (\alpha(x) + \beta(x))$.</li>
+<li>
+<em>Недопустимый шаг:</em> «Возьмём предел от левой и правой части»:
+                  \[\lim_{x \to a} \big(f(x) + g(x)\big) = \lim_{x \to a}(A + B) + \lim_{x \to a}(\alpha(x) + \beta(x)) = (A + B) + 0 = A + B.\]
                 </li>
-              </ol>
-              <p>
-                <strong>В чём заключается методологическая ошибка?</strong><br>
+</ol>
+<p>
+<strong>В чём заключается методологическая ошибка?</strong><br/>
                 На четвёртом шаге при раскрытии предела суммы выражений $(A+B)$ и $(\alpha+\beta)$ неявно <em>была применена сама доказываемая теорема о пределе суммы</em> $T^*$! Доказывать утверждение, опираясь на его справедливость — это логическая тавтология (*petitio principii* или circulus vitiosus). Такое доказательство на экзамене не засчитывается.
               </p>
-            </div>
-          </div>
-
-          <div id="sec-sum-proofs">
-            <h3 id="sub-2" data-toc="2. Три строгих метода доказа…">1.2. Три строгих метода доказательства теоремы $T^*$</h3>
-            <p>
+</aside>
+</div>
+<div id="sec-sum-proofs">
+<h3 data-toc="2. Три строгих метода доказате…" id="sub-2-3">1.2. Три строгих метода доказательства теоремы $T^*$</h3>
+<p>
               Преподаватель выделяет 3 математически строгих метода доказательства, свободных от логического круга.
             </p>
-
-            <div class="callout callout-proof">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>✅</span> <strong>Способ 1 (Канонический): Сведение к свойствам бесконечно малых через $T^{**}$</strong>
-                </div>
-                <span class="badge">Рекомендуемый</span>
-              </div>
-              <p>
-                <strong>Шаг 1.</strong> По теореме-критерию $T^{**}$:
+<div class="callout callout-proof">
+<div class="callout-header">
+<div class="callout-title-text">
+<span>✅</span> <strong>Способ 1 (Канонический): Сведение к свойствам бесконечно малых через $T^{**}$</strong>
+</div>
+<span class="badge">Рекомендуемый</span>
+</div>
+<p>
+<strong>Шаг 1.</strong> По теореме-критерию $T^{**}$:
               </p>
-              <div class="formula-block">
-                $$\begin{aligned}
+<div class="equation">
+                \[\begin{aligned}
                   \lim_{x \to a} f(x) = A &\iff f(x) - A = \alpha(x), \quad \text{где } \alpha(x) \text{ --- б.м. при } x \to a, \\[4pt]
                   \lim_{x \to a} g(x) = B &\iff g(x) - B = \beta(x), \quad \text{где } \beta(x) \text{ --- б.м. при } x \to a.
-                \end{aligned}$$
+                \end{aligned}\]
               </div>
-              <p>
-                <strong>Шаг 2.</strong> Сложим равенства почленно как числовые выражения в каждой точке $x \in \dot{U}(a)$:
+<p>
+<strong>Шаг 2.</strong> Сложим равенства почленно как числовые выражения в каждой точке $x \in \dot{U}(a)$:
               </p>
-              <div class="formula-block">
-                $$\big(f(x) - A\big) + \big(g(x) - B\big) = \alpha(x) + \beta(x) \iff \big(f(x) + g(x)\big) - (A + B) = \alpha(x) + \beta(x).$$
+<div class="equation">
+                \[\big(f(x) - A\big) + \big(g(x) - B\big) = \alpha(x) + \beta(x) \iff \big(f(x) + g(x)\big) - (A + B) = \alpha(x) + \beta(x).\]
               </div>
-              <p>
-                <strong>Шаг 3.</strong> По ранее доказанной лемме о сумме двух бесконечно малых функций (доказанной независимо по определению окрестностей), функция $\gamma(x) = \alpha(x) + \beta(x)$ является бесконечно малой при $x \to a$.
+<p>
+<strong>Шаг 3.</strong> По ранее доказанной лемме о сумме двух бесконечно малых функций (доказанной независимо по определению окрестностей), функция $\gamma(x) = \alpha(x) + \beta(x)$ является бесконечно малой при $x \to a$.
               </p>
-              <p>
-                <strong>Шаг 4.</strong> Таким образом, разность $\big(f(x) + g(x)\big) - (A + B)$ равна бесконечно малой величине $\gamma(x)$. В силу теоремы $T^{**}$ в обратную сторону:
+<p>
+<strong>Шаг 4.</strong> Таким образом, разность $\big(f(x) + g(x)\big) - (A + B)$ равна бесконечно малой величине $\gamma(x)$. В силу теоремы $T^{**}$ в обратную сторону:
               </p>
-              <div class="formula-block">
-                $$\big(f(x) + g(x)\big) - (A + B) = \gamma(x) \iff \lim_{x \to a} \big(f(x) + g(x)\big) = A + B.$$
+<div class="equation">
+                \[\big(f(x) + g(x)\big) - (A + B) = \gamma(x) \iff \lim_{x \to a} \big(f(x) + g(x)\big) = A + B.\]
               </div>
-              <div class="qed">$\blacksquare$</div>
-            </div>
-
-            <div class="callout callout-proof">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>✅</span> <strong>Способ 2 (Аналитический): Метод $\varepsilon-\delta$ по Коши</strong>
-                </div>
-                <span class="badge">Язык окрестностей</span>
-              </div>
-              <p>
+<div class="qed">$\blacksquare$</div>
+</div>
+<div class="callout callout-proof">
+<div class="callout-header">
+<div class="callout-title-text">
+<span>✅</span> <strong>Способ 2 (Аналитический): Метод $\varepsilon-\delta$ по Коши</strong>
+</div>
+<span class="badge">Язык окрестностей</span>
+</div>
+<p>
                 Зафиксируем произвольное $\varepsilon > 0$. Требуется найти $\delta > 0$, такое что:
-                $$\forall x \in \dot{U}_\delta(a) \implies |(f(x) + g(x)) - (A + B)| < \varepsilon.$$
+                \[\forall x \in \dot{U}_\delta(a) \implies |(f(x) + g(x)) - (A + B)| < \varepsilon.\]
               </p>
-              <p>
+<p>
                 Так как $\lim_{x \to a} f(x) = A$, для числа $\varepsilon/2 > 0$ найдётся $\delta_1 > 0$, такое что:
-                $$\forall x \in \dot{U}_{\delta_1}(a) \implies |f(x) - A| < \frac{\varepsilon}{2}.$$
+                \[\forall x \in \dot{U}_{\delta_1}(a) \implies |f(x) - A| < \frac{\varepsilon}{2}.\]
                 Аналогично, так как $\lim_{x \to a} g(x) = B$, для $\varepsilon/2 > 0$ найдётся $\delta_2 > 0$, такое что:
-                $$\forall x \in \dot{U}_{\delta_2}(a) \implies |g(x) - B| < \frac{\varepsilon}{2}.$$
+                \[\forall x \in \dot{U}_{\delta_2}(a) \implies |g(x) - B| < \frac{\varepsilon}{2}.\]
               </p>
-              <p>
+<p>
                 Положим $\delta = \min(\delta_1, \delta_2) > 0$. Тогда для любой точки $x \in \dot{U}_\delta(a)$, используя неравенство треугольника $|u + v| \le |u| + |v|$, получаем:
               </p>
-              <div class="formula-block">
-                $$|(f(x) + g(x)) - (A + B)| = |(f(x) - A) + (g(x) - B)| \le |f(x) - A| + |g(x) - B| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.$$
+<div class="equation">
+                \[|(f(x) + g(x)) - (A + B)| = |(f(x) - A) + (g(x) - B)| \le |f(x) - A| + |g(x) - B| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.\]
               </div>
-              <p>
+<p>
                 По определению предела по Коши, $\lim_{x \to a}(f(x) + g(x)) = A + B$.
               </p>
-              <div class="qed">$\blacksquare$</div>
-            </div>
-
-            <div class="callout callout-proof">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>✅</span> <strong>Способ 3 (Секвенциальный): Критерий Гейне через последовательности</strong>
-                </div>
-                <span class="badge">Язык последовательностей</span>
-              </div>
-              <p>
+<div class="qed">$\blacksquare$</div>
+</div>
+<div class="callout callout-proof">
+<div class="callout-header">
+<div class="callout-title-text">
+<span>✅</span> <strong>Способ 3 (Секвенциальный): Критерий Гейне через последовательности</strong>
+</div>
+<span class="badge">Язык последовательностей</span>
+</div>
+<p>
                 Пусть $(x_n)_{n=1}^\infty$ — произвольная последовательность, сходящаяся к $a$, причём $x_n \ne a$ для всех $n \in \mathbb{N}$.
               </p>
-              <p>
+<p>
                 По определению предела по Гейне:
-                $$\lim_{n \to \infty} f(x_n) = A \quad \text{и} \quad \lim_{n \to \infty} g(x_n) = B.$$
+                \[\lim_{n \to \infty} f(x_n) = A \quad \text{и} \quad \lim_{n \to \infty} g(x_n) = B.\]
                 Для числовых последовательностей теорема о пределе суммы доказана ранее:
-                $$\lim_{n \to \infty} \big(f(x_n) + g(x_n)\big) = \lim_{n \to \infty} f(x_n) + \lim_{n \to \infty} g(x_n) = A + B.$$
+                \[\lim_{n \to \infty} \big(f(x_n) + g(x_n)\big) = \lim_{n \to \infty} f(x_n) + \lim_{n \to \infty} g(x_n) = A + B.\]
                 В силу произвольности выбора сходящейся последовательности $(x_n)$, по критерию Гейне предел функции $\lim_{x \to a}(f(x) + g(x)) = A + B$.
               </p>
-              <div class="qed">$\blacksquare$</div>
-            </div>
-          </div>
-
-          <div id="sec-linear-comb">
-            <h3 id="sub-3" data-toc="3. Обобщение на линейные ком…">1.3. Обобщение на линейные комбинации (по Кудрявцеву)</h3>
-            <div class="callout callout-remark">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>📖</span> <strong>Линейность оператора предельного перехода</strong>
-                </div>
-              </div>
-              <p>
+<div class="qed">$\blacksquare$</div>
+</div>
+</div>
+<div id="sec-linear-comb">
+<h3 data-toc="3. Обобщение на линейные комби…" id="sub-2-4">1.3. Обобщение на линейные комбинации (по Кудрявцеву)</h3>
+<div class="callout callout-remark">
+<div class="callout-header">
+<div class="callout-title-text">
+<span>📖</span> <strong>Линейность оператора предельного перехода</strong>
+</div>
+</div>
+<p>
                 Объединяя теорему о пределе суммы и теорему о вынесении константы $\lim_{x \to a} (c \cdot f(x)) = c \cdot \lim_{x \to a} f(x)$, для любых действительных коэффициентов $\lambda, \mu \in \mathbb{R}$ получаем свойство линейности:
               </p>
-              <div class="formula-block">
-                $$\lim_{x \to a} \big(\lambda f(x) + \mu g(x)\big) = \lambda \lim_{x \to a} f(x) + \mu \lim_{x \to a} g(x) = \lambda A + \mu B.$$
+<div class="equation">
+                \[\lim_{x \to a} \big(\lambda f(x) + \mu g(x)\big) = \lambda \lim_{x \to a} f(x) + \mu \lim_{x \to a} g(x) = \lambda A + \mu B.\]
               </div>
-              <p>
+<p>
                 Пространство функций, имеющих конечный предел при $x \to a$, образует линейное векторное пространство над полем $\mathbb{R}$, а операция взятия предела является линейным функционалом на этом пространстве.
               </p>
-            </div>
-          </div>
-        </section>
+</div>
+</div>
 
-        <!-- 2. Второй замечательный предел -->
-        <section id="sec-second-limit">
+<!-- 2. Второй замечательный предел -->
+<section id="sec-second-limit">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-3">
-  <div class="chapter-kicker">03 / Число e и второй замечательн…</div>
-  <h2 id="chapter-3" data-toc="Число e и второй замечательн…">2. Число $e$ и второй замечательный предел</h2>
-  <p>
+  <div class="chapter-kicker">03 / Число e и второй замечательный…</div>
+  <h2 id="chapter-3" data-toc="Число e и второй замечательный…">2. Число $e$ и второй замечательный предел</h2>
+  
+<p>
             Второй замечательный предел описывает фундаментальную константу природы — число Эйлера $e$, лежащую в основе непрерывного роста, экспоненциальных и логарифмических процессов.
           </p>
-
-          <div id="sec-e-construction">
-            <h3 id="sub-4" data-toc="1. Конструкция числа e (по З…">2.1. Конструкция числа $e$ (по Зоричу и Кудрявцеву)</h3>
-            <p>
+<div id="sec-e-construction">
+<h3 data-toc="1. Конструкция числа e (по Зор…" id="sub-3-1">2.1. Конструкция числа $e$ (по Зоричу и Кудрявцеву)</h3>
+<p>
               Рассмотрим числовую последовательность $x_n = \left(1 + \frac{1}{n}\right)^n$ и ассоциированную с ней мажорирующую последовательность $y_n = \left(1 + \frac{1}{n}\right)^{n+1}$.
             </p>
-
-            <div class="callout callout-theorem">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>📘</span> <strong>Лемма о монотонности последовательностей $x_n$ и $y_n$</strong>
-                </div>
-                <span class="badge">Теорема существования</span>
-              </div>
-              <p>
-                1. Последовательность $x_n$ строго монотонно возрастает: $x_1 < x_2 < \dots < x_n < x_{n+1} < \dots$<br>
-                2. Последовательность $y_n$ строго монотонно убывает: $y_1 > y_2 > \dots > y_n > y_{n+1} > \dots$<br>
+<div class="statement theorem" id="thm-2"><div class="block-label">Утверждение 2</div><h3 data-toc="📘Лемма о монотонности последов…" id="sub-3-2">📘Лемма о монотонности последовательностей $x_n$ и $y_n$Теорема существования</h3><div>
+<p>
+                1. Последовательность $x_n$ строго монотонно возрастает: $x_1 < x_2 < \dots < x_n < x_{n+1} < \dots$<br/>
+                2. Последовательность $y_n$ строго монотонно убывает: $y_1 > y_2 > \dots > y_n > y_{n+1} > \dots$<br/>
                 3. При всех $n \in \mathbb{N}$ выполнено двустороннее неравенство: $2 \le x_n < y_n \le y_1 = 4$.
               </p>
-            </div>
-
-            <div class="callout callout-proof">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>📐</span> <strong>Доказательство через неравенство Коши между средним арифметическим и геометрическим</strong>
-                </div>
-              </div>
-              <p>
+</div></div>
+<div class="callout callout-proof">
+<div class="callout-header">
+<div class="callout-title-text">
+<span>📐</span> <strong>Доказательство через неравенство Коши между средним арифметическим и геометрическим</strong>
+</div>
+</div>
+<p>
                 Рассмотрим набор из $(n+1)$ положительных чисел: одно число $1$ и $n$ одинаковых чисел $\left(1 + \frac{1}{n}\right)$. Применим строгое неравенство Коши $G_{n+1} < A_{n+1}$ (числа не равны между собой):
               </p>
-              <div class="formula-block">
-                $$\sqrt[n+1]{1 \cdot \left(1 + \frac{1}{n}\right) \dots \left(1 + \frac{1}{n}\right)} < \frac{1 + n \left(1 + \frac{1}{n}\right)}{n + 1} = \frac{1 + n + 1}{n + 1} = \frac{n + 2}{n + 1} = 1 + \frac{1}{n + 1}.$$
+<div class="equation">
+                \[\sqrt[n+1]{1 \cdot \left(1 + \frac{1}{n}\right) \dots \left(1 + \frac{1}{n}\right)} < \frac{1 + n \left(1 + \frac{1}{n}\right)}{n + 1} = \frac{1 + n + 1}{n + 1} = \frac{n + 2}{n + 1} = 1 + \frac{1}{n + 1}.\]
               </div>
-              <p>
+<p>
                 Возведём обе части строгого неравенства в натуральную степень $(n+1)$:
               </p>
-              <div class="formula-block">
-                $$\left(1 + \frac{1}{n}\right)^n < \left(1 + \frac{1}{n+1}\right)^{n+1} \iff x_n < x_{n+1}.$$
+<div class="equation">
+                \[\left(1 + \frac{1}{n}\right)^n < \left(1 + \frac{1}{n+1}\right)^{n+1} \iff x_n < x_{n+1}.\]
               </div>
-              <p>
+<p>
                 Аналогично, рассматривая набор из $(n+1)$ чисел: одно число $1$ и $n$ чисел $\left(1 - \frac{1}{n+1}\right)$, доказывается, что последовательность $y_n = \left(1 + \frac{1}{n}\right)^{n+1}$ строго убывает.
               </p>
-              <p>
+<p>
                 Поскольку $x_n < y_n \le y_1 = (1 + 1)^2 = 4$, последовательность $x_n$ монотонно возрастает и ограничена сверху числом $4$. По фундаментальной теореме Вейерштрасса о пределе монотонной ограниченной последовательности существует конечный предел:
               </p>
-              <div class="formula-block">
-                $$\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e \approx 2.718281828459...$$
+<div class="equation">
+                \[\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e \approx 2.718281828459...\]
               </div>
-              <div class="qed">$\blacksquare$</div>
-            </div>
-          </div>
-
-          <div id="sec-continuous-extension">
-            <h3 id="sub-5" data-toc="2. Переход к непрерывному ар…">2.2. Переход к непрерывному аргументу $x \to +\infty$ (Метод зажатия Зорича)</h3>
-
-            <div class="callout callout-proof">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>📐</span> <strong>Доказательство $\lim_{x \to +\infty} \left(1 + \frac{1}{x}\right)^x = e$ через целую часть</strong>
-                </div>
-              </div>
-              <p>
+<div class="qed">$\blacksquare$</div>
+</div>
+</div>
+<div id="sec-continuous-extension">
+<h3 data-toc="2. Переход к непрерывному аргу…" id="sub-3-3">2.2. Переход к непрерывному аргументу $x \to +\infty$ (Метод зажатия Зорича)</h3>
+<div class="callout callout-proof">
+<div class="callout-header">
+<div class="callout-title-text">
+<span>📐</span> <strong>Доказательство $\lim_{x \to +\infty} \left(1 + \frac{1}{x}\right)^x = e$ через целую часть</strong>
+</div>
+</div>
+<p>
                 Пусть $x \ge 1$ — вещественная переменная. Обозначим $n = \lfloor x \rfloor \in \mathbb{N}$ — целую часть числа $x$. Тогда:
-                $$n \le x < n + 1 \iff \frac{1}{n+1} < \frac{1}{x} \le \frac{1}{n}.$$
+                \[n \le x < n + 1 \iff \frac{1}{n+1} < \frac{1}{x} \le \frac{1}{n}.\]
               </p>
-              <p>
+<p>
                 Оценим степенно-показательную функцию с двух сторон:
               </p>
-              <div class="formula-block">
-                $$\left(1 + \frac{1}{n+1}\right)^n < \left(1 + \frac{1}{x}\right)^x < \left(1 + \frac{1}{n}\right)^{n+1}.$$
+<div class="equation">
+                \[\left(1 + \frac{1}{n+1}\right)^n < \left(1 + \frac{1}{x}\right)^x < \left(1 + \frac{1}{n}\right)^{n+1}.\]
               </div>
-              <p>
+<p>
                 Исследуем пределы ограничивающих последовательностей при $x \to +\infty$ (тогда $n \to \infty$):
               </p>
-              <div class="formula-block">
-                $$\begin{aligned}
+<div class="equation">
+                \[\begin{aligned}
                   \lim_{n \to \infty} \left(1 + \frac{1}{n+1}\right)^n &= \lim_{n \to \infty} \left[ \left(1 + \frac{1}{n+1}\right)^{n+1} \cdot \left(1 + \frac{1}{n+1}\right)^{-1} \right] = e \cdot 1 = e, \\[6pt]
                   \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^{n+1} &= \lim_{n \to \infty} \left[ \left(1 + \frac{1}{n}\right)^n \cdot \left(1 + \frac{1}{n}\right)^1 \right] = e \cdot 1 = e.
-                \end{aligned}$$
+                \end{aligned}\]
               </div>
-              <p>
+<p>
                 По теореме о зажатой функции (о двух милиционерах) предел промежуточного выражения также равен $e$:
               </p>
-              <div class="formula-block">
-                $$\lim_{x \to +\infty} \left(1 + \frac{1}{x}\right)^x = e.$$
+<div class="equation">
+                \[\lim_{x \to +\infty} \left(1 + \frac{1}{x}\right)^x = e.\]
               </div>
-              <div class="qed">$\blacksquare$</div>
-            </div>
-          </div>
-
-          <div id="sec-second-limit-minus-inf">
-            <h3 id="sub-6" data-toc="3. Доказательство формулы пр…">2.3. Доказательство формулы при $x \to -\infty$</h3>
-
-            <div class="callout callout-proof">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>📐</span> <strong>Доказательство леммного перехода методом сдвига переменной (с доски)</strong>
-                </div>
-              </div>
-              <p>
-                <strong>Шаг 1.</strong> Положим новую переменную $t = -x - 1 \iff x = -(t + 1)$. При $x \to -\infty$ величина $t \to +\infty$.
+<div class="qed">$\blacksquare$</div>
+</div>
+</div>
+<div id="sec-second-limit-minus-inf">
+<h3 data-toc="3. Доказательство формулы при …" id="sub-3-4">2.3. Доказательство формулы при $x \to -\infty$</h3>
+<div class="callout callout-proof">
+<div class="callout-header">
+<div class="callout-title-text">
+<span>📐</span> <strong>Доказательство леммного перехода методом сдвига переменной (с доски)</strong>
+</div>
+</div>
+<p>
+<strong>Шаг 1.</strong> Положим новую переменную $t = -x - 1 \iff x = -(t + 1)$. При $x \to -\infty$ величина $t \to +\infty$.
               </p>
-              <p>
-                <strong>Шаг 2.</strong> Преобразуем основание и показатель степени:
+<p>
+<strong>Шаг 2.</strong> Преобразуем основание и показатель степени:
               </p>
-              <div class="formula-block">
-                $$1 + \frac{1}{x} = 1 - \frac{1}{t+1} = \frac{t}{t+1} \implies \left(1 + \frac{1}{x}\right)^x = \left(\frac{t}{t+1}\right)^{-(t+1)} = \left(\frac{t+1}{t}\right)^{t+1} = \left(1 + \frac{1}{t}\right)^{t+1}.$$
+<div class="equation">
+                \[1 + \frac{1}{x} = 1 - \frac{1}{t+1} = \frac{t}{t+1} \implies \left(1 + \frac{1}{x}\right)^x = \left(\frac{t}{t+1}\right)^{-(t+1)} = \left(\frac{t+1}{t}\right)^{t+1} = \left(1 + \frac{1}{t}\right)^{t+1}.\]
               </div>
-              <p>
-                <strong>Шаг 3.</strong> Расщепляем степень:
+<p>
+<strong>Шаг 3.</strong> Расщепляем степень:
               </p>
-              <div class="formula-block">
-                $$\lim_{x \to -\infty} \left(1 + \frac{1}{x}\right)^x = \lim_{t \to +\infty} \left[ \left(1 + \frac{1}{t}\right)^t \cdot \left(1 + \frac{1}{t}\right) \right] = e \cdot 1 = e.$$
+<div class="equation">
+                \[\lim_{x \to -\infty} \left(1 + \frac{1}{x}\right)^x = \lim_{t \to +\infty} \left[ \left(1 + \frac{1}{t}\right)^t \cdot \left(1 + \frac{1}{t}\right) \right] = e \cdot 1 = e.\]
               </div>
-              <div class="qed">$\blacksquare$</div>
-            </div>
-
-            <p>
+<div class="qed">$\blacksquare$</div>
+</div>
+<p>
               Поскольку оба односторонних предела на бесконечностях равны $e$, справедливо равенство для беззнаковой базы:
             </p>
-            <div class="formula-block">
-              $$\lim_{x \to \infty} \left(1 + \frac{1}{x}\right)^x = e.$$
+<div class="equation">
+              \[\lim_{x \to \infty} \left(1 + \frac{1}{x}\right)^x = e.\]
             </div>
-          </div>
-
-          <div id="sec-second-limit-zero">
-            <h3 id="sub-7" data-toc="4. Локальный предел в нуле и…">2.4. Локальный предел в нуле и общефункциональная форма</h3>
-            <p>
+</div>
+<div id="sec-second-limit-zero">
+<h3 data-toc="4. Локальный предел в нуле и о…" id="sub-3-5">2.4. Локальный предел в нуле и общефункциональная форма</h3>
+<p>
               Подстановкой $t = 1/x$ (где $t \to \infty$ при $x \to 0$) получаем локальную форму:
             </p>
-            <div class="formula-block">
-              $$\lim_{x \to 0} (1 + x)^{\frac{1}{x}} = e.$$
+<div class="equation">
+              \[\lim_{x \to 0} (1 + x)^{\frac{1}{x}} = e.\]
             </div>
-
-            <div class="callout callout-theorem">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>🌟</span> <strong>Практическая рабочая форма второго замечательного предела</strong>
-                </div>
-                <span class="badge">Основное правило</span>
-              </div>
-              <p>
+<div class="statement theorem" id="thm-3"><div class="block-label">Утверждение 3</div><h3 data-toc="🌟Практическая рабочая форма вт…" id="sub-3-6">🌟Практическая рабочая форма второго замечательного пределаОсновное правило</h3><div>
+<p>
                 Пусть $\alpha(x) \to 0$ при $x \to a$, причём $\alpha(x) \ne 0$ в некоторой окрестности $\dot{U}(a)$. Тогда:
               </p>
-              <div class="formula-block">
-                $$\lim_{x \to a} \Big(1 + \alpha(x)\Big)^{\frac{1}{\alpha(x)}} = e.$$
+<div class="equation">
+                \[\lim_{x \to a} \Big(1 + \alpha(x)\Big)^{\frac{1}{\alpha(x)}} = e.\]
               </div>
+</div></div>
+</div>
+<!-- График 1 -->
+<figure class="figure-plate">
+<div class="illustration-header">
+<span>📊</span> <strong>График 1. Ветви функции $y = (1 + 1/x)^x$ и горизонтальная асимптота $y = e$</strong>
+</div>
+<div class="html-legend-card">
+<div class="legend-item">
+<div class="legend-indicator" style="background-color: var(--accent-primary);"></div>
+<span>Правая ветвь ($x > 0$): монотонно возрастает к $e$</span>
+</div>
+<div class="legend-item">
+<div class="legend-indicator" style="background-color: var(--accent-info);"></div>
+<span>Левая ветвь ($x < -1$): монотонно убывает к $e$</span>
+</div>
+<div class="legend-item">
+<div class="legend-indicator dashed"></div>
+<span>Асимптота $y = e \approx 2.718$</span>
+</div>
+</div>
+<div class="svg-wrapper">
+<svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 760 360" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="40" id="grid1" patternunits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--svg-grid)" stroke-width="1"></path>
+</pattern>
+</defs>
+<rect fill="var(--bg-card)" height="360" rx="8" width="760"></rect>
+<rect fill="url(#grid1)" height="360" rx="8" width="760"></rect>
+<!-- Оси -->
+<line stroke="var(--svg-axis)" stroke-width="2" x1="360" x2="360" y1="20" y2="330"></line>
+<line stroke="var(--svg-axis)" stroke-width="2" x1="30" x2="730" y1="240" y2="240"></line>
+<polygon fill="var(--svg-axis)" points="730,236 742,240 730,244"></polygon>
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="735" y="260">x</text>
+<polygon fill="var(--svg-axis)" points="356,20 360,8 364,20"></polygon>
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="375" y="24">y</text>
+<!-- Засечки -->
+<line stroke="var(--svg-axis)" stroke-width="1.5" x1="320" x2="320" y1="236" y2="244"></line>
+<text fill="var(--svg-text)" font-size="11" x="312" y="260">-1</text>
+<line stroke="var(--svg-axis)" stroke-width="1.5" x1="400" x2="400" y1="236" y2="244"></line>
+<text fill="var(--svg-text)" font-size="11" x="396" y="260">1</text>
+<text fill="var(--svg-text)" font-size="11" x="345" y="258">0</text>
+<!-- Асимптота y = e -->
+<line stroke="var(--accent-danger)" stroke-dasharray="6,4" stroke-width="1.8" x1="40" x2="720" y1="131.3" y2="131.3"></line>
+<text fill="var(--accent-danger)" font-size="12" font-weight="bold" x="635" y="122">y = e ≈ 2.718</text>
+<!-- Асимптота x = -1 -->
+<line stroke="var(--accent-warning)" stroke-dasharray="4,4" stroke-width="1.5" x1="320" x2="320" y1="30" y2="330"></line>
+<text fill="var(--accent-warning)" font-size="11" x="240" y="45">x = -1 (асимптота)</text>
+<!-- Правая ветвь -->
+<path d="M 370,205 C 385,175 400,160 440,150 C 480,143 560,137 710,133" fill="none" stroke="var(--accent-primary)" stroke-width="3"></path>
+<!-- Левая ветвь -->
+<path d="M 328,35 C 330,70 340,95 280,100 C 240,115 160,126 50,130" fill="none" stroke="var(--accent-info)" stroke-width="3"></path>
+<!-- Выколотая точка -->
+<circle cx="360" cy="200" fill="var(--bg-card)" r="4.5" stroke="var(--accent-primary)" stroke-width="2.5"></circle>
+<text fill="var(--accent-primary)" font-size="11" x="375" y="204">(0, 1) выколота</text>
+<circle cx="400" cy="160" fill="var(--accent-primary)" r="4"></circle>
+<text fill="var(--text-main)" font-size="11" x="410" y="164">(1, 2)</text>
+</svg>
+</div>
+<div class="svg-caption">
+<strong>Рис. 1.</strong> Обе ветви функции сходятся к горизонтальной асимптоте $y = e$: правая — снизу, левая — сверху. На отрезке $[-1, 0]$ вещественная функция не определена.
             </div>
-          </div>
-
-          <!-- График 1 -->
-          <div class="illustration-card">
-            <div class="illustration-header">
-              <span>📊</span> <strong>График 1. Ветви функции $y = (1 + 1/x)^x$ и горизонтальная асимптота $y = e$</strong>
-            </div>
-            
-            <div class="html-legend-card">
-              <div class="legend-item">
-                <div class="legend-indicator" style="background-color: var(--accent-primary);"></div>
-                <span>Правая ветвь ($x > 0$): монотонно возрастает к $e$</span>
-              </div>
-              <div class="legend-item">
-                <div class="legend-indicator" style="background-color: var(--accent-info);"></div>
-                <span>Левая ветвь ($x < -1$): монотонно убывает к $e$</span>
-              </div>
-              <div class="legend-item">
-                <div class="legend-indicator dashed"></div>
-                <span>Асимптота $y = e \approx 2.718$</span>
-              </div>
-            </div>
-
-            <div class="svg-wrapper">
-              <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 760 360" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <pattern id="grid1" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--svg-grid)" stroke-width="1" />
-                  </pattern>
-                </defs>
-                <rect width="760" height="360" fill="var(--bg-card)" rx="8" />
-                <rect width="760" height="360" fill="url(#grid1)" rx="8" />
-
-                <!-- Оси -->
-                <line x1="360" y1="20" x2="360" y2="330" stroke="var(--svg-axis)" stroke-width="2" />
-                <line x1="30" y1="240" x2="730" y2="240" stroke="var(--svg-axis)" stroke-width="2" />
-                <polygon points="730,236 742,240 730,244" fill="var(--svg-axis)" />
-                <text x="735" y="260" fill="var(--svg-text)" font-size="13" font-weight="bold">x</text>
-                <polygon points="356,20 360,8 364,20" fill="var(--svg-axis)" />
-                <text x="375" y="24" fill="var(--svg-text)" font-size="13" font-weight="bold">y</text>
-
-                <!-- Засечки -->
-                <line x1="320" y1="236" x2="320" y2="244" stroke="var(--svg-axis)" stroke-width="1.5" />
-                <text x="312" y="260" fill="var(--svg-text)" font-size="11">-1</text>
-                <line x1="400" y1="236" x2="400" y2="244" stroke="var(--svg-axis)" stroke-width="1.5" />
-                <text x="396" y="260" fill="var(--svg-text)" font-size="11">1</text>
-                <text x="345" y="258" fill="var(--svg-text)" font-size="11">0</text>
-
-                <!-- Асимптота y = e -->
-                <line x1="40" y1="131.3" x2="720" y2="131.3" stroke="var(--accent-danger)" stroke-width="1.8" stroke-dasharray="6,4" />
-                <text x="635" y="122" fill="var(--accent-danger)" font-size="12" font-weight="bold">y = e ≈ 2.718</text>
-
-                <!-- Асимптота x = -1 -->
-                <line x1="320" y1="30" x2="320" y2="330" stroke="var(--accent-warning)" stroke-width="1.5" stroke-dasharray="4,4" />
-                <text x="240" y="45" fill="var(--accent-warning)" font-size="11">x = -1 (асимптота)</text>
-
-                <!-- Правая ветвь -->
-                <path d="M 370,205 C 385,175 400,160 440,150 C 480,143 560,137 710,133" 
-                      fill="none" stroke="var(--accent-primary)" stroke-width="3" />
-
-                <!-- Левая ветвь -->
-                <path d="M 328,35 C 330,70 340,95 280,100 C 240,115 160,126 50,130" 
-                      fill="none" stroke="var(--accent-info)" stroke-width="3" />
-
-                <!-- Выколотая точка -->
-                <circle cx="360" cy="200" r="4.5" fill="var(--bg-card)" stroke="var(--accent-primary)" stroke-width="2.5" />
-                <text x="375" y="204" fill="var(--accent-primary)" font-size="11">(0, 1) выколота</text>
-
-                <circle cx="400" cy="160" r="4" fill="var(--accent-primary)" />
-                <text x="410" y="164" fill="var(--text-main)" font-size="11">(1, 2)</text>
-              </svg></div>
-            </div>
-            <div class="svg-caption">
-              <strong>Рис. 1.</strong> Обе ветви функции сходятся к горизонтальной асимптоте $y = e$: правая — снизу, левая — сверху. На отрезке $[-1, 0]$ вещественная функция не определена.
-            </div>
-          </div>
-
-          <div id="sec-continuity-exp">
-            <h3 id="sub-8" data-toc="5. Непрерывность показательн…">2.5. Непрерывность показательной функции и перестановка предела</h3>
-            <div class="callout callout-remark">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>💡</span> <strong>Теоретическое обоснование: непрерывность отображения $u \mapsto e^u$</strong>
-                </div>
-              </div>
-              <p>
+</figure>
+<div id="sec-continuity-exp">
+<h3 data-toc="5. Непрерывность показательной…" id="sub-3-7">2.5. Непрерывность показательной функции и перестановка предела</h3>
+<div class="callout callout-remark">
+<div class="callout-header">
+<div class="callout-title-text">
+<span>💡</span> <strong>Теоретическое обоснование: непрерывность отображения $u \mapsto e^u$</strong>
+</div>
+</div>
+<p>
                 Пусть аргумент показателя имеет конечный предел $\lim_{x \to a} u(x) = L$. В силу непрерывности экспоненты $f(u) = e^u$ на всей числовой прямой $\mathbb{R}$:
               </p>
-              <div class="formula-block">
-                $$\lim_{x \to a} e^{u(x)} = e^{\lim_{x \to a} u(x)} = e^L.$$
+<div class="equation">
+                \[\lim_{x \to a} e^{u(x)} = e^{\lim_{x \to a} u(x)} = e^L.\]
               </div>
-            </div>
-          </div>
-
-          <div id="sec-example-one-inf">
-            <h3 id="sub-9" data-toc="6. Разбор задачи с доски: Ра…">2.6. Разбор задачи с доски: Раскрытие неопределённости $[1^\infty]$</h3>
-            <div class="worked-example" id="ex-1">
-  <div class="block-label">Пример 1</div>
-  <h3 id="sub-10" data-toc="📝">📝</h3>
-  
-               <strong>Пример 1 (Кадр 26): Предел степенно-показательной функции в точке $x = 2$</strong>
-                
 </div>
-                <span class="badge">Практикум с доски</span>
-              </div>
-              <p><strong>Задание:</strong> Вычислить предел $L = \lim_{x \to 2} \left(\frac{x + 5}{3 + 2x}\right)^{\frac{1}{x - 2}}$.</p>
-              <p><strong>Решение:</strong></p>
-              <p>
-                1. <em>Диагностика:</em> Основание $\frac{2+5}{3+4} = 1$, показатель $\frac{1}{0} \to \infty$. Имеем вид $[1^\infty]$.<br>
-                2. <em>Выделение единицы:</em> $\frac{x+5}{3+2x} = 1 + \left(\frac{x+5}{3+2x} - 1\right) = 1 + \frac{x+5-3-2x}{3+2x} = 1 - \frac{x-2}{3+2x}$.<br>
+</div>
+<div id="sec-example-one-inf">
+<h3 data-toc="6. Разбор задачи с доски: Раск…" id="sub-3-8">2.6. Разбор задачи с доски: Раскрытие неопределённости $[1^\infty]$</h3>
+<div class="worked-example" id="ex-1"><div class="block-label">Пример 1</div><h3 data-toc="📝Пример 1 (Кадр 26): Предел ст…" id="sub-3-9">📝Пример 1 (Кадр 26): Предел степенно-показательной функции в точке $x = 2$Практикум с доски</h3><div>
+<p><strong>Задание:</strong> Вычислить предел $L = \lim_{x \to 2} \left(\frac{x + 5}{3 + 2x}\right)^{\frac{1}{x - 2}}$.</p>
+<p><strong>Решение:</strong></p>
+<p>
+                1. <em>Диагностика:</em> Основание $\frac{2+5}{3+4} = 1$, показатель $\frac{1}{0} \to \infty$. Имеем вид $[1^\infty]$.<br/>
+                2. <em>Выделение единицы:</em> $\frac{x+5}{3+2x} = 1 + \left(\frac{x+5}{3+2x} - 1\right) = 1 + \frac{x+5-3-2x}{3+2x} = 1 - \frac{x-2}{3+2x}$.<br/>
                 3. <em>Формирование базы второго замечательного предела:</em>
-              </p>
-              <div class="formula-block">
-                $$L = \lim_{x \to 2} \left[ \left( 1 + \left(-\frac{x-2}{3+2x}\right) \right)^{-\frac{3+2x}{x-2}} \right]^{-\frac{x-2}{3+2x} \cdot \frac{1}{x-2}}.$$
+</p>
+<div class="equation">
+                \[L = \lim_{x \to 2} \left[ \left( 1 + \left(-\frac{x-2}{3+2x}\right) \right)^{-\frac{3+2x}{x-2}} \right]^{-\frac{x-2}{3+2x} \cdot \frac{1}{x-2}}.\]
               </div>
-              <p>
+<p>
                 4. Сокращаем множитель $(x-2) \ne 0$ в показателе и вносим предел под знак экспоненты:
               </p>
-              <div class="formula-block">
-                $$L = e^{\lim_{x \to 2} \left(-\frac{1}{3+2x}\right)} = e^{-\frac{1}{3+4}} = e^{-1/7} = \frac{1}{\sqrt[7]{e}}.$$
+<div class="equation">
+                \[L = e^{\lim_{x \to 2} \left(-\frac{1}{3+2x}\right)} = e^{-\frac{1}{3+4}} = e^{-1/7} = \frac{1}{\sqrt[7]{e}}.\]
               </div>
-              <p><strong>Ответ:</strong> $e^{-1/7}$.</p>
-            </div>
-          </div>
-        </section>
+<p><strong>Ответ:</strong> $e^{-1/7}$.</p>
+</div></div>
+</div>
 
-        <!-- 3. Следствия второго предела -->
-        <section id="sec-corollaries">
+<!-- 3. Следствия второго предела -->
+<section id="sec-corollaries">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-4">
-  <div class="chapter-kicker">04 / Пять фундаментальных следств…</div>
-  <h2 id="chapter-4" data-toc="Пять фундаментальных следств…">3. Пять фундаментальных следствий второго предела</h2>
-  <p>
+  <div class="chapter-kicker">04 / Пять фундаментальных следствий…</div>
+  <h2 id="chapter-4" data-toc="Пять фундаментальных следствий…">3. Пять фундаментальных следствий второго предела</h2>
+  
+<p>
             На лекции формулируются и строго доказываются пять базовых следствий, связывающих элементарные трансцендентные функции с полиномиальной шкалой в нуле.
           </p>
-
-          <div class="table-container">
-            <div class="table-scroll">
+<div class="table-container">
 <table>
-              <thead>
-                <tr>
-                  <th>№</th>
-                  <th>Предел при $x \to 0$</th>
-                  <th>Эквивалентность при $\alpha \to 0$</th>
-                  <th>Класс функций</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>1</strong></td>
-                  <td>$\lim_{x \to 0} \frac{\ln(1 + x)}{x} = 1$</td>
-                  <td><span class="table-badge">$\ln(1 + \alpha) \sim \alpha$</span></td>
-                  <td>Натуральный логарифм</td>
-                </tr>
-                <tr>
-                  <td><strong>2</strong></td>
-                  <td>$\lim_{x \to 0} \frac{\log_a(1 + x)}{x} = \frac{1}{\ln a}$</td>
-                  <td><span class="table-badge">$\log_a(1 + \alpha) \sim \frac{\alpha}{\ln a}$</span></td>
-                  <td>Логарифм основания $a$</td>
-                </tr>
-                <tr>
-                  <td><strong>3</strong></td>
-                  <td>$\lim_{x \to 0} \frac{a^x - 1}{x} = \ln a$</td>
-                  <td><span class="table-badge">$a^\alpha - 1 \sim \alpha \ln a$</span></td>
-                  <td>Показательная основания $a$</td>
-                </tr>
-                <tr>
-                  <td><strong>4</strong></td>
-                  <td>$\lim_{x \to 0} \frac{e^x - 1}{x} = 1$</td>
-                  <td><span class="table-badge">$e^\alpha - 1 \sim \alpha$</span></td>
-                  <td>Натуральная экспонента</td>
-                </tr>
-                <tr>
-                  <td><strong>5</strong></td>
-                  <td>$\lim_{x \to 0} \frac{(1 + x)^\mu - 1}{x} = \mu$</td>
-                  <td><span class="table-badge">$(1 + \alpha)^\mu - 1 \sim \mu \alpha$</span></td>
-                  <td>Степенная функция ($\mu \in \mathbb{R}$)</td>
-                </tr>
-              </tbody>
-            </table>
+<thead>
+<tr>
+<th>№</th>
+<th>Предел при $x \to 0$</th>
+<th>Эквивалентность при $\alpha \to 0$</th>
+<th>Класс функций</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>$\lim_{x \to 0} \frac{\ln(1 + x)}{x} = 1$</td>
+<td><span class="table-badge">$\ln(1 + \alpha) \sim \alpha$</span></td>
+<td>Натуральный логарифм</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>$\lim_{x \to 0} \frac{\log_a(1 + x)}{x} = \frac{1}{\ln a}$</td>
+<td><span class="table-badge">$\log_a(1 + \alpha) \sim \frac{\alpha}{\ln a}$</span></td>
+<td>Логарифм основания $a$</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>$\lim_{x \to 0} \frac{a^x - 1}{x} = \ln a$</td>
+<td><span class="table-badge">$a^\alpha - 1 \sim \alpha \ln a$</span></td>
+<td>Показательная основания $a$</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>$\lim_{x \to 0} \frac{e^x - 1}{x} = 1$</td>
+<td><span class="table-badge">$e^\alpha - 1 \sim \alpha$</span></td>
+<td>Натуральная экспонента</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>$\lim_{x \to 0} \frac{(1 + x)^\mu - 1}{x} = \mu$</td>
+<td><span class="table-badge">$(1 + \alpha)^\mu - 1 \sim \mu \alpha$</span></td>
+<td>Степенная функция ($\mu \in \mathbb{R}$)</td>
+</tr>
+</tbody>
+</table>
 </div>
-          </div>
-
-          <div id="sec-cor-1-2">
-            <h3 id="sub-11" data-toc="1. Доказательство логарифмич…">3.1. Доказательство логарифмических следствий (1 и 2)</h3>
-            <div class="callout callout-proof">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>📐</span> <strong>Доказательство: $\lim_{x \to 0} \frac{\ln(1+x)}{x} = 1$ и $\lim_{x \to 0} \frac{\log_a(1+x)}{x} = \frac{1}{\ln a}$</strong>
-                </div>
-              </div>
-              <p>
+<div id="sec-cor-1-2">
+<h3 data-toc="1. Доказательство логарифмичес…" id="sub-4-1">3.1. Доказательство логарифмических следствий (1 и 2)</h3>
+<div class="callout callout-proof">
+<div class="callout-header">
+<div class="callout-title-text">
+<span>📐</span> <strong>Доказательство: $\lim_{x \to 0} \frac{\ln(1+x)}{x} = 1$ и $\lim_{x \to 0} \frac{\log_a(1+x)}{x} = \frac{1}{\ln a}$</strong>
+</div>
+</div>
+<p>
                 Вносим множитель $1/x$ в показатель аргумента логарифма и используем непрерывность функции $\ln u$:
               </p>
-              <div class="formula-block">
-                $$\lim_{x \to 0} \frac{\ln(1+x)}{x} = \lim_{x \to 0} \ln\big((1+x)^{1/x}\big) = \ln\left(\lim_{x \to 0} (1+x)^{1/x}\right) = \ln(e) = 1.$$
+<div class="equation">
+                \[\lim_{x \to 0} \frac{\ln(1+x)}{x} = \lim_{x \to 0} \ln\big((1+x)^{1/x}\big) = \ln\left(\lim_{x \to 0} (1+x)^{1/x}\right) = \ln(e) = 1.\]
               </div>
-              <p>
+<p>
                 Для произвольного основания $a > 0, a \ne 1$, применяя формулу $\log_a(u) = \frac{\ln u}{\ln a}$:
               </p>
-              <div class="formula-block">
-                $$\lim_{x \to 0} \frac{\log_a(1+x)}{x} = \frac{1}{\ln a} \lim_{x \to 0} \frac{\ln(1+x)}{x} = \frac{1}{\ln a} \cdot 1 = \frac{1}{\ln a}.$$
+<div class="equation">
+                \[\lim_{x \to 0} \frac{\log_a(1+x)}{x} = \frac{1}{\ln a} \lim_{x \to 0} \frac{\ln(1+x)}{x} = \frac{1}{\ln a} \cdot 1 = \frac{1}{\ln a}.\]
               </div>
-              <div class="qed">$\blacksquare$</div>
-            </div>
-          </div>
-
-          <div id="sec-cor-3-4">
-            <h3 id="sub-12" data-toc="2. Доказательство показатель…">3.2. Доказательство показательных следствий (3 и 4)</h3>
-            <div class="callout callout-proof">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>📐</span> <strong>Доказательство: $\lim_{x \to 0} \frac{a^x - 1}{x} = \ln a$ и $\lim_{x \to 0} \frac{e^x - 1}{x} = 1$</strong>
-                </div>
-              </div>
-              <p>
+<div class="qed">$\blacksquare$</div>
+</div>
+</div>
+<div id="sec-cor-3-4">
+<h3 data-toc="2. Доказательство показательны…" id="sub-4-2">3.2. Доказательство показательных следствий (3 и 4)</h3>
+<div class="callout callout-proof">
+<div class="callout-header">
+<div class="callout-title-text">
+<span>📐</span> <strong>Доказательство: $\lim_{x \to 0} \frac{a^x - 1}{x} = \ln a$ и $\lim_{x \to 0} \frac{e^x - 1}{x} = 1$</strong>
+</div>
+</div>
+<p>
                 Сделаем замену $t = a^x - 1 \iff a^x = 1 + t$. Тогда $x = \log_a(1+t)$, и при $x \to 0$ имеем $t \to 0$:
               </p>
-              <div class="formula-block">
-                $$\lim_{x \to 0} \frac{a^x - 1}{x} = \lim_{t \to 0} \frac{t}{\log_a(1+t)} = \frac{1}{\lim_{t \to 0} \frac{\log_a(1+t)}{t}} = \frac{1}{\frac{1}{\ln a}} = \ln a.$$
+<div class="equation">
+                \[\lim_{x \to 0} \frac{a^x - 1}{x} = \lim_{t \to 0} \frac{t}{\log_a(1+t)} = \frac{1}{\lim_{t \to 0} \frac{\log_a(1+t)}{t}} = \frac{1}{\frac{1}{\ln a}} = \ln a.\]
               </div>
-              <p>
+<p>
                 При $a = e$ немедленно получаем частный случай: $\lim_{x \to 0} \frac{e^x - 1}{x} = \ln e = 1$.
               </p>
-              <div class="qed">$\blacksquare$</div>
-            </div>
-          </div>
-
-          <div id="sec-cor-5">
-            <h3 id="sub-13" data-toc="3. Доказательство степенного…">3.3. Доказательство степенного следствия (5)</h3>
-            <div class="callout callout-proof">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>📐</span> <strong>Доказательство: $\lim_{x \to 0} \frac{(1+x)^\mu - 1}{x} = \mu$</strong>
-                </div>
-              </div>
-              <p>
-                <strong>Метод Зорича (через показательно-логарифмическое тождество):</strong><br>
+<div class="qed">$\blacksquare$</div>
+</div>
+</div>
+<div id="sec-cor-5">
+<h3 data-toc="3. Доказательство степенного с…" id="sub-4-3">3.3. Доказательство степенного следствия (5)</h3>
+<div class="callout callout-proof">
+<div class="callout-header">
+<div class="callout-title-text">
+<span>📐</span> <strong>Доказательство: $\lim_{x \to 0} \frac{(1+x)^\mu - 1}{x} = \mu$</strong>
+</div>
+</div>
+<p>
+<strong>Метод Зорича (через показательно-логарифмическое тождество):</strong><br/>
                 Запишем $(1+x)^\mu = e^{\mu \ln(1+x)}$. При $x \to 0$ показатель $\mu \ln(1+x) \to 0$. Разложим предел на произведение:
               </p>
-              <div class="formula-block">
-                $$\lim_{x \to 0} \frac{(1+x)^\mu - 1}{x} = \lim_{x \to 0} \left[ \frac{e^{\mu \ln(1+x)} - 1}{\mu \ln(1+x)} \cdot \mu \cdot \frac{\ln(1+x)}{x} \right].$$
+<div class="equation">
+                \[\lim_{x \to 0} \frac{(1+x)^\mu - 1}{x} = \lim_{x \to 0} \left[ \frac{e^{\mu \ln(1+x)} - 1}{\mu \ln(1+x)} \cdot \mu \cdot \frac{\ln(1+x)}{x} \right].\]
               </div>
-              <p>
+<p>
                 Первый множитель стремится к $1$ по Следствию 4, третий множитель стремится к $1$ по Следствию 1:
               </p>
-              <div class="formula-block">
-                $$1 \cdot \mu \cdot 1 = \mu.$$
+<div class="equation">
+                \[1 \cdot \mu \cdot 1 = \mu.\]
               </div>
-              <div class="qed">$\blacksquare$</div>
-            </div>
-          </div>
-        </section>
+<div class="qed">$\blacksquare$</div>
+</div>
+</div>
 
-        <!-- 4. Сравнение б.м. функций -->
-        <section id="sec-comparison">
+<!-- 4. Сравнение б.м. функций -->
+<section id="sec-comparison">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-5">
-  <div class="chapter-kicker">05 / Теория сравнения бесконечно …</div>
-  <h2 id="chapter-5" data-toc="Теория сравнения бесконечно …">4. Теория сравнения бесконечно малых функций и шкала эквивалентностей</h2>
-  <p>
+  <div class="chapter-kicker">05 / Теория сравнения бесконечно ма…</div>
+  <h2 id="chapter-5" data-toc="Теория сравнения бесконечно ма…">4. Теория сравнения бесконечно малых функций и шкала эквивалентностей</h2>
+  
+<p>
             Сравнение бесконечно малых функций — ключевой инструмент асимптотического анализа. В соответствии с курсами В.А. Зорича и Л.Д. Кудрявцева систематизируем математический аппарат символов Ландау.
           </p>
-
-          <div id="sec-landau-algebra">
-            <h3 id="sub-14" data-toc="1. Символы Ландау (o, O, ) и…">4.1. Символы Ландау ($o, O, \asymp$) и их алгебра</h3>
-            <div class="statement definition" id="def-2">
-  <div class="block-label">Определение 2</div>
-  <h3 id="sub-15" data-toc="📖">📖</h3>
-  
-               <strong>Символы Ландау: Определения</strong>
-                
-</div>
-              </div>
-              <ul>
-                <li><strong>$f(x) = o(g(x))$ при $x \to a$:</strong> $f$ есть б.м. более высокого порядка, чем $g$. Существует $\alpha(x) \to 0$ такая, что $f(x) = \alpha(x) g(x)$. Если $g \ne 0$, то $\lim \frac{f}{g} = 0$.</li>
-                <li><strong>$f(x) = O(g(x))$ при $x \to a$:</strong> $f$ одного порядка с $g$ (или ограничена относительно $g$). Существуют константа $C > 0$ и окрестность $\dot{U}(a)$, в которой $|f(x)| \le C |g(x)|$.</li>
-                <li><strong>$f(x) \asymp g(x)$ при $x \to a$:</strong> функции одного порядка малости ($f = O(g)$ и $g = O(f)$ одновременно).</li>
-              </ul>
-            </div>
-
-            <div class="callout callout-theorem">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>⚡</span> <strong>Алгебра символа «$o$ малое» (Правила поглощения Кудрявцева)</strong>
-                </div>
-                <span class="badge">Свойства</span>
-              </div>
-              <div class="formula-block">
-                $$\begin{aligned}
+<div id="sec-landau-algebra">
+<h3 data-toc="1. Символы Ландау (o, O, ) и и…" id="sub-5-1">4.1. Символы Ландау ($o, O, \asymp$) и их алгебра</h3>
+<div class="statement definition" id="def-2"><div class="block-label">Определение 2</div><h3 data-toc="📖Символы Ландау: Определения" id="sub-5-2">📖Символы Ландау: Определения</h3><div>
+<ul>
+<li><strong>$f(x) = o(g(x))$ при $x \to a$:</strong> $f$ есть б.м. более высокого порядка, чем $g$. Существует $\alpha(x) \to 0$ такая, что $f(x) = \alpha(x) g(x)$. Если $g \ne 0$, то $\lim \frac{f}{g} = 0$.</li>
+<li><strong>$f(x) = O(g(x))$ при $x \to a$:</strong> $f$ одного порядка с $g$ (или ограничена относительно $g$). Существуют константа $C > 0$ и окрестность $\dot{U}(a)$, в которой $|f(x)| \le C |g(x)|$.</li>
+<li><strong>$f(x) \asymp g(x)$ при $x \to a$:</strong> функции одного порядка малости ($f = O(g)$ и $g = O(f)$ одновременно).</li>
+</ul>
+</div></div>
+<div class="statement theorem" id="thm-4"><div class="block-label">Утверждение 4</div><h3 data-toc="⚡Алгебра символа «o малое» (Пр…" id="sub-5-3">⚡Алгебра символа «$o$ малое» (Правила поглощения Кудрявцева)Свойства</h3><div>
+<div class="equation">
+                \[\begin{aligned}
                   o(g) \pm o(g) &= o(g), \qquad & c \cdot o(g) &= o(g) \quad (c \ne 0), \\[4pt]
                   o(g) \cdot o(h) &= o(gh), \qquad & f \cdot o(g) &= o(fg), \\[4pt]
                   o\big(o(g)\big) &= o(g), \qquad & o\big(g + o(g)\big) &= o(g).
-                \end{aligned}$$
+                \end{aligned}\]
               </div>
-            </div>
-          </div>
-
-          <div id="sec-equiv-classes">
-            <h3 id="sub-16" data-toc="2. Отношение эквивалентности…">4.2. Отношение эквивалентности и классы функций</h3>
-            <div class="statement definition" id="def-3">
-  <div class="block-label">Определение 3</div>
-  <h3 id="sub-17" data-toc="📌">📌</h3>
-  
-               <strong>Определение эквивалентности функций</strong>
-                
+</div></div>
 </div>
-              </div>
-              <p>
+<div id="sec-equiv-classes">
+<h3 data-toc="2. Отношение эквивалентности и…" id="sub-5-4">4.2. Отношение эквивалентности и классы функций</h3>
+<div class="statement definition" id="def-3"><div class="block-label">Определение 3</div><h3 data-toc="📌Определение эквивалентности ф…" id="sub-5-5">📌Определение эквивалентности функций</h3><div>
+<p>
                 Функции $f(x)$ и $g(x)$ называются <em>эквивалентными</em> при $x \to a$ ($f \sim g$), если существует функция $\varphi(x)$, такая что:
               </p>
-              <div class="formula-block">
-                $$f(x) = \varphi(x) g(x) \quad \text{и} \quad \lim_{x \to a} \varphi(x) = 1 \iff f(x) - g(x) = o(g(x)).$$
+<div class="equation">
+                \[f(x) = \varphi(x) g(x) \quad \text{и} \quad \lim_{x \to a} \varphi(x) = 1 \iff f(x) - g(x) = o(g(x)).\]
               </div>
-              <p>
+<p>
                 Отношение $\sim$ является классическим <strong>отношением эквивалентности</strong>:
               </p>
-              <ol>
-                <li><strong>Рефлексивность:</strong> $f \sim f$ ($\varphi(x) \equiv 1$).</li>
-                <li><strong>Симметричность:</strong> $f \sim g \iff g \sim f$ ($\lim \frac{1}{\varphi} = 1$).</li>
-                <li><strong>Транзитивность:</strong> $f \sim g$ и $g \sim h \implies f \sim h$ ($\lim (\varphi_1 \varphi_2) = 1 \cdot 1 = 1$).</li>
-              </ol>
-            </div>
-          </div>
-
-          <div id="sec-principal-part">
-            <h3 id="sub-18" data-toc="3. Главная часть бесконечно …">4.3. Главная часть бесконечно малой функции</h3>
-            <div class="statement definition" id="def-4">
-  <div class="block-label">Определение 4</div>
-  <h3 id="sub-19" data-toc="🎯">🎯</h3>
-  
-               <strong>Главная часть порядка $m$ (по Кудрявцеву)</strong>
-                
+<ol>
+<li><strong>Рефлексивность:</strong> $f \sim f$ ($\varphi(x) \equiv 1$).</li>
+<li><strong>Симметричность:</strong> $f \sim g \iff g \sim f$ ($\lim \frac{1}{\varphi} = 1$).</li>
+<li><strong>Транзитивность:</strong> $f \sim g$ и $g \sim h \implies f \sim h$ ($\lim (\varphi_1 \varphi_2) = 1 \cdot 1 = 1$).</li>
+</ol>
+</div></div>
 </div>
-              </div>
-              <p>
+<div id="sec-principal-part">
+<h3 data-toc="3. Главная часть бесконечно ма…" id="sub-5-6">4.3. Главная часть бесконечно малой функции</h3>
+<div class="statement definition" id="def-4"><div class="block-label">Определение 4</div><h3 data-toc="🎯Главная часть порядка m (по К…" id="sub-5-7">🎯Главная часть порядка $m$ (по Кудрявцеву)</h3><div>
+<p>
                 Если бесконечно малая $\alpha(x)$ при $x \to a$ представима в виде:
               </p>
-              <div class="formula-block">
-                $$\alpha(x) = c (x - a)^m + o\big((x - a)^m\big), \quad c \ne 0, \; m > 0,$$
+<div class="equation">
+                \[\alpha(x) = c (x - a)^m + o\big((x - a)^m\big), \quad c \ne 0, \; m > 0,\]
               </div>
-              <p>
+<p>
                 то степенная функция $\varphi(x) = c(x - a)^m$ называется <strong>главной частью</strong> бесконечно малой $\alpha(x)$, а число $m$ — <strong>порядком малости</strong> функции $\alpha(x)$ относительно базисной бесконечно малой $(x - a)$.
               </p>
-            </div>
-          </div>
-
-          <div id="sec-equiv-theorems">
-            <h3 id="sub-20" data-toc="4. Теорема 1.1: Замена на эк…">4.4. Теорема 1.1: Замена на эквивалентные в произведениях и частных</h3>
-            <div class="callout callout-theorem">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>📘</span> <strong>Теорема о замене сомножителей</strong>
-                </div>
-                <span class="badge">Фундаментальный закон</span>
-              </div>
-              <p>
+</div></div>
+</div>
+<div id="sec-equiv-theorems">
+<h3 data-toc="4. Теорема 1.1: Замена на экви…" id="sub-5-8">4.4. Теорема 1.1: Замена на эквивалентные в произведениях и частных</h3>
+<div class="statement theorem" id="thm-5"><div class="block-label">Утверждение 5</div><h3 data-toc="📘Теорема о замене сомножителей…" id="sub-5-9">📘Теорема о замене сомножителейФундаментальный закон</h3><div>
+<p>
                 Если $f(x) \sim f^*(x)$ и $g(x) \sim g^*(x)$ при $x \to a$, то:
               </p>
-              <div class="formula-block">
-                $$\lim_{x \to a} \big(f(x) \cdot g(x)\big) = \lim_{x \to a} \big(f^*(x) \cdot g^*(x)\big), \qquad \lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f^*(x)}{g^*(x)}.$$
+<div class="equation">
+                \[\lim_{x \to a} \big(f(x) \cdot g(x)\big) = \lim_{x \to a} \big(f^*(x) \cdot g^*(x)\big), \qquad \lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f^*(x)}{g^*(x)}.\]
               </div>
-            </div>
-          </div>
-
-          <div id="sec-sum-criterion">
-            <h3 id="sub-21" data-toc="5. Критерий допустимости зам…">4.5. Критерий допустимости замены в суммах (Теорема Кудрявцева–Зорича)</h3>
-            <div class="callout callout-theorem">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>⚖️</span> <strong>Критерий замены эквивалентных в сумме</strong>
-                </div>
-                <span class="badge">Теорема Кудрявцева</span>
-              </div>
-              <p>
+</div></div>
+</div>
+<div id="sec-sum-criterion">
+<h3 data-toc="5. Критерий допустимости замен…" id="sub-5-10">4.5. Критерий допустимости замены в суммах (Теорема Кудрявцева–Зорича)</h3>
+<div class="statement theorem" id="thm-6"><div class="block-label">Утверждение 6</div><h3 data-toc="⚖️Критерий замены эквивалентны…" id="sub-5-11">⚖️Критерий замены эквивалентных в суммеТеорема Кудрявцева</h3><div>
+<p>
                 Пусть $f_1 \sim g_1$ и $f_2 \sim g_2$ при $x \to a$. Тогда $f_1 + f_2 \sim g_1 + g_2$ тогда и только тогда, когда:
               </p>
-              <div class="formula-block">
-                $$\lim_{x \to a} \frac{g_1(x)}{g_2(x)} \ne -1.$$
+<div class="equation">
+                \[\lim_{x \to a} \frac{g_1(x)}{g_2(x)} \ne -1.\]
               </div>
-            </div>
-            <div class="callout callout-proof">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>📐</span> <strong>Доказательство критерия</strong>
-                </div>
-              </div>
-              <p>
+</div></div>
+<div class="callout callout-proof">
+<div class="callout-header">
+<div class="callout-title-text">
+<span>📐</span> <strong>Доказательство критерия</strong>
+</div>
+</div>
+<p>
                 Запишем: $f_1 = g_1 + o(g_1)$ и $f_2 = g_2 + o(g_2)$. Тогда:
-                $$f_1 + f_2 = (g_1 + g_2) + o(g_1) + o(g_2).$$
+                \[f_1 + f_2 = (g_1 + g_2) + o(g_1) + o(g_2).\]
                 Чтобы сумма $f_1 + f_2$ была эквивалентна $g_1 + g_2$, остаток $o(g_1) + o(g_2)$ обязан быть величиной $o(g_1 + g_2)$. А это возможно тогда и только тогда, когда порядок суммы $(g_1 + g_2)$ не превосходит порядков слагаемых, то есть главные слагаемые не гасят друг друга в ноль ($\lim \frac{g_1}{g_2} \ne -1$).
               </p>
-              <p>
+<p>
                 Если же $\lim \frac{g_1}{g_2} = -1$, то $g_1 + g_2 = o(g_1)$, происходит катастрофическое сокращение главных частей, и замена недопустима!
               </p>
-              <div class="qed">$\blacksquare$</div>
-            </div>
-          </div>
-
-          <!-- Исправленный График 2 -->
-          <div class="illustration-card">
-            <div class="illustration-header">
-              <span>📈</span> <strong>График 2. Семейство эквивалентностей в нуле: единое касание кривых к прямой $y = x$</strong>
-            </div>
-
-            <!-- HTML Legend с KaTeX -->
-            <div class="html-legend-card">
-              <div class="legend-item">
-                <div class="legend-indicator" style="background-color: var(--accent-danger);"></div>
-                <span>$y = \operatorname{tg} x$</span>
-              </div>
-              <div class="legend-item">
-                <div class="legend-indicator" style="background-color: var(--accent-success);"></div>
-                <span>$y = e^x - 1$</span>
-              </div>
-              <div class="legend-item">
-                <div class="legend-indicator" style="background-color: var(--accent-info);"></div>
-                <span>$y = \sin x$</span>
-              </div>
-              <div class="legend-item">
-                <div class="legend-indicator" style="background-color: var(--accent-warning);"></div>
-                <span>$y = \ln(1+x)$</span>
-              </div>
-              <div class="legend-item">
-                <div class="legend-indicator dashed"></div>
-                <span>$y = x$ (общая касательная)</span>
-              </div>
-            </div>
-
-            <div class="svg-wrapper">
-              <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 760 380" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <pattern id="grid2" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--svg-grid)" stroke-width="1" />
-                  </pattern>
-                </defs>
-                <rect width="760" height="380" fill="var(--bg-card)" rx="8" />
-                <rect width="760" height="380" fill="url(#grid2)" rx="8" />
-
-                <!-- Оси координат: начало в (380, 200), масштаб 1 ед = 130px -->
-                <line x1="380" y1="20" x2="380" y2="360" stroke="var(--svg-axis)" stroke-width="2" />
-                <line x1="40" y1="200" x2="720" y2="200" stroke="var(--svg-axis)" stroke-width="2" />
-                <polygon points="720,196 732,200 720,204" fill="var(--svg-axis)" />
-                <text x="725" y="220" fill="var(--svg-text)" font-size="13" font-weight="bold">x</text>
-                <polygon points="376,20 380,8 384,20" fill="var(--svg-axis)" />
-                <text x="395" y="22" fill="var(--svg-text)" font-size="13" font-weight="bold">y</text>
-
-                <!-- Засечки -->
-                <line x1="510" y1="196" x2="510" y2="204" stroke="var(--svg-axis)" stroke-width="1.5" />
-                <text x="506" y="222" fill="var(--svg-text)" font-size="11">1</text>
-                <line x1="250" y1="196" x2="250" y2="204" stroke="var(--svg-axis)" stroke-width="1.5" />
-                <text x="242" y="222" fill="var(--svg-text)" font-size="11">-1</text>
-
-                <!-- Опорная прямая y = x -->
-                <line x1="224" y1="356" x2="536" y2="44" stroke="var(--text-soft)" stroke-width="2" stroke-dasharray="6,4" />
-                <text x="545" y="45" fill="var(--text-soft)" font-size="12" font-weight="bold">y = x</text>
-
-                <!-- 1. y = tg x (красный) -->
-                <path d="M 263,364 C 295,300 345,230 380,200 C 415,170 465,100 497,36" 
-                      fill="none" stroke="var(--accent-danger)" stroke-width="2.8" />
-
-                <!-- 2. y = e^x - 1 (зеленый) -->
-                <path d="M 250,282 C 290,260 345,215 380,200 C 415,185 465,110 497,10" 
-                      fill="none" stroke="var(--accent-success)" stroke-width="2.8" />
-
-                <!-- 3. y = sin x (голубой) -->
-                <path d="M 224,321 C 275,280 340,218 380,200 C 420,182 485,120 536,79" 
-                      fill="none" stroke="var(--accent-info)" stroke-width="2.8" />
-
-                <!-- 4. y = ln(1+x) (оранжевый) -->
-                <path d="M 289,356 C 315,295 345,225 380,200 C 415,175 480,130 536,98" 
-                      fill="none" stroke="var(--accent-warning)" stroke-width="2.8" />
-
-                <!-- Кружок вокруг начала координат -->
-                <circle cx="380" cy="200" r="28" fill="none" stroke="var(--accent-primary)" stroke-width="1.8" stroke-dasharray="4,3" />
-                <circle cx="380" cy="200" r="4.5" fill="var(--accent-primary)" />
-                <text x="395" y="192" fill="var(--accent-primary)" font-size="11" font-weight="bold">(0, 0)</text>
-
-                <!-- Внутренняя чистая SVG-легенда (без тегов KaTeX) -->
-                <rect x="50" y="30" width="225" height="140" fill="var(--bg-card-subtle)" stroke="var(--border-color)" rx="8" />
-                <text x="65" y="52" fill="var(--text-main)" font-size="12" font-weight="bold">Шкала в нуле:</text>
-                
-                <line x1="65" y1="70" x2="95" y2="70" stroke="var(--accent-danger)" stroke-width="3" />
-                <text x="105" y="74" fill="var(--text-main)" font-size="11.5" font-weight="600">y = tg(x)</text>
-
-                <line x1="65" y1="92" x2="95" y2="92" stroke="var(--accent-success)" stroke-width="3" />
-                <text x="105" y="96" fill="var(--text-main)" font-size="11.5" font-weight="600">y = eˣ − 1</text>
-
-                <line x1="65" y1="114" x2="95" y2="114" stroke="var(--accent-info)" stroke-width="3" />
-                <text x="105" y="118" fill="var(--text-main)" font-size="11.5" font-weight="600">y = sin(x)</text>
-
-                <line x1="65" y1="136" x2="95" y2="136" stroke="var(--accent-warning)" stroke-width="3" />
-                <text x="105" y="140" fill="var(--text-main)" font-size="11.5" font-weight="600">y = ln(1 + x)</text>
-              </svg></div>
-            </div>
-            <div class="svg-caption">
-              <strong>Рис. 2.</strong> В окрестности точки $x = 0$ все кривые касаются прямой $y = x$. При $x > 0$ строго выполнено: $e^x - 1 > \operatorname{tg} x > x > \sin x > \ln(1+x)$. При $x < 0$: $e^x - 1 > \sin x > x > \operatorname{tg} x > \ln(1+x)$.
-            </div>
-          </div>
-
-          <div id="sec-equiv-table">
-            <h3 id="sub-22" data-toc="6. Генеральная таблица эквив…">4.6. Генеральная таблица эквивалентностей (при $\alpha(x) \to 0$)</h3>
-            <div class="table-container">
-              <div class="table-scroll">
-<table>
-                <thead>
-                  <tr>
-                    <th>Функция</th>
-                    <th>Эквивалентность ($\alpha \to 0$)</th>
-                    <th>Разложение Маклорена со старшим членом</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>$\sin \alpha$</td>
-                    <td><span class="table-badge">$\alpha$</span></td>
-                    <td>$\alpha - \frac{\alpha^3}{6} + o(\alpha^3)$</td>
-                  </tr>
-                  <tr>
-                    <td>$\operatorname{tg} \alpha$</td>
-                    <td><span class="table-badge">$\alpha$</span></td>
-                    <td>$\alpha + \frac{\alpha^3}{3} + o(\alpha^3)$</td>
-                  </tr>
-                  <tr>
-                    <td>$\arcsin \alpha$</td>
-                    <td><span class="table-badge">$\alpha$</span></td>
-                    <td>$\alpha + \frac{\alpha^3}{6} + o(\alpha^3)$</td>
-                  </tr>
-                  <tr>
-                    <td>$\operatorname{arctg} \alpha$</td>
-                    <td><span class="table-badge">$\alpha$</span></td>
-                    <td>$\alpha - \frac{\alpha^3}{3} + o(\alpha^3)$</td>
-                  </tr>
-                  <tr>
-                    <td>$1 - \cos \alpha$</td>
-                    <td><span class="table-badge">$\frac{\alpha^2}{2}$</span></td>
-                    <td>$\frac{\alpha^2}{2} - \frac{\alpha^4}{24} + o(\alpha^4)$</td>
-                  </tr>
-                  <tr>
-                    <td>$\operatorname{tg} \alpha - \sin \alpha$</td>
-                    <td><span class="table-badge">$\frac{\alpha^3}{2}$</span></td>
-                    <td>$\frac{\alpha^3}{2} + o(\alpha^3)$</td>
-                  </tr>
-                  <tr>
-                    <td>$\alpha - \sin \alpha$</td>
-                    <td><span class="table-badge">$\frac{\alpha^3}{6}$</span></td>
-                    <td>$\frac{\alpha^3}{6} + o(\alpha^3)$</td>
-                  </tr>
-                  <tr>
-                    <td>$\operatorname{tg} \alpha - \alpha$</td>
-                    <td><span class="table-badge">$\frac{\alpha^3}{3}$</span></td>
-                    <td>$\frac{\alpha^3}{3} + o(\alpha^3)$</td>
-                  </tr>
-                  <tr>
-                    <td>$e^\alpha - 1$</td>
-                    <td><span class="table-badge">$\alpha$</span></td>
-                    <td>$\alpha + \frac{\alpha^2}{2} + o(\alpha^2)$</td>
-                  </tr>
-                  <tr>
-                    <td>$a^\alpha - 1$</td>
-                    <td><span class="table-badge">$\alpha \ln a$</span></td>
-                    <td>$\alpha \ln a + \frac{\alpha^2 \ln^2 a}{2} + o(\alpha^2)$</td>
-                  </tr>
-                  <tr>
-                    <td>$\ln(1 + \alpha)$</td>
-                    <td><span class="table-badge">$\alpha$</span></td>
-                    <td>$\alpha - \frac{\alpha^2}{2} + o(\alpha^2)$</td>
-                  </tr>
-                  <tr>
-                    <td>$\log_a(1 + \alpha)$</td>
-                    <td><span class="table-badge">$\frac{\alpha}{\ln a}$</span></td>
-                    <td>$\frac{\alpha}{\ln a} - \frac{\alpha^2}{2\ln a} + o(\alpha^2)$</td>
-                  </tr>
-                  <tr>
-                    <td>$(1 + \alpha)^\mu - 1$</td>
-                    <td><span class="table-badge">$\mu \alpha$</span></td>
-                    <td>$\mu \alpha + \frac{\mu(\mu-1)}{2}\alpha^2 + o(\alpha^2)$</td>
-                  </tr>
-                  <tr>
-                    <td>$\sqrt[n]{1 + \alpha} - 1$</td>
-                    <td><span class="table-badge">$\frac{\alpha}{n}$</span></td>
-                    <td>$\frac{\alpha}{n} - \frac{n-1}{2n^2}\alpha^2 + o(\alpha^2)$</td>
-                  </tr>
-                </tbody>
-              </table>
+<div class="qed">$\blacksquare$</div>
 </div>
+</div>
+<!-- Исправленный График 2 -->
+<figure class="figure-plate">
+<div class="illustration-header">
+<span>📈</span> <strong>График 2. Семейство эквивалентностей в нуле: единое касание кривых к прямой $y = x$</strong>
+</div>
+<!-- HTML Legend с KaTeX -->
+<div class="html-legend-card">
+<div class="legend-item">
+<div class="legend-indicator" style="background-color: var(--accent-danger);"></div>
+<span>$y = \operatorname{tg} x$</span>
+</div>
+<div class="legend-item">
+<div class="legend-indicator" style="background-color: var(--accent-success);"></div>
+<span>$y = e^x - 1$</span>
+</div>
+<div class="legend-item">
+<div class="legend-indicator" style="background-color: var(--accent-info);"></div>
+<span>$y = \sin x$</span>
+</div>
+<div class="legend-item">
+<div class="legend-indicator" style="background-color: var(--accent-warning);"></div>
+<span>$y = \ln(1+x)$</span>
+</div>
+<div class="legend-item">
+<div class="legend-indicator dashed"></div>
+<span>$y = x$ (общая касательная)</span>
+</div>
+</div>
+<div class="svg-wrapper">
+<svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 760 380" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="40" id="grid2" patternunits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--svg-grid)" stroke-width="1"></path>
+</pattern>
+</defs>
+<rect fill="var(--bg-card)" height="380" rx="8" width="760"></rect>
+<rect fill="url(#grid2)" height="380" rx="8" width="760"></rect>
+<!-- Оси координат: начало в (380, 200), масштаб 1 ед = 130px -->
+<line stroke="var(--svg-axis)" stroke-width="2" x1="380" x2="380" y1="20" y2="360"></line>
+<line stroke="var(--svg-axis)" stroke-width="2" x1="40" x2="720" y1="200" y2="200"></line>
+<polygon fill="var(--svg-axis)" points="720,196 732,200 720,204"></polygon>
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="725" y="220">x</text>
+<polygon fill="var(--svg-axis)" points="376,20 380,8 384,20"></polygon>
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="395" y="22">y</text>
+<!-- Засечки -->
+<line stroke="var(--svg-axis)" stroke-width="1.5" x1="510" x2="510" y1="196" y2="204"></line>
+<text fill="var(--svg-text)" font-size="11" x="506" y="222">1</text>
+<line stroke="var(--svg-axis)" stroke-width="1.5" x1="250" x2="250" y1="196" y2="204"></line>
+<text fill="var(--svg-text)" font-size="11" x="242" y="222">-1</text>
+<!-- Опорная прямая y = x -->
+<line stroke="var(--text-soft)" stroke-dasharray="6,4" stroke-width="2" x1="224" x2="536" y1="356" y2="44"></line>
+<text fill="var(--text-soft)" font-size="12" font-weight="bold" x="545" y="45">y = x</text>
+<!-- 1. y = tg x (красный) -->
+<path d="M 263,364 C 295,300 345,230 380,200 C 415,170 465,100 497,36" fill="none" stroke="var(--accent-danger)" stroke-width="2.8"></path>
+<!-- 2. y = e^x - 1 (зеленый) -->
+<path d="M 250,282 C 290,260 345,215 380,200 C 415,185 465,110 497,10" fill="none" stroke="var(--accent-success)" stroke-width="2.8"></path>
+<!-- 3. y = sin x (голубой) -->
+<path d="M 224,321 C 275,280 340,218 380,200 C 420,182 485,120 536,79" fill="none" stroke="var(--accent-info)" stroke-width="2.8"></path>
+<!-- 4. y = ln(1+x) (оранжевый) -->
+<path d="M 289,356 C 315,295 345,225 380,200 C 415,175 480,130 536,98" fill="none" stroke="var(--accent-warning)" stroke-width="2.8"></path>
+<!-- Кружок вокруг начала координат -->
+<circle cx="380" cy="200" fill="none" r="28" stroke="var(--accent-primary)" stroke-dasharray="4,3" stroke-width="1.8"></circle>
+<circle cx="380" cy="200" fill="var(--accent-primary)" r="4.5"></circle>
+<text fill="var(--accent-primary)" font-size="11" font-weight="bold" x="395" y="192">(0, 0)</text>
+<!-- Внутренняя чистая SVG-легенда (без тегов KaTeX) -->
+<rect fill="var(--bg-card-subtle)" height="140" rx="8" stroke="var(--border-color)" width="225" x="50" y="30"></rect>
+<text fill="var(--text-main)" font-size="12" font-weight="bold" x="65" y="52">Шкала в нуле:</text>
+<line stroke="var(--accent-danger)" stroke-width="3" x1="65" x2="95" y1="70" y2="70"></line>
+<text fill="var(--text-main)" font-size="11.5" font-weight="600" x="105" y="74">y = tg(x)</text>
+<line stroke="var(--accent-success)" stroke-width="3" x1="65" x2="95" y1="92" y2="92"></line>
+<text fill="var(--text-main)" font-size="11.5" font-weight="600" x="105" y="96">y = eˣ − 1</text>
+<line stroke="var(--accent-info)" stroke-width="3" x1="65" x2="95" y1="114" y2="114"></line>
+<text fill="var(--text-main)" font-size="11.5" font-weight="600" x="105" y="118">y = sin(x)</text>
+<line stroke="var(--accent-warning)" stroke-width="3" x1="65" x2="95" y1="136" y2="136"></line>
+<text fill="var(--text-main)" font-size="11.5" font-weight="600" x="105" y="140">y = ln(1 + x)</text>
+</svg>
+</div>
+<div class="svg-caption">
+<strong>Рис. 2.</strong> В окрестности точки $x = 0$ все кривые касаются прямой $y = x$. При $x > 0$ строго выполнено: $e^x - 1 > \operatorname{tg} x > x > \sin x > \ln(1+x)$. При $x < 0$: $e^x - 1 > \sin x > x > \operatorname{tg} x > \ln(1+x)$.
             </div>
-          </div>
-        </section>
+</figure>
+<div id="sec-equiv-table">
+<h3 data-toc="6. Генеральная таблица эквивал…" id="sub-5-12">4.6. Генеральная таблица эквивалентностей (при $\alpha(x) \to 0$)</h3>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Функция</th>
+<th>Эквивалентность ($\alpha \to 0$)</th>
+<th>Разложение Маклорена со старшим членом</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\sin \alpha$</td>
+<td><span class="table-badge">$\alpha$</span></td>
+<td>$\alpha - \frac{\alpha^3}{6} + o(\alpha^3)$</td>
+</tr>
+<tr>
+<td>$\operatorname{tg} \alpha$</td>
+<td><span class="table-badge">$\alpha$</span></td>
+<td>$\alpha + \frac{\alpha^3}{3} + o(\alpha^3)$</td>
+</tr>
+<tr>
+<td>$\arcsin \alpha$</td>
+<td><span class="table-badge">$\alpha$</span></td>
+<td>$\alpha + \frac{\alpha^3}{6} + o(\alpha^3)$</td>
+</tr>
+<tr>
+<td>$\operatorname{arctg} \alpha$</td>
+<td><span class="table-badge">$\alpha$</span></td>
+<td>$\alpha - \frac{\alpha^3}{3} + o(\alpha^3)$</td>
+</tr>
+<tr>
+<td>$1 - \cos \alpha$</td>
+<td><span class="table-badge">$\frac{\alpha^2}{2}$</span></td>
+<td>$\frac{\alpha^2}{2} - \frac{\alpha^4}{24} + o(\alpha^4)$</td>
+</tr>
+<tr>
+<td>$\operatorname{tg} \alpha - \sin \alpha$</td>
+<td><span class="table-badge">$\frac{\alpha^3}{2}$</span></td>
+<td>$\frac{\alpha^3}{2} + o(\alpha^3)$</td>
+</tr>
+<tr>
+<td>$\alpha - \sin \alpha$</td>
+<td><span class="table-badge">$\frac{\alpha^3}{6}$</span></td>
+<td>$\frac{\alpha^3}{6} + o(\alpha^3)$</td>
+</tr>
+<tr>
+<td>$\operatorname{tg} \alpha - \alpha$</td>
+<td><span class="table-badge">$\frac{\alpha^3}{3}$</span></td>
+<td>$\frac{\alpha^3}{3} + o(\alpha^3)$</td>
+</tr>
+<tr>
+<td>$e^\alpha - 1$</td>
+<td><span class="table-badge">$\alpha$</span></td>
+<td>$\alpha + \frac{\alpha^2}{2} + o(\alpha^2)$</td>
+</tr>
+<tr>
+<td>$a^\alpha - 1$</td>
+<td><span class="table-badge">$\alpha \ln a$</span></td>
+<td>$\alpha \ln a + \frac{\alpha^2 \ln^2 a}{2} + o(\alpha^2)$</td>
+</tr>
+<tr>
+<td>$\ln(1 + \alpha)$</td>
+<td><span class="table-badge">$\alpha$</span></td>
+<td>$\alpha - \frac{\alpha^2}{2} + o(\alpha^2)$</td>
+</tr>
+<tr>
+<td>$\log_a(1 + \alpha)$</td>
+<td><span class="table-badge">$\frac{\alpha}{\ln a}$</span></td>
+<td>$\frac{\alpha}{\ln a} - \frac{\alpha^2}{2\ln a} + o(\alpha^2)$</td>
+</tr>
+<tr>
+<td>$(1 + \alpha)^\mu - 1$</td>
+<td><span class="table-badge">$\mu \alpha$</span></td>
+<td>$\mu \alpha + \frac{\mu(\mu-1)}{2}\alpha^2 + o(\alpha^2)$</td>
+</tr>
+<tr>
+<td>$\sqrt[n]{1 + \alpha} - 1$</td>
+<td><span class="table-badge">$\frac{\alpha}{n}$</span></td>
+<td>$\frac{\alpha}{n} - \frac{n-1}{2n^2}\alpha^2 + o(\alpha^2)$</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
-        <!-- 5. Ошибки и разбор задач -->
-        <section id="sec-pitfalls">
+<!-- 5. Ошибки и разбор задач -->
+<section id="sec-pitfalls">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-6">
-  <div class="chapter-kicker">06 / Ловушки вычитания эквивалент…</div>
-  <h2 id="chapter-6" data-toc="Ловушки вычитания эквивалент…">5. Ловушки вычитания эквивалентностей и анализ ошибок</h2>
-  <p>
+  <div class="chapter-kicker">06 / Ловушки вычитания эквивалентно…</div>
+  <h2 id="chapter-6" data-toc="Ловушки вычитания эквивалентно…">5. Ловушки вычитания эквивалентностей и анализ ошибок</h2>
+  
+<p>
             Главная практическая ошибка студентов — бездумная замена слагаемых в разностях.
           </p>
-
-          <div id="sec-tg-sin-example">
-            <h3 id="sub-23" data-toc="1. Разбор хрестоматийного пр…">5.1. Разбор хрестоматийного предела $\lim_{x \to 0} \frac{\operatorname{tg} x - \sin x}{x^3}$</h3>
-            <div class="callout callout-warning">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>❌</span> <strong>НЕПРАВИЛЬНОЕ РЕШЕНИЕ (Катастрофа замены в разности)</strong>
-                </div>
-              </div>
-              <p>
-                «По таблице $\operatorname{tg} x \sim x$ и $\sin x \sim x$. Тогда числитель равен $x - x = 0$, и предел равен $\frac{0}{x^3} = 0$.»<br>
-                <em>В чём ошибка?</em> Разность $x - x$ уничтожила члены 1-го порядка, оставив ложный ноль, в то время как сама разность функций имеет 3-й порядок малости!
+<div id="sec-tg-sin-example">
+<h3 data-toc="1. Разбор хрестоматийного пред…" id="sub-6-1">5.1. Разбор хрестоматийного предела $\lim_{x \to 0} \frac{\operatorname{tg} x - \sin x}{x^3}$</h3>
+<aside class="note">
+<div class="callout-header">
+<div class="callout-title-text">
+<span>❌</span> <strong>НЕПРАВИЛЬНОЕ РЕШЕНИЕ (Катастрофа замены в разности)</strong>
+</div>
+</div>
+<p>
+                «По таблице $\operatorname{tg} x \sim x$ и $\sin x \sim x$. Тогда числитель равен $x - x = 0$, и предел равен $\frac{0}{x^3} = 0$.»<br/>
+<em>В чём ошибка?</em> Разность $x - x$ уничтожила члены 1-го порядка, оставив ложный ноль, в то время как сама разность функций имеет 3-й порядок малости!
               </p>
-            </div>
-
-            <div class="callout callout-proof">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>✅</span> <strong>ПРАВИЛЬНОЕ РЕШЕНИЕ 1 (Через тригонометрическое произведение)</strong>
-                </div>
-                <span class="badge">Канонический метод</span>
-              </div>
-              <p>
+</aside>
+<div class="callout callout-proof">
+<div class="callout-header">
+<div class="callout-title-text">
+<span>✅</span> <strong>ПРАВИЛЬНОЕ РЕШЕНИЕ 1 (Через тригонометрическое произведение)</strong>
+</div>
+<span class="badge">Канонический метод</span>
+</div>
+<p>
                 Преобразуем разность в произведение:
               </p>
-              <div class="formula-block">
-                $$\operatorname{tg} x - \sin x = \frac{\sin x}{\cos x} - \sin x = \sin x \cdot \frac{1 - \cos x}{\cos x} = \operatorname{tg} x \cdot (1 - \cos x).$$
+<div class="equation">
+                \[\operatorname{tg} x - \sin x = \frac{\sin x}{\cos x} - \sin x = \sin x \cdot \frac{1 - \cos x}{\cos x} = \operatorname{tg} x \cdot (1 - \cos x).\]
               </div>
-              <p>
+<p>
                 В произведении замена разрешена: $\operatorname{tg} x \sim x$, $1 - \cos x \sim \frac{x^2}{2}$:
               </p>
-              <div class="formula-block">
-                $$\lim_{x \to 0} \frac{\operatorname{tg} x - \sin x}{x^3} = \lim_{x \to 0} \frac{x \cdot \frac{x^2}{2}}{x^3} = \frac{1}{2}.$$
+<div class="equation">
+                \[\lim_{x \to 0} \frac{\operatorname{tg} x - \sin x}{x^3} = \lim_{x \to 0} \frac{x \cdot \frac{x^2}{2}}{x^3} = \frac{1}{2}.\]
               </div>
-              <div class="qed">$\blacksquare$</div>
-            </div>
-
-            <div class="callout callout-proof">
-              <div class="callout-header">
-                <div class="callout-title-text">
-                  <span>✅</span> <strong>ПРАВИЛЬНОЕ РЕШЕНИЕ 2 (Через формулу Тейлора / Маклорена)</strong>
-                </div>
-                <span class="badge">Универсальный метод</span>
-              </div>
-              <p>
+<div class="qed">$\blacksquare$</div>
+</div>
+<div class="callout callout-proof">
+<div class="callout-header">
+<div class="callout-title-text">
+<span>✅</span> <strong>ПРАВИЛЬНОЕ РЕШЕНИЕ 2 (Через формулу Тейлора / Маклорена)</strong>
+</div>
+<span class="badge">Универсальный метод</span>
+</div>
+<p>
                 Разложим функции до членов порядка $x^3$:
               </p>
-              <div class="formula-block">
-                $$\operatorname{tg} x = x + \frac{x^3}{3} + o(x^3), \qquad \sin x = x - \frac{x^3}{6} + o(x^3).$$
+<div class="equation">
+                \[\operatorname{tg} x = x + \frac{x^3}{3} + o(x^3), \qquad \sin x = x - \frac{x^3}{6} + o(x^3).\]
               </div>
-              <div class="formula-block">
-                $$\operatorname{tg} x - \sin x = \left(x + \frac{x^3}{3}\right) - \left(x - \frac{x^3}{6}\right) + o(x^3) = \left(\frac{1}{3} + \frac{1}{6}\right)x^3 + o(x^3) = \frac{1}{2}x^3 + o(x^3).$$
+<div class="equation">
+                \[\operatorname{tg} x - \sin x = \left(x + \frac{x^3}{3}\right) - \left(x - \frac{x^3}{6}\right) + o(x^3) = \left(\frac{1}{3} + \frac{1}{6}\right)x^3 + o(x^3) = \frac{1}{2}x^3 + o(x^3).\]
               </div>
-              <p>
+<p>
                 Деля на $x^3$, получаем строгий предел $\frac{1}{2}$.
               </p>
-              <div class="qed">$\blacksquare$</div>
-            </div>
-          </div>
-
-          <!-- График 3 -->
-          <div class="illustration-card">
-            <div class="illustration-header">
-              <span>🔬</span> <strong>График 3. Геометрия кубического зазора $\Delta(x) = \operatorname{tg} x - \sin x \sim \frac{x^3}{2}$</strong>
-            </div>
-            <div class="svg-wrapper">
-              <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 760 360" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
-                <rect width="760" height="360" fill="var(--bg-card)" rx="8" />
-                <rect width="760" height="360" fill="url(#grid2)" rx="8" />
-
-                <!-- Оси -->
-                <line x1="120" y1="20" x2="120" y2="320" stroke="var(--svg-axis)" stroke-width="2" />
-                <line x1="100" y1="290" x2="710" y2="290" stroke="var(--svg-axis)" stroke-width="2" />
-                <polygon points="710,286 722,290 710,294" fill="var(--svg-axis)" />
-                <text x="715" y="310" fill="var(--svg-text)" font-size="13" font-weight="bold">x</text>
-                <polygon points="116,20 120,8 124,20" fill="var(--svg-axis)" />
-                <text x="135" y="24" fill="var(--svg-text)" font-size="13" font-weight="bold">y</text>
-
-                <!-- Засечки -->
-                <line x1="345" y1="286" x2="345" y2="294" stroke="var(--svg-axis)" stroke-width="1.5" />
-                <text x="337" y="310" fill="var(--svg-text)" font-size="11">0.5</text>
-                <line x1="570" y1="286" x2="570" y2="294" stroke="var(--svg-axis)" stroke-width="1.5" />
-                <text x="564" y="310" fill="var(--svg-text)" font-size="11">1.0</text>
-                <text x="105" y="305" fill="var(--svg-text)" font-size="11">0</text>
-
-                <!-- tg x -->
-                <path d="M 120,290 C 210,255 330,205 450,130 C 510,80 550,35 570,10" 
-                      fill="none" stroke="var(--accent-danger)" stroke-width="3" />
-                <text x="580" y="20" fill="var(--accent-danger)" font-size="12" font-weight="bold">y = tg(x)</text>
-
-                <!-- sin x -->
-                <path d="M 120,290 C 210,252 320,210 420,175 C 490,152 540,143 570,139" 
-                      fill="none" stroke="var(--accent-info)" stroke-width="3" />
-                <text x="580" y="145" fill="var(--accent-info)" font-size="12" font-weight="bold">y = sin(x)</text>
-
-                <!-- Штриховка зазора -->
-                <path d="M 120,290 C 210,255 330,205 450,130 C 510,80 550,35 570,10 L 570,139 C 540,143 490,152 420,175 C 320,210 210,252 120,290 Z" 
-                      fill="var(--accent-primary-light)" opacity="0.6" />
-
-                <!-- Стрелка зазора -->
-                <line x1="480" y1="105" x2="480" y2="161" stroke="var(--accent-primary)" stroke-width="2.5" />
-                <circle cx="480" cy="105" r="3.5" fill="var(--accent-danger)" />
-                <circle cx="480" cy="161" r="3.5" fill="var(--accent-info)" />
-                <text x="492" y="135" fill="var(--accent-primary)" font-size="11" font-weight="bold">Зазор: x³/2</text>
-
-                <!-- delta(x) -->
-                <path d="M 120,290 C 260,288 380,275 480,244 C 530,225 560,208 570,200" 
-                      fill="none" stroke="var(--accent-warning)" stroke-width="2.5" stroke-dasharray="5,4" />
-                <text x="580" y="205" fill="var(--accent-warning)" font-size="11" font-weight="bold">y = tg x - sin x ≈ x³/2</text>
-              </svg></div>
-            </div>
-            <div class="svg-caption">
-              <strong>Рис. 3.</strong> Зазор между $\operatorname{tg} x$ и $\sin x$ имеет порядок $O(x^3)$. Заменяя каждую функцию на $x$, студент обнуляет кубический зазор, теряя истинное значение предела $\frac{1}{2}$.
-            </div>
-          </div>
-        </section>
-
-        <!-- 6. Разбор задач -->
-        <section id="sec-advanced-problems">
-</section>
-
-<section class="chapter" aria-labelledby="chapter-7">
-  <div class="chapter-kicker">07 / Разбор сложных университетск…</div>
-  <h2 id="chapter-7" data-toc="Разбор сложных университетск…">6. Разбор сложных университетских задач с доски</h2>
-  <!-- Задача 1 -->
-          <div id="sec-prob-1">
-            <div class="worked-example" id="ex-2">
-  <div class="block-label">Пример 2</div>
-  <h3 id="sub-24" data-toc="🎯">🎯</h3>
-  
-               <strong>Задача 1 (Кадр 63): $\lim_{x \to 0} \big(1 + \operatorname{tg}^2 x\big)^{\frac{1}{\ln \cos x}}$</strong>
-                
+<div class="qed">$\blacksquare$</div>
 </div>
-                <span class="badge">С доски лектора</span>
-              </div>
-              <p><strong>Решение:</strong></p>
-              <p>
-                1. <em>Вид неопределённости:</em> При $x \to 0$ основание $1 + 0 = 1$, показатель $\frac{1}{\ln 1} = \frac{1}{0} \to \infty$. Имеем вид $[1^\infty]$.<br>
+</div>
+<!-- График 3 -->
+<figure class="figure-plate">
+<div class="illustration-header">
+<span>🔬</span> <strong>График 3. Геометрия кубического зазора $\Delta(x) = \operatorname{tg} x - \sin x \sim \frac{x^3}{2}$</strong>
+</div>
+<div class="svg-wrapper">
+<svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 760 360" xmlns="http://www.w3.org/2000/svg">
+<rect fill="var(--bg-card)" height="360" rx="8" width="760"></rect>
+<rect fill="url(#grid2)" height="360" rx="8" width="760"></rect>
+<!-- Оси -->
+<line stroke="var(--svg-axis)" stroke-width="2" x1="120" x2="120" y1="20" y2="320"></line>
+<line stroke="var(--svg-axis)" stroke-width="2" x1="100" x2="710" y1="290" y2="290"></line>
+<polygon fill="var(--svg-axis)" points="710,286 722,290 710,294"></polygon>
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="715" y="310">x</text>
+<polygon fill="var(--svg-axis)" points="116,20 120,8 124,20"></polygon>
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="135" y="24">y</text>
+<!-- Засечки -->
+<line stroke="var(--svg-axis)" stroke-width="1.5" x1="345" x2="345" y1="286" y2="294"></line>
+<text fill="var(--svg-text)" font-size="11" x="337" y="310">0.5</text>
+<line stroke="var(--svg-axis)" stroke-width="1.5" x1="570" x2="570" y1="286" y2="294"></line>
+<text fill="var(--svg-text)" font-size="11" x="564" y="310">1.0</text>
+<text fill="var(--svg-text)" font-size="11" x="105" y="305">0</text>
+<!-- tg x -->
+<path d="M 120,290 C 210,255 330,205 450,130 C 510,80 550,35 570,10" fill="none" stroke="var(--accent-danger)" stroke-width="3"></path>
+<text fill="var(--accent-danger)" font-size="12" font-weight="bold" x="580" y="20">y = tg(x)</text>
+<!-- sin x -->
+<path d="M 120,290 C 210,252 320,210 420,175 C 490,152 540,143 570,139" fill="none" stroke="var(--accent-info)" stroke-width="3"></path>
+<text fill="var(--accent-info)" font-size="12" font-weight="bold" x="580" y="145">y = sin(x)</text>
+<!-- Штриховка зазора -->
+<path d="M 120,290 C 210,255 330,205 450,130 C 510,80 550,35 570,10 L 570,139 C 540,143 490,152 420,175 C 320,210 210,252 120,290 Z" fill="var(--accent-primary-light)" opacity="0.6"></path>
+<!-- Стрелка зазора -->
+<line stroke="var(--accent-primary)" stroke-width="2.5" x1="480" x2="480" y1="105" y2="161"></line>
+<circle cx="480" cy="105" fill="var(--accent-danger)" r="3.5"></circle>
+<circle cx="480" cy="161" fill="var(--accent-info)" r="3.5"></circle>
+<text fill="var(--accent-primary)" font-size="11" font-weight="bold" x="492" y="135">Зазор: x³/2</text>
+<!-- delta(x) -->
+<path d="M 120,290 C 260,288 380,275 480,244 C 530,225 560,208 570,200" fill="none" stroke="var(--accent-warning)" stroke-dasharray="5,4" stroke-width="2.5"></path>
+<text fill="var(--accent-warning)" font-size="11" font-weight="bold" x="580" y="205">y = tg x - sin x ≈ x³/2</text>
+</svg>
+</div>
+<div class="svg-caption">
+<strong>Рис. 3.</strong> Зазор между $\operatorname{tg} x$ и $\sin x$ имеет порядок $O(x^3)$. Заменяя каждую функцию на $x$, студент обнуляет кубический зазор, теряя истинное значение предела $\frac{1}{2}$.
+            </div>
+</figure>
+
+<!-- 6. Разбор задач -->
+<section id="sec-advanced-problems">
+</section>
+</section>
+<section class="chapter" aria-labelledby="chapter-7">
+  <div class="chapter-kicker">07 / Разбор сложных университетских…</div>
+  <h2 id="chapter-7" data-toc="Разбор сложных университетских…">6. Разбор сложных университетских задач с доски</h2>
+  
+<!-- Задача 1 -->
+<div id="sec-prob-1">
+<div class="worked-example" id="ex-2"><div class="block-label">Пример 2</div><h3 data-toc="🎯Задача 1 (Кадр 63): _x 0 (1 +…" id="sub-7-1">🎯Задача 1 (Кадр 63): $\lim_{x \to 0} \big(1 + \operatorname{tg}^2 x\big)^{\frac{1}{\ln \cos x}}$С доски лектора</h3><div>
+<p><strong>Решение:</strong></p>
+<p>
+                1. <em>Вид неопределённости:</em> При $x \to 0$ основание $1 + 0 = 1$, показатель $\frac{1}{\ln 1} = \frac{1}{0} \to \infty$. Имеем вид $[1^\infty]$.<br/>
                 2. <em>Приведение к экспоненте:</em> По второму замечательному пределу:
               </p>
-              <div class="formula-block">
-                $$L = e^K, \quad \text{где } K = \lim_{x \to 0} \frac{\operatorname{tg} ^2 x}{\ln \cos x}.$$
+<div class="equation">
+                \[L = e^K, \quad \text{где } K = \lim_{x \to 0} \frac{\operatorname{tg} ^2 x}{\ln \cos x}.\]
               </div>
-              <p>
+<p>
                 3. <em>Анализ числителя и знаменателя:</em>
-              </p>
-              <ul>
-                <li>Числитель: $\operatorname{tg}^2 x \sim x^2$.</li>
-                <li>Знаменатель: $\ln \cos x = \ln\big(1 + (\cos x - 1)\big) \sim \cos x - 1 = -(1 - \cos x) \sim -\frac{x^2}{2}$.</li>
-              </ul>
-              <p>
+</p>
+<ul>
+<li>Числитель: $\operatorname{tg}^2 x \sim x^2$.</li>
+<li>Знаменатель: $\ln \cos x = \ln\big(1 + (\cos x - 1)\big) \sim \cos x - 1 = -(1 - \cos x) \sim -\frac{x^2}{2}$.</li>
+</ul>
+<p>
                 4. <em>Вычисление показателя:</em>
-              </p>
-              <div class="formula-block">
-                $$K = \lim_{x \to 0} \frac{x^2}{-\frac{x^2}{2}} = -2 \implies L = e^{-2} = \frac{1}{e^2}.$$
+</p>
+<div class="equation">
+                \[K = \lim_{x \to 0} \frac{x^2}{-\frac{x^2}{2}} = -2 \implies L = e^{-2} = \frac{1}{e^2}.\]
               </div>
-              <p><strong>Ответ:</strong> $e^{-2}$.</p>
-            </div>
-          </div>
-
-          <!-- Задача 2 -->
-          <div id="sec-prob-2">
-            <div class="worked-example" id="ex-3">
-  <div class="block-label">Пример 3</div>
-  <h3 id="sub-25" data-toc="🎯">🎯</h3>
-  
-               <strong>Задача 2 (Кадр 75): $\lim_{x \to 1} \frac{\ln(2x^2 - x)}{\ln(x^4 + x^2 - x)}$ и схема Горнера</strong>
-                
+<p><strong>Ответ:</strong> $e^{-2}$.</p>
+</div></div>
 </div>
-                <span class="badge">Алгебраический анализ</span>
-              </div>
-              <p><strong>Решение:</strong></p>
-              <p>
-                1. При $x \to 1$: $2x^2 - x \to 1 \implies \ln 1 = 0$; $x^4 + x^2 - x \to 1 \implies \ln 1 = 0$. Вид $[0/0]$.<br>
+<!-- Задача 2 -->
+<div id="sec-prob-2">
+<div class="worked-example" id="ex-3"><div class="block-label">Пример 3</div><h3 data-toc="🎯Задача 2 (Кадр 75): _x 1 (x^4…" id="sub-7-2">🎯Задача 2 (Кадр 75): $\lim_{x \to 1} \frac{\ln(2x^2 - x)}{\ln(x^4 + x^2 - x)}$ и схема ГорнераАлгебраический анализ</h3><div>
+<p><strong>Решение:</strong></p>
+<p>
+                1. При $x \to 1$: $2x^2 - x \to 1 \implies \ln 1 = 0$; $x^4 + x^2 - x \to 1 \implies \ln 1 = 0$. Вид $[0/0]$.<br/>
                 2. Выделяем слагаемое $1$ под логарифмами:
-                $$\ln(2x^2 - x) = \ln\big(1 + (2x^2 - x - 1)\big) \sim 2x^2 - x - 1,$$
-                $$\ln(x^4 + x^2 - x) = \ln\big(1 + (x^4 + x^2 - x - 1)\big) \sim x^4 + x^2 - x - 1.$$
+                \[\ln(2x^2 - x) = \ln\big(1 + (2x^2 - x - 1)\big) \sim 2x^2 - x - 1,\]
+                \[\ln(x^4 + x^2 - x) = \ln\big(1 + (x^4 + x^2 - x - 1)\big) \sim x^4 + x^2 - x - 1.\]
                 3. Предел сводится к отношению многочленов:
               </p>
-              <div class="formula-block">
-                $$L = \lim_{x \to 1} \frac{2x^2 - x - 1}{x^4 + x^2 - x - 1}.$$
+<div class="equation">
+                \[L = \lim_{x \to 1} \frac{2x^2 - x - 1}{x^4 + x^2 - x - 1}.\]
               </div>
-              <p>
-                4. <em>Факторизация числителя:</em> $2x^2 - x - 1 = (x - 1)(2x + 1)$.<br>
+<p>
+                4. <em>Факторизация числителя:</em> $2x^2 - x - 1 = (x - 1)(2x + 1)$.<br/>
                 5. <em>Факторизация знаменателя по схеме Горнера:</em> Корень $x = 1$. Разделим $P(x) = x^4 + 0x^3 + x^2 - x - 1$:
               </p>
-
-              <div class="table-scroll">
 <table class="horner-table">
-                <thead>
-                  <tr>
-                    <th>Коэффициенты</th>
-                    <th>$a_4 = 1$</th>
-                    <th>$a_3 = 0$</th>
-                    <th>$a_2 = 1$</th>
-                    <th>$a_1 = -1$</th>
-                    <th>$a_0 = -1$</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Корень $c = 1$</strong></td>
-                    <td><strong>1</strong></td>
-                    <td><strong>1</strong> ($1\cdot 1 + 0$)</td>
-                    <td><strong>2</strong> ($1\cdot 1 + 1$)</td>
-                    <td><strong>1</strong> ($1\cdot 2 - 1$)</td>
-                    <td><strong>0</strong> ($1\cdot 1 - 1$)</td>
-                  </tr>
-                </tbody>
-              </table>
-</div>
-
-              <p>
+<thead>
+<tr>
+<th>Коэффициенты</th>
+<th>$a_4 = 1$</th>
+<th>$a_3 = 0$</th>
+<th>$a_2 = 1$</th>
+<th>$a_1 = -1$</th>
+<th>$a_0 = -1$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Корень $c = 1$</strong></td>
+<td><strong>1</strong></td>
+<td><strong>1</strong> ($1\cdot 1 + 0$)</td>
+<td><strong>2</strong> ($1\cdot 1 + 1$)</td>
+<td><strong>1</strong> ($1\cdot 2 - 1$)</td>
+<td><strong>0</strong> ($1\cdot 1 - 1$)</td>
+</tr>
+</tbody>
+</table>
+<p>
                 Получаем частное $Q(x) = x^3 + x^2 + 2x + 1$. Следовательно:
               </p>
-              <div class="formula-block">
-                $$L = \lim_{x \to 1} \frac{(x - 1)(2x + 1)}{(x - 1)(x^3 + x^2 + 2x + 1)} = \frac{2(1) + 1}{1^3 + 1^2 + 2(1) + 1} = \frac{3}{5}.$$
+<div class="equation">
+                \[L = \lim_{x \to 1} \frac{(x - 1)(2x + 1)}{(x - 1)(x^3 + x^2 + 2x + 1)} = \frac{2(1) + 1}{1^3 + 1^2 + 2(1) + 1} = \frac{3}{5}.\]
               </div>
-              <p><strong>Ответ:</strong> $\frac{3}{5}$.</p>
-            </div>
-          </div>
-
-          <!-- Задача 3 -->
-          <div id="sec-prob-3">
-            <div class="worked-example" id="ex-4">
-  <div class="block-label">Пример 4</div>
-  <h3 id="sub-26" data-toc="🎯">🎯</h3>
-  
-               <strong>Задача 3 (Кадр 75): Рациональные пределы при $x \to 1$ и $x \to \infty$</strong>
-                
+<p><strong>Ответ:</strong> $\frac{3}{5}$.</p>
+</div></div>
 </div>
-              </div>
-              <p>
-                <strong>А)</strong> $\lim_{x \to 1} \frac{x^3 - x}{1 - x^3} = \lim_{x \to 1} \frac{x(x - 1)(x + 1)}{-(x - 1)(x^2 + x + 1)} = \frac{-1(2)}{1 + 1 + 1} = -\frac{2}{3}$.<br>
-                <strong>Б)</strong> $\lim_{x \to \infty} \frac{2x^3 + x}{1 - x^3} = \lim_{x \to \infty} \frac{x^3(2 + 1/x^2)}{x^3(1/x^3 - 1)} = \frac{2 + 0}{0 - 1} = -2$.
+<!-- Задача 3 -->
+<div id="sec-prob-3">
+<div class="worked-example" id="ex-4"><div class="block-label">Пример 4</div><h3 data-toc="🎯Задача 3 (Кадр 75): Рациональ…" id="sub-7-3">🎯Задача 3 (Кадр 75): Рациональные пределы при $x \to 1$ и $x \to \infty$</h3><div>
+<p>
+<strong>А)</strong> $\lim_{x \to 1} \frac{x^3 - x}{1 - x^3} = \lim_{x \to 1} \frac{x(x - 1)(x + 1)}{-(x - 1)(x^2 + x + 1)} = \frac{-1(2)}{1 + 1 + 1} = -\frac{2}{3}$.<br/>
+<strong>Б)</strong> $\lim_{x \to \infty} \frac{2x^3 + x}{1 - x^3} = \lim_{x \to \infty} \frac{x^3(2 + 1/x^2)}{x^3(1/x^3 - 1)} = \frac{2 + 0}{0 - 1} = -2$.
               </p>
-            </div>
-          </div>
-
-          <!-- Задача 4 -->
-          <div id="sec-prob-4">
-            <div class="worked-example" id="ex-5">
-  <div class="block-label">Пример 5</div>
-  <h3 id="sub-27" data-toc="🎯">🎯</h3>
-  
-               <strong>Задача 4 (Из Зорича): Предел с радикалами и показательными функциями</strong>
-                
+</div></div>
 </div>
-                <span class="badge">Университетский уровень</span>
-              </div>
-              <p><strong>Задание:</strong> Вычислить предел $L = \lim_{x \to 0} \frac{\sqrt[3]{1 + 3x} - \sqrt{1 + 2x}}{\cos x - e^{x^2}}$.</p>
-              <p><strong>Решение:</strong></p>
-              <p>
+<!-- Задача 4 -->
+<div id="sec-prob-4">
+<div class="worked-example" id="ex-5"><div class="block-label">Пример 5</div><h3 data-toc="🎯Задача 4 (Из Зорича): Предел …" id="sub-7-4">🎯Задача 4 (Из Зорича): Предел с радикалами и показательными функциямиУниверситетский уровень</h3><div>
+<p><strong>Задание:</strong> Вычислить предел $L = \lim_{x \to 0} \frac{\sqrt[3]{1 + 3x} - \sqrt{1 + 2x}}{\cos x - e^{x^2}}$.</p>
+<p><strong>Решение:</strong></p>
+<p>
                 1. <em>Числитель:</em> прибавим и вычтем единицу:
-                $$\sqrt[3]{1 + 3x} - \sqrt{1 + 2x} = \big((1 + 3x)^{1/3} - 1\big) - \big((1 + 2x)^{1/2} - 1\big).$$
+                \[\sqrt[3]{1 + 3x} - \sqrt{1 + 2x} = \big((1 + 3x)^{1/3} - 1\big) - \big((1 + 2x)^{1/2} - 1\big).\]
                 Используем формулы Тейлора до $x^2$:
-                $$(1 + 3x)^{1/3} = 1 + \frac{1}{3}(3x) + \frac{\frac{1}{3}(-\frac{2}{3})}{2}(3x)^2 + o(x^2) = 1 + x - x^2 + o(x^2),$$
-                $$(1 + 2x)^{1/2} = 1 + \frac{1}{2}(2x) + \frac{\frac{1}{2}(-\frac{1}{2})}{2}(2x)^2 + o(x^2) = 1 + x - \frac{1}{2}x^2 + o(x^2).$$
+                \[(1 + 3x)^{1/3} = 1 + \frac{1}{3}(3x) + \frac{\frac{1}{3}(-\frac{2}{3})}{2}(3x)^2 + o(x^2) = 1 + x - x^2 + o(x^2),\]
+                \[(1 + 2x)^{1/2} = 1 + \frac{1}{2}(2x) + \frac{\frac{1}{2}(-\frac{1}{2})}{2}(2x)^2 + o(x^2) = 1 + x - \frac{1}{2}x^2 + o(x^2).\]
                 Вычитая, линейные члены $x$ сокращаются:
-                $$\text{Числитель} = (1 + x - x^2) - (1 + x - \frac{1}{2}x^2) + o(x^2) = -\frac{1}{2}x^2 + o(x^2).$$
+                \[\text{Числитель} = (1 + x - x^2) - (1 + x - \frac{1}{2}x^2) + o(x^2) = -\frac{1}{2}x^2 + o(x^2).\]
                 2. <em>Знаменатель:</em>
-                $$\cos x - e^{x^2} = \left(1 - \frac{x^2}{2} + o(x^2)\right) - \left(1 + x^2 + o(x^2)\right) = -\frac{3}{2}x^2 + o(x^2).$$
+                \[\cos x - e^{x^2} = \left(1 - \frac{x^2}{2} + o(x^2)\right) - \left(1 + x^2 + o(x^2)\right) = -\frac{3}{2}x^2 + o(x^2).\]
                 3. <em>Предел отношения:</em>
-              </p>
-              <div class="formula-block">
-                $$L = \lim_{x \to 0} \frac{-\frac{1}{2}x^2 + o(x^2)}{-\frac{3}{2}x^2 + o(x^2)} = \frac{-1/2}{-3/2} = \frac{1}{3}.$$
+</p>
+<div class="equation">
+                \[L = \lim_{x \to 0} \frac{-\frac{1}{2}x^2 + o(x^2)}{-\frac{3}{2}x^2 + o(x^2)} = \frac{-1/2}{-3/2} = \frac{1}{3}.\]
               </div>
-              <p><strong>Ответ:</strong> $\frac{1}{3}$.</p>
-            </div>
-          </div>
-        </section>
+<p><strong>Ответ:</strong> $\frac{1}{3}$.</p>
+</div></div>
+</div>
 
-        <!-- 7. Справочник -->
-        <section id="sec-summary">
+<!-- 7. Справочник -->
+<section id="sec-summary">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-8">
-  <div class="chapter-kicker">08 / Сводный справочник и чек-лис…</div>
-  <h2 id="chapter-8" data-toc="Сводный справочник и чек-лис…">7. Сводный справочник и чек-лист решения пределов</h2>
-  <div class="callout callout-theorem">
-            <div class="callout-header">
-              <div class="callout-title-text">
-                <span>📋</span> <strong>Чек-лист для экзамена и контрольной работы</strong>
-              </div>
-            </div>
-            <ol>
-              <li><strong>Подстановка в точку:</strong> Всегда проверяйте, есть ли вообще неопределённость. Если знаменатель не зануляется — предел вычисляется тривиально.</li>
-              <li><strong>Неопределённость $[1^\infty]$:</strong> Всегда сводится к $e^{\lim (u - 1)v}$. Обязательно указывайте: <em>«по непрерывности показательной функции предел вносится в показатель»</em>.</li>
-              <li><strong>Произведение и частное:</strong> Смело заменяйте любые сомножители на эквивалентные из таблицы.</li>
-              <li><strong>Сумма и разность:</strong> Замена строго запрещена, если главные части сокращаются ($\lim \frac{f_1}{f_2} = -1$). В этом случае применяйте тригонометрические формулы преобразования в произведение или формулу Тейлора со старшими степенями.</li>
-              <li><strong>Контроль аргумента:</strong> Все формулы $\sin \alpha \sim \alpha$, $\ln(1+\alpha) \sim \alpha$ требуют, чтобы сам аргумент $\alpha \to 0$. При $x \to 1$ писать $\sin x \sim x$ грубо ошибочно!</li>
-            </ol>
-          </div>
-        </section>
+  <div class="chapter-kicker">08 / Сводный справочник и чек-лист …</div>
+  <h2 id="chapter-8" data-toc="Сводный справочник и чек-лист …">7. Сводный справочник и чек-лист решения пределов</h2>
+  
+<div class="statement theorem" id="thm-7"><div class="block-label">Утверждение 7</div><h3 data-toc="📋Чек-лист для экзамена и контр…" id="sub-8-1">📋Чек-лист для экзамена и контрольной работы</h3><div>
+<ol>
+<li><strong>Подстановка в точку:</strong> Всегда проверяйте, есть ли вообще неопределённость. Если знаменатель не зануляется — предел вычисляется тривиально.</li>
+<li><strong>Неопределённость $[1^\infty]$:</strong> Всегда сводится к $e^{\lim (u - 1)v}$. Обязательно указывайте: <em>«по непрерывности показательной функции предел вносится в показатель»</em>.</li>
+<li><strong>Произведение и частное:</strong> Смело заменяйте любые сомножители на эквивалентные из таблицы.</li>
+<li><strong>Сумма и разность:</strong> Замена строго запрещена, если главные части сокращаются ($\lim \frac{f_1}{f_2} = -1$). В этом случае применяйте тригонометрические формулы преобразования в произведение или формулу Тейлора со старшими степенями.</li>
+<li><strong>Контроль аргумента:</strong> Все формулы $\sin \alpha \sim \alpha$, $\ln(1+\alpha) \sim \alpha$ требуют, чтобы сам аргумент $\alpha \to 0$. При $x \to 1$ писать $\sin x \sim x$ грубо ошибочно!</li>
+</ol>
+</div></div>
+
+
 </section>
 <!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>

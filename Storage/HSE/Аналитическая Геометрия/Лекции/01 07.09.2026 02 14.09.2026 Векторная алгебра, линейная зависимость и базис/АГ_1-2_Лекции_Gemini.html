@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Аналитическая геометрия: Векторная алгебра, базисы и системы координат. Конспект FAM ФПМ НИУ ВШЭ.">
+  <meta name="description" content="Полный курс теории, геометрических доказательств и разбора типовых задач на основе лекций 1 и 2">
   <title>Аналитическая геометрия: Векторная алгебра, базисы и системы координат — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
@@ -183,8 +183,13 @@ html[data-theme] ::selection{background:var(--gold);color:var(--paper)}
 .themed-figure [data-figure-theme="light"]{display:block}
 html[data-theme="dark"] .themed-figure [data-figure-theme],html[data-theme="parchment"] .themed-figure [data-figure-theme]{display:none}
 html[data-theme="dark"] .themed-figure [data-figure-theme="dark"],html[data-theme="parchment"] .themed-figure [data-figure-theme="parchment"]{display:block}
-/* One neutral/light asset may remain on its own light plate in every theme. Never invert mathematical colours. */
-.figure-plate{background:#fff;color:#202e29;padding:16px;border:1px solid var(--rule)}
+.figure-plate{background:var(--bg-card);color:var(--ink);padding:20px;border:1px solid var(--rule);border-radius:8px;margin:32px 0}
+html[data-theme="light"] .figure-plate{background:#ffffff}
+html[data-theme="dark"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+html[data-theme="parchment"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+@media print{
+ .figure-plate{background:white!important;border:0!important;padding:0!important}
+}
 @media(max-width:760px){.topbar{height:auto;min-height:70px;flex-wrap:wrap;padding:12px 18px;gap:10px}.top-actions{gap:8px;flex-wrap:wrap}.theme-control select{font-size:10px;max-width:103px;padding:8px 4px}.pdf-button{padding:6px 8px}.pdf-button span{margin-left:4px}.wordmark{font-size:24px}}
 @media(max-width:400px){.wordmark{display:none}.top-actions{width:100%;justify-content:space-between}}
 @media print{
@@ -440,1099 +445,832 @@ SOFTWARE.
     </aside>
     <main id="content">
       <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
-  <div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>ФПМ НИУ ВШЭ</span></div>
-  <h1>Аналитическая геометрия: Векторная алгебра, базисы и системы координат</h1>
-  <p class="subtitle">Полный курс теории, геометрических доказательств и разбора типовых задач на основе лекций 1 и 2</p>
-  <div class="lecture-abstract">
-    <p>Полный курс теории, геометрических доказательств и разбора типовых задач на основе лекций 1 и 2</p>
-    <div class="abstract-formula" aria-label="Ключевое выражение лекции">\[', right: '\]</div>
-  </div>
-</header>
-<div class="proof-toolbar" aria-label="Все доказательства">
-  <span class="toolbar-label">Доказательства</span>
-  <div class="segmented" role="group" aria-label="Режим всех доказательств">
-    <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
-    <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
-    <button data-all-proofs="full" aria-pressed="false">Полностью</button>
-  </div>
-  <span id="proof-state" class="proof-state" aria-live="polite"></span>
-</div>
-<noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
-<p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
-
+      <header class="lecture-head" id="top">
+        <div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>Академический конспект ФПМ</span></div>
+        <h1>Аналитическая геометрия: Векторная алгебра, базисы и системы координат</h1>
+        <p class="subtitle">Полный курс теории, геометрических доказательств и разбора типовых задач на основе лекций 1 и 2</p>
+        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[', right: '\]</div></div>
+      </header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
 <section class="chapter" aria-labelledby="chapter-1">
   <div class="chapter-kicker">01 / Введение</div>
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <!-- Панель управления -->
-  <div class="top-bar no-print">
-    <div class="top-bar-title">Аналитическая геометрия — Лекции 1 и 2 (Г. М. Полотовский)</div>
-    <div class="top-bar-buttons">
-      <button class="btn" onclick="document.body.classList.toggle('light-theme')">🌓 Сменить тему</button>
-      <button class="btn" onclick="window.print()">🖨️ Печать / PDF (Ctrl+P)</button>
-    </div>
-  </div>
+<div class="top-bar no-print">
+<div class="top-bar-title">Аналитическая геометрия — Лекции 1 и 2 (Г. М. Полотовский)</div>
+<div class="top-bar-buttons">
+<button class="btn" onclick="document.body.classList.toggle('light-theme')">🌓 Сменить тему</button>
+<button class="btn" onclick="window.print()">🖨️ Печать / PDF (Ctrl+P)</button>
+</div>
+</div>
+<div class="container">
+<header class="doc-header">
+<span class="doc-meta">Учебно-теоретическое пособие • 1-й модуль</span>
+<h1>Векторная алгебра, базисы и аффинные системы координат</h1>
+<p class="doc-subtitle">Полный курс теории, геометрических доказательств и разбора типовых задач на основе лекций 1 и 2</p>
+<div class="author-badge">
+<span><strong>Лектор:</strong> канд. физ.-мат. наук Г. М. Полотовский</span>
+<span>•</span>
+<span><strong>Семестр:</strong> 2026/2027 уч. год</span>
+</div>
+</header>
+<!-- Содержание -->
 
-  <div class="container">
-    <header class="doc-header">
-      <span class="doc-meta">Учебно-теоретическое пособие • 1-й модуль</span>
-      <h1>Векторная алгебра, базисы и аффинные системы координат</h1>
-      <p class="doc-subtitle">Полный курс теории, геометрических доказательств и разбора типовых задач на основе лекций 1 и 2</p>
-      <div class="author-badge">
-        <span><strong>Лектор:</strong> канд. физ.-мат. наук Г. М. Полотовский</span>
-        <span>•</span>
-        <span><strong>Семестр:</strong> 2026/2027 уч. год</span>
-      </div>
-    </header>
-
-    <!-- Содержание -->
-    
-
-    <!-- ЧАСТЬ I -->
-    <section id="part-1">
+<!-- ЧАСТЬ I -->
+<section id="part-1">
 </section>
-
 <section class="chapter" aria-labelledby="chapter-2">
-  <div class="chapter-kicker">02 / Часть I. Векторы: понятия, р…</div>
-  <h2 id="chapter-2" data-toc="Часть I. Векторы: понятия, р…">Часть I. Векторы: понятия, равенство, свободные векторы и линейные операции</h2>
-  <h3 id="sub-1" data-toc="1. Интуиция и строгое опреде…">1.1. Интуиция и строгое определение направленного отрезка</h3>
-      
-      <p>
+  <div class="chapter-kicker">02 / Часть I. Векторы: понятия, рав…</div>
+  <h2 id="chapter-2" data-toc="Часть I. Векторы: понятия, рав…">Часть I. Векторы: понятия, равенство, свободные векторы и линейные операции</h2>
+  
+<h3 data-toc="1. Интуиция и строгое определе…" id="sec-1-1">1.1. Интуиция и строгое определение направленного отрезка</h3>
+<p>
         В математике и физике скалярные величины (масса, температура, время) задаются одним действительным числом. Однако такие величины, как перемещение точки, скорость, ускорение или сила, принципиально требуют задания не только величины, но и <strong>пространственной направленности</strong>.
       </p>
-
-      <aside class="note">
-        <strong>Определение 1 (Наглядное / интуитивное).</strong> 
-        <strong>Вектор</strong> — это «палочка со стрелочкой».
+<aside class="note">
+<span class="block-label">Определение 1 (Наглядное / интуитивное)</span>
+<strong>Вектор</strong> — это «палочка со стрелочкой».
       </aside>
-
-      <p>
+<p>
         Данный наглядный образ, введённый лектором Г. М. Полотовским, отражает две фундаментальные составляющие: длину («палочка») и ориентацию в пространстве («стрелочка»). Перейдём к строгому математическому аппарату.
       </p>
+<div class="statement definition" id="def-1"><div class="block-label">Определение 2 (Вектор как направленный отрезок)</div><h3 data-toc="Определение 1" id="sub-2-2">Определение 1</h3><div>
+<strong>Вектором</strong> называется <em>направленный отрезок</em>, то есть отрезок, для которого строго указано, какая из его граничных точек является началом, а какая — концом.
+        <br/><br/>
+<strong>Обозначения:</strong> вектор с началом в точке $A$ и концом в точке $B$ обозначается $\vec{AB}$, $\overline{AB}$ или одной строчной буквой со стрелкой (или чертой) сверху: $\vec{a}$, $\overline{a}$.
+      </div></div>
+<p>Из данного определения непосредственно следуют две основные числовые и геометрические характеристики вектора:</p>
+<ol>
+<li><strong>Длина (модуль) вектора:</strong> расстояние между началом $A$ и концом $B$. Обозначается $|\vec{a}| = |\overline{AB}| = |AB|$. По определению расстояния, $|\vec{a}| \ge 0$.</li>
+<li><strong>Направление вектора:</strong> луч, исходящий из начала $A$ и проходящий через конец $B$ (для ненулевых векторов).</li>
+</ol>
+<div class="statement definition" id="def-2"><div class="block-label">Определение 2.1 (Нулевой вектор)</div><h3 data-toc="Определение 2" id="sub-2-3">Определение 2</h3><div>
 
-      <div class="statement definition" id="def-1">
-  <div class="block-label">Определение 1</div>
-  <h3 id="sub-2" data-toc="Определение 2 (Вектор как на…">Определение 2 (Вектор как направленный отрезок)</h3>
-  
-        
-        <strong>Вектором</strong> называется <em>направленный отрезок</em>, то есть отрезок, для которого строго указано, какая из его граничных точек является началом, а какая — концом.
-        <br><br>
-        <strong>Обозначения:</strong> вектор с началом в точке $A$ и концом в точке $B$ обозначается $\vec{AB}$, $\overline{AB}$ или одной строчной буквой со стрелкой (или чертой) сверху: $\vec{a}$, $\overline{a}$.
-      
-</div>
-
-      <p>Из данного определения непосредственно следуют две основные числовые и геометрические характеристики вектора:</p>
-      <ol>
-        <li><strong>Длина (модуль) вектора:</strong> расстояние между началом $A$ и концом $B$. Обозначается $|\vec{a}| = |\overline{AB}| = |AB|$. По определению расстояния, $|\vec{a}| \ge 0$.</li>
-        <li><strong>Направление вектора:</strong> луч, исходящий из начала $A$ и проходящий через конец $B$ (для ненулевых векторов).</li>
-      </ol>
-
-      <div class="statement definition" id="def-2">
-  <div class="block-label">Определение 2</div>
-  <h3 id="sub-3" data-toc="Определение 2.1 (Нулевой век…">Определение 2.1 (Нулевой вектор)</h3>
-  
-        
         Вектор, у которого начало и конец совпадают ($\vec{AA}$), называется <strong>нулевым вектором</strong> и обозначается $\vec{0}$ или $\overline{0}$.
-        <br>
+        <br/>
         Длина нулевого вектора равна нулю: $|\vec{0}| = 0$.
-        <br>
-        <strong>Ключевое соглашение:</strong> <em>нулевой вектор не имеет определённого направления</em> (его направление считается неопределённым).
-      
+        <br/>
+<strong>Ключевое соглашение:</strong> <em>нулевой вектор не имеет определённого направления</em> (его направление считается неопределённым).
+      </div></div>
+<!-- РИСУНОК 1: Направленный отрезок -->
+<figure>
+<div class="svg-container">
+<svg height="130" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 480 130" width="480">
+<defs>
+<marker id="arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"></path>
+</marker>
+</defs>
+<!-- Направленная линия вектора -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="3" x1="70" x2="390" y1="90" y2="40"></line>
+<!-- Точка A (начало) -->
+<circle cx="70" cy="90" fill="var(--svg-red)" r="5"></circle>
+<text fill="var(--svg-text)" font-size="14" font-weight="bold" x="50" y="115">A (начало)</text>
+<!-- Точка B (конец) -->
+<circle cx="390" cy="40" fill="var(--svg-blue)" r="3"></circle>
+<text fill="var(--svg-text)" font-size="14" font-weight="bold" x="395" y="35">B (конец)</text>
+<!-- Подпись вектора -->
+<text fill="var(--svg-blue)" font-size="16" font-weight="bold" x="220" y="55">a = AB</text>
+<!-- Обозначение модуля -->
+<path d="M 70,100 L 70,110 M 70,105 L 390,55 M 390,50 L 390,60" stroke="var(--svg-slate)" stroke-dasharray="3,3" stroke-width="1.2"></path>
+<text fill="var(--svg-slate)" font-size="12" x="180" y="98">Длина (модуль) |a| = |AB|</text>
+</svg>
 </div>
+<figcaption>Рис. 1. Направленный отрезок: точка начала $A$, точка конца $B$, длина и ориентация стрелки.</figcaption>
+</figure>
+<h3 data-toc="2. Закреплённые и свободные ве…" id="sec-1-2">1.2. Закреплённые и свободные векторы. Отношение эквивалентности</h3>
+<div class="statement definition" id="def-3"><div class="block-label">Определение 3 (Закреплённый вектор)</div><h3 data-toc="Определение 3" id="sub-2-5">Определение 3</h3><div>
 
-      <!-- РИСУНОК 1: Направленный отрезок -->
-      <figure>
-        <div class="svg-container">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg width="480" height="130" viewBox="0 0 480 130">
-            <defs>
-              <marker id="arr-blue" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"/>
-              </marker>
-            </defs>
-            <!-- Направленная линия вектора -->
-            <line x1="70" y1="90" x2="390" y2="40" stroke="var(--svg-blue)" stroke-width="3" marker-end="url(#arr-blue)"/>
-            <!-- Точка A (начало) -->
-            <circle cx="70" cy="90" r="5" fill="var(--svg-red)"/>
-            <text x="50" y="115" fill="var(--svg-text)" font-weight="bold" font-size="14">A (начало)</text>
-            <!-- Точка B (конец) -->
-            <circle cx="390" cy="40" r="3" fill="var(--svg-blue)"/>
-            <text x="395" y="35" fill="var(--svg-text)" font-weight="bold" font-size="14">B (конец)</text>
-            <!-- Подпись вектора -->
-            <text x="220" y="55" fill="var(--svg-blue)" font-size="16" font-weight="bold">a = AB</text>
-            <!-- Обозначение модуля -->
-            <path d="M 70,100 L 70,110 M 70,105 L 390,55 M 390,50 L 390,60" stroke="var(--svg-slate)" stroke-dasharray="3,3" stroke-width="1.2"/>
-            <text x="180" y="98" fill="var(--svg-slate)" font-size="12">Длина (модуль) |a| = |AB|</text>
-          </svg></div>
-        </div>
-        <figcaption>Рис. 1. Направленный отрезок: точка начала $A$, точка конца $B$, длина и ориентация стрелки.</figcaption>
-      </figure>
-
-      <h3 id="sub-4" data-toc="2. Закреплённые и свободные …">1.2. Закреплённые и свободные векторы. Отношение эквивалентности</h3>
-
-      <div class="statement definition" id="def-3">
-  <div class="block-label">Определение 3</div>
-  <h3 id="sub-5" data-toc="Определение 3 (Закреплённый …">Определение 3 (Закреплённый вектор)</h3>
-  
-        
         Положим по определению, что два вектора $\vec{AB}$ и $\vec{CD}$ равны тогда и только тогда, когда совпадают их начала и совпадают их концы:
-        $$\vec{AB} = \vec{CD} \iff (A = C) \wedge (B = D)$$
+        \[\vec{AB} = \vec{CD} \iff (A = C) \wedge (B = D)\]
         Векторы с таким строгим понятием равенства называются <strong>закреплёнными</strong>.
-      
-</div>
+      </div></div>
+<div class="statement definition" id="def-4"><div class="block-label">Определение 4 (Отношение одинаковости и свободный вектор)</div><h3 data-toc="Определение 4" id="sub-2-6">Определение 4</h3><div>
 
-      <div class="statement definition" id="def-4">
-  <div class="block-label">Определение 4</div>
-  <h3 id="sub-6" data-toc="Определение 4 (Отношение оди…">Определение 4 (Отношение одинаковости и свободный вектор)</h3>
-  
-        
         Договоримся считать закреплённые векторы $\vec{AB}$ и $\vec{CD}$ одинаковыми (эквивалентными) и записывать $\vec{AB} \sim \vec{CD}$ тогда и только тогда, когда:
         <ol>
-          <li>Их длины равны: $|AB| = |CD|$;</li>
-          <li>Они лежат на параллельных прямых или на одной прямой: $AB \parallel CD$;</li>
-          <li>Стрелочки на них направлены в одну сторону (сонаправлены).</li>
-        </ol>
+<li>Их длины равны: $|AB| = |CD|$;</li>
+<li>Они лежат на параллельных прямых или на одной прямой: $AB \parallel CD$;</li>
+<li>Стрелочки на них направлены в одну сторону (сонаправлены).</li>
+</ol>
         Иными словами, отрезок $\vec{CD}$ получается из отрезка $\vec{AB}$ с помощью <strong>параллельного переноса</strong>.
-        <br><br>
+        <br/><br/>
         Отношение $\sim$ является отношением эквивалентности (рефлексивно, симметрично, транзитивно). Оно разбивает всё множество закреплённых векторов на непересекающиеся классы эквивалентности.
-        <br><br>
-        <strong>Свободным вектором</strong> называется класс всех закреплённых векторов, одинаковых с данным вектором $\vec{AB}$.
-      
-</div>
-
-      <div class="statement definition" id="def-5">
-  <div class="block-label">Определение 5</div>
-  <h3 id="sub-7" data-toc="Определение 4&#x27; (Свободный ве…">Определение 4' (Свободный вектор как сдвиг)</h3>
-  
-        
-        <strong>Свободный вектор</strong> — это параллельный перенос пространства.
-      
-</div>
-
-      <aside class="note">
-        <strong>Соглашение курса.</strong> 
+        <br/><br/>
+<strong>Свободным вектором</strong> называется класс всех закреплённых векторов, одинаковых с данным вектором $\vec{AB}$.
+      </div></div>
+<div class="statement definition" id="def-5"><div class="block-label">Определение 4' (Свободный вектор как сдвиг)</div><h3 data-toc="Определение 5" id="sub-2-7">Определение 5</h3><div>
+<strong>Свободный вектор</strong> — это параллельный перенос пространства.
+      </div></div>
+<aside class="note">
+<span class="block-label">Соглашение курса</span>
         В курсе «Аналитическая геометрия» <strong>все векторы считаются свободными</strong>! Равенство векторов означает их равенство как свободных векторов (равенство длин и сонаправленность). Свободный вектор можно откладывать от любой точки пространства. Существует <strong>единственный свободный нулевой вектор</strong> $\vec{0}$.
       </aside>
+<!-- РИСУНОК 2: Свободные векторы -->
+<figure>
+<div class="svg-container">
+<svg height="150" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 480 150" width="480">
+<!-- Фоновая сетка -->
+<defs>
+<pattern height="20" id="smallGrid" patternunits="userSpaceOnUse" width="20">
+<path d="M 20 0 L 0 0 0 20" fill="none" stroke="var(--svg-grid)" stroke-width="0.7"></path>
+</pattern>
+</defs>
+<rect fill="url(#smallGrid)" height="100%" opacity="0.3" width="100%"></rect>
+<!-- Вектор AB -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="2.8" x1="50" x2="160" y1="110" y2="40"></line>
+<circle cx="50" cy="110" fill="var(--svg-red)" r="4"></circle>
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="35" y="125">A</text>
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="165" y="35">B</text>
+<!-- Вектор CD -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="2.8" x1="190" x2="300" y1="125" y2="55"></line>
+<circle cx="190" cy="125" fill="var(--svg-red)" r="4"></circle>
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="175" y="140">C</text>
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="305" y="50">D</text>
+<!-- Вектор EF -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="2.8" x1="330" x2="440" y1="95" y2="25"></line>
+<circle cx="330" cy="95" fill="var(--svg-red)" r="4"></circle>
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="315" y="110">E</text>
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="445" y="20">F</text>
+<text fill="var(--svg-amber)" font-size="15" font-weight="bold" x="210" y="25">AB ~ CD ~ EF = a</text>
+</svg>
+</div>
+<figcaption>Рис. 2. Свободный вектор как класс эквивалентных направленных отрезков, получаемых параллельным переносом.</figcaption>
+</figure>
+<h3 data-toc="3. Взаимное расположение: колл…" id="sec-1-3">1.3. Взаимное расположение: коллинеарность и компланарность</h3>
+<div class="statement definition" id="def-6"><div class="block-label">Определение 5 (Коллинеарность)</div><h3 data-toc="Определение 6" id="sub-2-9">Определение 6</h3><div>
 
-      <!-- РИСУНОК 2: Свободные векторы -->
-      <figure>
-        <div class="svg-container">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg width="480" height="150" viewBox="0 0 480 150">
-            <!-- Фоновая сетка -->
-            <defs>
-              <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="var(--svg-grid)" stroke-width="0.7"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#smallGrid)" opacity="0.3"/>
-
-            <!-- Вектор AB -->
-            <line x1="50" y1="110" x2="160" y2="40" stroke="var(--svg-blue)" stroke-width="2.8" marker-end="url(#arr-blue)"/>
-            <circle cx="50" cy="110" r="4" fill="var(--svg-red)"/>
-            <text x="35" y="125" fill="var(--svg-text)" font-size="13" font-weight="bold">A</text>
-            <text x="165" y="35" fill="var(--svg-text)" font-size="13" font-weight="bold">B</text>
-
-            <!-- Вектор CD -->
-            <line x1="190" y1="125" x2="300" y2="55" stroke="var(--svg-blue)" stroke-width="2.8" marker-end="url(#arr-blue)"/>
-            <circle cx="190" cy="125" r="4" fill="var(--svg-red)"/>
-            <text x="175" y="140" fill="var(--svg-text)" font-size="13" font-weight="bold">C</text>
-            <text x="305" y="50" fill="var(--svg-text)" font-size="13" font-weight="bold">D</text>
-
-            <!-- Вектор EF -->
-            <line x1="330" y1="95" x2="440" y2="25" stroke="var(--svg-blue)" stroke-width="2.8" marker-end="url(#arr-blue)"/>
-            <circle cx="330" cy="95" r="4" fill="var(--svg-red)"/>
-            <text x="315" y="110" fill="var(--svg-text)" font-size="13" font-weight="bold">E</text>
-            <text x="445" y="20" fill="var(--svg-text)" font-size="13" font-weight="bold">F</text>
-
-            <text x="210" y="25" fill="var(--svg-amber)" font-size="15" font-weight="bold">AB ~ CD ~ EF = a</text>
-          </svg></div>
-        </div>
-        <figcaption>Рис. 2. Свободный вектор как класс эквивалентных направленных отрезков, получаемых параллельным переносом.</figcaption>
-      </figure>
-
-      <h3 id="sub-8" data-toc="3. Взаимное расположение: ко…">1.3. Взаимное расположение: коллинеарность и компланарность</h3>
-
-      <div class="statement definition" id="def-6">
-  <div class="block-label">Определение 6</div>
-  <h3 id="sub-9" data-toc="Определение 5 (Коллинеарность)">Определение 5 (Коллинеарность)</h3>
-  
-        
         Векторы $\vec{a}$ и $\vec{b}$ называются <strong>коллинеарными</strong> (обозначается $\vec{a} \parallel \vec{b}$), если они лежат на параллельных прямых или на одной прямой.
-        <br><br>
-        <strong>Специальное соглашение:</strong> <em>нулевой вектор считается коллинеарным любому вектору</em> ($\vec{0} \parallel \vec{a}$).
-      
-</div>
+        <br/><br/>
+<strong>Специальное соглашение:</strong> <em>нулевой вектор считается коллинеарным любому вектору</em> ($\vec{0} \parallel \vec{a}$).
+      </div></div>
+<div class="statement definition" id="def-7"><div class="block-label">Определение 5' (Компланарность)</div><h3 data-toc="Определение 7" id="sub-2-10">Определение 7</h3><div>
 
-      <div class="statement definition" id="def-7">
-  <div class="block-label">Определение 7</div>
-  <h3 id="sub-10" data-toc="Определение 5&#x27; (Компланарнос…">Определение 5' (Компланарность)</h3>
-  
-        
         Векторы $\vec{a}, \vec{b}, \vec{c}, \dots$ называются <strong>компланарными</strong>, если существует плоскость, которой параллелен каждый из этих векторов.
-      
+      </div></div>
+<div class="statement theorem featured" id="thm-1"><div class="block-label">Замечание 6 (Компланарность двух векторов)</div><h3 data-toc="Теорема 1" id="sub-2-11">Теорема 1</h3><div>
+<strong>Любые два вектора компланарны между собой.</strong>
+</div></div>
+<div class="proof" data-proof="" id="proof-1">
+<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-
-      <div class="statement theorem featured" id="thm-1">
-  <div class="block-label">Утверждение 1</div>
-  <h3 id="sub-11" data-toc="Замечание 6 (Компланарность …">Замечание 6 (Компланарность двух векторов)</h3>
-  
-        
-        <strong>Любые два вектора компланарны между собой.</strong>
-      
+<div class="proof-idea" data-proof-idea="" id="idea-1">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
 </div>
-      <div class="proof" id="proof-1" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-1" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
-  </div>
-  <div class="proof-full" id="full-1" data-proof-full>
-    <div class="proof-label">Доказательство</div>
+<div class="proof-full" data-proof-full="" id="full-1">
+<div class="proof-label">Доказательство (Доказательство)</div>
     
-        
+
         Отложим оба свободных вектора от одной произвольной точки $O$: $\vec{OA} = \vec{a}$, $\vec{OB} = \vec{b}$. Точки $O, A, B$ всегда принадлежат хотя бы одной плоскости (если точки не лежат на одной прямой, плоскость единственна; если лежат — плоскостей бесконечно много). Векторы лежат в этой плоскости, а значит, компланарны.
-        <span class="proof-qed">&#9632;</span>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+        <span class="proof-qed">■</span>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<h3 data-toc="4. Сложение векторов: правила …" id="sec-1-4">1.4. Сложение векторов: правила треугольника и параллелограмма</h3>
+<div class="statement definition" id="def-8"><div class="block-label">Определение 7 (Правило треугольника)</div><h3 data-toc="Определение 8" id="sub-2-13">Определение 8</h3><div>
 
-      <h3 id="sub-12" data-toc="4. Сложение векторов: правил…">1.4. Сложение векторов: правила треугольника и параллелограмма</h3>
-
-      <div class="statement definition" id="def-8">
-  <div class="block-label">Определение 8</div>
-  <h3 id="sub-13" data-toc="Определение 7 (Правило треуг…">Определение 7 (Правило треугольника)</h3>
-  
-        
         Суммой $\vec{u} + \vec{v}$ называется вектор, строящийся по правилу треугольника:
         <ol>
-          <li>Выбираем точку $A$ и откладываем вектор $\vec{u}$: $\vec{AB} = \vec{u}$;</li>
-          <li>От конца вектора $\vec{u}$ (точки $B$) откладываем вектор $\vec{v}$: $\vec{BC} = \vec{v}$;</li>
-          <li>Вектор $\vec{AC}$ объявляется вектором суммы: $\vec{u} + \vec{v} = \vec{AC}$.</li>
-        </ol>
-      
-</div>
+<li>Выбираем точку $A$ и откладываем вектор $\vec{u}$: $\vec{AB} = \vec{u}$;</li>
+<li>От конца вектора $\vec{u}$ (точки $B$) откладываем вектор $\vec{v}$: $\vec{BC} = \vec{v}$;</li>
+<li>Вектор $\vec{AC}$ объявляется вектором суммы: $\vec{u} + \vec{v} = \vec{AC}$.</li>
+</ol>
+</div></div>
+<div class="statement theorem" id="thm-2"><div class="block-label">Предложение 8 (Корректность сложения)</div><h3 data-toc="Теорема 2" id="sub-2-14">Теорема 2</h3><div>
 
-      <div class="statement theorem" id="thm-2">
-  <div class="block-label">Утверждение 2</div>
-  <h3 id="sub-14" data-toc="Предложение 8 (Корректность …">Предложение 8 (Корректность сложения)</h3>
-  
-        
         Определение 7 корректно: результирующий свободный вектор $\vec{u} + \vec{v}$ не зависит от выбора начальной точки $A$.
-      
+      </div></div>
+<div class="proof" data-proof="" id="proof-2">
+<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-      <div class="proof" id="proof-2" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-2" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
-  </div>
-  <div class="proof-full" id="full-2" data-proof-full>
-    <div class="proof-label">Доказательство</div>
+<div class="proof-idea" data-proof-idea="" id="idea-2">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-2">
+<div class="proof-label">Доказательство (Доказательство)</div>
     
-        
-        При выборе другой точки $A'$ треугольник $A'B'C'$ переводится в треугольник $ABC$ параллельным переносом на вектор $\vec{AA'}$. Сторона $\vec{A'C'}$ переходит в $\vec{AC}$, откуда $\vec{AC} \sim \vec{A'C'}$ как свободные векторы.
-        <span class="proof-qed">&#9632;</span>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
 
-      <div class="statement definition" id="def-9">
-  <div class="block-label">Определение 9</div>
-  <h3 id="sub-15" data-toc="Определение 10 (Правило пара…">Определение 10 (Правило параллелограмма)</h3>
-  
-        
+        При выборе другой точки $A'$ треугольник $A'B'C'$ переводится в треугольник $ABC$ параллельным переносом на вектор $\vec{AA'}$. Сторона $\vec{A'C'}$ переходит в $\vec{AC}$, откуда $\vec{AC} \sim \vec{A'C'}$ как свободные векторы.
+        <span class="proof-qed">■</span>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="statement definition" id="def-9"><div class="block-label">Определение 10 (Правило параллелограмма)</div><h3 data-toc="Определение 9" id="sub-2-15">Определение 9</h3><div>
+
         Сумма неколлинеарных векторов $\vec{u}$ и $\vec{v}$ по правилу параллелограмма:
         <ol>
-          <li>Откладываем от общей точки $A$ оба вектора: $\vec{AB} = \vec{u}$ и $\vec{AD} = \vec{v}$;</li>
-          <li>Строим параллелограмм $ABCD$;</li>
-          <li>Диагональ $\vec{AC}$ с началом в точке $A$ объявляется суммой: $\vec{u} + \vec{v} = \vec{AC}$.</li>
-        </ol>
-      
-</div>
+<li>Откладываем от общей точки $A$ оба вектора: $\vec{AB} = \vec{u}$ и $\vec{AD} = \vec{v}$;</li>
+<li>Строим параллелограмм $ABCD$;</li>
+<li>Диагональ $\vec{AC}$ с началом в точке $A$ объявляется суммой: $\vec{u} + \vec{v} = \vec{AC}$.</li>
+</ol>
+</div></div>
+<div class="statement theorem" id="thm-3"><div class="block-label">Предложения 9 и 11 (Эквивалентность правил и коммутативность сложения)</div><h3 data-toc="Теорема 3" id="sub-2-16">Теорема 3</h3><div>
 
-      <div class="statement theorem" id="thm-3">
-  <div class="block-label">Утверждение 3</div>
-  <h3 id="sub-16" data-toc="Предложения 9 и 11 (Эквивале…">Предложения 9 и 11 (Эквивалентность правил и коммутативность сложения)</h3>
-  
-        
         Правила треугольника и параллелограмма равносильны. Сложение векторов коммутативно: $\vec{u} + \vec{v} = \vec{v} + \vec{u}$.
-      
+      </div></div>
+<div class="proof" data-proof="" id="proof-3">
+<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-      <div class="proof" id="proof-3" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-3" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
-  </div>
-  <div class="proof-full" id="full-3" data-proof-full>
-    <div class="proof-label">Доказательство</div>
+<div class="proof-idea" data-proof-idea="" id="idea-3">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-3">
+<div class="proof-label">Доказательство (Доказательство)</div>
     
-        
+
         В параллелограмме $ABCD$ стороны $\vec{BC} = \vec{AD} = \vec{v}$ и $\vec{DC} = \vec{AB} = \vec{u}$. 
         По треугольнику $ABC$: $\vec{AC} = \vec{u} + \vec{v}$. По треугольнику $ADC$: $\vec{AC} = \vec{v} + \vec{u}$. Диагональ одна, следовательно, $\vec{u} + \vec{v} = \vec{v} + \vec{u}$.
-        <span class="proof-qed">&#9632;</span>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+        <span class="proof-qed">■</span>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<!-- РИСУНОК 3: Два правила сложения -->
+<figure>
+<div class="svg-container">
+<svg height="200" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 600 200" width="600">
+<defs>
+<marker id="arr-red" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-red)"></path>
+</marker>
+<marker id="arr-green" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-green)"></path>
+</marker>
+<marker id="arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-amber)"></path>
+</marker>
+</defs>
+<!-- ЛЕВАЯ ЧАСТЬ: Правило параллелограмма -->
+<g transform="translate(10, 0)">
+<text fill="var(--svg-text)" font-size="14" font-weight="bold" text-anchor="middle" x="140" y="25">Правило параллелограмма</text>
+<!-- Пунктирные стороны параллелограмма -->
+<line stroke="var(--svg-slate)" stroke-dasharray="4,4" stroke-width="1.5" x1="150" x2="250" y1="50" y2="90"></line>
+<line stroke="var(--svg-slate)" stroke-dasharray="4,4" stroke-width="1.5" x1="140" x2="250" y1="160" y2="90"></line>
+<!-- Вектор u -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="2.5" x1="40" x2="150" y1="120" y2="50"></line>
+<text fill="var(--svg-blue)" font-size="14" font-weight="bold" x="85" y="75">u</text>
+<!-- Вектор v -->
+<line marker-end="url(#arr-amber)" stroke="var(--svg-amber)" stroke-width="2.5" x1="40" x2="140" y1="120" y2="160"></line>
+<text fill="var(--svg-amber)" font-size="14" font-weight="bold" x="85" y="155">v</text>
+<!-- Сумма u + v (главная диагональ) -->
+<line marker-end="url(#arr-red)" stroke="var(--svg-red)" stroke-width="3" x1="40" x2="250" y1="120" y2="90"></line>
+<text fill="var(--svg-red)" font-size="14" font-weight="bold" x="175" y="100">u + v</text>
+<!-- Разность u - v (вторая диагональ) -->
+<line marker-end="url(#arr-green)" stroke="var(--svg-green)" stroke-dasharray="3,3" stroke-width="2" x1="140" x2="150" y1="160" y2="50"></line>
+<text fill="var(--svg-green)" font-size="12" font-weight="bold" x="160" y="130">u - v</text>
+<circle cx="40" cy="120" fill="var(--svg-text)" r="4"></circle>
+<text fill="var(--svg-text)" font-weight="bold" x="25" y="125">A</text>
+</g>
+<!-- РАЗДЕЛИТЕЛЬ -->
+<line stroke="var(--border-color)" stroke-width="1" x1="300" x2="300" y1="20" y2="180"></line>
+<!-- ПРАВАЯ ЧАСТЬ: Правило треугольника -->
+<g transform="translate(320, 0)">
+<text fill="var(--svg-text)" font-size="14" font-weight="bold" text-anchor="middle" x="130" y="25">Правило треугольника</text>
+<!-- Вектор u -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="2.5" x1="30" x2="140" y1="140" y2="70"></line>
+<text fill="var(--svg-blue)" font-size="14" font-weight="bold" x="75" y="95">u</text>
+<!-- Вектор v, приложенный к концу u -->
+<line marker-end="url(#arr-amber)" stroke="var(--svg-amber)" stroke-width="2.5" x1="140" x2="240" y1="70" y2="110"></line>
+<text fill="var(--svg-amber)" font-size="14" font-weight="bold" x="195" y="85">v</text>
+<!-- Замыкающий вектор суммы -->
+<line marker-end="url(#arr-red)" stroke="var(--svg-red)" stroke-width="3" x1="30" x2="240" y1="140" y2="110"></line>
+<text fill="var(--svg-red)" font-size="14" font-weight="bold" x="130" y="145">u + v</text>
+<!-- Вершины -->
+<circle cx="30" cy="140" fill="var(--svg-text)" r="3"></circle>
+<text fill="var(--svg-text)" x="15" y="145">A</text>
+<circle cx="140" cy="70" fill="var(--svg-text)" r="3"></circle>
+<text fill="var(--svg-text)" x="135" y="60">B</text>
+<circle cx="240" cy="110" fill="var(--svg-text)" r="3"></circle>
+<text fill="var(--svg-text)" x="245" y="115">C</text>
+</g>
+</svg>
+</div>
+<figcaption>Рис. 3. Геометрическое сложение векторов: правило параллелограмма (диагонали суммы и разности) и правило треугольника.</figcaption>
+</figure>
+<h3 data-toc="5. Умножение вектора на число …" id="sec-1-5">1.5. Умножение вектора на число и вычитание</h3>
+<div class="statement definition" id="def-10"><div class="block-label">Определение 12 (Умножение вектора на число)</div><h3 data-toc="Определение 10" id="sub-2-18">Определение 10</h3><div>
 
-      <!-- РИСУНОК 3: Два правила сложения -->
-      <figure>
-        <div class="svg-container">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg width="600" height="200" viewBox="0 0 600 200">
-            <defs>
-              <marker id="arr-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-red)"/>
-              </marker>
-              <marker id="arr-green" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-green)"/>
-              </marker>
-              <marker id="arr-amber" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-amber)"/>
-              </marker>
-            </defs>
-
-            <!-- ЛЕВАЯ ЧАСТЬ: Правило параллелограмма -->
-            <g transform="translate(10, 0)">
-              <text x="140" y="25" text-anchor="middle" fill="var(--svg-text)" font-weight="bold" font-size="14">Правило параллелограмма</text>
-              <!-- Пунктирные стороны параллелограмма -->
-              <line x1="150" y1="50" x2="250" y2="90" stroke="var(--svg-slate)" stroke-dasharray="4,4" stroke-width="1.5"/>
-              <line x1="140" y1="160" x2="250" y2="90" stroke="var(--svg-slate)" stroke-dasharray="4,4" stroke-width="1.5"/>
-              <!-- Вектор u -->
-              <line x1="40" y1="120" x2="150" y2="50" stroke="var(--svg-blue)" stroke-width="2.5" marker-end="url(#arr-blue)"/>
-              <text x="85" y="75" fill="var(--svg-blue)" font-weight="bold" font-size="14">u</text>
-              <!-- Вектор v -->
-              <line x1="40" y1="120" x2="140" y2="160" stroke="var(--svg-amber)" stroke-width="2.5" marker-end="url(#arr-amber)"/>
-              <text x="85" y="155" fill="var(--svg-amber)" font-weight="bold" font-size="14">v</text>
-              <!-- Сумма u + v (главная диагональ) -->
-              <line x1="40" y1="120" x2="250" y2="90" stroke="var(--svg-red)" stroke-width="3" marker-end="url(#arr-red)"/>
-              <text x="175" y="100" fill="var(--svg-red)" font-weight="bold" font-size="14">u + v</text>
-              <!-- Разность u - v (вторая диагональ) -->
-              <line x1="140" y1="160" x2="150" y2="50" stroke="var(--svg-green)" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
-              <text x="160" y="130" fill="var(--svg-green)" font-weight="bold" font-size="12">u - v</text>
-              <circle cx="40" cy="120" r="4" fill="var(--svg-text)"/>
-              <text x="25" y="125" fill="var(--svg-text)" font-weight="bold">A</text>
-            </g>
-
-            <!-- РАЗДЕЛИТЕЛЬ -->
-            <line x1="300" y1="20" x2="300" y2="180" stroke="var(--border-color)" stroke-width="1"/>
-
-            <!-- ПРАВАЯ ЧАСТЬ: Правило треугольника -->
-            <g transform="translate(320, 0)">
-              <text x="130" y="25" text-anchor="middle" fill="var(--svg-text)" font-weight="bold" font-size="14">Правило треугольника</text>
-              <!-- Вектор u -->
-              <line x1="30" y1="140" x2="140" y2="70" stroke="var(--svg-blue)" stroke-width="2.5" marker-end="url(#arr-blue)"/>
-              <text x="75" y="95" fill="var(--svg-blue)" font-weight="bold" font-size="14">u</text>
-              <!-- Вектор v, приложенный к концу u -->
-              <line x1="140" y1="70" x2="240" y2="110" stroke="var(--svg-amber)" stroke-width="2.5" marker-end="url(#arr-amber)"/>
-              <text x="195" y="85" fill="var(--svg-amber)" font-weight="bold" font-size="14">v</text>
-              <!-- Замыкающий вектор суммы -->
-              <line x1="30" y1="140" x2="240" y2="110" stroke="var(--svg-red)" stroke-width="3" marker-end="url(#arr-red)"/>
-              <text x="130" y="145" fill="var(--svg-red)" font-weight="bold" font-size="14">u + v</text>
-              <!-- Вершины -->
-              <circle cx="30" cy="140" r="3" fill="var(--svg-text)"/>
-              <text x="15" y="145" fill="var(--svg-text)">A</text>
-              <circle cx="140" cy="70" r="3" fill="var(--svg-text)"/>
-              <text x="135" y="60" fill="var(--svg-text)">B</text>
-              <circle cx="240" cy="110" r="3" fill="var(--svg-text)"/>
-              <text x="245" y="115" fill="var(--svg-text)">C</text>
-            </g>
-          </svg></div>
-        </div>
-        <figcaption>Рис. 3. Геометрическое сложение векторов: правило параллелограмма (диагонали суммы и разности) и правило треугольника.</figcaption>
-      </figure>
-
-      <h3 id="sub-17" data-toc="5. Умножение вектора на числ…">1.5. Умножение вектора на число и вычитание</h3>
-
-      <div class="statement definition" id="def-10">
-  <div class="block-label">Определение 10</div>
-  <h3 id="sub-18" data-toc="Определение 12 (Умножение ве…">Определение 12 (Умножение вектора на число)</h3>
-  
-        
         Пусть $\lambda \in \mathbb{R}$, $\vec{a}$ — вектор. <strong>Произведением $\lambda\vec{a}$</strong> называется вектор, для которого:
         <ol>
-          <li>Если $\lambda > 0$, то $\lambda\vec{a} \parallel \vec{a}$, сонаправлен с ним ($\uparrow\uparrow$) и $|\lambda\vec{a}| = \lambda |\vec{a}|$;</li>
-          <li>Если $\lambda = 0$ или $\vec{a} = \vec{0}$, то $\lambda\vec{a} = \vec{0}$;</li>
-          <li>Если $\lambda < 0$, то $\lambda\vec{a} \parallel \vec{a}$, противоположно направлен ($\uparrow\downarrow$) и $|\lambda\vec{a}| = |\lambda| |\vec{a}|$.</li>
-        </ol>
-      
-</div>
+<li>Если $\lambda > 0$, то $\lambda\vec{a} \parallel \vec{a}$, сонаправлен с ним ($\uparrow\uparrow$) и $|\lambda\vec{a}| = \lambda |\vec{a}|$;</li>
+<li>Если $\lambda = 0$ или $\vec{a} = \vec{0}$, то $\lambda\vec{a} = \vec{0}$;</li>
+<li>Если $\lambda < 0$, то $\lambda\vec{a} \parallel \vec{a}$, противоположно направлен ($\uparrow\downarrow$) и $|\lambda\vec{a}| = |\lambda| |\vec{a}|$.</li>
+</ol>
+</div></div>
+<div class="statement definition" id="def-11"><div class="block-label">Определения 13.4 и 14 (Противоположный вектор и вычитание)</div><h3 data-toc="Определение 11" id="sub-2-19">Определение 11</h3><div>
 
-      <div class="statement definition" id="def-11">
-  <div class="block-label">Определение 11</div>
-  <h3 id="sub-19" data-toc="Определения 13.4 и 14 (Проти…">Определения 13.4 и 14 (Противоположный вектор и вычитание)</h3>
-  
-        
         Вектор $(-1)\vec{a}$ называется <strong>противоположным</strong> к $\vec{a}$ и обозначается $-\vec{a}$.
-        <br>
-        <strong>Разностью векторов</strong> называется сумма: $\vec{a} - \vec{b} \stackrel{\text{def}}{=} \vec{a} + (-\vec{b})$.
-      
-</div>
+        <br/>
+<strong>Разностью векторов</strong> называется сумма: $\vec{a} - \vec{b} \stackrel{\text{def}}{=} \vec{a} + (-\vec{b})$.
+      </div></div>
+<h3 data-toc="6. Аксиоматические свойства ли…" id="sec-1-6">1.6. Аксиоматические свойства линейных операций над векторами</h3>
+<div class="statement theorem" id="thm-4"><div class="block-label">Теорема 13 (Свойства линейных операций)</div><h3 data-toc="Теорема 4" id="sub-2-21">Теорема 4</h3><div>
 
-      <h3 id="sub-20" data-toc="6. Аксиоматические свойства …">1.6. Аксиоматические свойства линейных операций над векторами</h3>
-
-      <div class="statement theorem" id="thm-4">
-  <div class="block-label">Утверждение 4</div>
-  <h3 id="sub-21" data-toc="Теорема 13 (Свойства линейны…">Теорема 13 (Свойства линейных операций)</h3>
-  
-        
         Для любых векторов $\vec{a}, \vec{b}, \vec{c}$ и любых $\alpha, \beta \in \mathbb{R}$ выполняются 8 законов линейного пространства:
         <ol>
-          <li>$\vec{a} + \vec{b} = \vec{b} + \vec{a}$ <em>(коммутативность)</em>;</li>
-          <li>$(\vec{a} + \vec{b}) + \vec{c} = \vec{a} + (\vec{b} + \vec{c})$ <em>(ассоциативность)</em>;</li>
-          <li>$\vec{a} + \vec{0} = \vec{a}$ <em>(нейтральный элемент)</em>;</li>
-          <li>$\vec{a} + (-\vec{a}) = \vec{0}$ <em>(противоположный элемент)</em>;</li>
-          <li>$(\alpha\beta)\vec{a} = \alpha(\beta\vec{a})$ <em>(ассоциативность скаляров)</em>;</li>
-          <li>$(\alpha + \beta)\vec{a} = \alpha\vec{a} + \beta\vec{a}$ <em>(дистрибутивность по числам)</em>;</li>
-          <li>$\alpha(\vec{a} + \vec{b}) = \alpha\vec{a} + \alpha\vec{b}$ <em>(дистрибутивность по векторам)</em>;</li>
-          <li>$1 \cdot \vec{a} = \vec{a}$ <em>(унитарность)</em>.</li>
-        </ol>
-      
-</div>
-    </section>
+<li>$\vec{a} + \vec{b} = \vec{b} + \vec{a}$ <em>(коммутативность)</em>;</li>
+<li>$(\vec{a} + \vec{b}) + \vec{c} = \vec{a} + (\vec{b} + \vec{c})$ <em>(ассоциативность)</em>;</li>
+<li>$\vec{a} + \vec{0} = \vec{a}$ <em>(нейтральный элемент)</em>;</li>
+<li>$\vec{a} + (-\vec{a}) = \vec{0}$ <em>(противоположный элемент)</em>;</li>
+<li>$(\alpha\beta)\vec{a} = \alpha(\beta\vec{a})$ <em>(ассоциативность скаляров)</em>;</li>
+<li>$(\alpha + \beta)\vec{a} = \alpha\vec{a} + \beta\vec{a}$ <em>(дистрибутивность по числам)</em>;</li>
+<li>$\alpha(\vec{a} + \vec{b}) = \alpha\vec{a} + \alpha\vec{b}$ <em>(дистрибутивность по векторам)</em>;</li>
+<li>$1 \cdot \vec{a} = \vec{a}$ <em>(унитарность)</em>.</li>
+</ol>
+</div></div>
 
-    <!-- ЧАСТЬ II -->
-    <section id="part-2">
+<!-- ЧАСТЬ II -->
+<section id="part-2">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-3">
-  <div class="chapter-kicker">03 / Часть II. Линейная зависимос…</div>
-  <h2 id="chapter-3" data-toc="Часть II. Линейная зависимос…">Часть II. Линейная зависимость систем векторов, базисы и координаты</h2>
-  <h3 id="sub-22" data-toc="1. Линейные комбинации, лине…">2.1. Линейные комбинации, линейная зависимость и независимость</h3>
-
-      <div class="statement definition" id="def-12">
-  <div class="block-label">Определение 12</div>
-  <h3 id="sub-23" data-toc="Определение 15 (Линейная ком…">Определение 15 (Линейная комбинация)</h3>
+  <div class="chapter-kicker">03 / Часть II. Линейная зависимость…</div>
+  <h2 id="chapter-3" data-toc="Часть II. Линейная зависимость…">Часть II. Линейная зависимость систем векторов, базисы и координаты</h2>
   
-        
-        <strong>Линейной комбинацией</strong> набора векторов $\vec{a}_1, \dots, \vec{a}_k$ с вещественными коэффициентами $\alpha_1, \dots, \alpha_k \in \mathbb{R}$ называется выражение:
-        $$\alpha_1 \vec{a}_1 + \alpha_2 \vec{a}_2 + \dots + \alpha_k \vec{a}_k = \sum_{i=1}^k \alpha_i \vec{a}_i$$
-      
-</div>
+<h3 data-toc="1. Линейные комбинации, линейн…" id="sec-2-1">2.1. Линейные комбинации, линейная зависимость и независимость</h3>
+<div class="statement definition" id="def-12"><div class="block-label">Определение 15 (Линейная комбинация)</div><h3 data-toc="Определение 12" id="sub-3-2">Определение 12</h3><div>
+<strong>Линейной комбинацией</strong> набора векторов $\vec{a}_1, \dots, \vec{a}_k$ с вещественными коэффициентами $\alpha_1, \dots, \alpha_k \in \mathbb{R}$ называется выражение:
+        \[\alpha_1 \vec{a}_1 + \alpha_2 \vec{a}_2 + \dots + \alpha_k \vec{a}_k = \sum_{i=1}^k \alpha_i \vec{a}_i\]
+      </div></div>
+<div class="statement definition" id="def-13"><div class="block-label">Определение 18 (Тривиальная линейная комбинация)</div><h3 data-toc="Определение 13" id="sub-3-3">Определение 13</h3><div>
 
-      <div class="statement definition" id="def-13">
-  <div class="block-label">Определение 13</div>
-  <h3 id="sub-24" data-toc="Определение 18 (Тривиальная …">Определение 18 (Тривиальная линейная комбинация)</h3>
-  
-        
         Линейная комбинация векторов называется <strong>тривиальной</strong>, если все её коэффициенты равны нулю:
-        $$0 \cdot \vec{a}_1 + 0 \cdot \vec{a}_2 + \dots + 0 \cdot \vec{a}_k = \vec{0}$$
+        \[0 \cdot \vec{a}_1 + 0 \cdot \vec{a}_2 + \dots + 0 \cdot \vec{a}_k = \vec{0}\]
         Если хотя бы один коэффициент отличен от нуля ($\sum \alpha_i^2 > 0$), комбинация называется <strong>нетривиальной</strong>.
-      
-</div>
+      </div></div>
+<div class="statement definition" id="def-14"><div class="block-label">Определения 16, 16' (Линейная зависимость)</div><h3 data-toc="Определение 14" id="sub-3-4">Определение 14</h3><div>
 
-      <div class="statement definition" id="def-14">
-  <div class="block-label">Определение 14</div>
-  <h3 id="sub-25" data-toc="Определения 16, 16&#x27; (Линейна…">Определения 16, 16' (Линейная зависимость)</h3>
-  
-        
         Система векторов $\{\vec{a}_1, \dots, \vec{a}_k\}$ называется <strong>линейно зависимой</strong>, если существует нетривиальная линейная комбинация этих векторов, равная нулевому вектору:
-        $$\exists (\alpha_1, \dots, \alpha_k) \neq (0, \dots, 0) : \quad \alpha_1 \vec{a}_1 + \dots + \alpha_k \vec{a}_k = \vec{0}$$
-      
-</div>
+        \[\exists (\alpha_1, \dots, \alpha_k) \neq (0, \dots, 0) : \quad \alpha_1 \vec{a}_1 + \dots + \alpha_k \vec{a}_k = \vec{0}\]
+      </div></div>
+<div class="statement definition" id="def-15"><div class="block-label">Определения 17, 17' (Линейная независимость)</div><h3 data-toc="Определение 15" id="sub-3-5">Определение 15</h3><div>
 
-      <div class="statement definition" id="def-15">
-  <div class="block-label">Определение 15</div>
-  <h3 id="sub-26" data-toc="Определения 17, 17&#x27; (Линейна…">Определения 17, 17' (Линейная независимость)</h3>
-  
-        
         Система векторов называется <strong>линейно независимой</strong>, если только её тривиальная линейная комбинация равна нулевому вектору:
-        $$\alpha_1 \vec{a}_1 + \dots + \alpha_k \vec{a}_k = \vec{0} \implies \alpha_1 = \alpha_2 = \dots = \alpha_k = 0$$
-      
-</div>
+        \[\alpha_1 \vec{a}_1 + \dots + \alpha_k \vec{a}_k = \vec{0} \implies \alpha_1 = \alpha_2 = \dots = \alpha_k = 0\]
+      </div></div>
+<h3 data-toc="2. Критерии линейной зависимос…" id="sec-2-2">2.2. Критерии линейной зависимости систем из одного и нескольких векторов</h3>
+<div class="statement theorem" id="thm-5"><div class="block-label">Теорема 19 (Критерий зависимости системы из одного вектора)</div><h3 data-toc="Теорема 5" id="sub-3-7">Теорема 5</h3><div>
 
-      <h3 id="sub-27" data-toc="2. Критерии линейной зависим…">2.2. Критерии линейной зависимости систем из одного и нескольких векторов</h3>
-
-      <div class="statement theorem" id="thm-5">
-  <div class="block-label">Утверждение 5</div>
-  <h3 id="sub-28" data-toc="Теорема 19 (Критерий зависим…">Теорема 19 (Критерий зависимости системы из одного вектора)</h3>
-  
-        
         Система $\{\vec{a}_1\}$, состоящая из одного вектора, линейно зависима тогда и только тогда, когда этот вектор нулевой:
-        $$\{\vec{a}_1\} \text{ --- линейно зависима} \iff \vec{a}_1 = \vec{0}$$
-      
+        \[\{\vec{a}_1\} \text{ --- линейно зависима} \iff \vec{a}_1 = \vec{0}\]
+      </div></div>
+<div class="proof" data-proof="" id="proof-4">
+<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-      <div class="proof" id="proof-4" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-4" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>($\implies$) Если $\{\vec{a}_1\}$ зависима, то $k_1 \vec{a}_1 = \vec{0}$ при некотором $k_1 \neq 0$. Деля на $k_1$, получаем $\vec{a}_1 = \vec{0}$.</p>
-  </div>
-  <div class="proof-full" id="full-4" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-        
-        <p>($\implies$) Если $\{\vec{a}_1\}$ зависима, то $k_1 \vec{a}_1 = \vec{0}$ при некотором $k_1 \neq 0$. Деля на $k_1$, получаем $\vec{a}_1 = \vec{0}$.</p>
-        <p>($\impliedby$) Если $\vec{a}_1 = \vec{0}$, то для любого $k_1 \neq 0$ (например, $k_1 = 1$) имеем $1 \cdot \vec{0} = \vec{0}$ — нетривиальная сумма равна нулю, система зависима.</p>
-        <span class="proof-qed">&#9632;</span>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<div class="proof-idea" data-proof-idea="" id="idea-4">
+<div class="proof-label">Идея</div>
+<p>($\implies$) Если $\{\vec{a}_1\}$ зависима, то $k_1 \vec{a}_1 = \vec{0}$ при некотором $k_1 \neq 0$.</p>
 </div>
+<div class="proof-full" data-proof-full="" id="full-4">
+<div class="proof-label">Доказательство (Доказательство)</div>
+<p>($\implies$) Если $\{\vec{a}_1\}$ зависима, то $k_1 \vec{a}_1 = \vec{0}$ при некотором $k_1 \neq 0$. Деля на $k_1$, получаем $\vec{a}_1 = \vec{0}$.</p>
+<p>($\impliedby$) Если $\vec{a}_1 = \vec{0}$, то для любого $k_1 \neq 0$ (например, $k_1 = 1$) имеем $1 \cdot \vec{0} = \vec{0}$ — нетривиальная сумма равна нулю, система зависима.</p>
+<span class="proof-qed">■</span>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="statement theorem" id="thm-6"><div class="block-label">Теорема 20 (Критерий зависимости системы из $\ge 2$ векторов)</div><h3 data-toc="Теорема 6" id="sub-3-8">Теорема 6</h3><div>
 
-      <div class="statement theorem" id="thm-6">
-  <div class="block-label">Утверждение 6</div>
-  <h3 id="sub-29" data-toc="Теорема 20 (Критерий зависим…">Теорема 20 (Критерий зависимости системы из $\ge 2$ векторов)</h3>
-  
-        
         Система $\{\vec{a}_1, \dots, \vec{a}_k\}$ ($k \ge 2$) линейно зависима тогда и только тогда, когда хотя бы один из её векторов есть линейная комбинация остальных векторов системы.
-      
+      </div></div>
+<div class="proof" data-proof="" id="proof-5">
+<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-      <div class="proof" id="proof-5" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-5" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>($\implies$) Пусть система зависима: $k_1 \vec{a}_1 + \dots + k_k \vec{a}_k = \vec{0}$, где не все $k_i$ равны нулю. Пусть для определённости $k_1 \neq 0$. Тогда переносим слагаемые и делим на $k_1$:</p>
-  </div>
-  <div class="proof-full" id="full-5" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-        
-        <p>($\implies$) Пусть система зависима: $k_1 \vec{a}_1 + \dots + k_k \vec{a}_k = \vec{0}$, где не все $k_i$ равны нулю. Пусть для определённости $k_1 \neq 0$. Тогда переносим слагаемые и делим на $k_1$:
-        $$\vec{a}_1 = \left(-\frac{k_2}{k_1}\right)\vec{a}_2 + \dots + \left(-\frac{k_k}{k_1}\right)\vec{a}_k$$
+<div class="proof-idea" data-proof-idea="" id="idea-5">
+<div class="proof-label">Идея</div>
+<p>($\implies$) Пусть система зависима: $k_1 \vec{a}_1 + \dots + k_k \vec{a}_k = \vec{0}$, где не все $k_i$ равны нулю.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-5">
+<div class="proof-label">Доказательство (Доказательство)</div>
+<p>($\implies$) Пусть система зависима: $k_1 \vec{a}_1 + \dots + k_k \vec{a}_k = \vec{0}$, где не все $k_i$ равны нулю. Пусть для определённости $k_1 \neq 0$. Тогда переносим слагаемые и делим на $k_1$:
+        \[\vec{a}_1 = \left(-\frac{k_2}{k_1}\right)\vec{a}_2 + \dots + \left(-\frac{k_k}{k_1}\right)\vec{a}_k\]
         Вектор $\vec{a}_1$ выражен через остальные.</p>
-        <p>($\impliedby$) Пусть $\vec{a}_1 = c_2 \vec{a}_2 + \dots + c_k \vec{a}_k$. Перенося всё влево:
-        $$1 \cdot \vec{a}_1 - c_2 \vec{a}_2 - \dots - c_k \vec{a}_k = \vec{0}$$
+<p>($\impliedby$) Пусть $\vec{a}_1 = c_2 \vec{a}_2 + \dots + c_k \vec{a}_k$. Перенося всё влево:
+        \[1 \cdot \vec{a}_1 - c_2 \vec{a}_2 - \dots - c_k \vec{a}_k = \vec{0}\]
         Так как коэффициент перед $\vec{a}_1$ равен $1 \neq 0$, комбинация нетривиальна, система линейно зависима.</p>
-        <span class="proof-qed">&#9632;</span>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<span class="proof-qed">■</span>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<h3 data-toc="3. Теоремы о «наследственности…" id="sec-2-3">2.3. Теоремы о «наследственности» линейной зависимости и независимости</h3>
+<div class="statement theorem" id="thm-7"><div class="block-label">Теорема 21 (О расширении зависимой системы)</div><h3 data-toc="Теорема 7" id="sub-3-10">Теорема 7</h3><div>
 
-      <h3 id="sub-30" data-toc="3. Теоремы о «наследственнос…">2.3. Теоремы о «наследственности» линейной зависимости и независимости</h3>
-
-      <div class="statement theorem" id="thm-7">
-  <div class="block-label">Утверждение 7</div>
-  <h3 id="sub-31" data-toc="Теорема 21 (О расширении зав…">Теорема 21 (О расширении зависимой системы)</h3>
-  
-        
         Если система векторов линейно зависима, то любое её расширение также является линейно зависимой системой.
-      
+      </div></div>
+<div class="proof" data-proof="" id="proof-6">
+<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-      <div class="proof" id="proof-6" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-6" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
-  </div>
-  <div class="proof-full" id="full-6" data-proof-full>
-    <div class="proof-label">Доказательство</div>
+<div class="proof-idea" data-proof-idea="" id="idea-6">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-6">
+<div class="proof-label">Доказательство (Доказательство)</div>
     
-        
+
         Пусть $k_1 \vec{a}_1 + \dots + k_n \vec{a}_n = \vec{0}$ (не все $k_i = 0$). Добавляя новые векторы с коэффициентами ноль: $k_1 \vec{a}_1 + \dots + k_n \vec{a}_n + 0\cdot\vec{b}_1 + \dots + 0\cdot\vec{b}_m = \vec{0}$. Набор коэффициентов остаётся нетривиальным, расширенная система зависима.
-        <span class="proof-qed">&#9632;</span>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+        <span class="proof-qed">■</span>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<div class="statement theorem" id="thm-8"><div class="block-label">Теорема 22 (О подсистеме независимой системы)</div><h3 data-toc="Теорема 8" id="sub-3-11">Теорема 8</h3><div>
 
-      <div class="statement theorem" id="thm-8">
-  <div class="block-label">Утверждение 8</div>
-  <h3 id="sub-32" data-toc="Теорема 22 (О подсистеме нез…">Теорема 22 (О подсистеме независимой системы)</h3>
-  
-        
         Любая подсистема линейно независимой системы векторов является линейно независимой.
-      
+      </div></div>
+<div class="proof" data-proof="" id="proof-7">
+<div aria-label="Доказательство Доказательство (от противного)" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-      <div class="proof" id="proof-7" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство (от противного)">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-7" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (Доказательство (от противного)).</p>
-  </div>
-  <div class="proof-full" id="full-7" data-proof-full>
-    <div class="proof-label">Доказательство</div>
+<div class="proof-idea" data-proof-idea="" id="idea-7">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство (от противного)).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-7">
+<div class="proof-label">Доказательство (Доказательство (от противного))</div>
     
-        
+
         Если бы подсистема была зависима, то по теореме 21 вся исходная система была бы зависима, что противоречит условию.
-        <span class="proof-qed">&#9632;</span>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+        <span class="proof-qed">■</span>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-
-      <h3 id="sub-33" data-toc="4. Максимальное число линейн…">2.4. Максимальное число линейно независимых векторов на прямой, плоскости и в пространстве</h3>
-
-      <div class="statement theorem" id="thm-9">
-  <div class="block-label">Утверждение 9</div>
-  <h3 id="sub-34" data-toc="Теорема 23 (О линейной завис…">Теорема 23 (О линейной зависимости в геометрии)</h3>
-  
-        
-        <ol>
-          <li>Любые $\ge 2$ векторов на прямой линейно зависимы;</li>
-          <li>Любые $\ge 3$ векторов на плоскости линейно зависимы;</li>
-          <li>Любые $\ge 4$ векторов в пространстве линейно зависимы.</li>
-        </ol>
-      
 </div>
-      <div class="proof" id="proof-8" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-8" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>1) Два ненулевых вектора на прямой коллинеарны, поэтому $\vec{u} = k\vec{v}$. По теореме 20 они зависимы. По теореме 21 любая система из $\ge 2$ векторов зависима.</p>
-  </div>
-  <div class="proof-full" id="full-8" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-        
-        <p>1) Два ненулевых вектора на прямой коллинеарны, поэтому $\vec{u} = k\vec{v}$. По теореме 20 они зависимы. По теореме 21 любая система из $\ge 2$ векторов зависима.</p>
-        <p>2) Три вектора на плоскости $\vec{u}, \vec{v}, \vec{w}$: если любые два неколлинеарны, то третий раскладывается по правилу параллелограмма в сумму $\vec{w} = k_1\vec{u} + k_2\vec{v}$. Система зависима. Любая система из $\ge 3$ векторов зависима по теореме 21.</p>
-        <p>3) Четыре вектора в пространстве: некомпланарная тройка задаёт рёбра параллелепипеда, а четвёртый вектор раскладывается в его пространственную диагональ: $\vec{d} = c_1\vec{a} + c_2\vec{b} + c_3\vec{c}$. Система зависима. Любая система из $\ge 4$ векторов зависима.</p>
-        <span class="proof-qed">&#9632;</span>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<h3 data-toc="4. Максимальное число линейно …" id="sec-2-4">2.4. Максимальное число линейно независимых векторов на прямой, плоскости и в пространстве</h3>
+<div class="statement theorem" id="thm-9"><div class="block-label">Теорема 23 (О линейной зависимости в геометрии)</div><h3 data-toc="Теорема 9" id="sub-3-13">Теорема 9</h3><div>
+<ol>
+<li>Любые $\ge 2$ векторов на прямой линейно зависимы;</li>
+<li>Любые $\ge 3$ векторов на плоскости линейно зависимы;</li>
+<li>Любые $\ge 4$ векторов в пространстве линейно зависимы.</li>
+</ol>
+</div></div>
+<div class="proof" data-proof="" id="proof-8">
+<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-
-      <!-- РИСУНОК 4: Четкое разложение на плоскости -->
-      <figure>
-        <div class="svg-container">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg width="620" height="210" viewBox="0 0 620 210">
-            <!-- Левая панель: Исходные векторы -->
-            <g transform="translate(10, 0)">
-              <text x="90" y="25" text-anchor="middle" fill="var(--svg-text)" font-weight="bold" font-size="13">1. Исходные векторы</text>
-              <!-- e1 -->
-              <line x1="30" y1="90" x2="110" y2="90" stroke="var(--svg-blue)" stroke-width="2.5" marker-end="url(#arr-blue)"/>
-              <text x="65" y="80" fill="var(--svg-blue)" font-weight="bold" font-size="13">e₁</text>
-              <!-- e2 -->
-              <line x1="30" y1="170" x2="80" y2="115" stroke="var(--svg-amber)" stroke-width="2.5" marker-end="url(#arr-amber)"/>
-              <text x="45" y="135" fill="var(--svg-amber)" font-weight="bold" font-size="13">e₂</text>
-              <!-- Произвольный вектор w -->
-              <line x1="100" y1="180" x2="170" y2="95" stroke="var(--svg-red)" stroke-width="2.5" marker-end="url(#arr-red)"/>
-              <text x="145" y="145" fill="var(--svg-red)" font-weight="bold" font-size="13">w</text>
-            </g>
-
-            <!-- Разделитель -->
-            <line x1="205" y1="20" x2="205" y2="190" stroke="var(--border-color)" stroke-width="1"/>
-
-            <!-- Правая панель: Построение разложения -->
-            <g transform="translate(220, 0)">
-              <text x="190" y="25" text-anchor="middle" fill="var(--svg-text)" font-weight="bold" font-size="13">2. Геометрическое разложение w = k₁e₁ + k₂e₂</text>
-              <!-- Пунктирные стороны замыкания параллелограмма -->
-              <line x1="260" y1="165" x2="330" y2="85" stroke="var(--svg-slate)" stroke-dasharray="4,4" stroke-width="1.5"/>
-              <line x1="110" y1="85" x2="330" y2="85" stroke="var(--svg-slate)" stroke-dasharray="4,4" stroke-width="1.5"/>
-              <!-- Базисный вектор e1 на оси (отметка длины) -->
-              <line x1="40" y1="165" x2="120" y2="165" stroke="var(--svg-blue)" stroke-width="1.5" stroke-dasharray="2,2"/>
-              <line x1="120" y1="160" x2="120" y2="170" stroke="var(--svg-blue)" stroke-width="1.5"/>
-              <text x="75" y="180" fill="var(--svg-blue)" font-size="11">e₁</text>
-              <!-- Компонента k1*e1 (полная сторона) -->
-              <line x1="40" y1="165" x2="260" y2="165" stroke="var(--svg-blue)" stroke-width="3" marker-end="url(#arr-blue)"/>
-              <text x="180" y="185" fill="var(--svg-blue)" font-weight="bold" font-size="14">k₁e₁</text>
-              <!-- Базисный вектор e2 на оси (отметка длины) -->
-              <line x1="75" y1="125" x2="75" y2="135" stroke="var(--svg-amber)" stroke-width="1.5"/>
-              <text x="45" y="145" fill="var(--svg-amber)" font-size="11">e₂</text>
-              <!-- Компонента k2*e2 (вторая сторона) -->
-              <line x1="40" y1="165" x2="110" y2="85" stroke="var(--svg-amber)" stroke-width="3" marker-end="url(#arr-amber)"/>
-              <text x="50" y="95" fill="var(--svg-amber)" font-weight="bold" font-size="14">k₂e₂</text>
-              <!-- Диагональ w -->
-              <line x1="40" y1="165" x2="330" y2="85" stroke="var(--svg-red)" stroke-width="3.5" marker-end="url(#arr-red)"/>
-              <text x="200" y="115" fill="var(--svg-red)" font-weight="bold" font-size="15">w = k₁e₁ + k₂e₂</text>
-              <!-- Точка O -->
-              <circle cx="40" cy="165" r="4" fill="var(--svg-text)"/>
-              <text x="25" y="170" fill="var(--svg-text)" font-weight="bold">O</text>
-            </g>
-          </svg></div>
-        </div>
-        <figcaption>Рис. 4. Разложение вектора $\vec{w}$ по базису неколлинеарных векторов $\{\vec{e}_1, \vec{e}_2\}$ по правилу параллелограмма.</figcaption>
-      </figure>
-
-      <h3 id="sub-35" data-toc="5. Понятие базиса. Теорема о…">2.5. Понятие базиса. Теорема о строении базисов</h3>
-
-      <div class="statement definition" id="def-16">
-  <div class="block-label">Определение 16</div>
-  <h3 id="sub-36" data-toc="Определение 24 (Базис)">Определение 24 (Базис)</h3>
-  
-        
-        <strong>Базисом</strong> в данном множестве векторов называется <strong>максимальный по числу векторов упорядоченный набор линейно независимых векторов</strong> этого множества.
-      
+<div class="proof-idea" data-proof-idea="" id="idea-8">
+<div class="proof-label">Идея</div>
+<p>1) Два ненулевых вектора на прямой коллинеарны, поэтому $\vec{u} = k\vec{v}$.</p>
 </div>
-
-      <div class="statement theorem" id="thm-10">
-  <div class="block-label">Утверждение 10</div>
-  <h3 id="sub-37" data-toc="Теорема 25 (Строение базисов…">Теорема 25 (Строение базисов в геометрических пространствах)</h3>
-  
-        
-        <ol>
-          <li>В множестве $\{\vec{0}\}$ базиса нет;</li>
-          <li>Любой ненулевой вектор образует базис на прямой ($V_1$);</li>
-          <li>Любая упорядоченная пара неколлинеарных векторов образует базис на плоскости ($V_2$);</li>
-          <li>Любая упорядоченная тройка некомпланарных векторов образует базис пространства ($V_3$);</li>
-          <li>Других базисов в данных множествах не существует.</li>
-        </ol>
-      
+<div class="proof-full" data-proof-full="" id="full-8">
+<div class="proof-label">Доказательство (Доказательство)</div>
+<p>1) Два ненулевых вектора на прямой коллинеарны, поэтому $\vec{u} = k\vec{v}$. По теореме 20 они зависимы. По теореме 21 любая система из $\ge 2$ векторов зависима.</p>
+<p>2) Три вектора на плоскости $\vec{u}, \vec{v}, \vec{w}$: если любые два неколлинеарны, то третий раскладывается по правилу параллелограмма в сумму $\vec{w} = k_1\vec{u} + k_2\vec{v}$. Система зависима. Любая система из $\ge 3$ векторов зависима по теореме 21.</p>
+<p>3) Четыре вектора в пространстве: некомпланарная тройка задаёт рёбра параллелепипеда, а четвёртый вектор раскладывается в его пространственную диагональ: $\vec{d} = c_1\vec{a} + c_2\vec{b} + c_3\vec{c}$. Система зависима. Любая система из $\ge 4$ векторов зависима.</p>
+<span class="proof-qed">■</span>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<!-- РИСУНОК 4: Четкое разложение на плоскости -->
+<figure>
+<div class="svg-container">
+<svg height="210" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 620 210" width="620">
+<!-- Левая панель: Исходные векторы -->
+<g transform="translate(10, 0)">
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" text-anchor="middle" x="90" y="25">1. Исходные векторы</text>
+<!-- e1 -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="2.5" x1="30" x2="110" y1="90" y2="90"></line>
+<text fill="var(--svg-blue)" font-size="13" font-weight="bold" x="65" y="80">e₁</text>
+<!-- e2 -->
+<line marker-end="url(#arr-amber)" stroke="var(--svg-amber)" stroke-width="2.5" x1="30" x2="80" y1="170" y2="115"></line>
+<text fill="var(--svg-amber)" font-size="13" font-weight="bold" x="45" y="135">e₂</text>
+<!-- Произвольный вектор w -->
+<line marker-end="url(#arr-red)" stroke="var(--svg-red)" stroke-width="2.5" x1="100" x2="170" y1="180" y2="95"></line>
+<text fill="var(--svg-red)" font-size="13" font-weight="bold" x="145" y="145">w</text>
+</g>
+<!-- Разделитель -->
+<line stroke="var(--border-color)" stroke-width="1" x1="205" x2="205" y1="20" y2="190"></line>
+<!-- Правая панель: Построение разложения -->
+<g transform="translate(220, 0)">
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" text-anchor="middle" x="190" y="25">2. Геометрическое разложение w = k₁e₁ + k₂e₂</text>
+<!-- Пунктирные стороны замыкания параллелограмма -->
+<line stroke="var(--svg-slate)" stroke-dasharray="4,4" stroke-width="1.5" x1="260" x2="330" y1="165" y2="85"></line>
+<line stroke="var(--svg-slate)" stroke-dasharray="4,4" stroke-width="1.5" x1="110" x2="330" y1="85" y2="85"></line>
+<!-- Базисный вектор e1 на оси (отметка длины) -->
+<line stroke="var(--svg-blue)" stroke-dasharray="2,2" stroke-width="1.5" x1="40" x2="120" y1="165" y2="165"></line>
+<line stroke="var(--svg-blue)" stroke-width="1.5" x1="120" x2="120" y1="160" y2="170"></line>
+<text fill="var(--svg-blue)" font-size="11" x="75" y="180">e₁</text>
+<!-- Компонента k1*e1 (полная сторона) -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="3" x1="40" x2="260" y1="165" y2="165"></line>
+<text fill="var(--svg-blue)" font-size="14" font-weight="bold" x="180" y="185">k₁e₁</text>
+<!-- Базисный вектор e2 на оси (отметка длины) -->
+<line stroke="var(--svg-amber)" stroke-width="1.5" x1="75" x2="75" y1="125" y2="135"></line>
+<text fill="var(--svg-amber)" font-size="11" x="45" y="145">e₂</text>
+<!-- Компонента k2*e2 (вторая сторона) -->
+<line marker-end="url(#arr-amber)" stroke="var(--svg-amber)" stroke-width="3" x1="40" x2="110" y1="165" y2="85"></line>
+<text fill="var(--svg-amber)" font-size="14" font-weight="bold" x="50" y="95">k₂e₂</text>
+<!-- Диагональ w -->
+<line marker-end="url(#arr-red)" stroke="var(--svg-red)" stroke-width="3.5" x1="40" x2="330" y1="165" y2="85"></line>
+<text fill="var(--svg-red)" font-size="15" font-weight="bold" x="200" y="115">w = k₁e₁ + k₂e₂</text>
+<!-- Точка O -->
+<circle cx="40" cy="165" fill="var(--svg-text)" r="4"></circle>
+<text fill="var(--svg-text)" font-weight="bold" x="25" y="170">O</text>
+</g>
+</svg>
+</div>
+<figcaption>Рис. 4. Разложение вектора $\vec{w}$ по базису неколлинеарных векторов $\{\vec{e}_1, \vec{e}_2\}$ по правилу параллелограмма.</figcaption>
+</figure>
+<h3 data-toc="5. Понятие базиса. Теорема о с…" id="sec-2-5">2.5. Понятие базиса. Теорема о строении базисов</h3>
+<div class="statement definition" id="def-16"><div class="block-label">Определение 24 (Базис)</div><h3 data-toc="Определение 16" id="sub-3-15">Определение 16</h3><div>
+<strong>Базисом</strong> в данном множестве векторов называется <strong>максимальный по числу векторов упорядоченный набор линейно независимых векторов</strong> этого множества.
+      </div></div>
+<div class="statement theorem" id="thm-10"><div class="block-label">Теорема 25 (Строение базисов в геометрических пространствах)</div><h3 data-toc="Теорема 10" id="sub-3-16">Теорема 10</h3><div>
+<ol>
+<li>В множестве $\{\vec{0}\}$ базиса нет;</li>
+<li>Любой ненулевой вектор образует базис на прямой ($V_1$);</li>
+<li>Любая упорядоченная пара неколлинеарных векторов образует базис на плоскости ($V_2$);</li>
+<li>Любая упорядоченная тройка некомпланарных векторов образует базис пространства ($V_3$);</li>
+<li>Других базисов в данных множествах не существует.</li>
+</ol>
+</div></div>
+<h3 data-toc="6. Разложение вектора по базис…" id="sec-2-6">2.6. Разложение вектора по базису: существование и единственность</h3>
+<div class="statement theorem" id="thm-11"><div class="block-label">Теорема 26 (О разложении вектора по базису)</div><h3 data-toc="Теорема 11" id="sub-3-18">Теорема 11</h3><div>
 
-      <h3 id="sub-38" data-toc="6. Разложение вектора по баз…">2.6. Разложение вектора по базису: существование и единственность</h3>
-
-      <div class="statement theorem" id="thm-11">
-  <div class="block-label">Утверждение 11</div>
-  <h3 id="sub-39" data-toc="Теорема 26 (О разложении век…">Теорема 26 (О разложении вектора по базису)</h3>
-  
-        
         Пусть $\{\vec{e}_1, \vec{e}_2, \vec{e}_3\}$ — базис в $V_3$. Тогда любой вектор $\vec{a} \in V_3$ можно представить в виде линейной комбинации базисных векторов:
-        $$\vec{a} = a_1 \vec{e}_1 + a_2 \vec{e}_2 + a_3 \vec{e}_3 \quad (**)$$
+        \[\vec{a} = a_1 \vec{e}_1 + a_2 \vec{e}_2 + a_3 \vec{e}_3 \quad (**)\]
         причём коэффициенты такого разложения определяются <strong>единственным образом</strong>.
-      
+      </div></div>
+<div class="proof" data-proof="" id="proof-9">
+<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-      <div class="proof" id="proof-9" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-9" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>1. Существование ($\exists$):</strong> Система $\{\vec{a}, \vec{e}_1, \vec{e}_2, \vec{e}_3\}$ содержит 4 вектора в трёхмерном пространстве и по теореме 23.3 линейно зависима. Существует нетривиальный набор:</p>
-  </div>
-  <div class="proof-full" id="full-9" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-        
-        <p><strong>1. Существование ($\exists$):</strong> Система $\{\vec{a}, \vec{e}_1, \vec{e}_2, \vec{e}_3\}$ содержит 4 вектора в трёхмерном пространстве и по теореме 23.3 линейно зависима. Существует нетривиальный набор:
-        $$\lambda \vec{a} + \lambda_1 \vec{e}_1 + \lambda_2 \vec{e}_2 + \lambda_3 \vec{e}_3 = \vec{0} \quad (***)$$
+<div class="proof-idea" data-proof-idea="" id="idea-9">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-9">
+<div class="proof-label">Доказательство (Доказательство)</div>
+<p><strong>1. Существование ($\exists$):</strong> Система $\{\vec{a}, \vec{e}_1, \vec{e}_2, \vec{e}_3\}$ содержит 4 вектора в трёхмерном пространстве и по теореме 23.3 линейно зависима. Существует нетривиальный набор:
+        \[\lambda \vec{a} + \lambda_1 \vec{e}_1 + \lambda_2 \vec{e}_2 + \lambda_3 \vec{e}_3 = \vec{0} \quad (***)\]
         Если бы $\lambda = 0$, то нетривиальная комбинация базисных векторов давала бы $\vec{0}$, что противоречит линейной независимости базиса. Следовательно, $\lambda \neq 0$. Разделив $(***)$ на $\lambda$, получаем искомое разложение $(**)$ с коэффициентами $a_i = -\lambda_i / \lambda$.</p>
-        
-        <p><strong>2. Единственность ($!$):</strong> Пусть существуют два разложения:
-        $$\vec{a} = a_1 \vec{e}_1 + a_2 \vec{e}_2 + a_3 \vec{e}_3 \quad \text{и} \quad \vec{a} = b_1 \vec{e}_1 + b_2 \vec{e}_2 + b_3 \vec{e}_3$$
+<p><strong>2. Единственность ($!$):</strong> Пусть существуют два разложения:
+        \[\vec{a} = a_1 \vec{e}_1 + a_2 \vec{e}_2 + a_3 \vec{e}_3 \quad \text{и} \quad \vec{a} = b_1 \vec{e}_1 + b_2 \vec{e}_2 + b_3 \vec{e}_3\]
         Вычитая второе из первого:
-        $$(a_1 - b_1)\vec{e}_1 + (a_2 - b_2)\vec{e}_2 + (a_3 - b_3)\vec{e}_3 = \vec{0}$$
+        \[(a_1 - b_1)\vec{e}_1 + (a_2 - b_2)\vec{e}_2 + (a_3 - b_3)\vec{e}_3 = \vec{0}\]
         Так как базисные векторы линейно независимы, линейная комбинация равна $\vec{0}$ тогда и только тогда, когда все коэффициенты нулевые:
-        $$a_1 - b_1 = 0, \quad a_2 - b_2 = 0, \quad a_3 - b_3 = 0 \implies a_i = b_i \quad \forall i \in \{1, 2, 3\}$$
+        \[a_1 - b_1 = 0, \quad a_2 - b_2 = 0, \quad a_3 - b_3 = 0 \implies a_i = b_i \quad \forall i \in \{1, 2, 3\}\]
         Разложение единственно.</p>
-        <span class="proof-qed">&#9632;</span>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<span class="proof-qed">■</span>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<!-- РИСУНОК 5: Разложение в пространстве (Параллелепипед) -->
+<figure>
+<div class="svg-container">
+<svg height="250" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 500 250" width="500">
+<!-- Невидимые задние ребра (пунктир) -->
+<line stroke="var(--svg-slate)" stroke-dasharray="3,3" stroke-width="1.2" x1="80" x2="180" y1="190" y2="150"></line>
+<line stroke="var(--svg-slate)" stroke-dasharray="3,3" stroke-width="1.2" x1="180" x2="380" y1="150" y2="150"></line>
+<line stroke="var(--svg-slate)" stroke-dasharray="3,3" stroke-width="1.2" x1="180" x2="180" y1="150" y2="40"></line>
+<!-- Видимый каркас параллелепипеда -->
+<line stroke="var(--border-color)" stroke-width="1.5" x1="80" x2="280" y1="80" y2="80"></line>
+<line stroke="var(--border-color)" stroke-width="1.5" x1="280" x2="380" y1="80" y2="40"></line>
+<line stroke="var(--border-color)" stroke-width="1.5" x1="180" x2="380" y1="40" y2="40"></line>
+<line stroke="var(--border-color)" stroke-width="1.5" x1="80" x2="180" y1="80" y2="40"></line>
+<line stroke="var(--border-color)" stroke-width="1.5" x1="280" x2="380" y1="190" y2="150"></line>
+<line stroke="var(--border-color)" stroke-width="1.5" x1="280" x2="280" y1="190" y2="80"></line>
+<line stroke="var(--border-color)" stroke-width="1.5" x1="380" x2="380" y1="150" y2="40"></line>
+<!-- Базисные составляющие (ребра параллелепипеда) -->
+<!-- a1*e1 (по оси x вправо) -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="2.8" x1="80" x2="280" y1="190" y2="190"></line>
+<text fill="var(--svg-blue)" font-size="13" font-weight="bold" x="210" y="210">a₁e₁</text>
+<!-- a2*e2 (по оси y вверх) -->
+<line marker-end="url(#arr-amber)" stroke="var(--svg-amber)" stroke-width="2.8" x1="80" x2="80" y1="190" y2="80"></line>
+<text fill="var(--svg-amber)" font-size="13" font-weight="bold" x="40" y="130">a₂e₂</text>
+<!-- a3*e3 (по оси z в глубину) -->
+<line marker-end="url(#arr-green)" stroke="var(--svg-green)" stroke-width="2.5" x1="80" x2="180" y1="190" y2="150"></line>
+<text fill="var(--svg-green)" font-size="13" font-weight="bold" x="145" y="175">a₃e₃</text>
+<!-- Главная пространственная диагональ a -->
+<line marker-end="url(#arr-red)" stroke="var(--svg-red)" stroke-width="3.5" x1="80" x2="380" y1="190" y2="40"></line>
+<text fill="var(--svg-red)" font-size="15" font-weight="bold" x="250" y="105">a = a₁e₁ + a₂e₂ + a₃e₃</text>
+<circle cx="80" cy="190" fill="var(--svg-text)" r="4"></circle>
+<text fill="var(--svg-text)" font-weight="bold" x="65" y="205">O</text>
+</svg>
+</div>
+<figcaption>Рис. 5. Разложение пространственного вектора $\vec{a}$ по трём некомпланарным базисным векторам в диагональ параллелепипеда.</figcaption>
+</figure>
+<h3 data-toc="7. Компоненты и координаты век…" id="sec-2-7">2.7. Компоненты и координаты вектора. Операции в координатной форме</h3>
+<div class="statement definition" id="def-17"><div class="block-label">Определение 27 (Компоненты и координаты вектора)</div><h3 data-toc="Определение 17" id="sub-3-20">Определение 17</h3><div>
 
-      <!-- РИСУНОК 5: Разложение в пространстве (Параллелепипед) -->
-      <figure>
-        <div class="svg-container">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg width="500" height="250" viewBox="0 0 500 250">
-            <!-- Невидимые задние ребра (пунктир) -->
-            <line x1="80" y1="190" x2="180" y2="150" stroke="var(--svg-slate)" stroke-dasharray="3,3" stroke-width="1.2"/>
-            <line x1="180" y1="150" x2="380" y2="150" stroke="var(--svg-slate)" stroke-dasharray="3,3" stroke-width="1.2"/>
-            <line x1="180" y1="150" x2="180" y2="40" stroke="var(--svg-slate)" stroke-dasharray="3,3" stroke-width="1.2"/>
-
-            <!-- Видимый каркас параллелепипеда -->
-            <line x1="80" y1="80" x2="280" y2="80" stroke="var(--border-color)" stroke-width="1.5"/>
-            <line x1="280" y1="80" x2="380" y2="40" stroke="var(--border-color)" stroke-width="1.5"/>
-            <line x1="180" y1="40" x2="380" y2="40" stroke="var(--border-color)" stroke-width="1.5"/>
-            <line x1="80" y1="80" x2="180" y2="40" stroke="var(--border-color)" stroke-width="1.5"/>
-
-            <line x1="280" y1="190" x2="380" y2="150" stroke="var(--border-color)" stroke-width="1.5"/>
-            <line x1="280" y1="190" x2="280" y2="80" stroke="var(--border-color)" stroke-width="1.5"/>
-            <line x1="380" y1="150" x2="380" y2="40" stroke="var(--border-color)" stroke-width="1.5"/>
-
-            <!-- Базисные составляющие (ребра параллелепипеда) -->
-            <!-- a1*e1 (по оси x вправо) -->
-            <line x1="80" y1="190" x2="280" y2="190" stroke="var(--svg-blue)" stroke-width="2.8" marker-end="url(#arr-blue)"/>
-            <text x="210" y="210" fill="var(--svg-blue)" font-weight="bold" font-size="13">a₁e₁</text>
-
-            <!-- a2*e2 (по оси y вверх) -->
-            <line x1="80" y1="190" x2="80" y2="80" stroke="var(--svg-amber)" stroke-width="2.8" marker-end="url(#arr-amber)"/>
-            <text x="40" y="130" fill="var(--svg-amber)" font-weight="bold" font-size="13">a₂e₂</text>
-
-            <!-- a3*e3 (по оси z в глубину) -->
-            <line x1="80" y1="190" x2="180" y2="150" stroke="var(--svg-green)" stroke-width="2.5" marker-end="url(#arr-green)"/>
-            <text x="145" y="175" fill="var(--svg-green)" font-weight="bold" font-size="13">a₃e₃</text>
-
-            <!-- Главная пространственная диагональ a -->
-            <line x1="80" y1="190" x2="380" y2="40" stroke="var(--svg-red)" stroke-width="3.5" marker-end="url(#arr-red)"/>
-            <text x="250" y="105" fill="var(--svg-red)" font-weight="bold" font-size="15">a = a₁e₁ + a₂e₂ + a₃e₃</text>
-
-            <circle cx="80" cy="190" r="4" fill="var(--svg-text)"/>
-            <text x="65" y="205" fill="var(--svg-text)" font-weight="bold">O</text>
-          </svg></div>
-        </div>
-        <figcaption>Рис. 5. Разложение пространственного вектора $\vec{a}$ по трём некомпланарным базисным векторам в диагональ параллелепипеда.</figcaption>
-      </figure>
-
-      <h3 id="sub-40" data-toc="7. Компоненты и координаты в…">2.7. Компоненты и координаты вектора. Операции в координатной форме</h3>
-
-      <div class="statement definition" id="def-17">
-  <div class="block-label">Определение 17</div>
-  <h3 id="sub-41" data-toc="Определение 27 (Компоненты и…">Определение 27 (Компоненты и координаты вектора)</h3>
-  
-        
         В разложении $\vec{a} = a_1 \vec{e}_1 + a_2 \vec{e}_2 + a_3 \vec{e}_3$:
         <ul>
-          <li>Векторы $a_1 \vec{e}_1, \, a_2 \vec{e}_2, \, a_3 \vec{e}_3$ называются <strong>компонентами</strong> вектора $\vec{a}$ в данном базисе;</li>
-          <li>Скаляры $a_1, a_2, a_3 \in \mathbb{R}$ называются <strong>координатами</strong> вектора $\vec{a}$ в данном базисе.</li>
-        </ul>
+<li>Векторы $a_1 \vec{e}_1, \, a_2 \vec{e}_2, \, a_3 \vec{e}_3$ называются <strong>компонентами</strong> вектора $\vec{a}$ в данном базисе;</li>
+<li>Скаляры $a_1, a_2, a_3 \in \mathbb{R}$ называются <strong>координатами</strong> вектора $\vec{a}$ в данном базисе.</li>
+</ul>
         Обозначение: $\vec{a} = (a_1, a_2, a_3)$ или $\vec{a}\{a_1, a_2, a_3\}$.
-      
-</div>
+      </div></div>
+<div class="statement theorem" id="thm-12"><div class="block-label">Теорема 28 (Линейные операции в координатной форме)</div><h3 data-toc="Теорема 12" id="sub-3-21">Теорема 12</h3><div>
 
-      <div class="statement theorem" id="thm-12">
-  <div class="block-label">Утверждение 12</div>
-  <h3 id="sub-42" data-toc="Теорема 28 (Линейные операци…">Теорема 28 (Линейные операции в координатной форме)</h3>
-  
-        
         При линейных операциях над векторами над их координатами в фиксированном базисе производятся те же самые операции:
         <ol>
-          <li>$\vec{a} + \vec{b} = (a_1 + b_1, \, a_2 + b_2, \, a_3 + b_3)$;</li>
-          <li>$\alpha\vec{a} = (\alpha a_1, \, \alpha a_2, \, \alpha a_3)$;</li>
-          <li>$\vec{a} - \vec{b} = (a_1 - b_1, \, a_2 - b_2, \, a_3 - b_3)$.</li>
-        </ol>
-      
-</div>
+<li>$\vec{a} + \vec{b} = (a_1 + b_1, \, a_2 + b_2, \, a_3 + b_3)$;</li>
+<li>$\alpha\vec{a} = (\alpha a_1, \, \alpha a_2, \, \alpha a_3)$;</li>
+<li>$\vec{a} - \vec{b} = (a_1 - b_1, \, a_2 - b_2, \, a_3 - b_3)$.</li>
+</ol>
+</div></div>
+<h3 data-toc="8. Аффинные системы координат,…" id="sec-2-8">2.8. Аффинные системы координат, радиус-векторы и координаты точек</h3>
+<div class="statement definition" id="def-18"><div class="block-label">Определение 29 (Аффинная система координат)</div><h3 data-toc="Определение 18" id="sub-3-23">Определение 18</h3><div>
+<strong>Аффинной системой координат (АСК)</strong> называется совокупность фиксированной точки $O$ (начала координат) и базиса $B = \{\vec{e}_1, \vec{e}_2, \vec{e}_3\}$:
+        \[\mathcal{S} = \{O; \, \vec{e}_1, \vec{e}_2, \vec{e}_3\}\]
+      </div></div>
+<div class="statement definition" id="def-19"><div class="block-label">Определение 30 (Радиус-вектор и координаты точки)</div><h3 data-toc="Определение 19" id="sub-3-24">Определение 19</h3><div>
 
-      <h3 id="sub-43" data-toc="8. Аффинные системы координа…">2.8. Аффинные системы координат, радиус-векторы и координаты точек</h3>
-
-      <div class="statement definition" id="def-18">
-  <div class="block-label">Определение 18</div>
-  <h3 id="sub-44" data-toc="Определение 29 (Аффинная сис…">Определение 29 (Аффинная система координат)</h3>
-  
-        
-        <strong>Аффинной системой координат (АСК)</strong> называется совокупность фиксированной точки $O$ (начала координат) и базиса $B = \{\vec{e}_1, \vec{e}_2, \vec{e}_3\}$:
-        $$\mathcal{S} = \{O; \, \vec{e}_1, \vec{e}_2, \vec{e}_3\}$$
-      
-</div>
-
-      <div class="statement definition" id="def-19">
-  <div class="block-label">Определение 19</div>
-  <h3 id="sub-45" data-toc="Определение 30 (Радиус-векто…">Определение 30 (Радиус-вектор и координаты точки)</h3>
-  
-        
         Вектор $\vec{OM}$, соединяющий начало координат с точкой $M$, называется <strong>радиус-вектором</strong> точки $M$ и обозначается $\vec{r}_M$. 
-        <br>
-        <strong>Координатами точки $M$</strong> называются координаты её радиус-вектора $\vec{OM}$ в базисе системы координат:
-        $$\vec{OM} = x\vec{e}_1 + y\vec{e}_2 + z\vec{e}_3 \iff M(x, y, z)$$
-      
+        <br/>
+<strong>Координатами точки $M$</strong> называются координаты её радиус-вектора $\vec{OM}$ в базисе системы координат:
+        \[\vec{OM} = x\vec{e}_1 + y\vec{e}_2 + z\vec{e}_3 \iff M(x, y, z)\]
+      </div></div>
+<!-- РИСУНОК 6: АСК и радиус-векторы -->
+<figure>
+<div class="svg-container">
+<svg height="230" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 500 230" width="500">
+<!-- Оси координат -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-slate)" stroke-width="1.8" x1="60" x2="460" y1="180" y2="180"></line>
+<text fill="var(--svg-text)" font-weight="bold" x="465" y="185">x</text>
+<line marker-end="url(#arr-blue)" stroke="var(--svg-slate)" stroke-width="1.8" x1="60" x2="60" y1="180" y2="25"></line>
+<text fill="var(--svg-text)" font-weight="bold" x="55" y="18">y</text>
+<!-- Начало координат O -->
+<circle cx="60" cy="180" fill="var(--svg-red)" r="5"></circle>
+<text fill="var(--svg-text)" font-size="14" font-weight="bold" x="40" y="198">O</text>
+<!-- Базисные векторы системы -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="3" x1="60" x2="130" y1="180" y2="180"></line>
+<text fill="var(--svg-blue)" font-size="13" font-weight="bold" x="95" y="170">e₁</text>
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="3" x1="60" x2="60" y1="180" y2="110"></line>
+<text fill="var(--svg-blue)" font-size="13" font-weight="bold" x="35" y="145">e₂</text>
+<!-- Точки A и B -->
+<circle cx="180" cy="120" fill="var(--svg-amber)" r="4"></circle>
+<text fill="var(--svg-text)" font-weight="bold" x="170" y="110">A</text>
+<circle cx="380" cy="50" fill="var(--svg-amber)" r="4"></circle>
+<text fill="var(--svg-text)" font-weight="bold" x="390" y="50">B</text>
+<!-- Радиус-векторы rA и rB -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-slate)" stroke-dasharray="4,4" stroke-width="1.8" x1="60" x2="180" y1="180" y2="120"></line>
+<text fill="var(--svg-slate)" font-size="12" x="105" y="140">r_A</text>
+<line marker-end="url(#arr-blue)" stroke="var(--svg-slate)" stroke-dasharray="4,4" stroke-width="1.8" x1="60" x2="380" y1="180" y2="50"></line>
+<text fill="var(--svg-slate)" font-size="12" x="215" y="100">r_B</text>
+<!-- Вектор AB -->
+<line marker-end="url(#arr-red)" stroke="var(--svg-red)" stroke-width="3" x1="180" x2="380" y1="120" y2="50"></line>
+<text fill="var(--svg-red)" font-size="15" font-weight="bold" x="260" y="70">AB = r_B - r_A</text>
+</svg>
 </div>
+<figcaption>Рис. 6. Аффинная система координат $\{O; \vec{e}_1, \vec{e}_2\}$, радиус-векторы точек и вектор $\vec{AB} = \vec{r}_B - \vec{r}_A$.</figcaption>
+</figure>
+<div class="statement theorem" id="thm-13"><div class="block-label">Теорема 31 (Координаты вектора через точки начала и конца)</div><h3 data-toc="Теорема 13" id="sub-3-25">Теорема 13</h3><div>
 
-      <!-- РИСУНОК 6: АСК и радиус-векторы -->
-      <figure>
-        <div class="svg-container">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg width="500" height="230" viewBox="0 0 500 230">
-            <!-- Оси координат -->
-            <line x1="60" y1="180" x2="460" y2="180" stroke="var(--svg-slate)" stroke-width="1.8" marker-end="url(#arr-blue)"/>
-            <text x="465" y="185" fill="var(--svg-text)" font-weight="bold">x</text>
-
-            <line x1="60" y1="180" x2="60" y2="25" stroke="var(--svg-slate)" stroke-width="1.8" marker-end="url(#arr-blue)"/>
-            <text x="55" y="18" fill="var(--svg-text)" font-weight="bold">y</text>
-
-            <!-- Начало координат O -->
-            <circle cx="60" cy="180" r="5" fill="var(--svg-red)"/>
-            <text x="40" y="198" fill="var(--svg-text)" font-weight="bold" font-size="14">O</text>
-
-            <!-- Базисные векторы системы -->
-            <line x1="60" y1="180" x2="130" y2="180" stroke="var(--svg-blue)" stroke-width="3" marker-end="url(#arr-blue)"/>
-            <text x="95" y="170" fill="var(--svg-blue)" font-weight="bold" font-size="13">e₁</text>
-
-            <line x1="60" y1="180" x2="60" y2="110" stroke="var(--svg-blue)" stroke-width="3" marker-end="url(#arr-blue)"/>
-            <text x="35" y="145" fill="var(--svg-blue)" font-weight="bold" font-size="13">e₂</text>
-
-            <!-- Точки A и B -->
-            <circle cx="180" cy="120" r="4" fill="var(--svg-amber)"/>
-            <text x="170" y="110" fill="var(--svg-text)" font-weight="bold">A</text>
-
-            <circle cx="380" cy="50" r="4" fill="var(--svg-amber)"/>
-            <text x="390" y="50" fill="var(--svg-text)" font-weight="bold">B</text>
-
-            <!-- Радиус-векторы rA и rB -->
-            <line x1="60" y1="180" x2="180" y2="120" stroke="var(--svg-slate)" stroke-width="1.8" stroke-dasharray="4,4" marker-end="url(#arr-blue)"/>
-            <text x="105" y="140" fill="var(--svg-slate)" font-size="12">r_A</text>
-
-            <line x1="60" y1="180" x2="380" y2="50" stroke="var(--svg-slate)" stroke-width="1.8" stroke-dasharray="4,4" marker-end="url(#arr-blue)"/>
-            <text x="215" y="100" fill="var(--svg-slate)" font-size="12">r_B</text>
-
-            <!-- Вектор AB -->
-            <line x1="180" y1="120" x2="380" y2="50" stroke="var(--svg-red)" stroke-width="3" marker-end="url(#arr-red)"/>
-            <text x="260" y="70" fill="var(--svg-red)" font-weight="bold" font-size="15">AB = r_B - r_A</text>
-          </svg></div>
-        </div>
-        <figcaption>Рис. 6. Аффинная система координат $\{O; \vec{e}_1, \vec{e}_2\}$, радиус-векторы точек и вектор $\vec{AB} = \vec{r}_B - \vec{r}_A$.</figcaption>
-      </figure>
-
-      <div class="statement theorem" id="thm-13">
-  <div class="block-label">Утверждение 13</div>
-  <h3 id="sub-46" data-toc="Теорема 31 (Координаты векто…">Теорема 31 (Координаты вектора через точки начала и конца)</h3>
-  
-        
         Если точки заданы координатами $A(x_A, y_A, z_A)$ и $B(x_B, y_B, z_B)$, то координаты направленного отрезка $\vec{AB}$ равны:
-        $$\vec{AB} = (x_B - x_A, \, y_B - y_A, \, z_B - z_A)$$
-      
-</div>
+        \[\vec{AB} = (x_B - x_A, \, y_B - y_A, \, z_B - z_A)\]
+      </div></div>
+<div class="statement theorem" id="thm-14"><div class="block-label">Теорема 32 (Деление отрезка в заданном отношении)</div><h3 data-toc="Теорема 14" id="sub-3-26">Теорема 14</h3><div>
 
-      <div class="statement theorem" id="thm-14">
-  <div class="block-label">Утверждение 14</div>
-  <h3 id="sub-47" data-toc="Теорема 32 (Деление отрезка …">Теорема 32 (Деление отрезка в заданном отношении)</h3>
-  
-        
         Если точка $M$ делит отрезок $AB$ в отношении $\lambda > 0$ ($\vec{AM} = \lambda \vec{MB}$), то её радиус-вектор и координаты выражаются формулами:
-        $$\vec{r}_M = \frac{\vec{r}_A + \lambda \vec{r}_B}{1 + \lambda}, \quad x_M = \frac{x_A + \lambda x_B}{1 + \lambda}, \quad y_M = \frac{y_A + \lambda y_B}{1 + \lambda}, \quad z_M = \frac{z_A + \lambda z_B}{1 + \lambda}$$
+        \[\vec{r}_M = \frac{\vec{r}_A + \lambda \vec{r}_B}{1 + \lambda}, \quad x_M = \frac{x_A + \lambda x_B}{1 + \lambda}, \quad y_M = \frac{y_A + \lambda y_B}{1 + \lambda}, \quad z_M = \frac{z_A + \lambda z_B}{1 + \lambda}\]
         Координаты середины отрезка ($\lambda = 1$):
-        $$M_{\text{mid}} = \left(\frac{x_A + x_B}{2}, \, \frac{y_A + y_B}{2}, \, \frac{z_A + z_B}{2}\right)$$
-      
-</div>
-
-      <h3 id="sub-48" data-toc="9. Практикум: детальный разб…">2.9. Практикум: детальный разбор типовых задач с решениями</h3>
-
-      <div class="worked-example" id="ex-1">
-  <div class="block-label">Пример 1</div>
-  <h3 id="sub-49" data-toc="Пример 1. Исследование систе…">Пример 1. Исследование системы векторов на линейную зависимость</h3>
-  
-        
-        <strong>Условие:</strong> В базисе $\{\vec{e}_1, \vec{e}_2, \vec{e}_3\}$ даны три вектора:
-        $$\vec{a}_1 = (1, 2, 3), \quad \vec{a}_2 = (2, -1, 1), \quad \vec{a}_3 = (4, 3, 7)$$
+        \[M_{\text{mid}} = \left(\frac{x_A + x_B}{2}, \, \frac{y_A + y_B}{2}, \, \frac{z_A + z_B}{2}\right)\]
+      </div></div>
+<h3 data-toc="9. Практикум: детальный разбор…" id="sec-2-9">2.9. Практикум: детальный разбор типовых задач с решениями</h3>
+<div class="worked-example" id="ex-1"><div class="block-label">Пример 1. Исследование системы векторов на линейную зависимость</div><h3 data-toc="Пример 1" id="sub-3-28">Пример 1</h3><div>
+<strong>Условие:</strong> В базисе $\{\vec{e}_1, \vec{e}_2, \vec{e}_3\}$ даны три вектора:
+        \[\vec{a}_1 = (1, 2, 3), \quad \vec{a}_2 = (2, -1, 1), \quad \vec{a}_3 = (4, 3, 7)\]
         Выяснить, линейно зависима ли данная система векторов.
-        <br><br>
-        <strong>Решение:</strong><br>
+        <br/><br/>
+<strong>Решение:</strong><br/>
         Составим линейную комбинацию $\alpha_1 \vec{a}_1 + \alpha_2 \vec{a}_2 + \alpha_3 \vec{a}_3 = \vec{0}$ и вычислим определитель матрицы коэффициентов:
-        $$\Delta = \begin{vmatrix} 1 & 2 & 4 \\ 2 & -1 & 3 \\ 3 & 1 & 7 \end{vmatrix}$$
+        \[\Delta = \begin{vmatrix} 1 & 2 & 4 \\ 2 & -1 & 3 \\ 3 & 1 & 7 \end{vmatrix}\]
         Разлагаем по первой строке:
-        $$\Delta = 1 \cdot (-7 - 3) - 2 \cdot (14 - 9) + 4 \cdot (2 - (-3)) = -10 - 2 \cdot 5 + 4 \cdot 5 = -10 - 10 + 20 = 0$$
+        \[\Delta = 1 \cdot (-7 - 3) - 2 \cdot (14 - 9) + 4 \cdot (2 - (-3)) = -10 - 2 \cdot 5 + 4 \cdot 5 = -10 - 10 + 20 = 0\]
         Определитель равен нулю, следовательно, однородная система имеет нетривиальные решения. Легко найти коэффициенты: при $\alpha_3 = 1$ получаем $\alpha_1 = -2, \alpha_2 = -1$.
         То есть $-2\vec{a}_1 - \vec{a}_2 + \vec{a}_3 = \vec{0}$, откуда $\vec{a}_3 = 2\vec{a}_1 + \vec{a}_2$.
-        <br>
-        <strong>Ответ:</strong> Система векторов линейно зависима.
-      
-</div>
-
-      <div class="worked-example" id="ex-2">
-  <div class="block-label">Пример 2</div>
-  <h3 id="sub-50" data-toc="Пример 2. Разложение вектора…">Пример 2. Разложение вектора по новому базису на плоскости</h3>
-  
-        
-        <strong>Условие:</strong> На плоскости задан базис $B = \{\vec{p}, \vec{q}\}$, где $\vec{p} = (2, 1)$ и $\vec{q} = (3, 2)$. Найти координаты вектора $\vec{x} = (7, 4)$ в этом базисе.
-        <br><br>
-        <strong>Решение:</strong><br>
+        <br/>
+<strong>Ответ:</strong> Система векторов линейно зависима.
+      </div></div>
+<div class="worked-example" id="ex-2"><div class="block-label">Пример 2. Разложение вектора по новому базису на плоскости</div><h3 data-toc="Пример 2" id="sub-3-29">Пример 2</h3><div>
+<strong>Условие:</strong> На плоскости задан базис $B = \{\vec{p}, \vec{q}\}$, где $\vec{p} = (2, 1)$ и $\vec{q} = (3, 2)$. Найти координаты вектора $\vec{x} = (7, 4)$ в этом базисе.
+        <br/><br/>
+<strong>Решение:</strong><br/>
         Ищем разложение $\vec{x} = c_1 \vec{p} + c_2 \vec{q}$:
-        $$\begin{cases} 2c_1 + 3c_2 = 7 \\ 1c_1 + 2c_2 = 4 \end{cases}$$
+        \[\begin{cases} 2c_1 + 3c_2 = 7 \\ 1c_1 + 2c_2 = 4 \end{cases}\]
         Из второго уравнения: $c_1 = 4 - 2c_2$. Подставляем в первое:
-        $$2(4 - 2c_2) + 3c_2 = 7 \implies 8 - c_2 = 7 \implies c_2 = 1, \quad c_1 = 4 - 2 = 2$$
+        \[2(4 - 2c_2) + 3c_2 = 7 \implies 8 - c_2 = 7 \implies c_2 = 1, \quad c_1 = 4 - 2 = 2\]
         Проверка: $2(2, 1) + 1(3, 2) = (4+3, 2+2) = (7, 4)$ — верно.
-        <br>
-        <strong>Ответ:</strong> Координаты вектора $\vec{x}$ в новом базисе равны $(2, 1)_B$.
-      
-</div>
-
-      <div class="worked-example" id="ex-3">
-  <div class="block-label">Пример 3</div>
-  <h3 id="sub-51" data-toc="Пример 3. Точка пересечения …">Пример 3. Точка пересечения медиан (центроид) треугольника</h3>
-  
-        
-        <strong>Условие:</strong> Вершины треугольника имеют координаты $A(1, 2)$, $B(5, 4)$, $C(3, 8)$. Найти координаты точки пересечения медиан $G$.
-        <br><br>
-        <strong>Решение:</strong><br>
+        <br/>
+<strong>Ответ:</strong> Координаты вектора $\vec{x}$ в новом базисе равны $(2, 1)_B$.
+      </div></div>
+<div class="worked-example" id="ex-3"><div class="block-label">Пример 3. Точка пересечения медиан (центроид) треугольника</div><h3 data-toc="Пример 3" id="sub-3-30">Пример 3</h3><div>
+<strong>Условие:</strong> Вершины треугольника имеют координаты $A(1, 2)$, $B(5, 4)$, $C(3, 8)$. Найти координаты точки пересечения медиан $G$.
+        <br/><br/>
+<strong>Решение:</strong><br/>
         Медианы треугольника делятся точкой пересечения в отношении $2:1$, считая от вершины. Применяя формулу деления отрезка:
-        $$\vec{r}_G = \frac{\vec{r}_A + \vec{r}_B + \vec{r}_C}{3}$$
+        \[\vec{r}_G = \frac{\vec{r}_A + \vec{r}_B + \vec{r}_C}{3}\]
         Вычисляем координаты:
-        $$x_G = \frac{1 + 5 + 3}{3} = \frac{9}{3} = 3, \quad y_G = \frac{2 + 4 + 8}{3} = \frac{14}{3}$$
+        \[x_G = \frac{1 + 5 + 3}{3} = \frac{9}{3} = 3, \quad y_G = \frac{2 + 4 + 8}{3} = \frac{14}{3}\]
         <strong>Ответ:</strong> $G\left(3, \, \frac{14}{3}\right)$.
-      
-</div>
-    </section>
+      </div></div>
 
-    <!-- Сводная таблица -->
-    <section>
+<!-- Сводная таблица -->
+<section>
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-4">
-  <div class="chapter-kicker">04 / Сводная таблица ключевых пон…</div>
-  <h2 id="chapter-4" data-toc="Сводная таблица ключевых пон…">Сводная таблица ключевых понятий</h2>
-  <div class="table-scroll">
+  <div class="chapter-kicker">04 / Сводная таблица ключевых понятий</div>
+  <h2 id="chapter-4" data-toc="Сводная таблица ключевых понятий">Сводная таблица ключевых понятий</h2>
+  
 <table>
-        <thead>
-          <tr>
-            <th>Понятие</th>
-            <th>Символическая запись / Формула</th>
-            <th>Геометрический смысл</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Свободный вектор</strong></td>
-            <td>Класс $[\vec{AB}]$ по отношению эквивалентности $\sim$</td>
-            <td>Параллельный перенос; объект инвариантен к сдвигу</td>
-          </tr>
-          <tr>
-            <td><strong>Коллинеарность</strong></td>
-            <td>$\vec{a} \parallel \vec{b} \iff \vec{a} = k\vec{b}$ (при $\vec{b} \neq \vec{0}$)</td>
-            <td>Параллельность прямых-носителей; $\vec{0} \parallel \text{всему}$</td>
-          </tr>
-          <tr>
-            <td><strong>Компланарность</strong></td>
-            <td>Векторы параллельны одной плоскости</td>
-            <td>Любые два вектора компланарны; тройка в одной плоскости зависима</td>
-          </tr>
-          <tr>
-            <td><strong>Линейная независимость</strong></td>
-            <td>$\sum \alpha_i \vec{a}_i = \vec{0} \implies \alpha_i = 0 \; \forall i$</td>
-            <td>Ни один из векторов нельзя выразить через остальные</td>
-          </tr>
-          <tr>
-            <td><strong>Базис в пространстве</strong></td>
-            <td>Упорядоченная тройка некомпланарных векторов $\{\vec{e}_1, \vec{e}_2, \vec{e}_3\}$</td>
-            <td>Максимальная независимая система; каркас координатной сетки</td>
-          </tr>
-          <tr>
-            <td><strong>Разложение по базису</strong></td>
-            <td>$\vec{a} = a_1\vec{e}_1 + a_2\vec{e}_2 + a_3\vec{e}_3$</td>
-            <td>Единственное представление в виде диагонали параллелепипеда</td>
-          </tr>
-          <tr>
-            <td><strong>Аффинная система координат</strong></td>
-            <td>$\mathcal{S} = \{O; \, \vec{e}_1, \vec{e}_2, \vec{e}_3\}$</td>
-            <td>Точка отсчёта $O$ + координатный базис</td>
-          </tr>
-          <tr>
-            <td><strong>Вектор через координаты точек</strong></td>
-            <td>$\vec{AB} = (x_B - x_A, \, y_B - y_A, \, z_B - z_A)$</td>
-            <td>Разность радиус-векторов $\vec{r}_B - \vec{r}_A$</td>
-          </tr>
-        </tbody>
-      </table>
-</div>
-    </section>
+<thead>
+<tr>
+<th>Понятие</th>
+<th>Символическая запись / Формула</th>
+<th>Геометрический смысл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Свободный вектор</strong></td>
+<td>Класс $[\vec{AB}]$ по отношению эквивалентности $\sim$</td>
+<td>Параллельный перенос; объект инвариантен к сдвигу</td>
+</tr>
+<tr>
+<td><strong>Коллинеарность</strong></td>
+<td>$\vec{a} \parallel \vec{b} \iff \vec{a} = k\vec{b}$ (при $\vec{b} \neq \vec{0}$)</td>
+<td>Параллельность прямых-носителей; $\vec{0} \parallel \text{всему}$</td>
+</tr>
+<tr>
+<td><strong>Компланарность</strong></td>
+<td>Векторы параллельны одной плоскости</td>
+<td>Любые два вектора компланарны; тройка в одной плоскости зависима</td>
+</tr>
+<tr>
+<td><strong>Линейная независимость</strong></td>
+<td>$\sum \alpha_i \vec{a}_i = \vec{0} \implies \alpha_i = 0 \; \forall i$</td>
+<td>Ни один из векторов нельзя выразить через остальные</td>
+</tr>
+<tr>
+<td><strong>Базис в пространстве</strong></td>
+<td>Упорядоченная тройка некомпланарных векторов $\{\vec{e}_1, \vec{e}_2, \vec{e}_3\}$</td>
+<td>Максимальная независимая система; каркас координатной сетки</td>
+</tr>
+<tr>
+<td><strong>Разложение по базису</strong></td>
+<td>$\vec{a} = a_1\vec{e}_1 + a_2\vec{e}_2 + a_3\vec{e}_3$</td>
+<td>Единственное представление в виде диагонали параллелепипеда</td>
+</tr>
+<tr>
+<td><strong>Аффинная система координат</strong></td>
+<td>$\mathcal{S} = \{O; \, \vec{e}_1, \vec{e}_2, \vec{e}_3\}$</td>
+<td>Точка отсчёта $O$ + координатный базис</td>
+</tr>
+<tr>
+<td><strong>Вектор через координаты точек</strong></td>
+<td>$\vec{AB} = (x_B - x_A, \, y_B - y_A, \, z_B - z_A)$</td>
+<td>Разность радиус-векторов $\vec{r}_B - \vec{r}_A$</td>
+</tr>
+</tbody>
+</table>
 
-    
-  </div>
+
+
 </section>
 <!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>

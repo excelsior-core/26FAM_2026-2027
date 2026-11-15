@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Математический анализ: Теория пределов функций в точке. Конспект FAM ФПМ НИУ ВШЭ.">
+  <meta name="description" content="ФПМ НИУ ВШЭ · Полный академический лекционный конспект">
   <title>Математический анализ: Теория пределов функций в точке — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
@@ -183,8 +183,13 @@ html[data-theme] ::selection{background:var(--gold);color:var(--paper)}
 .themed-figure [data-figure-theme="light"]{display:block}
 html[data-theme="dark"] .themed-figure [data-figure-theme],html[data-theme="parchment"] .themed-figure [data-figure-theme]{display:none}
 html[data-theme="dark"] .themed-figure [data-figure-theme="dark"],html[data-theme="parchment"] .themed-figure [data-figure-theme="parchment"]{display:block}
-/* One neutral/light asset may remain on its own light plate in every theme. Never invert mathematical colours. */
-.figure-plate{background:#fff;color:#202e29;padding:16px;border:1px solid var(--rule)}
+.figure-plate{background:var(--bg-card);color:var(--ink);padding:20px;border:1px solid var(--rule);border-radius:8px;margin:32px 0}
+html[data-theme="light"] .figure-plate{background:#ffffff}
+html[data-theme="dark"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+html[data-theme="parchment"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+@media print{
+ .figure-plate{background:white!important;border:0!important;padding:0!important}
+}
 @media(max-width:760px){.topbar{height:auto;min-height:70px;flex-wrap:wrap;padding:12px 18px;gap:10px}.top-actions{gap:8px;flex-wrap:wrap}.theme-control select{font-size:10px;max-width:103px;padding:8px 4px}.pdf-button{padding:6px 8px}.pdf-button span{margin-left:4px}.wordmark{font-size:24px}}
 @media(max-width:400px){.wordmark{display:none}.top-actions{width:100%;justify-content:space-between}}
 @media print{
@@ -440,1269 +445,1003 @@ SOFTWARE.
     </aside>
     <main id="content">
       <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
-  <div class="lecture-meta"><span class="subject">Математический анализ</span><span>ФПМ НИУ ВШЭ</span></div>
-  <h1>Математический анализ: Теория пределов функций в точке</h1>
-  <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-  <div class="lecture-abstract">
-    <p>ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-    <div class="abstract-formula" aria-label="Ключевое выражение лекции">\[', right: '\]</div>
-  </div>
-</header>
-<div class="proof-toolbar" aria-label="Все доказательства">
-  <span class="toolbar-label">Доказательства</span>
-  <div class="segmented" role="group" aria-label="Режим всех доказательств">
-    <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
-    <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
-    <button data-all-proofs="full" aria-pressed="false">Полностью</button>
-  </div>
-  <span id="proof-state" class="proof-state" aria-live="polite"></span>
-</div>
-<noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
-<p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
-
+      <header class="lecture-head" id="top">
+        <div class="lecture-meta"><span class="subject">Математический анализ</span><span>Академический конспект ФПМ</span></div>
+        <h1>Математический анализ: Теория пределов функций в точке</h1>
+        <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
+        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[', right: '\]</div></div>
+      </header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
 <section class="chapter" aria-labelledby="chapter-1">
   <div class="chapter-kicker">01 / Введение</div>
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <header>
-        <h1 class="book-title">Математический анализ: Предел функции в точке</h1>
-        <div class="book-meta">
-          <span><strong>Раздел:</strong> Введение в математический анализ</span>
-          <span><strong>Программа:</strong> Фундаментальная математика (НИУ ВШЭ / МГУ)</span>
-          <span><strong>Линейка:</strong> Л. Д. Кудрявцев, В. А. Зорич, Б. П. Демидович</span>
-        </div>
-      </header>
-
-      <!-- РАЗДЕЛ 1 -->
-      <section id="sec-1">
+<h1 class="book-title">Математический анализ: Предел функции в точке</h1>
+<div class="book-meta">
+<span><strong>Раздел:</strong> Введение в математический анализ</span>
+<span><strong>Программа:</strong> Фундаментальная математика (НИУ ВШЭ / МГУ)</span>
+<span><strong>Линейка:</strong> Л. Д. Кудрявцев, В. А. Зорич, Б. П. Демидович</span>
+</div>
+</header>
+<!-- РАЗДЕЛ 1 -->
+<section id="sec-1">
 </section>
-
 <section class="chapter" aria-labelledby="chapter-2">
-  <div class="chapter-kicker">02 / 1. Топологический базис числ…</div>
-  <h2 id="chapter-2" data-toc="1. Топологический базис числ…">§ 1. Топологический базис числовой прямой и предельная точка</h2>
-  <p>
+  <div class="chapter-kicker">02 / 1. Топологический базис числов…</div>
+  <h2 id="chapter-2" data-toc="1. Топологический базис числов…">§ 1. Топологический базис числовой прямой и предельная точка</h2>
+  
+<p>
           Вся теория дифференциального и интегрального исчисления базируется на операторе предельного перехода. Однако предел функции $f: X \to Y$ невозможно определить в произвольной точке пространства. Точка, к которой устремляется аргумент, должна обладать специальным топологическим свойством: к ней должно быть возможно приближаться по элементам области определения $X$, не упираясь в изолированные точки.
         </p>
-
-        <h3 id="sub-1" data-toc="1. Окрестности и проколотые …">1.1. Окрестности и проколотые окрестности точки</h3>
-        <p>
+<h3 data-toc="1. Окрестности и проколотые ок…" id="sec-1-1">1.1. Окрестности и проколотые окрестности точки</h3>
+<p>
           Пусть $\mathbb{R}$ — числовая прямая, наделенная стандартной евклидовой метрикой $\rho(x, y) = |x - y|$.
         </p>
-
-        <div class="statement definition" id="def-1">
-  <div class="block-label">Определение 1</div>
-  <h3 id="sub-2" data-toc="Определение 1. Окрестность и…">Определение 1. Окрестность и проколотая окрестность</h3>
-  
-          
-            <span>Метрическое пространство</span>
-          
-</div>
-          <p>
+<div class="statement definition" id="def-1"><div class="block-label">Определение 1</div><h3 data-toc="Определение 1. Окрестность и п…" id="sub-2-2">Определение 1. Окрестность и проколотая окрестностьМетрическое пространство</h3><div>
+<p>
             Пусть $a \in \mathbb{R}$ и $\delta > 0$ — вещественное положительное число.
           </p>
-          <ul>
-            <li><strong>Симметричной $\delta$-окрестностью точки $a$</strong> называется открытый интервал радиуса $\delta$ с центром в точке $a$:
-              $$U_\delta(a) := (a - \delta, \, a + \delta) = \{x \in \mathbb{R} \mid |x - a| < \delta\}.$$
+<ul>
+<li><strong>Симметричной $\delta$-окрестностью точки $a$</strong> называется открытый интервал радиуса $\delta$ с центром в точке $a$:
+              \[U_\delta(a) := (a - \delta, \, a + \delta) = \{x \in \mathbb{R} \mid |x - a| < \delta\}.\]
             </li>
-            <li><strong>Проколотой $\delta$-окрестностью точки $a$</strong> называется окрестность $U_\delta(a)$, из которой удалена сама центральная точка $a$:
-              $$\mathring{U}_\delta(a) := U_\delta(a) \setminus \{a\} = (a - \delta, a) \cup (a, a + \delta) = \{x \in \mathbb{R} \mid 0 < |x - a| < \delta\}.$$
+<li><strong>Проколотой $\delta$-окрестностью точки $a$</strong> называется окрестность $U_\delta(a)$, из которой удалена сама центральная точка $a$:
+              \[\mathring{U}_\delta(a) := U_\delta(a) \setminus \{a\} = (a - \delta, a) \cup (a, a + \delta) = \{x \in \mathbb{R} \mid 0 < |x - a| < \delta\}.\]
             </li>
-          </ul>
-        </div>
-
-        <h3 id="sub-3" data-toc="2. Определение предельной то…">1.2. Определение предельной точки множества</h3>
-
-        <div class="statement definition" id="def-2">
-  <div class="block-label">Определение 2</div>
-  <h3 id="sub-4" data-toc="Определение 2. Предельная то…">Определение 2. Предельная точка (Точка сгущения)</h3>
-  
-          
-            <span>Топология</span>
-          
-</div>
-          <p>
+</ul>
+</div></div>
+<h3 data-toc="2. Определение предельной точк…" id="sec-1-2">1.2. Определение предельной точки множества</h3>
+<div class="statement definition" id="def-2"><div class="block-label">Определение 2</div><h3 data-toc="Определение 2. Предельная точк…" id="sub-2-4">Определение 2. Предельная точка (Точка сгущения)Топология</h3><div>
+<p>
             Точка $a \in \overline{\mathbb{R}}$ называется <strong>предельной точкой множества $X \subset \mathbb{R}$</strong> (или точкой накопления, точкой сгущения), если в любой её сколь угодно малой проколотой окрестности содержится хотя бы одна точка множества $X$:
           </p>
-          $$\forall U(a) \quad \mathring{U}(a) \cap X \neq \varnothing \iff \forall \delta > 0 \quad \exists x \in X : 0 < |x - a| < \delta.$$
-        </div>
-
-        <div class="callout rem-card">
-          <div class="callout-header">
-            <span>Важнейшее замечание (Кудрявцев vs Зорич)</span>
-            <span>Коллоквиум</span>
-          </div>
-          <p>
+          \[\forall U(a) \quad \mathring{U}(a) \cap X \neq \varnothing \iff \forall \delta > 0 \quad \exists x \in X : 0 < |x - a| < \delta.\]
+        </div></div>
+<div class="callout rem-card">
+<div class="callout-header">
+<span>Важнейшее замечание (Кудрявцев vs Зорич)</span>
+<span>Коллоквиум</span>
+</div>
+<p>
             1. Предельная точка $a$ множества $X$ <strong>не обязана принадлежать самому множеству $X$</strong>. Например, для интервала $X = (0, 1)$ концы $0$ и $1$ являются предельными точками, но не принадлежат $X$. Множество всех предельных точек множества $X$ называется его <em>производным множеством</em> и обозначается $X'$.
           </p>
-          <p>
+<p>
             2. Точка $x_0 \in X$ называется <strong>изолированной точкой</strong> множества $X$, если существует её окрестность $U(x_0)$, не содержащая других точек $X$, кроме самой $x_0$: $\mathring{U}(x_0) \cap X = \varnothing$. Множество натуральных чисел $\mathbb{N}$ состоит исключительно из изолированных точек и не имеет предельных точек на $\mathbb{R}$.
           </p>
-        </div>
-
-        <h3 id="sub-5" data-toc="3. Секвенциальный критерий п…">1.3. Секвенциальный критерий предельной точки</h3>
-
-        <div class="statement theorem featured" id="thm-1">
-  <div class="block-label">Утверждение 1</div>
-  <h3 id="sub-6" data-toc="Теорема. Критерий предельной…">Теорема. Критерий предельной точки множества</h3>
-  
-          
-            <span>Критерий</span>
-          
 </div>
-          <p>
+<h3 data-toc="3. Секвенциальный критерий пре…" id="sec-1-3">1.3. Секвенциальный критерий предельной точки</h3>
+<div class="statement theorem featured" id="thm-1"><div class="block-label">Утверждение 1</div><h3 data-toc="Теорема. Критерий предельной т…" id="sub-2-6">Теорема. Критерий предельной точки множестваКритерий</h3><div>
+<p>
             Точка $a \in \mathbb{R}$ является предельной точкой множества $X \subset \mathbb{R}$ тогда и только тогда, когда существует последовательность попарно различных точек $\{x_n\}_{n=1}^\infty \subset X \setminus \{a\}$, сходящаяся к точке $a$:
           </p>
-          $$a \in X' \iff \exists \{x_n\}_{n=1}^\infty \subset X \setminus \{a\} : \lim_{n \to \infty} x_n = a.$$
-        </div>
-
-        <div class="proof" id="proof-1" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-1" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-1" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="callout-header">Строгое двустороннее доказательство критерия
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+          \[a \in X' \iff \exists \{x_n\}_{n=1}^\infty \subset X \setminus \{a\} : \lim_{n \to \infty} x_n = a.\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-1">
+<div aria-label="Доказательство Строгое двустороннее доказательство критерия" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <p>
-            <strong>1. Необходимость ($\implies$):</strong> Пусть $a \in X'$.<br>
+<div class="proof-idea" data-proof-idea="" id="idea-1">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Строгое двустороннее доказательство критерия).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-1">
+<div class="proof-label">Доказательство (Строгое двустороннее доказательство критерия)</div>
+<p>
+<strong>1. Необходимость ($\implies$):</strong> Пусть $a \in X'$.<br/>
             Для каждого натурального номера $n \in \mathbb{N}$ зададим радиус $\delta_n = \frac{1}{n} > 0$. По определению предельной точки, в проколотой окрестности $\mathring{U}_{1/n}(a)$ лежит хотя бы один элемент множества $X$. Выберем произвольный такой элемент и обозначим его $x_n$:
           </p>
-          $$x_n \in X \cap \mathring{U}_{1/n}(a) \implies x_n \in X, \quad x_n \neq a, \quad 0 < |x_n - a| < \frac{1}{n}.$$
+          \[x_n \in X \cap \mathring{U}_{1/n}(a) \implies x_n \in X, \quad x_n \neq a, \quad 0 < |x_n - a| < \frac{1}{n}.\]
           <p>
             Построенная последовательность $\{x_n\}$ состоит из точек множества $X \setminus \{a\}$. Так как для любого $n \in \mathbb{N}$ выполняется $0 < |x_n - a| < \frac{1}{n}$, а предел $\lim_{n \to \infty} \frac{1}{n} = 0$, то по теореме о двух милиционерах (зажатой последовательности) получаем $\lim_{n \to \infty} |x_n - a| = 0$, то есть $\lim_{n \to \infty} x_n = a$. Необходимость доказана.
           </p>
-          <p>
-            <strong>2. Достаточность ($\impliedby$):</strong> Пусть существует $\{x_n\} \subset X \setminus \{a\}$, такая что $\lim_{n \to \infty} x_n = a$.<br>
+<p>
+<strong>2. Достаточность ($\impliedby$):</strong> Пусть существует $\{x_n\} \subset X \setminus \{a\}$, такая что $\lim_{n \to \infty} x_n = a$.<br/>
             Зафиксируем произвольный радиус $\delta > 0$. По определению предела последовательности, для данного $\delta$ существует такой номер $N(\delta)$, что для всех $n > N(\delta)$ выполняется $|x_n - a| < \delta$. Поскольку все элементы последовательности отличны от $a$, то $0 < |x_n - a| < \delta$, а значит, $x_n \in \mathring{U}_\delta(a) \cap X$. Таким образом, проколотая окрестность гарантированно не пуста. Достаточность доказана.
           </p>
-          <div class="proof-qed">■</div>
-        </div>
-      </section>
-
-      <!-- РАЗДЕЛ 2 -->
-      <section id="sec-2">
-</section>
-
-<section class="chapter" aria-labelledby="chapter-3">
-  <div class="chapter-kicker">03 / 2. Определения предела функц…</div>
-  <h2 id="chapter-3" data-toc="2. Определения предела функц…">§ 2. Определения предела функции: Коши и Гейне</h2>
-  <h3 id="sub-7" data-toc="1. Топологическое определени…">2.1. Топологическое определение предела по Коши (через окрестности)</h3>
-
-        <div class="statement definition" id="def-3">
-  <div class="block-label">Определение 3</div>
-  <h3 id="sub-8" data-toc="Определение предела функции …">Определение предела функции по Коши (Топологическое)</h3>
-  
-          
-            <span>Язык окрестностей</span>
-          
+<div class="proof-qed">■</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-          <p>
+</div>
+
+<!-- РАЗДЕЛ 2 -->
+<section id="sec-2">
+</section>
+</section>
+<section class="chapter" aria-labelledby="chapter-3">
+  <div class="chapter-kicker">03 / 2. Определения предела функции…</div>
+  <h2 id="chapter-3" data-toc="2. Определения предела функции…">§ 2. Определения предела функции: Коши и Гейне</h2>
+  
+<h3 data-toc="1. Топологическое определение …" id="sec-2-1">2.1. Топологическое определение предела по Коши (через окрестности)</h3>
+<div class="statement definition" id="def-3"><div class="block-label">Определение 3</div><h3 data-toc="Определение предела функции по…" id="sub-3-2">Определение предела функции по Коши (Топологическое)Язык окрестностей</h3><div>
+<p>
             Пусть на множестве $X \subset \mathbb{R}$ задана вещественнозначная функция $f: X \to \mathbb{R}$, и пусть $a \in \overline{\mathbb{R}}$ — предельная точка множества $X$.
           </p>
-          <p>
+<p>
             Элемент $A \in \overline{\mathbb{R}}$ называется <strong>пределом функции $f$ при $x \to a$</strong>, если для любой заданной окрестности $U(A)$ точки $A$ найдется такая окрестность $U(a)$ точки $a$, что для всех значений аргумента $x \in X$, лежащих в проколотой окрестности $\mathring{U}(a)$, значение функции $f(x)$ попадает в окрестность $U(A)$:
           </p>
-          $$\lim_{x \to a} f(x) = A \iff \forall U(A) \quad \exists U(a) : \forall x \in X \cap \mathring{U}(a) \implies f(x) \in U(A).$$
-        </div>
-
-        <h3 id="sub-9" data-toc="2. Комбинаторная матрица 16 …">2.2. Комбинаторная матрица 16 типов предела функции</h3>
-        <p>
+          \[\lim_{x \to a} f(x) = A \iff \forall U(A) \quad \exists U(a) : \forall x \in X \cap \mathring{U}(a) \implies f(x) \in U(A).\]
+        </div></div>
+<h3 data-toc="2. Комбинаторная матрица 16 ти…" id="sec-2-2">2.2. Комбинаторная матрица 16 типов предела функции</h3>
+<p>
           В расширенной числовой прямой $\overline{\mathbb{R}} = \mathbb{R} \cup \{-\infty, +\infty, \infty\}$ как предельная точка $a$, так и само предельное значение $A$ могут принимать одно из четырех значений: конечное число ($c \in \mathbb{R}$), $+\infty$, $-\infty$ или $\infty$ (без знака). Это порождает ровно $4 \times 4 = 16$ конкретных реализаций на кванторном языке $\varepsilon - \delta$:
         </p>
-
-        <div class="table-container">
-          <div class="table-scroll">
+<div class="table-container">
 <table>
-            <thead>
-              <tr>
-                <th>№</th>
-                <th>Стремление аргумента</th>
-                <th>Значение предела</th>
-                <th>Кванторная запись на языке $\varepsilon - \delta$</th>
-                <th>Смысл величин $\varepsilon$ и $\delta$</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>1</strong></td>
-                <td>$x \to a \in \mathbb{R}$</td>
-                <td>$A \in \mathbb{R}$</td>
-                <td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: 0 < |x - a| < \delta \implies |f(x) - A| < \varepsilon$</td>
-                <td>$\varepsilon$ — малое, $\delta$ — малое</td>
-              </tr>
-              <tr>
-                <td><strong>2</strong></td>
-                <td>$x \to a \in \mathbb{R}$</td>
-                <td>$A = +\infty$</td>
-                <td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: 0 < |x - a| < \delta \implies f(x) > \varepsilon$</td>
-                <td>$\varepsilon$ — большое, $\delta$ — малое</td>
-              </tr>
-              <tr>
-                <td><strong>3</strong></td>
-                <td>$x \to a \in \mathbb{R}$</td>
-                <td>$A = -\infty$</td>
-                <td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: 0 < |x - a| < \delta \implies f(x) < -\varepsilon$</td>
-                <td>$\varepsilon$ — большое, $\delta$ — малое</td>
-              </tr>
-              <tr>
-                <td><strong>4</strong></td>
-                <td>$x \to a \in \mathbb{R}$</td>
-                <td>$A = \infty$</td>
-                <td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: 0 < |x - a| < \delta \implies |f(x)| > \varepsilon$</td>
-                <td>$\varepsilon$ — большое, $\delta$ — малое</td>
-              </tr>
-              <tr>
-                <td><strong>5</strong></td>
-                <td>$x \to +\infty$</td>
-                <td>$A \in \mathbb{R}$</td>
-                <td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: x > \delta \implies |f(x) - A| < \varepsilon$</td>
-                <td>$\varepsilon$ — малое, $\delta$ — большое</td>
-              </tr>
-              <tr>
-                <td><strong>6</strong></td>
-                <td>$x \to +\infty$</td>
-                <td>$A = +\infty$</td>
-                <td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: x > \delta \implies f(x) > \varepsilon$</td>
-                <td>$\varepsilon$ — большое, $\delta$ — большое</td>
-              </tr>
-              <tr>
-                <td><strong>7</strong></td>
-                <td>$x \to +\infty$</td>
-                <td>$A = -\infty$</td>
-                <td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: x > \delta \implies f(x) < -\varepsilon$</td>
-                <td>$\varepsilon$ — большое, $\delta$ — большое</td>
-              </tr>
-              <tr>
-                <td><strong>8</strong></td>
-                <td>$x \to +\infty$</td>
-                <td>$A = \infty$</td>
-                <td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: x > \delta \implies |f(x)| > \varepsilon$</td>
-                <td>$\varepsilon$ — большое, $\delta$ — большое</td>
-              </tr>
-              <tr>
-                <td><strong>9</strong></td>
-                <td>$x \to -\infty$</td>
-                <td>$A \in \mathbb{R}$</td>
-                <td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: x < -\delta \implies |f(x) - A| < \varepsilon$</td>
-                <td>$\varepsilon$ — малое, $\delta$ — большое</td>
-              </tr>
-              <tr>
-                <td><strong>10</strong></td>
-                <td>$x \to -\infty$</td>
-                <td>$A = +\infty$</td>
-                <td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: x < -\delta \implies f(x) > \varepsilon$</td>
-                <td>$\varepsilon$ — большое, $\delta$ — большое</td>
-              </tr>
-              <tr>
-                <td><strong>11</strong></td>
-                <td>$x \to -\infty$</td>
-                <td>$A = -\infty$</td>
-                <td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: x < -\delta \implies f(x) < -\varepsilon$</td>
-                <td>$\varepsilon$ — большое, $\delta$ — большое</td>
-              </tr>
-              <tr>
-                <td><strong>12</strong></td>
-                <td>$x \to -\infty$</td>
-                <td>$A = \infty$</td>
-                <td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: x < -\delta \implies |f(x)| > \varepsilon$</td>
-                <td>$\varepsilon$ — большое, $\delta$ — большое</td>
-              </tr>
-              <tr>
-                <td><strong>13</strong></td>
-                <td>$x \to \infty$</td>
-                <td>$A \in \mathbb{R}$</td>
-                <td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: |x| > \delta \implies |f(x) - A| < \varepsilon$</td>
-                <td>$\varepsilon$ — малое, $\delta$ — большое</td>
-              </tr>
-              <tr>
-                <td><strong>14</strong></td>
-                <td>$x \to \infty$</td>
-                <td>$A = +\infty$</td>
-                <td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: |x| > \delta \implies f(x) > \varepsilon$</td>
-                <td>$\varepsilon$ — большое, $\delta$ — большое</td>
-              </tr>
-              <tr>
-                <td><strong>15</strong></td>
-                <td>$x \to \infty$</td>
-                <td>$A = -\infty$</td>
-                <td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: |x| > \delta \implies f(x) < -\varepsilon$</td>
-                <td>$\varepsilon$ — большое, $\delta$ — большое</td>
-              </tr>
-              <tr>
-                <td><strong>16</strong></td>
-                <td>$x \to \infty$</td>
-                <td>$A = \infty$</td>
-                <td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: |x| > \delta \implies |f(x)| > \varepsilon$</td>
-                <td>$\varepsilon$ — большое, $\delta$ — большое</td>
-              </tr>
-            </tbody>
-          </table>
+<thead>
+<tr>
+<th>№</th>
+<th>Стремление аргумента</th>
+<th>Значение предела</th>
+<th>Кванторная запись на языке $\varepsilon - \delta$</th>
+<th>Смысл величин $\varepsilon$ и $\delta$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>$x \to a \in \mathbb{R}$</td>
+<td>$A \in \mathbb{R}$</td>
+<td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: 0 < |x - a| < \delta \implies |f(x) - A| < \varepsilon$</td>
+<td>$\varepsilon$ — малое, $\delta$ — малое</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>$x \to a \in \mathbb{R}$</td>
+<td>$A = +\infty$</td>
+<td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: 0 < |x - a| < \delta \implies f(x) > \varepsilon$</td>
+<td>$\varepsilon$ — большое, $\delta$ — малое</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>$x \to a \in \mathbb{R}$</td>
+<td>$A = -\infty$</td>
+<td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: 0 < |x - a| < \delta \implies f(x) < -\varepsilon$</td>
+<td>$\varepsilon$ — большое, $\delta$ — малое</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>$x \to a \in \mathbb{R}$</td>
+<td>$A = \infty$</td>
+<td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: 0 < |x - a| < \delta \implies |f(x)| > \varepsilon$</td>
+<td>$\varepsilon$ — большое, $\delta$ — малое</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>$x \to +\infty$</td>
+<td>$A \in \mathbb{R}$</td>
+<td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: x > \delta \implies |f(x) - A| < \varepsilon$</td>
+<td>$\varepsilon$ — малое, $\delta$ — большое</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td>$x \to +\infty$</td>
+<td>$A = +\infty$</td>
+<td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: x > \delta \implies f(x) > \varepsilon$</td>
+<td>$\varepsilon$ — большое, $\delta$ — большое</td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td>$x \to +\infty$</td>
+<td>$A = -\infty$</td>
+<td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: x > \delta \implies f(x) < -\varepsilon$</td>
+<td>$\varepsilon$ — большое, $\delta$ — большое</td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td>$x \to +\infty$</td>
+<td>$A = \infty$</td>
+<td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: x > \delta \implies |f(x)| > \varepsilon$</td>
+<td>$\varepsilon$ — большое, $\delta$ — большое</td>
+</tr>
+<tr>
+<td><strong>9</strong></td>
+<td>$x \to -\infty$</td>
+<td>$A \in \mathbb{R}$</td>
+<td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: x < -\delta \implies |f(x) - A| < \varepsilon$</td>
+<td>$\varepsilon$ — малое, $\delta$ — большое</td>
+</tr>
+<tr>
+<td><strong>10</strong></td>
+<td>$x \to -\infty$</td>
+<td>$A = +\infty$</td>
+<td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: x < -\delta \implies f(x) > \varepsilon$</td>
+<td>$\varepsilon$ — большое, $\delta$ — большое</td>
+</tr>
+<tr>
+<td><strong>11</strong></td>
+<td>$x \to -\infty$</td>
+<td>$A = -\infty$</td>
+<td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: x < -\delta \implies f(x) < -\varepsilon$</td>
+<td>$\varepsilon$ — большое, $\delta$ — большое</td>
+</tr>
+<tr>
+<td><strong>12</strong></td>
+<td>$x \to -\infty$</td>
+<td>$A = \infty$</td>
+<td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: x < -\delta \implies |f(x)| > \varepsilon$</td>
+<td>$\varepsilon$ — большое, $\delta$ — большое</td>
+</tr>
+<tr>
+<td><strong>13</strong></td>
+<td>$x \to \infty$</td>
+<td>$A \in \mathbb{R}$</td>
+<td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: |x| > \delta \implies |f(x) - A| < \varepsilon$</td>
+<td>$\varepsilon$ — малое, $\delta$ — большое</td>
+</tr>
+<tr>
+<td><strong>14</strong></td>
+<td>$x \to \infty$</td>
+<td>$A = +\infty$</td>
+<td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: |x| > \delta \implies f(x) > \varepsilon$</td>
+<td>$\varepsilon$ — большое, $\delta$ — большое</td>
+</tr>
+<tr>
+<td><strong>15</strong></td>
+<td>$x \to \infty$</td>
+<td>$A = -\infty$</td>
+<td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: |x| > \delta \implies f(x) < -\varepsilon$</td>
+<td>$\varepsilon$ — большое, $\delta$ — большое</td>
+</tr>
+<tr>
+<td><strong>16</strong></td>
+<td>$x \to \infty$</td>
+<td>$A = \infty$</td>
+<td>$\forall \varepsilon > 0 \ \exists \delta > 0 \ \forall x \in X: |x| > \delta \implies |f(x)| > \varepsilon$</td>
+<td>$\varepsilon$ — большое, $\delta$ — большое</td>
+</tr>
+</tbody>
+</table>
 </div>
-        </div>
-
-        <!-- ИЛЛЮСТРАЦИЯ: Случай 1 -->
-        <div class="svg-wrapper">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 520 340">
-            <defs>
-              <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-angle">
-                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"/>
-              </marker>
-            </defs>
-            <!-- Оси координат -->
-            <line x1="40" y1="290" x2="490" y2="290" stroke="var(--svg-axis)" stroke-width="2" marker-end="url(#arrow)"/>
-            <line x1="70" y1="320" x2="70" y2="25" stroke="var(--svg-axis)" stroke-width="2" marker-end="url(#arrow)"/>
-            <text x="495" y="295" fill="var(--svg-text)" font-family="sans-serif" font-size="13">x</text>
-            <text x="60" y="22" fill="var(--svg-text)" font-family="sans-serif" font-size="13">y</text>
-
-            <!-- Эпсилон-полоса по Oy -->
-            <rect x="70" y="90" width="410" height="80" fill="var(--svg-band2)"/>
-            <line x1="65" y1="130" x2="480" y2="130" stroke="var(--border-strong)" stroke-dasharray="4"/>
-            <line x1="65" y1="90" x2="480" y2="90" stroke="var(--border-strong)" stroke-dasharray="2"/>
-            <line x1="65" y1="170" x2="480" y2="170" stroke="var(--border-strong)" stroke-dasharray="2"/>
-
-            <!-- Дельта-коридор по Ox -->
-            <rect x="200" y="30" width="80" height="260" fill="var(--svg-band)"/>
-            <line x1="240" y1="30" x2="240" y2="295" stroke="var(--border-strong)" stroke-dasharray="4"/>
-            <line x1="200" y1="30" x2="200" y2="295" stroke="var(--border-strong)" stroke-dasharray="2"/>
-            <line x1="280" y1="30" x2="280" y2="295" stroke="var(--border-strong)" stroke-dasharray="2"/>
-
-            <!-- График линейной функции y = 2x + 1 -->
-            <line x1="120" y1="250" x2="360" y2="10" stroke="var(--svg-curve)" stroke-width="3"/>
-
-            <!-- Подписи осей -->
-            <text x="236" y="310" fill="var(--svg-text)" font-size="12">1</text>
-            <text x="180" y="310" fill="var(--svg-text)" font-size="11">1 - δ</text>
-            <text x="272" y="310" fill="var(--svg-text)" font-size="11">1 + δ</text>
-
-            <text x="45" y="134" fill="var(--svg-text)" font-size="12">3</text>
-            <text x="25" y="94" fill="var(--svg-text)" font-size="11">3 + ε</text>
-            <text x="25" y="174" fill="var(--svg-text)" font-size="11">3 - ε</text>
-
-            <!-- Точка (1, 3) выколотая -->
-            <circle cx="240" cy="130" r="5" fill="var(--bg-main)" stroke="var(--svg-curve)" stroke-width="2.5"/>
-          </svg></div>
-          <div class="svg-caption">Рис 1. Геометрическая интерпретация предела $\lim_{x \to 1}(2x + 1) = 3$ на языке $\varepsilon - \delta$. Вся проколотая дельта-окрестность отображается внутрь эпсилон-полосы.</div>
-        </div>
-
-        <div class="worked-example" id="ex-1">
-  <div class="block-label">Пример 1</div>
-  <h3 id="sub-10" data-toc="Пример к Случаю 1: Аналитиче…">Пример к Случаю 1: Аналитическое доказательство предела</h3>
-  
-          
-            <span>Демидович №412</span>
-          
+<!-- ИЛЛЮСТРАЦИЯ: Случай 1 -->
+<div class="svg-wrapper">
+<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 520 340">
+<defs>
+<marker id="arrow" markerheight="6" markerwidth="6" orient="auto-angle" refx="5" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"></path>
+</marker>
+</defs>
+<!-- Оси координат -->
+<line marker-end="url(#arrow)" stroke="var(--svg-axis)" stroke-width="2" x1="40" x2="490" y1="290" y2="290"></line>
+<line marker-end="url(#arrow)" stroke="var(--svg-axis)" stroke-width="2" x1="70" x2="70" y1="320" y2="25"></line>
+<text fill="var(--svg-text)" font-family="sans-serif" font-size="13" x="495" y="295">x</text>
+<text fill="var(--svg-text)" font-family="sans-serif" font-size="13" x="60" y="22">y</text>
+<!-- Эпсилон-полоса по Oy -->
+<rect fill="var(--svg-band2)" height="80" width="410" x="70" y="90"></rect>
+<line stroke="var(--border-strong)" stroke-dasharray="4" x1="65" x2="480" y1="130" y2="130"></line>
+<line stroke="var(--border-strong)" stroke-dasharray="2" x1="65" x2="480" y1="90" y2="90"></line>
+<line stroke="var(--border-strong)" stroke-dasharray="2" x1="65" x2="480" y1="170" y2="170"></line>
+<!-- Дельта-коридор по Ox -->
+<rect fill="var(--svg-band)" height="260" width="80" x="200" y="30"></rect>
+<line stroke="var(--border-strong)" stroke-dasharray="4" x1="240" x2="240" y1="30" y2="295"></line>
+<line stroke="var(--border-strong)" stroke-dasharray="2" x1="200" x2="200" y1="30" y2="295"></line>
+<line stroke="var(--border-strong)" stroke-dasharray="2" x1="280" x2="280" y1="30" y2="295"></line>
+<!-- График линейной функции y = 2x + 1 -->
+<line stroke="var(--svg-curve)" stroke-width="3" x1="120" x2="360" y1="250" y2="10"></line>
+<!-- Подписи осей -->
+<text fill="var(--svg-text)" font-size="12" x="236" y="310">1</text>
+<text fill="var(--svg-text)" font-size="11" x="180" y="310">1 - δ</text>
+<text fill="var(--svg-text)" font-size="11" x="272" y="310">1 + δ</text>
+<text fill="var(--svg-text)" font-size="12" x="45" y="134">3</text>
+<text fill="var(--svg-text)" font-size="11" x="25" y="94">3 + ε</text>
+<text fill="var(--svg-text)" font-size="11" x="25" y="174">3 - ε</text>
+<!-- Точка (1, 3) выколотая -->
+<circle cx="240" cy="130" fill="var(--bg-main)" r="5" stroke="var(--svg-curve)" stroke-width="2.5"></circle>
+</svg></figure>
+<div class="svg-caption">Рис 1. Геометрическая интерпретация предела $\lim_{x \to 1}(2x + 1) = 3$ на языке $\varepsilon - \delta$. Вся проколотая дельта-окрестность отображается внутрь эпсилон-полосы.</div>
 </div>
-          <p>
-            <strong>Задача:</strong> Пользуясь определением предела по Коши, строго доказать, что $\lim_{x \to 1}(2x + 1) = 3$.
+<div class="worked-example" id="ex-1"><div class="block-label">Пример 1</div><h3 data-toc="Пример к Случаю 1: Аналитическ…" id="sub-3-4">Пример к Случаю 1: Аналитическое доказательство пределаДемидович №412</h3><div>
+<p>
+<strong>Задача:</strong> Пользуясь определением предела по Коши, строго доказать, что $\lim_{x \to 1}(2x + 1) = 3$.
           </p>
-          <p>
-            <strong>Доказательство:</strong> Зафиксируем произвольное $\varepsilon > 0$. Требуется найти такое $\delta = \delta(\varepsilon) > 0$, чтобы для любого $x \in \mathbb{R}$, удовлетворяющего условию $0 < |x - 1| < \delta$, выполнялось:
+<p>
+<strong>Доказательство:</strong> Зафиксируем произвольное $\varepsilon > 0$. Требуется найти такое $\delta = \delta(\varepsilon) > 0$, чтобы для любого $x \in \mathbb{R}$, удовлетворяющего условию $0 < |x - 1| < \delta$, выполнялось:
           </p>
-          $$|(2x + 1) - 3| < \varepsilon.$$
+          \[|(2x + 1) - 3| < \varepsilon.\]
           <p>
             Преобразуем выражение под знаком модуля:
           </p>
-          $$|(2x + 1) - 3| = |2x - 2| = 2|x - 1|.$$
+          \[|(2x + 1) - 3| = |2x - 2| = 2|x - 1|.\]
           <p>
             Неравенство $2|x - 1| < \varepsilon$ равносильно $|x - 1| < \frac{\varepsilon}{2}$. Следовательно, положив:
           </p>
-          $$\delta := \frac{\varepsilon}{2} > 0,$$
+          \[\delta := \frac{\varepsilon}{2} > 0,\]
           <p>
             получаем, что для любого $x$, такого что $0 < |x - 1| < \delta = \varepsilon / 2$, справедливо:
           </p>
-          $$|(2x + 1) - 3| = 2|x - 1| < 2 \cdot \frac{\varepsilon}{2} = \varepsilon.$$
+          \[|(2x + 1) - 3| = 2|x - 1| < 2 \cdot \frac{\varepsilon}{2} = \varepsilon.\]
           <p>
             Что полностью завершает доказательство предела по Коши.
           </p>
-        </div>
-
-        <!-- ИЛЛЮСТРАЦИЯ: Случай 2 (Бесконечность в точке) -->
-        <div class="svg-wrapper">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 520 340">
-            <!-- Оси координат -->
-            <line x1="40" y1="280" x2="490" y2="280" stroke="var(--svg-axis)" stroke-width="2" marker-end="url(#arrow)"/>
-            <line x1="260" y1="320" x2="260" y2="25" stroke="var(--svg-axis)" stroke-width="2" marker-end="url(#arrow)"/>
-            <text x="495" y="285" fill="var(--svg-text)" font-family="sans-serif" font-size="13">x</text>
-            <text x="250" y="22" fill="var(--svg-text)" font-family="sans-serif" font-size="13">y</text>
-
-            <!-- Горизонт ε (большое число) -->
-            <line x1="60" y1="90" x2="460" y2="90" stroke="var(--border-strong)" stroke-dasharray="3"/>
-            <text x="235" y="85" fill="var(--svg-text)" font-size="12">ε</text>
-            <rect x="60" y="30" width="400" height="60" fill="var(--svg-band2)"/>
-
-            <!-- Дельта коридор вокруг 0 -->
-            <rect x="225" y="30" width="70" height="250" fill="var(--svg-band)"/>
-            <line x1="225" y1="90" x2="225" y2="285" stroke="var(--border-strong)" stroke-dasharray="2"/>
-            <line x1="295" y1="90" x2="295" y2="285" stroke="var(--border-strong)" stroke-dasharray="2"/>
-            <text x="215" y="298" fill="var(--svg-text)" font-size="11">-δ</text>
-            <text x="295" y="298" fill="var(--svg-text)" font-size="11">+δ</text>
-            <text x="250" y="298" fill="var(--svg-text)" font-size="12">0</text>
-
-            <!-- График y = 1/x^2 -->
-            <path d="M 60 275 Q 200 270 225 90 T 252 35" fill="none" stroke="var(--svg-curve)" stroke-width="2.5"/>
-            <path d="M 460 275 Q 320 270 295 90 T 268 35" fill="none" stroke="var(--svg-curve)" stroke-width="2.5"/>
-          </svg></div>
-          <div class="svg-caption">Рис 2. Геометрическая иллюстрация Случая 2: $\lim_{x \to 0}\frac{1}{x^2} = +\infty$. Для сколь угодно высокой границы $\varepsilon$ существует окрестность $(-\delta, \delta)$, где кривая уходит выше горизонта.</div>
-        </div>
-
-        <div class="worked-example" id="ex-2">
-  <div class="block-label">Пример 2</div>
-  <h3 id="sub-11" data-toc="Пример к Случаю 2: Функция с…">Пример к Случаю 2: Функция с бесконечным пределом</h3>
-  
-          
-            <span>Кудрявцев, Т. 1</span>
-          
+</div></div>
+<!-- ИЛЛЮСТРАЦИЯ: Случай 2 (Бесконечность в точке) -->
+<div class="svg-wrapper">
+<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 520 340">
+<!-- Оси координат -->
+<line marker-end="url(#arrow)" stroke="var(--svg-axis)" stroke-width="2" x1="40" x2="490" y1="280" y2="280"></line>
+<line marker-end="url(#arrow)" stroke="var(--svg-axis)" stroke-width="2" x1="260" x2="260" y1="320" y2="25"></line>
+<text fill="var(--svg-text)" font-family="sans-serif" font-size="13" x="495" y="285">x</text>
+<text fill="var(--svg-text)" font-family="sans-serif" font-size="13" x="250" y="22">y</text>
+<!-- Горизонт ε (большое число) -->
+<line stroke="var(--border-strong)" stroke-dasharray="3" x1="60" x2="460" y1="90" y2="90"></line>
+<text fill="var(--svg-text)" font-size="12" x="235" y="85">ε</text>
+<rect fill="var(--svg-band2)" height="60" width="400" x="60" y="30"></rect>
+<!-- Дельта коридор вокруг 0 -->
+<rect fill="var(--svg-band)" height="250" width="70" x="225" y="30"></rect>
+<line stroke="var(--border-strong)" stroke-dasharray="2" x1="225" x2="225" y1="90" y2="285"></line>
+<line stroke="var(--border-strong)" stroke-dasharray="2" x1="295" x2="295" y1="90" y2="285"></line>
+<text fill="var(--svg-text)" font-size="11" x="215" y="298">-δ</text>
+<text fill="var(--svg-text)" font-size="11" x="295" y="298">+δ</text>
+<text fill="var(--svg-text)" font-size="12" x="250" y="298">0</text>
+<!-- График y = 1/x^2 -->
+<path d="M 60 275 Q 200 270 225 90 T 252 35" fill="none" stroke="var(--svg-curve)" stroke-width="2.5"></path>
+<path d="M 460 275 Q 320 270 295 90 T 268 35" fill="none" stroke="var(--svg-curve)" stroke-width="2.5"></path>
+</svg></figure>
+<div class="svg-caption">Рис 2. Геометрическая иллюстрация Случая 2: $\lim_{x \to 0}\frac{1}{x^2} = +\infty$. Для сколь угодно высокой границы $\varepsilon$ существует окрестность $(-\delta, \delta)$, где кривая уходит выше горизонта.</div>
 </div>
-          <p>
-            <strong>Задача:</strong> Доказать, что $\lim_{x \to 0}\frac{1}{x^2} = +\infty$.
+<div class="worked-example" id="ex-2"><div class="block-label">Пример 2</div><h3 data-toc="Пример к Случаю 2: Функция с б…" id="sub-3-5">Пример к Случаю 2: Функция с бесконечным пределомКудрявцев, Т. 1</h3><div>
+<p>
+<strong>Задача:</strong> Доказать, что $\lim_{x \to 0}\frac{1}{x^2} = +\infty$.
           </p>
-          <p>
-            <strong>Доказательство:</strong> Зафиксируем сколь угодно большое вещественное число $\varepsilon > 0$. Нам необходимо предъявить $\delta > 0$, такое чтобы для любого $x \neq 0$:
+<p>
+<strong>Доказательство:</strong> Зафиксируем сколь угодно большое вещественное число $\varepsilon > 0$. Нам необходимо предъявить $\delta > 0$, такое чтобы для любого $x \neq 0$:
           </p>
-          $$0 < |x - 0| < \delta \implies \frac{1}{x^2} > \varepsilon.$$
+          \[0 < |x - 0| < \delta \implies \frac{1}{x^2} > \varepsilon.\]
           <p>
             Решим это неравенство относительно $|x|$:
           </p>
-          $$\frac{1}{x^2} > \varepsilon \iff x^2 < \frac{1}{\varepsilon} \iff |x| < \frac{1}{\sqrt{\varepsilon}}.$$
+          \[\frac{1}{x^2} > \varepsilon \iff x^2 < \frac{1}{\varepsilon} \iff |x| < \frac{1}{\sqrt{\varepsilon}}.\]
           <p>
             Полагая $\delta = \frac{1}{\sqrt{\varepsilon}} > 0$, получаем требуемое: при $0 < |x| < \delta$ дробь $\frac{1}{x^2} > \frac{1}{\delta^2} = \varepsilon$. Предел равен $+\infty$.
           </p>
-        </div>
-
-        <!-- ИЛЛЮСТРАЦИЯ: Случай 5 (Экспонента на +бесконечности) -->
-        <div class="svg-wrapper">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 520 300">
-            <!-- Оси координат -->
-            <line x1="30" y1="250" x2="490" y2="250" stroke="var(--svg-axis)" stroke-width="2" marker-end="url(#arrow)"/>
-            <line x1="70" y1="280" x2="70" y2="25" stroke="var(--svg-axis)" stroke-width="2" marker-end="url(#arrow)"/>
-            <text x="495" y="255" fill="var(--svg-text)" font-size="13">x</text>
-            <text x="58" y="22" fill="var(--svg-text)" font-size="13">y</text>
-
-            <!-- Эпсилон коридор вдоль оси Ox -->
-            <rect x="70" y="200" width="410" height="50" fill="var(--svg-band2)"/>
-            <line x1="65" y1="200" x2="480" y2="200" stroke="var(--border-strong)" stroke-dasharray="3"/>
-            <text x="50" y="205" fill="var(--svg-text)" font-size="11">ε</text>
-            <text x="58" y="265" fill="var(--svg-text)" font-size="12">0</text>
-
-            <!-- Порог дельта (большое число) -->
-            <line x1="260" y1="25" x2="260" y2="255" stroke="var(--border-strong)" stroke-dasharray="3"/>
-            <text x="255" y="270" fill="var(--svg-text)" font-size="12">δ</text>
-            <rect x="260" y="25" width="220" height="225" fill="var(--svg-band)"/>
-
-            <!-- Экспонента y = (1/2)^x -->
-            <path d="M 75 40 Q 140 180 260 200 T 480 245" fill="none" stroke="var(--svg-curve)" stroke-width="2.5"/>
-          </svg></div>
-          <div class="svg-caption">Рис 3. Иллюстрация Случая 5: $\lim_{x \to +\infty}\left(\frac{1}{2}\right)^x = 0$. При $x > \delta$ значения экспоненты прижимаются ближе к нулю, чем требуемый допуск $\varepsilon$.</div>
-        </div>
-
-        <div class="worked-example" id="ex-3">
-  <div class="block-label">Пример 3</div>
-  <h3 id="sub-12" data-toc="Пример к Случаю 5: Экспонент…">Пример к Случаю 5: Экспонента на плюс-бесконечности</h3>
-  
-          
-            <span>Демидович №418</span>
-          
+</div></div>
+<!-- ИЛЛЮСТРАЦИЯ: Случай 5 (Экспонента на +бесконечности) -->
+<div class="svg-wrapper">
+<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 520 300">
+<!-- Оси координат -->
+<line marker-end="url(#arrow)" stroke="var(--svg-axis)" stroke-width="2" x1="30" x2="490" y1="250" y2="250"></line>
+<line marker-end="url(#arrow)" stroke="var(--svg-axis)" stroke-width="2" x1="70" x2="70" y1="280" y2="25"></line>
+<text fill="var(--svg-text)" font-size="13" x="495" y="255">x</text>
+<text fill="var(--svg-text)" font-size="13" x="58" y="22">y</text>
+<!-- Эпсилон коридор вдоль оси Ox -->
+<rect fill="var(--svg-band2)" height="50" width="410" x="70" y="200"></rect>
+<line stroke="var(--border-strong)" stroke-dasharray="3" x1="65" x2="480" y1="200" y2="200"></line>
+<text fill="var(--svg-text)" font-size="11" x="50" y="205">ε</text>
+<text fill="var(--svg-text)" font-size="12" x="58" y="265">0</text>
+<!-- Порог дельта (большое число) -->
+<line stroke="var(--border-strong)" stroke-dasharray="3" x1="260" x2="260" y1="25" y2="255"></line>
+<text fill="var(--svg-text)" font-size="12" x="255" y="270">δ</text>
+<rect fill="var(--svg-band)" height="225" width="220" x="260" y="25"></rect>
+<!-- Экспонента y = (1/2)^x -->
+<path d="M 75 40 Q 140 180 260 200 T 480 245" fill="none" stroke="var(--svg-curve)" stroke-width="2.5"></path>
+</svg></figure>
+<div class="svg-caption">Рис 3. Иллюстрация Случая 5: $\lim_{x \to +\infty}\left(\frac{1}{2}\right)^x = 0$. При $x > \delta$ значения экспоненты прижимаются ближе к нулю, чем требуемый допуск $\varepsilon$.</div>
 </div>
-          <p>
-            <strong>Задача:</strong> Доказать, что $\lim_{x \to +\infty}\left(\frac{1}{2}\right)^x = 0$.
+<div class="worked-example" id="ex-3"><div class="block-label">Пример 3</div><h3 data-toc="Пример к Случаю 5: Экспонента …" id="sub-3-6">Пример к Случаю 5: Экспонента на плюс-бесконечностиДемидович №418</h3><div>
+<p>
+<strong>Задача:</strong> Доказать, что $\lim_{x \to +\infty}\left(\frac{1}{2}\right)^x = 0$.
           </p>
-          <p>
-            <strong>Доказательство:</strong> Зафиксируем малое $\varepsilon > 0$ (без ограничения общности считаем $\varepsilon \in (0, 1)$). Требуется найти $\delta > 0$ такое, что:
+<p>
+<strong>Доказательство:</strong> Зафиксируем малое $\varepsilon > 0$ (без ограничения общности считаем $\varepsilon \in (0, 1)$). Требуется найти $\delta > 0$ такое, что:
           </p>
-          $$\forall x > \delta \implies \left|\left(\frac{1}{2}\right)^x - 0\right| < \varepsilon \iff \left(\frac{1}{2}\right)^x < \varepsilon.$$
+          \[\forall x > \delta \implies \left|\left(\frac{1}{2}\right)^x - 0\right| < \varepsilon \iff \left(\frac{1}{2}\right)^x < \varepsilon.\]
           <p>
             Прологарифмируем обе части строгого неравенства по основанию $1/2 \in (0, 1)$, учитывая смену знака неравенства:
           </p>
-          $$x > \log_{1/2}\varepsilon = -\log_2 \varepsilon = \log_2\left(\frac{1}{\varepsilon}\right).$$
+          \[x > \log_{1/2}\varepsilon = -\log_2 \varepsilon = \log_2\left(\frac{1}{\varepsilon}\right).\]
           <p>
             Полагая $\delta = \max\left\{1, \, \log_2\left(\frac{1}{\varepsilon}\right)\right\}$, получаем, что для всякого $x > \delta$ выполнено $\left(\frac{1}{2}\right)^x < \varepsilon$. Предел доказан.
           </p>
-        </div>
-
-        <h3 id="sub-13" data-toc="3. Секвенциальное определени…">2.3. Секвенциальное определение предела функции по Гейне</h3>
-
-        <div class="statement definition" id="def-4">
-  <div class="block-label">Определение 4</div>
-  <h3 id="sub-14" data-toc="Определение предела функции …">Определение предела функции по Гейне (Секвенциальное)</h3>
-  
-          
-            <span>Язык последовательностей</span>
-          
-</div>
-          <p>
+</div></div>
+<h3 data-toc="3. Секвенциальное определение …" id="sec-2-3">2.3. Секвенциальное определение предела функции по Гейне</h3>
+<div class="statement definition" id="def-4"><div class="block-label">Определение 4</div><h3 data-toc="Определение предела функции по…" id="sub-3-8">Определение предела функции по Гейне (Секвенциальное)Язык последовательностей</h3><div>
+<p>
             Пусть $a$ — предельная точка множества $X \subset \mathbb{R}$. Точка $A \in \overline{\mathbb{R}}$ называется <strong>пределом функции $f: X \to \mathbb{R}$ в точке $a$ по Гейне</strong>, если для любой последовательности точек $\{x_n\}_{n=1}^\infty \subset X \setminus \{a\}$, сходящейся к $a$, соответствующая числовая последовательность значений функции $\{f(x_n)\}_{n=1}^\infty$ сходится к $A$:
           </p>
-          $$\lim_{x \to a} f(x) = A \iff \forall \{x_n\}_{n=1}^\infty \subset (X \setminus \{a\}) : \left(\lim_{n \to \infty} x_n = a \implies \lim_{n \to \infty} f(x_n) = A\right).$$
-        </div>
-
-        <h3 id="sub-15" data-toc="4. Теорема об эквивалентност…">2.4. Теорема об эквивалентности определений Коши и Гейне</h3>
-
-        <div class="statement theorem" id="thm-2">
-  <div class="block-label">Утверждение 2</div>
-  <h3 id="sub-16" data-toc="Фундаментальная теорема экви…">Фундаментальная теорема эквивалентности</h3>
-  
-          
-            <span>Центральная теорема</span>
-          
-</div>
-          <p>
+          \[\lim_{x \to a} f(x) = A \iff \forall \{x_n\}_{n=1}^\infty \subset (X \setminus \{a\}) : \left(\lim_{n \to \infty} x_n = a \implies \lim_{n \to \infty} f(x_n) = A\right).\]
+        </div></div>
+<h3 data-toc="4. Теорема об эквивалентности …" id="sec-2-4">2.4. Теорема об эквивалентности определений Коши и Гейне</h3>
+<div class="statement theorem" id="thm-2"><div class="block-label">Утверждение 2</div><h3 data-toc="Фундаментальная теорема эквива…" id="sub-3-10">Фундаментальная теорема эквивалентностиЦентральная теорема</h3><div>
+<p>
             Пусть $a$ — предельная точка множества $X$. Определения предела функции в точке $a$ по Коши и по Гейне <strong>равносильны</strong>:
           </p>
-          $$\lim_{x \to a} f(x) = A \text{ (по Коши)} \iff \lim_{x \to a} f(x) = A \text{ (по Гейне)}.$$
-        </div>
-
-        <div class="proof" id="proof-2" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-2" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-2" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="callout-header">Исчерпывающее доказательство эквивалентности (для $a, A \in \mathbb{R}$)
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+          \[\lim_{x \to a} f(x) = A \text{ (по Коши)} \iff \lim_{x \to a} f(x) = A \text{ (по Гейне)}.\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-2">
+<div aria-label="Доказательство Исчерпывающее доказательство эквивалентности (для $a, A \in \mathbb{R}$)" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <p>
-            <strong>Часть 1: Коши $\implies$ Гейне.</strong>
-          </p>
-          <p>
+<div class="proof-idea" data-proof-idea="" id="idea-2">
+<div class="proof-label">Идея</div>
+<p>Часть 1: Коши $\implies$ Гейне.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-2">
+<div class="proof-label">Доказательство (Исчерпывающее доказательство эквивалентности (для $a, A \in \mathbb{R}$))</div>
+<p>
+<strong>Часть 1: Коши $\implies$ Гейне.</strong>
+</p>
+<p>
             Пусть для функции $f$ выполнено определение Коши:
           </p>
-          $$\forall \varepsilon > 0 \quad \exists \delta > 0 \quad \forall x \in X: 0 < |x - a| < \delta \implies |f(x) - A| < \varepsilon. \quad \text{(*)}$$
+          \[\forall \varepsilon > 0 \quad \exists \delta > 0 \quad \forall x \in X: 0 < |x - a| < \delta \implies |f(x) - A| < \varepsilon. \quad \text{(*)}\]
           <p>
             Возьмем произвольную последовательность $\{x_n\} \subset X \setminus \{a\}$, сходящуюся к точке $a$: $\lim_{n \to \infty} x_n = a$. Зафиксируем произвольное $\varepsilon > 0$. По условию (*), для этого $\varepsilon$ существует $\delta(\varepsilon) > 0$.
           </p>
-          <p>
+<p>
             По определению предела числовой последовательности, для положительного числа $\delta$ найдется такой номер $n_0 = n_0(\delta)$, что для всех $n > n_0$ выполняется:
           </p>
-          $$|x_n - a| < \delta.$$
+          \[|x_n - a| < \delta.\]
           <p>
             Так как все члены последовательности $x_n \neq a$, то выполнено строгое двойное неравенство $0 < |x_n - a| < \delta$. В силу утверждения Коши (*), отсюда следует, что:
           </p>
-          $$\forall n > n_0 \implies |f(x_n) - A| < \varepsilon.$$
+          \[\forall n > n_0 \implies |f(x_n) - A| < \varepsilon.\]
           <p>
             А это в точности означает, что числовая последовательность $\{f(x_n)\}$ имеет предел $A$ при $n \to \infty$. Следовательно, определение по Гейне выполнено.
           </p>
-          <p>
-            <strong>Часть 2: Гейне $\implies$ Коши (Конструктивное доказательство от противного).</strong>
-          </p>
-          <p>
+<p>
+<strong>Часть 2: Гейне $\implies$ Коши (Конструктивное доказательство от противного).</strong>
+</p>
+<p>
             Пусть выполнено определение Гейне. Предположим противное: пусть определение предела по Коши <em>не выполняется</em>. Сформулируем формально-логическое отрицание условия Коши:
           </p>
-          $$\exists \varepsilon_0 > 0 \quad \forall \delta > 0 \quad \exists x \in X: 0 < |x - a| < \delta, \quad \text{но } |f(x) - A| \ge \varepsilon_0.$$
+          \[\exists \varepsilon_0 > 0 \quad \forall \delta > 0 \quad \exists x \in X: 0 < |x - a| < \delta, \quad \text{но } |f(x) - A| \ge \varepsilon_0.\]
           <p>
             Поскольку это отрицание истинно для абсолютно любого положительного $\delta$, рассмотрим счётный набор радиусов окрестностей $\delta_n = \frac{1}{n}$, где $n \in \mathbb{N}$. Для каждого такого значения $\delta_n = 1/n$ найдется точка $x_n \in X$, удовлетворяющая условиям:
           </p>
-          $$0 < |x_n - a| < \frac{1}{n} \quad \text{и} \quad |f(x_n) - A| \ge \varepsilon_0. \quad \text{(**)}$$
+          \[0 < |x_n - a| < \frac{1}{n} \quad \text{и} \quad |f(x_n) - A| \ge \varepsilon_0. \quad \text{(**)}\]
           <p>
             Исследуем свойства построенной последовательности $\{x_n\}_{n=1}^\infty$:
           </p>
-          <ol>
-            <li>Все $x_n \in X$ и $x_n \neq a$ (так как $0 < |x_n - a|$);</li>
-            <li>Так как $0 < |x_n - a| < \frac{1}{n}$, а $\lim_{n \to \infty} \frac{1}{n} = 0$, по теореме о зажатой последовательности имеем $\lim_{n \to \infty} x_n = a$.</li>
-          </ol>
-          <p>
+<ol>
+<li>Все $x_n \in X$ и $x_n \neq a$ (так как $0 < |x_n - a|$);</li>
+<li>Так как $0 < |x_n - a| < \frac{1}{n}$, а $\lim_{n \to \infty} \frac{1}{n} = 0$, по теореме о зажатой последовательности имеем $\lim_{n \to \infty} x_n = a$.</li>
+</ol>
+<p>
             Тогда по определению Гейне для последовательности $\{x_n\}$ последовательность её значений обязана сходиться к $A$, то есть:
           </p>
-          $$\lim_{n \to \infty} f(x_n) = A \iff \forall \varepsilon > 0 \ \exists N \ \forall n > N: |f(x_n) - A| < \varepsilon.$$
+          \[\lim_{n \to \infty} f(x_n) = A \iff \forall \varepsilon > 0 \ \exists N \ \forall n > N: |f(x_n) - A| < \varepsilon.\]
           <p>
             Положив $\varepsilon = \varepsilon_0 / 2$, для всех номеров $n > N$ должно выполняться $|f(x_n) - A| < \varepsilon_0 / 2$. Однако по построению последовательности (неравенство (**)) для <em>всех без исключения</em> номеров $n \in \mathbb{N}$ выполняется:
           </p>
-          $$|f(x_n) - A| \ge \varepsilon_0.$$
+          \[|f(x_n) - A| \ge \varepsilon_0.\]
           <p>
             Полученное противоречие опровергает предположение о невыполнении определения Коши. Значит, определение предела по Коши справедливо. Теорема полностью доказана.
           </p>
-          <div class="proof-qed">■</div>
-        </div>
-      </section>
-
-      <!-- РАЗДЕЛ 3 -->
-      <section id="sec-3">
-</section>
-
-<section class="chapter" aria-labelledby="chapter-4">
-  <div class="chapter-kicker">04 / 3. Фундаментальные свойства …</div>
-  <h2 id="chapter-4" data-toc="3. Фундаментальные свойства …">§ 3. Фундаментальные свойства пределов функций</h2>
-  <h3 id="sub-17" data-toc="Теорема 1: Единственность пр…">Теорема 1: Единственность предела функции в точке</h3>
-
-        <div class="statement theorem" id="thm-3">
-  <div class="block-label">Утверждение 3</div>
-  <h3 id="sub-18" data-toc="Теорема 1. Единственность пр…">Теорема 1. Единственность предела</h3>
-  
-          
-            <span>Теорема</span>
-          
+<div class="proof-qed">■</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-          <p>
+</div>
+
+<!-- РАЗДЕЛ 3 -->
+<section id="sec-3">
+</section>
+</section>
+<section class="chapter" aria-labelledby="chapter-4">
+  <div class="chapter-kicker">04 / 3. Фундаментальные свойства пр…</div>
+  <h2 id="chapter-4" data-toc="3. Фундаментальные свойства пр…">§ 3. Фундаментальные свойства пределов функций</h2>
+  
+<h3 data-toc="Теорема 1: Единственность пред…" id="sec-3-1">Теорема 1: Единственность предела функции в точке</h3>
+<div class="statement theorem" id="thm-3"><div class="block-label">Утверждение 3</div><h3 data-toc="Теорема 1. Единственность пред…" id="sub-4-2">Теорема 1. Единственность пределаТеорема</h3><div>
+<p>
             Если функция $f(x)$ имеет в точке $a$ конечный предел, то этот предел <strong>единственен</strong>. То есть, если $\lim_{x \to a} f(x) = A$ и $\lim_{x \to a} f(x) = B$, то $A = B$.
           </p>
-        </div>
-
-        <div class="proof" id="proof-3" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-3" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-3" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="callout-header">Доказательство Теоремы 1 двумя способами
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div></div>
+<div class="proof" data-proof="" id="proof-3">
+<div aria-label="Доказательство Доказательство Теоремы 1 двумя способами" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <p>
-            <strong>Способ 1 (Через язык Гейне):</strong><br>
-            Пусть $\lim_{x \to a} f(x) = A$ и $\lim_{x \to a} f(x) = B$. Так как $a$ — предельная точка множества $X$, существует последовательность $\{x_n\} \subset X \setminus \{a\}$, такая что $x_n \to a$ при $n \to \infty$.<br>
+<div class="proof-idea" data-proof-idea="" id="idea-3">
+<div class="proof-label">Идея</div>
+<p>Способ 1 (Через язык Гейне):
+            Пусть $\lim_{x \to a} f(x) = A$ и $\lim_{x \to a} f(x) = B$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-3">
+<div class="proof-label">Доказательство (Доказательство Теоремы 1 двумя способами)</div>
+<p>
+<strong>Способ 1 (Через язык Гейне):</strong><br/>
+            Пусть $\lim_{x \to a} f(x) = A$ и $\lim_{x \to a} f(x) = B$. Так как $a$ — предельная точка множества $X$, существует последовательность $\{x_n\} \subset X \setminus \{a\}$, такая что $x_n \to a$ при $n \to \infty$.<br/>
             Тогда по определению Гейне для первого предела получаем $\lim_{n \to \infty} f(x_n) = A$, а для второго предела — $\lim_{n \to \infty} f(x_n) = B$. Но числовая последовательность $\{f(x_n)\}$ не может иметь два различных предела (по теореме о единственности предела числовой последовательности). Следовательно, $A = B$.
           </p>
-          <p>
-            <strong>Способ 2 (Через язык Коши от противного):</strong><br>
-            Предположим противное: $A \neq B$. Без ограничения общности положим $A < B$. Расстояние между ними $d = B - A > 0$.<br>
-            Зафиксируем положительное число $\varepsilon = \frac{B - A}{2} > 0$.<br>
+<p>
+<strong>Способ 2 (Через язык Коши от противного):</strong><br/>
+            Предположим противное: $A \neq B$. Без ограничения общности положим $A < B$. Расстояние между ними $d = B - A > 0$.<br/>
+            Зафиксируем положительное число $\varepsilon = \frac{B - A}{2} > 0$.<br/>
             По определению Коши найдутся окрестности $\mathring{U}_{\delta_1}(a)$ и $\mathring{U}_{\delta_2}(a)$, в которых:
           </p>
-          $$\forall x \in \mathring{U}_{\delta_1}(a) \implies |f(x) - A| < \varepsilon \iff f(x) < A + \frac{B - A}{2} = \frac{A + B}{2},$$
-          $$\forall x \in \mathring{U}_{\delta_2}(a) \implies |f(x) - B| < \varepsilon \iff f(x) > B - \frac{B - A}{2} = \frac{A + B}{2}.$$
+          \[\forall x \in \mathring{U}_{\delta_1}(a) \implies |f(x) - A| < \varepsilon \iff f(x) < A + \frac{B - A}{2} = \frac{A + B}{2},\]
+          \[\forall x \in \mathring{U}_{\delta_2}(a) \implies |f(x) - B| < \varepsilon \iff f(x) > B - \frac{B - A}{2} = \frac{A + B}{2}.\]
           <p>
             Положим $\delta = \min\{\delta_1, \delta_2\} > 0$. В непустом пересечении $\mathring{U}_\delta(a) \cap X$ возьмем точку $x_0$. Для нее одновременно должно выполняться:
           </p>
-          $$f(x_0) < \frac{A + B}{2} \quad \text{и} \quad f(x_0) > \frac{A + B}{2},$$
+          \[f(x_0) < \frac{A + B}{2} \quad \text{и} \quad f(x_0) > \frac{A + B}{2},\]
           <p>
             что невозможно. Значит, предположение $A \neq B$ неверно, и $A = B$.
           </p>
-          <div class="proof-qed">■</div>
-        </div>
-
-        <h3 id="sub-19" data-toc="Критерий опровержения предел…">Критерий опровержения предела: Исследование функций $\sin x$ и $\sin(1/x)$</h3>
-
-        <div class="worked-example" id="ex-4">
-  <div class="block-label">Пример 4</div>
-  <h3 id="sub-20" data-toc="Пример: Доказательство отсут…">Пример: Доказательство отсутствия предела $\lim_{x \to +\infty}\sin x$</h3>
-  
-          
-            <span>Демидович №425</span>
-          
+<div class="proof-qed">■</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-          <p>
-            <strong>Утверждение:</strong> Предел функции $\sin x$ при $x \to +\infty$ не существует.
+</div>
+<h3 data-toc="Критерий опровержения предела:…" id="sec-3-2">Критерий опровержения предела: Исследование функций $\sin x$ и $\sin(1/x)$</h3>
+<div class="worked-example" id="ex-4"><div class="block-label">Пример 4</div><h3 data-toc="Пример: Доказательство отсутст…" id="sub-4-4">Пример: Доказательство отсутствия предела $\lim_{x \to +\infty}\sin x$Демидович №425</h3><div>
+<p>
+<strong>Утверждение:</strong> Предел функции $\sin x$ при $x \to +\infty$ не существует.
           </p>
-          <p>
-            <strong>Доказательство:</strong> Воспользуемся определением предела по Гейне. Построим две числовые последовательности аргументов, стремящиеся к $+\infty$:
+<p>
+<strong>Доказательство:</strong> Воспользуемся определением предела по Гейне. Построим две числовые последовательности аргументов, стремящиеся к $+\infty$:
           </p>
-          $$x_n = \frac{\pi}{2} + 2\pi n, \quad n \in \mathbb{N} \implies x_n \to +\infty,$$
-          $$\tilde{x}_n = \pi n, \quad n \in \mathbb{N} \implies \tilde{x}_n \to +\infty.$$
+          \[x_n = \frac{\pi}{2} + 2\pi n, \quad n \in \mathbb{N} \implies x_n \to +\infty,\]
+          \[\tilde{x}_n = \pi n, \quad n \in \mathbb{N} \implies \tilde{x}_n \to +\infty.\]
           <p>
             Вычислим значения функции на этих последовательностях:
           </p>
-          $$f(x_n) = \sin\left(\frac{\pi}{2} + 2\pi n\right) = 1 \implies \lim_{n \to \infty} f(x_n) = 1,$$
-          $$f(\tilde{x}_n) = \sin(\pi n) = 0 \implies \lim_{n \to \infty} f(\tilde{x}_n) = 0.$$
+          \[f(x_n) = \sin\left(\frac{\pi}{2} + 2\pi n\right) = 1 \implies \lim_{n \to \infty} f(x_n) = 1,\]
+          \[f(\tilde{x}_n) = \sin(\pi n) = 0 \implies \lim_{n \to \infty} f(\tilde{x}_n) = 0.\]
           <p>
             Так как $\lim_{n \to \infty} f(x_n) = 1 \neq 0 = \lim_{n \to \infty} f(\tilde{x}_n)$, общего предела при $x \to +\infty$ не существует.
           </p>
-        </div>
-
-        <!-- ИЛЛЮСТРАЦИЯ: sin(x)/x на бесконечности -->
-        <div class="svg-wrapper">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 520 260">
-            <!-- Оси координат -->
-            <line x1="20" y1="130" x2="490" y2="130" stroke="var(--svg-axis)" stroke-width="2" marker-end="url(#arrow)"/>
-            <line x1="260" y1="240" x2="260" y2="15" stroke="var(--svg-axis)" stroke-width="2" marker-end="url(#arrow)"/>
-            <text x="495" y="135" fill="var(--svg-text)" font-size="13">x</text>
-            <text x="250" y="18" fill="var(--svg-text)" font-size="13">y</text>
-
-            <!-- Эпсилон трубка -->
-            <rect x="30" y="112" width="450" height="36" fill="var(--svg-band2)"/>
-            <line x1="30" y1="112" x2="480" y2="112" stroke="var(--border-strong)" stroke-dasharray="3"/>
-            <line x1="30" y1="148" x2="480" y2="148" stroke="var(--border-strong)" stroke-dasharray="3"/>
-            <text x="245" y="108" fill="var(--svg-text)" font-size="11">+ε</text>
-            <text x="245" y="162" fill="var(--svg-text)" font-size="11">-ε</text>
-
-            <!-- Ограничивающие огибающие 1/|x| -->
-            <path d="M 40 125 Q 120 128 200 120 Q 230 110 250 50" fill="none" stroke="var(--border-strong)" stroke-dasharray="2"/>
-            <path d="M 480 125 Q 400 128 320 120 Q 290 110 270 50" fill="none" stroke="var(--border-strong)" stroke-dasharray="2"/>
-
-            <!-- Затухающие синусоидальные колебания sin(x)/x -->
-            <path d="M 40 131 Q 70 125 90 133 T 130 131 T 170 126 T 215 142 T 260 40 T 305 142 T 350 126 T 390 131 T 430 133 T 480 131" 
-                  fill="none" stroke="var(--svg-curve)" stroke-width="2.5"/>
-
-            <circle cx="260" cy="40" r="4.5" fill="var(--bg-main)" stroke="var(--svg-curve)" stroke-width="2"/>
-          </svg></div>
-          <div class="svg-caption">Рис 4. Затухающие колебания функции $f(x) = \frac{\sin x}{x}$. При $|x| \to \infty$ амплитуда колебаний оказывается внутри горизонтальной полосы $(-\varepsilon, \varepsilon)$, что доказывает $\lim_{x \to \infty}\frac{\sin x}{x} = 0$.</div>
-        </div>
-
-        <h3 id="sub-21" data-toc="Теорема 2: О локальной огран…">Теорема 2: О локальной ограниченности функции, имеющей конечный предел</h3>
-
-        <div class="statement theorem" id="thm-4">
-  <div class="block-label">Утверждение 4</div>
-  <h3 id="sub-22" data-toc="Теорема 2. Локальная огранич…">Теорема 2. Локальная ограниченность</h3>
-  
-          
-            <span>Теорема</span>
-          
+</div></div>
+<!-- ИЛЛЮСТРАЦИЯ: sin(x)/x на бесконечности -->
+<div class="svg-wrapper">
+<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 520 260">
+<!-- Оси координат -->
+<line marker-end="url(#arrow)" stroke="var(--svg-axis)" stroke-width="2" x1="20" x2="490" y1="130" y2="130"></line>
+<line marker-end="url(#arrow)" stroke="var(--svg-axis)" stroke-width="2" x1="260" x2="260" y1="240" y2="15"></line>
+<text fill="var(--svg-text)" font-size="13" x="495" y="135">x</text>
+<text fill="var(--svg-text)" font-size="13" x="250" y="18">y</text>
+<!-- Эпсилон трубка -->
+<rect fill="var(--svg-band2)" height="36" width="450" x="30" y="112"></rect>
+<line stroke="var(--border-strong)" stroke-dasharray="3" x1="30" x2="480" y1="112" y2="112"></line>
+<line stroke="var(--border-strong)" stroke-dasharray="3" x1="30" x2="480" y1="148" y2="148"></line>
+<text fill="var(--svg-text)" font-size="11" x="245" y="108">+ε</text>
+<text fill="var(--svg-text)" font-size="11" x="245" y="162">-ε</text>
+<!-- Ограничивающие огибающие 1/|x| -->
+<path d="M 40 125 Q 120 128 200 120 Q 230 110 250 50" fill="none" stroke="var(--border-strong)" stroke-dasharray="2"></path>
+<path d="M 480 125 Q 400 128 320 120 Q 290 110 270 50" fill="none" stroke="var(--border-strong)" stroke-dasharray="2"></path>
+<!-- Затухающие синусоидальные колебания sin(x)/x -->
+<path d="M 40 131 Q 70 125 90 133 T 130 131 T 170 126 T 215 142 T 260 40 T 305 142 T 350 126 T 390 131 T 430 133 T 480 131" fill="none" stroke="var(--svg-curve)" stroke-width="2.5"></path>
+<circle cx="260" cy="40" fill="var(--bg-main)" r="4.5" stroke="var(--svg-curve)" stroke-width="2"></circle>
+</svg></figure>
+<div class="svg-caption">Рис 4. Затухающие колебания функции $f(x) = \frac{\sin x}{x}$. При $|x| \to \infty$ амплитуда колебаний оказывается внутри горизонтальной полосы $(-\varepsilon, \varepsilon)$, что доказывает $\lim_{x \to \infty}\frac{\sin x}{x} = 0$.</div>
 </div>
-          <p>
+<h3 data-toc="Теорема 2: О локальной огранич…" id="sec-3-3">Теорема 2: О локальной ограниченности функции, имеющей конечный предел</h3>
+<div class="statement theorem" id="thm-4"><div class="block-label">Утверждение 4</div><h3 data-toc="Теорема 2. Локальная ограничен…" id="sub-4-6">Теорема 2. Локальная ограниченностьТеорема</h3><div>
+<p>
             Если функция $f: X \to \mathbb{R}$ имеет в точке $a \in \overline{\mathbb{R}}$ конечный предел $\lim_{x \to a} f(x) = A \in \mathbb{R}$, то она <strong>ограничена в некоторой окрестности этой точки</strong>.
           </p>
-        </div>
-
-        <div class="proof" id="proof-4" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-4" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-4" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="callout-header">Доказательство с разбором принадлежности точки $a$ множеству $X$
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div></div>
+<div class="proof" data-proof="" id="proof-4">
+<div aria-label="Доказательство Доказательство с разбором принадлежности точки $a$ множеству $X$" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <p>
+<div class="proof-idea" data-proof-idea="" id="idea-4">
+<div class="proof-label">Идея</div>
+<p>В силу определения предела функции по Коши, выберем фиксированное $\varepsilon = 1 > 0$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-4">
+<div class="proof-label">Доказательство (Доказательство с разбором принадлежности точки $a$ множеству $X$)</div>
+<p>
             В силу определения предела функции по Коши, выберем фиксированное $\varepsilon = 1 > 0$. Тогда найдется проколотая окрестность $\mathring{U}_\delta(a)$ такая, что:
           </p>
-          $$\forall x \in X \cap \mathring{U}_\delta(a) \implies |f(x) - A| < 1 \iff A - 1 < f(x) < A + 1.$$
+          \[\forall x \in X \cap \mathring{U}_\delta(a) \implies |f(x) - A| < 1 \iff A - 1 < f(x) < A + 1.\]
           <p>
             Исследуем поведение функции в <em>полной</em> окрестности $U_\delta(a)$:
           </p>
-          <ul>
-            <li>Если $a \notin X$, то $X \cap U_\delta(a) = X \cap \mathring{U}_\delta(a)$, и в качестве нижней и верхней граней функции можно взять константы:
-              $$m = A - 1, \quad M = A + 1.$$
+<ul>
+<li>Если $a \notin X$, то $X \cap U_\delta(a) = X \cap \mathring{U}_\delta(a)$, и в качестве нижней и верхней граней функции можно взять константы:
+              \[m = A - 1, \quad M = A + 1.\]
             </li>
-            <li>Если $a \in X$, то в точке $a$ функция принимает определенное конечное значение $f(a) \in \mathbb{R}$. Положим:
-              $$m = \min\{A - 1, \, f(a)\}, \quad M = \max\{A + 1, \, f(a)\}.$$
+<li>Если $a \in X$, то в точке $a$ функция принимает определенное конечное значение $f(a) \in \mathbb{R}$. Положим:
+              \[m = \min\{A - 1, \, f(a)\}, \quad M = \max\{A + 1, \, f(a)\}.\]
             </li>
-          </ul>
-          <p>
+</ul>
+<p>
             Тогда для абсолютно всех $x \in X \cap U_\delta(a)$ выполняется $m \le f(x) \le M$, что доказывает ограниченность функции в окрестности $U_\delta(a)$.
           </p>
-          <div class="proof-qed">■</div>
-        </div>
-
-        <h3 id="sub-23" data-toc="Теорема 3: Критерий существо…">Теорема 3: Критерий существования предела монотонной функции</h3>
-
-        <div class="statement theorem" id="thm-5">
-  <div class="block-label">Утверждение 5</div>
-  <h3 id="sub-24" data-toc="Теорема 3. Предел монотонной…">Теорема 3. Предел монотонной функции</h3>
-  
-          
-            <span>Критерий</span>
-          
+<div class="proof-qed">■</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-          <p>
+</div>
+<h3 data-toc="Теорема 3: Критерий существова…" id="sec-3-4">Теорема 3: Критерий существования предела монотонной функции</h3>
+<div class="statement theorem" id="thm-5"><div class="block-label">Утверждение 5</div><h3 data-toc="Теорема 3. Предел монотонной ф…" id="sub-4-8">Теорема 3. Предел монотонной функцииКритерий</h3><div>
+<p>
             Пусть неубывающая функция $f(x)$ определена на интервале $(a, b)$. Конечный предел $\lim_{x \to b^-} f(x)$ существует тогда и только тогда, когда $f(x)$ <strong>ограничена сверху на $(a, b)$</strong>. При этом предел равен точной верхней грани значений функции:
           </p>
-          $$\lim_{x \to b^-} f(x) = \sup_{x \in (a, b)} f(x).$$
-        </div>
-
-        <div class="proof" id="proof-5" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-5" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-5" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="callout-header">Полное доказательство критерия монотонной функции
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+          \[\lim_{x \to b^-} f(x) = \sup_{x \in (a, b)} f(x).\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-5">
+<div aria-label="Доказательство Полное доказательство критерия монотонной функции" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <p>
-            <strong>1. Необходимость ($\implies$):</strong><br>
+<div class="proof-idea" data-proof-idea="" id="idea-5">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Полное доказательство критерия монотонной функции).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-5">
+<div class="proof-label">Доказательство (Полное доказательство критерия монотонной функции)</div>
+<p>
+<strong>1. Необходимость ($\implies$):</strong><br/>
             Пусть существует конечный предел $\lim_{x \to b^-} f(x) = B$. По теореме 2 о локальной ограниченности найдется окрестность $(b - \delta, b)$ и число $M \in \mathbb{R}$, такие что:
           </p>
-          $$\forall x \in (b - \delta, b) \implies f(x) \le M.$$
+          \[\forall x \in (b - \delta, b) \implies f(x) \le M.\]
           <p>
             Возьмем фиксированную точку $x_0 = b - \frac{\delta}{2} \in (b - \delta, b)$, для которой $f(x_0) \le M$. Для оставшейся части интервала $x \in (a, b - \delta]$ выполнено $x < x_0$. Так как функция неубывающая, то:
           </p>
-          $$\forall x \in (a, b - \delta] \implies f(x) \le f(x_0) \le M.$$
+          \[\forall x \in (a, b - \delta] \implies f(x) \le f(x_0) \le M.\]
           <p>
             Следовательно, для всех $x \in (a, b)$ справедливо $f(x) \le M$, то есть $f(x)$ ограничена сверху на всем интервале $(a, b)$. Необходимость доказана.
           </p>
-          <p>
-            <strong>2. Достаточность ($\impliedby$):</strong><br>
+<p>
+<strong>2. Достаточность ($\impliedby$):</strong><br/>
             Пусть множество значений $\{f(x) \mid x \in (a, b)\}$ ограничено сверху числом. По аксиоме полноты вещественных чисел существует точная верхняя грань (супремум):
           </p>
-          $$\xi := \sup_{x \in (a, b)} f(x) \in \mathbb{R}.$$
+          \[\xi := \sup_{x \in (a, b)} f(x) \in \mathbb{R}.\]
           <p>
             Докажем, что $\lim_{x \to b^-} f(x) = \xi$. Зафиксируем произвольное $\varepsilon > 0$. По определению супремума:
           </p>
-          <ol>
-            <li>Для всех $x \in (a, b)$ выполнено $f(x) \le \xi$;</li>
-            <li>Найдется точка $x_0 \in (a, b)$, в которой $f(x_0) > \xi - \varepsilon$.</li>
-          </ol>
-          <p>
+<ol>
+<li>Для всех $x \in (a, b)$ выполнено $f(x) \le \xi$;</li>
+<li>Найдется точка $x_0 \in (a, b)$, в которой $f(x_0) > \xi - \varepsilon$.</li>
+</ol>
+<p>
             Положим $\delta = b - x_0 > 0$. Тогда левая окрестность точки $b$ радиуса $\delta$ представляет собой интервал $(b - \delta, b) = (x_0, b)$. Для любого $x \in (x_0, b)$ в силу неубывания функции выполнено:
           </p>
-          $$\xi - \varepsilon < f(x_0) \le f(x) \le \xi < \xi + \varepsilon \implies |f(x) - \xi| < \varepsilon.$$
+          \[\xi - \varepsilon < f(x_0) \le f(x) \le \xi < \xi + \varepsilon \implies |f(x) - \xi| < \varepsilon.\]
           <p>
             Это в точности означает, что $\lim_{x \to b^-} f(x) = \xi$. Достаточность доказана.
           </p>
-          <div class="proof-qed">■</div>
-        </div>
-      </section>
-
-      <!-- РАЗДЕЛ 4 -->
-      <section id="sec-4">
-</section>
-
-<section class="chapter" aria-labelledby="chapter-5">
-  <div class="chapter-kicker">05 / 4. Предельный переход в нера…</div>
-  <h2 id="chapter-5" data-toc="4. Предельный переход в нера…">§ 4. Предельный переход в неравенствах</h2>
-  <h3 id="sub-25" data-toc="Теорема 4: Об отделении пред…">Теорема 4: Об отделении предела от константы</h3>
-
-        <div class="statement theorem" id="thm-6">
-  <div class="block-label">Утверждение 6</div>
-  <h3 id="sub-26" data-toc="Теорема 4. Отделение от конс…">Теорема 4. Отделение от константы</h3>
-  
-          
-            <span>Порядок</span>
-          
+<div class="proof-qed">■</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-          <p>
+</div>
+
+<!-- РАЗДЕЛ 4 -->
+<section id="sec-4">
+</section>
+</section>
+<section class="chapter" aria-labelledby="chapter-5">
+  <div class="chapter-kicker">05 / 4. Предельный переход в нераве…</div>
+  <h2 id="chapter-5" data-toc="4. Предельный переход в нераве…">§ 4. Предельный переход в неравенствах</h2>
+  
+<h3 data-toc="Теорема 4: Об отделении предел…" id="sec-4-1">Теорема 4: Об отделении предела от константы</h3>
+<div class="statement theorem" id="thm-6"><div class="block-label">Утверждение 6</div><h3 data-toc="Теорема 4. Отделение от конста…" id="sub-5-2">Теорема 4. Отделение от константыПорядок</h3><div>
+<p>
             Пусть $a$ — предельная точка множества $X$, и существует предел $\lim_{x \to a} f(x) = A$.
           </p>
-          <p>
-            Если $A < B$, то существует проколотая окрестность $\mathring{U}(a)$, в которой $f(x) < B$.<br>
+<p>
+            Если $A < B$, то существует проколотая окрестность $\mathring{U}(a)$, в которой $f(x) < B$.<br/>
             Аналогично, если $A > C$, то существует окрестность $\mathring{U}(a)$, в которой $f(x) > C$.
           </p>
-        </div>
-
-        <div class="proof" id="proof-6" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-6" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-6" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="callout-header">Доказательство Теоремы 4
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div></div>
+<div class="proof" data-proof="" id="proof-6">
+<div aria-label="Доказательство Доказательство Теоремы 4" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <p>
-            Пусть $A < B$, следовательно, разность $B - A > 0$. Положим в определении предела по Коши величину $\varepsilon := B - A > 0$.<br>
+<div class="proof-idea" data-proof-idea="" id="idea-6">
+<div class="proof-label">Идея</div>
+<p>Пусть $A < B$, следовательно, разность $B - A > 0$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-6">
+<div class="proof-label">Доказательство (Доказательство Теоремы 4)</div>
+<p>
+            Пусть $A < B$, следовательно, разность $B - A > 0$. Положим в определении предела по Коши величину $\varepsilon := B - A > 0$.<br/>
             Тогда существует окрестность $\mathring{U}(a)$, в которой:
           </p>
-          $$|f(x) - A| < B - A \implies -(B - A) < f(x) - A < B - A.$$
+          \[|f(x) - A| < B - A \implies -(B - A) < f(x) - A < B - A.\]
           <p>
             Из правого неравенства немедленно получаем:
           </p>
-          $$f(x) < A + (B - A) = B.$$
+          \[f(x) < A + (B - A) = B.\]
           <div class="proof-qed">■</div>
-        </div>
-
-        <h3 id="sub-27" data-toc="Следствие: Локальное сохране…">Следствие: Локальное сохранение знака функции</h3>
-
-        <div class="statement theorem" id="thm-7">
-  <div class="block-label">Утверждение 7</div>
-  <h3 id="sub-28" data-toc="Следствие. Сохранение знака">Следствие. Сохранение знака</h3>
-  
-          
-            <span>Важнейшее свойство</span>
-          
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-          <p>
+</div>
+<h3 data-toc="Следствие: Локальное сохранени…" id="sec-4-2">Следствие: Локальное сохранение знака функции</h3>
+<div class="statement theorem" id="thm-7"><div class="block-label">Утверждение 7</div><h3 data-toc="Следствие. Сохранение знакаВаж…" id="sub-5-4">Следствие. Сохранение знакаВажнейшее свойство</h3><div>
+<p>
             Если функция $f(x)$ имеет в точке $a$ строго положительный (отрицательный) предел $\lim_{x \to a} f(x) = A > 0$ ($A < 0$), то существует окрестность $\mathring{U}(a)$, в которой значения функции строго сохраняют знак:
           </p>
-          $$f(x) > 0 \quad (f(x) < 0) \quad \forall x \in X \cap \mathring{U}(a).$$
-        </div>
-
-        <h3 id="sub-29" data-toc="Теорема 5: Предельный перехо…">Теорема 5: Предельный переход в нестрогих неравенствах</h3>
-
-        <div class="statement theorem" id="thm-8">
-  <div class="block-label">Утверждение 8</div>
-  <h3 id="sub-30" data-toc="Теорема 5. Предельный перехо…">Теорема 5. Предельный переход в неравенствах</h3>
-  
-          
-            <span>Теорема</span>
-          
-</div>
-          <p>
+          \[f(x) > 0 \quad (f(x) < 0) \quad \forall x \in X \cap \mathring{U}(a).\]
+        </div></div>
+<h3 data-toc="Теорема 5: Предельный переход …" id="sec-4-3">Теорема 5: Предельный переход в нестрогих неравенствах</h3>
+<div class="statement theorem" id="thm-8"><div class="block-label">Утверждение 8</div><h3 data-toc="Теорема 5. Предельный переход …" id="sub-5-6">Теорема 5. Предельный переход в неравенствахТеорема</h3><div>
+<p>
             Пусть в некоторой проколотой окрестности точки $a$ выполняется неравенство $f(x) \le g(x)$, и существуют пределы $\lim_{x \to a} f(x) = A$ и $\lim_{x \to a} g(x) = B$. Тогда:
           </p>
-          $$A \le B.$$
-        </div>
-
-        <div class="proof" id="proof-7" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-7" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-7" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="callout-header">Доказательство Теоремы 5 от противного
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+          \[A \le B.\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-7">
+<div aria-label="Доказательство Доказательство Теоремы 5 от противного" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <p>
+<div class="proof-idea" data-proof-idea="" id="idea-7">
+<div class="proof-label">Идея</div>
+<p>Предположим противное: пусть $A > B$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-7">
+<div class="proof-label">Доказательство (Доказательство Теоремы 5 от противного)</div>
+<p>
             Предположим противное: пусть $A > B$. Рассмотрим среднее арифметическое $C = \frac{A + B}{2}$. Очевидно, что $B < C < A$.
           </p>
-          <ol>
-            <li>Так как $\lim_{x \to a} f(x) = A > C$, по теореме 4 найдется окрестность $U_1(a)$, где $f(x) > C$;</li>
-            <li>Так как $\lim_{x \to a} g(x) = B < C$, по теореме 4 найдется окрестность $U_2(a)$, где $g(x) < C$.</li>
-          </ol>
-          <p>
+<ol>
+<li>Так как $\lim_{x \to a} f(x) = A > C$, по теореме 4 найдется окрестность $U_1(a)$, где $f(x) > C$;</li>
+<li>Так как $\lim_{x \to a} g(x) = B < C$, по теореме 4 найдется окрестность $U_2(a)$, где $g(x) < C$.</li>
+</ol>
+<p>
             Тогда в пересечении окрестностей $U(a) \cap U_1(a) \cap U_2(a)$ получаем цепочку:
           </p>
-          $$f(x) > C > g(x) \implies f(x) > g(x),$$
+          \[f(x) > C > g(x) \implies f(x) > g(x),\]
           <p>
             что прямо противоречит исходному условию $f(x) \le g(x)$. Следовательно, $A \le B$.
           </p>
-          <div class="proof-qed">■</div>
-        </div>
-
-        <h3 id="sub-31" data-toc="Теорема 6: Теорема о трёх фу…">Теорема 6: Теорема о трёх функциях (О двух милиционерах)</h3>
-
-        <div class="statement theorem" id="thm-9">
-  <div class="block-label">Утверждение 9</div>
-  <h3 id="sub-32" data-toc="Теорема 6. Теорема о зажатой…">Теорема 6. Теорема о зажатой функции (Сэндвич-теорема)</h3>
-  
-          
-            <span>Теорема</span>
-          
+<div class="proof-qed">■</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-          <p>
+</div>
+<h3 data-toc="Теорема 6: Теорема о трёх функ…" id="sec-4-4">Теорема 6: Теорема о трёх функциях (О двух милиционерах)</h3>
+<div class="statement theorem" id="thm-9"><div class="block-label">Утверждение 9</div><h3 data-toc="Теорема 6. Теорема о зажатой ф…" id="sub-5-8">Теорема 6. Теорема о зажатой функции (Сэндвич-теорема)Теорема</h3><div>
+<p>
             Пусть функции $f(x), g(x), h(x)$ определены в проколотой окрестности точки $a$, причем для всех $x$ из этой окрестности:
           </p>
-          $$f(x) \le g(x) \le h(x),$$
+          \[f(x) \le g(x) \le h(x),\]
           <p>
             и существуют пределы $\lim_{x \to a} f(x) = \lim_{x \to a} h(x) = A$. Тогда существует предел промежуточной функции $g(x)$, и он также равен $A$:
           </p>
-          $$\lim_{x \to a} g(x) = A.$$
-        </div>
-
-        <div class="proof" id="proof-8" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-8" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-8" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="callout-header">Доказательство Теоремы о трёх функциях
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+          \[\lim_{x \to a} g(x) = A.\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-8">
+<div aria-label="Доказательство Доказательство Теоремы о трёх функциях" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <p>
+<div class="proof-idea" data-proof-idea="" id="idea-8">
+<div class="proof-label">Идея</div>
+<p>Зафиксируем произвольное $\varepsilon > 0$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-8">
+<div class="proof-label">Доказательство (Доказательство Теоремы о трёх функциях)</div>
+<p>
             Зафиксируем произвольное $\varepsilon > 0$. По определению предела:
           </p>
-          <ul>
-            <li>Для функции $f(x)$: существует $U_1(a)$, где $|f(x) - A| < \varepsilon \implies f(x) > A - \varepsilon$;</li>
-            <li>Для функции $h(x)$: существует $U_2(a)$, где $|h(x) - A| < \varepsilon \implies h(x) < A + \varepsilon$.</li>
-          </ul>
-          <p>
+<ul>
+<li>Для функции $f(x)$: существует $U_1(a)$, где $|f(x) - A| < \varepsilon \implies f(x) > A - \varepsilon$;</li>
+<li>Для функции $h(x)$: существует $U_2(a)$, где $|h(x) - A| < \varepsilon \implies h(x) < A + \varepsilon$.</li>
+</ul>
+<p>
             В пересечении этих окрестностей $U_3(a) = U_1(a) \cap U_2(a)$ получаем двойное неравенство:
           </p>
-          $$A - \varepsilon < f(x) \le g(x) \le h(x) < A + \varepsilon \implies A - \varepsilon < g(x) < A + \varepsilon \iff |g(x) - A| < \varepsilon.$$
+          \[A - \varepsilon < f(x) \le g(x) \le h(x) < A + \varepsilon \implies A - \varepsilon < g(x) < A + \varepsilon \iff |g(x) - A| < \varepsilon.\]
           <p>
             Это доказывает, что $\lim_{x \to a} g(x) = A$.
           </p>
-          <div class="proof-qed">■</div>
-        </div>
-      </section>
-
-      <!-- РАЗДЕЛ 5 -->
-      <section id="sec-5">
-</section>
-
-<section class="chapter" aria-labelledby="chapter-6">
-  <div class="chapter-kicker">06 / 5. Критерий Коши и арифметик…</div>
-  <h2 id="chapter-6" data-toc="5. Критерий Коши и арифметик…">§ 5. Критерий Коши и арифметика пределов</h2>
-  <h3 id="sub-33" data-toc="Теорема 7: Критерий Коши сущ…">Теорема 7: Критерий Коши существования конечного предела функции</h3>
-
-        <div class="statement theorem" id="thm-10">
-  <div class="block-label">Утверждение 10</div>
-  <h3 id="sub-34" data-toc="Теорема 7. Критерий Коши сущ…">Теорема 7. Критерий Коши существования предела функции</h3>
-  
-          
-            <span>Фундаментальный критерий</span>
-          
+<div class="proof-qed">■</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-          <p>
+</div>
+
+<!-- РАЗДЕЛ 5 -->
+<section id="sec-5">
+</section>
+</section>
+<section class="chapter" aria-labelledby="chapter-6">
+  <div class="chapter-kicker">06 / 5. Критерий Коши и арифметика …</div>
+  <h2 id="chapter-6" data-toc="5. Критерий Коши и арифметика …">§ 5. Критерий Коши и арифметика пределов</h2>
+  
+<h3 data-toc="Теорема 7: Критерий Коши сущес…" id="sec-5-1">Теорема 7: Критерий Коши существования конечного предела функции</h3>
+<div class="statement theorem" id="thm-10"><div class="block-label">Утверждение 10</div><h3 data-toc="Теорема 7. Критерий Коши сущес…" id="sub-6-2">Теорема 7. Критерий Коши существования предела функцииФундаментальный критерий</h3><div>
+<p>
             Функция $f: X \to \mathbb{R}$ имеет конечный предел в точке $x_0$ тогда и только тогда, когда выполняется <strong>внутреннее условие Коши</strong>:
           </p>
-          $$\forall \varepsilon > 0 \quad \exists \delta > 0 \quad \forall x, \tilde{x} \in X \cap \mathring{U}_\delta(x_0) \implies |f(x) - f(\tilde{x})| < \varepsilon.$$
-        </div>
-
-        <div class="proof" id="proof-9" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-9" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-9" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="callout-header">Доказательство Критерия Коши (Необходимость и достаточность)
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+          \[\forall \varepsilon > 0 \quad \exists \delta > 0 \quad \forall x, \tilde{x} \in X \cap \mathring{U}_\delta(x_0) \implies |f(x) - f(\tilde{x})| < \varepsilon.\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-9">
+<div aria-label="Доказательство Доказательство Критерия Коши (Необходимость и достаточность)" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <p>
-            <strong>1. Необходимость ($\implies$):</strong><br>
+<div class="proof-idea" data-proof-idea="" id="idea-9">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство Критерия Коши (Необходимость и достаточность)).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-9">
+<div class="proof-label">Доказательство (Доказательство Критерия Коши (Необходимость и достаточность))</div>
+<p>
+<strong>1. Необходимость ($\implies$):</strong><br/>
             Пусть существует конечный предел $\lim_{x \to x_0} f(x) = A$. Зафиксируем произвольное $\varepsilon > 0$. Для положительного числа $\frac{\varepsilon}{2}$ по определению предела Коши найдется $\delta > 0$ такое, что:
           </p>
-          $$\forall x \in X \cap \mathring{U}_\delta(x_0) \implies |f(x) - A| < \frac{\varepsilon}{2}.$$
+          \[\forall x \in X \cap \mathring{U}_\delta(x_0) \implies |f(x) - A| < \frac{\varepsilon}{2}.\]
           <p>
             Возьмем любые две точки $x, \tilde{x} \in X \cap \mathring{U}_\delta(x_0)$. Применяя неравенство треугольника:
           </p>
-          $$|f(x) - f(\tilde{x})| = |(f(x) - A) - (f(\tilde{x}) - A)| \le |f(x) - A| + |f(\tilde{x}) - A| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.$$
+          \[|f(x) - f(\tilde{x})| = |(f(x) - A) - (f(\tilde{x}) - A)| \le |f(x) - A| + |f(\tilde{x}) - A| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.\]
           <p>
             Необходимость доказана.
           </p>
-          <p>
-            <strong>2. Достаточность ($\impliedby$) через метод перемежения:</strong><br>
+<p>
+<strong>2. Достаточность ($\impliedby$) через метод перемежения:</strong><br/>
             Пусть выполнено условие Коши. Возьмем произвольную последовательность $\{x_n\} \subset X \setminus \{x_0\}$, сходящуюся к $x_0$. По определению сходимости для любого $\delta > 0$ найдется номер $n_0$, такой что для всех $n, m > n_0$ выполняется $x_n, x_m \in \mathring{U}_\delta(x_0)$. Тогда из условия Коши следует:
           </p>
-          $$\forall n, m > n_0 \implies |f(x_n) - f(x_m)| < \varepsilon.$$
+          \[\forall n, m > n_0 \implies |f(x_n) - f(x_m)| < \varepsilon.\]
           <p>
             Следовательно, числовая последовательность $\{f(x_n)\}$ является фундаментальной. По критерию Коши для числовых последовательностей (полнота $\mathbb{R}$) существует конечный предел $\lim_{n \to \infty} f(x_n) = A$.
           </p>
-          <p>
+<p>
             Докажем, что предел $A$ не зависит от выбора последовательности. Возьмем другую последовательность $\{\tilde{x}_n\} \subset X \setminus \{x_0\}$, $\tilde{x}_n \to x_0$, и пусть $\lim_{n \to \infty} f(\tilde{x}_n) = B$. Рассмотрим объединенную (перемежающуюся) последовательность:
           </p>
-          $$\{z_n\} = \{x_1, \, \tilde{x}_1, \, x_2, \, \tilde{x}_2, \, \dots, \, x_n, \, \tilde{x}_n, \, \dots\}.$$
+          \[\{z_n\} = \{x_1, \, \tilde{x}_1, \, x_2, \, \tilde{x}_2, \, \dots, \, x_n, \, \tilde{x}_n, \, \dots\}.\]
           <p>
-            Последовательность $\{z_n\}$ также сходится к $x_0$, а значит, по доказанному выше последовательность $\{f(z_n)\}$ сходится к некоторому числу $C$. Но последовательности $\{f(x_n)\}$ и $\{f(\tilde{x}_n)\}$ являются подпоследовательностями сходящейся последовательности $\{f(z_n)\}$, откуда $A = C = B$.<br>
+            Последовательность $\{z_n\}$ также сходится к $x_0$, а значит, по доказанному выше последовательность $\{f(z_n)\}$ сходится к некоторому числу $C$. Но последовательности $\{f(x_n)\}$ и $\{f(\tilde{x}_n)\}$ являются подпоследовательностями сходящейся последовательности $\{f(z_n)\}$, откуда $A = C = B$.<br/>
             По определению Гейне это означает существование общего предела $\lim_{x \to x_0} f(x) = A$. Достаточность доказана.
           </p>
-          <div class="proof-qed">■</div>
-        </div>
-
-        <h3 id="sub-35" data-toc="Теорема 8: Свойства бесконеч…">Теорема 8: Свойства бесконечно малых функций</h3>
-
-        <div class="statement definition" id="def-5">
-  <div class="block-label">Определение 5</div>
-  <h3 id="sub-36" data-toc="Определение. Бесконечно мала…">Определение. Бесконечно малая функция</h3>
-  
-          
-            <span>БМФ</span>
-          
+<div class="proof-qed">■</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-          <p>
+</div>
+<h3 data-toc="Теорема 8: Свойства бесконечно…" id="sec-5-2">Теорема 8: Свойства бесконечно малых функций</h3>
+<div class="statement definition" id="def-5"><div class="block-label">Определение 5</div><h3 data-toc="Определение. Бесконечно малая …" id="sub-6-4">Определение. Бесконечно малая функцияБМФ</h3><div>
+<p>
             Функция $\alpha(x)$ называется <strong>бесконечно малой при $x \to x_0$</strong>, если ее предел в точке $x_0$ равен нулю: $\lim_{x \to x_0} \alpha(x) = 0$.
           </p>
-        </div>
-
-        <div class="statement theorem" id="thm-11">
-  <div class="block-label">Утверждение 11</div>
-  <h3 id="sub-37" data-toc="Теорема 8. Алгебра бесконечн…">Теорема 8. Алгебра бесконечно малых</h3>
-  
-          
-            <span>Теорема</span>
-          
+</div></div>
+<div class="statement theorem" id="thm-11"><div class="block-label">Утверждение 11</div><h3 data-toc="Теорема 8. Алгебра бесконечно …" id="sub-6-5">Теорема 8. Алгебра бесконечно малыхТеорема</h3><div>
+<ol>
+<li>Сумма двух бесконечно малых функций $\alpha(x) + \beta(x)$ при $x \to x_0$ есть бесконечно малая функция.</li>
+<li>Произведение бесконечно малой функции $\alpha(x)$ на функцию $\beta(x)$, ограниченную в окрестности точки $x_0$, есть бесконечно малая функция.</li>
+</ol>
+</div></div>
+<div class="proof" data-proof="" id="proof-10">
+<div aria-label="Доказательство Доказательство свойств бесконечно малых" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <ol>
-            <li>Сумма двух бесконечно малых функций $\alpha(x) + \beta(x)$ при $x \to x_0$ есть бесконечно малая функция.</li>
-            <li>Произведение бесконечно малой функции $\alpha(x)$ на функцию $\beta(x)$, ограниченную в окрестности точки $x_0$, есть бесконечно малая функция.</li>
-          </ol>
-        </div>
-
-        <div class="proof" id="proof-10" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-10" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-10" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="callout-header">Доказательство свойств бесконечно малых
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<div class="proof-idea" data-proof-idea="" id="idea-10">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство свойств бесконечно малых).</p>
 </div>
-          <p>
-            <strong>1. Сумма:</strong> Зафиксируем $\varepsilon > 0$. Для $\frac{\varepsilon}{2} > 0$ найдутся радиусы $\delta_1, \delta_2 > 0$ такие, что:
+<div class="proof-full" data-proof-full="" id="full-10">
+<div class="proof-label">Доказательство (Доказательство свойств бесконечно малых)</div>
+<p>
+<strong>1. Сумма:</strong> Зафиксируем $\varepsilon > 0$. Для $\frac{\varepsilon}{2} > 0$ найдутся радиусы $\delta_1, \delta_2 > 0$ такие, что:
           </p>
-          $$0 < |x - x_0| < \delta_1 \implies |\alpha(x)| < \frac{\varepsilon}{2}, \quad 0 < |x - x_0| < \delta_2 \implies |\beta(x)| < \frac{\varepsilon}{2}.$$
+          \[0 < |x - x_0| < \delta_1 \implies |\alpha(x)| < \frac{\varepsilon}{2}, \quad 0 < |x - x_0| < \delta_2 \implies |\beta(x)| < \frac{\varepsilon}{2}.\]
           <p>
             Положив $\delta = \min\{\delta_1, \delta_2\}$, для любого $x \in \mathring{U}_\delta(x_0)$ получаем:
           </p>
-          $$|\alpha(x) + \beta(x)| \le |\alpha(x)| + |\beta(x)| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon \implies \lim_{x \to x_0}(\alpha(x) + \beta(x)) = 0.$$
+          \[|\alpha(x) + \beta(x)| \le |\alpha(x)| + |\beta(x)| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon \implies \lim_{x \to x_0}(\alpha(x) + \beta(x)) = 0.\]
           <p>
-            <strong>2. Произведение:</strong> Пусть $|\beta(x)| \le M$ для некоторого $M > 0$. Зафиксируем $\varepsilon > 0$. Для числа $\frac{\varepsilon}{M} > 0$ найдется $\delta > 0$ такое, что:
+<strong>2. Произведение:</strong> Пусть $|\beta(x)| \le M$ для некоторого $M > 0$. Зафиксируем $\varepsilon > 0$. Для числа $\frac{\varepsilon}{M} > 0$ найдется $\delta > 0$ такое, что:
           </p>
-          $$0 < |x - x_0| < \delta \implies |\alpha(x)| < \frac{\varepsilon}{M}.$$
+          \[0 < |x - x_0| < \delta \implies |\alpha(x)| < \frac{\varepsilon}{M}.\]
           <p>
             Тогда $|\alpha(x) \cdot \beta(x)| = |\alpha(x)| \cdot |\beta(x)| < \frac{\varepsilon}{M} \cdot M = \varepsilon$, что доказывает бесконечную малость произведения.
           </p>
-          <div class="proof-qed">■</div>
-        </div>
-
-        <h3 id="sub-38" data-toc="Теорема 9: Арифметические де…">Теорема 9: Арифметические действия над пределами функций</h3>
-
-        <div class="statement theorem" id="thm-12">
-  <div class="block-label">Утверждение 12</div>
-  <h3 id="sub-39" data-toc="Теорема 9. Арифметика пределов">Теорема 9. Арифметика пределов</h3>
-  
-          
-            <span>Теорема</span>
-          
+<div class="proof-qed">■</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-          <p>
+</div>
+<h3 data-toc="Теорема 9: Арифметические дейс…" id="sec-5-3">Теорема 9: Арифметические действия над пределами функций</h3>
+<div class="statement theorem" id="thm-12"><div class="block-label">Утверждение 12</div><h3 data-toc="Теорема 9. Арифметика пределов…" id="sub-6-7">Теорема 9. Арифметика пределовТеорема</h3><div>
+<p>
             Пусть $\lim_{x \to a} f(x) = A \in \mathbb{R}$ и $\lim_{x \to a} g(x) = B \in \mathbb{R}$. Тогда:
           </p>
-          <ol>
-            <li>$\lim_{x \to a}(f(x) \pm g(x)) = A \pm B$;</li>
-            <li>$\lim_{x \to a}(f(x) \cdot g(x)) = A \cdot B$;</li>
-            <li>$\lim_{x \to a}\frac{f(x)}{g(x)} = \frac{A}{B}$, при условии $B \neq 0$.</li>
-          </ol>
-        </div>
-
-        <div class="proof" id="proof-11" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-11" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-11" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="callout-header">Строгое доказательство арифметики пределов
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+<ol>
+<li>$\lim_{x \to a}(f(x) \pm g(x)) = A \pm B$;</li>
+<li>$\lim_{x \to a}(f(x) \cdot g(x)) = A \cdot B$;</li>
+<li>$\lim_{x \to a}\frac{f(x)}{g(x)} = \frac{A}{B}$, при условии $B \neq 0$.</li>
+</ol>
+</div></div>
+<div class="proof" data-proof="" id="proof-11">
+<div aria-label="Доказательство Строгое доказательство арифметики пределов" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <p>
+<div class="proof-idea" data-proof-idea="" id="idea-11">
+<div class="proof-label">Идея</div>
+<p>По лемме о представлении функции, имеющей предел, запишем:</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-11">
+<div class="proof-label">Доказательство (Строгое доказательство арифметики пределов)</div>
+<p>
             По лемме о представлении функции, имеющей предел, запишем:
           </p>
-          $$f(x) = A + \alpha(x), \quad g(x) = B + \beta(x), \quad \text{где } \alpha(x) \to 0, \, \beta(x) \to 0 \text{ при } x \to a.$$
+          \[f(x) = A + \alpha(x), \quad g(x) = B + \beta(x), \quad \text{где } \alpha(x) \to 0, \, \beta(x) \to 0 \text{ при } x \to a.\]
           <p>
-            <strong>1. Сумма:</strong> $f(x) + g(x) = (A + B) + (\alpha(x) + \beta(x))$. Так как сумма бесконечно малых есть бесконечно малая, предел равен $A + B$.
+<strong>1. Сумма:</strong> $f(x) + g(x) = (A + B) + (\alpha(x) + \beta(x))$. Так как сумма бесконечно малых есть бесконечно малая, предел равен $A + B$.
           </p>
-          <p>
-            <strong>2. Произведение:</strong>
-          </p>
-          $$f(x) \cdot g(x) = (A + \alpha(x))(B + \beta(x)) = AB + \underbrace{(A\beta(x) + B\alpha(x) + \alpha(x)\beta(x))}_{\gamma(x)}.$$
+<p>
+<strong>2. Произведение:</strong>
+</p>
+          \[f(x) \cdot g(x) = (A + \alpha(x))(B + \beta(x)) = AB + \underbrace{(A\beta(x) + B\alpha(x) + \alpha(x)\beta(x))}_{\gamma(x)}.\]
           <p>
             Функция $\gamma(x)$ есть сумма произведений констант и бесконечно малых, то есть бесконечно малая функция. Значит, предел произведения равен $AB$.
           </p>
-          <p>
-            <strong>3. Частное:</strong> Так как $B \neq 0$, по следствию о сохранении знака существует окрестность, где $|g(x)| \ge \frac{|B|}{2} > 0$. Рассмотрим разность:
+<p>
+<strong>3. Частное:</strong> Так как $B \neq 0$, по следствию о сохранении знака существует окрестность, где $|g(x)| \ge \frac{|B|}{2} > 0$. Рассмотрим разность:
           </p>
-          $$\left|\frac{f(x)}{g(x)} - \frac{A}{B}\right| = \left|\frac{B(A + \alpha(x)) - A(B + \beta(x))}{B g(x)}\right| = \frac{|B\alpha(x) - A\beta(x)|}{|B| \cdot |g(x)|} \le \frac{|B|\cdot|\alpha(x)| + |A|\cdot|\beta(x)|}{|B| \cdot \frac{|B|}{2}} \to 0.$$
+          \[\left|\frac{f(x)}{g(x)} - \frac{A}{B}\right| = \left|\frac{B(A + \alpha(x)) - A(B + \beta(x))}{B g(x)}\right| = \frac{|B\alpha(x) - A\beta(x)|}{|B| \cdot |g(x)|} \le \frac{|B|\cdot|\alpha(x)| + |A|\cdot|\beta(x)|}{|B| \cdot \frac{|B|}{2}} \to 0.\]
           <div class="proof-qed">■</div>
-        </div>
-
-        <h3 id="sub-40" data-toc="Теорема 10: Предел композици…">Теорема 10: Предел композиции (Предел сложной функции)</h3>
-
-        <div class="statement theorem" id="thm-13">
-  <div class="block-label">Утверждение 13</div>
-  <h3 id="sub-41" data-toc="Теорема 10. Предел сложной ф…">Теорема 10. Предел сложной функции</h3>
-  
-          
-            <span>Теорема</span>
-          
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-          <p>
+</div>
+<h3 data-toc="Теорема 10: Предел композиции …" id="sec-5-4">Теорема 10: Предел композиции (Предел сложной функции)</h3>
+<div class="statement theorem" id="thm-13"><div class="block-label">Утверждение 13</div><h3 data-toc="Теорема 10. Предел сложной фун…" id="sub-6-9">Теорема 10. Предел сложной функцииТеорема</h3><div>
+<p>
             Пусть $f: X \to Y$ и $g: Y \to Z$, причем $\lim_{x \to a} f(x) = A$, $\lim_{y \to A} g(y) = B$, где $a$ — предельная точка множества $X$, а $A$ — предельная точка множества $Y$.
           </p>
-          <p>
+<p>
             Если в некоторой проколотой окрестности точки $a$ выполняется условие $f(x) \neq A$, то:
           </p>
-          $$\lim_{x \to a} g(f(x)) = B.$$
-        </div>
-
-        <div class="proof" id="proof-12" data-proof>
-  <div class="proof-controls" role="group" aria-label="утверждения">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-12" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (утверждения).</p>
-  </div>
-  <div class="proof-full" id="full-12" data-proof-full>
-    <div class="proof-label">Доказательство</div>
-    
-          <div class="callout-header">Доказательство Теоремы о композиции через язык Гейне
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+          \[\lim_{x \to a} g(f(x)) = B.\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-12">
+<div aria-label="Доказательство Доказательство Теоремы о композиции через язык Гейне" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-          <p>
-            Возьмем произвольную последовательность $\{x_n\} \subset X \setminus \{a\}$, сходящуюся к $a$.<br>
+<div class="proof-idea" data-proof-idea="" id="idea-12">
+<div class="proof-label">Идея</div>
+<p>Возьмем произвольную последовательность $\{x_n\} \subset X \setminus \{a\}$, сходящуюся к $a$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-12">
+<div class="proof-label">Доказательство (Доказательство Теоремы о композиции через язык Гейне)</div>
+<p>
+            Возьмем произвольную последовательность $\{x_n\} \subset X \setminus \{a\}$, сходящуюся к $a$.<br/>
             Так как $\lim_{x \to a} f(x) = A$, то по определению Гейне последовательность $y_n := f(x_n)$ сходится к $A$.
           </p>
-          <p>
-            По условию теоремы, при $x \neq a$ выполнено $f(x) \neq A$. Следовательно, для всех элементов последовательности $y_n \neq A$, то есть $\{y_n\} \subset Y \setminus \{A\}$.<br>
+<p>
+            По условию теоремы, при $x \neq a$ выполнено $f(x) \neq A$. Следовательно, для всех элементов последовательности $y_n \neq A$, то есть $\{y_n\} \subset Y \setminus \{A\}$.<br/>
             Тогда, применяя определение предела функции по Гейне для функции $g(y)$ при $y \to A$, получаем:
           </p>
-          $$y_n \to A \quad (y_n \neq A) \implies g(y_n) = g(f(x_n)) \to B \quad (n \to \infty).$$
+          \[y_n \to A \quad (y_n \neq A) \implies g(y_n) = g(f(x_n)) \to B \quad (n \to \infty).\]
           <p>
             В силу произвольности исходной последовательности $\{x_n\}$, по определению Гейне это означает, что $\lim_{x \to a} g(f(x)) = B$.
           </p>
-          <div class="proof-qed">■</div>
-        </div>
-      </section>
+<div class="proof-qed">■</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+
+
 </section>
 <!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>

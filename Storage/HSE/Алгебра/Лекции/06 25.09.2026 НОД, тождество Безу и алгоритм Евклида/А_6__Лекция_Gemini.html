@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="НОД, тождество Безу и алгоритм Евклида. Конспект FAM ФПМ НИУ ВШЭ.">
+  <meta name="description" content="ФПМ НИУ ВШЭ · Полный академический лекционный конспект">
   <title>НОД, тождество Безу и алгоритм Евклида — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
@@ -183,8 +183,13 @@ html[data-theme] ::selection{background:var(--gold);color:var(--paper)}
 .themed-figure [data-figure-theme="light"]{display:block}
 html[data-theme="dark"] .themed-figure [data-figure-theme],html[data-theme="parchment"] .themed-figure [data-figure-theme]{display:none}
 html[data-theme="dark"] .themed-figure [data-figure-theme="dark"],html[data-theme="parchment"] .themed-figure [data-figure-theme="parchment"]{display:block}
-/* One neutral/light asset may remain on its own light plate in every theme. Never invert mathematical colours. */
-.figure-plate{background:#fff;color:#202e29;padding:16px;border:1px solid var(--rule)}
+.figure-plate{background:var(--bg-card);color:var(--ink);padding:20px;border:1px solid var(--rule);border-radius:8px;margin:32px 0}
+html[data-theme="light"] .figure-plate{background:#ffffff}
+html[data-theme="dark"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+html[data-theme="parchment"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+@media print{
+ .figure-plate{background:white!important;border:0!important;padding:0!important}
+}
 @media(max-width:760px){.topbar{height:auto;min-height:70px;flex-wrap:wrap;padding:12px 18px;gap:10px}.top-actions{gap:8px;flex-wrap:wrap}.theme-control select{font-size:10px;max-width:103px;padding:8px 4px}.pdf-button{padding:6px 8px}.pdf-button span{margin-left:4px}.wordmark{font-size:24px}}
 @media(max-width:400px){.wordmark{display:none}.top-actions{width:100%;justify-content:space-between}}
 @media print{
@@ -440,323 +445,272 @@ SOFTWARE.
     </aside>
     <main id="content">
       <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
-  <div class="lecture-meta"><span class="subject">Алгебра</span><span>ФПМ НИУ ВШЭ</span></div>
-  <h1>НОД, тождество Безу и алгоритм Евклида</h1>
-  <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-  <div class="lecture-abstract">
-    <p>ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-    <div class="abstract-formula" aria-label="Ключевое выражение лекции">\[\bar{4} \cdot \bar{3} = \overline{12} = \bar{0}.\]</div>
-  </div>
-</header>
-<div class="proof-toolbar" aria-label="Все доказательства">
-  <span class="toolbar-label">Доказательства</span>
-  <div class="segmented" role="group" aria-label="Режим всех доказательств">
-    <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
-    <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
-    <button data-all-proofs="full" aria-pressed="false">Полностью</button>
-  </div>
-  <span id="proof-state" class="proof-state" aria-live="polite"></span>
-</div>
-<noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
-<p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
-
+      <header class="lecture-head" id="top">
+        <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
+        <h1>НОД, тождество Безу и алгоритм Евклида</h1>
+        <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
+        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[\bar{4} \cdot \bar{3} = \overline{12} = \bar{0}.\]</div></div>
+      </header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
 <section class="chapter" aria-labelledby="chapter-1">
   <div class="chapter-kicker">01 / Введение</div>
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <header class="lecture-monument">
-        <div class="monument-kicker">
-          <span>✦ Алгебра</span>
-          <span style="opacity: 0.4;">/</span>
-          <span>ЛЕКЦИЯ №Лекция 06 ✦</span>
-        </div>
-
-        <h1 id="article-title">НАИБОЛЬШИЙ ОБЩИЙ ДЕЛИТЕЛЬ, <span class="gold-phrase">ТОЖДЕСТВО БЕЗУ И АЛГОРИТМ ЕВКЛИДА</span></h1>
-        <p class="monument-lead" id="article-lead">Аксиоматика наибольшего общего делителя, алгоритм Евклида с доказательством корректности и конечности, конструктивное доказательство тождества Безу обратным ходом и фундаментальные свойства взаимно простых чисел.</p>
-
-        <div class="monument-clean-meta">
-          <span class="clean-pill">Алгебра</span>
-          <span>•</span>
-          <span>25 сентября 2026</span>
-        </div>
-      </header>
-
-      <!-- 
+<div class="monument-kicker">
+<span>✦ Алгебра</span>
+<span style="opacity: 0.4;">/</span>
+<span>ЛЕКЦИЯ №Лекция 06 ✦</span>
+</div>
+<h1 id="article-title">НАИБОЛЬШИЙ ОБЩИЙ ДЕЛИТЕЛЬ, <span class="gold-phrase">ТОЖДЕСТВО БЕЗУ И АЛГОРИТМ ЕВКЛИДА</span></h1>
+<p class="monument-lead" id="article-lead">Аксиоматика наибольшего общего делителя, алгоритм Евклида с доказательством корректности и конечности, конструктивное доказательство тождества Безу обратным ходом и фундаментальные свойства взаимно простых чисел.</p>
+<div class="monument-clean-meta">
+<span class="clean-pill">Алгебра</span>
+<span>•</span>
+<span>25 сентября 2026</span>
+</div>
+</header>
+<!-- 
         =============================================================================
         СЮДА НЕЙРОСЕТЬ ВСТАВЛЯЕТ СОДЕРЖИМОЕ КОНСПЕКТА (ARTICLE CONTENT)
         =============================================================================
       -->
-      <article class="content-area" id="lectureContent">
-
-        
-      
-      <!-- Титульная карточка -->
-      
-
-      <!-- Полиграфическое кликабельное оглавление (сохраняется в PDF) -->
-      
-
-      <!-- РАЗДЕЛ 1 -->
-      <section class="lecture-section" id="sec-review">
+<article class="content-area" id="lectureContent">
+<!-- Титульная карточка -->
+<!-- Полиграфическое кликабельное оглавление (сохраняется в PDF) -->
+<!-- РАЗДЕЛ 1 -->
+<section class="lecture-section" id="sec-review">
 </section>
-
 <section class="chapter" aria-labelledby="chapter-2">
-  <div class="chapter-kicker">02 / 1 Мотивация: Связь с кольцом…</div>
-  <h2 id="chapter-2" data-toc="1 Мотивация: Связь с кольцом…">1 Мотивация: Связь с кольцом классов вычетов $\mathbb{Z}_m$</h2>
-  <p><span class="drop-cap">В</span>          В теории кольца классов вычетов $\mathbb{Z}_m$ алгебраическая природа элементов тесно связана со структурой их общих делителей:
+  <div class="chapter-kicker">02 / 1Мотивация: Связь с кольцом кл…</div>
+  <h2 id="chapter-2" data-toc="1Мотивация: Связь с кольцом кл…">1Мотивация: Связь с кольцом классов вычетов $\mathbb{Z}_m$</h2>
+  
+<p><span class="drop-cap">В</span>          В теории кольца классов вычетов $\mathbb{Z}_m$ алгебраическая природа элементов тесно связана со структурой их общих делителей:
         </p>
-
-        <div class="callout callout-remark">
-          <div class="box-header">🔍 Наблюдения из теории колец классов вычетов</div>
-          <ol class="prop-list">
-            <li>
-              <strong>Делители нуля в составных кольцах:</strong> В кольце $\mathbb{Z}_6 = \{\bar{0}, \bar{1}, \bar{2}, \bar{3}, \bar{4}, \bar{5}\}$ выполнено равенство:
-              $$\bar{4} \cdot \bar{3} = \overline{12} = \bar{0}.$$
+<div class="callout callout-remark">
+<div class="box-header">🔍 Наблюдения из теории колец классов вычетов</div>
+<ol class="prop-list">
+<li>
+<strong>Делители нуля в составных кольцах:</strong> В кольце $\mathbb{Z}_6 = \{\bar{0}, \bar{1}, \bar{2}, \bar{3}, \bar{4}, \bar{5}\}$ выполнено равенство:
+              \[\bar{4} \cdot \bar{3} = \overline{12} = \bar{0}.\]
               Поскольку $\bar{4} \neq \bar{0}$ и $\bar{3} \neq \bar{0}$, элементы $\bar{4}$ и $\bar{3}$ являются делителями нуля. Причина заключается в том, что числа $4$ и $6$ имеют нетривиальный общий делитель $\operatorname{gcd}(4, 6) = 2 > 1$.
             </li>
-            <li>
-              <strong>Обратимость в простых кольцах (полях):</strong> В кольце $\mathbb{Z}_3 = \{\bar{0}, \bar{1}, \bar{2}\}$ каждый ненулевой элемент обратим:
-              $$\bar{1} \cdot \bar{1} = \bar{1} \implies \bar{1}^{-1} = \bar{1},$$
-              $$\bar{2} \cdot \bar{2} = \bar{4} = \bar{1} \implies \bar{2}^{-1} = \bar{2}.$$
+<li>
+<strong>Обратимость в простых кольцах (полях):</strong> В кольце $\mathbb{Z}_3 = \{\bar{0}, \bar{1}, \bar{2}\}$ каждый ненулевой элемент обратим:
+              \[\bar{1} \cdot \bar{1} = \bar{1} \implies \bar{1}^{-1} = \bar{1},\]
+              \[\bar{2} \cdot \bar{2} = \bar{4} = \bar{1} \implies \bar{2}^{-1} = \bar{2}.\]
               Следовательно, система $(\mathbb{Z}_3, +, \cdot)$ образует поле.
             </li>
-          </ol>
-          <p style="margin-top: 0.5rem; margin-bottom: 0;">
+</ol>
+<p style="margin-top: 0.5rem; margin-bottom: 0;">
             Таким образом, вопрос об обратимости вычета $\bar{a}$ в кольце $\mathbb{Z}_m$ напрямую сводится к нахождению <strong>наибольшего общего делителя (НОД)</strong> чисел $a$ и $m$, а также к его линейному выражению через коэффициенты Безу.
           </p>
-        </div>
-      </section>
+</div>
 
-      <!-- РАЗДЕЛ 2 -->
-      <section class="lecture-section" id="sec-gcd-def">
+<!-- РАЗДЕЛ 2 -->
+<section class="lecture-section" id="sec-gcd-def">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-3">
-  <div class="chapter-kicker">03 / 2 Понятие наибольшего общего…</div>
-  <h2 id="chapter-3" data-toc="2 Понятие наибольшего общего…">2 Понятие наибольшего общего делителя</h2>
-  <p>
+  <div class="chapter-kicker">03 / 2Понятие наибольшего общего де…</div>
+  <h2 id="chapter-3" data-toc="2Понятие наибольшего общего де…">2Понятие наибольшего общего делителя</h2>
+  
+<p>
           Пусть задан набор целых чисел $a_1, a_2, \dots, a_n \in \mathbb{Z}$. 
           Число $t \in \mathbb{Z}$ называется <strong>общим делителем</strong> данных чисел, если оно делит каждое из них: $t \mid a_1, t \mid a_2, \dots, t \mid a_n$.
         </p>
-        <p>
+<p>
           Каждое ненулевое целое число $a \neq 0$ имеет лишь конечное число натуральных делителей (не превосходящих $|a|$). Поэтому множество общих положительных делителей набора чисел, содержащего хотя бы одно ненулевое число, конечно и непусто (в него всегда входит единица).
         </p>
+<h3 class="subsection-heading" data-toc="1. Определение НОД для двух чи…" id="sec-gcd-two">2.1. Определение НОД для двух чисел</h3>
+<div class="statement definition" id="def-1"><div class="block-label">Определение 1</div><h3 data-toc="📌 Определение 2.1 (НОД двух чи…" id="sub-3-2">📌 Определение 2.1 (НОД двух чисел)</h3><div>
 
-        <h3 id="sub-1" data-toc="1. Определение НОД для двух …">2.1. Определение НОД для двух чисел</h3>
-        <div class="statement definition" id="def-1">
-  <div class="block-label">Определение 1</div>
-  <h3 id="sub-2" data-toc="Определение 1">Определение 1</h3>
-  
-          <div class="box-header">📌 Определение 2.1 (НОД двух чисел)
-</div>
           Пусть $a, b \in \mathbb{Z}$, причём хотя бы одно из чисел отлично от нуля. 
           Натуральное число $d \in \mathbb{N}$ называется <strong>наибольшим общим делителем</strong> чисел $a$ и $b$ (обозначается $d = (a, b)$ или $\operatorname{gcd}(a, b)$), если выполняются два условия:
           <ol class="prop-list" style="margin-top: 0.5rem;">
-            <li>$d$ является общим делителем $a$ и $b$:
-              $$d \mid a \quad \text{и} \quad d \mid b;$$
+<li>$d$ является общим делителем $a$ и $b$:
+              \[d \mid a \quad \text{и} \quad d \mid b;\]
             </li>
-            <li>$d$ делится на любой общий делитель чисел $a$ и $b$:
-              $$\forall t \in \mathbb{Z}: \quad (t \mid a \land t \mid b) \implies t \mid d.$$
+<li>$d$ делится на любой общий делитель чисел $a$ и $b$:
+              \[\forall t \in \mathbb{Z}: \quad (t \mid a \land t \mid b) \implies t \mid d.\]
             </li>
-          </ol>
-        </div>
-
-        <div class="callout callout-remark" id="sec-gcd-notes">
-          <div class="box-header">💬 Замечание о требованиях к знаку и максимуму</div>
-          <p>
+</ol>
+</div></div>
+<div class="callout callout-remark" id="sec-gcd-notes">
+<div class="box-header">💬 Замечание о требованиях к знаку и максимуму</div>
+<p>
             В высшей алгебре НОД определяется структурно — через <strong>максимальность по отношению делимости</strong> (условие 2). 
             Требование $d \in \mathbb{N}$ ($d > 0$) устраняет неопределённость знака, так как делители $d$ и $-d$ одновременно удовлетворяли бы условиям делимости.
           </p>
-          <p style="margin-bottom: 0;">
+<p style="margin-bottom: 0;">
             Если одно из чисел равно нулю, например $b = 0$, а $a \neq 0$, то $(a, 0) = |a|$, поскольку любое число делит ноль, а наибольшим натуральным делителем $a$ является $|a|$. Случай $a = b = 0$ исключается: любое целое число делит ноль, поэтому максимального делителя не существует.
           </p>
-        </div>
-
-        <h3 id="sub-3" data-toc="2. Обобщение на систему n це…">2.2. Обобщение на систему $n$ целых чисел</h3>
-        <div class="statement definition" id="def-2">
-  <div class="block-label">Определение 2</div>
-  <h3 id="sub-4" data-toc="Определение 2">Определение 2</h3>
-  
-          <div class="box-header">📌 Определение 2.2 (НОД $n$ чисел)
 </div>
+<h3 class="subsection-heading" data-toc="2. Обобщение на систему n целы…" id="sec-gcd-many">2.2. Обобщение на систему $n$ целых чисел</h3>
+<div class="statement definition" id="def-2"><div class="block-label">Определение 2</div><h3 data-toc="📌 Определение 2.2 (НОД n чисел)" id="sub-3-4">📌 Определение 2.2 (НОД $n$ чисел)</h3><div>
+
           Пусть $a_1, a_2, \dots, a_n \in \mathbb{Z}$, где хотя бы одно число отлично от нуля. 
           Натуральное число $d \in \mathbb{N}$ называется <strong>наибольшим общим делителем</strong> чисел $a_1, a_2, \dots, a_n$ (обозначается $(a_1, a_2, \dots, a_n)$), если:
           <ol class="prop-list" style="margin-top: 0.5rem;">
-            <li>$d$ является общим делителем всех чисел:
-              $$d \mid a_1, \quad d \mid a_2, \quad \dots, \quad d \mid a_n;$$
+<li>$d$ является общим делителем всех чисел:
+              \[d \mid a_1, \quad d \mid a_2, \quad \dots, \quad d \mid a_n;\]
             </li>
-            <li>$d$ делится на любой другой общий делитель этих чисел:
-              $$\forall t \in \mathbb{Z}: \quad (\forall i \in \{1, \dots, n\}: t \mid a_i) \implies t \mid d.$$
+<li>$d$ делится на любой другой общий делитель этих чисел:
+              \[\forall t \in \mathbb{Z}: \quad (\forall i \in \{1, \dots, n\}: t \mid a_i) \implies t \mid d.\]
             </li>
-          </ol>
-        </div>
-      </section>
+</ol>
+</div></div>
 
-      <!-- РАЗДЕЛ 3 -->
-      <section class="lecture-section" id="sec-bezout-thm">
+<!-- РАЗДЕЛ 3 -->
+<section class="lecture-section" id="sec-bezout-thm">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-4">
-  <div class="chapter-kicker">04 / 3 Теорема о НОД и тождество …</div>
-  <h2 id="chapter-4" data-toc="3 Теорема о НОД и тождество …">3 Теорема о НОД и тождество Безу</h2>
-  <p>
+  <div class="chapter-kicker">04 / 3Теорема о НОД и тождество Безу</div>
+  <h2 id="chapter-4" data-toc="3Теорема о НОД и тождество Безу">3Теорема о НОД и тождество Безу</h2>
+  
+<p>
           Фундаментальная теорема связывает отношение делимости с линейной структурой кольца целых чисел.
         </p>
+<div class="statement theorem featured" id="thm-1"><div class="block-label">Утверждение 1</div><h3 data-toc="⚖️ Теорема 3.1 (О существовани…" id="sub-4-1">⚖️ Теорема 3.1 (О существовании, единственности и линейном представлении НОД)</h3><div>
 
-        <div class="statement theorem featured" id="thm-1">
-  <div class="block-label">Утверждение 1</div>
-  <h3 id="sub-5" data-toc="Теорема 1">Теорема 1</h3>
-  
-          <div class="box-header">⚖️ Теорема 3.1 (О существовании, единственности и линейном представлении НОД)
-</div>
           Пусть $a_1, a_2, \dots, a_n \in \mathbb{Z}$, причём хотя бы одно из чисел отлично от нуля. Тогда:
           <ol class="prop-list" style="margin-top: 0.5rem;">
-            <li>Наибольший общий делитель $(a_1, a_2, \dots, a_n)$ <strong>существует и единственен</strong>.</li>
-            <li>$(a_1, a_2, \dots, a_n)$ представим в виде <strong>целочисленной линейной комбинации</strong> (тождество Безу):
-              $$\exists m_1, m_2, \dots, m_n \in \mathbb{Z}: \quad (a_1, a_2, \dots, a_n) = m_1 a_1 + m_2 a_2 + \dots + m_n a_n.$$
+<li>Наибольший общий делитель $(a_1, a_2, \dots, a_n)$ <strong>существует и единственен</strong>.</li>
+<li>$(a_1, a_2, \dots, a_n)$ представим в виде <strong>целочисленной линейной комбинации</strong> (тождество Безу):
+              \[\exists m_1, m_2, \dots, m_n \in \mathbb{Z}: \quad (a_1, a_2, \dots, a_n) = m_1 a_1 + m_2 a_2 + \dots + m_n a_n.\]
             </li>
-            <li>$(a_1, a_2, \dots, a_n)$ является <strong>наименьшим натуральным числом</strong>, представимым в виде целочисленной линейной комбинации чисел $a_1, a_2, \dots, a_n$.</li>
-          </ol>
-        </div>
-
-        <h3 id="sub-6" data-toc="1. Доказательства существова…">3.1. Доказательства существования и линейного представления</h3>
-        
-        
-<div class="proof" id="proof-1" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 1: Экстремальный (через принцип наименьшего элемента подмножества $\mathbb{N}$))">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-1" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>1. Множество положительных линейных комбинаций:</strong><br>
-            Рассмотрим множество $S = \{ x_1 a_1 + \dots + x_n a_n \mid x_i \in \mathbb{Z}, \; \sum x_i a_i > 0 \}$. 
-            Если $a_k \neq 0$, то полагая $x_k = a_k$ и $x_j = 0$ при $j \neq k$, получаем $a_k^2 > 0$, откуда $a_k^2 \in S$. Значит, $S \neq \emptyset$.</p>
-  </div>
-  <div class="proof-full" id="full-1" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Экстремальный (через принцип наименьшего элемента подмножества $\mathbb{N}$)))</div>
-    <div class="proof-content">
+<li>$(a_1, a_2, \dots, a_n)$ является <strong>наименьшим натуральным числом</strong>, представимым в виде целочисленной линейной комбинации чисел $a_1, a_2, \dots, a_n$.</li>
+</ol>
+</div></div>
+<h3 class="subsection-heading" data-toc="1. Доказательства существовани…" id="sec-bezout-proof">3.1. Доказательства существования и линейного представления</h3>
+<div class="proof" data-proof="" id="proof-1">
+<div aria-label="Доказательство Строгое доказательство (Метод 1: Экстремальный (через принцип наименьшего элемента подмножества $\mathbb{N}$))" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-1">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Строгое доказательство (Метод 1: Экстремальный (через принцип наименьшего элемента подмножества mathbb{N}))).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-1">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Экстремальный (через принцип наименьшего элемента подмножества $\mathbb{N}$)))</div>
+<div class="proof-content">
 <p>
-            <strong>1. Множество положительных линейных комбинаций:</strong><br>
+<strong>1. Множество положительных линейных комбинаций:</strong><br/>
             Рассмотрим множество $S = \{ x_1 a_1 + \dots + x_n a_n \mid x_i \in \mathbb{Z}, \; \sum x_i a_i > 0 \}$. 
             Если $a_k \neq 0$, то полагая $x_k = a_k$ и $x_j = 0$ при $j \neq k$, получаем $a_k^2 > 0$, откуда $a_k^2 \in S$. Значит, $S \neq \emptyset$.
           </p>
-          <p>
-            <strong>2. Выбор минимума:</strong><br>
+<p>
+<strong>2. Выбор минимума:</strong><br/>
             В силу принципа наименьшего элемента в непустом множестве $S \subseteq \mathbb{N}$ существует минимальный элемент $d = \min S$. По определению найдутся целые $m_i \in \mathbb{Z}$, такие что $d = \sum_{i=1}^n m_i a_i > 0$.
           </p>
-          <p>
-            <strong>3. Делимость $d \mid a_i$:</strong><br>
+<p>
+<strong>3. Делимость $d \mid a_i$:</strong><br/>
             Для любого $i$ разделим $a_i$ на $d$ с остатком: $a_i = d q + r$, где $0 \le r < d$. 
             Тогда $r = a_i - q d = a_i - q \sum m_j a_j = (-q m_1) a_1 + \dots + (1 - q m_i) a_i + \dots + (-q m_n) a_n$. 
             Коэффициенты целые, следовательно $r$ — линейная комбинация. Если $r > 0$, то $r \in S$, что противоречит минимальности $d = \min S$ (так как $r < d$). 
             Следовательно, $r = 0$, то есть $d \mid a_i$. Число $d$ является общим делителем.
           </p>
-          <p>
-            <strong>4. Условие максимальности:</strong><br>
+<p>
+<strong>4. Условие максимальности:</strong><br/>
             Если $t$ — произвольный общий делитель всех $a_i$, то по линейности делимости $t \mid \sum m_i a_i \implies t \mid d$. 
             Таким образом, $d = (a_1, \dots, a_n)$, и $d$ — наименьший элемент в $S$.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        
-<div class="proof" id="proof-2" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 2: Конструктивный (через обратный ход алгоритма Евклида))">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-2" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Для двух чисел $a, b$ выполним алгоритм Евклида до последнего ненулевого остатка $r_k$:</p>
-  </div>
-  <div class="proof-full" id="full-2" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Конструктивный (через обратный ход алгоритма Евклида)))</div>
-    <div class="proof-content">
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="proof" data-proof="" id="proof-2">
+<div aria-label="Доказательство Строгое доказательство (Метод 2: Конструктивный (через обратный ход алгоритма Евклида))" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-2">
+<div class="proof-label">Идея</div>
+<p>Для двух чисел $a, b$ выполним алгоритм Евклида до последнего ненулевого остатка $r_k$:
+            
+            Проведём индукцию назад:
+            
+Из предпоследней строки: $r_k = r_{k-2} - r_{k-1} q_k$, то есть $r_k$ выражается линейно через $r_{k-2}$ и $r_{k-1}$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-2">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Конструктивный (через обратный ход алгоритма Евклида)))</div>
+<div class="proof-content">
 <p>
             Для двух чисел $a, b$ выполним алгоритм Евклида до последнего ненулевого остатка $r_k$:
-            $$a = b q_0 + r_0, \quad b = r_0 q_1 + r_1, \quad \dots, \quad r_{k-2} = r_{k-1} q_k + r_k, \quad r_{k-1} = r_k q_{k+1}.$$
+            \[a = b q_0 + r_0, \quad b = r_0 q_1 + r_1, \quad \dots, \quad r_{k-2} = r_{k-1} q_k + r_k, \quad r_{k-1} = r_k q_{k+1}.\]
             Проведём индукцию назад:
             <ol class="prop-list">
-              <li>Из предпоследней строки: $r_k = r_{k-2} - r_{k-1} q_k$, то есть $r_k$ выражается линейно через $r_{k-2}$ и $r_{k-1}$.</li>
-              <li>Подставляя $r_{k-1} = r_{k-3} - r_{k-2} q_{k-1}$, получаем линейное выражение $r_k$ через $r_{k-3}$ и $r_{k-2}$.</li>
-              <li>Продолжая подъём по цепочке до исходных чисел, на нулевом шаге получаем $r_k = u a + v b$ для некоторых $u, v \in \mathbb{Z}$.</li>
-            </ol>
+<li>Из предпоследней строки: $r_k = r_{k-2} - r_{k-1} q_k$, то есть $r_k$ выражается линейно через $r_{k-2}$ и $r_{k-1}$.</li>
+<li>Подставляя $r_{k-1} = r_{k-3} - r_{k-2} q_{k-1}$, получаем линейное выражение $r_k$ через $r_{k-3}$ и $r_{k-2}$.</li>
+<li>Продолжая подъём по цепочке до исходных чисел, на нулевом шаге получаем $r_k = u a + v b$ для некоторых $u, v \in \mathbb{Z}$.</li>
+</ol>
             Поскольку алгоритм Евклида доказывает, что $r_k = (a, b)$, мы конструктивно построили линейное представление НОД. Для $n$ чисел утверждение распространяется по индукции с помощью свойства ассоциативности.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        <h3 id="sub-7" data-toc="2. Доказательства единственн…">3.2. Доказательства единственности НОД (4 независимых метода)</h3>
-        
-        
-<div class="proof" id="proof-3" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 1: Алгебраический (через взаимную делимость))">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-3" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Пусть $d_1$ и $d_2$ — два натуральных числа, удовлетворяющих определению НОД набора $a_1, \dots, a_n$.
-            Так как $d_1$ — НОД, он является общим делителем. Поскольку $d_2$ — НОД, он делится на любой общий делитель, в частности на $d_1$:</p>
-  </div>
-  <div class="proof-full" id="full-3" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Алгебраический (через взаимную делимость)))</div>
-    <div class="proof-content">
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<h3 class="subsection-heading" data-toc="2. Доказательства единственнос…" id="sec-uniqueness-multi">3.2. Доказательства единственности НОД (4 независимых метода)</h3>
+<div class="proof" data-proof="" id="proof-3">
+<div aria-label="Доказательство Строгое доказательство (Метод 1: Алгебраический (через взаимную делимость))" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-3">
+<div class="proof-label">Идея</div>
+<p>Пусть $d_1$ и $d_2$ — два натуральных числа, удовлетворяющих определению НОД набора $a_1, \dots, a_n$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-3">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Алгебраический (через взаимную делимость)))</div>
+<div class="proof-content">
 <p>
             Пусть $d_1$ и $d_2$ — два натуральных числа, удовлетворяющих определению НОД набора $a_1, \dots, a_n$.
             Так как $d_1$ — НОД, он является общим делителем. Поскольку $d_2$ — НОД, он делится на любой общий делитель, в частности на $d_1$:
-            $$d_1 \mid d_2.$$
+            \[d_1 \mid d_2.\]
             Симметрично: $d_2$ — общий делитель, а $d_1$ — НОД, следовательно $d_1$ делится на $d_2$:
-            $$d_2 \mid d_1.$$
+            \[d_2 \mid d_1.\]
             Из взаимной делимости $d_1 \mid d_2$ и $d_2 \mid d_1$ следует, что $d_1 = \pm d_2$. Но поскольку $d_1, d_2 \in \mathbb{N}$ ($d_1 > 0, d_2 > 0$), получаем единственное равенство:
-            $$d_1 = d_2.$$
+            \[d_1 = d_2.\]
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        
-<div class="proof" id="proof-4" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 2: Экстремальный (через единственность минимума линейного порядка))">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-4" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>По Методу 1 существования число $d = \min S$ является наименьшим элементом множества $S = \{ \sum x_i a_i > 0 \mid x_i \in \mathbb{Z} \} \subseteq \mathbb{N}$.</p>
-  </div>
-  <div class="proof-full" id="full-4" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Экстремальный (через единственность минимума линейного порядка)))</div>
-    <div class="proof-content">
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="proof" data-proof="" id="proof-4">
+<div aria-label="Доказательство Строгое доказательство (Метод 2: Экстремальный (через единственность минимума линейного порядка))" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-4">
+<div class="proof-label">Идея</div>
+<p>По Методу 1 существования число $d = \min S$ является наименьшим элементом множества $S = \{ \sum x_i a_i > 0 \mid x_i \in \mathbb{Z} \} \subseteq \mathbb{N}$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-4">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Экстремальный (через единственность минимума линейного порядка)))</div>
+<div class="proof-content">
 <p>
             По Методу 1 существования число $d = \min S$ является наименьшим элементом множества $S = \{ \sum x_i a_i > 0 \mid x_i \in \mathbb{Z} \} \subseteq \mathbb{N}$. 
             В любом частично упорядоченном множестве наименьший элемент единственен: если $m_1, m_2 \in S$ оба минимальны, то $m_1 \le m_2$ и $m_2 \le m_1 \implies m_1 = m_2$.
@@ -764,824 +718,680 @@ SOFTWARE.
             Поскольку $d, d' \in \mathbb{N}$, получаем $d' \le d$. С другой стороны, $d$ — общий делитель, а $d'$ — НОД, значит $d \mid d' \implies d \le d'$. 
             Отсюда $d' = d = \min S$.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        
-<div class="proof" id="proof-5" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 3: Порядковый / решёточный (через точную верхнюю грань в $(\mathbb{N}, \mid)$))">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-5" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Отношение делимости на множестве натуральных чисел $\mathbb{N}$ ($x \preceq y \iff x \mid y$) задаёт отношение частичного порядка: оно рефлексивно ($x \mid x$), транзитивно ($x \mid y \land y \mid z \implies x \mid z$) и антисимметрично ($x \mid y \land y \mid x \implies x = y$ для $x, y \in \mathbb{N}$).</p>
-  </div>
-  <div class="proof-full" id="full-5" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 3: Порядковый / решёточный (через точную верхнюю грань в $(\mathbb{N}, \mid)$)))</div>
-    <div class="proof-content">
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="proof" data-proof="" id="proof-5">
+<div aria-label="Доказательство Строгое доказательство (Метод 3: Порядковый / решёточный (через точную верхнюю грань в $(\mathbb{N}, \mid)$))" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-5">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Строгое доказательство (Метод 3: Порядковый / решёточный (через точную верхнюю грань в (mathbb{N}, mid)))).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-5">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 3: Порядковый / решёточный (через точную верхнюю грань в $(\mathbb{N}, \mid)$)))</div>
+<div class="proof-content">
 <p>
             Отношение делимости на множестве натуральных чисел $\mathbb{N}$ ($x \preceq y \iff x \mid y$) задаёт отношение частичного порядка: оно рефлексивно ($x \mid x$), транзитивно ($x \mid y \land y \mid z \implies x \mid z$) и антисимметрично ($x \mid y \land y \mid x \implies x = y$ для $x, y \in \mathbb{N}$).
             Пусть $C = \{ t \in \mathbb{N} \mid t \mid a_1, \dots, t \mid a_n \}$ — множество общих натуральных делителей.
             Определение НОД означает, что $d \in C$ и $\forall t \in C: t \preceq d$, то есть $d$ является наибольшим элементом множества $C$ (или точной верхней гранью $\sup_\preceq C$).
             В любом частично упорядоченном множестве наибольший элемент подмножества строго единственен в силу антисимметричности порядка: если $d_1$ и $d_2$ наибольшие, то $d_1 \preceq d_2$ и $d_2 \preceq d_1 \implies d_1 = d_2$.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        
-<div class="proof" id="proof-6" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 4: Алгоритмический / детерминистический (через алгоритм Евклида))">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-6" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>По теореме о делении с остатком для любых целых чисел $x$ и $y \neq 0$ неполное частное $q$ и остаток $r$ определены строго единственным образом.</p>
-  </div>
-  <div class="proof-full" id="full-6" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 4: Алгоритмический / детерминистический (через алгоритм Евклида)))</div>
-    <div class="proof-content">
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="proof" data-proof="" id="proof-6">
+<div aria-label="Доказательство Строгое доказательство (Метод 4: Алгоритмический / детерминистический (через алгоритм Евклида))" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-6">
+<div class="proof-label">Идея</div>
+<p>По теореме о делении с остатком для любых целых чисел $x$ и $y \neq 0$ неполное частное $q$ и остаток $r$ определены строго единственным образом.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-6">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 4: Алгоритмический / детерминистический (через алгоритм Евклида)))</div>
+<div class="proof-content">
 <p>
             По теореме о делении с остатком для любых целых чисел $x$ и $y \neq 0$ неполное частное $q$ и остаток $r$ определены строго единственным образом. 
             Следовательно, на каждом шаге алгоритма Евклида результат деления детерминирован однозначно: шаг 0 даёт единственную пару $(q_0, r_0)$, шаг 1 — единственную пару $(q_1, r_1)$, и так далее. 
             Конечная цепочка остатков $r_0, r_1, \dots, r_k$ детерминирована абсолютно однозначно. 
             Поскольку НОД равен последнему ненулевому остатку $r_k$, его значение единственно.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<!-- SVG 1: Решётка линейных комбинаций и минимальный элемент d -->
+<div class="svg-wrapper">
+<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 820 220" xmlns="http://www.w3.org/2000/svg">
+<line stroke="var(--text-muted)" stroke-width="2.5" x1="40" x2="780" y1="120" y2="120"></line>
+<polygon fill="var(--text-muted)" points="785,120 770,114 770,126"></polygon>
+<circle cx="120" cy="120" fill="var(--text-muted)" r="6"></circle>
+<text fill="var(--text-muted)" font-size="16" font-weight="700" text-anchor="middle" x="120" y="155">0</text>
+<circle cx="70" cy="120" fill="var(--text-muted)" opacity="0.5" r="4"></circle>
+<text fill="var(--text-muted)" font-size="12" opacity="0.6" text-anchor="middle" x="70" y="95">&lt; 0</text>
+<!-- Элементы решётки d*Z -->
+<circle cx="240" cy="120" fill="#10b8a6" r="8" stroke="var(--bg-body)" stroke-width="2.5"></circle>
+<text fill="#10b8a6" font-size="16" font-weight="800" text-anchor="middle" x="240" y="85">d = min S = gcd</text>
+<text fill="#10b8a6" font-size="14" font-weight="700" text-anchor="middle" x="240" y="155">d</text>
+<circle cx="360" cy="120" fill="var(--border-accent)" r="5"></circle>
+<text fill="var(--text-heading)" font-size="14" text-anchor="middle" x="360" y="155">2d</text>
+<circle cx="480" cy="120" fill="#38bdf8" r="7"></circle>
+<text fill="#38bdf8" font-size="15" font-weight="700" text-anchor="middle" x="480" y="85">b = q₂ d</text>
+<text fill="var(--text-heading)" font-size="14" text-anchor="middle" x="480" y="155">3d</text>
+<circle cx="600" cy="120" fill="var(--border-accent)" r="5"></circle>
+<text fill="var(--text-heading)" font-size="14" text-anchor="middle" x="600" y="155">4d</text>
+<circle cx="720" cy="120" fill="#818cf8" r="7"></circle>
+<text fill="#818cf8" font-size="15" font-weight="700" text-anchor="middle" x="720" y="85">a = q₁ d</text>
+<text fill="var(--text-heading)" font-size="14" text-anchor="middle" x="720" y="155">5d</text>
+<path d="M 240,175 L 750,175" stroke="#10b8a6" stroke-dasharray="5,5" stroke-width="3"></path>
+<text fill="#10b8a6" font-size="14" font-weight="600" text-anchor="middle" x="495" y="200">Множество S = { xa + yb &gt; 0 } ⊆ ℕ. Единственный минимум порождает идеал dℤ.</text>
+</svg></figure>
+<div class="svg-caption">Рисунок 3.1: Геометрическая структура множества целочисленных комбинаций $S$. Минимальный элемент $d$ делит все узлы решётки.</div>
 </div>
 
-
-        <!-- SVG 1: Решётка линейных комбинаций и минимальный элемент d -->
-        <div class="svg-wrapper">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 820 220" xmlns="http://www.w3.org/2000/svg">
-            <line x1="40" y1="120" x2="780" y2="120" stroke="var(--text-muted)" stroke-width="2.5" />
-            <polygon points="785,120 770,114 770,126" fill="var(--text-muted)" />
-            
-            <circle cx="120" cy="120" r="6" fill="var(--text-muted)" />
-            <text x="120" y="155" fill="var(--text-muted)" font-size="16" font-weight="700" text-anchor="middle">0</text>
-
-            <circle cx="70" cy="120" r="4" fill="var(--text-muted)" opacity="0.5" />
-            <text x="70" y="95" fill="var(--text-muted)" font-size="12" opacity="0.6" text-anchor="middle">&lt; 0</text>
-
-            <!-- Элементы решётки d*Z -->
-            <circle cx="240" cy="120" r="8" fill="#10b8a6" stroke="var(--bg-body)" stroke-width="2.5" />
-            <text x="240" y="85" fill="#10b8a6" font-size="16" font-weight="800" text-anchor="middle">d = min S = gcd</text>
-            <text x="240" y="155" fill="#10b8a6" font-size="14" font-weight="700" text-anchor="middle">d</text>
-
-            <circle cx="360" cy="120" r="5" fill="var(--border-accent)" />
-            <text x="360" y="155" fill="var(--text-heading)" font-size="14" text-anchor="middle">2d</text>
-
-            <circle cx="480" cy="120" r="7" fill="#38bdf8" />
-            <text x="480" y="85" fill="#38bdf8" font-size="15" font-weight="700" text-anchor="middle">b = q₂ d</text>
-            <text x="480" y="155" fill="var(--text-heading)" font-size="14" text-anchor="middle">3d</text>
-
-            <circle cx="600" cy="120" r="5" fill="var(--border-accent)" />
-            <text x="600" y="155" fill="var(--text-heading)" font-size="14" text-anchor="middle">4d</text>
-
-            <circle cx="720" cy="120" r="7" fill="#818cf8" />
-            <text x="720" y="85" fill="#818cf8" font-size="15" font-weight="700" text-anchor="middle">a = q₁ d</text>
-            <text x="720" y="155" fill="var(--text-heading)" font-size="14" text-anchor="middle">5d</text>
-
-            <path d="M 240,175 L 750,175" stroke="#10b8a6" stroke-width="3" stroke-dasharray="5,5" />
-            <text x="495" y="200" fill="#10b8a6" font-size="14" font-weight="600" text-anchor="middle">Множество S = { xa + yb &gt; 0 } ⊆ ℕ. Единственный минимум порождает идеал dℤ.</text>
-          </svg></div>
-          <div class="svg-caption">Рисунок 3.1: Геометрическая структура множества целочисленных комбинаций $S$. Минимальный элемент $d$ делит все узлы решётки.</div>
-        </div>
-      </section>
-
-      <!-- РАЗДЕЛ 4 -->
-      <section class="lecture-section" id="sec-gcd-props">
+<!-- РАЗДЕЛ 4 -->
+<section class="lecture-section" id="sec-gcd-props">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-5">
-  <div class="chapter-kicker">05 / 4 Фундаментальные свойства НОД</div>
-  <h2 id="chapter-5" data-toc="4 Фундаментальные свойства НОД">4 Фундаментальные свойства НОД</h2>
-  <h3 id="sub-8" data-toc="1. Свойство ассоциативности …">4.1. Свойство ассоциативности (принцип редукции)</h3>
-        <div class="statement theorem" id="thm-2">
-  <div class="block-label">Утверждение 2</div>
-  <h3 id="sub-9" data-toc="Теорема 2">Теорема 2</h3>
+  <div class="chapter-kicker">05 / 4Фундаментальные свойства НОД</div>
+  <h2 id="chapter-5" data-toc="4Фундаментальные свойства НОД">4Фундаментальные свойства НОД</h2>
   
-          <div class="box-header">📜 Предложение 4.1 (Ассоциативность НОД)
-</div>
-          Для любых чисел $a_1, a_2, \dots, a_n \in \mathbb{Z}$ выполняется равенство:
-          $$(a_1, a_2, \dots, a_n) = \Big( (a_1, a_2, \dots, a_{n-1}), \, a_n \Big) = \Big( \dots \big( (a_1, a_2), a_3 \big) \dots, a_n \Big).$$
-        </div>
+<h3 class="subsection-heading" data-toc="1. Свойство ассоциативности (п…" id="sec-prop-assoc">4.1. Свойство ассоциативности (принцип редукции)</h3>
+<div class="statement theorem" id="thm-2"><div class="block-label">Утверждение 2</div><h3 data-toc="📜 Предложение 4.1 (Ассоциативн…" id="sub-5-2">📜 Предложение 4.1 (Ассоциативность НОД)</h3><div>
 
-        
-<div class="proof" id="proof-7" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 1: Алгебраический (через взаимную делимость))">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-7" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Обозначим $d = (a_1, a_2, \dots, a_n)$, $\delta = (a_1, a_2, \dots, a_{n-1})$ и $D = (\delta, a_n)$. 
-            Докажем, что $d \mid D$ и $D \mid d$:</p>
-  </div>
-  <div class="proof-full" id="full-7" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Алгебраический (через взаимную делимость)))</div>
-    <div class="proof-content">
+          Для любых чисел $a_1, a_2, \dots, a_n \in \mathbb{Z}$ выполняется равенство:
+          \[(a_1, a_2, \dots, a_n) = \Big( (a_1, a_2, \dots, a_{n-1}), \, a_n \Big) = \Big( \dots \big( (a_1, a_2), a_3 \big) \dots, a_n \Big).\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-7">
+<div aria-label="Доказательство Строгое доказательство (Метод 1: Алгебраический (через взаимную делимость))" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-7">
+<div class="proof-label">Идея</div>
+<p>Обозначим $d = (a_1, a_2, \dots, a_n)$, $\delta = (a_1, a_2, \dots, a_{n-1})$ и $D = (\delta, a_n)$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-7">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Алгебраический (через взаимную делимость)))</div>
+<div class="proof-content">
 <p>
             Обозначим $d = (a_1, a_2, \dots, a_n)$, $\delta = (a_1, a_2, \dots, a_{n-1})$ и $D = (\delta, a_n)$. 
             Докажем, что $d \mid D$ и $D \mid d$:
           </p>
-          <p>
+<p>
             1. Так как $d \mid a_1, \dots, d \mid a_{n-1}$, число $d$ является общим делителем первых $n-1$ чисел, поэтому $d \mid \delta$. 
             Поскольку $d \mid \delta$ и $d \mid a_n$, число $d$ делит их НОД: $d \mid D$.
           </p>
-          <p>
+<p>
             2. Так как $D = (\delta, a_n)$, то $D \mid \delta$ и $D \mid a_n$. Но $\delta \mid a_1, \dots, \delta \mid a_{n-1}$, поэтому по транзитивности $D \mid a_i$ для всех $i \in \{1, \dots, n-1\}$. 
             С учётом $D \mid a_n$ число $D$ является общим делителем всех $n$ чисел, следовательно $D \mid d$.
           </p>
-          <p>
+<p>
             Из $d \mid D$ и $D \mid d$ при $d, D \in \mathbb{N}$ следует $D = d$. Развёртывание в цепочку следует по индукции.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        
-<div class="proof" id="proof-8" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 2: Теоретико-множественный (через пересечение множеств общих делителей))">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-8" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Обозначим через $\operatorname{Div}(x_1, \dots, x_k)$ множество всех общих делителей чисел $x_1, \dots, x_k$. 
-            По определению принадлежности к множеству делителей:</p>
-  </div>
-  <div class="proof-full" id="full-8" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Теоретико-множественный (через пересечение множеств общих делителей)))</div>
-    <div class="proof-content">
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="proof" data-proof="" id="proof-8">
+<div aria-label="Доказательство Строгое доказательство (Метод 2: Теоретико-множественный (через пересечение множеств общих делителей))" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-8">
+<div class="proof-label">Идея</div>
+<p>Обозначим через $\operatorname{Div}(x_1, \dots, x_k)$ множество всех общих делителей чисел $x_1, \dots, x_k$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-8">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Теоретико-множественный (через пересечение множеств общих делителей)))</div>
+<div class="proof-content">
 <p>
             Обозначим через $\operatorname{Div}(x_1, \dots, x_k)$ множество всех общих делителей чисел $x_1, \dots, x_k$. 
             По определению принадлежности к множеству делителей:
-            $$\operatorname{Div}(a_1, \dots, a_n) = \bigcap_{i=1}^n \operatorname{Div}(a_i) = \left( \bigcap_{i=1}^{n-1} \operatorname{Div}(a_i) \right) \cap \operatorname{Div}(a_n) = \operatorname{Div}(a_1, \dots, a_{n-1}) \cap \operatorname{Div}(a_n).$$
+            \[\operatorname{Div}(a_1, \dots, a_n) = \bigcap_{i=1}^n \operatorname{Div}(a_i) = \left( \bigcap_{i=1}^{n-1} \operatorname{Div}(a_i) \right) \cap \operatorname{Div}(a_n) = \operatorname{Div}(a_1, \dots, a_{n-1}) \cap \operatorname{Div}(a_n).\]
             Но множество делителей набора чисел совпадает с множеством делителей их НОД: $\operatorname{Div}(a_1, \dots, a_{n-1}) = \operatorname{Div}(\delta)$, где $\delta = (a_1, \dots, a_{n-1})$.
             Следовательно:
-            $$\operatorname{Div}(a_1, \dots, a_n) = \operatorname{Div}(\delta) \cap \operatorname{Div}(a_n) = \operatorname{Div}(\delta, a_n).$$
+            \[\operatorname{Div}(a_1, \dots, a_n) = \operatorname{Div}(\delta) \cap \operatorname{Div}(a_n) = \operatorname{Div}(\delta, a_n).\]
             Так как множества общих делителей совпадают, совпадают и их наибольшие элементы: $(a_1, \dots, a_n) = (\delta, a_n)$.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        
-<div class="proof" id="proof-9" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 3: Структурный (через равенство порождённых главных идеалов в $\mathbb{Z}$))">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-9" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>В кольце главных идеалов $\mathbb{Z}$ сумма идеалов удовлетворяет свойству ассоциативности операции сложения подмодулей:</p>
-  </div>
-  <div class="proof-full" id="full-9" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 3: Структурный (через равенство порождённых главных идеалов в $\mathbb{Z}$)))</div>
-    <div class="proof-content">
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="proof" data-proof="" id="proof-9">
+<div aria-label="Доказательство Строгое доказательство (Метод 3: Структурный (через равенство порождённых главных идеалов в $\mathbb{Z}$))" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-9">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Строгое доказательство (Метод 3: Структурный (через равенство порождённых главных идеалов в mathbb{Z}))).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-9">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 3: Структурный (через равенство порождённых главных идеалов в $\mathbb{Z}$)))</div>
+<div class="proof-content">
 <p>
             В кольце главных идеалов $\mathbb{Z}$ сумма идеалов удовлетворяет свойству ассоциативности операции сложения подмодулей:
-            $$a_1 \mathbb{Z} + a_2 \mathbb{Z} + \dots + a_n \mathbb{Z} = (a_1 \mathbb{Z} + \dots + a_{n-1} \mathbb{Z}) + a_n \mathbb{Z}.$$
+            \[a_1 \mathbb{Z} + a_2 \mathbb{Z} + \dots + a_n \mathbb{Z} = (a_1 \mathbb{Z} + \dots + a_{n-1} \mathbb{Z}) + a_n \mathbb{Z}.\]
             По тождеству Безу идеал, порождённый набором чисел, совпадает с главным идеалом, порождённым их НОД:
-            $$\sum_{i=1}^k a_i \mathbb{Z} = (a_1, \dots, a_k) \mathbb{Z}.$$
+            \[\sum_{i=1}^k a_i \mathbb{Z} = (a_1, \dots, a_k) \mathbb{Z}.\]
             Следовательно:
-            $$(a_1, \dots, a_n) \mathbb{Z} = \delta \mathbb{Z} + a_n \mathbb{Z} = (\delta, a_n) \mathbb{Z}.$$
+            \[(a_1, \dots, a_n) \mathbb{Z} = \delta \mathbb{Z} + a_n \mathbb{Z} = (\delta, a_n) \mathbb{Z}.\]
             Так как идеалы совпадают и их положительные образующие фиксированы в $\mathbb{N}$, получаем $(a_1, \dots, a_n) = (\delta, a_n)$.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        <h3 id="sub-10" data-toc="2. Свойство однородности (вы…">4.2. Свойство однородности (вынесение общего множителя)</h3>
-        <div class="statement theorem" id="thm-3">
-  <div class="block-label">Утверждение 3</div>
-  <h3 id="sub-11" data-toc="Теорема 3">Теорема 3</h3>
-  
-          <div class="box-header">📜 Предложение 4.2 (Однородность НОД)
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<h3 class="subsection-heading" data-toc="2. Свойство однородности (выне…" id="sec-prop-homo">4.2. Свойство однородности (вынесение общего множителя)</h3>
+<div class="statement theorem" id="thm-3"><div class="block-label">Утверждение 3</div><h3 data-toc="📜 Предложение 4.2 (Однородност…" id="sub-5-4">📜 Предложение 4.2 (Однородность НОД)</h3><div>
+
           Для любых чисел $a_1, \dots, a_n \in \mathbb{Z}$ и любого натурального числа $m \in \mathbb{N}$ выполняется:
-          $$(m a_1, m a_2, \dots, m a_n) = m \cdot (a_1, a_2, \dots, a_n).$$
-        </div>
-
-        
-<div class="proof" id="proof-10" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 1: Алгебраический (через отношение делимости))">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-10" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Обозначим $d = (a_1, \dots, a_n)$ и $D = (m a_1, \dots, m a_n)$. Покажем, что $m d \mid D$ и $D \mid m d$:</p>
-  </div>
-  <div class="proof-full" id="full-10" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Алгебраический (через отношение делимости)))</div>
-    <div class="proof-content">
+          \[(m a_1, m a_2, \dots, m a_n) = m \cdot (a_1, a_2, \dots, a_n).\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-10">
+<div aria-label="Доказательство Строгое доказательство (Метод 1: Алгебраический (через отношение делимости))" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-10">
+<div class="proof-label">Идея</div>
+<p>Обозначим $d = (a_1, \dots, a_n)$ и $D = (m a_1, \dots, m a_n)$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-10">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Алгебраический (через отношение делимости)))</div>
+<div class="proof-content">
 <p>
             Обозначим $d = (a_1, \dots, a_n)$ и $D = (m a_1, \dots, m a_n)$. Покажем, что $m d \mid D$ и $D \mid m d$:
           </p>
-          <p>
-            <strong>1. Докажем, что $m d \mid D$:</strong><br>
+<p>
+<strong>1. Докажем, что $m d \mid D$:</strong><br/>
             Так как $d \mid a_i$ для каждого $i \in \{1, \dots, n\}$, то домножая на $m$, получаем $m d \mid m a_i$. 
             Значит, $m d$ является общим делителем чисел $m a_1, \dots, m a_n$. 
             По определению НОД общий делитель обязан делить их НОД $D$:
-            $$m d \mid D \implies D = m d \cdot q \quad (q \in \mathbb{N}).$$
+            \[m d \mid D \implies D = m d \cdot q \quad (q \in \mathbb{N}).\]
           </p>
-          <p>
-            <strong>2. Докажем, что $D \mid m d$:</strong><br>
+<p>
+<strong>2. Докажем, что $D \mid m d$:</strong><br/>
             Из $D = m d \cdot q$ следует, что $m \mid D$, то есть дробь $\frac{D}{m}$ является натуральным числом. 
             Так как $D \mid m a_i$, имеем $m a_i = D q_i \implies a_i = \left(\frac{D}{m}\right) q_i$, откуда $\frac{D}{m} \mid a_i$ для всех $i$. 
             Следовательно, $\frac{D}{m}$ является общим делителем чисел $a_1, \dots, a_n$. 
             Поэтому он делит их наибольший общий делитель $d$:
-            $$\frac{D}{m} \mid d \implies D \mid m d.$$
+            \[\frac{D}{m} \mid d \implies D \mid m d.\]
           </p>
-          <p>
+<p>
             Из взаимной делимости $m d \mid D$ и $D \mid m d$ при $m d, D \in \mathbb{N}$ строго следует $D = m d$.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        
-<div class="proof" id="proof-11" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 2: Экстремальный (через масштабирование множества Безу $S$))">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-11" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Рассмотрим множество положительных линейных комбинаций для набора $(m a_1, \dots, m a_n)$:</p>
-  </div>
-  <div class="proof-full" id="full-11" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Экстремальный (через масштабирование множества Безу $S$)))</div>
-    <div class="proof-content">
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="proof" data-proof="" id="proof-11">
+<div aria-label="Доказательство Строгое доказательство (Метод 2: Экстремальный (через масштабирование множества Безу $S$))" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-11">
+<div class="proof-label">Идея</div>
+<p>Рассмотрим множество положительных линейных комбинаций для набора $(m a_1, \dots, m a_n)$:
+            
+            где $S_a = \{ \sum x_i a_i > 0 \mid x_i \in \mathbb{Z} \}$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-11">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Экстремальный (через масштабирование множества Безу $S$)))</div>
+<div class="proof-content">
 <p>
             Рассмотрим множество положительных линейных комбинаций для набора $(m a_1, \dots, m a_n)$:
-            $$S_{ma} = \left\{ \sum_{i=1}^n x_i (m a_i) > 0 \;\middle|\; x_i \in \mathbb{Z} \right\} = \left\{ m \cdot \sum_{i=1}^n x_i a_i > 0 \;\middle|\; x_i \in \mathbb{Z} \right\} = m \cdot S_a,$$
+            \[S_{ma} = \left\{ \sum_{i=1}^n x_i (m a_i) > 0 \;\middle|\; x_i \in \mathbb{Z} \right\} = \left\{ m \cdot \sum_{i=1}^n x_i a_i > 0 \;\middle|\; x_i \in \mathbb{Z} \right\} = m \cdot S_a,\]
             где $S_a = \{ \sum x_i a_i > 0 \mid x_i \in \mathbb{Z} \}$.
             По Теореме 3.1 НОД равен наименьшему элементу соответствующего множества:
-            $$(m a_1, \dots, m a_n) = \min S_{ma} = \min (m \cdot S_a).$$
+            \[(m a_1, \dots, m a_n) = \min S_{ma} = \min (m \cdot S_a).\]
             Поскольку $m > 0$, операция умножения на $m$ сохраняет линейный порядок в $\mathbb{N}$: $\min(m \cdot S_a) = m \cdot \min S_a$.
             Следовательно:
-            $$(m a_1, \dots, m a_n) = m \cdot (a_1, \dots, a_n).$$
+            \[(m a_1, \dots, m a_n) = m \cdot (a_1, \dots, a_n).\]
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        
-<div class="proof" id="proof-12" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 3: Алгоритмический (через гомотетию шагов алгоритма Евклида))">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-12" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Для двух чисел $a, b$ умножим каждое равенство алгоритма Евклида на $m \in \mathbb{N}$:</p>
-  </div>
-  <div class="proof-full" id="full-12" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 3: Алгоритмический (через гомотетию шагов алгоритма Евклида)))</div>
-    <div class="proof-content">
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="proof" data-proof="" id="proof-12">
+<div aria-label="Доказательство Строгое доказательство (Метод 3: Алгоритмический (через гомотетию шагов алгоритма Евклида))" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-12">
+<div class="proof-label">Идея</div>
+<p>Для двух чисел $a, b$ умножим каждое равенство алгоритма Евклида на $m \in \mathbb{N}$:
+            
+            
+            
+            
+            Неполные частные $q_i$ остаются неизменными, а каждый остаток умножается на $m$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-12">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 3: Алгоритмический (через гомотетию шагов алгоритма Евклида)))</div>
+<div class="proof-content">
 <p>
             Для двух чисел $a, b$ умножим каждое равенство алгоритма Евклида на $m \in \mathbb{N}$:
-            $$a = b q_0 + r_0 \iff m a = (m b) q_0 + (m r_0), \quad \text{где } 0 \le m r_0 < m |b|,$$
-            $$b = r_0 q_1 + r_1 \iff m b = (m r_0) q_1 + (m r_1), \quad \text{где } 0 \le m r_1 < m r_0,$$
-            $$\dots \iff \dots$$
-            $$r_{k-1} = r_k q_{k+1} + 0 \iff m r_{k-1} = (m r_k) q_{k+1} + 0.$$
+            \[a = b q_0 + r_0 \iff m a = (m b) q_0 + (m r_0), \quad \text{где } 0 \le m r_0 < m |b|,\]
+            \[b = r_0 q_1 + r_1 \iff m b = (m r_0) q_1 + (m r_1), \quad \text{где } 0 \le m r_1 < m r_0,\]
+            \[\dots \iff \dots\]
+            \[r_{k-1} = r_k q_{k+1} + 0 \iff m r_{k-1} = (m r_k) q_{k+1} + 0.\]
             Неполные частные $q_i$ остаются неизменными, а каждый остаток умножается на $m$. 
             Следовательно, последний ненулевой остаток для масштабированной пары равен $m r_k$. 
             Поскольку последний ненулевой остаток равен НОД, получаем $\operatorname{gcd}(m a, m b) = m r_k = m \cdot \operatorname{gcd}(a, b)$.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        <h3 id="sub-12" data-toc="3. Инвариантность при сдвиге…">4.3. Инвариантность при сдвиге (Лемма Евклида)</h3>
-        <div class="statement theorem" id="thm-4">
-  <div class="block-label">Утверждение 4</div>
-  <h3 id="sub-13" data-toc="Теорема 4">Теорема 4</h3>
-  
-          <div class="box-header">📜 Предложение 4.3 (Инвариантность НОД относительно деления с остатком)
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<h3 class="subsection-heading" data-toc="3. Инвариантность при сдвиге (…" id="sec-prop-shift">4.3. Инвариантность при сдвиге (Лемма Евклида)</h3>
+<div class="statement theorem" id="thm-4"><div class="block-label">Утверждение 4</div><h3 data-toc="📜 Предложение 4.3 (Инвариантно…" id="sub-5-6">📜 Предложение 4.3 (Инвариантность НОД относительно деления с остатком)</h3><div>
+
           Если $a, b \in \mathbb{Z}, b \neq 0$, и $a = b q + r$, где $q, r \in \mathbb{Z}$, то:
-          $$(a, b) = (b, r).$$
-        </div>
-
-        
-<div class="proof" id="proof-13" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 1: Через совпадение множеств общих делителей)">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-13" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>1. Если $t \mid a$ и $t \mid b$, то так как $r = a - b q$, по свойству линейности делимости $t \mid (a - b q) \implies t \mid r$. Значит, $t$ — общий делитель $b$ и $r$.</p>
-  </div>
-  <div class="proof-full" id="full-13" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Через совпадение множеств общих делителей))</div>
-    <div class="proof-content">
+          \[(a, b) = (b, r).\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-13">
+<div aria-label="Доказательство Строгое доказательство (Метод 1: Через совпадение множеств общих делителей)" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-13">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Строгое доказательство (Метод 1: Через совпадение множеств общих делителей)).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-13">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Через совпадение множеств общих делителей))</div>
+<div class="proof-content">
 <p>
             1. Если $t \mid a$ и $t \mid b$, то так как $r = a - b q$, по свойству линейности делимости $t \mid (a - b q) \implies t \mid r$. Значит, $t$ — общий делитель $b$ и $r$.
           </p>
-          <p>
+<p>
             2. Обратно: если $t \mid b$ и $t \mid r$, то так как $a = b q + r$, по свойству линейности $t \mid (b q + r) \implies t \mid a$. Значит, $t$ — общий делитель $a$ и $b$.
           </p>
-          <p>
+<p>
             Множества общих делителей пар $(a, b)$ и $(b, r)$ совпадают, следовательно, совпадают и их наибольшие элементы: $(a, b) = (b, r)$.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        
-<div class="proof" id="proof-14" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 2: Через унимодулярное преобразование линейных комбинаций)">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-14" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Связь пар выражается линейным преобразованием:</p>
-  </div>
-  <div class="proof-full" id="full-14" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Через унимодулярное преобразование линейных комбинаций))</div>
-    <div class="proof-content">
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="proof" data-proof="" id="proof-14">
+<div aria-label="Доказательство Строгое доказательство (Метод 2: Через унимодулярное преобразование линейных комбинаций)" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-14">
+<div class="proof-label">Идея</div>
+<p>Связь пар выражается линейным преобразованием:
+            
+            Матрица перехода $T = \begin{pmatrix} q & 1 \\ 1 & 0 \end{pmatrix}$ целочисленна, и её определитель равен $\det(T) = 0 \cdot q - 1 \cdot 1 = -1 \neq 0$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-14">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Через унимодулярное преобразование линейных комбинаций))</div>
+<div class="proof-content">
 <p>
             Связь пар выражается линейным преобразованием:
-            $$\begin{pmatrix} a \\ b \end{pmatrix} = \begin{pmatrix} q & 1 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} b \\ r \end{pmatrix}.$$
+            \[\begin{pmatrix} a \\ b \end{pmatrix} = \begin{pmatrix} q & 1 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} b \\ r \end{pmatrix}.\]
             Матрица перехода $T = \begin{pmatrix} q & 1 \\ 1 & 0 \end{pmatrix}$ целочисленна, и её определитель равен $\det(T) = 0 \cdot q - 1 \cdot 1 = -1 \neq 0$. 
             Так как $\det(T) = \pm 1$, матрица $T$ обратима в кольце целых матриц $GL_2(\mathbb{Z})$, и обратное преобразование также целочисленно:
-            $$\begin{pmatrix} b \\ r \end{pmatrix} = \begin{pmatrix} 0 & 1 \\ 1 & -q \end{pmatrix} \begin{pmatrix} a \\ b \end{pmatrix}.$$
+            \[\begin{pmatrix} b \\ r \end{pmatrix} = \begin{pmatrix} 0 & 1 \\ 1 & -q \end{pmatrix} \begin{pmatrix} a \\ b \end{pmatrix}.\]
             Следовательно, множество всех целочисленных линейных комбинаций $\{ x a + y b \mid x, y \in \mathbb{Z} \}$ тождественно совпадает с множеством $\{ u b + v r \mid u, v \in \mathbb{Z} \}$. 
             Совпадение множеств влечёт совпадение их наименьших положительных элементов, то есть $(a, b) = (b, r)$.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
 </div>
 
-      </section>
-
-      <!-- РАЗДЕЛ 5 -->
-      <section class="lecture-section" id="sec-euclid-alg">
+<!-- РАЗДЕЛ 5 -->
+<section class="lecture-section" id="sec-euclid-alg">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-6">
-  <div class="chapter-kicker">06 / 5 Алгоритм Евклида</div>
-  <h2 id="chapter-6" data-toc="5 Алгоритм Евклида">5 Алгоритм Евклида</h2>
-  <p>
+  <div class="chapter-kicker">06 / 5Алгоритм Евклида</div>
+  <h2 id="chapter-6" data-toc="5Алгоритм Евклида">5Алгоритм Евклида</h2>
+  
+<p>
           Алгоритм Евклида представляет собой конструктивный метод отыскания НОД двух чисел путём итеративного применения деления с остатком.
         </p>
+<h3 class="subsection-heading" data-toc="1. Каскадная цепочка делений с…" id="sec-euclid-chain">5.1. Каскадная цепочка делений с остатком</h3>
+<div class="statement definition" id="def-3"><div class="block-label">Определение 3</div><h3 data-toc="⚙️ Цепочка делений алгоритма Е…" id="sub-6-2">⚙️ Цепочка делений алгоритма Евклида</h3><div>
 
-        <h3 id="sub-14" data-toc="1. Каскадная цепочка делений…">5.1. Каскадная цепочка делений с остатком</h3>
-        <div class="statement definition" id="def-3">
-  <div class="block-label">Определение 3</div>
-  <h3 id="sub-15" data-toc="Определение 3">Определение 3</h3>
-  
-          <div class="box-header">⚙️ Цепочка делений алгоритма Евклида
-</div>
-          $$\begin{aligned}
+          \[\begin{aligned}
             a &= b q_0 + r_0, && 0 \le r_0 < |b|, \\
             b &= r_0 q_1 + r_1, && 0 \le r_1 < r_0, \\
             r_0 &= r_1 q_2 + r_2, && 0 \le r_2 < r_1, \\
             &\;\;\vdots && \;\;\vdots \\
             r_{k-2} &= r_{k-1} q_k + r_k, && 0 \le r_k < r_{k-1}, \\
             r_{k-1} &= r_k q_{k+1} + 0 && (r_{k+1} = 0).
-          \end{aligned}$$
-        </div>
+          \end{aligned}\]
+        </div></div>
+<h3 class="subsection-heading" data-toc="2. Доказательство конечности и…" id="sec-euclid-proof">5.2. Доказательство конечности и корректности</h3>
+<div class="statement theorem" id="thm-5"><div class="block-label">Утверждение 5</div><h3 data-toc="⚖️ Теорема 5.1 (О сходимости и…" id="sub-6-4">⚖️ Теорема 5.1 (О сходимости и корректности алгоритма Евклида)</h3><div>
 
-        <h3 id="sub-16" data-toc="2. Доказательство конечности…">5.2. Доказательство конечности и корректности</h3>
-        <div class="statement theorem" id="thm-5">
-  <div class="block-label">Утверждение 5</div>
-  <h3 id="sub-17" data-toc="Теорема 5">Теорема 5</h3>
-  
-          <div class="box-header">⚖️ Теорема 5.1 (О сходимости и корректности алгоритма Евклида)
-</div>
           Алгоритм Евклида завершается за конечное число шагов, причём <strong>последний ненулевой остаток</strong> равен наибольшему общему делителю:
-          $$(a, b) = r_k.$$
-        </div>
-
-        
-<div class="proof" id="proof-15" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 1: Через инвариант цепочки равенств)">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-15" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>1. Конечность:</strong> Остатки образуют строго убывающую последовательность неотрицательных целых чисел:</p>
-  </div>
-  <div class="proof-full" id="full-15" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Через инвариант цепочки равенств))</div>
-    <div class="proof-content">
+          \[(a, b) = r_k.\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-15">
+<div aria-label="Доказательство Строгое доказательство (Метод 1: Через инвариант цепочки равенств)" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-15">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Строгое доказательство (Метод 1: Через инвариант цепочки равенств)).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-15">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Через инвариант цепочки равенств))</div>
+<div class="proof-content">
 <p>
-            <strong>1. Конечность:</strong> Остатки образуют строго убывающую последовательность неотрицательных целых чисел:
-            $$|b| > r_0 > r_1 > r_2 > \dots > r_{k-1} > r_k \ge 0.$$
+<strong>1. Конечность:</strong> Остатки образуют строго убывающую последовательность неотрицательных целых чисел:
+            \[|b| > r_0 > r_1 > r_2 > \dots > r_{k-1} > r_k \ge 0.\]
             В полуинтервале $[0, |b|)$ содержится ровно $|b|$ целых чисел. Строго убывающая цепочка не может содержать более $|b|$ элементов. Не более чем за $|b|$ шагов остаток станет равным нулю ($r_{k+1} = 0$).
           </p>
-          <p>
-            <strong>2. Корректность:</strong> Применяя Предложение 4.3 последовательно к каждой строке:
-            $$(a, b) = (b, r_0) = (r_0, r_1) = \dots = (r_{k-2}, r_{k-1}) = (r_{k-1}, r_k).$$
+<p>
+<strong>2. Корректность:</strong> Применяя Предложение 4.3 последовательно к каждой строке:
+            \[(a, b) = (b, r_0) = (r_0, r_1) = \dots = (r_{k-2}, r_{k-1}) = (r_{k-1}, r_k).\]
             Так как $r_{k-1} = r_k q_{k+1}$, то $r_k \mid r_{k-1}$, откуда $(r_{k-1}, r_k) = r_k$. 
             Следовательно, $(a, b) = r_k$.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        
-<div class="proof" id="proof-16" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 2: Индуктивный (индукция по числу шагов алгоритма))">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-16" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>База индукции ($k = 0$): $a = b q_0 + 0 \implies b \mid a \implies (a, b) = |b| = r_0$. Утверждение верно.</p>
-  </div>
-  <div class="proof-full" id="full-16" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Индуктивный (индукция по числу шагов алгоритма)))</div>
-    <div class="proof-content">
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="proof" data-proof="" id="proof-16">
+<div aria-label="Доказательство Строгое доказательство (Метод 2: Индуктивный (индукция по числу шагов алгоритма))" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-16">
+<div class="proof-label">Идея</div>
+<p>База индукции ($k = 0$): $a = b q_0 + 0 \implies b \mid a \implies (a, b) = |b| = r_0$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-16">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Индуктивный (индукция по числу шагов алгоритма)))</div>
+<div class="proof-content">
 <p>
             База индукции ($k = 0$): $a = b q_0 + 0 \implies b \mid a \implies (a, b) = |b| = r_0$. Утверждение верно.
           </p>
-          <p>
+<p>
             Шаг индукции: предположим, что для любой пары чисел, алгоритм Евклида для которой требует $k$ шагов деления, последний ненулевой остаток равен НОД. 
             Рассмотрим пару $(a, b)$, требующую $k+1$ шагов. Первый шаг даёт $a = b q_0 + r_0$. 
             Тогда пара $(b, r_0)$ требует ровно $k$ шагов алгоритма с точно теми же последующими остатками $r_1, \dots, r_k$. 
             По индукционному предположению последний ненулевой остаток этой пары $r_k$ равен $(b, r_0)$. 
             Но по Предложению 4.3 $(a, b) = (b, r_0)$. Следовательно, $(a, b) = r_k$.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        <!-- SVG 2: Схема каскадных шагов алгоритма Евклида -->
-        <div class="svg-wrapper" id="sec-euclid-svg">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 760 210" xmlns="http://www.w3.org/2000/svg">
-            <rect x="20" y="30" width="120" height="60" rx="8" fill="var(--bg-card)" stroke="var(--border-accent)" stroke-width="2" />
-            <text x="80" y="55" fill="var(--text-heading)" font-size="15" font-weight="700" text-anchor="middle">(a, b)</text>
-            <text x="80" y="75" fill="var(--text-muted)" font-size="11" text-anchor="middle">a = bq₀ + r₀</text>
-
-            <path d="M 140,60 L 175,60" stroke="var(--border-accent)" stroke-width="2.5" marker-end="url(#arrow)" />
-
-            <rect x="180" y="30" width="120" height="60" rx="8" fill="var(--bg-card)" stroke="var(--border-color)" stroke-width="2" />
-            <text x="240" y="55" fill="var(--text-heading)" font-size="15" font-weight="700" text-anchor="middle">(b, r₀)</text>
-            <text x="240" y="75" fill="var(--text-muted)" font-size="11" text-anchor="middle">b = r₀q₁ + r₁</text>
-
-            <path d="M 300,60 L 335,60" stroke="var(--border-accent)" stroke-width="2.5" marker-end="url(#arrow)" />
-
-            <rect x="340" y="30" width="120" height="60" rx="8" fill="var(--bg-card)" stroke="var(--border-color)" stroke-width="2" />
-            <text x="400" y="55" fill="var(--text-heading)" font-size="15" font-weight="700" text-anchor="middle">(r₀, r₁)</text>
-            <text x="400" y="75" fill="var(--text-muted)" font-size="11" text-anchor="middle">r₀ = r₁q₂ + r₂</text>
-
-            <path d="M 460,60 L 495,60" stroke="var(--border-accent)" stroke-width="2.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
-
-            <rect x="500" y="30" width="120" height="60" rx="8" fill="var(--bg-card)" stroke="#10b8a6" stroke-width="2" />
-            <text x="560" y="55" fill="#10b8a6" font-size="15" font-weight="700" text-anchor="middle">(rₖ₋₁, rₖ)</text>
-            <text x="560" y="75" fill="var(--text-muted)" font-size="11" text-anchor="middle">rₖ₋₁ = rₖqₖ₊₁ + 0</text>
-
-            <path d="M 620,60 L 655,60" stroke="#10b8a6" stroke-width="2.5" marker-end="url(#arrow)" />
-
-            <circle cx="695" cy="60" r="30" fill="#10b8a6" stroke="var(--bg-body)" stroke-width="2" />
-            <text x="695" y="66" fill="#ffffff" font-size="16" font-weight="800" text-anchor="middle">rₖ</text>
-
-            <text x="380" y="145" fill="var(--text-muted)" font-size="13" text-anchor="middle">
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<!-- SVG 2: Схема каскадных шагов алгоритма Евклида -->
+<div class="svg-wrapper" id="sec-euclid-svg">
+<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 760 210" xmlns="http://www.w3.org/2000/svg">
+<rect fill="var(--bg-card)" height="60" rx="8" stroke="var(--border-accent)" stroke-width="2" width="120" x="20" y="30"></rect>
+<text fill="var(--text-heading)" font-size="15" font-weight="700" text-anchor="middle" x="80" y="55">(a, b)</text>
+<text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="80" y="75">a = bq₀ + r₀</text>
+<path d="M 140,60 L 175,60" marker-end="url(#arrow)" stroke="var(--border-accent)" stroke-width="2.5"></path>
+<rect fill="var(--bg-card)" height="60" rx="8" stroke="var(--border-color)" stroke-width="2" width="120" x="180" y="30"></rect>
+<text fill="var(--text-heading)" font-size="15" font-weight="700" text-anchor="middle" x="240" y="55">(b, r₀)</text>
+<text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="240" y="75">b = r₀q₁ + r₁</text>
+<path d="M 300,60 L 335,60" marker-end="url(#arrow)" stroke="var(--border-accent)" stroke-width="2.5"></path>
+<rect fill="var(--bg-card)" height="60" rx="8" stroke="var(--border-color)" stroke-width="2" width="120" x="340" y="30"></rect>
+<text fill="var(--text-heading)" font-size="15" font-weight="700" text-anchor="middle" x="400" y="55">(r₀, r₁)</text>
+<text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="400" y="75">r₀ = r₁q₂ + r₂</text>
+<path d="M 460,60 L 495,60" marker-end="url(#arrow)" stroke="var(--border-accent)" stroke-dasharray="4,4" stroke-width="2.5"></path>
+<rect fill="var(--bg-card)" height="60" rx="8" stroke="#10b8a6" stroke-width="2" width="120" x="500" y="30"></rect>
+<text fill="#10b8a6" font-size="15" font-weight="700" text-anchor="middle" x="560" y="55">(rₖ₋₁, rₖ)</text>
+<text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="560" y="75">rₖ₋₁ = rₖqₖ₊₁ + 0</text>
+<path d="M 620,60 L 655,60" marker-end="url(#arrow)" stroke="#10b8a6" stroke-width="2.5"></path>
+<circle cx="695" cy="60" fill="#10b8a6" r="30" stroke="var(--bg-body)" stroke-width="2"></circle>
+<text fill="#ffffff" font-size="16" font-weight="800" text-anchor="middle" x="695" y="66">rₖ</text>
+<text fill="var(--text-muted)" font-size="13" text-anchor="middle" x="380" y="145">
               Строго убывающая цепочка остатков: |b| &gt; r₀ &gt; r₁ &gt; r₂ &gt; ... &gt; rₖ &gt; 0
             </text>
-            <text x="380" y="175" fill="#10b8a6" font-size="13" font-weight="700" text-anchor="middle">
+<text fill="#10b8a6" font-size="13" font-weight="700" text-anchor="middle" x="380" y="175">
               Последний ненулевой остаток rₖ в точности равен gcd(a, b)
             </text>
-          </svg></div>
-          <div class="svg-caption">Рисунок 5.1: Каскадная инвариантность пар делителей и сходимость к последнему ненулевому остатку $r_k$.</div>
-        </div>
-      </section>
+</svg></figure>
+<div class="svg-caption">Рисунок 5.1: Каскадная инвариантность пар делителей и сходимость к последнему ненулевому остатку $r_k$.</div>
+</div>
 
-      <!-- РАЗДЕЛ 6 -->
-      <section class="lecture-section" id="sec-examples">
+<!-- РАЗДЕЛ 6 -->
+<section class="lecture-section" id="sec-examples">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-7">
-  <div class="chapter-kicker">07 / 6 Практические примеры вычис…</div>
-  <h2 id="chapter-7" data-toc="6 Практические примеры вычис…">6 Практические примеры вычислений</h2>
-  <h3 id="sub-18" data-toc="1. Пример 1: Нахождение (840…">6.1. Пример 1: Нахождение $\operatorname{gcd}(840, 189)$</h3>
-        <p>
+  <div class="chapter-kicker">07 / 6Практические примеры вычислений</div>
+  <h2 id="chapter-7" data-toc="6Практические примеры вычислений">6Практические примеры вычислений</h2>
+  
+<h3 class="subsection-heading" data-toc="1. Пример 1: Нахождение (840, …" id="sec-ex-840">6.1. Пример 1: Нахождение $\operatorname{gcd}(840, 189)$</h3>
+<p>
           Вычислим НОД чисел $a = 840$ и $b = 189$ по алгоритму Евклида:
         </p>
-
-        <div class="table-container">
-          <div class="table-scroll">
+<div class="table-container">
 <table class="calc-table">
-            <thead>
-              <tr>
-                <th>Шаг $i$</th>
-                <th>Делимое</th>
-                <th>Делитель</th>
-                <th>Частное $q_i$</th>
-                <th>Остаток $r_i$</th>
-                <th>Равенство</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>$0$</td>
-                <td>$840$</td>
-                <td>$189$</td>
-                <td>$4$</td>
-                <td>$84$</td>
-                <td>$840 = 189 \cdot 4 + 84$</td>
-              </tr>
-              <tr>
-                <td>$1$</td>
-                <td>$189$</td>
-                <td>$84$</td>
-                <td>$2$</td>
-                <td class="highlight-cell">$21$</td>
-                <td>$189 = 84 \cdot 2 + 21$</td>
-              </tr>
-              <tr>
-                <td>$2$</td>
-                <td>$84$</td>
-                <td>$21$</td>
-                <td>$4$</td>
-                <td>$0$</td>
-                <td>$84 = 21 \cdot 4 + 0$</td>
-              </tr>
-            </tbody>
-          </table>
+<thead>
+<tr>
+<th>Шаг $i$</th>
+<th>Делимое</th>
+<th>Делитель</th>
+<th>Частное $q_i$</th>
+<th>Остаток $r_i$</th>
+<th>Равенство</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$0$</td>
+<td>$840$</td>
+<td>$189$</td>
+<td>$4$</td>
+<td>$84$</td>
+<td>$840 = 189 \cdot 4 + 84$</td>
+</tr>
+<tr>
+<td>$1$</td>
+<td>$189$</td>
+<td>$84$</td>
+<td>$2$</td>
+<td class="highlight-cell">$21$</td>
+<td>$189 = 84 \cdot 2 + 21$</td>
+</tr>
+<tr>
+<td>$2$</td>
+<td>$84$</td>
+<td>$21$</td>
+<td>$4$</td>
+<td>$0$</td>
+<td>$84 = 21 \cdot 4 + 0$</td>
+</tr>
+</tbody>
+</table>
+<div class="svg-caption">Таблица 6.1: Шаги алгоритма Евклида для чисел 840 и 189.</div>
 </div>
-          <div class="svg-caption">Таблица 6.1: Шаги алгоритма Евклида для чисел 840 и 189.</div>
-        </div>
-
-        <p>
+<p>
           Последний ненулевой остаток $r_1 = 21$, следовательно:
-          $$\operatorname{gcd}(840, 189) = 21.$$
+          \[\operatorname{gcd}(840, 189) = 21.\]
         </p>
-
-        <h3 id="sub-19" data-toc="2. Пример 2: Нахождение (54,…">6.2. Пример 2: Нахождение $\operatorname{gcd}(54, 180)$</h3>
-        <p>
+<h3 class="subsection-heading" data-toc="2. Пример 2: Нахождение (54, 1…" id="sec-ex-180">6.2. Пример 2: Нахождение $\operatorname{gcd}(54, 180)$</h3>
+<p>
           Рассмотрим случай, когда первое число меньше второго: $a = 54, b = 180$.
         </p>
-        <div class="worked-example" id="ex-1">
-  <div class="block-label">Пример 1</div>
-  <h3 id="sub-20" data-toc="Пример 1">Пример 1</h3>
-  
-          <div class="box-header">💡 Вычисление для пары $(54, 180)$
-</div>
-          $$\begin{aligned}
+<div class="worked-example" id="ex-1"><div class="block-label">Пример 1</div><h3 data-toc="💡 Вычисление для пары (54, 180)" id="sub-7-3">💡 Вычисление для пары $(54, 180)$</h3><div>
+
+          \[\begin{aligned}
             54 &= 180 \cdot 0 + 54 && (\text{Шаг 0: перестановка делимого и делителя, остаток } r_0 = 54) \\
             180 &= 54 \cdot 3 + 18 && (\text{Шаг 1: остаток } r_1 = 18) \\
             54 &= 18 \cdot 3 + 0 && (\text{Шаг 2: остаток } r_2 = 0)
-          \end{aligned}$$
+          \end{aligned}\]
           Последний ненулевой остаток равен $18$. Следовательно:
-          $$\operatorname{gcd}(54, 180) = 18.$$
-        </div>
-
-        <h3 id="sub-21" data-toc="3. Обратный ход алгоритма (л…">6.3. Обратный ход алгоритма (линейное представление)</h3>
-        <p>
+          \[\operatorname{gcd}(54, 180) = 18.\]
+        </div></div>
+<h3 class="subsection-heading" data-toc="3. Обратный ход алгоритма (лин…" id="sec-ex-reverse">6.3. Обратный ход алгоритма (линейное представление)</h3>
+<p>
           Выразим $21 = \operatorname{gcd}(840, 189)$ через $840$ и $189$ обратным ходом:
         </p>
-        <div class="worked-example" id="ex-2">
-  <div class="block-label">Пример 2</div>
-  <h3 id="sub-22" data-toc="Пример 2">Пример 2</h3>
-  
-          <div class="box-header">💡 Обратная подстановка для пары $(840, 189)$
-</div>
+<div class="worked-example" id="ex-2"><div class="block-label">Пример 2</div><h3 data-toc="💡 Обратная подстановка для пар…" id="sub-7-5">💡 Обратная подстановка для пары $(840, 189)$</h3><div>
+
           1. Из шага 1 выражаем остаток $21$:
-          $$21 = 189 - 84 \cdot 2.$$
+          \[21 = 189 - 84 \cdot 2.\]
           2. Из шага 0 выражаем остаток $84$:
-          $$84 = 840 - 189 \cdot 4.$$
+          \[84 = 840 - 189 \cdot 4.\]
           3. Подставляем $84$ в равенство для $21$:
-          $$21 = 189 - (840 - 189 \cdot 4) \cdot 2 = 189 - 840 \cdot 2 + 189 \cdot 8.$$
+          \[21 = 189 - (840 - 189 \cdot 4) \cdot 2 = 189 - 840 \cdot 2 + 189 \cdot 8.\]
           4. Приводим подобные слагаемые:
-          $$21 = 840 \cdot (-2) + 189 \cdot 9.$$
+          \[21 = 840 \cdot (-2) + 189 \cdot 9.\]
           Таким образом, коэффициенты Безу равны $u = -2, v = 9 \in \mathbb{Z}$.
-        </div>
-      </section>
+        </div></div>
 
-      <!-- РАЗДЕЛ 7 -->
-      <section class="lecture-section" id="sec-coprime-app">
+<!-- РАЗДЕЛ 7 -->
+<section class="lecture-section" id="sec-coprime-app">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-8">
-  <div class="chapter-kicker">08 / 7 Взаимная простота и обрати…</div>
-  <h2 id="chapter-8" data-toc="7 Взаимная простота и обрати…">7 Взаимная простота и обратимость в $\mathbb{Z}_m$</h2>
-  <div class="statement definition" id="def-4">
-  <div class="block-label">Определение 4</div>
-  <h3 id="sub-23" data-toc="Определение 4">Определение 4</h3>
+  <div class="chapter-kicker">08 / 7Взаимная простота и обратимос…</div>
+  <h2 id="chapter-8" data-toc="7Взаимная простота и обратимос…">7Взаимная простота и обратимость в $\mathbb{Z}_m$</h2>
   
-          <div class="box-header">📌 Определение 7.1 (Взаимно простые числа)
-</div>
+<div class="statement definition" id="def-4"><div class="block-label">Определение 4</div><h3 data-toc="📌 Определение 7.1 (Взаимно про…" id="sub-8-1">📌 Определение 7.1 (Взаимно простые числа)</h3><div>
+
           Числа $a$ и $b$ называются <strong>взаимно простыми</strong>, если их наибольший общий делитель равен единице:
-          $$(a, b) = 1.$$
-        </div>
+          \[(a, b) = 1.\]
+        </div></div>
+<div class="statement theorem" id="thm-6"><div class="block-label">Утверждение 6</div><h3 data-toc="⚖️ Теорема 7.1 (Критерий обрат…" id="sub-8-2">⚖️ Теорема 7.1 (Критерий обратимости вычетов в $\mathbb{Z}_m$)</h3><div>
 
-        <div class="statement theorem" id="thm-6">
-  <div class="block-label">Утверждение 6</div>
-  <h3 id="sub-24" data-toc="Теорема 6">Теорема 6</h3>
-  
-          <div class="box-header">⚖️ Теорема 7.1 (Критерий обратимости вычетов в $\mathbb{Z}_m$)
-</div>
           Элемент $\bar{a}$ обратим в кольце классов вычетов $(\mathbb{Z}_m, +, \cdot)$ тогда и только тогда, когда число $a$ взаимно просто с модулем $m$:
-          $$\bar{a} \in \mathbb{Z}_m^\times \iff \operatorname{gcd}(a, m) = 1.$$
-        </div>
-
-        
-<div class="proof" id="proof-17" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 1: Через тождество Безу)">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-17" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>Необходимость ($\implies$):</strong><br>
-            Пусть класс $\bar{a}$ обратим в $\mathbb{Z}_m$. Тогда существует вычет $\bar{u} \in \mathbb{Z}_m$, такой что:</p>
-  </div>
-  <div class="proof-full" id="full-17" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Через тождество Безу))</div>
-    <div class="proof-content">
+          \[\bar{a} \in \mathbb{Z}_m^\times \iff \operatorname{gcd}(a, m) = 1.\]
+        </div></div>
+<div class="proof" data-proof="" id="proof-17">
+<div aria-label="Доказательство Строгое доказательство (Метод 1: Через тождество Безу)" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-17">
+<div class="proof-label">Идея</div>
+<p>Необходимость ($\implies$):
+            Пусть класс $\bar{a}$ обратим в $\mathbb{Z}_m$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-17">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Через тождество Безу))</div>
+<div class="proof-content">
 <p>
-            <strong>Необходимость ($\implies$):</strong><br>
+<strong>Необходимость ($\implies$):</strong><br/>
             Пусть класс $\bar{a}$ обратим в $\mathbb{Z}_m$. Тогда существует вычет $\bar{u} \in \mathbb{Z}_m$, такой что:
-            $$\bar{a} \cdot \bar{u} = \bar{1} \iff a u \equiv 1 \pmod m \iff a u - 1 = -m v \quad (v \in \mathbb{Z}).$$
+            \[\bar{a} \cdot \bar{u} = \bar{1} \iff a u \equiv 1 \pmod m \iff a u - 1 = -m v \quad (v \in \mathbb{Z}).\]
             Отсюда получаем линейное уравнение:
-            $$a u + m v = 1.$$
+            \[a u + m v = 1.\]
             Пусть $d = (a, m)$. Тогда $d \mid a$ и $d \mid m$. По свойству линейности:
-            $$d \mid (a u + m v) \implies d \mid 1.$$
+            \[d \mid (a u + m v) \implies d \mid 1.\]
             Так как $d \in \mathbb{N}$, получаем $d = 1$, то есть $\operatorname{gcd}(a, m) = 1$.
           </p>
-          <p>
-            <strong>Достаточность ($\impliedby$):</strong><br>
+<p>
+<strong>Достаточность ($\impliedby$):</strong><br/>
             Пусть $\operatorname{gcd}(a, m) = 1$. По тождеству Безу существуют такие целые $u, v \in \mathbb{Z}$, что:
-            $$a u + m v = 1.$$
+            \[a u + m v = 1.\]
             Переходя к классам вычетов по модулю $m$:
-            $$\overline{a u + m v} = \bar{1} \iff \bar{a} \cdot \bar{u} + \bar{m} \cdot \bar{v} = \bar{1}.$$
+            \[\overline{a u + m v} = \bar{1} \iff \bar{a} \cdot \bar{u} + \bar{m} \cdot \bar{v} = \bar{1}.\]
             Так как $\bar{m} = \bar{0}$, получаем:
-            $$\bar{a} \cdot \bar{u} = \bar{1}.$$
+            \[\bar{a} \cdot \bar{u} = \bar{1}.\]
             Следовательно, элемент $\bar{u} = \bar{a}^{-1}$ существует и является обратным к $\bar{a}$.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
 </div>
-
-
-        
-<div class="proof" id="proof-18" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство (Метод 2: Через инъективность эндоморфизма умножения в конечной группе)">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-18" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Рассмотрим отображение умножения на вычет $\bar{a}$ в конечной группе $(\mathbb{Z}_m, +)$:</p>
-  </div>
-  <div class="proof-full" id="full-18" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Через инъективность эндоморфизма умножения в конечной группе))</div>
-    <div class="proof-content">
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="proof" data-proof="" id="proof-18">
+<div aria-label="Доказательство Строгое доказательство (Метод 2: Через инъективность эндоморфизма умножения в конечной группе)" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-18">
+<div class="proof-label">Идея</div>
+<p>Рассмотрим отображение умножения на вычет $\bar{a}$ в конечной группе $(\mathbb{Z}_m, +)$:
+            
+            1.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-18">
+<div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Через инъективность эндоморфизма умножения в конечной группе))</div>
+<div class="proof-content">
 <p>
             Рассмотрим отображение умножения на вычет $\bar{a}$ в конечной группе $(\mathbb{Z}_m, +)$:
-            $$\varphi_a: \mathbb{Z}_m \to \mathbb{Z}_m, \quad \varphi_a(\bar{x}) = \bar{a} \cdot \bar{x}.$$
+            \[\varphi_a: \mathbb{Z}_m \to \mathbb{Z}_m, \quad \varphi_a(\bar{x}) = \bar{a} \cdot \bar{x}.\]
             1. Отображение $\varphi_a$ инъективно тогда и только тогда, когда его ядро тривиально: $\ker \varphi_a = \{\bar{0}\}$.
             Равенство $\bar{a} \cdot \bar{x} = \bar{0}$ означает $m \mid ax \iff \frac{m}{\operatorname{gcd}(a, m)} \mid x$.
             Ядро тривиально ($\bar{x} = \bar{0}$) тогда и только тогда, когда $\frac{m}{\operatorname{gcd}(a, m)} = m$, то есть $\operatorname{gcd}(a, m) = 1$.
           </p>
-          <p>
+<p>
             2. Поскольку множество $\mathbb{Z}_m$ конечно, любое инъективное отображение из $\mathbb{Z}_m$ в себя является сюръективным (биективным). 
             Следовательно, при $\operatorname{gcd}(a, m) = 1$ отображение $\varphi_a$ сюръективно, а значит, единица $\bar{1} \in \mathbb{Z}_m$ обязана иметь прообраз: найдётся такой $\bar{u}$, что $\varphi_a(\bar{u}) = \bar{a} \cdot \bar{u} = \bar{1}$. Это означает обратимость $\bar{a}$.
           </p>
-          
-        
 <span class="qed">$\blacksquare$</span>
-  </div>
-
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="callout callout-remark">
+<div class="box-header">💡 Итоговое резюме лекции</div>
+<ol class="prop-list">
+<li><strong>НОД</strong> определяется как натуральный общий делитель, который делится на любой другой общий делитель набора чисел.</li>
+<li><strong>Тождество Безу</strong> доказывает, что НОД всегда равен наименьшей положительной целочисленной линейной комбинации чисел.</li>
+<li><strong>Единственность НОД</strong> обоснована через взаимную делимость, экстремальное свойство минимума идеала, решёточную структуру порядка делимости и детерминизм алгоритма Евклида.</li>
+<li><strong>Все фундаментальные свойства</strong> (ассоциативность, однородность, инвариантность при делении) доказаны несколькими альтернативными методами.</li>
+<li><strong>Алгоритм Евклида</strong> находит НОД и коэффициенты линейного представления за конечное число шагов, служа практическим аппаратом поиска обратных элементов в кольце $\mathbb{Z}_m$.</li>
+</ol>
 </div>
 
 
-        <div class="callout callout-remark">
-          <div class="box-header">💡 Итоговое резюме лекции</div>
-          <ol class="prop-list">
-            <li><strong>НОД</strong> определяется как натуральный общий делитель, который делится на любой другой общий делитель набора чисел.</li>
-            <li><strong>Тождество Безу</strong> доказывает, что НОД всегда равен наименьшей положительной целочисленной линейной комбинации чисел.</li>
-            <li><strong>Единственность НОД</strong> обоснована через взаимную делимость, экстремальное свойство минимума идеала, решёточную структуру порядка делимости и детерминизм алгоритма Евклида.</li>
-            <li><strong>Все фундаментальные свойства</strong> (ассоциативность, однородность, инвариантность при делении) доказаны несколькими альтернативными методами.</li>
-            <li><strong>Алгоритм Евклида</strong> находит НОД и коэффициенты линейного представления за конечное число шагов, служа практическим аппаратом поиска обратных элементов в кольце $\mathbb{Z}_m$.</li>
-          </ol>
-        </div>
-      </section>
+
 </section>
 <!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>

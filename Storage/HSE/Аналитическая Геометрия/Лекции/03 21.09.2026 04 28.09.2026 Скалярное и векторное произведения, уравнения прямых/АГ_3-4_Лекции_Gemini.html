@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Аналитическая геометрия: Лекции 3 и 4 — Произведения векторов, АСК и уравнения прямых. Конспект FAM ФПМ НИУ ВШЭ.">
+  <meta name="description" content="Полное академическое руководство по материалам лекций 3 и 4: строгие доказательства, точная векторная графика, парадоксы векторного произведения и разбор задач">
   <title>Аналитическая геометрия: Лекции 3 и 4 — Произведения векторов, АСК и уравнения прямых — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
@@ -183,8 +183,13 @@ html[data-theme] ::selection{background:var(--gold);color:var(--paper)}
 .themed-figure [data-figure-theme="light"]{display:block}
 html[data-theme="dark"] .themed-figure [data-figure-theme],html[data-theme="parchment"] .themed-figure [data-figure-theme]{display:none}
 html[data-theme="dark"] .themed-figure [data-figure-theme="dark"],html[data-theme="parchment"] .themed-figure [data-figure-theme="parchment"]{display:block}
-/* One neutral/light asset may remain on its own light plate in every theme. Never invert mathematical colours. */
-.figure-plate{background:#fff;color:#202e29;padding:16px;border:1px solid var(--rule)}
+.figure-plate{background:var(--bg-card);color:var(--ink);padding:20px;border:1px solid var(--rule);border-radius:8px;margin:32px 0}
+html[data-theme="light"] .figure-plate{background:#ffffff}
+html[data-theme="dark"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+html[data-theme="parchment"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+@media print{
+ .figure-plate{background:white!important;border:0!important;padding:0!important}
+}
 @media(max-width:760px){.topbar{height:auto;min-height:70px;flex-wrap:wrap;padding:12px 18px;gap:10px}.top-actions{gap:8px;flex-wrap:wrap}.theme-control select{font-size:10px;max-width:103px;padding:8px 4px}.pdf-button{padding:6px 8px}.pdf-button span{margin-left:4px}.wordmark{font-size:24px}}
 @media(max-width:400px){.wordmark{display:none}.top-actions{width:100%;justify-content:space-between}}
 @media print{
@@ -440,1089 +445,865 @@ SOFTWARE.
     </aside>
     <main id="content">
       <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
-  <div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>ФПМ НИУ ВШЭ</span></div>
-  <h1>Аналитическая геометрия: Лекции 3 и 4 — Произведения векторов, АСК и уравнения прямых</h1>
-  <p class="subtitle">Полное академическое руководство по материалам лекций 3 и 4: строгие доказательства, точная векторная графика, парадоксы векторного произведения и разбор задач</p>
-  <div class="lecture-abstract">
-    <p>Полное академическое руководство по материалам лекций 3 и 4: строгие доказательства, точная векторная графика, парадоксы векторного произведения и разбор задач</p>
-    <div class="abstract-formula" aria-label="Ключевое выражение лекции">\[', right: '\]</div>
-  </div>
-</header>
-<div class="proof-toolbar" aria-label="Все доказательства">
-  <span class="toolbar-label">Доказательства</span>
-  <div class="segmented" role="group" aria-label="Режим всех доказательств">
-    <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
-    <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
-    <button data-all-proofs="full" aria-pressed="false">Полностью</button>
-  </div>
-  <span id="proof-state" class="proof-state" aria-live="polite"></span>
-</div>
-<noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
-<p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
-
+      <header class="lecture-head" id="top">
+        <div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>Академический конспект ФПМ</span></div>
+        <h1>Аналитическая геометрия: Лекции 3 и 4 — Произведения векторов, АСК и уравнения прямых</h1>
+        <p class="subtitle">Полное академическое руководство по материалам лекций 3 и 4: строгие доказательства, точная векторная графика, парадоксы векторного произведения и разбор задач</p>
+        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[', right: '\]</div></div>
+      </header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
 <section class="chapter" aria-labelledby="chapter-1">
   <div class="chapter-kicker">01 / Введение</div>
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <!-- Навигационная панель -->
-  <div class="top-bar no-print">
-    <div class="top-bar-title">Аналитическая геометрия — Лекции 3 и 4 (Г. М. Полотовский)</div>
-    <div class="top-bar-buttons">
-      <button class="btn" onclick="document.body.classList.toggle('light-theme')">🌓 Сменить тему</button>
-      <button class="btn" onclick="window.print()">🖨️ Печать / PDF (Ctrl+P)</button>
-    </div>
-  </div>
+<div class="top-bar no-print">
+<div class="top-bar-title">Аналитическая геометрия — Лекции 3 и 4 (Г. М. Полотовский)</div>
+<div class="top-bar-buttons">
+<button class="btn" onclick="document.body.classList.toggle('light-theme')">🌓 Сменить тему</button>
+<button class="btn" onclick="window.print()">🖨️ Печать / PDF (Ctrl+P)</button>
+</div>
+</div>
+<div class="container">
+<header class="doc-header">
+<span class="doc-meta">Университетский курс • 1-й модуль</span>
+<h1>Произведения векторов, аффинные системы координат и геометрия прямой</h1>
+<p class="doc-subtitle">Полное академическое руководство по материалам лекций 3 и 4: строгие доказательства, точная векторная графика, парадоксы векторного произведения и разбор задач</p>
+<div class="author-badge">
+<span><strong>Лектор:</strong> доцент Г. М. Полотовский</span>
+<span>•</span>
+<span><strong>Семестр:</strong> 2026/2027 уч. год</span>
+</div>
+</header>
+<!-- Содержание -->
 
-  <div class="container">
-    <header class="doc-header">
-      <span class="doc-meta">Университетский курс • 1-й модуль</span>
-      <h1>Произведения векторов, аффинные системы координат и геометрия прямой</h1>
-      <p class="doc-subtitle">Полное академическое руководство по материалам лекций 3 и 4: строгие доказательства, точная векторная графика, парадоксы векторного произведения и разбор задач</p>
-      <div class="author-badge">
-        <span><strong>Лектор:</strong> доцент Г. М. Полотовский</span>
-        <span>•</span>
-        <span><strong>Семестр:</strong> 2026/2027 уч. год</span>
-      </div>
-    </header>
-
-    <!-- Содержание -->
-    
-
-    <!-- РАЗДЕЛ 1 -->
-    <section id="part-1">
+<!-- РАЗДЕЛ 1 -->
+<section id="part-1">
 </section>
-
 <section class="chapter" aria-labelledby="chapter-2">
-  <div class="chapter-kicker">02 / . Аффинные системы координат…</div>
-  <h2 id="chapter-2" data-toc=". Аффинные системы координат…">Раздел 1. Аффинные системы координат и деление отрезка</h2>
-  <h3 id="sub-1" data-toc="1. Аффинная система координа…">1.1. Аффинная система координат на прямой, плоскости и в пространстве</h3>
-      <p>
+  <div class="chapter-kicker">02 / . Аффинные системы координат и…</div>
+  <h2 id="chapter-2" data-toc=". Аффинные системы координат и…">Раздел 1. Аффинные системы координат и деление отрезка</h2>
+  
+<h3 data-toc="1. Аффинная система координат …" id="sec-1-1">1.1. Аффинная система координат на прямой, плоскости и в пространстве</h3>
+<p>
         Введение координатной системы позволяет установить взаимно однозначное соответствие между чисто геометрическими фигурами (точками, прямыми, плоскостями) и алгебраическими объектами (числами, уравнениями, системами).
       </p>
-
-      <div class="statement definition" id="def-1">
-  <div class="block-label">Определение 1</div>
-  <h3 id="sub-2" data-toc="Определение 29 (Аффинная сис…">Определение 29 (Аффинная система координат)</h3>
-  
-        
-        <strong>Аффинной системой координат (АСК)</strong> называется упорядоченная пара, состоящая из некоторой фиксированной точки $O$, называемой <strong>началом координат</strong>, и фиксированного <strong>базиса</strong>:
+<div class="statement definition" id="def-1"><div class="block-label">Определение 29 (Аффинная система координат)</div><h3 data-toc="Определение 1" id="sub-2-2">Определение 1</h3><div>
+<strong>Аффинной системой координат (АСК)</strong> называется упорядоченная пара, состоящая из некоторой фиксированной точки $O$, называемой <strong>началом координат</strong>, и фиксированного <strong>базиса</strong>:
         <ul>
-          <li><strong>На прямой ($1\mathrm{D}$):</strong> $\mathcal{S} = \{O; \, \vec{e}_1\}$;</li>
-          <li><strong>На плоскости ($2\mathrm{D}$):</strong> $\mathcal{S} = \{O; \, \vec{e}_1, \vec{e}_2\}$;</li>
-          <li><strong>В пространстве ($3\mathrm{D}$):</strong> $\mathcal{S} = \{O; \, \vec{e}_1, \vec{e}_2, \vec{e}_3\}$.</li>
-        </ul>
+<li><strong>На прямой ($1\mathrm{D}$):</strong> $\mathcal{S} = \{O; \, \vec{e}_1\}$;</li>
+<li><strong>На плоскости ($2\mathrm{D}$):</strong> $\mathcal{S} = \{O; \, \vec{e}_1, \vec{e}_2\}$;</li>
+<li><strong>В пространстве ($3\mathrm{D}$):</strong> $\mathcal{S} = \{O; \, \vec{e}_1, \vec{e}_2, \vec{e}_3\}$.</li>
+</ul>
         Прямые, проходящие через начало координат $O$ параллельно базисным векторам $\vec{e}_1, \vec{e}_2, \vec{e}_3$, называются соответственно <strong>осью абсцисс</strong> ($Ox$), <strong>осью ординат</strong> ($Oy$) и <strong>осью аппликат</strong> ($Oz$).
-      
+      </div></div>
+<!-- РИСУНОК 1: Аффинные системы координат 1D, 2D, 3D -->
+<figure>
+<div class="svg-container">
+<svg height="200" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 200" width="680">
+<defs>
+<marker id="arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"></path>
+</marker>
+<marker id="arr-slate" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-slate)"></path>
+</marker>
+</defs>
+<!-- 1D: Прямая -->
+<g transform="translate(10, 0)">
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" text-anchor="middle" x="80" y="25">На прямой (1D)</text>
+<line marker-end="url(#arr-slate)" stroke="var(--svg-slate)" stroke-width="1.5" x1="20" x2="160" y1="130" y2="70"></line>
+<!-- e1 -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="3" x1="50" x2="105" y1="118" y2="94"></line>
+<circle cx="50" cy="118" fill="var(--svg-red)" r="4"></circle>
+<text fill="var(--svg-text)" font-weight="bold" x="42" y="138">O</text>
+<text fill="var(--svg-blue)" font-weight="bold" x="85" y="85">e₁</text>
+</g>
+<line stroke="var(--border-color)" stroke-width="1" x1="185" x2="185" y1="20" y2="180"></line>
+<!-- 2D: Плоскость -->
+<g transform="translate(200, 0)">
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" text-anchor="middle" x="100" y="25">На плоскости (2D)</text>
+<line marker-end="url(#arr-slate)" stroke="var(--svg-slate)" stroke-width="1.5" x1="30" x2="190" y1="140" y2="140"></line>
+<line marker-end="url(#arr-slate)" stroke="var(--svg-slate)" stroke-width="1.5" x1="50" x2="140" y1="160" y2="50"></line>
+<!-- Базисные векторы -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="3" x1="60" x2="120" y1="140" y2="140"></line>
+<line marker-end="url(#arr-blue)" stroke="var(--svg-amber)" stroke-width="3" x1="60" x2="100" y1="140" y2="90"></line>
+<circle cx="60" cy="140" fill="var(--svg-red)" r="4"></circle>
+<text fill="var(--svg-text)" font-weight="bold" x="45" y="155">O</text>
+<text fill="var(--svg-blue)" font-weight="bold" x="95" y="130">e₁</text>
+<text fill="var(--svg-amber)" font-weight="bold" x="75" y="95">e₂</text>
+<text fill="var(--svg-slate)" font-size="11" x="180" y="155">Ось абсцисс</text>
+<text fill="var(--svg-slate)" font-size="11" x="135" y="45">Ось ординат</text>
+</g>
+<line stroke="var(--border-color)" stroke-width="1" x1="420" x2="420" y1="20" y2="180"></line>
+<!-- 3D: Пространство -->
+<g transform="translate(435, 0)">
+<text fill="var(--svg-text)" font-size="13" font-weight="bold" text-anchor="middle" x="110" y="25">В пространстве (3D)</text>
+<!-- Оси -->
+<line marker-end="url(#arr-slate)" stroke="var(--svg-slate)" stroke-width="1.5" x1="40" x2="210" y1="130" y2="130"></line>
+<line marker-end="url(#arr-slate)" stroke="var(--svg-slate)" stroke-width="1.5" x1="50" x2="150" y1="150" y2="60"></line>
+<line marker-end="url(#arr-slate)" stroke="var(--svg-slate)" stroke-width="1.5" x1="60" x2="60" y1="150" y2="35"></line>
+<!-- Векторы e1, e2, e3 -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="3" x1="60" x2="125" y1="130" y2="130"></line>
+<line marker-end="url(#arr-blue)" stroke="var(--svg-amber)" stroke-width="3" x1="60" x2="105" y1="130" y2="90"></line>
+<line marker-end="url(#arr-blue)" stroke="var(--svg-purple)" stroke-width="3" x1="60" x2="60" y1="130" y2="70"></line>
+<circle cx="60" cy="130" fill="var(--svg-red)" r="4"></circle>
+<text fill="var(--svg-text)" font-weight="bold" x="45" y="140">O</text>
+<text fill="var(--svg-blue)" font-weight="bold" x="100" y="122">e₁</text>
+<text fill="var(--svg-amber)" font-weight="bold" x="92" y="85">e₂</text>
+<text fill="var(--svg-purple)" font-weight="bold" x="40" y="75">e₃</text>
+<text fill="var(--svg-slate)" font-size="10" x="160" y="145">Ось абсцисс</text>
+<text fill="var(--svg-slate)" font-size="10" x="135" y="55">Ось ординат</text>
+<text fill="var(--svg-slate)" font-size="10" x="65" y="40">Ось аппликат</text>
+</g>
+</svg>
 </div>
+<figcaption>Рис. 1. Аффинные системы координат на прямой, на плоскости и в трёхмерном пространстве.</figcaption>
+</figure>
+<h3 data-toc="2. Радиус-вектор точки и коорд…" id="sec-1-2">1.2. Радиус-вектор точки и координаты направленного отрезка</h3>
+<div class="statement definition" id="def-2"><div class="block-label">Определение 30 (Радиус-вектор и координаты точки)</div><h3 data-toc="Определение 2" id="sub-2-4">Определение 2</h3><div>
 
-      <!-- РИСУНОК 1: Аффинные системы координат 1D, 2D, 3D -->
-      <figure>
-        <div class="svg-container">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg width="680" height="200" viewBox="0 0 680 200">
-            <defs>
-              <marker id="arr-blue" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"/>
-              </marker>
-              <marker id="arr-slate" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-slate)"/>
-              </marker>
-            </defs>
-
-            <!-- 1D: Прямая -->
-            <g transform="translate(10, 0)">
-              <text x="80" y="25" text-anchor="middle" fill="var(--svg-text)" font-weight="bold" font-size="13">На прямой (1D)</text>
-              <line x1="20" y1="130" x2="160" y2="70" stroke="var(--svg-slate)" stroke-width="1.5" marker-end="url(#arr-slate)"/>
-              <!-- e1 -->
-              <line x1="50" y1="118" x2="105" y2="94" stroke="var(--svg-blue)" stroke-width="3" marker-end="url(#arr-blue)"/>
-              <circle cx="50" cy="118" r="4" fill="var(--svg-red)"/>
-              <text x="42" y="138" fill="var(--svg-text)" font-weight="bold">O</text>
-              <text x="85" y="85" fill="var(--svg-blue)" font-weight="bold">e₁</text>
-            </g>
-
-            <line x1="185" y1="20" x2="185" y2="180" stroke="var(--border-color)" stroke-width="1"/>
-
-            <!-- 2D: Плоскость -->
-            <g transform="translate(200, 0)">
-              <text x="100" y="25" text-anchor="middle" fill="var(--svg-text)" font-weight="bold" font-size="13">На плоскости (2D)</text>
-              <line x1="30" y1="140" x2="190" y2="140" stroke="var(--svg-slate)" stroke-width="1.5" marker-end="url(#arr-slate)"/>
-              <line x1="50" y1="160" x2="140" y2="50" stroke="var(--svg-slate)" stroke-width="1.5" marker-end="url(#arr-slate)"/>
-              <!-- Базисные векторы -->
-              <line x1="60" y1="140" x2="120" y2="140" stroke="var(--svg-blue)" stroke-width="3" marker-end="url(#arr-blue)"/>
-              <line x1="60" y1="140" x2="100" y2="90" stroke="var(--svg-amber)" stroke-width="3" marker-end="url(#arr-blue)"/>
-              <circle cx="60" cy="140" r="4" fill="var(--svg-red)"/>
-              <text x="45" y="155" fill="var(--svg-text)" font-weight="bold">O</text>
-              <text x="95" y="130" fill="var(--svg-blue)" font-weight="bold">e₁</text>
-              <text x="75" y="95" fill="var(--svg-amber)" font-weight="bold">e₂</text>
-              <text x="180" y="155" fill="var(--svg-slate)" font-size="11">Ось абсцисс</text>
-              <text x="135" y="45" fill="var(--svg-slate)" font-size="11">Ось ординат</text>
-            </g>
-
-            <line x1="420" y1="20" x2="420" y2="180" stroke="var(--border-color)" stroke-width="1"/>
-
-            <!-- 3D: Пространство -->
-            <g transform="translate(435, 0)">
-              <text x="110" y="25" text-anchor="middle" fill="var(--svg-text)" font-weight="bold" font-size="13">В пространстве (3D)</text>
-              <!-- Оси -->
-              <line x1="40" y1="130" x2="210" y2="130" stroke="var(--svg-slate)" stroke-width="1.5" marker-end="url(#arr-slate)"/>
-              <line x1="50" y1="150" x2="150" y2="60" stroke="var(--svg-slate)" stroke-width="1.5" marker-end="url(#arr-slate)"/>
-              <line x1="60" y1="150" x2="60" y2="35" stroke="var(--svg-slate)" stroke-width="1.5" marker-end="url(#arr-slate)"/>
-              <!-- Векторы e1, e2, e3 -->
-              <line x1="60" y1="130" x2="125" y2="130" stroke="var(--svg-blue)" stroke-width="3" marker-end="url(#arr-blue)"/>
-              <line x1="60" y1="130" x2="105" y2="90" stroke="var(--svg-amber)" stroke-width="3" marker-end="url(#arr-blue)"/>
-              <line x1="60" y1="130" x2="60" y2="70" stroke="var(--svg-purple)" stroke-width="3" marker-end="url(#arr-blue)"/>
-              <circle cx="60" cy="130" r="4" fill="var(--svg-red)"/>
-              <text x="45" y="140" fill="var(--svg-text)" font-weight="bold">O</text>
-              <text x="100" y="122" fill="var(--svg-blue)" font-weight="bold">e₁</text>
-              <text x="92" y="85" fill="var(--svg-amber)" font-weight="bold">e₂</text>
-              <text x="40" y="75" fill="var(--svg-purple)" font-weight="bold">e₃</text>
-              <text x="160" y="145" fill="var(--svg-slate)" font-size="10">Ось абсцисс</text>
-              <text x="135" y="55" fill="var(--svg-slate)" font-size="10">Ось ординат</text>
-              <text x="65" y="40" fill="var(--svg-slate)" font-size="10">Ось аппликат</text>
-            </g>
-          </svg></div>
-        </div>
-        <figcaption>Рис. 1. Аффинные системы координат на прямой, на плоскости и в трёхмерном пространстве.</figcaption>
-      </figure>
-
-      <h3 id="sub-3" data-toc="2. Радиус-вектор точки и коо…">1.2. Радиус-вектор точки и координаты направленного отрезка</h3>
-
-      <div class="statement definition" id="def-2">
-  <div class="block-label">Определение 2</div>
-  <h3 id="sub-4" data-toc="Определение 30 (Радиус-векто…">Определение 30 (Радиус-вектор и координаты точки)</h3>
-  
-        
         Пусть задана АСК с началом в точке $O$. Для любой точки пространства $M$ направленный отрезок $\vec{OM}$ называется её <strong>радиус-вектором</strong> и обозначается $\vec{r}_M$.
-        <br>
-        <strong>Координатами точки $M$</strong> называются коэффициенты разложения её радиус-вектора по базису данной системы координат:
-        $$\vec{r}_M = \vec{OM} = x\vec{e}_1 + y\vec{e}_2 + z\vec{e}_3 \iff M(x, y, z)$$
-      
-</div>
+        <br/>
+<strong>Координатами точки $M$</strong> называются коэффициенты разложения её радиус-вектора по базису данной системы координат:
+        \[\vec{r}_M = \vec{OM} = x\vec{e}_1 + y\vec{e}_2 + z\vec{e}_3 \iff M(x, y, z)\]
+      </div></div>
+<div class="statement theorem featured" id="thm-1"><div class="block-label">Теорема 31 (Координаты вектора через координаты его концов)</div><h3 data-toc="Теорема 1" id="sub-2-5">Теорема 1</h3><div>
 
-      <div class="statement theorem featured" id="thm-1">
-  <div class="block-label">Утверждение 1</div>
-  <h3 id="sub-5" data-toc="Теорема 31 (Координаты векто…">Теорема 31 (Координаты вектора через координаты его концов)</h3>
-  
-        
         Пусть в пространстве заданы точки своими координатами: $A(a_1, a_2, a_3)$ и $B(b_1, b_2, b_3)$. Тогда свободный вектор $\vec{AB}$ имеет координаты:
-        $$\vec{AB} = (b_1 - a_1, \, b_2 - a_2, \, b_3 - a_3)$$
+        \[\vec{AB} = (b_1 - a_1, \, b_2 - a_2, \, b_3 - a_3)\]
         <em>Правило:</em> чтобы найти координаты вектора, необходимо из координат его конца вычесть соответствующие координаты его начала.
-      
+      </div></div>
+<div class="proof" data-proof="" id="proof-1">
+<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-      <div class="proof" id="proof-1" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-1" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
-  </div>
-  <div class="proof-full" id="full-1" data-proof-full>
-    <div class="proof-label">Доказательство</div>
+<div class="proof-idea" data-proof-idea="" id="idea-1">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-1">
+<div class="proof-label">Доказательство (Доказательство)</div>
     
-        
+
         Рассмотрим замкнутый треугольник $OAB$. По определению сложения векторов (правило треугольника):
-        $$\vec{OA} + \vec{AB} = \vec{OB} \implies \vec{AB} = \vec{OB} - \vec{OA} = \vec{r}_B - \vec{r}_A$$
+        \[\vec{OA} + \vec{AB} = \vec{OB} \implies \vec{AB} = \vec{OB} - \vec{OA} = \vec{r}_B - \vec{r}_A\]
         Так как координаты векторов $\vec{r}_B$ и $\vec{r}_A$ равны соответственно $(b_1, b_2, b_3)$ и $(a_1, a_2, a_3)$, по теореме о покоординатных линейных операциях (теорема 28) получаем:
-        $$\vec{AB} = (b_1 - a_1)\vec{e}_1 + (b_2 - a_2)\vec{e}_2 + (b_3 - a_3)\vec{e}_3$$
-        <span class="proof-qed">&#9632;</span>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+        \[\vec{AB} = (b_1 - a_1)\vec{e}_1 + (b_2 - a_2)\vec{e}_2 + (b_3 - a_3)\vec{e}_3\]
+        <span class="proof-qed">■</span>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<h3 data-toc="3. Деление отрезка в заданном …" id="sec-1-3">1.3. Деление отрезка в заданном отношении (внутреннее и внешнее деление)</h3>
+<div class="statement theorem" id="thm-2"><div class="block-label">Задача 32 (Деление отрезка в заданном отношении)</div><h3 data-toc="Теорема 2" id="sub-2-7">Теорема 2</h3><div>
 
-      <h3 id="sub-6" data-toc="3. Деление отрезка в заданно…">1.3. Деление отрезка в заданном отношении (внутреннее и внешнее деление)</h3>
-
-      <div class="statement theorem" id="thm-2">
-  <div class="block-label">Утверждение 2</div>
-  <h3 id="sub-7" data-toc="Задача 32 (Деление отрезка в…">Задача 32 (Деление отрезка в заданном отношении)</h3>
-  
-        
         Пусть на отрезке $AB$, соединяющем точки $A(x_1, y_1, z_1)$ и $B(x_2, y_2, z_2)$, требуется найти такую точку $M(x, y, z)$, которая делит данный отрезок в отношении положительных чисел $\lambda : \mu$, то есть $|AM| : |MB| = \lambda : \mu$ (где $\lambda > 0, \mu > 0$).
-      
+      </div></div>
+<div class="proof" data-proof="" id="proof-2">
+<div aria-label="Доказательство Решение и строгий вывод формул" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-      <div class="proof" id="proof-2" data-proof>
-  <div class="proof-controls" role="group" aria-label="Решение и строгий вывод формул">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-2" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (Решение и строгий вывод формул).</p>
-  </div>
-  <div class="proof-full" id="full-2" data-proof-full>
-    <div class="proof-label">Доказательство</div>
+<div class="proof-idea" data-proof-idea="" id="idea-2">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Решение и строгий вывод формул).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-2">
+<div class="proof-label">Доказательство (Решение и строгий вывод формул)</div>
     
-        
+
         Векторы $\vec{AM}$ и $\vec{MB}$ лежат на одной прямой и сонаправлены, следовательно:
-        $$\vec{AM} = \frac{\lambda}{\mu} \vec{MB} \iff \mu \vec{AM} = \lambda \vec{MB}$$
+        \[\vec{AM} = \frac{\lambda}{\mu} \vec{MB} \iff \mu \vec{AM} = \lambda \vec{MB}\]
         Перейдём к координатной форме, подставив формулы разностей координат концов и начал (теорема 31):
-        $$\begin{cases}
+        \[\begin{cases}
           \mu(x - x_1) = \lambda(x_2 - x) \\
           \mu(y - y_1) = \lambda(y_2 - y) \\
           \mu(z - z_1) = \lambda(z_2 - z)
-        \end{cases}$$
+        \end{cases}\]
         Раскрывая скобки и группируя неизвестную координату $x$:
-        $$\mu x - \mu x_1 = \lambda x_2 - \lambda x \implies (\mu + \lambda)x = \mu x_1 + \lambda x_2$$
+        \[\mu x - \mu x_1 = \lambda x_2 - \lambda x \implies (\mu + \lambda)x = \mu x_1 + \lambda x_2\]
         Так как $\lambda + \mu \neq 0$, делим на $(\mu + \lambda)$:
-        $$x = \frac{\mu x_1 + \lambda x_2}{\mu + \lambda}, \quad y = \frac{\mu y_1 + \lambda y_2}{\mu + \lambda}, \quad z = \frac{\mu z_1 + \lambda z_2}{\mu + \lambda}$$
-        <span class="proof-qed">&#9632;</span>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+        \[x = \frac{\mu x_1 + \lambda x_2}{\mu + \lambda}, \quad y = \frac{\mu y_1 + \lambda y_2}{\mu + \lambda}, \quad z = \frac{\mu z_1 + \lambda z_2}{\mu + \lambda}\]
+        <span class="proof-qed">■</span>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<div class="statement theorem" id="thm-3"><div class="block-label">Следствие 33 (Координаты середины отрезка)</div><h3 data-toc="Теорема 3" id="sub-2-8">Теорема 3</h3><div>
 
-      <div class="statement theorem" id="thm-3">
-  <div class="block-label">Утверждение 3</div>
-  <h3 id="sub-8" data-toc="Следствие 33 (Координаты сер…">Следствие 33 (Координаты середины отрезка)</h3>
-  
-        
         Если точка $M$ является серединой отрезка $AB$, то отношение длин равно $1:1$ ($\lambda = \mu = 1$). Формулы принимают вид среднего арифметического:
-        $$x = \frac{x_1 + x_2}{2}, \quad y = \frac{y_1 + y_2}{2}, \quad z = \frac{z_1 + z_2}{2}$$
-      
+        \[x = \frac{x_1 + x_2}{2}, \quad y = \frac{y_1 + y_2}{2}, \quad z = \frac{z_1 + z_2}{2}\]
+      </div></div>
+<!-- РИСУНОК 2: Внутреннее и внешнее деление отрезка -->
+<figure>
+<div class="svg-container">
+<svg height="150" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 640 150" width="640">
+<!-- Ось прямой -->
+<line stroke="var(--svg-slate)" stroke-dasharray="4,4" stroke-width="1.5" x1="30" x2="610" y1="75" y2="75"></line>
+<!-- Основной отрезок AB -->
+<line stroke="var(--svg-blue)" stroke-width="4" x1="180" x2="420" y1="75" y2="75"></line>
+<!-- Точки A и B -->
+<circle cx="180" cy="75" fill="var(--svg-text)" r="5"></circle>
+<text fill="var(--svg-text)" font-size="14" font-weight="bold" x="175" y="55">A</text>
+<circle cx="420" cy="75" fill="var(--svg-text)" r="5"></circle>
+<text fill="var(--svg-text)" font-size="14" font-weight="bold" x="415" y="55">B</text>
+<!-- Внутренняя точка M1 (lambda/mu > 0) -->
+<circle cx="340" cy="75" fill="var(--svg-green)" r="5"></circle>
+<text fill="var(--svg-green)" font-size="13" font-weight="bold" x="325" y="55">M₁</text>
+<text fill="var(--svg-green)" font-size="11" x="230" y="100">Внутреннее деление ($\lambda/\mu > 0$)</text>
+<!-- Внешняя точка M2 (lambda/mu < 0) -->
+<circle cx="530" cy="75" fill="var(--svg-red)" r="5"></circle>
+<text fill="var(--svg-red)" font-size="13" font-weight="bold" x="525" y="55">M₂</text>
+<text fill="var(--svg-red)" font-size="11" x="440" y="100">Внешнее деление ($k < -1$)</text>
+<!-- Векторы отношений -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-green)" stroke-width="1.5" x1="180" x2="340" y1="120" y2="120"></line>
+<text fill="var(--svg-green)" font-size="11" x="245" y="135">$\vec{AM}_1$</text>
+<line marker-end="url(#arr-blue)" stroke="var(--svg-green)" stroke-width="1.5" x1="340" x2="420" y1="120" y2="120"></line>
+<text fill="var(--svg-green)" font-size="11" x="370" y="135">$\vec{M_1B}$</text>
+</svg>
 </div>
-
-      <!-- РИСУНОК 2: Внутреннее и внешнее деление отрезка -->
-      <figure>
-        <div class="svg-container">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg width="640" height="150" viewBox="0 0 640 150">
-            <!-- Ось прямой -->
-            <line x1="30" y1="75" x2="610" y2="75" stroke="var(--svg-slate)" stroke-width="1.5" stroke-dasharray="4,4"/>
-            <!-- Основной отрезок AB -->
-            <line x1="180" y1="75" x2="420" y2="75" stroke="var(--svg-blue)" stroke-width="4"/>
-            <!-- Точки A и B -->
-            <circle cx="180" cy="75" r="5" fill="var(--svg-text)"/>
-            <text x="175" y="55" fill="var(--svg-text)" font-weight="bold" font-size="14">A</text>
-            <circle cx="420" cy="75" r="5" fill="var(--svg-text)"/>
-            <text x="415" y="55" fill="var(--svg-text)" font-weight="bold" font-size="14">B</text>
-
-            <!-- Внутренняя точка M1 (lambda/mu > 0) -->
-            <circle cx="340" cy="75" r="5" fill="var(--svg-green)"/>
-            <text x="325" y="55" fill="var(--svg-green)" font-weight="bold" font-size="13">M₁</text>
-            <text x="230" y="100" fill="var(--svg-green)" font-size="11">Внутреннее деление ($\lambda/\mu > 0$)</text>
-
-            <!-- Внешняя точка M2 (lambda/mu < 0) -->
-            <circle cx="530" cy="75" r="5" fill="var(--svg-red)"/>
-            <text x="525" y="55" fill="var(--svg-red)" font-weight="bold" font-size="13">M₂</text>
-            <text x="440" y="100" fill="var(--svg-red)" font-size="11">Внешнее деление ($k < -1$)</text>
-
-            <!-- Векторы отношений -->
-            <line x1="180" y1="120" x2="340" y2="120" stroke="var(--svg-green)" stroke-width="1.5" marker-end="url(#arr-blue)"/>
-            <text x="245" y="135" fill="var(--svg-green)" font-size="11">$\vec{AM}_1$</text>
-            <line x1="340" y1="120" x2="420" y2="120" stroke="var(--svg-green)" stroke-width="1.5" marker-end="url(#arr-blue)"/>
-            <text x="370" y="135" fill="var(--svg-green)" font-size="11">$\vec{M_1B}$</text>
-          </svg></div>
-        </div>
-        <figcaption>Рис. 2. Деление отрезка $AB$: внутреннее положение точки $M_1$ ($\lambda/\mu > 0$) и внешнее положение $M_2$ ($\lambda/\mu < 0$).</figcaption>
-      </figure>
-
-      <aside class="note">
-        <strong>Анализ вопроса 34: Разные знаки коэффициентов $\lambda$ и $\mu$ (Внешнее деление отрезка).</strong> 
+<figcaption>Рис. 2. Деление отрезка $AB$: внутреннее положение точки $M_1$ ($\lambda/\mu > 0$) и внешнее положение $M_2$ ($\lambda/\mu < 0$).</figcaption>
+</figure>
+<aside class="note">
+<span class="block-label">Анализ вопроса 34: Разные знаки коэффициентов $\lambda$ и $\mu$ (Внешнее деление отрезка)</span>
         Пусть отношение $k = \frac{\lambda}{\mu} < 0$. Векторное равенство $\vec{AM} = k \vec{MB}$ означает, что векторы $\vec{AM}$ и $\vec{MB}$ направлены <strong>противоположно</strong>. Это невозможно, если точка $M$ лежит строго между $A$ и $B$.
-        <br><br>
+        <br/><br/>
         Следовательно, точка $M$ лежит <em>вне отрезка $AB$ на его прямой</em>:
         <ol>
-          <li>Если $k = -1$ ($\lambda + \mu = 0$), знаменатель обращается в ноль. Равенство $\vec{AM} = -\vec{MB} \iff \vec{AM} + \vec{MB} = \vec{0} \iff \vec{AB} = \vec{0}$, что невозможно для различных точек $A \neq B$. Точка $M$ «уходит на бесконечность».</li>
-          <li>Если $-1 < k < 0$ ($|AM| < |MB|$), точка $M$ лежит на луче, исходящем из точки $A$ в сторону, противоположную точке $B$ (ближе к точке $A$).</li>
-          <li>Если $k < -1$ ($|AM| > |MB|$), точка $M$ лежит на продолжении отрезка за точку $B$ (ближе к точке $B$).</li>
-        </ol>
-      </aside>
-    </section>
+<li>Если $k = -1$ ($\lambda + \mu = 0$), знаменатель обращается в ноль. Равенство $\vec{AM} = -\vec{MB} \iff \vec{AM} + \vec{MB} = \vec{0} \iff \vec{AB} = \vec{0}$, что невозможно для различных точек $A \neq B$. Точка $M$ «уходит на бесконечность».</li>
+<li>Если $-1 < k < 0$ ($|AM| < |MB|$), точка $M$ лежит на луче, исходящем из точки $A$ в сторону, противоположную точке $B$ (ближе к точке $A$).</li>
+<li>Если $k < -1$ ($|AM| > |MB|$), точка $M$ лежит на продолжении отрезка за точку $B$ (ближе к точке $B$).</li>
+</ol>
+</aside>
 
-    <!-- РАЗДЕЛ 2 -->
-    <section id="part-2">
+<!-- РАЗДЕЛ 2 -->
+<section id="part-2">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-3">
-  <div class="chapter-kicker">03 / . Скалярное произведение и о…</div>
-  <h2 id="chapter-3" data-toc=". Скалярное произведение и о…">Раздел 2. Скалярное произведение и ортогональные базисы</h2>
-  <h3 id="sub-9" data-toc="1. Угол между векторами. Орт…">2.1. Угол между векторами. Ортогональность и ортонормированные базисы (ОНБ)</h3>
-
-      <div class="statement definition" id="def-3">
-  <div class="block-label">Определение 3</div>
-  <h3 id="sub-10" data-toc="Определение 35 (Угол между в…">Определение 35 (Угол между векторами и ортогональность)</h3>
+  <div class="chapter-kicker">03 / . Скалярное произведение и орт…</div>
+  <h2 id="chapter-3" data-toc=". Скалярное произведение и орт…">Раздел 2. Скалярное произведение и ортогональные базисы</h2>
   
-        
+<h3 data-toc="1. Угол между векторами. Ортог…" id="sec-2-1">2.1. Угол между векторами. Ортогональность и ортонормированные базисы (ОНБ)</h3>
+<div class="statement definition" id="def-3"><div class="block-label">Определение 35 (Угол между векторами и ортогональность)</div><h3 data-toc="Определение 3" id="sub-3-2">Определение 3</h3><div>
+
         Пусть даны ненулевые векторы $\vec{a}$ и $\vec{b}$. Отложим их от одной общей точки $O$: $\vec{OA} = \vec{a}$, $\vec{OB} = \vec{b}$.
-        <br>
-        <strong>Углом $\varphi = \widehat{\vec{a}\vec{b}}$ между векторами</strong> называется наименьший угол между лучами $OA$ и $OB$. Диапазон значений:
-        $$0 \le \varphi \le \pi \quad (0^\circ \le \varphi \le 180^\circ)$$
+        <br/>
+<strong>Углом $\varphi = \widehat{\vec{a}\vec{b}}$ между векторами</strong> называется наименьший угол между лучами $OA$ и $OB$. Диапазон значений:
+        \[0 \le \varphi \le \pi \quad (0^\circ \le \varphi \le 180^\circ)\]
         Если угол равен $\frac{\pi}{2}$ ($90^\circ$), векторы называются <strong>ортогональными</strong> (перпендикулярными), обозначается $\vec{a} \perp \vec{b}$.
-        <br>
-        <em>Соглашение:</em> <strong>нулевой вектор $\vec{0}$ ортогонален абсолютно любому вектору</strong>.
-      
-</div>
+        <br/>
+<em>Соглашение:</em> <strong>нулевой вектор $\vec{0}$ ортогонален абсолютно любому вектору</strong>.
+      </div></div>
+<div class="statement definition" id="def-4"><div class="block-label">Определение 36 (Ортогональный и ортонормированный базисы)</div><h3 data-toc="Определение 4" id="sub-3-3">Определение 4</h3><div>
 
-      <div class="statement definition" id="def-4">
-  <div class="block-label">Определение 4</div>
-  <h3 id="sub-11" data-toc="Определение 36 (Ортогональны…">Определение 36 (Ортогональный и ортонормированный базисы)</h3>
-  
-        
         Базис называется <strong>ортогональным</strong>, если все его векторы попарно ортогональны между собой:
-        $$\vec{e}_i \perp \vec{e}_j \quad \text{при всех } i \neq j$$
+        \[\vec{e}_i \perp \vec{e}_j \quad \text{при всех } i \neq j\]
         Базис называется <strong>ортонормированным (ОНБ)</strong>, если он ортогонален и длина каждого базисного вектора в точности равна единице ($|\vec{e}_i| = 1$ для всех $i$). Единичный вектор часто называют <strong>ортом</strong>.
-      
-</div>
+      </div></div>
+<h3 data-toc="2. Скалярное произведение: опр…" id="sec-2-2">2.2. Скалярное произведение: определение и основные свойства</h3>
+<div class="statement definition" id="def-5"><div class="block-label">Определение 37 (Скалярное произведение)</div><h3 data-toc="Определение 5" id="sub-3-5">Определение 5</h3><div>
+<strong>Скалярным произведением</strong> $(\vec{a}, \vec{b})$ (или $\vec{a} \cdot \vec{b}$) вектора $\vec{a}$ на вектор $\vec{b}$ называется вещественное <strong>число</strong> (скаляр), равное произведению длин этих векторов на косинус угла между ними:
+        \[(\vec{a}, \vec{b}) \stackrel{\text{def}}{=} |\vec{a}| |\vec{b}| \cos \widehat{\vec{a}\vec{b}}\]
+      </div></div>
+<div class="statement theorem" id="thm-4"><div class="block-label">Теорема 38 (Свойства скалярного произведения)</div><h3 data-toc="Теорема 4" id="sub-3-6">Теорема 4</h3><div>
 
-      <h3 id="sub-12" data-toc="2. Скалярное произведение: о…">2.2. Скалярное произведение: определение и основные свойства</h3>
-
-      <div class="statement definition" id="def-5">
-  <div class="block-label">Определение 5</div>
-  <h3 id="sub-13" data-toc="Определение 37 (Скалярное пр…">Определение 37 (Скалярное произведение)</h3>
-  
-        
-        <strong>Скалярным произведением</strong> $(\vec{a}, \vec{b})$ (или $\vec{a} \cdot \vec{b}$) вектора $\vec{a}$ на вектор $\vec{b}$ называется вещественное <strong>число</strong> (скаляр), равное произведению длин этих векторов на косинус угла между ними:
-        $$(\vec{a}, \vec{b}) \stackrel{\text{def}}{=} |\vec{a}| |\vec{b}| \cos \widehat{\vec{a}\vec{b}}$$
-      
-</div>
-
-      <div class="statement theorem" id="thm-4">
-  <div class="block-label">Утверждение 4</div>
-  <h3 id="sub-14" data-toc="Теорема 38 (Свойства скалярн…">Теорема 38 (Свойства скалярного произведения)</h3>
-  
-        
         Для любых свободных векторов $\vec{a}, \vec{b}$ и любого числа $\lambda \in \mathbb{R}$ справедливы следующие свойства:
         <ol>
-          <li><strong>Коммутативность:</strong> $(\vec{a}, \vec{b}) = (\vec{b}, \vec{a})$;</li>
-          <li><strong>Положительная определённость скалярного квадрата:</strong> $(\vec{a}, \vec{a}) = |\vec{a}|^2 \ge 0$, причём $(\vec{a}, \vec{a}) = 0 \iff \vec{a} = \vec{0}$;</li>
-          <li><strong>Критерий ортогональности:</strong> $(\vec{a}, \vec{b}) = 0 \iff \vec{a} \perp \vec{b}$;</li>
-          <li><strong>Однородность:</strong> $\lambda(\vec{a}, \vec{b}) = (\lambda\vec{a}, \vec{b}) = (\vec{a}, \lambda\vec{b})$.</li>
-        </ol>
-      
-</div>
+<li><strong>Коммутативность:</strong> $(\vec{a}, \vec{b}) = (\vec{b}, \vec{a})$;</li>
+<li><strong>Положительная определённость скалярного квадрата:</strong> $(\vec{a}, \vec{a}) = |\vec{a}|^2 \ge 0$, причём $(\vec{a}, \vec{a}) = 0 \iff \vec{a} = \vec{0}$;</li>
+<li><strong>Критерий ортогональности:</strong> $(\vec{a}, \vec{b}) = 0 \iff \vec{a} \perp \vec{b}$;</li>
+<li><strong>Однородность:</strong> $\lambda(\vec{a}, \vec{b}) = (\lambda\vec{a}, \vec{b}) = (\vec{a}, \lambda\vec{b})$.</li>
+</ol>
+</div></div>
+<h3 data-toc="3. Координаты вектора в ортого…" id="sec-2-3">2.3. Координаты вектора в ортогональном базисе (проекционная формула)</h3>
+<div class="statement theorem" id="thm-5"><div class="block-label">Теорема 39 (Вычисление координат в ортогональном базисе)</div><h3 data-toc="Теорема 5" id="sub-3-8">Теорема 5</h3><div>
 
-      <h3 id="sub-15" data-toc="3. Координаты вектора в орто…">2.3. Координаты вектора в ортогональном базисе (проекционная формула)</h3>
-
-      <div class="statement theorem" id="thm-5">
-  <div class="block-label">Утверждение 5</div>
-  <h3 id="sub-16" data-toc="Теорема 39 (Вычисление коорд…">Теорема 39 (Вычисление координат в ортогональном базисе)</h3>
-  
-        
         Если базис $\{\vec{e}_1, \vec{e}_2, \vec{e}_3\}$ ортогонален, то координаты $x, y, z$ любого вектора $\vec{a}(x, y, z)$ вычисляются по формулам отношения скалярного произведения к квадрату нормы базисного орта:
-        $$x = \frac{(\vec{a}, \vec{e}_1)}{|\vec{e}_1|^2}, \quad y = \frac{(\vec{a}, \vec{e}_2)}{|\vec{e}_2|^2}, \quad z = \frac{(\vec{a}, \vec{e}_3)}{|\vec{e}_3|^2}$$
-      
+        \[x = \frac{(\vec{a}, \vec{e}_1)}{|\vec{e}_1|^2}, \quad y = \frac{(\vec{a}, \vec{e}_2)}{|\vec{e}_2|^2}, \quad z = \frac{(\vec{a}, \vec{e}_3)}{|\vec{e}_3|^2}\]
+      </div></div>
+<div class="proof" data-proof="" id="proof-3">
+<div aria-label="Доказательство Доказательство через ортогональную проекцию" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-      <div class="proof" id="proof-3" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство через ортогональную проекцию">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-3" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (Доказательство через ортогональную проекцию).</p>
-  </div>
-  <div class="proof-full" id="full-3" data-proof-full>
-    <div class="proof-label">Доказательство</div>
+<div class="proof-idea" data-proof-idea="" id="idea-3">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство через ортогональную проекцию).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-3">
+<div class="proof-label">Доказательство (Доказательство через ортогональную проекцию)</div>
     
-        
+
         Рассмотрим проекцию вектора $\vec{a}$ на прямую первого базисного вектора $\vec{e}_1$ параллельно координатной плоскости, натянутой на $\vec{e}_2$ и $\vec{e}_3$.
         Так как базис ортогонален, координатная плоскость $\vec{e}_2\vec{e}_3$ перпендикулярна вектору $\vec{e}_1$. Следовательно, проектирование является ортогональным, а треугольник $OAP$ — <strong>прямоугольным</strong> с прямым углом при вершине $P$.
-        <br><br>
+        <br/><br/>
         Длина отрезка проекции $OP$ равна катету прямоугольного треугольника: $|OP| = |\vec{a}|\cos\varphi$.
         Чтобы получить координату $x$, необходимо выразить величину направленного отрезка $OP$ в единицах масштаба оси $Ox$, то есть разделить на длину базисного вектора $|\vec{e}_1|$:
-        $$x = \frac{|\vec{a}|\cos\varphi}{|\vec{e}_1|}$$
+        \[x = \frac{|\vec{a}|\cos\varphi}{|\vec{e}_1|}\]
         Домножим числитель и знаменатель дроби на величину $|\vec{e}_1| > 0$:
-        $$x = \frac{|\vec{a}| |\vec{e}_1| \cos\varphi}{|\vec{e}_1| \cdot |\vec{e}_1|} = \frac{(\vec{a}, \vec{e}_1)}{|\vec{e}_1|^2}$$
+        \[x = \frac{|\vec{a}| |\vec{e}_1| \cos\varphi}{|\vec{e}_1| \cdot |\vec{e}_1|} = \frac{(\vec{a}, \vec{e}_1)}{|\vec{e}_1|^2}\]
         Формулы для ординаты $y$ и аппликаты $z$ доказываются полностью аналогично проектированием на $\vec{e}_2$ и $\vec{e}_3$.
-        <span class="proof-qed">&#9632;</span>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+        <span class="proof-qed">■</span>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<!-- РИСУНОК 3: Ортогональная проекция вектора a на ось e1 -->
+<figure>
+<div class="svg-container">
+<svg height="230" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 520 230" width="520">
+<!-- Координатные оси -->
+<line marker-end="url(#arr-slate)" stroke="var(--svg-slate)" stroke-width="1.8" x1="60" x2="480" y1="180" y2="180"></line>
+<text fill="var(--svg-slate)" font-weight="bold" x="485" y="185">X</text>
+<line marker-end="url(#arr-slate)" stroke="var(--svg-slate)" stroke-width="1.8" x1="60" x2="60" y1="180" y2="30"></line>
+<text fill="var(--svg-slate)" font-weight="bold" x="55" y="22">Z</text>
+<line marker-end="url(#arr-slate)" stroke="var(--svg-slate)" stroke-width="1.5" x1="60" x2="160" y1="180" y2="225"></line>
+<text fill="var(--svg-slate)" font-weight="bold" x="165" y="225">Y</text>
+<!-- Базисный вектор e1 -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="3.5" x1="60" x2="150" y1="180" y2="180"></line>
+<text fill="var(--svg-blue)" font-size="14" font-weight="bold" x="100" y="170">e₁</text>
+<!-- Вектор a -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-red)" stroke-width="3" x1="60" x2="330" y1="180" y2="60"></line>
+<text fill="var(--svg-red)" font-size="15" font-weight="bold" x="180" y="105">a</text>
+<!-- Прямоугольная проекция на ось Ox -->
+<line stroke="var(--svg-slate)" stroke-dasharray="4,4" stroke-width="1.8" x1="330" x2="330" y1="60" y2="180"></line>
+<!-- Квадрат прямого угла -->
+<path d="M 315 180 L 315 165 L 330 165" fill="none" stroke="var(--svg-slate)" stroke-width="1.5"></path>
+<!-- Отрезок катета OP -->
+<line stroke="var(--svg-green)" stroke-width="2.5" x1="60" x2="330" y1="180" y2="180"></line>
+<text fill="var(--svg-green)" font-weight="bold" x="190" y="200">OP = |a| cos φ</text>
+<!-- Дуга угла phi -->
+<path d="M 110 180 A 50 50 0 0 0 102 161" fill="none" stroke="var(--svg-amber)" stroke-width="2"></path>
+<text fill="var(--svg-amber)" font-size="14" font-weight="bold" x="115" y="165">φ</text>
+<circle cx="60" cy="180" fill="var(--svg-text)" r="4"></circle>
+<text fill="var(--svg-text)" font-weight="bold" x="45" y="195">O</text>
+<circle cx="330" cy="60" fill="var(--svg-text)" r="4"></circle>
+<text fill="var(--svg-text)" font-weight="bold" x="335" y="55">A</text>
+<circle cx="330" cy="180" fill="var(--svg-text)" r="4"></circle>
+<text fill="var(--svg-text)" font-weight="bold" x="335" y="195">P</text>
+</svg>
+</div>
+<figcaption>Рис. 3. Проекция вектора $\vec{a}$ на ось базисного вектора $\vec{e}_1$: прямоугольный треугольник $OAP$ и катет $OP$.</figcaption>
+</figure>
+<div class="statement theorem" id="thm-6"><div class="block-label">Следствие 40 (Координаты в ортонормированном базисе)</div><h3 data-toc="Теорема 6" id="sub-3-9">Теорема 6</h3><div>
 
-      <!-- РИСУНОК 3: Ортогональная проекция вектора a на ось e1 -->
-      <figure>
-        <div class="svg-container">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg width="520" height="230" viewBox="0 0 520 230">
-            <!-- Координатные оси -->
-            <line x1="60" y1="180" x2="480" y2="180" stroke="var(--svg-slate)" stroke-width="1.8" marker-end="url(#arr-slate)"/>
-            <text x="485" y="185" fill="var(--svg-slate)" font-weight="bold">X</text>
-            <line x1="60" y1="180" x2="60" y2="30" stroke="var(--svg-slate)" stroke-width="1.8" marker-end="url(#arr-slate)"/>
-            <text x="55" y="22" fill="var(--svg-slate)" font-weight="bold">Z</text>
-            <line x1="60" y1="180" x2="160" y2="225" stroke="var(--svg-slate)" stroke-width="1.5" marker-end="url(#arr-slate)"/>
-            <text x="165" y="225" fill="var(--svg-slate)" font-weight="bold">Y</text>
-
-            <!-- Базисный вектор e1 -->
-            <line x1="60" y1="180" x2="150" y2="180" stroke="var(--svg-blue)" stroke-width="3.5" marker-end="url(#arr-blue)"/>
-            <text x="100" y="170" fill="var(--svg-blue)" font-weight="bold" font-size="14">e₁</text>
-
-            <!-- Вектор a -->
-            <line x1="60" y1="180" x2="330" y2="60" stroke="var(--svg-red)" stroke-width="3" marker-end="url(#arr-blue)"/>
-            <text x="180" y="105" fill="var(--svg-red)" font-weight="bold" font-size="15">a</text>
-
-            <!-- Прямоугольная проекция на ось Ox -->
-            <line x1="330" y1="60" x2="330" y2="180" stroke="var(--svg-slate)" stroke-dasharray="4,4" stroke-width="1.8"/>
-            <!-- Квадрат прямого угла -->
-            <path d="M 315 180 L 315 165 L 330 165" fill="none" stroke="var(--svg-slate)" stroke-width="1.5"/>
-
-            <!-- Отрезок катета OP -->
-            <line x1="60" y1="180" x2="330" y2="180" stroke="var(--svg-green)" stroke-width="2.5"/>
-            <text x="190" y="200" fill="var(--svg-green)" font-weight="bold">OP = |a| cos φ</text>
-
-            <!-- Дуга угла phi -->
-            <path d="M 110 180 A 50 50 0 0 0 102 161" fill="none" stroke="var(--svg-amber)" stroke-width="2"/>
-            <text x="115" y="165" fill="var(--svg-amber)" font-weight="bold" font-size="14">φ</text>
-
-            <circle cx="60" cy="180" r="4" fill="var(--svg-text)"/>
-            <text x="45" y="195" fill="var(--svg-text)" font-weight="bold">O</text>
-            <circle cx="330" cy="60" r="4" fill="var(--svg-text)"/>
-            <text x="335" y="55" fill="var(--svg-text)" font-weight="bold">A</text>
-            <circle cx="330" cy="180" r="4" fill="var(--svg-text)"/>
-            <text x="335" y="195" fill="var(--svg-text)" font-weight="bold">P</text>
-          </svg></div>
-        </div>
-        <figcaption>Рис. 3. Проекция вектора $\vec{a}$ на ось базисного вектора $\vec{e}_1$: прямоугольный треугольник $OAP$ и катет $OP$.</figcaption>
-      </figure>
-
-      <div class="statement theorem" id="thm-6">
-  <div class="block-label">Утверждение 6</div>
-  <h3 id="sub-17" data-toc="Следствие 40 (Координаты в о…">Следствие 40 (Координаты в ортонормированном базисе)</h3>
-  
-        
         В ортонормированном базисе длины базисных векторов равны единице ($|\vec{e}_1| = |\vec{e}_2| = |\vec{e}_3| = 1$), поэтому координаты вектора равны <strong>скалярным произведениям вектора на соответствующие базисные орты</strong>:
-        $$x = (\vec{a}, \vec{e}_1), \quad y = (\vec{a}, \vec{e}_2), \quad z = (\vec{a}, \vec{e}_3)$$
-      
-</div>
+        \[x = (\vec{a}, \vec{e}_1), \quad y = (\vec{a}, \vec{e}_2), \quad z = (\vec{a}, \vec{e}_3)\]
+      </div></div>
+<h3 data-toc="4. Билинейность и дистрибутивн…" id="sec-2-4">2.4. Билинейность и дистрибутивность скалярного произведения. Символ Кронекера</h3>
+<div class="statement theorem" id="thm-7"><div class="block-label">Теорема 41 (Дистрибутивность скалярного произведения)</div><h3 data-toc="Теорема 7" id="sub-3-11">Теорема 7</h3><div>
 
-      <h3 id="sub-18" data-toc="4. Билинейность и дистрибути…">2.4. Билинейность и дистрибутивность скалярного произведения. Символ Кронекера</h3>
-
-      <div class="statement theorem" id="thm-7">
-  <div class="block-label">Утверждение 7</div>
-  <h3 id="sub-19" data-toc="Теорема 41 (Дистрибутивность…">Теорема 41 (Дистрибутивность скалярного произведения)</h3>
-  
-        
         Для любых трёх векторов $\vec{a}, \vec{b}, \vec{c}$ скалярное произведение дистрибутивно относительно сложения:
-        $$(\vec{a} + \vec{b}, \vec{c}) = (\vec{a}, \vec{c}) + (\vec{b}, \vec{c})$$
-      
+        \[(\vec{a} + \vec{b}, \vec{c}) = (\vec{a}, \vec{c}) + (\vec{b}, \vec{c})\]
+      </div></div>
+<div class="proof" data-proof="" id="proof-4">
+<div aria-label="Доказательство Доказательство через выбор ортогонального базиса" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-      <div class="proof" id="proof-4" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство через выбор ортогонального базиса">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-4" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (Доказательство через выбор ортогонального базиса).</p>
-  </div>
-  <div class="proof-full" id="full-4" data-proof-full>
-    <div class="proof-label">Доказательство</div>
+<div class="proof-idea" data-proof-idea="" id="idea-4">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство через выбор ортогонального базиса).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-4">
+<div class="proof-label">Доказательство (Доказательство через выбор ортогонального базиса)</div>
     
-        
-        1) Если $\vec{c} = \vec{0}$, равенство принимает тривиальный вид $0 = 0 + 0$.<br>
+
+        1) Если $\vec{c} = \vec{0}$, равенство принимает тривиальный вид $0 = 0 + 0$.<br/>
         2) Пусть $\vec{c} \neq \vec{0}$. Выберем вектор $\vec{c}$ в качестве первого вектора базиса: $\vec{e}_1 = \vec{c}$. Дополним его векторами $\vec{e}_2$ и $\vec{e}_3$ так, чтобы получить ортогональный базис пространства (выбрав $\vec{e}_2 \perp \vec{c}$ и $\vec{e}_3 \perp \vec{c}$, $\vec{e}_3 \perp \vec{e}_2$).
-        <br>
+        <br/>
         По формуле теоремы 39, первые координаты векторов $\vec{a}, \vec{b}$ и их суммы $\vec{a} + \vec{b}$ в этом базисе равны соответственно:
-        $$x_a = \frac{(\vec{a}, \vec{c})}{|\vec{c}|^2}, \quad x_b = \frac{(\vec{b}, \vec{c})}{|\vec{c}|^2}, \quad x_{a+b} = \frac{(\vec{a} + \vec{b}, \vec{c})}{|\vec{c}|^2}$$
+        \[x_a = \frac{(\vec{a}, \vec{c})}{|\vec{c}|^2}, \quad x_b = \frac{(\vec{b}, \vec{c})}{|\vec{c}|^2}, \quad x_{a+b} = \frac{(\vec{a} + \vec{b}, \vec{c})}{|\vec{c}|^2}\]
         Но по свойству сложения векторов (теорема 28) при сложении векторов их одноимённые координаты складываются: $x_{a+b} = x_a + x_b$. Следовательно:
-        $$\frac{(\vec{a} + \vec{b}, \vec{c})}{|\vec{c}|^2} = \frac{(\vec{a}, \vec{c})}{|\vec{c}|^2} + \frac{(\vec{b}, \vec{c})}{|\vec{c}|^2}$$
+        \[\frac{(\vec{a} + \vec{b}, \vec{c})}{|\vec{c}|^2} = \frac{(\vec{a}, \vec{c})}{|\vec{c}|^2} + \frac{(\vec{b}, \vec{c})}{|\vec{c}|^2}\]
         Умножая обе части этого числового равенства на ненулевой скаляр $|\vec{c}|^2 > 0$, получаем искомое соотношение.
-        <span class="proof-qed">&#9632;</span>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+        <span class="proof-qed">■</span>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-
-      <aside class="note">
-        <strong>Символ Кронекера и билинейность.</strong> 
+</div>
+<aside class="note">
+<span class="block-label">Символ Кронекера и билинейность</span>
         Дистрибутивность вместе со свойством однородности означает, что скалярное произведение <strong>линейно по первому аргументу</strong>. В силу коммутативности $(\vec{a}, \vec{b}) = (\vec{b}, \vec{a})$ оно одновременно линейно и по второму аргументу. Функция, линейная по каждому из двух своих аргументов, называется <strong>билинейной формой</strong>.
-        <br><br>
+        <br/><br/>
         В ортонормированном базисе попарные скалярные произведения ортов записываются через <strong>символ Кронекера</strong> $\delta_{ij}$:
-        $$(\vec{e}_i, \vec{e}_j) = \delta_{ij} = \begin{cases} 1, & \text{если } i = j \\ 0, & \text{если } i \neq j \end{cases}$$
+        \[(\vec{e}_i, \vec{e}_j) = \delta_{ij} = \begin{cases} 1, & \text{если } i = j \\ 0, & \text{если } i \neq j \end{cases}\]
       </aside>
+<h3 data-toc="5. Скалярное произведение, дли…" id="sec-2-5">2.5. Скалярное произведение, длина вектора и угол в координатах ОНБ</h3>
+<div class="statement theorem" id="thm-8"><div class="block-label">Теорема 41' (Скалярное произведение в координатах ОНБ)</div><h3 data-toc="Теорема 8" id="sub-3-13">Теорема 8</h3><div>
 
-      <h3 id="sub-20" data-toc="5. Скалярное произведение, д…">2.5. Скалярное произведение, длина вектора и угол в координатах ОНБ</h3>
-
-      <div class="statement theorem" id="thm-8">
-  <div class="block-label">Утверждение 8</div>
-  <h3 id="sub-21" data-toc="Теорема 41&#x27; (Скалярное произ…">Теорема 41' (Скалярное произведение в координатах ОНБ)</h3>
-  
-        
         В правом ортонормированном базисе скалярное произведение двух векторов равно <strong>сумме произведений их одноимённых координат</strong>:
-        $$(\vec{a}(x_1, y_1, z_1), \, \vec{b}(x_2, y_2, z_2)) = x_1 x_2 + y_1 y_2 + z_1 z_2$$
-      
+        \[(\vec{a}(x_1, y_1, z_1), \, \vec{b}(x_2, y_2, z_2)) = x_1 x_2 + y_1 y_2 + z_1 z_2\]
+      </div></div>
+<div class="proof" data-proof="" id="proof-5">
+<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-      <div class="proof" id="proof-5" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-5" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
-  </div>
-  <div class="proof-full" id="full-5" data-proof-full>
-    <div class="proof-label">Доказательство</div>
+<div class="proof-idea" data-proof-idea="" id="idea-5">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-5">
+<div class="proof-label">Доказательство (Доказательство)</div>
     
-        
+
         Подставим разложения векторов по ОНБ $\{\vec{e}_1, \vec{e}_2, \vec{e}_3\}$ и раскроем скобки в силу билинейности:
-        $$(\vec{a}, \vec{b}) = (x_1\vec{e}_1 + y_1\vec{e}_2 + z_1\vec{e}_3, \, x_2\vec{e}_1 + y_2\vec{e}_2 + z_2\vec{e}_3) = \sum_{i=1}^3 \sum_{j=1}^3 x_i x_j (\vec{e}_i, \vec{e}_j)$$
+        \[(\vec{a}, \vec{b}) = (x_1\vec{e}_1 + y_1\vec{e}_2 + z_1\vec{e}_3, \, x_2\vec{e}_1 + y_2\vec{e}_2 + z_2\vec{e}_3) = \sum_{i=1}^3 \sum_{j=1}^3 x_i x_j (\vec{e}_i, \vec{e}_j)\]
         Так как $(\vec{e}_i, \vec{e}_j) = \delta_{ij}$, все перекрёстные произведения при $i \neq j$ равны нулю, а при $i = j$ равны единице:
-        $$(\vec{a}, \vec{b}) = x_1 x_2 \cdot 1 + y_1 y_2 \cdot 1 + z_1 z_2 \cdot 1 = x_1 x_2 + y_1 y_2 + z_1 z_2$$
-        <span class="proof-qed">&#9632;</span>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+        \[(\vec{a}, \vec{b}) = x_1 x_2 \cdot 1 + y_1 y_2 \cdot 1 + z_1 z_2 \cdot 1 = x_1 x_2 + y_1 y_2 + z_1 z_2\]
+        <span class="proof-qed">■</span>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
+</div>
+<div class="statement theorem" id="thm-9"><div class="block-label">Теорема 42 и Следствие 43 (Длина вектора и угол в ОНБ)</div><h3 data-toc="Теорема 9" id="sub-3-14">Теорема 9</h3><div>
 
-      <div class="statement theorem" id="thm-9">
-  <div class="block-label">Утверждение 9</div>
-  <h3 id="sub-22" data-toc="Теорема 42 и Следствие 43 (Д…">Теорема 42 и Следствие 43 (Длина вектора и угол в ОНБ)</h3>
-  
-        
         Длина вектора в ортонормированном базисе выражается формулой:
-        $$|\vec{a}| = \sqrt{(\vec{a}, \vec{a})} = \sqrt{x^2 + y^2 + z^2}$$
+        \[|\vec{a}| = \sqrt{(\vec{a}, \vec{a})} = \sqrt{x^2 + y^2 + z^2}\]
         Косинус угла $\varphi$ между ненулевыми векторами вычисляется по формуле:
-        $$\cos \widehat{\vec{a}\vec{b}} = \frac{(\vec{a}, \vec{b})}{|\vec{a}| |\vec{b}|} = \frac{x_1 x_2 + y_1 y_2 + z_1 z_2}{\sqrt{x_1^2 + y_1^2 + z_1^2} \cdot \sqrt{x_2^2 + y_2^2 + z_2^2}}$$
-      
-</div>
-    </section>
+        \[\cos \widehat{\vec{a}\vec{b}} = \frac{(\vec{a}, \vec{b})}{|\vec{a}| |\vec{b}|} = \frac{x_1 x_2 + y_1 y_2 + z_1 z_2}{\sqrt{x_1^2 + y_1^2 + z_1^2} \cdot \sqrt{x_2^2 + y_2^2 + z_2^2}}\]
+      </div></div>
 
-    <!-- РАЗДЕЛ 3 -->
-    <section id="part-3">
+<!-- РАЗДЕЛ 3 -->
+<section id="part-3">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-4">
-  <div class="chapter-kicker">04 / . Векторное и смешанное прои…</div>
-  <h2 id="chapter-4" data-toc=". Векторное и смешанное прои…">Раздел 3. Векторное и смешанное произведения векторов</h2>
-  <h3 id="sub-23" data-toc="1. Правые и левые тройки нек…">3.1. Правые и левые тройки некомпланарных векторов</h3>
-
-      <div class="statement definition" id="def-6">
-  <div class="block-label">Определение 6</div>
-  <h3 id="sub-24" data-toc="Определение 44 (Ориентация т…">Определение 44 (Ориентация тройки векторов)</h3>
+  <div class="chapter-kicker">04 / . Векторное и смешанное произв…</div>
+  <h2 id="chapter-4" data-toc=". Векторное и смешанное произв…">Раздел 3. Векторное и смешанное произведения векторов</h2>
   
-        
+<h3 data-toc="1. Правые и левые тройки неком…" id="sec-3-1">3.1. Правые и левые тройки некомпланарных векторов</h3>
+<div class="statement definition" id="def-6"><div class="block-label">Определение 44 (Ориентация тройки векторов)</div><h3 data-toc="Определение 6" id="sub-4-2">Определение 6</h3><div>
+
         Упорядоченная тройка некомпланарных векторов $(\vec{a}, \vec{b}, \vec{c})$ называется <strong>правой</strong>, если при наблюдении с конца вектора $\vec{c}$ кратчайший поворот от первого вектора $\vec{a}$ ко второму вектору $\vec{b}$ виден происходящим <strong>против часовой стрелки</strong>.
-        <br>
+        <br/>
         Если данный поворот виден происходящим по часовой стрелке, тройка называется <strong>левой</strong>.
-      
+      </div></div>
+<!-- РИСУНОК 4: Правая тройка векторов -->
+<figure>
+<div class="svg-container">
+<svg height="230" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 480 230" width="480">
+<defs>
+<marker id="arr-arc" markerheight="6" markerwidth="6" orient="auto" refx="6" refy="5" viewbox="0 0 10 10">
+<path d="M 0 2 L 7 5 L 0 8 z" fill="var(--svg-red)"></path>
+</marker>
+</defs>
+<!-- Вектор c (направлен вверх) -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-purple)" stroke-width="3.5" x1="160" x2="160" y1="180" y2="40"></line>
+<text fill="var(--svg-purple)" font-size="16" font-weight="bold" x="140" y="35">c</text>
+<!-- Векторы a и b в плоскости основания -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="3.2" x1="160" x2="380" y1="180" y2="195"></line>
+<text fill="var(--svg-blue)" font-size="16" font-weight="bold" x="385" y="200">a</text>
+<line marker-end="url(#arr-blue)" stroke="var(--svg-amber)" stroke-width="3.2" x1="160" x2="310" y1="180" y2="120"></line>
+<text fill="var(--svg-amber)" font-size="16" font-weight="bold" x="320" y="115">b</text>
+<!-- Направляющая дуга кратчайшего поворота a -> b -->
+<path d="M 270 187 A 110 50 0 0 0 245 145" fill="none" marker-end="url(#arr-arc)" stroke="var(--svg-red)" stroke-width="3"></path>
+<text fill="var(--svg-red)" font-size="13" font-weight="bold" x="275" y="155">Кратчайший поворот</text>
+<text fill="var(--svg-red)" font-size="11" x="275" y="170">(против часовой стрелки)</text>
+<!-- Глаз наблюдателя у вершины c -->
+<circle cx="160" cy="20" fill="none" r="6" stroke="var(--svg-slate)" stroke-width="2"></circle>
+<circle cx="160" cy="20" fill="var(--svg-text)" r="2.5"></circle>
+<text fill="var(--svg-slate)" font-size="12" x="180" y="24">Взгляд наблюдателя с конца c</text>
+<circle cx="160" cy="180" fill="var(--svg-text)" r="5"></circle>
+<text fill="var(--svg-text)" font-weight="bold" x="145" y="195">O</text>
+</svg>
 </div>
-
-      <!-- РИСУНОК 4: Правая тройка векторов -->
-      <figure>
-        <div class="svg-container">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg width="480" height="230" viewBox="0 0 480 230">
-            <defs>
-              <marker id="arr-arc" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M 0 2 L 7 5 L 0 8 z" fill="var(--svg-red)"/>
-              </marker>
-            </defs>
-            <!-- Вектор c (направлен вверх) -->
-            <line x1="160" y1="180" x2="160" y2="40" stroke="var(--svg-purple)" stroke-width="3.5" marker-end="url(#arr-blue)"/>
-            <text x="140" y="35" fill="var(--svg-purple)" font-weight="bold" font-size="16">c</text>
-
-            <!-- Векторы a и b в плоскости основания -->
-            <line x1="160" y1="180" x2="380" y2="195" stroke="var(--svg-blue)" stroke-width="3.2" marker-end="url(#arr-blue)"/>
-            <text x="385" y="200" fill="var(--svg-blue)" font-weight="bold" font-size="16">a</text>
-
-            <line x1="160" y1="180" x2="310" y2="120" stroke="var(--svg-amber)" stroke-width="3.2" marker-end="url(#arr-blue)"/>
-            <text x="320" y="115" fill="var(--svg-amber)" font-weight="bold" font-size="16">b</text>
-
-            <!-- Направляющая дуга кратчайшего поворота a -> b -->
-            <path d="M 270 187 A 110 50 0 0 0 245 145" fill="none" stroke="var(--svg-red)" stroke-width="3" marker-end="url(#arr-arc)"/>
-            <text x="275" y="155" fill="var(--svg-red)" font-weight="bold" font-size="13">Кратчайший поворот</text>
-            <text x="275" y="170" fill="var(--svg-red)" font-size="11">(против часовой стрелки)</text>
-
-            <!-- Глаз наблюдателя у вершины c -->
-            <circle cx="160" cy="20" r="6" fill="none" stroke="var(--svg-slate)" stroke-width="2"/>
-            <circle cx="160" cy="20" r="2.5" fill="var(--svg-text)"/>
-            <text x="180" y="24" fill="var(--svg-slate)" font-size="12">Взгляд наблюдателя с конца c</text>
-
-            <circle cx="160" cy="180" r="5" fill="var(--svg-text)"/>
-            <text x="145" y="195" fill="var(--svg-text)" font-weight="bold">O</text>
-          </svg></div>
-        </div>
-        <figcaption>Рис. 4. Правая упорядоченная тройка $(\vec{a}, \vec{b}, \vec{c})$: с конца вектора $\vec{c}$ поворот $\vec{a} \to \vec{b}$ виден против часовой стрелки.</figcaption>
-      </figure>
-
-      <h3 id="sub-25" data-toc="2. Векторное произведение: о…">3.2. Векторное произведение: определение, геометрический смысл и свойства</h3>
-
-      <div class="statement definition" id="def-7">
-  <div class="block-label">Определение 7</div>
-  <h3 id="sub-26" data-toc="Определение 45 (Векторное пр…">Определение 45 (Векторное произведение)</h3>
-  
-        
-        <strong>Векторным произведением</strong> $[\vec{a}, \vec{b}]$ (или $\vec{a} \times \vec{b}$) вектора $\vec{a}$ на вектор $\vec{b}$ называется <strong>вектор</strong> $\vec{c}$, удовлетворяющий трём геометрическим условиям:
+<figcaption>Рис. 4. Правая упорядоченная тройка $(\vec{a}, \vec{b}, \vec{c})$: с конца вектора $\vec{c}$ поворот $\vec{a} \to \vec{b}$ виден против часовой стрелки.</figcaption>
+</figure>
+<h3 data-toc="2. Векторное произведение: опр…" id="sec-3-2">3.2. Векторное произведение: определение, геометрический смысл и свойства</h3>
+<div class="statement definition" id="def-7"><div class="block-label">Определение 45 (Векторное произведение)</div><h3 data-toc="Определение 7" id="sub-4-4">Определение 7</h3><div>
+<strong>Векторным произведением</strong> $[\vec{a}, \vec{b}]$ (или $\vec{a} \times \vec{b}$) вектора $\vec{a}$ на вектор $\vec{b}$ называется <strong>вектор</strong> $\vec{c}$, удовлетворяющий трём геометрическим условиям:
         <ol>
-          <li><strong>Длина:</strong> $|\vec{c}| = |\vec{a}| |\vec{b}| \sin \widehat{\vec{a}\vec{b}}$ (численно равна <em>площади параллелограмма</em>, построенного на векторах $\vec{a}$ и $\vec{b}$);</li>
-          <li><strong>Ортогональность:</strong> $\vec{c} \perp \vec{a}$ и $\vec{c} \perp \vec{b}$ (вектор $\vec{c}$ перпендикулярен плоскости векторов $\vec{a}$ и $\vec{b}$);</li>
-          <li><strong>Ориентация:</strong> тройка векторов $(\vec{a}, \vec{b}, \vec{c})$ является <strong>правой</strong>.</li>
-        </ol>
-      
-</div>
-
-      <div class="statement theorem" id="thm-10">
-  <div class="block-label">Утверждение 10</div>
-  <h3 id="sub-27" data-toc="Теорема 46 (Свойства векторн…">Теорема 46 (Свойства векторного произведения)</h3>
-  
-        
-        <ol>
-          <li><strong>Антикоммутативность (косокоммутативность):</strong> $[\vec{a}, \vec{b}] = -[\vec{b}, \vec{a}]$;</li>
-          <li><strong>Критерий коллинеарности:</strong> $[\vec{a}, \vec{b}] = \vec{0} \iff \vec{a} \parallel \vec{b}$ (в частности, $[\vec{a}, \vec{a}] = \vec{0}$);</li>
-          <li><strong>Однородность:</strong> $\lambda[\vec{a}, \vec{b}] = [\lambda\vec{a}, \vec{b}] = [\vec{a}, \lambda\vec{b}]$ для любого $\lambda \in \mathbb{R}$;</li>
-          <li><strong>Дистрибутивность:</strong> $[\vec{a} + \vec{b}, \vec{c}] = [\vec{a}, \vec{c}] + [\vec{b}, \vec{c}]$.</li>
-        </ol>
-      
-</div>
-
-      <h3 id="sub-28" data-toc="3. Таблица векторного умноже…">3.3. Таблица векторного умножения ортов и формула через определитель</h3>
-
-      <p>
+<li><strong>Длина:</strong> $|\vec{c}| = |\vec{a}| |\vec{b}| \sin \widehat{\vec{a}\vec{b}}$ (численно равна <em>площади параллелограмма</em>, построенного на векторах $\vec{a}$ и $\vec{b}$);</li>
+<li><strong>Ортогональность:</strong> $\vec{c} \perp \vec{a}$ и $\vec{c} \perp \vec{b}$ (вектор $\vec{c}$ перпендикулярен плоскости векторов $\vec{a}$ и $\vec{b}$);</li>
+<li><strong>Ориентация:</strong> тройка векторов $(\vec{a}, \vec{b}, \vec{c})$ является <strong>правой</strong>.</li>
+</ol>
+</div></div>
+<div class="statement theorem" id="thm-10"><div class="block-label">Теорема 46 (Свойства векторного произведения)</div><h3 data-toc="Теорема 10" id="sub-4-5">Теорема 10</h3><div>
+<ol>
+<li><strong>Антикоммутативность (косокоммутативность):</strong> $[\vec{a}, \vec{b}] = -[\vec{b}, \vec{a}]$;</li>
+<li><strong>Критерий коллинеарности:</strong> $[\vec{a}, \vec{b}] = \vec{0} \iff \vec{a} \parallel \vec{b}$ (в частности, $[\vec{a}, \vec{a}] = \vec{0}$);</li>
+<li><strong>Однородность:</strong> $\lambda[\vec{a}, \vec{b}] = [\lambda\vec{a}, \vec{b}] = [\vec{a}, \lambda\vec{b}]$ для любого $\lambda \in \mathbb{R}$;</li>
+<li><strong>Дистрибутивность:</strong> $[\vec{a} + \vec{b}, \vec{c}] = [\vec{a}, \vec{c}] + [\vec{b}, \vec{c}]$.</li>
+</ol>
+</div></div>
+<h3 data-toc="3. Таблица векторного умножени…" id="sec-3-3">3.3. Таблица векторного умножения ортов и формула через определитель</h3>
+<p>
         Пусть базис $\{\vec{i}, \vec{j}, \vec{k}\}$ — правый ортонормированный базис (орты осей $Ox, Oy, Oz$). На основе определения 45 составляется таблица попарных векторных произведений ортов:
       </p>
-
-      <div class="table-scroll">
 <table>
-        <thead>
-          <tr>
-            <th>$[\text{Строка}, \, \text{Столбец}]$</th>
-            <th>$\vec{i}$</th>
-            <th>$\vec{j}$</th>
-            <th>$\vec{k}$</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>$\vec{i}$</strong></td>
-            <td>$\vec{0}$</td>
-            <td>$\vec{k}$</td>
-            <td>$-\vec{j}$</td>
-          </tr>
-          <tr>
-            <td><strong>$\vec{j}$</strong></td>
-            <td>$-\vec{k}$</td>
-            <td>$\vec{0}$</td>
-            <td>$\vec{i}$</td>
-          </tr>
-          <tr>
-            <td><strong>$\vec{k}$</strong></td>
-            <td>$\vec{j}$</td>
-            <td>$-\vec{i}$</td>
-            <td>$\vec{0}$</td>
-          </tr>
-        </tbody>
-      </table>
-</div>
-
-      <aside class="note">
-        <strong>Мнемоническое правило знаков (Круговая схема).</strong> 
+<thead>
+<tr>
+<th>$[\text{Строка}, \, \text{Столбец}]$</th>
+<th>$\vec{i}$</th>
+<th>$\vec{j}$</th>
+<th>$\vec{k}$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>$\vec{i}$</strong></td>
+<td>$\vec{0}$</td>
+<td>$\vec{k}$</td>
+<td>$-\vec{j}$</td>
+</tr>
+<tr>
+<td><strong>$\vec{j}$</strong></td>
+<td>$-\vec{k}$</td>
+<td>$\vec{0}$</td>
+<td>$\vec{i}$</td>
+</tr>
+<tr>
+<td><strong>$\vec{k}$</strong></td>
+<td>$\vec{j}$</td>
+<td>$-\vec{i}$</td>
+<td>$\vec{0}$</td>
+</tr>
+</tbody>
+</table>
+<aside class="note">
+<span class="block-label">Мнемоническое правило знаков (Круговая схема)</span>
         Расположим символы по кругу: $\vec{i} \to \vec{j} \to \vec{k} \to \vec{i}$.
         Если направление обхода совпадает с направлением стрелки, произведение берётся со знаком плюс: $[\vec{i}, \vec{j}] = \vec{k}$, $[\vec{j}, \vec{k}] = \vec{i}$, $[\vec{k}, \vec{i}] = \vec{j}$. 
         При движении против стрелки знак меняется на противоположный: $[\vec{j}, \vec{i}] = -\vec{k}$, $[\vec{k}, \vec{j}] = -\vec{i}$, $[\vec{i}, \vec{k}] = -\vec{j}$.
       </aside>
+<div class="statement theorem" id="thm-11"><div class="block-label">Теорема 47 (Векторное произведение в координатах ОНБ)</div><h3 data-toc="Теорема 11" id="sub-4-7">Теорема 11</h3><div>
 
-      <div class="statement theorem" id="thm-11">
-  <div class="block-label">Утверждение 11</div>
-  <h3 id="sub-29" data-toc="Теорема 47 (Векторное произв…">Теорема 47 (Векторное произведение в координатах ОНБ)</h3>
-  
-        
         В правом ортонормированном базисе векторное произведение векторов $\vec{a}(x_1, y_1, z_1)$ и $\vec{b}(x_2, y_2, z_2)$ вычисляется через символический определитель 3-го порядка:
-        $$[\vec{a}, \vec{b}] = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \end{vmatrix} = \begin{vmatrix} y_1 & z_1 \\ y_2 & z_2 \end{vmatrix}\vec{i} - \begin{vmatrix} x_1 & z_1 \\ x_2 & z_2 \end{vmatrix}\vec{j} + \begin{vmatrix} x_1 & y_1 \\ x_2 & y_2 \end{vmatrix}\vec{k}$$
+        \[[\vec{a}, \vec{b}] = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \end{vmatrix} = \begin{vmatrix} y_1 & z_1 \\ y_2 & z_2 \end{vmatrix}\vec{i} - \begin{vmatrix} x_1 & z_1 \\ x_2 & z_2 \end{vmatrix}\vec{j} + \begin{vmatrix} x_1 & y_1 \\ x_2 & y_2 \end{vmatrix}\vec{k}\]
         В координатной записи:
-        $$[\vec{a}, \vec{b}] = \Big(y_1 z_2 - z_1 y_2, \quad -(x_1 z_2 - z_1 x_2), \quad x_1 y_2 - y_1 x_2\Big)$$
-      
+        \[[\vec{a}, \vec{b}] = \Big(y_1 z_2 - z_1 y_2, \quad -(x_1 z_2 - z_1 x_2), \quad x_1 y_2 - y_1 x_2\Big)\]
+      </div></div>
+<div class="proof" data-proof="" id="proof-6">
+<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-      <div class="proof" id="proof-6" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-6" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
-  </div>
-  <div class="proof-full" id="full-6" data-proof-full>
-    <div class="proof-label">Доказательство</div>
+<div class="proof-idea" data-proof-idea="" id="idea-6">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-6">
+<div class="proof-label">Доказательство (Доказательство)</div>
     
-        
+
         Распишем векторное произведение линейных комбинаций по таблице умножения ортов:
-        $$[\vec{a}, \vec{b}] = [x_1\vec{i} + y_1\vec{j} + z_1\vec{k}, \, x_2\vec{i} + y_2\vec{j} + z_2\vec{k}] =$$
-        $$= x_1 y_2[\vec{i}, \vec{j}] + x_1 z_2[\vec{i}, \vec{k}] + y_1 x_2[\vec{j}, \vec{i}] + y_1 z_2[\vec{j}, \vec{k}] + z_1 x_2[\vec{k}, \vec{i}] + z_1 y_2[\vec{k}, \vec{j}] =$$
-        $$= x_1 y_2 \vec{k} - x_1 z_2 \vec{j} - y_1 x_2 \vec{k} + y_1 z_2 \vec{i} + z_1 x_2 \vec{j} - z_1 y_2 \vec{i} =$$
-        $$= (y_1 z_2 - z_1 y_2)\vec{i} - (x_1 z_2 - z_1 x_2)\vec{j} + (x_1 y_2 - y_1 x_2)\vec{k}$$
+        \[[\vec{a}, \vec{b}] = [x_1\vec{i} + y_1\vec{j} + z_1\vec{k}, \, x_2\vec{i} + y_2\vec{j} + z_2\vec{k}] =\]
+        \[= x_1 y_2[\vec{i}, \vec{j}] + x_1 z_2[\vec{i}, \vec{k}] + y_1 x_2[\vec{j}, \vec{i}] + y_1 z_2[\vec{j}, \vec{k}] + z_1 x_2[\vec{k}, \vec{i}] + z_1 y_2[\vec{k}, \vec{j}] =\]
+        \[= x_1 y_2 \vec{k} - x_1 z_2 \vec{j} - y_1 x_2 \vec{k} + y_1 z_2 \vec{i} + z_1 x_2 \vec{j} - z_1 y_2 \vec{i} =\]
+        \[= (y_1 z_2 - z_1 y_2)\vec{i} - (x_1 z_2 - z_1 x_2)\vec{j} + (x_1 y_2 - y_1 x_2)\vec{k}\]
         Что в точности соответствует разложению указанного определителя по первой строке.
-        <span class="proof-qed">&#9632;</span>
-      
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+        <span class="proof-qed">■</span>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
-
-      <h3 id="sub-30" data-toc="4. Смешанное произведение: о…">3.4. Смешанное произведение: определение, свойства и объём параллелепипеда</h3>
-
-      <div class="statement definition" id="def-8">
-  <div class="block-label">Определение 8</div>
-  <h3 id="sub-31" data-toc="Определение 48 (Смешанное пр…">Определение 48 (Смешанное произведение)</h3>
-  
-        
-        <strong>Смешанным (скалярно-векторным) произведением</strong> $\langle\vec{a}, \vec{b}, \vec{c}\rangle$ (или $(\vec{a}, \vec{b}, \vec{c})$) трёх векторов называется число, равное скалярному произведению векторного произведения первых двух на третий вектор:
-        $$\langle\vec{a}, \vec{b}, \vec{c}\rangle \stackrel{\text{def}}{=} ([\vec{a}, \vec{b}], \vec{c})$$
-      
 </div>
-
-      <!-- РИСУНОК 5: Геометрический смысл смешанного произведения -->
-      <figure>
-        <div class="svg-container">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg width="560" height="260" viewBox="0 0 560 260">
-            <!-- Нижнее основание параллелепипеда (заливка) -->
-            <polygon points="120,210 320,210 420,165 220,165" fill="var(--def-bg)" stroke="var(--svg-blue)" stroke-width="2"/>
-            
-            <!-- Вектор a -->
-            <line x1="120" y1="210" x2="320" y2="210" stroke="var(--svg-blue)" stroke-width="3.5" marker-end="url(#arr-blue)"/>
-            <text x="210" y="230" fill="var(--svg-blue)" font-weight="bold" font-size="15">a</text>
-
-            <!-- Вектор b -->
-            <line x1="120" y1="210" x2="220" y2="165" stroke="var(--svg-amber)" stroke-width="3.5" marker-end="url(#arr-blue)"/>
-            <text x="155" y="180" fill="var(--svg-amber)" font-weight="bold" font-size="15">b</text>
-
-            <!-- Вектор c (боковое ребро) -->
-            <line x1="120" y1="210" x2="160" y2="80" stroke="var(--svg-purple)" stroke-width="3.5" marker-end="url(#arr-blue)"/>
-            <text x="125" y="140" fill="var(--svg-purple)" font-weight="bold" font-size="15">c</text>
-
-            <!-- Каркас параллелепипеда -->
-            <line x1="320" y1="210" x2="360" y2="80" stroke="var(--border-color)" stroke-width="1.5"/>
-            <line x1="420" y1="165" x2="460" y2="35" stroke="var(--border-color)" stroke-width="1.5"/>
-            <line x1="220" y1="165" x2="260" y2="35" stroke="var(--border-color)" stroke-width="1.5"/>
-            <!-- Верхнее основание -->
-            <polygon points="160,80 360,80 460,35 260,35" fill="none" stroke="var(--border-color)" stroke-width="1.8"/>
-
-            <!-- Вектор [a, b] нормали к основанию -->
-            <line x1="120" y1="210" x2="120" y2="30" stroke="var(--svg-red)" stroke-width="3" marker-end="url(#arr-blue)"/>
-            <text x="50" y="50" fill="var(--svg-red)" font-weight="bold" font-size="14">[a, b]</text>
-
-            <!-- Высота h -->
-            <line x1="160" y1="80" x2="120" y2="80" stroke="var(--svg-green)" stroke-dasharray="3,3" stroke-width="1.5"/>
-            <line x1="160" y1="80" x2="160" y2="210" stroke="var(--svg-green)" stroke-width="2.5"/>
-            <text x="168" y="150" fill="var(--svg-green)" font-weight="bold" font-size="14">h</text>
-
-            <!-- Угол psi -->
-            <path d="M 120 150 A 60 60 0 0 0 133 168" fill="none" stroke="var(--svg-amber)" stroke-width="2"/>
-            <text x="135" y="160" fill="var(--svg-amber)" font-size="13">ψ</text>
-
-            <circle cx="120" cy="210" r="4" fill="var(--svg-text)"/>
-            <text x="105" y="225" fill="var(--svg-text)" font-weight="bold">A</text>
-          </svg></div>
-        </div>
-        <figcaption>Рис. 5. Геометрический смысл смешанного произведения: объём косого параллелепипеда $V = S_{\text{осн}} \cdot h = |[\vec{a}, \vec{b}]| \cdot |\vec{c}|\cos\psi$.</figcaption>
-      </figure>
-
-      <div class="statement theorem" id="thm-12">
-  <div class="block-label">Утверждение 12</div>
-  <h3 id="sub-32" data-toc="Теорема 49 (Свойства смешанн…">Теорема 49 (Свойства смешанного произведения)</h3>
-  
-        
-        <ol>
-          <li><strong>Геометрический смысл:</strong> $\langle\vec{a}, \vec{b}, \vec{c}\rangle$ равно объёму параллелепипеда, построенного на этих векторах, со знаком плюс, если тройка правая, и со знаком минус, если тройка левая:
-            $$\langle\vec{a}, \vec{b}, \vec{c}\rangle = \pm V_{\text{пар}}$$
-          </li>
-          <li><strong>Критерий компланарности:</strong> $\langle\vec{a}, \vec{b}, \vec{c}\rangle = 0 \iff$ векторы $\vec{a}, \vec{b}, \vec{c}$ компланарны;</li>
-          <li><strong>Симметрия перестановок:</strong> при циклической перестановке сомножителей величина не меняется, при транспозиции (нециклической перестановке) меняет знак:
-            $$\langle\vec{a}, \vec{b}, \vec{c}\rangle = \langle\vec{b}, \vec{c}, \vec{a}\rangle = \langle\vec{c}, \vec{a}, \vec{b}\rangle = -\langle\vec{b}, \vec{a}, \vec{c}\rangle$$
-          </li>
-          <li><strong>Перестановка знаков:</strong> $([\vec{a}, \vec{b}], \vec{c}) = (\vec{a}, [\vec{b}, \vec{c}])$;</li>
-          <li><strong>Вычисление через определитель в ОНБ:</strong>
-            $$\langle\vec{a}, \vec{b}, \vec{c}\rangle = \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix}$$
-          </li>
-        </ol>
-      
+<h3 data-toc="4. Смешанное произведение: опр…" id="sec-3-4">3.4. Смешанное произведение: определение, свойства и объём параллелепипеда</h3>
+<div class="statement definition" id="def-8"><div class="block-label">Определение 48 (Смешанное произведение)</div><h3 data-toc="Определение 8" id="sub-4-9">Определение 8</h3><div>
+<strong>Смешанным (скалярно-векторным) произведением</strong> $\langle\vec{a}, \vec{b}, \vec{c}\rangle$ (или $(\vec{a}, \vec{b}, \vec{c})$) трёх векторов называется число, равное скалярному произведению векторного произведения первых двух на третий вектор:
+        \[\langle\vec{a}, \vec{b}, \vec{c}\rangle \stackrel{\text{def}}{=} ([\vec{a}, \vec{b}], \vec{c})\]
+      </div></div>
+<!-- РИСУНОК 5: Геометрический смысл смешанного произведения -->
+<figure>
+<div class="svg-container">
+<svg height="260" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 560 260" width="560">
+<!-- Нижнее основание параллелепипеда (заливка) -->
+<polygon fill="var(--def-bg)" points="120,210 320,210 420,165 220,165" stroke="var(--svg-blue)" stroke-width="2"></polygon>
+<!-- Вектор a -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="3.5" x1="120" x2="320" y1="210" y2="210"></line>
+<text fill="var(--svg-blue)" font-size="15" font-weight="bold" x="210" y="230">a</text>
+<!-- Вектор b -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-amber)" stroke-width="3.5" x1="120" x2="220" y1="210" y2="165"></line>
+<text fill="var(--svg-amber)" font-size="15" font-weight="bold" x="155" y="180">b</text>
+<!-- Вектор c (боковое ребро) -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-purple)" stroke-width="3.5" x1="120" x2="160" y1="210" y2="80"></line>
+<text fill="var(--svg-purple)" font-size="15" font-weight="bold" x="125" y="140">c</text>
+<!-- Каркас параллелепипеда -->
+<line stroke="var(--border-color)" stroke-width="1.5" x1="320" x2="360" y1="210" y2="80"></line>
+<line stroke="var(--border-color)" stroke-width="1.5" x1="420" x2="460" y1="165" y2="35"></line>
+<line stroke="var(--border-color)" stroke-width="1.5" x1="220" x2="260" y1="165" y2="35"></line>
+<!-- Верхнее основание -->
+<polygon fill="none" points="160,80 360,80 460,35 260,35" stroke="var(--border-color)" stroke-width="1.8"></polygon>
+<!-- Вектор [a, b] нормали к основанию -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-red)" stroke-width="3" x1="120" x2="120" y1="210" y2="30"></line>
+<text fill="var(--svg-red)" font-size="14" font-weight="bold" x="50" y="50">[a, b]</text>
+<!-- Высота h -->
+<line stroke="var(--svg-green)" stroke-dasharray="3,3" stroke-width="1.5" x1="160" x2="120" y1="80" y2="80"></line>
+<line stroke="var(--svg-green)" stroke-width="2.5" x1="160" x2="160" y1="80" y2="210"></line>
+<text fill="var(--svg-green)" font-size="14" font-weight="bold" x="168" y="150">h</text>
+<!-- Угол psi -->
+<path d="M 120 150 A 60 60 0 0 0 133 168" fill="none" stroke="var(--svg-amber)" stroke-width="2"></path>
+<text fill="var(--svg-amber)" font-size="13" x="135" y="160">ψ</text>
+<circle cx="120" cy="210" fill="var(--svg-text)" r="4"></circle>
+<text fill="var(--svg-text)" font-weight="bold" x="105" y="225">A</text>
+</svg>
 </div>
+<figcaption>Рис. 5. Геометрический смысл смешанного произведения: объём косого параллелепипеда $V = S_{\text{осн}} \cdot h = |[\vec{a}, \vec{b}]| \cdot |\vec{c}|\cos\psi$.</figcaption>
+</figure>
+<div class="statement theorem" id="thm-12"><div class="block-label">Теорема 49 (Свойства смешанного произведения)</div><h3 data-toc="Теорема 12" id="sub-4-10">Теорема 12</h3><div>
+<ol>
+<li><strong>Геометрический смысл:</strong> $\langle\vec{a}, \vec{b}, \vec{c}\rangle$ равно объёму параллелепипеда, построенного на этих векторах, со знаком плюс, если тройка правая, и со знаком минус, если тройка левая:
+            \[\langle\vec{a}, \vec{b}, \vec{c}\rangle = \pm V_{\text{пар}}\]
+          </li>
+<li><strong>Критерий компланарности:</strong> $\langle\vec{a}, \vec{b}, \vec{c}\rangle = 0 \iff$ векторы $\vec{a}, \vec{b}, \vec{c}$ компланарны;</li>
+<li><strong>Симметрия перестановок:</strong> при циклической перестановке сомножителей величина не меняется, при транспозиции (нециклической перестановке) меняет знак:
+            \[\langle\vec{a}, \vec{b}, \vec{c}\rangle = \langle\vec{b}, \vec{c}, \vec{a}\rangle = \langle\vec{c}, \vec{a}, \vec{b}\rangle = -\langle\vec{b}, \vec{a}, \vec{c}\rangle\]
+          </li>
+<li><strong>Перестановка знаков:</strong> $([\vec{a}, \vec{b}], \vec{c}) = (\vec{a}, [\vec{b}, \vec{c}])$;</li>
+<li><strong>Вычисление через определитель в ОНБ:</strong>
+            \[\langle\vec{a}, \vec{b}, \vec{c}\rangle = \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix}\]
+          </li>
+</ol>
+</div></div>
+<h3 data-toc="5. Доказательство дистрибутивн…" id="sec-3-5">3.5. Доказательство дистрибутивности векторного произведения</h3>
+<div class="statement theorem" id="thm-13"><div class="block-label">Доказательство свойства 46.4 ($[\vec{a}_1 + \vec{a}_2, \vec{b}] = [\vec{a}_1, \vec{b}] + [\vec{a}_2, \vec{b}]$)</div><h3 data-toc="Теорема 13" id="sub-4-12">Теорема 13</h3><div>
 
-      <h3 id="sub-33" data-toc="5. Доказательство дистрибути…">3.5. Доказательство дистрибутивности векторного произведения</h3>
-
-      <div class="statement theorem" id="thm-13">
-  <div class="block-label">Утверждение 13</div>
-  <h3 id="sub-34" data-toc="Доказательство свойства 46.4…">Доказательство свойства 46.4 ($[\vec{a}_1 + \vec{a}_2, \vec{b}] = [\vec{a}_1, \vec{b}] + [\vec{a}_2, \vec{b}]$)</h3>
-  
-        
         Рассмотрим произвольный вспомогательный вектор $\vec{c}$ и составим смешанное произведение с суммой:
-        $$([\vec{a}_1 + \vec{a}_2, \vec{b}], \vec{c}) = \langle \vec{a}_1 + \vec{a}_2, \vec{b}, \vec{c} \rangle$$
+        \[([\vec{a}_1 + \vec{a}_2, \vec{b}], \vec{c}) = \langle \vec{a}_1 + \vec{a}_2, \vec{b}, \vec{c} \rangle\]
         В силу циклической перестановки и дистрибутивности скалярного произведения:
-        $$\langle \vec{a}_1 + \vec{a}_2, \vec{b}, \vec{c} \rangle = (\vec{a}_1 + \vec{a}_2, [\vec{b}, \vec{c}]) = (\vec{a}_1, [\vec{b}, \vec{c}]) + (\vec{a}_2, [\vec{b}, \vec{c}]) =$$
-        $$= ([\vec{a}_1, \vec{b}], \vec{c}) + ([\vec{a}_2, \vec{b}], \vec{c}) = ([\vec{a}_1, \vec{b}] + [\vec{a}_2, \vec{b}], \vec{c})$$
+        \[\langle \vec{a}_1 + \vec{a}_2, \vec{b}, \vec{c} \rangle = (\vec{a}_1 + \vec{a}_2, [\vec{b}, \vec{c}]) = (\vec{a}_1, [\vec{b}, \vec{c}]) + (\vec{a}_2, [\vec{b}, \vec{c}]) =\]
+        \[= ([\vec{a}_1, \vec{b}], \vec{c}) + ([\vec{a}_2, \vec{b}], \vec{c}) = ([\vec{a}_1, \vec{b}] + [\vec{a}_2, \vec{b}], \vec{c})\]
         Следовательно, для любого вектора $\vec{c}$ выполняется числовое равенство:
-        $$([\vec{a}_1 + \vec{a}_2, \vec{b}] - [\vec{a}_1, \vec{b}] - [\vec{a}_2, \vec{b}], \, \vec{c}) = 0$$
+        \[([\vec{a}_1 + \vec{a}_2, \vec{b}] - [\vec{a}_1, \vec{b}] - [\vec{a}_2, \vec{b}], \, \vec{c}) = 0\]
         Подставим последовательно вместо $\vec{c}$ базисные орты $\vec{i}, \vec{j}, \vec{k}$ правого ОНБ:
         <ul>
-          <li>При $\vec{c} = \vec{i}$ получаем равенство нулю первой координаты разности векторов;</li>
-          <li>При $\vec{c} = \vec{j}$ получаем равенство нулю второй координаты;</li>
-          <li>При $\vec{c} = \vec{k}$ получаем равенство нулю третьей координаты.</li>
-        </ul>
+<li>При $\vec{c} = \vec{i}$ получаем равенство нулю первой координаты разности векторов;</li>
+<li>При $\vec{c} = \vec{j}$ получаем равенство нулю второй координаты;</li>
+<li>При $\vec{c} = \vec{k}$ получаем равенство нулю третьей координаты.</li>
+</ul>
         Вектор, у которого все три координаты в базисе равны нулю, есть нулевой вектор:
-        $$[\vec{a}_1 + \vec{a}_2, \vec{b}] - ([\vec{a}_1, \vec{b}] + [\vec{a}_2, \vec{b}]) = \vec{0} \implies [\vec{a}_1 + \vec{a}_2, \vec{b}] = [\vec{a}_1, \vec{b}] + [\vec{a}_2, \vec{b}]$$
+        \[[\vec{a}_1 + \vec{a}_2, \vec{b}] - ([\vec{a}_1, \vec{b}] + [\vec{a}_2, \vec{b}]) = \vec{0} \implies [\vec{a}_1 + \vec{a}_2, \vec{b}] = [\vec{a}_1, \vec{b}] + [\vec{a}_2, \vec{b}]\]
         Дистрибутивность доказана строго.
-        <span class="proof-qed">&#9632;</span>
-      
-</div>
-
-      <h3 id="sub-35" data-toc="6. Геометрические приложения…">3.6. Геометрические приложения произведений</h3>
-      <p>Сведём основные прикладные формулы векторной алгебры в единую систему:</p>
-      <div class="table-scroll">
+        <span class="proof-qed">■</span>
+</div></div>
+<h3 data-toc="6. Геометрические приложения п…" id="sec-3-6">3.6. Геометрические приложения произведений</h3>
+<p>Сведём основные прикладные формулы векторной алгебры в единую систему:</p>
 <table>
-        <thead>
-          <tr>
-            <th>Геометрическая задача</th>
-            <th>Векторная формула</th>
-            <th>Формула в координатах ОНБ</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Критерий ортогональности</strong></td>
-            <td>$(\vec{a}, \vec{b}) = 0$</td>
-            <td>$x_1 x_2 + y_1 y_2 + z_1 z_2 = 0$</td>
-          </tr>
-          <tr>
-            <td><strong>Критерий коллинеарности</strong></td>
-            <td>$[\vec{a}, \vec{b}] = \vec{0}$</td>
-            <td>$\frac{x_1}{x_2} = \frac{y_1}{y_2} = \frac{z_1}{z_2}$</td>
-          </tr>
-          <tr>
-            <td><strong>Критерий компланарности</strong></td>
-            <td>$\langle\vec{a}, \vec{b}, \vec{c}\rangle = 0$</td>
-            <td>$\begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix} = 0$</td>
-          </tr>
-          <tr>
-            <td><strong>Угол между векторами</strong></td>
-            <td>$\cos\varphi = \frac{(\vec{a}, \vec{b})}{|\vec{a}| |\vec{b}|}$</td>
-            <td>$\frac{x_1 x_2 + y_1 y_2 + z_1 z_2}{\sqrt{x_1^2+y_1^2+z_1^2}\sqrt{x_2^2+y_2^2+z_2^2}}$</td>
-          </tr>
-          <tr>
-            <td><strong>Площадь параллелограмма</strong></td>
-            <td>$S_{\square} = |[\vec{a}, \vec{b}]|$</td>
-            <td>$\sqrt{(y_1 z_2 - z_1 y_2)^2 + (x_1 z_2 - z_1 x_2)^2 + (x_1 y_2 - y_1 x_2)^2}$</td>
-          </tr>
-          <tr>
-            <td><strong>Площадь треугольника</strong></td>
-            <td>$S_{\triangle} = \frac{1}{2}|[\vec{a}, \vec{b}]|$</td>
-            <td>Половина модуля определителя векторного произведения</td>
-          </tr>
-          <tr>
-            <td><strong>Объём параллелепипеда</strong></td>
-            <td>$V_{\text{пар}} = |\langle\vec{a}, \vec{b}, \vec{c}\rangle|$</td>
-            <td>Модуль определителя 3-го порядка координат трёх векторов</td>
-          </tr>
-          <tr>
-            <td><strong>Объём тетраэдра</strong></td>
-            <td>$V_{\text{тетр}} = \frac{1}{6}|\langle\vec{a}, \vec{b}, \vec{c}\rangle|$</td>
-            <td>$\frac{1}{6} \left| \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix} \right|$</td>
-          </tr>
-        </tbody>
-      </table>
-</div>
+<thead>
+<tr>
+<th>Геометрическая задача</th>
+<th>Векторная формула</th>
+<th>Формула в координатах ОНБ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Критерий ортогональности</strong></td>
+<td>$(\vec{a}, \vec{b}) = 0$</td>
+<td>$x_1 x_2 + y_1 y_2 + z_1 z_2 = 0$</td>
+</tr>
+<tr>
+<td><strong>Критерий коллинеарности</strong></td>
+<td>$[\vec{a}, \vec{b}] = \vec{0}$</td>
+<td>$\frac{x_1}{x_2} = \frac{y_1}{y_2} = \frac{z_1}{z_2}$</td>
+</tr>
+<tr>
+<td><strong>Критерий компланарности</strong></td>
+<td>$\langle\vec{a}, \vec{b}, \vec{c}\rangle = 0$</td>
+<td>$\begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix} = 0$</td>
+</tr>
+<tr>
+<td><strong>Угол между векторами</strong></td>
+<td>$\cos\varphi = \frac{(\vec{a}, \vec{b})}{|\vec{a}| |\vec{b}|}$</td>
+<td>$\frac{x_1 x_2 + y_1 y_2 + z_1 z_2}{\sqrt{x_1^2+y_1^2+z_1^2}\sqrt{x_2^2+y_2^2+z_2^2}}$</td>
+</tr>
+<tr>
+<td><strong>Площадь параллелограмма</strong></td>
+<td>$S_{\square} = |[\vec{a}, \vec{b}]|$</td>
+<td>$\sqrt{(y_1 z_2 - z_1 y_2)^2 + (x_1 z_2 - z_1 x_2)^2 + (x_1 y_2 - y_1 x_2)^2}$</td>
+</tr>
+<tr>
+<td><strong>Площадь треугольника</strong></td>
+<td>$S_{\triangle} = \frac{1}{2}|[\vec{a}, \vec{b}]|$</td>
+<td>Половина модуля определителя векторного произведения</td>
+</tr>
+<tr>
+<td><strong>Объём параллелепипеда</strong></td>
+<td>$V_{\text{пар}} = |\langle\vec{a}, \vec{b}, \vec{c}\rangle|$</td>
+<td>Модуль определителя 3-го порядка координат трёх векторов</td>
+</tr>
+<tr>
+<td><strong>Объём тетраэдра</strong></td>
+<td>$V_{\text{тетр}} = \frac{1}{6}|\langle\vec{a}, \vec{b}, \vec{c}\rangle|$</td>
+<td>$\frac{1}{6} \left| \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix} \right|$</td>
+</tr>
+</tbody>
+</table>
+<h3 data-toc="7. Двойное векторное произведе…" id="sec-3-7">3.7. Двойное векторное произведение и парадоксы векторного произведения (по И. Х. Сабитову)</h3>
+<div class="statement theorem" id="thm-14"><div class="block-label">Теорема 50 (Формулы двойного векторного произведения)</div><h3 data-toc="Теорема 14" id="sub-4-15">Теорема 14</h3><div>
 
-      <h3 id="sub-36" data-toc="7. Двойное векторное произве…">3.7. Двойное векторное произведение и парадоксы векторного произведения (по И. Х. Сабитову)</h3>
-
-      <div class="statement theorem" id="thm-14">
-  <div class="block-label">Утверждение 14</div>
-  <h3 id="sub-37" data-toc="Теорема 50 (Формулы двойного…">Теорема 50 (Формулы двойного векторного произведения)</h3>
-  
-        
         Для любых трёх векторов справедлива мнемоническая формула <strong>«БАЦ минус ЦАБ»</strong>:
-        $$[\vec{a}, [\vec{b}, \vec{c}]] = \vec{b}(\vec{a}, \vec{c}) - \vec{c}(\vec{a}, \vec{b})$$
+        \[[\vec{a}, [\vec{b}, \vec{c}]] = \vec{b}(\vec{a}, \vec{c}) - \vec{c}(\vec{a}, \vec{b})\]
         А также <strong>тождество Якоби</strong> (циклическая сумма равна нулю):
-        $$[\vec{a}, [\vec{b}, \vec{c}]] + [\vec{b}, [\vec{c}, \vec{a}]] + [\vec{c}, [\vec{a}, \vec{b}]] = \vec{0}$$
-      
-</div>
-
-      <aside class="note">
-        <strong>Критический анализ: парадоксы векторного произведения (по статье И. Х. Сабитова).</strong> 
+        \[[\vec{a}, [\vec{b}, \vec{c}]] + [\vec{b}, [\vec{c}, \vec{a}]] + [\vec{c}, [\vec{a}, \vec{b}]] = \vec{0}\]
+      </div></div>
+<aside class="note">
+<span class="block-label">Критический анализ: парадоксы векторного произведения (по статье И. Х. Сабитова)</span>
         Г. М. Полотовский обращает внимание на два принципиальных концептуальных изъяна классического школьного определения векторного произведения:
         <ol>
-          <li><strong>Масштабная неинвариантность:</strong> Пусть $\vec{c} = [\vec{a}, \vec{b}]$. Уменьшим масштабную единицу по осям координат в 10 раз (числовые значения длин векторов увеличатся в 10 раз). Длины $\vec{a}$ и $\vec{b}$ станут равны $10|\vec{a}|$ и $10|\vec{b}|$, а значит, по определению, модуль их векторного произведения должен увеличиться в $10 \times 10 = 100$ раз! Но $\vec{c}$ как геометрический вектор при смене масштаба должен удлиниться лишь в 10 раз. Геометрический вектор не может менять длину в 10 и 100 раз одновременно!</li>
-          <li><strong>Парадокс физической размерности:</strong> Если векторы $\vec{a}, \vec{b}, \vec{c}$ измеряются в метрах ($\text{м}$), то по формуле $V = |([\vec{a}, \vec{b}], \vec{c})|$ вектор $[\vec{a}, \vec{b}]$ обязан иметь размерность площади ($\text{м}^2$), чтобы скалярное произведение дало объём в $\text{м}^3$. Но вектор по определению — это направленный отрезок с размерностью длины ($\text{м}$).</li>
-        </ol>
-        <em>Современное математическое разрешение:</em> векторное произведение корректно определено только в 3D и является не истинным (полярным) вектором, а <strong>псевдовектором (аксиальным вектором)</strong> или элементом внешней алгебры Грассмана — <em>бивектором</em> $\vec{a} \wedge \vec{b}$ ориентированной площадки.
+<li><strong>Масштабная неинвариантность:</strong> Пусть $\vec{c} = [\vec{a}, \vec{b}]$. Уменьшим масштабную единицу по осям координат в 10 раз (числовые значения длин векторов увеличатся в 10 раз). Длины $\vec{a}$ и $\vec{b}$ станут равны $10|\vec{a}|$ и $10|\vec{b}|$, а значит, по определению, модуль их векторного произведения должен увеличиться в $10 \times 10 = 100$ раз! Но $\vec{c}$ как геометрический вектор при смене масштаба должен удлиниться лишь в 10 раз. Геометрический вектор не может менять длину в 10 и 100 раз одновременно!</li>
+<li><strong>Парадокс физической размерности:</strong> Если векторы $\vec{a}, \vec{b}, \vec{c}$ измеряются в метрах ($\text{м}$), то по формуле $V = |([\vec{a}, \vec{b}], \vec{c})|$ вектор $[\vec{a}, \vec{b}]$ обязан иметь размерность площади ($\text{м}^2$), чтобы скалярное произведение дало объём в $\text{м}^3$. Но вектор по определению — это направленный отрезок с размерностью длины ($\text{м}$).</li>
+</ol>
+<em>Современное математическое разрешение:</em> векторное произведение корректно определено только в 3D и является не истинным (полярным) вектором, а <strong>псевдовектором (аксиальным вектором)</strong> или элементом внешней алгебры Грассмана — <em>бивектором</em> $\vec{a} \wedge \vec{b}$ ориентированной площадки.
       </aside>
-    </section>
 
-    <!-- РАЗДЕЛ 4 -->
-    <section id="part-4">
+<!-- РАЗДЕЛ 4 -->
+<section id="part-4">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-5">
-  <div class="chapter-kicker">05 / . Прямые на плоскости в аффи…</div>
-  <h2 id="chapter-5" data-toc=". Прямые на плоскости в аффи…">Раздел 4. Прямые на плоскости в аффинной геометрии</h2>
-  <h3 id="sub-38" data-toc="1. Общие принципы задания ли…">4.1. Общие принципы задания линий уравнениями</h3>
-
-      <div class="statement definition" id="def-9">
-  <div class="block-label">Определение 9</div>
-  <h3 id="sub-39" data-toc="Соглашения курса (Уравнение …">Соглашения курса (Уравнение геометрического места точек)</h3>
+  <div class="chapter-kicker">05 / . Прямые на плоскости в аффинн…</div>
+  <h2 id="chapter-5" data-toc=". Прямые на плоскости в аффинн…">Раздел 4. Прямые на плоскости в аффинной геометрии</h2>
   
-        
+<h3 data-toc="1. Общие принципы задания лини…" id="sec-4-1">4.1. Общие принципы задания линий уравнениями</h3>
+<div class="statement definition" id="def-9"><div class="block-label">Соглашения курса (Уравнение геометрического места точек)</div><h3 data-toc="Определение 9" id="sub-5-2">Определение 9</h3><div>
+
         Будем говорить, что линия $L$ на плоскости задаётся алгебраическим уравнением $F(x, y) = 0$, если выполнены два критерия:
         <ol>
-          <li>Координаты любой точки $P(x_0, y_0) \in L$ обращают уравнение в верное тождество: $F(x_0, y_0) = 0$;</li>
-          <li>Координаты любой точки $Q(x_1, y_1) \notin L$ уравнению не удовлетворяют: $F(x_1, y_1) \neq 0$.</li>
-        </ol>
-      
-</div>
+<li>Координаты любой точки $P(x_0, y_0) \in L$ обращают уравнение в верное тождество: $F(x_0, y_0) = 0$;</li>
+<li>Координаты любой точки $Q(x_1, y_1) \notin L$ уравнению не удовлетворяют: $F(x_1, y_1) \neq 0$.</li>
+</ol>
+</div></div>
+<h3 data-toc="2. Векторно-параметрическое и …" id="sec-4-2">4.2. Векторно-параметрическое и параметрические уравнения прямой</h3>
+<div class="statement definition" id="def-10"><div class="block-label">Определение (Направляющий вектор прямой)</div><h3 data-toc="Определение 10" id="sub-5-4">Определение 10</h3><div>
 
-      <h3 id="sub-40" data-toc="2. Векторно-параметрическое …">4.2. Векторно-параметрическое и параметрические уравнения прямой</h3>
-
-      <div class="statement definition" id="def-10">
-  <div class="block-label">Определение 10</div>
-  <h3 id="sub-41" data-toc="Определение (Направляющий ве…">Определение (Направляющий вектор прямой)</h3>
-  
-        
         Любой ненулевой вектор $\vec{a} \neq \vec{0}$, параллельный данной прямой, называется её <strong>направляющим вектором</strong>.
-      
+      </div></div>
+<!-- РИСУНОК 6: Векторно-параметрическое уравнение прямой -->
+<figure>
+<div class="svg-container">
+<svg height="230" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 560 230" width="560">
+<!-- Оси координат -->
+<line marker-end="url(#arr-slate)" stroke="var(--svg-slate)" stroke-width="1.8" x1="50" x2="510" y1="180" y2="180"></line>
+<text fill="var(--svg-slate)" font-weight="bold" x="515" y="185">X</text>
+<line marker-end="url(#arr-slate)" stroke="var(--svg-slate)" stroke-width="1.8" x1="100" x2="100" y1="210" y2="20"></line>
+<text fill="var(--svg-slate)" font-weight="bold" x="90" y="18">Y</text>
+<!-- Прямая L -->
+<line stroke="var(--svg-text)" stroke-width="2.5" x1="40" x2="490" y1="150" y2="40"></line>
+<text fill="var(--svg-text)" font-weight="bold" x="495" y="45">L</text>
+<!-- Начальная точка M0 и радиус-вектор r0 -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-red)" stroke-width="2.8" x1="100" x2="200" y1="180" y2="111"></line>
+<text fill="var(--svg-red)" font-size="14" font-weight="bold" x="135" y="140">r₀</text>
+<circle cx="200" cy="111" fill="var(--svg-red)" r="4.5"></circle>
+<text fill="var(--svg-red)" font-weight="bold" x="195" y="98">M₀</text>
+<!-- Направляющий вектор a на прямой -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="3.5" x1="200" x2="310" y1="111" y2="84"></line>
+<text fill="var(--svg-blue)" font-size="14" font-weight="bold" x="250" y="90">t·a</text>
+<!-- Текущая точка M и радиус-вектор r -->
+<line marker-end="url(#arr-blue)" stroke="var(--svg-green)" stroke-width="2.5" x1="100" x2="380" y1="180" y2="67"></line>
+<text fill="var(--svg-green)" font-size="14" font-weight="bold" x="255" y="145">r = r₀ + t·a</text>
+<circle cx="380" cy="67" fill="var(--svg-green)" r="4.5"></circle>
+<text fill="var(--svg-green)" font-weight="bold" x="385" y="60">M</text>
+<circle cx="100" cy="180" fill="var(--svg-text)" r="4"></circle>
+<text fill="var(--svg-text)" font-weight="bold" x="85" y="195">O</text>
+</svg>
 </div>
-
-      <!-- РИСУНОК 6: Векторно-параметрическое уравнение прямой -->
-      <figure>
-        <div class="svg-container">
-          <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg width="560" height="230" viewBox="0 0 560 230">
-            <!-- Оси координат -->
-            <line x1="50" y1="180" x2="510" y2="180" stroke="var(--svg-slate)" stroke-width="1.8" marker-end="url(#arr-slate)"/>
-            <text x="515" y="185" fill="var(--svg-slate)" font-weight="bold">X</text>
-            <line x1="100" y1="210" x2="100" y2="20" stroke="var(--svg-slate)" stroke-width="1.8" marker-end="url(#arr-slate)"/>
-            <text x="90" y="18" fill="var(--svg-slate)" font-weight="bold">Y</text>
-
-            <!-- Прямая L -->
-            <line x1="40" y1="150" x2="490" y2="40" stroke="var(--svg-text)" stroke-width="2.5"/>
-            <text x="495" y="45" fill="var(--svg-text)" font-weight="bold">L</text>
-
-            <!-- Начальная точка M0 и радиус-вектор r0 -->
-            <line x1="100" y1="180" x2="200" y2="111" stroke="var(--svg-red)" stroke-width="2.8" marker-end="url(#arr-blue)"/>
-            <text x="135" y="140" fill="var(--svg-red)" font-weight="bold" font-size="14">r₀</text>
-            <circle cx="200" cy="111" r="4.5" fill="var(--svg-red)"/>
-            <text x="195" y="98" fill="var(--svg-red)" font-weight="bold">M₀</text>
-
-            <!-- Направляющий вектор a на прямой -->
-            <line x1="200" y1="111" x2="310" y2="84" stroke="var(--svg-blue)" stroke-width="3.5" marker-end="url(#arr-blue)"/>
-            <text x="250" y="90" fill="var(--svg-blue)" font-weight="bold" font-size="14">t·a</text>
-
-            <!-- Текущая точка M и радиус-вектор r -->
-            <line x1="100" y1="180" x2="380" y2="67" stroke="var(--svg-green)" stroke-width="2.5" marker-end="url(#arr-blue)"/>
-            <text x="255" y="145" fill="var(--svg-green)" font-weight="bold" font-size="14">r = r₀ + t·a</text>
-            <circle cx="380" cy="67" r="4.5" fill="var(--svg-green)"/>
-            <text x="385" y="60" fill="var(--svg-green)" font-weight="bold">M</text>
-
-            <circle cx="100" cy="180" r="4" fill="var(--svg-text)"/>
-            <text x="85" y="195" fill="var(--svg-text)" font-weight="bold">O</text>
-          </svg></div>
-        </div>
-        <figcaption>Рис. 6. Векторно-параметрическое уравнение прямой: радиус-вектор $\vec{r} = \vec{r}_0 + t\vec{a}$.</figcaption>
-      </figure>
-
-      <div class="statement theorem" id="thm-15">
-  <div class="block-label">Утверждение 15</div>
-  <h3 id="sub-42" data-toc="Уравнения прямой на плоскости">Уравнения прямой на плоскости</h3>
-  
-        
-        <ol>
-          <li><strong>Векторно-параметрическое уравнение:</strong>
-            $$\vec{r} = \vec{r}_0 + t\vec{a}, \quad t \in \mathbb{R} \quad (1)$$
+<figcaption>Рис. 6. Векторно-параметрическое уравнение прямой: радиус-вектор $\vec{r} = \vec{r}_0 + t\vec{a}$.</figcaption>
+</figure>
+<div class="statement theorem" id="thm-15"><div class="block-label">Уравнения прямой на плоскости</div><h3 data-toc="Теорема 15" id="sub-5-5">Теорема 15</h3><div>
+<ol>
+<li><strong>Векторно-параметрическое уравнение:</strong>
+            \[\vec{r} = \vec{r}_0 + t\vec{a}, \quad t \in \mathbb{R} \quad (1)\]
           </li>
-          <li><strong>Параметрические уравнения в координатах:</strong> полагая $\vec{r} = (x, y)$, $\vec{r}_0 = (x_0, y_0)$, $\vec{a} = (a_1, a_2)$:
-            $$\begin{cases} x = x_0 + a_1 t \\ y = y_0 + a_2 t \end{cases}, \quad t \in \mathbb{R} \quad (2)$$
+<li><strong>Параметрические уравнения в координатах:</strong> полагая $\vec{r} = (x, y)$, $\vec{r}_0 = (x_0, y_0)$, $\vec{a} = (a_1, a_2)$:
+            \[\begin{cases} x = x_0 + a_1 t \\ y = y_0 + a_2 t \end{cases}, \quad t \in \mathbb{R} \quad (2)\]
           </li>
-          <li><strong>Каноническое уравнение:</strong> исключая скалярный параметр $t$:
-            $$\frac{x - x_0}{a_1} = \frac{y - y_0}{a_2}$$
+<li><strong>Каноническое уравнение:</strong> исключая скалярный параметр $t$:
+            \[\frac{x - x_0}{a_1} = \frac{y - y_0}{a_2}\]
           </li>
-        </ol>
-      
-</div>
+</ol>
+</div></div>
+<h3 data-toc="3. Уравнение с угловым коэффиц…" id="sec-4-3">4.3. Уравнение с угловым коэффициентом и анализ особых случаев</h3>
+<div class="statement theorem" id="thm-16"><div class="block-label">Вывод уравнения с угловым коэффициентом («Школьное уравнение»)</div><h3 data-toc="Теорема 16" id="sub-5-7">Теорема 16</h3><div>
 
-      <h3 id="sub-43" data-toc="3. Уравнение с угловым коэфф…">4.3. Уравнение с угловым коэффициентом и анализ особых случаев</h3>
-
-      <div class="statement theorem" id="thm-16">
-  <div class="block-label">Утверждение 16</div>
-  <h3 id="sub-44" data-toc="Вывод уравнения с угловым ко…">Вывод уравнения с угловым коэффициентом («Школьное уравнение»)</h3>
-  
-        
         Пусть $a_1 \neq 0$ (вектор $\vec{a}$ не параллелен оси ординат $Oy$). Выразим параметр $t$ из первого уравнения системы (2):
-        $$t = \frac{x - x_0}{a_1}$$
+        \[t = \frac{x - x_0}{a_1}\]
         Подставим полученное выражение во второе уравнение системы:
-        $$y = y_0 + a_2\left(\frac{x - x_0}{a_1}\right) = \frac{a_2}{a_1}x + \left(y_0 - \frac{a_2}{a_1}x_0\right)$$
+        \[y = y_0 + a_2\left(\frac{x - x_0}{a_1}\right) = \frac{a_2}{a_1}x + \left(y_0 - \frac{a_2}{a_1}x_0\right)\]
         Введём стандартные обозначения:
-        $$k = \frac{a_2}{a_1}, \quad b = y_0 - \frac{a_2}{a_1}x_0$$
+        \[k = \frac{a_2}{a_1}, \quad b = y_0 - \frac{a_2}{a_1}x_0\]
         Получаем классическое уравнение с угловым коэффициентом:
-        $$y = kx + b \quad (3)$$
+        \[y = kx + b \quad (3)\]
         где:
         <ul>
-          <li>$k = \mathrm{tg}\,\varphi$ — <strong>угловой коэффициент</strong> (тангенс угла наклона направляющего вектора к положительному направлению оси $Ox$);</li>
-          <li>$b$ — <strong>начальная ордината</strong> (ордината точки пересечения прямой с осью ординат $Oy$, то есть точка $(0, b)$).</li>
-        </ul>
-      
-</div>
-
-      <aside class="note">
-        <strong>Исследование особых случаев (Вертикальные прямые).</strong> 
+<li>$k = \mathrm{tg}\,\varphi$ — <strong>угловой коэффициент</strong> (тангенс угла наклона направляющего вектора к положительному направлению оси $Ox$);</li>
+<li>$b$ — <strong>начальная ордината</strong> (ордината точки пересечения прямой с осью ординат $Oy$, то есть точка $(0, b)$).</li>
+</ul>
+</div></div>
+<aside class="note">
+<span class="block-label">Исследование особых случаев (Вертикальные прямые)</span>
         Если $a_1 = 0$, то направляющий вектор параллелен оси ординат: $\vec{a} \parallel \vec{e}_2$. В этом случае разделить на $a_1$ нельзя, и уравнение в форме (3) <strong>не существует</strong> (угловой коэффициент обращается в бесконечность).
-        <br><br>
+        <br/><br/>
         Из первого параметрического уравнения сразу следует:
-        $$x = x_0 = \mathrm{const}$$
+        \[x = x_0 = \mathrm{const}\]
         Таким образом, уравнение $y = kx + b$ способно описать <em>любую прямую на плоскости, кроме вертикальных прямых</em>, параллельных оси ординат. 
         Случай $a_1 = a_2 = 0$ невозможен, так как направляющий вектор обязан быть ненулевым по определению ($\vec{a} \neq \vec{0}$).
       </aside>
-    </section>
 
-    <!-- РАЗДЕЛ 5 -->
-    <section id="part-5">
+<!-- РАЗДЕЛ 5 -->
+<section id="part-5">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-6">
-  <div class="chapter-kicker">06 / . Практикум: разбор типовых …</div>
-  <h2 id="chapter-6" data-toc=". Практикум: разбор типовых …">Раздел 5. Практикум: разбор типовых задач повышенной сложности</h2>
-  <div class="worked-example" id="ex-1">
-  <div class="block-label">Пример 1</div>
-  <h3 id="sub-45" data-toc="Задача 1. Вычисление площади…">Задача 1. Вычисление площади, объёма и высоты пирамиды</h3>
+  <div class="chapter-kicker">06 / . Практикум: разбор типовых за…</div>
+  <h2 id="chapter-6" data-toc=". Практикум: разбор типовых за…">Раздел 5. Практикум: разбор типовых задач повышенной сложности</h2>
   
-        
-        <strong>Условие:</strong> В правом ОНБ заданы четыре вершины пирамиды: $S(2, 3, 5)$, $A(1, 1, 2)$, $B(3, 2, 1)$, $C(2, 4, 3)$. 
+<div class="worked-example" id="ex-1"><div class="block-label">Задача 1. Вычисление площади, объёма и высоты пирамиды</div><h3 data-toc="Пример 1" id="sub-6-1">Пример 1</h3><div>
+<strong>Условие:</strong> В правом ОНБ заданы четыре вершины пирамиды: $S(2, 3, 5)$, $A(1, 1, 2)$, $B(3, 2, 1)$, $C(2, 4, 3)$. 
         Найти: 1) площадь основания $\triangle ABC$; 2) объём пирамиды $SABC$; 3) высоту пирамиды, опущенную из вершины $S$ на грань $ABC$.
-        <br><br>
-        <strong>Решение:</strong><br>
+        <br/><br/>
+<strong>Решение:</strong><br/>
         1) Составим векторы рёбер основания:
-        $$\vec{AB} = (3 - 1, \, 2 - 1, \, 1 - 2) = (2, 1, -1)$$
-        $$\vec{AC} = (2 - 1, \, 4 - 1, \, 3 - 2) = (1, 3, 1)$$
+        \[\vec{AB} = (3 - 1, \, 2 - 1, \, 1 - 2) = (2, 1, -1)\]
+        \[\vec{AC} = (2 - 1, \, 4 - 1, \, 3 - 2) = (1, 3, 1)\]
         Вычислим векторное произведение $[\vec{AB}, \vec{AC}]$:
-        $$[\vec{AB}, \vec{AC}] = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ 2 & 1 & -1 \\ 1 & 3 & 1 \end{vmatrix} = \vec{i}(1 - (-3)) - \vec{j}(2 - (-1)) + \vec{k}(6 - 1) = 4\vec{i} - 3\vec{j} + 5\vec{k}$$
+        \[[\vec{AB}, \vec{AC}] = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ 2 & 1 & -1 \\ 1 & 3 & 1 \end{vmatrix} = \vec{i}(1 - (-3)) - \vec{j}(2 - (-1)) + \vec{k}(6 - 1) = 4\vec{i} - 3\vec{j} + 5\vec{k}\]
         Площадь основания $\triangle ABC$:
-        $$S_{\triangle} = \frac{1}{2}|[\vec{AB}, \vec{AC}]| = \frac{1}{2}\sqrt{4^2 + (-3)^2 + 5^2} = \frac{1}{2}\sqrt{16 + 9 + 25} = \frac{\sqrt{50}}{2} = \frac{5\sqrt{2}}{2}$$
+        \[S_{\triangle} = \frac{1}{2}|[\vec{AB}, \vec{AC}]| = \frac{1}{2}\sqrt{4^2 + (-3)^2 + 5^2} = \frac{1}{2}\sqrt{16 + 9 + 25} = \frac{\sqrt{50}}{2} = \frac{5\sqrt{2}}{2}\]
         2) Найдём вектор бокового ребра $\vec{AS}$:
-        $$\vec{AS} = (2 - 1, \, 3 - 1, \, 5 - 2) = (1, 2, 3)$$
+        \[\vec{AS} = (2 - 1, \, 3 - 1, \, 5 - 2) = (1, 2, 3)\]
         Смешанное произведение $\langle\vec{AB}, \vec{AC}, \vec{AS}\rangle$:
-        $$\langle\vec{AB}, \vec{AC}, \vec{AS}\rangle = ([\vec{AB}, \vec{AC}], \vec{AS}) = 4 \cdot 1 + (-3) \cdot 2 + 5 \cdot 3 = 4 - 6 + 15 = 13$$
+        \[\langle\vec{AB}, \vec{AC}, \vec{AS}\rangle = ([\vec{AB}, \vec{AC}], \vec{AS}) = 4 \cdot 1 + (-3) \cdot 2 + 5 \cdot 3 = 4 - 6 + 15 = 13\]
         Объём пирамиды равен одной шестой модуля смешанного произведения:
-        $$V = \frac{1}{6}|\langle\vec{AB}, \vec{AC}, \vec{AS}\rangle| = \frac{13}{6}$$
+        \[V = \frac{1}{6}|\langle\vec{AB}, \vec{AC}, \vec{AS}\rangle| = \frac{13}{6}\]
         3) Высоту $H_S$ найдём из классической геометрической формулы $V = \frac{1}{3} S_{\text{осн}} H_S$:
-        $$H_S = \frac{3V}{S_{\text{осн}}} = \frac{3 \cdot \frac{13}{6}}{\frac{5\sqrt{2}}{2}} = \frac{\frac{13}{2}}{\frac{5\sqrt{2}}{2}} = \frac{13}{5\sqrt{2}} = \frac{13\sqrt{2}}{10}$$
+        \[H_S = \frac{3V}{S_{\text{осн}}} = \frac{3 \cdot \frac{13}{6}}{\frac{5\sqrt{2}}{2}} = \frac{\frac{13}{2}}{\frac{5\sqrt{2}}{2}} = \frac{13}{5\sqrt{2}} = \frac{13\sqrt{2}}{10}\]
         <strong>Ответ:</strong> $S_{\triangle} = \frac{5\sqrt{2}}{2}$, $V = \frac{13}{6}$, $H_S = \frac{13\sqrt{2}}{10}$.
-      
-</div>
-
-      <div class="worked-example" id="ex-2">
-  <div class="block-label">Пример 2</div>
-  <h3 id="sub-46" data-toc="Задача 2. Внешнее деление от…">Задача 2. Внешнее деление отрезка</h3>
-  
-        
-        <strong>Условие:</strong> Отрезок задан концами $A(1, -2)$ и $B(4, 4)$. Найти координаты точки $M$, делящей отрезок $AB$ внешним образом в отношении $k = -2$.
-        <br><br>
-        <strong>Решение:</strong><br>
+      </div></div>
+<div class="worked-example" id="ex-2"><div class="block-label">Задача 2. Внешнее деление отрезка</div><h3 data-toc="Пример 2" id="sub-6-2">Пример 2</h3><div>
+<strong>Условие:</strong> Отрезок задан концами $A(1, -2)$ и $B(4, 4)$. Найти координаты точки $M$, делящей отрезок $AB$ внешним образом в отношении $k = -2$.
+        <br/><br/>
+<strong>Решение:</strong><br/>
         Отношение $k = \frac{\lambda}{\mu} = -2 \implies \lambda = -2, \mu = 1$. Применяем формулы деления отрезка:
-        $$x = \frac{\mu x_1 + \lambda x_2}{\mu + \lambda} = \frac{1 \cdot 1 + (-2) \cdot 4}{1 + (-2)} = \frac{1 - 8}{-1} = \frac{-7}{-1} = 7$$
-        $$y = \frac{\mu y_1 + \lambda y_2}{\mu + \lambda} = \frac{1 \cdot (-2) + (-2) \cdot 4}{1 + (-2)} = \frac{-2 - 8}{-1} = \frac{-10}{-1} = 10$$
+        \[x = \frac{\mu x_1 + \lambda x_2}{\mu + \lambda} = \frac{1 \cdot 1 + (-2) \cdot 4}{1 + (-2)} = \frac{1 - 8}{-1} = \frac{-7}{-1} = 7\]
+        \[y = \frac{\mu y_1 + \lambda y_2}{\mu + \lambda} = \frac{1 \cdot (-2) + (-2) \cdot 4}{1 + (-2)} = \frac{-2 - 8}{-1} = \frac{-10}{-1} = 10\]
         <em>Геометрическая проверка:</em> $\vec{AM} = (7 - 1, 10 - (-2)) = (6, 12)$, а $\vec{MB} = (4 - 7, 4 - 10) = (-3, -6)$. Очевидно, что $\vec{AM} = -2\vec{MB}$. Тождество выполняется.
-        <br>
-        <strong>Ответ:</strong> $M(7, 10)$.
-      
-</div>
-    </section>
+        <br/>
+<strong>Ответ:</strong> $M(7, 10)$.
+      </div></div>
 
-    
-  </div>
+
+
 </section>
 <!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>

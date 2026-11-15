@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Простые числа и основная теорема арифметики. Конспект FAM ФПМ НИУ ВШЭ.">
+  <meta name="description" content="ФПМ НИУ ВШЭ · Полный академический лекционный конспект">
   <title>Простые числа и основная теорема арифметики — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
@@ -183,8 +183,13 @@ html[data-theme] ::selection{background:var(--gold);color:var(--paper)}
 .themed-figure [data-figure-theme="light"]{display:block}
 html[data-theme="dark"] .themed-figure [data-figure-theme],html[data-theme="parchment"] .themed-figure [data-figure-theme]{display:none}
 html[data-theme="dark"] .themed-figure [data-figure-theme="dark"],html[data-theme="parchment"] .themed-figure [data-figure-theme="parchment"]{display:block}
-/* One neutral/light asset may remain on its own light plate in every theme. Never invert mathematical colours. */
-.figure-plate{background:#fff;color:#202e29;padding:16px;border:1px solid var(--rule)}
+.figure-plate{background:var(--bg-card);color:var(--ink);padding:20px;border:1px solid var(--rule);border-radius:8px;margin:32px 0}
+html[data-theme="light"] .figure-plate{background:#ffffff}
+html[data-theme="dark"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+html[data-theme="parchment"] .figure-plate{background:var(--bg-card);color:var(--ink)}
+@media print{
+ .figure-plate{background:white!important;border:0!important;padding:0!important}
+}
 @media(max-width:760px){.topbar{height:auto;min-height:70px;flex-wrap:wrap;padding:12px 18px;gap:10px}.top-actions{gap:8px;flex-wrap:wrap}.theme-control select{font-size:10px;max-width:103px;padding:8px 4px}.pdf-button{padding:6px 8px}.pdf-button span{margin-left:4px}.wordmark{font-size:24px}}
 @media(max-width:400px){.wordmark{display:none}.top-actions{width:100%;justify-content:space-between}}
 @media print{
@@ -440,961 +445,786 @@ SOFTWARE.
     </aside>
     <main id="content">
       <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
-  <div class="lecture-meta"><span class="subject">Алгебра</span><span>ФПМ НИУ ВШЭ</span></div>
-  <h1>Простые числа и основная теорема арифметики</h1>
-  <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-  <div class="lecture-abstract">
-    <p>ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-    <div class="abstract-formula" aria-label="Ключевое выражение лекции">\[b = a \cdot c\]</div>
-  </div>
-</header>
-<div class="proof-toolbar" aria-label="Все доказательства">
-  <span class="toolbar-label">Доказательства</span>
-  <div class="segmented" role="group" aria-label="Режим всех доказательств">
-    <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
-    <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
-    <button data-all-proofs="full" aria-pressed="false">Полностью</button>
-  </div>
-  <span id="proof-state" class="proof-state" aria-live="polite"></span>
-</div>
-<noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
-<p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
-
+      <header class="lecture-head" id="top">
+        <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
+        <h1>Простые числа и основная теорема арифметики</h1>
+        <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
+        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[b = a \cdot c\]</div></div>
+      </header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
 <section class="chapter" aria-labelledby="chapter-1">
   <div class="chapter-kicker">01 / Введение</div>
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <header class="lecture-monument">
-        <div class="monument-kicker">
-          <span>✦ Алгебра</span>
-          <span style="opacity: 0.4;">/</span>
-          <span>ЛЕКЦИЯ №Лекция 07 ✦</span>
-        </div>
-
-        <h1 id="article-title">ПРОСТЫЕ ЧИСЛА И <span class="gold-phrase">ОСНОВНАЯ ТЕОРЕМА АРИФМЕТИКИ</span></h1>
-        <p class="monument-lead" id="article-lead">Наименьший простой делитель и оценка p <= sqrt(n), лемма Евклида о делении произведения, полное индуктивное доказательство существования и единственности канонического разложения ОТА, теорема Евклида о бесконечности простых чисел и мультипликативные функции тау и сигма.</p>
-
-        <div class="monument-clean-meta">
-          <span class="clean-pill">Алгебра</span>
-          <span>•</span>
-          <span>30 сентября 2026</span>
-        </div>
-      </header>
-
-      <!-- 
+<div class="monument-kicker">
+<span>✦ Алгебра</span>
+<span style="opacity: 0.4;">/</span>
+<span>ЛЕКЦИЯ №Лекция 07 ✦</span>
+</div>
+<h1 id="article-title">ПРОСТЫЕ ЧИСЛА И <span class="gold-phrase">ОСНОВНАЯ ТЕОРЕМА АРИФМЕТИКИ</span></h1>
+<p class="monument-lead" id="article-lead">Наименьший простой делитель и оценка p &lt;= sqrt(n), лемма Евклида о делении произведения, полное индуктивное доказательство существования и единственности канонического разложения ОТА, теорема Евклида о бесконечности простых чисел и мультипликативные функции тау и сигма.</p>
+<div class="monument-clean-meta">
+<span class="clean-pill">Алгебра</span>
+<span>•</span>
+<span>30 сентября 2026</span>
+</div>
+</header>
+<!-- 
         =============================================================================
         СЮДА НЕЙРОСЕТЬ ВСТАВЛЯЕТ СОДЕРЖИМОЕ КОНСПЕКТА (ARTICLE CONTENT)
         =============================================================================
       -->
-      <article class="content-area" id="lectureContent">
-
-        
-    
-    <!-- Шапка конспекта -->
-    
-
-    <!-- ПЕЧАТНОЕ ОГЛАВЛЕНИЕ (АКТИВНО И КЛИКАБЕЛЬНО В PDF) -->
-    
-
-    <!-- ========================================================================
+<article class="content-area" id="lectureContent">
+<!-- Шапка конспекта -->
+<!-- ПЕЧАТНОЕ ОГЛАВЛЕНИЕ (АКТИВНО И КЛИКАБЕЛЬНО В PDF) -->
+<!-- ========================================================================
          РАЗДЕЛ 1: БАЗОВЫЙ АППАРАТ ДЕЛИМОСТИ
          ======================================================================== -->
-    <section id="sec-div">
+<section id="sec-div">
 </section>
-
 <section class="chapter" aria-labelledby="chapter-2">
-  <div class="chapter-kicker">02 / Базовый аппарат теории делим…</div>
-  <h2 id="chapter-2" data-toc="Базовый аппарат теории делим…">1. Базовый аппарат теории делимости в кольце $\mathbb{Z}$</h2>
-  <p><span class="drop-cap">Т</span>        Теория чисел и высшая алгебра опираются на аксиоматическое строение кольца целых чисел $\mathbb{Z}$. Прежде чем переходить к кратным и простым числам, зафиксируем фундаментальные соотношения делимости (по А. Г. Курошу и А. И. Кострикину).
-      </p>
-
-      <div class="statement definition" id="def-1">
-  <div class="block-label">Определение 1</div>
-  <h3 id="sub-1" data-toc="Определение 1.1 (Отношение д…">Определение 1.1 (Отношение делимости)</h3>
+  <div class="chapter-kicker">02 / Базовый аппарат теории делимос…</div>
+  <h2 id="chapter-2" data-toc="Базовый аппарат теории делимос…">1. Базовый аппарат теории делимости в кольце $\mathbb{Z}$</h2>
   
-        
-          <span class="callout-badge">Определение</span>
-        
-</div>
-        <p>
+<p><span class="drop-cap">Т</span>        Теория чисел и высшая алгебра опираются на аксиоматическое строение кольца целых чисел $\mathbb{Z}$. Прежде чем переходить к кратным и простым числам, зафиксируем фундаментальные соотношения делимости (по А. Г. Курошу и А. И. Кострикину).
+      </p>
+<div class="statement definition" id="def-1"><div class="block-label">Определение 1</div><h3 data-toc="Определение 1.1 (Отношение дел…" id="sub-2-1">Определение 1.1 (Отношение делимости)Определение</h3><div>
+<p>
           Пусть $a, b \in \mathbb{Z}$. Говорят, что число <strong>$a$ делит $b$</strong> (или <em>$b$ кратно $a$</em>, обозначается $a \mid b$), если существует такое целое число $c \in \mathbb{Z}$, что:
         </p>
-        <div class="math-display">
-          $$b = a \cdot c$$
+<div class="math-display">
+          \[b = a \cdot c\]
         </div>
-        <p>Если такого целого $c$ не существует, пишут $a \nmid b$.</p>
-      </div>
-
-      <div class="callout callout-prop">
-        <div class="callout-header">
-          <span class="callout-title">Свойства делимости в $\mathbb{Z}$</span>
-          <span class="callout-badge">Свойства</span>
-        </div>
-        <ol>
-          <li><strong>Рефлексивность:</strong> $\forall a \in \mathbb{Z} \setminus \{0\} : a \mid a$ (так как $a = a \cdot 1$).</li>
-          <li><strong>Транзитивность:</strong> Если $a \mid b$ и $b \mid c$, то $a \mid c$. Действительно, $b = ak_1, c = bk_2 \implies c = a(k_1 k_2)$.</li>
-          <li><strong>Линейность (сохранение линейных комбинаций):</strong> Если $a \mid b$ и $a \mid c$, то для любых $x, y \in \mathbb{Z}$ выполняется $a \mid (xb + yc)$. Действительно, $xb + yc = x(ak_1) + y(ak_2) = a(xk_1 + yk_2)$.</li>
-          <li><strong>Антисимметричность с точностью до знака:</strong> Если $a \mid b$ и $b \mid a$, то $a = \pm b$. Для натуральных чисел $a, b \in \mathbb{N}$ отсюда следует строгое равенство $a = b$.</li>
-          <li><strong>Делимость нуля:</strong> Любое число $a \in \mathbb{Z} \setminus \{0\}$ делит ноль ($0 = a \cdot 0$). При этом $0 \mid a$ возможно тогда и только тогда, когда $a = 0$.</li>
-          <li><strong>Ограничение абсолютной величины:</strong> Если $a \mid b$ и $b \neq 0$, то $|a| \le |b|$.</li>
-        </ol>
-      </div>
-
-      <div class="statement theorem featured" id="thm-1">
-  <div class="block-label">Утверждение 1</div>
-  <h3 id="sub-2" data-toc="Теорема 1.1 (О делении с ост…">Теорема 1.1 (О делении с остатком в $\mathbb{Z}$)</h3>
-  
-        
-          <span class="callout-badge">Теорема</span>
-        
+<p>Если такого целого $c$ не существует, пишут $a \nmid b$.</p>
+</div></div>
+<div class="callout callout-prop">
+<div class="callout-header">
+<span class="callout-title">Свойства делимости в $\mathbb{Z}$</span>
+<span class="callout-badge">Свойства</span>
 </div>
-        <p>
+<ol>
+<li><strong>Рефлексивность:</strong> $\forall a \in \mathbb{Z} \setminus \{0\} : a \mid a$ (так как $a = a \cdot 1$).</li>
+<li><strong>Транзитивность:</strong> Если $a \mid b$ и $b \mid c$, то $a \mid c$. Действительно, $b = ak_1, c = bk_2 \implies c = a(k_1 k_2)$.</li>
+<li><strong>Линейность (сохранение линейных комбинаций):</strong> Если $a \mid b$ и $a \mid c$, то для любых $x, y \in \mathbb{Z}$ выполняется $a \mid (xb + yc)$. Действительно, $xb + yc = x(ak_1) + y(ak_2) = a(xk_1 + yk_2)$.</li>
+<li><strong>Антисимметричность с точностью до знака:</strong> Если $a \mid b$ и $b \mid a$, то $a = \pm b$. Для натуральных чисел $a, b \in \mathbb{N}$ отсюда следует строгое равенство $a = b$.</li>
+<li><strong>Делимость нуля:</strong> Любое число $a \in \mathbb{Z} \setminus \{0\}$ делит ноль ($0 = a \cdot 0$). При этом $0 \mid a$ возможно тогда и только тогда, когда $a = 0$.</li>
+<li><strong>Ограничение абсолютной величины:</strong> Если $a \mid b$ и $b \neq 0$, то $|a| \le |b|$.</li>
+</ol>
+</div>
+<div class="statement theorem featured" id="thm-1"><div class="block-label">Утверждение 1</div><h3 data-toc="Теорема 1.1 (О делении с остат…" id="sub-2-2">Теорема 1.1 (О делении с остатком в $\mathbb{Z}$)Теорема</h3><div>
+<p>
           Для любого целого числа $a \in \mathbb{Z}$ и любого натурального делителя $b \in \mathbb{N}$ существует <strong>единственная пара</strong> целых чисел $q, r \in \mathbb{Z}$ (неполное частное и остаток), таких что:
         </p>
-        <div class="math-display">
-          $$a = bq + r, \quad \text{где } 0 \le r < b$$
+<div class="math-display">
+          \[a = bq + r, \quad \text{где } 0 \le r < b\]
         </div>
-      </div>
-
-      
-<div class="proof" id="proof-1" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-1" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>1. Существование:</strong> Рассмотрим множество неотрицательных чисел вида $a - bx$:</p>
-  </div>
-  <div class="proof-full" id="full-1" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
-<details open>
-          <summary>Доказательство теоремы о делении с остатком</summary>
-          <p>
-            <strong>1. Существование:</strong> Рассмотрим множество неотрицательных чисел вида $a - bx$:
-            $$R = \{ a - bx \mid x \in \mathbb{Z}, \, a - bx \ge 0 \}$$
+</div></div>
+<div class="proof" data-proof="" id="proof-1">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-1">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Строгое доказательство).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-1">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
+<details open="">
+<summary>Доказательство теоремы о делении с остатком</summary>
+<p>
+<strong>1. Существование:</strong> Рассмотрим множество неотрицательных чисел вида $a - bx$:
+            \[R = \{ a - bx \mid x \in \mathbb{Z}, \, a - bx \ge 0 \}\]
             Покажем, что множество $R$ не пусто. Если положить $x = -|a|$, то так как $b \ge 1$, имеем $a - b(-|a|) = a + b|a| \ge a + |a| \ge 0$. Следовательно, $R$ содержит неотрицательные целые числа и $R \neq \emptyset$.
             По <em>принципу наименьшего элемента</em> во множестве неотрицательных целых чисел существует минимальный элемент $r \in R$. Пусть он достигается при $x = q$, то есть $r = a - bq \ge 0$.
             Покажем от противного, что $r < b$. Если допустить, что $r \ge b$, то рассмотрим число $r' = r - b = a - b(q+1)$. Тогда $r' \ge 0$, откуда $r' \in R$. Но $r' = r - b < r$ (так как $b > 0$), что противоречит предположению о минимальности $r$ в $R$. Значит, $0 \le r < b$.
           </p>
-          <p>
-            <strong>2. Единственность:</strong> Предположим наличие двух таких представлений:
-            $$a = bq_1 + r_1 = bq_2 + r_2, \quad 0 \le r_1, r_2 < b$$
+<p>
+<strong>2. Единственность:</strong> Предположим наличие двух таких представлений:
+            \[a = bq_1 + r_1 = bq_2 + r_2, \quad 0 \le r_1, r_2 < b\]
             Вычитая одно равенство из другого, получаем:
-            $$b(q_1 - q_2) = r_2 - r_1$$
+            \[b(q_1 - q_2) = r_2 - r_1\]
             Отсюда следует, что разность $r_2 - r_1$ делится на $b$. Однако из неравенств $0 \le r_1 < b$ и $0 \le r_2 < b$ вытекает, что $-b < r_2 - r_1 < b$. Единственным числом в этом интервале, кратным $b$, является $0$.
             Следовательно, $r_2 - r_1 = 0 \implies r_1 = r_2$. Тогда $b(q_1 - q_2) = 0$, и поскольку $b \neq 0$, получаем $q_1 = q_2$. Пара $(q, r)$ единственна.
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
-
-
-      <div class="statement definition" id="def-2">
-  <div class="block-label">Определение 2</div>
-  <h3 id="sub-3" data-toc="Определение 1.2 (Наибольший …">Определение 1.2 (Наибольший общий делитель — НОД)</h3>
-  
-        
-          <span class="callout-badge">Определение</span>
-        
+<span class="qed">$\blacksquare$</span>
 </div>
-        <p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="statement definition" id="def-2"><div class="block-label">Определение 2</div><h3 data-toc="Определение 1.2 (Наибольший об…" id="sub-2-3">Определение 1.2 (Наибольший общий делитель — НОД)Определение</h3><div>
+<p>
           Пусть $a_1, a_2, \dots, a_n \in \mathbb{Z}$ — целые числа, хотя бы одно из которых отлично от нуля. Число $d \in \mathbb{N}$ называется <strong>наибольшим общим делителем</strong> (обозначается $(a_1, \dots, a_n)$ или $\mathrm{НОД}(a_1, \dots, a_n)$), если:
         </p>
-        <ol>
-          <li>$d$ является общим делителем: $d \mid a_i$ для всех $i = 1, 2, \dots, n$;</li>
-          <li>Любой общий делитель $c$ делит $d$: если $c \mid a_i$ для всех $i$, то $c \mid d$.</li>
-        </ol>
-      </div>
-    </section>
+<ol>
+<li>$d$ является общим делителем: $d \mid a_i$ для всех $i = 1, 2, \dots, n$;</li>
+<li>Любой общий делитель $c$ делит $d$: если $c \mid a_i$ для всех $i$, то $c \mid d$.</li>
+</ol>
+</div></div>
 
-    <!-- ========================================================================
+<!-- ========================================================================
          РАЗДЕЛ 2: НАИМЕНЬШЕЕ ОБЩЕЕ КРАТНОЕ
          ======================================================================== -->
-    <section id="sec-lcm">
+<section id="sec-lcm">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-3">
   <div class="chapter-kicker">03 / Наименьшее общее кратное (НОК)</div>
   <h2 id="chapter-3" data-toc="Наименьшее общее кратное (НОК)">2. Наименьшее общее кратное (НОК)</h2>
-  <p>
+  
+<p>
         Понятие наименьшего общего кратного является категорным и алгебраическим «двойником» наибольшего общего делителя, замыкая решётку делимости целых чисел.
       </p>
-
-      <div class="statement definition" id="def-3">
-  <div class="block-label">Определение 3</div>
-  <h3 id="sub-4" data-toc="Определение 2.1 (Наименьшее …">Определение 2.1 (Наименьшее общее кратное)</h3>
-  
-        
-          <span class="callout-badge">Определение</span>
-        
-</div>
-        <p>
+<div class="statement definition" id="def-3"><div class="block-label">Определение 3</div><h3 data-toc="Определение 2.1 (Наименьшее об…" id="sub-3-1">Определение 2.1 (Наименьшее общее кратное)Определение</h3><div>
+<p>
           Пусть $a_1, a_2, \dots, a_n \in \mathbb{Z} \setminus \{0\}$ — ненулевые целые числа. Натуральное число $m \in \mathbb{N}$ называется <strong>наименьшим общим кратным</strong> чисел $a_1, a_2, \dots, a_n$ (обозначается $[a_1, a_2, \dots, a_n]$ или $\mathrm{НОК}(a_1, a_2, \dots, a_n)$), если выполнены два фундаментальных условия:
         </p>
-        <ol>
-          <li><strong>Свойство общего кратного:</strong> число $m$ делится на каждое из чисел $a_i$, то есть:
-            $$a_1 \mid m, \quad a_2 \mid m, \quad \dots, \quad a_n \mid m$$
+<ol>
+<li><strong>Свойство общего кратного:</strong> число $m$ делится на каждое из чисел $a_i$, то есть:
+            \[a_1 \mid m, \quad a_2 \mid m, \quad \dots, \quad a_n \mid m\]
           </li>
-          <li><strong>Минимальность в смысле делимости:</strong> число $m$ делит любое число $t$, которое делится на все $a_i$:
-            $$\forall t \in \mathbb{Z} : (a_1 \mid t, \, a_2 \mid t, \, \dots, \, a_n \mid t) \implies m \mid t$$
+<li><strong>Минимальность в смысле делимости:</strong> число $m$ делит любое число $t$, которое делится на все $a_i$:
+            \[\forall t \in \mathbb{Z} : (a_1 \mid t, \, a_2 \mid t, \, \dots, \, a_n \mid t) \implies m \mid t\]
           </li>
-        </ol>
-        <p>
-          <em>Для двух чисел $a, b$:</em> положительное число $m \in \mathbb{N}$ есть $[a, b]$, если:
-          $$1) \; a \mid m, \; b \mid m; \qquad 2) \; \forall k \in \mathbb{Z} : (a \mid k \land b \mid k) \implies m \mid k$$
+</ol>
+<p>
+<em>Для двух чисел $a, b$:</em> положительное число $m \in \mathbb{N}$ есть $[a, b]$, если:
+          \[1) \; a \mid m, \; b \mid m; \qquad 2) \; \forall k \in \mathbb{Z} : (a \mid k \land b \mid k) \implies m \mid k\]
         </p>
-      </div>
-
-      <div class="statement theorem" id="thm-2">
-  <div class="block-label">Утверждение 2</div>
-  <h3 id="sub-5" data-toc="Теорема 2.1 (О существовании…">Теорема 2.1 (О существовании и единственности НОК)</h3>
-  
-        
-          <span class="callout-badge">Теорема</span>
-        
-</div>
-        <p>
+</div></div>
+<div class="statement theorem" id="thm-2"><div class="block-label">Утверждение 2</div><h3 data-toc="Теорема 2.1 (О существовании и…" id="sub-3-2">Теорема 2.1 (О существовании и единственности НОК)Теорема</h3><div>
+<p>
           Для любого конечного набора ненулевых целых чисел $a_1, a_2, \dots, a_n \in \mathbb{Z} \setminus \{0\}$ наименьшее общее кратное $[a_1, a_2, \dots, a_n]$ <strong>существует и единственно</strong>.
         </p>
-      </div>
-
-      
-<div class="proof" id="proof-2" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-2" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>Шаг 1: Существование общих кратных.</strong><br>
-            Рассмотрим множество всех положительных общих кратных чисел $a_1, \dots, a_n$:</p>
-  </div>
-  <div class="proof-full" id="full-2" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
-<details open>
-          <summary>Полное доказательство теоремы существования и единственности НОК</summary>
-          <p>
-            <strong>Шаг 1: Существование общих кратных.</strong><br>
+</div></div>
+<div class="proof" data-proof="" id="proof-3">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-3">
+<div class="proof-label">Идея</div>
+<p>Шаг 1: Существование общих кратных.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-3">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
+<details open="">
+<summary>Полное доказательство теоремы существования и единственности НОК</summary>
+<p>
+<strong>Шаг 1: Существование общих кратных.</strong><br/>
             Рассмотрим множество всех положительных общих кратных чисел $a_1, \dots, a_n$:
-            $$S = \{ s \in \mathbb{N} \mid a_1 \mid s, \, a_2 \mid s, \, \dots, \, a_n \mid s \} \subset \mathbb{N}$$
+            \[S = \{ s \in \mathbb{N} \mid a_1 \mid s, \, a_2 \mid s, \, \dots, \, a_n \mid s \} \subset \mathbb{N}\]
             Множество $S$ не пусто ($S \neq \emptyset$), поскольку произведение их модулей является общим кратным:
-            $$s_0 = |a_1 \cdot a_2 \cdots a_n| \in \mathbb{N}$$
+            \[s_0 = |a_1 \cdot a_2 \cdots a_n| \in \mathbb{N}\]
             Очевидно, каждое $a_i$ делит $s_0$, значит $s_0 \in S$.
           </p>
-          <p>
-            <strong>Шаг 2: Выбор наименьшего элемента и проверка делимости.</strong><br>
+<p>
+<strong>Шаг 2: Выбор наименьшего элемента и проверка делимости.</strong><br/>
             В силу аксиомы вполне упорядоченности натуральных чисел (любое непустое подмножество $\mathbb{N}$ содержит наименьший элемент), во множестве $S$ существует минимальный элемент:
-            $$m = \min(S) \in \mathbb{N}$$
-            По построению $m \in S$, следовательно, условие (1) выполнено: $a_1 \mid m, \dots, a_n \mid m$.<br>
+            \[m = \min(S) \in \mathbb{N}\]
+            По построению $m \in S$, следовательно, условие (1) выполнено: $a_1 \mid m, \dots, a_n \mid m$.<br/>
             Проверим условие (2). Пусть $t \in \mathbb{Z}$ — произвольное число, кратное всем $a_i$ ($a_1 \mid t, \dots, a_n \mid t$). Разделим $t$ на $m$ с остатком по Теореме 1.1:
-            $$t = m \cdot q + r, \quad \text{где } 0 \le r < m$$
+            \[t = m \cdot q + r, \quad \text{где } 0 \le r < m\]
             Выразим остаток: $r = t - mq$. Так как для каждого $i \in \{1, \dots, n\}$ число $a_i \mid t$ и $a_i \mid m$, то по свойству линейности делимости $a_i$ делит и их линейную комбинацию:
-            $$a_i \mid (t - mq) \implies a_i \mid r \quad \forall i = 1, \dots, n$$
-            Если предположить, что $r > 0$, то $r \in \mathbb{N}$ и $r$ является общим кратным всех $a_i$, а значит, $r \in S$. Но по условию деления с остатком $r < m$, что входит в прямое противоречие с тем, что $m$ — наименьший элемент множества $S$!<br>
+            \[a_i \mid (t - mq) \implies a_i \mid r \quad \forall i = 1, \dots, n\]
+            Если предположить, что $r > 0$, то $r \in \mathbb{N}$ и $r$ является общим кратным всех $a_i$, а значит, $r \in S$. Но по условию деления с остатком $r < m$, что входит в прямое противоречие с тем, что $m$ — наименьший элемент множества $S$!<br/>
             Полученное противоречие доказывает, что $r = 0$. Следовательно:
-            $$t = mq \implies m \mid t$$
+            \[t = mq \implies m \mid t\]
             Таким образом, число $m$ удовлетворяет всем условиям определения НОК. Существование доказано.
           </p>
-          <p>
-            <strong>Шаг 3: Единственность.</strong><br>
+<p>
+<strong>Шаг 3: Единственность.</strong><br/>
             Пусть $m_1, m_2 \in \mathbb{N}$ — два наименьших общих кратных одного и того же набора чисел.
             Поскольку $m_1$ является общим кратным, а $m_2$ — НОК, по условию (2) получаем $m_2 \mid m_1$.
             Симметрично, поскольку $m_2$ является общим кратным, а $m_1$ — НОК, получаем $m_1 \mid m_2$.
             Так как $m_1, m_2 \in \mathbb{N}$, из взаимной делимости $m_1 \mid m_2$ и $m_2 \mid m_1$ следует тождественное равенство:
-            $$m_1 = m_2$$
+            \[m_1 = m_2\]
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
-
-
-      <div class="statement theorem" id="thm-3">
-  <div class="block-label">Утверждение 3</div>
-  <h3 id="sub-6" data-toc="Теорема 2.2 (О фундаментальн…">Теорема 2.2 (О фундаментальной связи НОД и НОК двух чисел)</h3>
-  
-        
-          <span class="callout-badge">Теорема</span>
-        
+<span class="qed">$\blacksquare$</span>
 </div>
-        <p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="statement theorem" id="thm-3"><div class="block-label">Утверждение 3</div><h3 data-toc="Теорема 2.2 (О фундаментальной…" id="sub-3-3">Теорема 2.2 (О фундаментальной связи НОД и НОК двух чисел)Теорема</h3><div>
+<p>
           Для любых натуральных чисел $a, b \in \mathbb{N}$ произведение их наибольшего общего делителя и наименьшего общего кратного в точности равно произведению самих чисел:
         </p>
-        <div class="math-display">
-          $$a \cdot b = (a, b) \cdot [a, b]$$
+<div class="math-display">
+          \[a \cdot b = (a, b) \cdot [a, b]\]
         </div>
-      </div>
-
-      <!-- Иллюстрация связи НОД и НОК -->
-      <div class="svg-wrapper">
-        <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 600 240" width="600" height="240" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="gradA" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.35"/>
-              <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.2"/>
-            </linearGradient>
-            <linearGradient id="gradB" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#10b981" stop-opacity="0.35"/>
-              <stop offset="100%" stop-color="#047857" stop-opacity="0.2"/>
-            </linearGradient>
-            <linearGradient id="gradIntersection" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.6"/>
-              <stop offset="100%" stop-color="#6d28d9" stop-opacity="0.5"/>
-            </linearGradient>
-          </defs>
-          
-          <!-- Круги мульти-множеств простых сомножителей -->
-          <circle cx="230" cy="120" r="85" fill="url(#gradA)" stroke="#2563eb" stroke-width="2.5" />
-          <circle cx="370" cy="120" r="85" fill="url(#gradB)" stroke="#059669" stroke-width="2.5" />
-          
-          <!-- Пересечение (НОД) -->
-          <clipPath id="clipLeft">
-            <circle cx="230" cy="120" r="85" />
-          </clipPath>
-          <circle cx="370" cy="120" r="85" fill="url(#gradIntersection)" clip-path="url(#clipLeft)" />
-
-          <!-- Текстовые метки и формулы -->
-          <text x="180" y="125" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1e40af" text-anchor="middle">a / (a,b)</text>
-          <text x="420" y="125" font-family="sans-serif" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle">b / (a,b)</text>
-          <text x="300" y="115" font-family="sans-serif" font-size="14" font-weight="bold" fill="#4c1d95" text-anchor="middle">НОД (a, b)</text>
-          <text x="300" y="135" font-family="sans-serif" font-size="12" fill="#4c1d95" text-anchor="middle">p_i^{\min(\alpha_i, \beta_i)}</text>
-          
-          <!-- Поясняющие подписи -->
-          <text x="170" y="25" font-family="sans-serif" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">Число a</text>
-          <text x="430" y="25" font-family="sans-serif" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">Число b</text>
-          
-          <path d="M 150 215 L 450 215" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4" />
-          <text x="300" y="230" font-family="sans-serif" font-size="13" font-weight="bold" fill="#334155" text-anchor="middle">
+</div></div>
+<!-- Иллюстрация связи НОД и НОК -->
+<div class="svg-wrapper">
+<figure class="figure-plate"><svg height="240" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 600 240" width="600" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="gradA" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#3b82f6" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.2"></stop>
+</lineargradient>
+<lineargradient id="gradB" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#10b981" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#047857" stop-opacity="0.2"></stop>
+</lineargradient>
+<lineargradient id="gradIntersection" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.6"></stop>
+<stop offset="100%" stop-color="#6d28d9" stop-opacity="0.5"></stop>
+</lineargradient>
+</defs>
+<!-- Круги мульти-множеств простых сомножителей -->
+<circle cx="230" cy="120" fill="url(#gradA)" r="85" stroke="#2563eb" stroke-width="2.5"></circle>
+<circle cx="370" cy="120" fill="url(#gradB)" r="85" stroke="#059669" stroke-width="2.5"></circle>
+<!-- Пересечение (НОД) -->
+<clippath id="clipLeft">
+<circle cx="230" cy="120" r="85"></circle>
+</clippath>
+<circle clip-path="url(#clipLeft)" cx="370" cy="120" fill="url(#gradIntersection)" r="85"></circle>
+<!-- Текстовые метки и формулы -->
+<text fill="#1e40af" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" x="180" y="125">a / (a,b)</text>
+<text fill="#065f46" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" x="420" y="125">b / (a,b)</text>
+<text fill="#4c1d95" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" x="300" y="115">НОД (a, b)</text>
+<text fill="#4c1d95" font-family="sans-serif" font-size="12" text-anchor="middle" x="300" y="135">p_i^{\min(\alpha_i, \beta_i)}</text>
+<!-- Поясняющие подписи -->
+<text fill="#2563eb" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle" x="170" y="25">Число a</text>
+<text fill="#059669" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle" x="430" y="25">Число b</text>
+<path d="M 150 215 L 450 215" stroke="#64748b" stroke-dasharray="4" stroke-width="1.5"></path>
+<text fill="#334155" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle" x="300" y="230">
             Объединение (НОК): [a, b] = p_i^{\max(\alpha_i, \beta_i)}  ⟹  (a, b) · [a, b] = a · b
           </text>
-        </svg></div>
-        <span class="svg-caption">Рис. 2.1. Теоретико-множественная интерпретация связи НОД и НОК через мультимножества простых сомножителей</span>
-      </div>
-
-      
-<div class="proof" id="proof-3" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-3" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Обозначим $d = (a, b)$ и $m = [a, b]$. По определениям НОД и НОК частные $\frac{a}{d}$, $\frac{b}{d}$, $\frac{m}{a}$, $\frac{m}{b}$ являются целыми числами.<br>
-            Для завершения доказательства покажем взаимную делимость величин $ab$ и $md$.</p>
-  </div>
-  <div class="proof-full" id="full-3" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
-<details open>
-          <summary>Доказательство 1 (Классическое лекционное через отношение делимости)</summary>
-          <p>
-            Обозначим $d = (a, b)$ и $m = [a, b]$. По определениям НОД и НОК частные $\frac{a}{d}$, $\frac{b}{d}$, $\frac{m}{a}$, $\frac{m}{b}$ являются целыми числами.<br>
+</svg></figure>
+<span class="svg-caption">Рис. 2.1. Теоретико-множественная интерпретация связи НОД и НОК через мультимножества простых сомножителей</span>
+</div>
+<div class="proof" data-proof="" id="proof-5">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-5">
+<div class="proof-label">Идея</div>
+<p>Обозначим $d = (a, b)$ и $m = [a, b]$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-5">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
+<details open="">
+<summary>Доказательство 1 (Классическое лекционное через отношение делимости)</summary>
+<p>
+            Обозначим $d = (a, b)$ и $m = [a, b]$. По определениям НОД и НОК частные $\frac{a}{d}$, $\frac{b}{d}$, $\frac{m}{a}$, $\frac{m}{b}$ являются целыми числами.<br/>
             Для завершения доказательства покажем взаимную делимость величин $ab$ и $md$.
           </p>
-          <p>
-            <strong>Часть А: Докажем, что $md \mid ab$.</strong><br>
+<p>
+<strong>Часть А: Докажем, что $md \mid ab$.</strong><br/>
             Рассмотрим рациональное число $k = \frac{ab}{d}$. Перепишем его двумя способами:
-            $$k = \frac{ab}{d} = \left(\frac{a}{d}\right) \cdot b = a \cdot \left(\frac{b}{d}\right)$$
-            Так как $\frac{a}{d} \in \mathbb{Z}$, число $k$ делится на $b$. Так как $\frac{b}{d} \in \mathbb{Z}$, число $k$ делится на $a$.<br>
+            \[k = \frac{ab}{d} = \left(\frac{a}{d}\right) \cdot b = a \cdot \left(\frac{b}{d}\right)\]
+            Так как $\frac{a}{d} \in \mathbb{Z}$, число $k$ делится на $b$. Так как $\frac{b}{d} \in \mathbb{Z}$, число $k$ делится на $a$.<br/>
             Следовательно, число $k = \frac{ab}{d}$ является общим кратным чисел $a$ и $b$. Но по определению наименьшего общего кратного, число $m = [a, b]$ делит <em>любое</em> общее кратное! Значит:
-            $$m \mid \frac{ab}{d} \iff \exists q_1 \in \mathbb{Z} : \frac{ab}{d} = m \cdot q_1 \iff ab = md \cdot q_1 \implies md \mid ab \quad (*)$$
+            \[m \mid \frac{ab}{d} \iff \exists q_1 \in \mathbb{Z} : \frac{ab}{d} = m \cdot q_1 \iff ab = md \cdot q_1 \implies md \mid ab \quad (*)\]
           </p>
-          <p>
-            <strong>Часть Б: Докажем, что $ab \mid md$.</strong><br>
-            Так как произведение $ab$ делится на $a$ и делится на $b$, то $ab$ — общее кратное $a$ и $b$. Следовательно, по свойству НОК, $ab$ делится на $m = [a, b]$, то есть частное $\frac{ab}{m}$ является целым числом.<br>
+<p>
+<strong>Часть Б: Докажем, что $ab \mid md$.</strong><br/>
+            Так как произведение $ab$ делится на $a$ и делится на $b$, то $ab$ — общее кратное $a$ и $b$. Следовательно, по свойству НОК, $ab$ делится на $m = [a, b]$, то есть частное $\frac{ab}{m}$ является целым числом.<br/>
             Запишем представления для чисел $a$ и $b$:
-            $$a = \frac{ab}{m} \cdot \left(\frac{m}{b}\right), \qquad b = \frac{ab}{m} \cdot \left(\frac{m}{a}\right)$$
-            Поскольку $m$ кратно $a$ и $b$, сомножители $\frac{m}{b} \in \mathbb{Z}$ и $\frac{m}{a} \in \mathbb{Z}$. Следовательно, целое число $\frac{ab}{m}$ является общим делителем чисел $a$ и $b$.<br>
+            \[a = \frac{ab}{m} \cdot \left(\frac{m}{b}\right), \qquad b = \frac{ab}{m} \cdot \left(\frac{m}{a}\right)\]
+            Поскольку $m$ кратно $a$ и $b$, сомножители $\frac{m}{b} \in \mathbb{Z}$ и $\frac{m}{a} \in \mathbb{Z}$. Следовательно, целое число $\frac{ab}{m}$ является общим делителем чисел $a$ и $b$.<br/>
             Но по определению наибольшего общего делителя, <em>любой</em> общий делитель обязан делить $d = (a, b)$! Отсюда:
-            $$\frac{ab}{m} \mid d \iff \exists q_2 \in \mathbb{Z} : d = \frac{ab}{m} \cdot q_2 \iff md = ab \cdot q_2 \implies ab \mid md \quad (**)$$
+            \[\frac{ab}{m} \mid d \iff \exists q_2 \in \mathbb{Z} : d = \frac{ab}{m} \cdot q_2 \iff md = ab \cdot q_2 \implies ab \mid md \quad (**)\]
           </p>
-          <p>
-            <strong>Синтез:</strong> Из соотношений $(*)$ и $(**)$ имеем $md \mid ab$ и $ab \mid md$. Поскольку $a, b > 0$, числа $ab$ и $md$ натуральные. Из свойства антисимметричности делимости на $\mathbb{N}$ получаем точное равенство:
-            $$ab = md \iff a \cdot b = (a, b) \cdot [a, b]$$
+<p>
+<strong>Синтез:</strong> Из соотношений $(*)$ и $(**)$ имеем $md \mid ab$ и $ab \mid md$. Поскольку $a, b > 0$, числа $ab$ и $md$ натуральные. Из свойства антисимметричности делимости на $\mathbb{N}$ получаем точное равенство:
+            \[ab = md \iff a \cdot b = (a, b) \cdot [a, b]\]
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
-
-
-      
-<div class="proof" id="proof-4" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-4" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Пусть $a = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k}$ и $b = p_1^{\beta_1} p_2^{\beta_2} \cdots p_k^{\beta_k}$, где $\alpha_i, \beta_i \ge 0$.<br>
-            Как будет строго доказано в Разделе 7, показатели степени каждого простого $p_i$ в НОД и НОК выражаются как:</p>
-  </div>
-  <div class="proof-full" id="full-4" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
+<span class="qed">$\blacksquare$</span>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="proof" data-proof="" id="proof-7">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-7">
+<div class="proof-label">Идея</div>
+<p>Пусть $a = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k}$ и $b = p_1^{\beta_1} p_2^{\beta_2} \cdots p_k^{\beta_k}$, где $\alpha_i, \beta_i \ge 0$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-7">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
 <details>
-          <summary>Доказательство 2 (Конструктивное через показатели канонического разложения)</summary>
-          <p>
-            Пусть $a = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k}$ и $b = p_1^{\beta_1} p_2^{\beta_2} \cdots p_k^{\beta_k}$, где $\alpha_i, \beta_i \ge 0$.<br>
+<summary>Доказательство 2 (Конструктивное через показатели канонического разложения)</summary>
+<p>
+            Пусть $a = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k}$ и $b = p_1^{\beta_1} p_2^{\beta_2} \cdots p_k^{\beta_k}$, где $\alpha_i, \beta_i \ge 0$.<br/>
             Как будет строго доказано в Разделе 7, показатели степени каждого простого $p_i$ в НОД и НОК выражаются как:
-            $$(a, b) = \prod_{i=1}^k p_i^{\min(\alpha_i, \beta_i)}, \qquad [a, b] = \prod_{i=1}^k p_i^{\max(\alpha_i, \beta_i)}$$
+            \[(a, b) = \prod_{i=1}^k p_i^{\min(\alpha_i, \beta_i)}, \qquad [a, b] = \prod_{i=1}^k p_i^{\max(\alpha_i, \beta_i)}\]
             Перемножим эти выражения:
-            $$(a, b) \cdot [a, b] = \prod_{i=1}^k p_i^{\min(\alpha_i, \beta_i) + \max(\alpha_i, \beta_i)}$$
+            \[(a, b) \cdot [a, b] = \prod_{i=1}^k p_i^{\min(\alpha_i, \beta_i) + \max(\alpha_i, \beta_i)}\]
             Для любых двух действительных (и целых) чисел $x, y$ выполняется тождество:
-            $$\min(x, y) + \max(x, y) = x + y$$
-            (Действительно: если $x \le y$, то $\min(x,y)=x, \max(x,y)=y$, сумма равна $x+y$; если $x > y$ — аналогично).<br>
+            \[\min(x, y) + \max(x, y) = x + y\]
+            (Действительно: если $x \le y$, то $\min(x,y)=x, \max(x,y)=y$, сумма равна $x+y$; если $x > y$ — аналогично).<br/>
             Следовательно:
-            $$(a, b) \cdot [a, b] = \prod_{i=1}^k p_i^{\alpha_i + \beta_i} = \left(\prod_{i=1}^k p_i^{\alpha_i}\right) \left(\prod_{i=1}^k p_i^{\beta_i}\right) = a \cdot b$$
+            \[(a, b) \cdot [a, b] = \prod_{i=1}^k p_i^{\alpha_i + \beta_i} = \left(\prod_{i=1}^k p_i^{\alpha_i}\right) \left(\prod_{i=1}^k p_i^{\beta_i}\right) = a \cdot b\]
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
-
-
-      <div id="subsec-lcm-props" class="callout callout-prop">
-        <div class="callout-header">
-          <span class="callout-title">Свойства наименьшего общего кратного</span>
-          <span class="callout-badge">Свойства</span>
-        </div>
-        <ol>
-          <li><strong>Ассоциативность (вычисление по цепочке):</strong>
-            $$[a_1, a_2, \dots, a_n] = [[a_1, \dots, a_{n-1}], a_n] = [\dots [[a_1, a_2], a_3] \dots, a_n]$$
+<span class="qed">$\blacksquare$</span>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="callout callout-prop" id="subsec-lcm-props">
+<div class="callout-header">
+<span class="callout-title">Свойства наименьшего общего кратного</span>
+<span class="callout-badge">Свойства</span>
+</div>
+<ol>
+<li><strong>Ассоциативность (вычисление по цепочке):</strong>
+            \[[a_1, a_2, \dots, a_n] = [[a_1, \dots, a_{n-1}], a_n] = [\dots [[a_1, a_2], a_3] \dots, a_n]\]
           </li>
-          <li><strong>Однородность (вынесение общего множителя):</strong> Для любого натурального $q \in \mathbb{N}$:
-            $$[q a_1, q a_2, \dots, q a_n] = q \cdot [a_1, a_2, \dots, a_n]$$
+<li><strong>Однородность (вынесение общего множителя):</strong> Для любого натурального $q \in \mathbb{N}$:
+            \[[q a_1, q a_2, \dots, q a_n] = q \cdot [a_1, a_2, \dots, a_n]\]
           </li>
-          <li><strong>Связь с делимостью:</strong> $[a, b] = b \iff a \mid b$.</li>
-        </ol>
-      </div>
-
-      
-<div class="proof" id="proof-5" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-5" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>База индукции ($n = 2$):</strong> Используем связь НОД и НОК и однородность НОД $(qa, qb) = q(a, b)$:</p>
-  </div>
-  <div class="proof-full" id="full-5" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
+<li><strong>Связь с делимостью:</strong> $[a, b] = b \iff a \mid b$.</li>
+</ol>
+</div>
+<div class="proof" data-proof="" id="proof-9">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-9">
+<div class="proof-label">Идея</div>
+<p>База индукции ($n = 2$): Используем связь НОД и НОК и однородность НОД $(qa, qb) = q(a, b)$:
+            
+            База доказана.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-9">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
 <details>
-          <summary>Доказательство свойства однородности НОК (индукция по $n$)</summary>
-          <p>
-            <strong>База индукции ($n = 2$):</strong> Используем связь НОД и НОК и однородность НОД $(qa, qb) = q(a, b)$:
-            $$[qa, qb] = \frac{qa \cdot qb}{(qa, qb)} = \frac{q^2 \cdot ab}{q \cdot (a, b)} = q \cdot \frac{ab}{(a, b)} = q [a, b]$$
-            База доказана.<br>
-            <strong>Индукционный шаг:</strong> Предположим, что свойство верно для $n-1$ сомножителей. Тогда, применяя ассоциативность:
-            $$[q a_1, \dots, q a_n] = [[q a_1, \dots, q a_{n-1}], q a_n] = [q [a_1, \dots, a_{n-1}], q a_n]$$
+<summary>Доказательство свойства однородности НОК (индукция по $n$)</summary>
+<p>
+<strong>База индукции ($n = 2$):</strong> Используем связь НОД и НОК и однородность НОД $(qa, qb) = q(a, b)$:
+            \[[qa, qb] = \frac{qa \cdot qb}{(qa, qb)} = \frac{q^2 \cdot ab}{q \cdot (a, b)} = q \cdot \frac{ab}{(a, b)} = q [a, b]\]
+            База доказана.<br/>
+<strong>Индукционный шаг:</strong> Предположим, что свойство верно для $n-1$ сомножителей. Тогда, применяя ассоциативность:
+            \[[q a_1, \dots, q a_n] = [[q a_1, \dots, q a_{n-1}], q a_n] = [q [a_1, \dots, a_{n-1}], q a_n]\]
             Обозначая $M = [a_1, \dots, a_{n-1}]$ и применяя базу индукции к двум числам $qM$ и $q a_n$:
-            $$[q M, q a_n] = q [M, a_n] = q [[a_1, \dots, a_{n-1}], a_n] = q [a_1, \dots, a_n]$$
+            \[[q M, q a_n] = q [M, a_n] = q [[a_1, \dots, a_{n-1}], a_n] = q [a_1, \dots, a_n]\]
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
-
-
-      <div class="callout callout-remark">
-        <div class="callout-header">
-          <span class="callout-title">Важное предостережение: Почему $abc \neq (a,b,c)[a,b,c]$ при $n \ge 3$?</span>
-          <span class="callout-badge">Анализ</span>
-        </div>
-        <p>
+<span class="qed">$\blacksquare$</span>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="callout callout-remark">
+<div class="callout-header">
+<span class="callout-title">Важное предостережение: Почему $abc \neq (a,b,c)[a,b,c]$ при $n \ge 3$?</span>
+<span class="callout-badge">Анализ</span>
+</div>
+<p>
           В университетских курсах (Курош, Кострикин) часто предостерегают от механического обобщения формулы связи. Равенство $a \cdot b = (a, b) [a, b]$ верно <strong>только для двух чисел</strong>!
         </p>
-        <p>
-          <strong>Контрпример:</strong> Пусть $a = 2, b = 2, c = 2$.<br>
-          Тогда $abc = 2 \cdot 2 \cdot 2 = 8$.<br>
+<p>
+<strong>Контрпример:</strong> Пусть $a = 2, b = 2, c = 2$.<br/>
+          Тогда $abc = 2 \cdot 2 \cdot 2 = 8$.<br/>
           При этом $(2, 2, 2) = 2$ и $[2, 2, 2] = 2$. Их произведение равно $(a,b,c) \cdot [a,b,c] = 2 \cdot 2 = 4 \neq 8$!
         </p>
-        <p>
-          <strong>Правильная связь для трёх чисел (формула включений-исключений):</strong>
-          $$[a, b, c] = \frac{a \cdot b \cdot c \cdot (a, b, c)}{(a, b) \cdot (b, c) \cdot (c, a)}$$
+<p>
+<strong>Правильная связь для трёх чисел (формула включений-исключений):</strong>
+          \[[a, b, c] = \frac{a \cdot b \cdot c \cdot (a, b, c)}{(a, b) \cdot (b, c) \cdot (c, a)}\]
         </p>
-      </div>
-    </section>
+</div>
 
-    <!-- ========================================================================
+<!-- ========================================================================
          РАЗДЕЛ 3: ВЗАИМНО ПРОСТЫЕ ЧИСЛА
          ======================================================================== -->
-    <section id="sec-coprime">
+<section id="sec-coprime">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-4">
   <div class="chapter-kicker">04 / Взаимно простые числа</div>
   <h2 id="chapter-4" data-toc="Взаимно простые числа">3. Взаимно простые числа</h2>
-  <div class="statement definition" id="def-4">
-  <div class="block-label">Определение 4</div>
-  <h3 id="sub-7" data-toc="Определение 3.1 (Взаимно про…">Определение 3.1 (Взаимно простые числа)</h3>
   
-        
-          <span class="callout-badge">Определение</span>
-        
-</div>
-        <p>
+<div class="statement definition" id="def-4"><div class="block-label">Определение 4</div><h3 data-toc="Определение 3.1 (Взаимно прост…" id="sub-4-1">Определение 3.1 (Взаимно простые числа)Определение</h3><div>
+<p>
           Числа $a_1, a_2, \dots, a_n \in \mathbb{Z}$ называются <strong>взаимно простыми</strong> (в совокупности), если их наибольший общий делитель равен единице:
         </p>
-        <div class="math-display">
-          $$(a_1, a_2, \dots, a_n) = 1$$
+<div class="math-display">
+          \[(a_1, a_2, \dots, a_n) = 1\]
         </div>
-      </div>
-
-      <div id="subsec-coprime-crit" class="callout callout-prop">
-        <div class="callout-header">
-          <span class="callout-title">Предложение 3.1 (Критерий взаимной простоты / Соотношение Безу)</span>
-          <span class="callout-badge">Критерий</span>
-        </div>
-        <p>
+</div></div>
+<div class="callout callout-prop" id="subsec-coprime-crit">
+<div class="callout-header">
+<span class="callout-title">Предложение 3.1 (Критерий взаимной простоты / Соотношение Безу)</span>
+<span class="callout-badge">Критерий</span>
+</div>
+<p>
           Числа $a_1, a_2, \dots, a_n$ взаимно просты тогда и только тогда, когда существуют такие целые коэффициенты $x_1, x_2, \dots, x_n \in \mathbb{Z}$, что:
         </p>
-        <div class="math-display">
-          $$x_1 a_1 + x_2 a_2 + \dots + x_n a_n = 1$$
+<div class="math-display">
+          \[x_1 a_1 + x_2 a_2 + \dots + x_n a_n = 1\]
         </div>
-      </div>
-
-      
-<div class="proof" id="proof-6" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-6" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>Необходимость ($\implies$):</strong> Пусть $(a_1, \dots, a_n) = 1$. По расширенному алгоритму Евклида (теорема о линейном представлении НОД / тождество Безу), наибольший общий делитель любого набора чисел представим в виде их линейной комбинации с целыми коэффициентами. Так как НОД равен $1$, немедленно получаем существование набора $\{x_i\} \subset \mathbb{Z}$, дающего сумму $1$.</p>
-  </div>
-  <div class="proof-full" id="full-6" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
-<details open>
-          <summary>Полное доказательство критерия взаимной простоты</summary>
-          <p>
-            <strong>Необходимость ($\implies$):</strong> Пусть $(a_1, \dots, a_n) = 1$. По расширенному алгоритму Евклида (теорема о линейном представлении НОД / тождество Безу), наибольший общий делитель любого набора чисел представим в виде их линейной комбинации с целыми коэффициентами. Так как НОД равен $1$, немедленно получаем существование набора $\{x_i\} \subset \mathbb{Z}$, дающего сумму $1$.
+</div>
+<div class="proof" data-proof="" id="proof-11">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-11">
+<div class="proof-label">Идея</div>
+<p>Необходимость ($\implies$): Пусть $(a_1, \dots, a_n) = 1$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-11">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
+<details open="">
+<summary>Полное доказательство критерия взаимной простоты</summary>
+<p>
+<strong>Необходимость ($\implies$):</strong> Пусть $(a_1, \dots, a_n) = 1$. По расширенному алгоритму Евклида (теорема о линейном представлении НОД / тождество Безу), наибольший общий делитель любого набора чисел представим в виде их линейной комбинации с целыми коэффициентами. Так как НОД равен $1$, немедленно получаем существование набора $\{x_i\} \subset \mathbb{Z}$, дающего сумму $1$.
           </p>
-          <p>
-            <strong>Достаточность ($\impliedby$):</strong> Предположим, что существуют $x_1, \dots, x_n \in \mathbb{Z}$, такие что $x_1 a_1 + \dots + x_n a_n = 1$.<br>
-            Пусть $d = (a_1, \dots, a_n)$ — наибольший общий делитель этих чисел. Тогда по определению НОД, $d \mid a_i$ для всех $i = 1, \dots, n$.<br>
+<p>
+<strong>Достаточность ($\impliedby$):</strong> Предположим, что существуют $x_1, \dots, x_n \in \mathbb{Z}$, такие что $x_1 a_1 + \dots + x_n a_n = 1$.<br/>
+            Пусть $d = (a_1, \dots, a_n)$ — наибольший общий делитель этих чисел. Тогда по определению НОД, $d \mid a_i$ для всех $i = 1, \dots, n$.<br/>
             В силу свойства линейности делимости, $d$ обязано делить любую линейную комбинацию чисел $a_i$:
-            $$d \mid (x_1 a_1 + x_2 a_2 + \dots + x_n a_n) \implies d \mid 1$$
+            \[d \mid (x_1 a_1 + x_2 a_2 + \dots + x_n a_n) \implies d \mid 1\]
             Единственным натуральным делителем единицы является само число $1$. Следовательно, $d = 1$, и числа взаимно просты.
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
-
-
-      <div id="subsec-coprime-props" class="callout callout-prop">
-        <div class="callout-header">
-          <span class="callout-title">Четыре фундаментальных свойства взаимно простых чисел</span>
-          <span class="callout-badge">Свойства</span>
-        </div>
-        <ol>
-          <li>Если $(a, b) = 1$ и $(a, c) = 1$, то $(a, bc) = 1$.</li>
-          <li>Если $(a, b) = 1$, то $(a^n, b^m) = 1$ для любых натуральных $n, m \in \mathbb{N}$.</li>
-          <li><strong>Лемма Гаусса:</strong> Если $a \mid bc$ и $(a, b) = 1$, то $a \mid c$.</li>
-          <li>Если $(a, b) = 1$, $a \mid c$ и $b \mid c$, то $ab \mid c$.</li>
-        </ol>
-      </div>
-
-      
-<div class="proof" id="proof-7" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-7" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>Доказательство свойства 1:</strong><br>
-            По критерию взаимной простоты существуют целые $x, y, z, t \in \mathbb{Z}$, такие что:</p>
-  </div>
-  <div class="proof-full" id="full-7" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
-<details open>
-          <summary>Развёрнутые доказательства всех четырех свойств (из лекции)</summary>
-          <p>
-            <strong>Доказательство свойства 1:</strong><br>
+<span class="qed">$\blacksquare$</span>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="callout callout-prop" id="subsec-coprime-props">
+<div class="callout-header">
+<span class="callout-title">Четыре фундаментальных свойства взаимно простых чисел</span>
+<span class="callout-badge">Свойства</span>
+</div>
+<ol>
+<li>Если $(a, b) = 1$ и $(a, c) = 1$, то $(a, bc) = 1$.</li>
+<li>Если $(a, b) = 1$, то $(a^n, b^m) = 1$ для любых натуральных $n, m \in \mathbb{N}$.</li>
+<li><strong>Лемма Гаусса:</strong> Если $a \mid bc$ и $(a, b) = 1$, то $a \mid c$.</li>
+<li>Если $(a, b) = 1$, $a \mid c$ и $b \mid c$, то $ab \mid c$.</li>
+</ol>
+</div>
+<div class="proof" data-proof="" id="proof-13">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-13">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Строгое доказательство).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-13">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
+<details open="">
+<summary>Развёрнутые доказательства всех четырех свойств (из лекции)</summary>
+<p>
+<strong>Доказательство свойства 1:</strong><br/>
             По критерию взаимной простоты существуют целые $x, y, z, t \in \mathbb{Z}$, такие что:
-            $$xa + yb = 1 \quad \text{и} \quad za + tc = 1$$
+            \[xa + yb = 1 \quad \text{и} \quad za + tc = 1\]
             Перемножим эти два тождества:
-            $$(xa + yb)(za + tc) = 1 \cdot 1 = 1$$
+            \[(xa + yb)(za + tc) = 1 \cdot 1 = 1\]
             Раскроем скобки:
-            $$xaza + xatc + ybza + ybtc = 1$$
+            \[xaza + xatc + ybza + ybtc = 1\]
             Сгруппируем слагаемые, содержащие сомножитель $a$:
-            $$(xz a + xt c + yz b) \cdot a + (yt) \cdot (bc) = 1$$
+            \[(xz a + xt c + yz b) \cdot a + (yt) \cdot (bc) = 1\]
             Обозначим целые коэффициенты $X = xz a + xt c + yz b$ и $Y = yt$. Тогда:
-            $$X \cdot a + Y \cdot (bc) = 1$$
+            \[X \cdot a + Y \cdot (bc) = 1\]
             По критерию взаимной простоты отсюда следует, что $(a, bc) = 1$. $\blacksquare$
           </p>
-          <p>
-            <strong>Доказательство свойства 2:</strong><br>
-            Проведем двойную индукцию.<br>
-            <em>Шаг 1: Индукция по $m$.</em> Докажем, что $(a, b^m) = 1$ для любого $m \in \mathbb{N}$.
+<p>
+<strong>Доказательство свойства 2:</strong><br/>
+            Проведем двойную индукцию.<br/>
+<em>Шаг 1: Индукция по $m$.</em> Докажем, что $(a, b^m) = 1$ для любого $m \in \mathbb{N}$.
             - База $m = 1$: $(a, b) = 1$ дано по условию.
-            - Переход $m-1 \implies m$: Предположим $(a, b^{m-1}) = 1$. Имеем $(a, b) = 1$ и $(a, b^{m-1}) = 1$. По свойству 1, полагая $c = b^{m-1}$, получаем $(a, b \cdot b^{m-1}) = (a, b^m) = 1$. Шаг доказан.<br>
-            <em>Шаг 2: Индукция по $n$.</em> Зафиксируем $m$. Имеем $(b^m, a) = 1$.
+            - Переход $m-1 \implies m$: Предположим $(a, b^{m-1}) = 1$. Имеем $(a, b) = 1$ и $(a, b^{m-1}) = 1$. По свойству 1, полагая $c = b^{m-1}$, получаем $(a, b \cdot b^{m-1}) = (a, b^m) = 1$. Шаг доказан.<br/>
+<em>Шаг 2: Индукция по $n$.</em> Зафиксируем $m$. Имеем $(b^m, a) = 1$.
             - База $n = 1$: $(b^m, a) = 1$.
             - Переход $n-1 \implies n$: Предполагая $(b^m, a^{n-1}) = 1$ и зная $(b^m, a) = 1$, по свойству 1 получаем $(b^m, a^n) = 1$, что равносильно $(a^n, b^m) = 1$. $\blacksquare$
           </p>
-          <p>
-            <strong>Доказательство свойства 3 (Лемма Гаусса):</strong><br>
-            Так как $(a, b) = 1$, существуют $x, y \in \mathbb{Z}$, такие что $xa + yb = 1$.<br>
+<p>
+<strong>Доказательство свойства 3 (Лемма Гаусса):</strong><br/>
+            Так как $(a, b) = 1$, существуют $x, y \in \mathbb{Z}$, такие что $xa + yb = 1$.<br/>
             Умножим обе части равенства на целое число $c$:
-            $$(xa + yb) \cdot c = 1 \cdot c \iff xac + ybc = c$$
+            \[(xa + yb) \cdot c = 1 \cdot c \iff xac + ybc = c\]
             Проанализируем делимость слагаемых в левой части на $a$:
             - Слагаемое $xac = a(xc)$ делится на $a$;
-            - Слагаемое $ybc = y(bc)$ делится на $a$, поскольку по условию $a \mid bc$.<br>
+            - Слагаемое $ybc = y(bc)$ делится на $a$, поскольку по условию $a \mid bc$.<br/>
             Следовательно, сумма двух чисел, кратных $a$, также кратна $a$:
-            $$a \mid (xac + ybc) \implies a \mid c \quad \blacksquare$$
+            \[a \mid (xac + ybc) \implies a \mid c \quad \blacksquare\]
           </p>
-          <p>
-            <strong>Доказательство свойства 4:</strong><br>
-            <em>Способ А (через тождество Безу):</em><br>
+<p>
+<strong>Доказательство свойства 4:</strong><br/>
+<em>Способ А (через тождество Безу):</em><br/>
             Так как $(a, b) = 1$, имеем $xa + yb = 1$. Умножим на $c$:
-            $$xac + ybc = c$$
+            \[xac + ybc = c\]
             Так как $b \mid c$, существует $k \in \mathbb{Z}$ такое, что $c = bk$. Тогда первое слагаемое равно:
-            $$xac = xa(bk) = ab \cdot (xk) \implies ab \mid xac$$
+            \[xac = xa(bk) = ab \cdot (xk) \implies ab \mid xac\]
             Так как $a \mid c$, существует $l \in \mathbb{Z}$ такое, что $c = al$. Тогда второе слагаемое равно:
-            $$ybc = yb(al) = ab \cdot (yl) \implies ab \mid ybc$$
-            Сумма делится на $ab$, значит $ab \mid c$.<br>
-            <em>Способ Б (через связь НОД и НОК):</em><br>
+            \[ybc = yb(al) = ab \cdot (yl) \implies ab \mid ybc\]
+            Сумма делится на $ab$, значит $ab \mid c$.<br/>
+<em>Способ Б (через связь НОД и НОК):</em><br/>
             Так как $a \mid c$ и $b \mid c$, число $c$ является общим кратным $a$ и $b$. По определению НОК, $[a, b] \mid c$. По Теореме 2.2, $[a, b] = \frac{ab}{(a, b)} = \frac{ab}{1} = ab$. Следовательно, $ab \mid c$. $\blacksquare$
           </p>
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
-
-
-      <div id="subsec-coprime-pairwise" class="callout callout-remark">
-        <div class="callout-header">
-          <span class="callout-title">Совокупная взаимная простота против попарной взаимной простоты</span>
-          <span class="callout-badge">Тонкость теории</span>
-        </div>
-        <p>
+<span class="qed">$\blacksquare$</span>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="callout callout-remark" id="subsec-coprime-pairwise">
+<div class="callout-header">
+<span class="callout-title">Совокупная взаимная простота против попарной взаимной простоты</span>
+<span class="callout-badge">Тонкость теории</span>
+</div>
+<p>
           Для набора чисел $a_1, a_2, \dots, a_n$ ($n \ge 3$) в курсе А. И. Кострикина строго разделяются два понятия:
         </p>
-        <ul>
-          <li><strong>Взаимная простота в совокупности:</strong> $(a_1, a_2, \dots, a_n) = 1$.</li>
-          <li><strong>Попарная взаимная простота:</strong> $(a_i, a_j) = 1$ для всех пар $i \neq j$.</li>
-        </ul>
-        <p>
-          <em>Попарная взаимная простота существенно сильнее совокупной!</em> Из попарной простоты всегда следует совокупная, но обратное неверно.
+<ul>
+<li><strong>Взаимная простота в совокупности:</strong> $(a_1, a_2, \dots, a_n) = 1$.</li>
+<li><strong>Попарная взаимная простота:</strong> $(a_i, a_j) = 1$ для всех пар $i \neq j$.</li>
+</ul>
+<p>
+<em>Попарная взаимная простота существенно сильнее совокупной!</em> Из попарной простоты всегда следует совокупная, но обратное неверно.
         </p>
-        <p>
-          <strong>Классический пример:</strong> Рассмотрим тройку чисел $\{6, 10, 15\}$.<br>
-          НОД тройки: $(6, 10, 15) = 1$ (числа взаимно просты в совокупности).<br>
+<p>
+<strong>Классический пример:</strong> Рассмотрим тройку чисел $\{6, 10, 15\}$.<br/>
+          НОД тройки: $(6, 10, 15) = 1$ (числа взаимно просты в совокупности).<br/>
           Однако попарные НОД равны: $(6, 10) = 2 \neq 1$, $(10, 15) = 5 \neq 1$, $(6, 15) = 3 \neq 1$. Числа <em>не являются</em> попарно взаимно простыми!
         </p>
-      </div>
-    </section>
+</div>
 
-    <!-- ========================================================================
+<!-- ========================================================================
          РАЗДЕЛ 4: ПРОСТЫЕ ЧИСЛА И ИХ ДЕЛИТЕЛИ
          ======================================================================== -->
-    <section id="sec-primes">
+<section id="sec-primes">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-5">
   <div class="chapter-kicker">05 / Простые числа и их делители</div>
   <h2 id="chapter-5" data-toc="Простые числа и их делители">4. Простые числа и их делители</h2>
-  <div class="statement definition" id="def-5">
-  <div class="block-label">Определение 5</div>
-  <h3 id="sub-8" data-toc="Определение 4.1 (Простые и с…">Определение 4.1 (Простые и составные числа)</h3>
   
-        
-          <span class="callout-badge">Определение</span>
-        
-</div>
-        <p>
-          Натуральное число $p \in \mathbb{N}$ называется <strong>простым</strong>, если оно имеет ровно два различных натуральных делителя: единицу $1$ и само себя $p$.<br>
+<div class="statement definition" id="def-5"><div class="block-label">Определение 5</div><h3 data-toc="Определение 4.1 (Простые и сос…" id="sub-5-1">Определение 4.1 (Простые и составные числа)Определение</h3><div>
+<p>
+          Натуральное число $p \in \mathbb{N}$ называется <strong>простым</strong>, если оно имеет ровно два различных натуральных делителя: единицу $1$ и само себя $p$.<br/>
           Натуральное число $n \in \mathbb{N} \setminus \{1\}$ называется <strong>составным</strong>, если оно имеет хотя бы один натуральный делитель, отличный от $1$ и $n$ (то есть $n = ab$, где $1 < a < n$ и $1 < b < n$).
         </p>
-        <p>
-          <strong>Конвенция о числе 1:</strong> Число $1$ по определению <em>не является ни простым, ни составным</em>. Это фундаментальное соглашение необходимо для однозначности разложения в Основной теореме арифметики (если бы $1$ считалась простой, число $6$ можно было бы разложить бесконечным числом способов: $2 \cdot 3 = 1 \cdot 2 \cdot 3 = 1^2 \cdot 2 \cdot 3 = \dots$).
+<p>
+<strong>Конвенция о числе 1:</strong> Число $1$ по определению <em>не является ни простым, ни составным</em>. Это фундаментальное соглашение необходимо для однозначности разложения в Основной теореме арифметики (если бы $1$ считалась простой, число $6$ можно было бы разложить бесконечным числом способов: $2 \cdot 3 = 1 \cdot 2 \cdot 3 = 1^2 \cdot 2 \cdot 3 = \dots$).
         </p>
-      </div>
-
-      <div id="subsec-prime-div" class="callout callout-prop">
-        <div class="callout-header">
-          <span class="callout-title">Предложение 4.1 (О наименьшем нетривиальном делителе)</span>
-          <span class="callout-badge">Предложение</span>
-        </div>
-        <p>
+</div></div>
+<div class="callout callout-prop" id="subsec-prime-div">
+<div class="callout-header">
+<span class="callout-title">Предложение 4.1 (О наименьшем нетривиальном делителе)</span>
+<span class="callout-badge">Предложение</span>
+</div>
+<p>
           Пусть $n \in \mathbb{N}, n > 1$. Наименьший положительный делитель числа $n$, отличный от единицы, является <strong>простым числом</strong>.
         </p>
-      </div>
-
-      
-<div class="proof" id="proof-8" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-8" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Множество натуральных делителей числа $n$, превосходящих $1$:</p>
-  </div>
-  <div class="proof-full" id="full-8" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
-<details open>
-          <summary>Доказательство предложения о наименьшем делителе</summary>
-          <p>
+</div>
+<div class="proof" data-proof="" id="proof-15">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-15">
+<div class="proof-label">Идея</div>
+<p>Множество натуральных делителей числа $n$, превосходящих $1$:
+            
+            Это множество не пусто, так как $n \mid n$ и $n > 1$, следовательно, $n \in D$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-15">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
+<details open="">
+<summary>Доказательство предложения о наименьшем делителе</summary>
+<p>
             Множество натуральных делителей числа $n$, превосходящих $1$:
-            $$D = \{ d \in \mathbb{N} \mid d \mid n, \, d > 1 \}$$
-            Это множество не пусто, так как $n \mid n$ и $n > 1$, следовательно, $n \in D$. По принципу наименьшего элемента во множестве $D$ существует наименьший элемент $p = \min(D)$.<br>
-            Покажем от противного, что $p$ — простое число. Допустим, что $p$ составное. Тогда у него существует делитель $q \in \mathbb{N}$, такой что $1 < q < p$.<br>
-            В силу транзитивности делимости, так как $q \mid p$ и $p \mid n$, получаем $q \mid n$. Поскольку $q > 1$, элемент $q$ принадлежит множеству $D$.<br>
+            \[D = \{ d \in \mathbb{N} \mid d \mid n, \, d > 1 \}\]
+            Это множество не пусто, так как $n \mid n$ и $n > 1$, следовательно, $n \in D$. По принципу наименьшего элемента во множестве $D$ существует наименьший элемент $p = \min(D)$.<br/>
+            Покажем от противного, что $p$ — простое число. Допустим, что $p$ составное. Тогда у него существует делитель $q \in \mathbb{N}$, такой что $1 < q < p$.<br/>
+            В силу транзитивности делимости, так как $q \mid p$ и $p \mid n$, получаем $q \mid n$. Поскольку $q > 1$, элемент $q$ принадлежит множеству $D$.<br/>
             Но $q < p$, что противоречит тому, что $p$ является наименьшим элементом $D$. Полученное противоречие доказывает, что $p$ не имеет делителей кроме $1$ и $p$, то есть $p$ простое.
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
-
-
-      <div class="statement theorem" id="thm-4">
-  <div class="block-label">Утверждение 4</div>
-  <h3 id="sub-9" data-toc="Теорема 4.1 (Ограничение наи…">Теорема 4.1 (Ограничение наименьшего простого делителя составного числа)</h3>
-  
-        
-          <span class="callout-badge">Теорема</span>
-        
+<span class="qed">$\blacksquare$</span>
 </div>
-        <p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="statement theorem" id="thm-4"><div class="block-label">Утверждение 4</div><h3 data-toc="Теорема 4.1 (Ограничение наиме…" id="sub-5-2">Теорема 4.1 (Ограничение наименьшего простого делителя составного числа)Теорема</h3><div>
+<p>
           Если натуральное число $n > 1$ является составным, то его наименьший простой делитель $p$ не превосходит корня из этого числа:
         </p>
-        <div class="math-display">
-          $$p \le \sqrt{n}$$
+<div class="math-display">
+          \[p \le \sqrt{n}\]
         </div>
-      </div>
-
-      
-<div class="proof" id="proof-9" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-9" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Так как число $n$ составное, его можно представить в виде произведения двух натуральных чисел, больших единицы:</p>
-  </div>
-  <div class="proof-full" id="full-9" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
-<details open>
-          <summary>Доказательство оценки $p \le \sqrt{n}$</summary>
-          <p>
-            Так как число $n$ составное, его можно представить в виде произведения двух натуральных чисел, больших единицы:
-            $$n = a \cdot b, \quad 1 < a \le b < n$$
-            Предположим от противного, что $a > \sqrt{n}$. Так как $b \ge a$, то и $b > \sqrt{n}$.<br>
-            Перемножая эти строгие неравенства одинакового знака, получаем:
-            $$n = a \cdot b > \sqrt{n} \cdot \sqrt{n} = n \implies n > n$$
-            Получено противоречие. Следовательно, $a \le \sqrt{n}$.<br>
-            По Предложению 4.1 у числа $a > 1$ есть хотя бы один простой делитель $p$. Так как $p \mid a$ и $a \mid n$, то $p$ делит $n$. При этом для любого делителя $p \le a$. Объединяя неравенства:
-            $$p \le a \le \sqrt{n} \implies p \le \sqrt{n}$$
-          </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
+</div></div>
+<div class="proof" data-proof="" id="proof-17">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
+<div class="proof-idea" data-proof-idea="" id="idea-17">
+<div class="proof-label">Идея</div>
+<p>Так как число $n$ составное, его можно представить в виде произведения двух натуральных чисел, больших единицы:
+            
+            Предположим от противного, что $a > \sqrt{n}$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-17">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
+<details open="">
+<summary>Доказательство оценки $p \le \sqrt{n}$</summary>
+<p>
+            Так как число $n$ составное, его можно представить в виде произведения двух натуральных чисел, больших единицы:
+            \[n = a \cdot b, \quad 1 < a \le b < n\]
+            Предположим от противного, что $a > \sqrt{n}$. Так как $b \ge a$, то и $b > \sqrt{n}$.<br/>
+            Перемножая эти строгие неравенства одинакового знака, получаем:
+            \[n = a \cdot b > \sqrt{n} \cdot \sqrt{n} = n \implies n > n\]
+            Получено противоречие. Следовательно, $a \le \sqrt{n}$.<br/>
+            По Предложению 4.1 у числа $a > 1$ есть хотя бы один простой делитель $p$. Так как $p \mid a$ и $a \mid n$, то $p$ делит $n$. При этом для любого делителя $p \le a$. Объединяя неравенства:
+            \[p \le a \le \sqrt{n} \implies p \le \sqrt{n}\]
+          </p>
 </details>
-
-
-      <div class="callout callout-prop">
-        <div class="callout-header">
-          <span class="callout-title">Следствие 4.1 (Дихотомия простого числа)</span>
-          <span class="callout-badge">Свойство</span>
-        </div>
-        <p>
+<span class="qed">$\blacksquare$</span>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="callout callout-prop">
+<div class="callout-header">
+<span class="callout-title">Следствие 4.1 (Дихотомия простого числа)</span>
+<span class="callout-badge">Свойство</span>
+</div>
+<p>
           Пусть $p$ — простое число. Тогда любое натуральное число $n \in \mathbb{N}$ либо взаимно просто с $p$, либо делится на $p$:
         </p>
-        <div class="math-display">
-          $$(n, p) = 1 \quad \text{или} \quad p \mid n$$
+<div class="math-display">
+          \[(n, p) = 1 \quad \text{или} \quad p \mid n\]
         </div>
-        <p>
-          <em>Доказательство:</em> Пусть $d = (n, p)$. Так как $d \mid p$, а делителями простого $p$ являются только $1$ и $p$, то $d = 1$ или $d = p$. Если $d = 1$, то $(n, p) = 1$. Если $d = p$, то так как $d \mid n$, получаем $p \mid n$. $\blacksquare$
+<p>
+<em>Доказательство:</em> Пусть $d = (n, p)$. Так как $d \mid p$, а делителями простого $p$ являются только $1$ и $p$, то $d = 1$ или $d = p$. Если $d = 1$, то $(n, p) = 1$. Если $d = p$, то так как $d \mid n$, получаем $p \mid n$. $\blacksquare$
         </p>
-      </div>
-
-      <div class="statement theorem" id="thm-5">
-  <div class="block-label">Утверждение 5</div>
-  <h3 id="sub-10" data-toc="Теорема 4.2 (Лемма Евклида —…">Теорема 4.2 (Лемма Евклида — фундаментальное свойство простого числа)</h3>
-  
-        
-          <span class="callout-badge">Теорема</span>
-        
 </div>
-        <p>
+<div class="statement theorem" id="thm-5"><div class="block-label">Утверждение 5</div><h3 data-toc="Теорема 4.2 (Лемма Евклида — ф…" id="sub-5-3">Теорема 4.2 (Лемма Евклида — фундаментальное свойство простого числа)Теорема</h3><div>
+<p>
           Пусть $a, b \in \mathbb{N}$, а $p$ — простое число. Если $p$ делит произведение $ab$, то $p$ делит хотя бы один из сомножителей:
         </p>
-        <div class="math-display">
-          $$p \mid ab \implies (p \mid a \quad \text{или} \quad p \mid b)$$
+<div class="math-display">
+          \[p \mid ab \implies (p \mid a \quad \text{или} \quad p \mid b)\]
         </div>
-      </div>
-
-      
-<div class="proof" id="proof-10" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-10" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Пусть $p \mid ab$. Рассмотрим два взаимоисключающих случая для первого сомножителя $a$:<br>
-            1) Если $p \mid a$, то утверждение доказано.<br>
-            2) Пусть $p \nmid a$. Тогда по Следствию 4.1 число $a$ взаимно просто с $p$, то есть $(p, a) = 1$.<br>
-            Но тогда мы находимся в условиях Леммы Гаусса (Свойство 3 взаимно простых чисел): $p \mid ab$ и $(p, a) = 1$. Следовательно:</p>
-  </div>
-  <div class="proof-full" id="full-10" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
-<details open>
-          <summary>Доказательство леммы Евклида</summary>
-          <p>
-            Пусть $p \mid ab$. Рассмотрим два взаимоисключающих случая для первого сомножителя $a$:<br>
-            1) Если $p \mid a$, то утверждение доказано.<br>
-            2) Пусть $p \nmid a$. Тогда по Следствию 4.1 число $a$ взаимно просто с $p$, то есть $(p, a) = 1$.<br>
+</div></div>
+<div class="proof" data-proof="" id="proof-19">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-19">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Строгое доказательство).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-19">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
+<details open="">
+<summary>Доказательство леммы Евклида</summary>
+<p>
+            Пусть $p \mid ab$. Рассмотрим два взаимоисключающих случая для первого сомножителя $a$:<br/>
+            1) Если $p \mid a$, то утверждение доказано.<br/>
+            2) Пусть $p \nmid a$. Тогда по Следствию 4.1 число $a$ взаимно просто с $p$, то есть $(p, a) = 1$.<br/>
             Но тогда мы находимся в условиях Леммы Гаусса (Свойство 3 взаимно простых чисел): $p \mid ab$ и $(p, a) = 1$. Следовательно:
-            $$p \mid b$$
+            \[p \mid b\]
           </p>
-          <p>
-            <strong>Обобщение по индукции на $k$ сомножителей:</strong><br>
+<p>
+<strong>Обобщение по индукции на $k$ сомножителей:</strong><br/>
             Если $p$ простое и $p \mid (a_1 a_2 \cdots a_k)$, то существует такой индекс $i \in \{1, \dots, k\}$, что $p \mid a_i$.
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
+<span class="qed">$\blacksquare$</span>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
 
-    </section>
-
-    <!-- ========================================================================
+<!-- ========================================================================
          РАЗДЕЛ 5: РЕШЕТО ЭРАТОСФЕНА
          ======================================================================== -->
-    <section id="sec-sieve">
+<section id="sec-sieve">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-6">
   <div class="chapter-kicker">06 / Алгоритм «Решето Эратосфена»</div>
   <h2 id="chapter-6" data-toc="Алгоритм «Решето Эратосфена»">5. Алгоритм «Решето Эратосфена»</h2>
-  <p>
+  
+<p>
         Из Теоремы 4.1 вытекает практический метод проверки простоты: чтобы выяснить, является ли число $n$ простым, достаточно убедиться, что оно не делится ни на одно простое число $p \le \sqrt{n}$. Это приводит к классическому алгоритму отсеивания составных чисел — <strong>Решету Эратосфена</strong>.
       </p>
-
-      <div class="statement definition" id="def-6">
-  <div class="block-label">Определение 6</div>
-  <h3 id="sub-11" data-toc="Алгоритмическое описание кла…">Алгоритмическое описание классического решета</h3>
-  
-        
-          <span class="callout-badge">Алгоритм</span>
-        
+<div class="statement definition" id="def-6"><div class="block-label">Определение 6</div><h3 data-toc="Алгоритмическое описание класс…" id="sub-6-1">Алгоритмическое описание классического решетаАлгоритм</h3><div>
+<ol>
+<li>Выписать все целые числа от $2$ до заданного предела $M$.</li>
+<li>Первое невычеркнутое число — $2$ (простое). Вычеркиваем все числа, кратные $2$, большие $2$ (с шагом $2$).</li>
+<li>Следующее невычеркнутое число — $3$ (простое). Вычеркиваем все числа, кратные $3$, начиная с $3^2 = 9$.</li>
+<li>Берем следующее невычеркнутое число $p$. Вычеркиваем все кратные $p$, <strong>начиная с $p^2$</strong> с шагом $p$ (или $2p$ по нечетным).</li>
+<li>Повторяем шаг до тех пор, пока $p \le \sqrt{M}$. Как только $p > \sqrt{M}$, алгоритм останавливается: все оставшиеся невычеркнутыми числа в диапазоне гарантированно простые.</li>
+</ol>
+</div></div>
+<div class="callout callout-remark">
+<div class="callout-header">
+<span class="callout-title">Математическое обоснование оптимизаций</span>
+<span class="callout-badge">Обоснование</span>
 </div>
-        <ol>
-          <li>Выписать все целые числа от $2$ до заданного предела $M$.</li>
-          <li>Первое невычеркнутое число — $2$ (простое). Вычеркиваем все числа, кратные $2$, большие $2$ (с шагом $2$).</li>
-          <li>Следующее невычеркнутое число — $3$ (простое). Вычеркиваем все числа, кратные $3$, начиная с $3^2 = 9$.</li>
-          <li>Берем следующее невычеркнутое число $p$. Вычеркиваем все кратные $p$, <strong>начиная с $p^2$</strong> с шагом $p$ (или $2p$ по нечетным).</li>
-          <li>Повторяем шаг до тех пор, пока $p \le \sqrt{M}$. Как только $p > \sqrt{M}$, алгоритм останавливается: все оставшиеся невычеркнутыми числа в диапазоне гарантированно простые.</li>
-        </ol>
-      </div>
-
-      <div class="callout callout-remark">
-        <div class="callout-header">
-          <span class="callout-title">Математическое обоснование оптимизаций</span>
-          <span class="callout-badge">Обоснование</span>
-        </div>
-        <p>
-          <strong>1. Почему вычеркивание для простого $p$ начинается строго с $p^2$?</strong><br>
+<p>
+<strong>1. Почему вычеркивание для простого $p$ начинается строго с $p^2$?</strong><br/>
           Любое составное число $c < p^2$, кратное $p$, имеет вид $c = k \cdot p$, где $k < p$. Но по Предложению 4.1 у числа $k$ есть простой делитель $q \le k < p$. Следовательно, число $c$ делится на простое $q < p$, а значит, оно уже было вычеркнуто на предыдущих этапах алгоритма!
         </p>
-        <p>
-          <strong>2. Почему остановка происходит на $p > \sqrt{M}$?</strong><br>
+<p>
+<strong>2. Почему остановка происходит на $p > \sqrt{M}$?</strong><br/>
           Если составное число $c \le M$ не было вычеркнуто до этого момента, то все его простые делители должны быть строго больше $\sqrt{M}$. Но произведение двух таких делителей было бы строго больше $\sqrt{M} \cdot \sqrt{M} = M$, что невозможно. Значит, все оставшиеся числа — простые.
         </p>
-      </div>
-
-      <!-- Векторная иллюстрация работы Решета Эратосфена -->
-      <div class="svg-wrapper">
-        <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 650 200" width="650" height="200" xmlns="http://www.w3.org/2000/svg">
-          <style>
+</div>
+<!-- Векторная иллюстрация работы Решета Эратосфена -->
+<div class="svg-wrapper">
+<figure class="figure-plate"><svg height="200" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 200" width="650" xmlns="http://www.w3.org/2000/svg">
+<style>
             .grid-cell { stroke: var(--border-color); stroke-width: 1.5; }
             .cell-prime { fill: #dbeafe; }
             .cell-comp2 { fill: #fee2e2; }
@@ -1403,884 +1233,749 @@ SOFTWARE.
             .cell-text { font-family: monospace; font-size: 13px; font-weight: bold; text-anchor: middle; dominant-baseline: central; fill: var(--text-main); }
             .legend-text { font-family: sans-serif; font-size: 11px; fill: var(--text-muted); }
           </style>
-          
-          <!-- Заголовок таблицы от 2 до 31 -->
-          <text x="325" y="20" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="var(--primary)">
+<!-- Заголовок таблицы от 2 до 31 -->
+<text fill="var(--primary)" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" x="325" y="20">
             Решето Эратосфена для диапазона от 2 до 31 (√31 ≈ 5.56 ⟹ простые 2, 3, 5)
           </text>
+<!-- Ряд 1: 2 .. 11 -->
+<g transform="translate(25, 40)">
+<!-- 2 (prime) --> <rect class="grid-cell cell-prime" height="32" width="55" x="0" y="0"></rect><text class="cell-text" x="27" y="16">2★</text>
+<!-- 3 (prime) --> <rect class="grid-cell cell-prime" height="32" width="55" x="55" y="0"></rect><text class="cell-text" x="82" y="16">3★</text>
+<!-- 4 (x2) --> <rect class="grid-cell cell-comp2" height="32" width="55" x="110" y="0"></rect><text class="cell-text" x="137" y="16">4 (×2)</text>
+<!-- 5 (prime) --> <rect class="grid-cell cell-prime" height="32" width="55" x="165" y="0"></rect><text class="cell-text" x="192" y="16">5★</text>
+<!-- 6 (x2) --> <rect class="grid-cell cell-comp2" height="32" width="55" x="220" y="0"></rect><text class="cell-text" x="247" y="16">6 (×2)</text>
+<!-- 7 (prime) --> <rect class="grid-cell cell-prime" height="32" width="55" x="275" y="0"></rect><text class="cell-text" x="302" y="16">7★</text>
+<!-- 8 (x2) --> <rect class="grid-cell cell-comp2" height="32" width="55" x="330" y="0"></rect><text class="cell-text" x="357" y="16">8 (×2)</text>
+<!-- 9 (x3) --> <rect class="grid-cell cell-comp3" height="32" width="55" x="385" y="0"></rect><text class="cell-text" x="412" y="16">9 (×3)</text>
+<!-- 10 (x2) --> <rect class="grid-cell cell-comp2" height="32" width="55" x="440" y="0"></rect><text class="cell-text" x="467" y="16">10 (×2)</text>
+<!-- 11 (prime) --><rect class="grid-cell cell-prime" height="32" width="55" x="495" y="0"></rect><text class="cell-text" x="522" y="16">11★</text>
+</g>
+<!-- Ряд 2: 12 .. 21 -->
+<g transform="translate(25, 76)">
+<!-- 12 (x2) --> <rect class="grid-cell cell-comp2" height="32" width="55" x="0" y="0"></rect><text class="cell-text" x="27" y="16">12 (×2)</text>
+<!-- 13 (prime) --><rect class="grid-cell cell-prime" height="32" width="55" x="55" y="0"></rect><text class="cell-text" x="82" y="16">13★</text>
+<!-- 14 (x2) --> <rect class="grid-cell cell-comp2" height="32" width="55" x="110" y="0"></rect><text class="cell-text" x="137" y="16">14 (×2)</text>
+<!-- 15 (x3) --> <rect class="grid-cell cell-comp3" height="32" width="55" x="165" y="0"></rect><text class="cell-text" x="192" y="16">15 (×3)</text>
+<!-- 16 (x2) --> <rect class="grid-cell cell-comp2" height="32" width="55" x="220" y="0"></rect><text class="cell-text" x="247" y="16">16 (×2)</text>
+<!-- 17 (prime) --><rect class="grid-cell cell-prime" height="32" width="55" x="275" y="0"></rect><text class="cell-text" x="302" y="16">17★</text>
+<!-- 18 (x2) --> <rect class="grid-cell cell-comp2" height="32" width="55" x="330" y="0"></rect><text class="cell-text" x="357" y="16">18 (×2)</text>
+<!-- 19 (prime) --><rect class="grid-cell cell-prime" height="32" width="55" x="385" y="0"></rect><text class="cell-text" x="412" y="16">19★</text>
+<!-- 20 (x2) --> <rect class="grid-cell cell-comp2" height="32" width="55" x="440" y="0"></rect><text class="cell-text" x="467" y="16">20 (×2)</text>
+<!-- 21 (x3) --> <rect class="grid-cell cell-comp3" height="32" width="55" x="495" y="0"></rect><text class="cell-text" x="522" y="16">21 (×3)</text>
+</g>
+<!-- Ряд 3: 22 .. 31 -->
+<g transform="translate(25, 112)">
+<!-- 22 (x2) --> <rect class="grid-cell cell-comp2" height="32" width="55" x="0" y="0"></rect><text class="cell-text" x="27" y="16">22 (×2)</text>
+<!-- 23 (prime) --><rect class="grid-cell cell-prime" height="32" width="55" x="55" y="0"></rect><text class="cell-text" x="82" y="16">23★</text>
+<!-- 24 (x2) --> <rect class="grid-cell cell-comp2" height="32" width="55" x="110" y="0"></rect><text class="cell-text" x="137" y="16">24 (×2)</text>
+<!-- 25 (x5) --> <rect class="grid-cell cell-comp5" height="32" width="55" x="165" y="0"></rect><text class="cell-text" x="192" y="16">25 (×5)</text>
+<!-- 26 (x2) --> <rect class="grid-cell cell-comp2" height="32" width="55" x="220" y="0"></rect><text class="cell-text" x="247" y="16">26 (×2)</text>
+<!-- 27 (x3) --> <rect class="grid-cell cell-comp3" height="32" width="55" x="275" y="0"></rect><text class="cell-text" x="302" y="16">27 (×3)</text>
+<!-- 28 (x2) --> <rect class="grid-cell cell-comp2" height="32" width="55" x="330" y="0"></rect><text class="cell-text" x="357" y="16">28 (×2)</text>
+<!-- 29 (prime) --><rect class="grid-cell cell-prime" height="32" width="55" x="385" y="0"></rect><text class="cell-text" x="412" y="16">29★</text>
+<!-- 30 (x2) --> <rect class="grid-cell cell-comp2" height="32" width="55" x="440" y="0"></rect><text class="cell-text" x="467" y="16">30 (×2)</text>
+<!-- 31 (prime) --><rect class="grid-cell cell-prime" height="32" width="55" x="495" y="0"></rect><text class="cell-text" x="522" y="16">31★</text>
+</g>
+<!-- Легенда -->
+<g transform="translate(40, 165)">
+<rect class="grid-cell cell-prime" height="16" width="16" x="0" y="0"></rect><text class="legend-text" x="22" y="12">Простые числа (★)</text>
+<rect class="grid-cell cell-comp2" height="16" width="16" x="160" y="0"></rect><text class="legend-text" x="182" y="12">Вычеркнуты шагом 2</text>
+<rect class="grid-cell cell-comp3" height="16" width="16" x="320" y="0"></rect><text class="legend-text" x="342" y="12">Вычеркнуты шагом 3 (с 3²=9)</text>
+<rect class="grid-cell cell-comp5" height="16" width="16" x="480" y="0"></rect><text class="legend-text" x="502" y="12">Вычеркнуты шагом 5 (с 5²=25)</text>
+</g>
+</svg></figure>
+<span class="svg-caption">Рис. 5.1. Цветовая схема вычёркивания составных чисел в решете Эратосфена до 31</span>
+</div>
 
-          <!-- Ряд 1: 2 .. 11 -->
-          <g transform="translate(25, 40)">
-            <!-- 2 (prime) --> <rect x="0" y="0" width="55" height="32" class="grid-cell cell-prime"/><text x="27" y="16" class="cell-text">2★</text>
-            <!-- 3 (prime) --> <rect x="55" y="0" width="55" height="32" class="grid-cell cell-prime"/><text x="82" y="16" class="cell-text">3★</text>
-            <!-- 4 (x2) -->    <rect x="110" y="0" width="55" height="32" class="grid-cell cell-comp2"/><text x="137" y="16" class="cell-text">4 (×2)</text>
-            <!-- 5 (prime) --> <rect x="165" y="0" width="55" height="32" class="grid-cell cell-prime"/><text x="192" y="16" class="cell-text">5★</text>
-            <!-- 6 (x2) -->    <rect x="220" y="0" width="55" height="32" class="grid-cell cell-comp2"/><text x="247" y="16" class="cell-text">6 (×2)</text>
-            <!-- 7 (prime) --> <rect x="275" y="0" width="55" height="32" class="grid-cell cell-prime"/><text x="302" y="16" class="cell-text">7★</text>
-            <!-- 8 (x2) -->    <rect x="330" y="0" width="55" height="32" class="grid-cell cell-comp2"/><text x="357" y="16" class="cell-text">8 (×2)</text>
-            <!-- 9 (x3) -->    <rect x="385" y="0" width="55" height="32" class="grid-cell cell-comp3"/><text x="412" y="16" class="cell-text">9 (×3)</text>
-            <!-- 10 (x2) -->   <rect x="440" y="0" width="55" height="32" class="grid-cell cell-comp2"/><text x="467" y="16" class="cell-text">10 (×2)</text>
-            <!-- 11 (prime) --><rect x="495" y="0" width="55" height="32" class="grid-cell cell-prime"/><text x="522" y="16" class="cell-text">11★</text>
-          </g>
-
-          <!-- Ряд 2: 12 .. 21 -->
-          <g transform="translate(25, 76)">
-            <!-- 12 (x2) -->   <rect x="0" y="0" width="55" height="32" class="grid-cell cell-comp2"/><text x="27" y="16" class="cell-text">12 (×2)</text>
-            <!-- 13 (prime) --><rect x="55" y="0" width="55" height="32" class="grid-cell cell-prime"/><text x="82" y="16" class="cell-text">13★</text>
-            <!-- 14 (x2) -->   <rect x="110" y="0" width="55" height="32" class="grid-cell cell-comp2"/><text x="137" y="16" class="cell-text">14 (×2)</text>
-            <!-- 15 (x3) -->   <rect x="165" y="0" width="55" height="32" class="grid-cell cell-comp3"/><text x="192" y="16" class="cell-text">15 (×3)</text>
-            <!-- 16 (x2) -->   <rect x="220" y="0" width="55" height="32" class="grid-cell cell-comp2"/><text x="247" y="16" class="cell-text">16 (×2)</text>
-            <!-- 17 (prime) --><rect x="275" y="0" width="55" height="32" class="grid-cell cell-prime"/><text x="302" y="16" class="cell-text">17★</text>
-            <!-- 18 (x2) -->   <rect x="330" y="0" width="55" height="32" class="grid-cell cell-comp2"/><text x="357" y="16" class="cell-text">18 (×2)</text>
-            <!-- 19 (prime) --><rect x="385" y="0" width="55" height="32" class="grid-cell cell-prime"/><text x="412" y="16" class="cell-text">19★</text>
-            <!-- 20 (x2) -->   <rect x="440" y="0" width="55" height="32" class="grid-cell cell-comp2"/><text x="467" y="16" class="cell-text">20 (×2)</text>
-            <!-- 21 (x3) -->   <rect x="495" y="0" width="55" height="32" class="grid-cell cell-comp3"/><text x="522" y="16" class="cell-text">21 (×3)</text>
-          </g>
-
-          <!-- Ряд 3: 22 .. 31 -->
-          <g transform="translate(25, 112)">
-            <!-- 22 (x2) -->   <rect x="0" y="0" width="55" height="32" class="grid-cell cell-comp2"/><text x="27" y="16" class="cell-text">22 (×2)</text>
-            <!-- 23 (prime) --><rect x="55" y="0" width="55" height="32" class="grid-cell cell-prime"/><text x="82" y="16" class="cell-text">23★</text>
-            <!-- 24 (x2) -->   <rect x="110" y="0" width="55" height="32" class="grid-cell cell-comp2"/><text x="137" y="16" class="cell-text">24 (×2)</text>
-            <!-- 25 (x5) -->   <rect x="165" y="0" width="55" height="32" class="grid-cell cell-comp5"/><text x="192" y="16" class="cell-text">25 (×5)</text>
-            <!-- 26 (x2) -->   <rect x="220" y="0" width="55" height="32" class="grid-cell cell-comp2"/><text x="247" y="16" class="cell-text">26 (×2)</text>
-            <!-- 27 (x3) -->   <rect x="275" y="0" width="55" height="32" class="grid-cell cell-comp3"/><text x="302" y="16" class="cell-text">27 (×3)</text>
-            <!-- 28 (x2) -->   <rect x="330" y="0" width="55" height="32" class="grid-cell cell-comp2"/><text x="357" y="16" class="cell-text">28 (×2)</text>
-            <!-- 29 (prime) --><rect x="385" y="0" width="55" height="32" class="grid-cell cell-prime"/><text x="412" y="16" class="cell-text">29★</text>
-            <!-- 30 (x2) -->   <rect x="440" y="0" width="55" height="32" class="grid-cell cell-comp2"/><text x="467" y="16" class="cell-text">30 (×2)</text>
-            <!-- 31 (prime) --><rect x="495" y="0" width="55" height="32" class="grid-cell cell-prime"/><text x="522" y="16" class="cell-text">31★</text>
-          </g>
-
-          <!-- Легенда -->
-          <g transform="translate(40, 165)">
-            <rect x="0" y="0" width="16" height="16" class="grid-cell cell-prime"/><text x="22" y="12" class="legend-text">Простые числа (★)</text>
-            <rect x="160" y="0" width="16" height="16" class="grid-cell cell-comp2"/><text x="182" y="12" class="legend-text">Вычеркнуты шагом 2</text>
-            <rect x="320" y="0" width="16" height="16" class="grid-cell cell-comp3"/><text x="342" y="12" class="legend-text">Вычеркнуты шагом 3 (с 3²=9)</text>
-            <rect x="480" y="0" width="16" height="16" class="grid-cell cell-comp5"/><text x="502" y="12" class="legend-text">Вычеркнуты шагом 5 (с 5²=25)</text>
-          </g>
-        </svg></div>
-        <span class="svg-caption">Рис. 5.1. Цветовая схема вычёркивания составных чисел в решете Эратосфена до 31</span>
-      </div>
-    </section>
-
-    <!-- ========================================================================
+<!-- ========================================================================
          РАЗДЕЛ 6: ОСНОВНАЯ ТЕОРЕМА АРИФМЕТИКИ
          ======================================================================== -->
-    <section id="sec-fta">
+<section id="sec-fta">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-7">
-  <div class="chapter-kicker">07 / Основная теорема арифметики …</div>
-  <h2 id="chapter-7" data-toc="Основная теорема арифметики …">6. Основная теорема арифметики (ОТА)</h2>
-  <p>
+  <div class="chapter-kicker">07 / Основная теорема арифметики (О…</div>
+  <h2 id="chapter-7" data-toc="Основная теорема арифметики (О…">6. Основная теорема арифметики (ОТА)</h2>
+  
+<p>
         Основная теорема арифметики — фундаментальный краеугольный камень теории чисел, устанавливающий мультипликативную факторизацию целых чисел. Впервые строгое доказательство единственности было опубликовано К. Ф. Гауссом в 1801 году в его знаменитом труде <em>«Disquisitiones Arithmeticae»</em>.
       </p>
-
-      <div class="statement theorem" id="thm-6">
-  <div class="block-label">Утверждение 6</div>
-  <h3 id="sub-12" data-toc="Теорема 6.1 (Основная теорем…">Теорема 6.1 (Основная теорема арифметики)</h3>
-  
-        
-          <span class="callout-badge">Теорема</span>
-        
-</div>
-        <p>
+<div class="statement theorem" id="thm-6"><div class="block-label">Утверждение 6</div><h3 data-toc="Теорема 6.1 (Основная теорема …" id="sub-7-1">Теорема 6.1 (Основная теорема арифметики)Теорема</h3><div>
+<p>
           Всякое натуральное число $n > 1$ может быть представлено в виде произведения простых чисел:
         </p>
-        <div class="math-display">
-          $$n = p_1 p_2 \cdots p_s$$
+<div class="math-display">
+          \[n = p_1 p_2 \cdots p_s\]
         </div>
-        <p>
+<p>
           причём это представление <strong>единственно</strong> с точностью до порядка следования сомножителей.
         </p>
-      </div>
-
-      
-<div class="proof" id="proof-11" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-11" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>База индукции ($n = 2$):</strong> Число $2$ является простым по определению, поэтому $2 = 2$ — искомое разложение (состоящее из одного сомножителя). База доказана.</p>
-  </div>
-  <div class="proof-full" id="full-11" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
-<details open>
-          <summary>Часть 1: Доказательство существования (метод сильной индукции по $n$)</summary>
-          <p>
-            <strong>База индукции ($n = 2$):</strong> Число $2$ является простым по определению, поэтому $2 = 2$ — искомое разложение (состоящее из одного сомножителя). База доказана.
+</div></div>
+<div class="proof" data-proof="" id="proof-21">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-21">
+<div class="proof-label">Идея</div>
+<p>База индукции ($n = 2$): Число $2$ является простым по определению, поэтому $2 = 2$ — искомое разложение (состоящее из одного сомножителя).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-21">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
+<details open="">
+<summary>Часть 1: Доказательство существования (метод сильной индукции по $n$)</summary>
+<p>
+<strong>База индукции ($n = 2$):</strong> Число $2$ является простым по определению, поэтому $2 = 2$ — искомое разложение (состоящее из одного сомножителя). База доказана.
           </p>
-          <p>
-            <strong>Индукционное предположение:</strong> Предположим, что всякое натуральное число $k$, удовлетворяющее неравенству $2 \le k < n$, разложимо в произведение простых сомножителей.
+<p>
+<strong>Индукционное предположение:</strong> Предположим, что всякое натуральное число $k$, удовлетворяющее неравенству $2 \le k < n$, разложимо в произведение простых сомножителей.
           </p>
-          <p>
-            <strong>Индукционный переход:</strong> Докажем утверждение для числа $n$. Рассмотрим два возможных случая:<br>
-            <em>Случай А:</em> Число $n$ — простое. Тогда $n = n$ является тривиальным представлением в виде произведения одного простого числа. Утверждение верно.<br>
-            <em>Случай Б:</em> Число $n$ — составное. Тогда по определению составного числа существуют такие $a, b \in \mathbb{N}$, что:
-            $$n = a \cdot b, \quad \text{где } 1 < a < n \text{ и } 1 < b < n$$
+<p>
+<strong>Индукционный переход:</strong> Докажем утверждение для числа $n$. Рассмотрим два возможных случая:<br/>
+<em>Случай А:</em> Число $n$ — простое. Тогда $n = n$ является тривиальным представлением в виде произведения одного простого числа. Утверждение верно.<br/>
+<em>Случай Б:</em> Число $n$ — составное. Тогда по определению составного числа существуют такие $a, b \in \mathbb{N}$, что:
+            \[n = a \cdot b, \quad \text{где } 1 < a < n \text{ и } 1 < b < n\]
             Так как $2 \le a < n$ и $2 \le b < n$, к числам $a$ и $b$ применимо индукционное предположение! Следовательно, существуют наборы простых чисел $\{p_i\}$ и $\{q_j\}$, такие что:
-            $$a = p_1 p_2 \cdots p_s, \qquad b = q_1 q_2 \cdots q_r$$
+            \[a = p_1 p_2 \cdots p_s, \qquad b = q_1 q_2 \cdots q_r\]
             Подставляя эти разложения в представление для $n$, получаем:
-            $$n = a \cdot b = p_1 p_2 \cdots p_s q_1 q_2 \cdots q_r$$
+            \[n = a \cdot b = p_1 p_2 \cdots p_s q_1 q_2 \cdots q_r\]
             Число $n$ представлено в виде произведения простых сомножителей. Существование полностью доказано по принципу математической индукции.
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
-
-
-      
-<div class="proof" id="proof-12" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-12" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Индукция по числу $n$.<br>
-            <strong>База индукции ($n = 2$):</strong> Представление $2 = 2$ единственно, так как $2$ не имеет делителей кроме $1$ и $2$.</p>
-  </div>
-  <div class="proof-full" id="full-12" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
-<details open>
-          <summary>Часть 2: Доказательство единственности (метод индукции через лемму Евклида)</summary>
-          <p>
-            Индукция по числу $n$.<br>
-            <strong>База индукции ($n = 2$):</strong> Представление $2 = 2$ единственно, так как $2$ не имеет делителей кроме $1$ и $2$.
+<span class="qed">$\blacksquare$</span>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="proof" data-proof="" id="proof-23">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-23">
+<div class="proof-label">Идея</div>
+<p>Индукция по числу $n$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-23">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
+<details open="">
+<summary>Часть 2: Доказательство единственности (метод индукции через лемму Евклида)</summary>
+<p>
+            Индукция по числу $n$.<br/>
+<strong>База индукции ($n = 2$):</strong> Представление $2 = 2$ единственно, так как $2$ не имеет делителей кроме $1$ и $2$.
           </p>
-          <p>
-            <strong>Индукционный переход:</strong> Пусть утверждение о единственности верно для всех натуральных чисел от $2$ до $n-1$.<br>
+<p>
+<strong>Индукционный переход:</strong> Пусть утверждение о единственности верно для всех натуральных чисел от $2$ до $n-1$.<br/>
             Допустим, что для числа $n$ существуют два разложения на простые множители:
-            $$n = p_1 p_2 \cdots p_s = q_1 q_2 \cdots q_r$$
+            \[n = p_1 p_2 \cdots p_s = q_1 q_2 \cdots q_r\]
             Поскольку $p_1$ делит левую часть равенства, $p_1$ обязано делить и правую часть:
-            $$p_1 \mid (q_1 q_2 \cdots q_r)$$
+            \[p_1 \mid (q_1 q_2 \cdots q_r)\]
             Так как $p_1$ — простое число, по обобщенной Лемме Евклида (Теорема 4.2) оно обязано делить хотя бы один из сомножителей правой части:
-            $$\exists i \in \{1, 2, \dots, r\} : p_1 \mid q_i$$
+            \[\exists i \in \{1, 2, \dots, r\} : p_1 \mid q_i\]
             Переставим сомножители в разложении $\{q_j\}$ так, чтобы этот множитель встал на первую позицию (то есть $i = 1$). Тогда:
-            $$p_1 \mid q_1$$
+            \[p_1 \mid q_1\]
             Но $q_1$ — простое число, его единственными натуральными делителями являются $1$ и $q_1$. Поскольку $p_1 > 1$, получаем тождественное равенство простых чисел:
-            $$p_1 = q_1$$
+            \[p_1 = q_1\]
             Разделим обе части исходного равенства на $p_1 = q_1$:
-            $$m = \frac{n}{p_1} = p_2 p_3 \cdots p_s = q_2 q_3 \cdots q_r$$
-            Так как $p_1 \ge 2$, то число $m < n$. По индукционному предположению разложение числа $m$ на простые множители <strong>единственно</strong> с точностью до перестановки сомножителей!<br>
+            \[m = \frac{n}{p_1} = p_2 p_3 \cdots p_s = q_2 q_3 \cdots q_r\]
+            Так как $p_1 \ge 2$, то число $m < n$. По индукционному предположению разложение числа $m$ на простые множители <strong>единственно</strong> с точностью до перестановки сомножителей!<br/>
             Отсюда немедленно следует, что:
-            $$s - 1 = r - 1 \implies s = r$$
+            \[s - 1 = r - 1 \implies s = r\]
             и с точностью до нумерации:
-            $$p_2 = q_2, \quad p_3 = q_3, \quad \dots, \quad p_s = q_s$$
+            \[p_2 = q_2, \quad p_3 = q_3, \quad \dots, \quad p_s = q_s\]
             Вместе с доказанным ранее равенством $p_1 = q_1$ это доказывает полную эквивалентность двух исходных разложений. Единственность доказана.
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
-
-
-      
-<div class="proof" id="proof-13" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-13" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Это изящное альтернативное доказательство (приводимое в монографии А. Г. Куроша) не использует лемму Евклида заранее, а получает её автоматически через принцип минимального элемента.<br>
-            Предположим от противного, что существуют натуральные числа, обладающие более чем одним разложением на простые сомножители. Пусть $n$ — <strong>наименьшее</strong> такое число:</p>
-  </div>
-  <div class="proof-full" id="full-13" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
+<span class="qed">$\blacksquare$</span>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="proof" data-proof="" id="proof-25">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-25">
+<div class="proof-label">Идея</div>
+<p>Это изящное альтернативное доказательство (приводимое в монографии А.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-25">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
 <details>
-          <summary>Альтернативное доказательство единственности (метод наименьшего контрпримера / бесконечный спуск)</summary>
-          <p>
-            Это изящное альтернативное доказательство (приводимое в монографии А. Г. Куроша) не использует лемму Евклида заранее, а получает её автоматически через принцип минимального элемента.<br>
+<summary>Альтернативное доказательство единственности (метод наименьшего контрпримера / бесконечный спуск)</summary>
+<p>
+            Это изящное альтернативное доказательство (приводимое в монографии А. Г. Куроша) не использует лемму Евклида заранее, а получает её автоматически через принцип минимального элемента.<br/>
             Предположим от противного, что существуют натуральные числа, обладающие более чем одним разложением на простые сомножители. Пусть $n$ — <strong>наименьшее</strong> такое число:
-            $$n = p_1 p_2 \cdots p_s = q_1 q_2 \cdots q_r$$
-            Ни один множитель $p_i$ не может быть равен ни одному множителю $q_j$ (иначе, сократив на них, мы получили бы число $n' < n$ с неоднозначным разложением, что противоречит минимальности $n$).<br>
-            Упорядочим простые числа: $p_1 \le p_2 \le \dots \le p_s$ и $q_1 \le q_2 \le \dots \le q_r$. Без ограничения общности пусть $p_1 < q_1$.<br>
+            \[n = p_1 p_2 \cdots p_s = q_1 q_2 \cdots q_r\]
+            Ни один множитель $p_i$ не может быть равен ни одному множителю $q_j$ (иначе, сократив на них, мы получили бы число $n' < n$ с неоднозначным разложением, что противоречит минимальности $n$).<br/>
+            Упорядочим простые числа: $p_1 \le p_2 \le \dots \le p_s$ и $q_1 \le q_2 \le \dots \le q_r$. Без ограничения общности пусть $p_1 < q_1$.<br/>
             Рассмотрим вспомогательное число:
-            $$n' = n - p_1 q_2 \cdots q_r = (q_1 - p_1) q_2 \cdots q_r$$
-            С одной стороны, $n' = p_1 p_2 \cdots p_s - p_1 q_2 \cdots q_r = p_1 (p_2 \cdots p_s - q_2 \cdots q_r) > 0$. Значит, $p_1 \mid n'$.<br>
-            С другой стороны, $0 < n' < n$. В силу минимальности $n$, число $n'$ обязано иметь <strong>единственное</strong> разложение на простые множители!<br>
-            Разложим число $(q_1 - p_1)$ на простые сомножители. Тогда каноническое разложение $n'$ формируется из простых делителей $(q_1 - p_1)$ и сомножителей $q_2, \dots, q_r$.<br>
+            \[n' = n - p_1 q_2 \cdots q_r = (q_1 - p_1) q_2 \cdots q_r\]
+            С одной стороны, $n' = p_1 p_2 \cdots p_s - p_1 q_2 \cdots q_r = p_1 (p_2 \cdots p_s - q_2 \cdots q_r) > 0$. Значит, $p_1 \mid n'$.<br/>
+            С другой стороны, $0 < n' < n$. В силу минимальности $n$, число $n'$ обязано иметь <strong>единственное</strong> разложение на простые множители!<br/>
+            Разложим число $(q_1 - p_1)$ на простые сомножители. Тогда каноническое разложение $n'$ формируется из простых делителей $(q_1 - p_1)$ и сомножителей $q_2, \dots, q_r$.<br/>
             Так как $p_1 \mid n'$, в силу единственности разложения $n'$ число $p_1$ обязано присутствовать среди этих простых множителей.
-            Но $p_1$ не совпадает ни с одним из $q_j$ ($j \ge 2$, так как $p_1 < q_1 \le q_j$). Следовательно, $p_1$ обязано делить разность $(q_1 - p_1)$.<br>
-            Но если $p_1 \mid (q_1 - p_1)$, то $p_1 \mid q_1$. А так как $q_1$ простое, это влечет $p_1 = q_1$, что противоречит строгой оценке $p_1 < q_1$!<br>
+            Но $p_1$ не совпадает ни с одним из $q_j$ ($j \ge 2$, так как $p_1 < q_1 \le q_j$). Следовательно, $p_1$ обязано делить разность $(q_1 - p_1)$.<br/>
+            Но если $p_1 \mid (q_1 - p_1)$, то $p_1 \mid q_1$. А так как $q_1$ простое, это влечет $p_1 = q_1$, что противоречит строгой оценке $p_1 < q_1$!<br/>
             Полученное фундаментальное противоречие доказывает, что контрпримеров не существует.
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
+<span class="qed">$\blacksquare$</span>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
 
-    </section>
-
-    <!-- ========================================================================
+<!-- ========================================================================
          РАЗДЕЛ 7: КАНОНИЧЕСКОЕ РАЗЛОЖЕНИЕ И ДЕЛИТЕЛИ
          ======================================================================== -->
-    <section id="sec-canonical">
+<section id="sec-canonical">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-8">
-  <div class="chapter-kicker">08 / Каноническое разложение и те…</div>
-  <h2 id="chapter-8" data-toc="Каноническое разложение и те…">7. Каноническое разложение и теория делителей</h2>
-  <p>
+  <div class="chapter-kicker">08 / Каноническое разложение и теор…</div>
+  <h2 id="chapter-8" data-toc="Каноническое разложение и теор…">7. Каноническое разложение и теория делителей</h2>
+  
+<p>
         Объединяя одинаковые простые сомножители в степени, мы приходим к стандартной (канонической) записи любого целого числа, введенной в лекции 02.10.
       </p>
-
-      <div class="statement definition" id="def-7">
-  <div class="block-label">Определение 7</div>
-  <h3 id="sub-13" data-toc="Определение 7.1 (Каноническо…">Определение 7.1 (Каноническое разложение)</h3>
-  
-        
-          <span class="callout-badge">Определение</span>
-        
-</div>
-        <p>
-          <strong>Каноническим разложением</strong> натурального числа $n > 1$ называется его представление в виде:
+<div class="statement definition" id="def-7"><div class="block-label">Определение 7</div><h3 data-toc="Определение 7.1 (Каноническое …" id="sub-8-1">Определение 7.1 (Каноническое разложение)Определение</h3><div>
+<p>
+<strong>Каноническим разложением</strong> натурального числа $n > 1$ называется его представление в виде:
         </p>
-        <div class="math-display">
-          $$n = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k} = \prod_{i=1}^k p_i^{\alpha_i}$$
+<div class="math-display">
+          \[n = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k} = \prod_{i=1}^k p_i^{\alpha_i}\]
         </div>
-        <p>
+<p>
           где $p_1 < p_2 < \dots < p_k$ — попарно различные простые числа, а показатели $\alpha_1, \alpha_2, \dots, \alpha_k \in \mathbb{N}$ — натуральные числа ($\alpha_i \ge 1$).
         </p>
-        <p>
-          <em>Пример:</em> Число $792 = 2 \cdot 2 \cdot 2 \cdot 3 \cdot 3 \cdot 11$ имеет канонический вид $792 = 2^3 \cdot 3^2 \cdot 11^1$.
+<p>
+<em>Пример:</em> Число $792 = 2 \cdot 2 \cdot 2 \cdot 3 \cdot 3 \cdot 11$ имеет канонический вид $792 = 2^3 \cdot 3^2 \cdot 11^1$.
         </p>
-      </div>
-
-      <div class="statement theorem" id="thm-7">
-  <div class="block-label">Утверждение 7</div>
-  <h3 id="sub-14" data-toc="Теорема 7.1 (Критерий делимо…">Теорема 7.1 (Критерий делимости и вид произвольного делителя)</h3>
-  
-        
-          <span class="callout-badge">Теорема</span>
-        
-</div>
-        <p>
+</div></div>
+<div class="statement theorem" id="thm-7"><div class="block-label">Утверждение 7</div><h3 data-toc="Теорема 7.1 (Критерий делимост…" id="sub-8-2">Теорема 7.1 (Критерий делимости и вид произвольного делителя)Теорема</h3><div>
+<p>
           Пусть $n = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k}$ — каноническое разложение числа $n$. Натуральное число $d$ является делителем числа $n$ ($d \mid n$) тогда и только тогда, когда оно представимо в виде:
         </p>
-        <div class="math-display">
-          $$d = p_1^{\beta_1} p_2^{\beta_2} \cdots p_k^{\beta_k}, \quad \text{где } 0 \le \beta_i \le \alpha_i \quad \forall i \in \{1, 2, \dots, k\}$$
+<div class="math-display">
+          \[d = p_1^{\beta_1} p_2^{\beta_2} \cdots p_k^{\beta_k}, \quad \text{где } 0 \le \beta_i \le \alpha_i \quad \forall i \in \{1, 2, \dots, k\}\]
         </div>
-      </div>
-
-      
-<div class="proof" id="proof-14" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-14" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>Необходимость ($\implies$):</strong> Пусть $d \mid n$. Тогда по определению делимости существует $m \in \mathbb{N}$, такое что $n = d \cdot m$.<br>
-            Запишем канонические разложения чисел $d$ и $m$:</p>
-  </div>
-  <div class="proof-full" id="full-14" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
-<details open>
-          <summary>Полное доказательство теоремы о виде делителя</summary>
-          <p>
-            <strong>Необходимость ($\implies$):</strong> Пусть $d \mid n$. Тогда по определению делимости существует $m \in \mathbb{N}$, такое что $n = d \cdot m$.<br>
+</div></div>
+<div class="proof" data-proof="" id="proof-27">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-27">
+<div class="proof-label">Идея</div>
+<p>Необходимость ($\implies$): Пусть $d \mid n$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-27">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
+<details open="">
+<summary>Полное доказательство теоремы о виде делителя</summary>
+<p>
+<strong>Необходимость ($\implies$):</strong> Пусть $d \mid n$. Тогда по определению делимости существует $m \in \mathbb{N}$, такое что $n = d \cdot m$.<br/>
             Запишем канонические разложения чисел $d$ и $m$:
-            $$d = q_1^{\gamma_1} \cdots q_r^{\gamma_r}, \qquad m = t_1^{\delta_1} \cdots t_u^{\delta_u}$$
+            \[d = q_1^{\gamma_1} \cdots q_r^{\gamma_r}, \qquad m = t_1^{\delta_1} \cdots t_u^{\delta_u}\]
             Тогда:
-            $$n = p_1^{\alpha_1} \cdots p_k^{\alpha_k} = \left( q_1^{\gamma_1} \cdots q_r^{\gamma_r} \right) \cdot \left( t_1^{\delta_1} \cdots t_u^{\delta_u} \right)$$
-            В силу единственности разложения на простые сомножители (Теорема 6.1), каждый простой множитель $q_j$, входящий в состав $d$, обязан присутствовать среди простых множителей $\{p_1, \dots, p_k\}$ числа $n$. При этом суммарный показатель степени простого $p_i$ в правой части равен сумме степеней в $d$ и $m$: $\beta_i + \delta_i' = \alpha_i$.<br>
+            \[n = p_1^{\alpha_1} \cdots p_k^{\alpha_k} = \left( q_1^{\gamma_1} \cdots q_r^{\gamma_r} \right) \cdot \left( t_1^{\delta_1} \cdots t_u^{\delta_u} \right)\]
+            В силу единственности разложения на простые сомножители (Теорема 6.1), каждый простой множитель $q_j$, входящий в состав $d$, обязан присутствовать среди простых множителей $\{p_1, \dots, p_k\}$ числа $n$. При этом суммарный показатель степени простого $p_i$ в правой части равен сумме степеней в $d$ и $m$: $\beta_i + \delta_i' = \alpha_i$.<br/>
             Так как $\delta_i' \ge 0$, то $\beta_i \le \alpha_i$. Следовательно, в разложение $d$ могут входить только простые $p_i$ со степенями $0 \le \beta_i \le \alpha_i$.
           </p>
-          <p>
-            <strong>Достаточность ($\impliedby$):</strong> Пусть $d = \prod p_i^{\beta_i}$ при $0 \le \beta_i \le \alpha_i$.<br>
-            Положим $m = p_1^{\alpha_1 - \beta_1} \cdots p_k^{\alpha_k - \beta_k}$. Так как $\alpha_i - \beta_i \ge 0$, число $m$ является целым (натуральным).<br>
+<p>
+<strong>Достаточность ($\impliedby$):</strong> Пусть $d = \prod p_i^{\beta_i}$ при $0 \le \beta_i \le \alpha_i$.<br/>
+            Положим $m = p_1^{\alpha_1 - \beta_1} \cdots p_k^{\alpha_k - \beta_k}$. Так как $\alpha_i - \beta_i \ge 0$, число $m$ является целым (натуральным).<br/>
             Тогда $d \cdot m = \prod p_i^{\beta_i + (\alpha_i - \beta_i)} = \prod p_i^{\alpha_i} = n$, откуда $d \mid n$.
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
-
-
-      <div class="statement theorem" id="thm-8">
-  <div class="block-label">Утверждение 8</div>
-  <h3 id="sub-15" data-toc="Теорема 7.2 (Формулы НОД и Н…">Теорема 7.2 (Формулы НОД и НОК через $\min$ и $\max$)</h3>
-  
-        
-          <span class="callout-badge">Теорема</span>
-        
+<span class="qed">$\blacksquare$</span>
 </div>
-        <p>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="statement theorem" id="thm-8"><div class="block-label">Утверждение 8</div><h3 data-toc="Теорема 7.2 (Формулы НОД и НОК…" id="sub-8-3">Теорема 7.2 (Формулы НОД и НОК через $\min$ и $\max$)Теорема</h3><div>
+<p>
           Пусть даны канонические разложения чисел $a$ и $b$, дополненные нулевыми степенями до общего набора простых чисел:
-          $$a = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k}, \qquad b = p_1^{\beta_1} p_2^{\beta_2} \cdots p_k^{\beta_k}, \quad \alpha_i, \beta_i \ge 0$$
+          \[a = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k}, \qquad b = p_1^{\beta_1} p_2^{\beta_2} \cdots p_k^{\beta_k}, \quad \alpha_i, \beta_i \ge 0\]
           Тогда их наибольший общий делитель и наименьшее общее кратное вычисляются по формулам:
         </p>
-        <div class="math-display">
-          $$(a, b) = p_1^{\min(\alpha_1, \beta_1)} p_2^{\min(\alpha_2, \beta_2)} \cdots p_k^{\min(\alpha_k, \beta_k)}$$
-          $$[a, b] = p_1^{\max(\alpha_1, \beta_1)} p_2^{\max(\alpha_2, \beta_2)} \cdots p_k^{\max(\alpha_k, \beta_k)}$$
+<div class="math-display">
+          \[(a, b) = p_1^{\min(\alpha_1, \beta_1)} p_2^{\min(\alpha_2, \beta_2)} \cdots p_k^{\min(\alpha_k, \beta_k)}\]
+          \[[a, b] = p_1^{\max(\alpha_1, \beta_1)} p_2^{\max(\alpha_2, \beta_2)} \cdots p_k^{\max(\alpha_k, \beta_k)}\]
         </div>
-      </div>
-
-      
-<div class="proof" id="proof-15" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-15" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p><strong>1. Доказательство формулы для НОД:</strong><br>
-            Обозначим $D = \prod_{i=1}^k p_i^{\delta_i}$, где $\delta_i = \min(\alpha_i, \beta_i)$.<br>
-            - Так как $\delta_i \le \alpha_i$ и $\delta_i \le \beta_i$, по Теореме 7.1 число $D \mid a$ и $D \mid b$, то есть $D$ — общий делитель.<br>
-            - Пусть $c$ — произвольный общий делитель $a$ и $b$.</p>
-  </div>
-  <div class="proof-full" id="full-15" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
-<details open>
-          <summary>Полное доказательство формул для НОД и НОК</summary>
-          <p>
-            <strong>1. Доказательство формулы для НОД:</strong><br>
-            Обозначим $D = \prod_{i=1}^k p_i^{\delta_i}$, где $\delta_i = \min(\alpha_i, \beta_i)$.<br>
-            - Так как $\delta_i \le \alpha_i$ и $\delta_i \le \beta_i$, по Теореме 7.1 число $D \mid a$ и $D \mid b$, то есть $D$ — общий делитель.<br>
+</div></div>
+<div class="proof" data-proof="" id="proof-29">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-29">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Строгое доказательство).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-29">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
+<details open="">
+<summary>Полное доказательство формул для НОД и НОК</summary>
+<p>
+<strong>1. Доказательство формулы для НОД:</strong><br/>
+            Обозначим $D = \prod_{i=1}^k p_i^{\delta_i}$, где $\delta_i = \min(\alpha_i, \beta_i)$.<br/>
+            - Так как $\delta_i \le \alpha_i$ и $\delta_i \le \beta_i$, по Теореме 7.1 число $D \mid a$ и $D \mid b$, то есть $D$ — общий делитель.<br/>
             - Пусть $c$ — произвольный общий делитель $a$ и $b$. По Теореме 7.1 его разложение имеет вид $c = \prod p_i^{\gamma_i}$, причем $\gamma_i \le \alpha_i$ и $\gamma_i \le \beta_i$. Следовательно:
-            $$\gamma_i \le \min(\alpha_i, \beta_i) = \delta_i \quad \forall i = 1, \dots, k$$
+            \[\gamma_i \le \min(\alpha_i, \beta_i) = \delta_i \quad \forall i = 1, \dots, k\]
             Но это означает, что $c \mid D$. Следовательно, $D = (a, b)$.
           </p>
-          <p>
-            <strong>2. Доказательство формулы для НОК:</strong><br>
-            Обозначим $M = \prod_{i=1}^k p_i^{\mu_i}$, где $\mu_i = \max(\alpha_i, \beta_i)$.<br>
-            - Так как $\mu_i \ge \alpha_i$ и $\mu_i \ge \beta_i$, частные $M/a$ и $M/b$ целые, значит $a \mid M$ и $b \mid M$ ($M$ — общее кратное).<br>
+<p>
+<strong>2. Доказательство формулы для НОК:</strong><br/>
+            Обозначим $M = \prod_{i=1}^k p_i^{\mu_i}$, где $\mu_i = \max(\alpha_i, \beta_i)$.<br/>
+            - Так как $\mu_i \ge \alpha_i$ и $\mu_i \ge \beta_i$, частные $M/a$ и $M/b$ целые, значит $a \mid M$ и $b \mid M$ ($M$ — общее кратное).<br/>
             - Пусть $t$ — любое общее кратное $a$ и $b$. Тогда $t$ делится на все $p_i$, и его каноническое разложение содержит $p_i$ в степени $x_i$. Так как $a \mid t$, то $x_i \ge \alpha_i$; так как $b \mid t$, то $x_i \ge \beta_i$. Следовательно:
-            $$x_i \ge \max(\alpha_i, \beta_i) = \mu_i \quad \forall i = 1, \dots, k$$
+            \[x_i \ge \max(\alpha_i, \beta_i) = \mu_i \quad \forall i = 1, \dots, k\]
             Отсюда по Теореме 7.1 число $M$ делит $t$. Значит, $M = [a, b]$.
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
-
-
-      <!-- Иллюстрация: Решётка делителей числа 36 (Диаграмма Хассе) -->
-      <div class="svg-wrapper">
-        <div class="figure-plate" style="margin:24px 0; overflow-x:auto;"><svg viewBox="0 0 500 280" width="500" height="280" xmlns="http://www.w3.org/2000/svg">
-          <style>
+<span class="qed">$\blacksquare$</span>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<!-- Иллюстрация: Решётка делителей числа 36 (Диаграмма Хассе) -->
+<div class="svg-wrapper">
+<figure class="figure-plate"><svg height="280" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 500 280" width="500" xmlns="http://www.w3.org/2000/svg">
+<style>
             .hasse-line { stroke: var(--border-color); stroke-width: 1.5; }
             .hasse-node { fill: var(--bg-surface); stroke: var(--primary); stroke-width: 2; }
             .hasse-text { font-family: monospace; font-size: 12px; font-weight: bold; text-anchor: middle; dominant-baseline: central; fill: var(--text-main); }
           </style>
-          
-          <text x="250" y="20" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="var(--primary)">
+<text fill="var(--primary)" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" x="250" y="20">
             Решётка делителей числа 36 = 2² · 3² (Диаграмма Хассе)
           </text>
-
-          <!-- Линии графа делимости -->
-          <!-- От 1 -->
-          <line x1="250" y1="240" x2="170" y2="190" class="hasse-line" />
-          <line x1="250" y1="240" x2="330" y2="190" class="hasse-line" />
-          <!-- От 2 -->
-          <line x1="170" y1="190" x2="100" y2="140" class="hasse-line" />
-          <line x1="170" y1="190" x2="250" y2="140" class="hasse-line" />
-          <!-- От 3 -->
-          <line x1="330" y1="190" x2="250" y2="140" class="hasse-line" />
-          <line x1="330" y1="190" x2="400" y2="140" class="hasse-line" />
-          <!-- От 4 -->
-          <line x1="100" y1="140" x2="170" y2="90" class="hasse-line" />
-          <!-- От 6 -->
-          <line x1="250" y1="140" x2="170" y2="90" class="hasse-line" />
-          <line x1="250" y1="140" x2="330" y2="90" class="hasse-line" />
-          <!-- От 9 -->
-          <line x1="400" y1="140" x2="330" y2="90" class="hasse-line" />
-          <!-- К 36 -->
-          <line x1="170" y1="90" x2="250" y2="45" class="hasse-line" />
-          <line x1="330" y1="90" x2="250" y2="45" class="hasse-line" />
-
-          <!-- Узлы делителей -->
-          <!-- Уровень 0: 1 -->
-          <circle cx="250" cy="240" r="14" class="hasse-node" /><text x="250" y="240" class="hasse-text">1</text>
-          
-          <!-- Уровень 1: 2, 3 -->
-          <circle cx="170" cy="190" r="14" class="hasse-node" /><text x="170" y="190" class="hasse-text">2</text>
-          <circle cx="330" cy="190" r="14" class="hasse-node" /><text x="330" y="190" class="hasse-text">3</text>
-          
-          <!-- Уровень 2: 4, 6, 9 -->
-          <circle cx="100" cy="140" r="14" class="hasse-node" /><text x="100" y="140" class="hasse-text">4</text>
-          <circle cx="250" cy="140" r="14" class="hasse-node" /><text x="250" y="140" class="hasse-text">6</text>
-          <circle cx="400" cy="140" r="14" class="hasse-node" /><text x="400" y="140" class="hasse-text">9</text>
-          
-          <!-- Уровень 3: 12, 18 -->
-          <circle cx="170" cy="90" r="14" class="hasse-node" /><text x="170" y="90" class="hasse-text">12</text>
-          <circle cx="330" cy="90" r="14" class="hasse-node" /><text x="330" y="90" class="hasse-text">18</text>
-          
-          <!-- Уровень 4: 36 -->
-          <circle cx="250" cy="45" r="16" class="hasse-node" stroke="#e11d48" /><text x="250" y="45" class="hasse-text">36</text>
-        </svg></div>
-        <span class="svg-caption">Рис. 7.1. Диаграмма Хассе решётки делителей числа 36. Топологический порядок отражает отношение $a \mid b$</span>
-      </div>
-
-      <div id="subsec-num-div" class="callout callout-prop">
-        <div class="callout-header">
-          <span class="callout-title">Функции количества и суммы делителей: $\tau(n)$ и $\sigma(n)$</span>
-          <span class="callout-badge">Формулы</span>
-        </div>
-        <p>
+<!-- Линии графа делимости -->
+<!-- От 1 -->
+<line class="hasse-line" x1="250" x2="170" y1="240" y2="190"></line>
+<line class="hasse-line" x1="250" x2="330" y1="240" y2="190"></line>
+<!-- От 2 -->
+<line class="hasse-line" x1="170" x2="100" y1="190" y2="140"></line>
+<line class="hasse-line" x1="170" x2="250" y1="190" y2="140"></line>
+<!-- От 3 -->
+<line class="hasse-line" x1="330" x2="250" y1="190" y2="140"></line>
+<line class="hasse-line" x1="330" x2="400" y1="190" y2="140"></line>
+<!-- От 4 -->
+<line class="hasse-line" x1="100" x2="170" y1="140" y2="90"></line>
+<!-- От 6 -->
+<line class="hasse-line" x1="250" x2="170" y1="140" y2="90"></line>
+<line class="hasse-line" x1="250" x2="330" y1="140" y2="90"></line>
+<!-- От 9 -->
+<line class="hasse-line" x1="400" x2="330" y1="140" y2="90"></line>
+<!-- К 36 -->
+<line class="hasse-line" x1="170" x2="250" y1="90" y2="45"></line>
+<line class="hasse-line" x1="330" x2="250" y1="90" y2="45"></line>
+<!-- Узлы делителей -->
+<!-- Уровень 0: 1 -->
+<circle class="hasse-node" cx="250" cy="240" r="14"></circle><text class="hasse-text" x="250" y="240">1</text>
+<!-- Уровень 1: 2, 3 -->
+<circle class="hasse-node" cx="170" cy="190" r="14"></circle><text class="hasse-text" x="170" y="190">2</text>
+<circle class="hasse-node" cx="330" cy="190" r="14"></circle><text class="hasse-text" x="330" y="190">3</text>
+<!-- Уровень 2: 4, 6, 9 -->
+<circle class="hasse-node" cx="100" cy="140" r="14"></circle><text class="hasse-text" x="100" y="140">4</text>
+<circle class="hasse-node" cx="250" cy="140" r="14"></circle><text class="hasse-text" x="250" y="140">6</text>
+<circle class="hasse-node" cx="400" cy="140" r="14"></circle><text class="hasse-text" x="400" y="140">9</text>
+<!-- Уровень 3: 12, 18 -->
+<circle class="hasse-node" cx="170" cy="90" r="14"></circle><text class="hasse-text" x="170" y="90">12</text>
+<circle class="hasse-node" cx="330" cy="90" r="14"></circle><text class="hasse-text" x="330" y="90">18</text>
+<!-- Уровень 4: 36 -->
+<circle class="hasse-node" cx="250" cy="45" r="16" stroke="#e11d48"></circle><text class="hasse-text" x="250" y="45">36</text>
+</svg></figure>
+<span class="svg-caption">Рис. 7.1. Диаграмма Хассе решётки делителей числа 36. Топологический порядок отражает отношение $a \mid b$</span>
+</div>
+<div class="callout callout-prop" id="subsec-num-div">
+<div class="callout-header">
+<span class="callout-title">Функции количества и суммы делителей: $\tau(n)$ и $\sigma(n)$</span>
+<span class="callout-badge">Формулы</span>
+</div>
+<p>
           Пусть $n = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k}$. Из взаимной независимости выбора показателей степени $\beta_i \in \{0, 1, \dots, \alpha_i\}$ для каждого простого множителя вытекают фундаментальные формулы теории чисел:
         </p>
-        <p>
-          <strong>1. Количество натуральных делителей:</strong>
-          $$\tau(n) = (\alpha_1 + 1)(\alpha_2 + 1)\cdots(\alpha_k + 1) = \prod_{i=1}^k (\alpha_i + 1)$$
+<p>
+<strong>1. Количество натуральных делителей:</strong>
+          \[\tau(n) = (\alpha_1 + 1)(\alpha_2 + 1)\cdots(\alpha_k + 1) = \prod_{i=1}^k (\alpha_i + 1)\]
         </p>
-        <p>
-          <strong>2. Сумма всех натуральных делителей:</strong>
-          $$\sigma(n) = \prod_{i=1}^k \left( 1 + p_i + p_i^2 + \dots + p_i^{\alpha_i} \right) = \prod_{i=1}^k \frac{p_i^{\alpha_i + 1} - 1}{p_i - 1}$$
+<p>
+<strong>2. Сумма всех натуральных делителей:</strong>
+          \[\sigma(n) = \prod_{i=1}^k \left( 1 + p_i + p_i^2 + \dots + p_i^{\alpha_i} \right) = \prod_{i=1}^k \frac{p_i^{\alpha_i + 1} - 1}{p_i - 1}\]
         </p>
-      </div>
-
-      <div class="worked-example" id="ex-1">
-  <div class="block-label">Пример 1</div>
-  <h3 id="sub-16" data-toc="Пример расчета для трёх чисе…">Пример расчета для трёх чисел (Лекционный пример)</h3>
-  
-        
-          <span class="callout-badge">Пример</span>
-        
 </div>
-        <p>
-          Найти НОД и НОК чисел $a = 36$, $b = 63$, $c = 30$.<br>
+<div class="worked-example" id="ex-1"><div class="block-label">Пример 1</div><h3 data-toc="Пример расчета для трёх чисел …" id="sub-8-4">Пример расчета для трёх чисел (Лекционный пример)Пример</h3><div>
+<p>
+          Найти НОД и НОК чисел $a = 36$, $b = 63$, $c = 30$.<br/>
           Запишем канонические разложения по единому базису простых чисел $\{2, 3, 5, 7\}$:
-          $$a = 36 = 2^2 \cdot 3^2 \cdot 5^0 \cdot 7^0$$
-          $$b = 63 = 2^0 \cdot 3^2 \cdot 5^0 \cdot 7^1$$
-          $$c = 30 = 2^1 \cdot 3^1 \cdot 5^1 \cdot 7^0$$
+          \[a = 36 = 2^2 \cdot 3^2 \cdot 5^0 \cdot 7^0\]
+          \[b = 63 = 2^0 \cdot 3^2 \cdot 5^0 \cdot 7^1\]
+          \[c = 30 = 2^1 \cdot 3^1 \cdot 5^1 \cdot 7^0\]
           Применяем операцию минимума показателей:
-          $$(36, 63, 30) = 2^{\min(2,0,1)} \cdot 3^{\min(2,2,1)} \cdot 5^{\min(0,0,1)} \cdot 7^{\min(0,1,0)} = 2^0 \cdot 3^1 \cdot 5^0 \cdot 7^0 = 3$$
+          \[(36, 63, 30) = 2^{\min(2,0,1)} \cdot 3^{\min(2,2,1)} \cdot 5^{\min(0,0,1)} \cdot 7^{\min(0,1,0)} = 2^0 \cdot 3^1 \cdot 5^0 \cdot 7^0 = 3\]
           Применяем операцию максимума показателей:
-          $$[36, 63, 30] = 2^{\max(2,0,1)} \cdot 3^{\max(2,2,1)} \cdot 5^{\max(0,0,1)} \cdot 7^{\max(0,1,0)} = 2^2 \cdot 3^2 \cdot 5^1 \cdot 7^1 = 4 \cdot 9 \cdot 5 \cdot 7 = 1260$$
+          \[[36, 63, 30] = 2^{\max(2,0,1)} \cdot 3^{\max(2,2,1)} \cdot 5^{\max(0,0,1)} \cdot 7^{\max(0,1,0)} = 2^2 \cdot 3^2 \cdot 5^1 \cdot 7^1 = 4 \cdot 9 \cdot 5 \cdot 7 = 1260\]
         </p>
-      </div>
-    </section>
+</div></div>
 
-    <!-- ========================================================================
+<!-- ========================================================================
          РАЗДЕЛ 8: БЕСКОНЕЧНОСТЬ ПРОСТЫХ ЧИСЕЛ
          ======================================================================== -->
-    <section id="sec-infinity">
+<section id="sec-infinity">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-9">
-  <div class="chapter-kicker">09 / Распределение и бесконечност…</div>
-  <h2 id="chapter-9" data-toc="Распределение и бесконечност…">8. Распределение и бесконечность простых чисел</h2>
-  <div class="statement theorem" id="thm-9">
-  <div class="block-label">Утверждение 9</div>
-  <h3 id="sub-17" data-toc="Теорема 8.1 (Теорема Евклида)">Теорема 8.1 (Теорема Евклида)</h3>
+  <div class="chapter-kicker">09 / Распределение и бесконечность …</div>
+  <h2 id="chapter-9" data-toc="Распределение и бесконечность …">8. Распределение и бесконечность простых чисел</h2>
   
-        
-          <span class="callout-badge">Теорема</span>
-        
-</div>
-        <p>
+<div class="statement theorem" id="thm-9"><div class="block-label">Утверждение 9</div><h3 data-toc="Теорема 8.1 (Теорема Евклида)Т…" id="sub-9-1">Теорема 8.1 (Теорема Евклида)Теорема</h3><div>
+<p>
           Множество простых чисел бесконечно.
         </p>
-      </div>
-
-      
-<div class="proof" id="proof-16" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-16" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Предположим от противного, что множество простых чисел конечно. Пусть полный список всех существующих простых чисел исчерпывается набором:</p>
-  </div>
-  <div class="proof-full" id="full-16" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
-<details open>
-          <summary>Доказательство 1: Классическое доказательство Евклида (от противного)</summary>
-          <p>
+</div></div>
+<div class="proof" data-proof="" id="proof-31">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-31">
+<div class="proof-label">Идея</div>
+<p>Предположим от противного, что множество простых чисел конечно.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-31">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
+<details open="">
+<summary>Доказательство 1: Классическое доказательство Евклида (от противного)</summary>
+<p>
             Предположим от противного, что множество простых чисел конечно. Пусть полный список всех существующих простых чисел исчерпывается набором:
-            $$\mathcal{P} = \{p_1, p_2, \dots, p_n\}$$
+            \[\mathcal{P} = \{p_1, p_2, \dots, p_n\}\]
             Рассмотрим вспомогательное число $M$, равное произведению всех простых чисел плюс один:
-            $$M = p_1 \cdot p_2 \cdots p_n + 1$$
-            Очевидно, что $M > p_i$ для каждого $i \in \{1, \dots, n\}$. Следовательно, число $M$ не может совпадать ни с одним из чисел списка $\mathcal{P}$.<br>
-            В таком случае число $M$ обязано быть составным. По Следствию 1 из Предложения 4.1 всякое число, большее единицы, имеет хотя бы один простой делитель. Пусть этот простой делитель равен $q$.<br>
+            \[M = p_1 \cdot p_2 \cdots p_n + 1\]
+            Очевидно, что $M > p_i$ для каждого $i \in \{1, \dots, n\}$. Следовательно, число $M$ не может совпадать ни с одним из чисел списка $\mathcal{P}$.<br/>
+            В таком случае число $M$ обязано быть составным. По Следствию 1 из Предложения 4.1 всякое число, большее единицы, имеет хотя бы один простой делитель. Пусть этот простой делитель равен $q$.<br/>
             Поскольку список $\mathcal{P}$ по нашему предположению содержит <em>все</em> простые числа, число $q$ обязано быть одним из $p_k \in \mathcal{P}$. Следовательно:
-            $$q \mid (p_1 \cdot p_2 \cdots p_n)$$
+            \[q \mid (p_1 \cdot p_2 \cdots p_n)\]
             С другой стороны, по определению $q$ делит $M$:
-            $$q \mid (p_1 \cdot p_2 \cdots p_n + 1)$$
+            \[q \mid (p_1 \cdot p_2 \cdots p_n + 1)\]
             По свойству линейности делимости, делитель суммы и одного из слагаемых обязан делить их разность:
-            $$q \mid \left( (p_1 \cdot p_2 \cdots p_n + 1) - (p_1 \cdot p_2 \cdots p_n) \right) \implies q \mid 1$$
+            \[q \mid \left( (p_1 \cdot p_2 \cdots p_n + 1) - (p_1 \cdot p_2 \cdots p_n) \right) \implies q \mid 1\]
             Но простое число $q > 1$ не может делить единицу! Полученное противоречие опровергает исходное предположение о конечности множества простых чисел.
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
-
-
-      
-<div class="proof" id="proof-17" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-17" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Докажем ключевую лемму: <em>для любого натурального $n > 1$ между $n$ и $n!$ существует хотя бы одно простое число $p$ ($n < p \le n!$).</em></p>
-  </div>
-  <div class="proof-full" id="full-17" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
-<details open>
-          <summary>Доказательство 2: Аналитическое через факториал $M = n! - 1$</summary>
-          <p>
+<span class="qed">$\blacksquare$</span>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="proof" data-proof="" id="proof-33">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-33">
+<div class="proof-label">Идея</div>
+<p>Докажем ключевую лемму: для любого натурального $n > 1$ между $n$ и $n!$ существует хотя бы одно простое число $p$ ($n < p \le n!$).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-33">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
+<details open="">
+<summary>Доказательство 2: Аналитическое через факториал $M = n! - 1$</summary>
+<p>
             Докажем ключевую лемму: <em>для любого натурального $n > 1$ между $n$ и $n!$ существует хотя бы одно простое число $p$ ($n < p \le n!$).</em>
-          </p>
-          <p>
-            Пусть $n \in \mathbb{N}, n > 2$. Рассмотрим число $M = n! - 1$.<br>
-            Очевидно строгое неравенство: $n < n! - 1 < n!$.<br>
-            Если число $M$ простое, то утверждение доказано (полагаем $p = M$).<br>
-            Если число $M$ составное, то по Предложению 4.1 у него есть наименьший простой делитель $p$.<br>
-            Покажем, что $p > n$. Предположим обратное: пусть $p \le n$.<br>
-            Так как $p \le n$, множитель $p$ входит в факториал $n! = 1 \cdot 2 \cdots p \cdots n$, то есть $p \mid n!$.<br>
-            Вместе с тем по определению $p \mid M = (n! - 1)$.<br>
+</p>
+<p>
+            Пусть $n \in \mathbb{N}, n > 2$. Рассмотрим число $M = n! - 1$.<br/>
+            Очевидно строгое неравенство: $n < n! - 1 < n!$.<br/>
+            Если число $M$ простое, то утверждение доказано (полагаем $p = M$).<br/>
+            Если число $M$ составное, то по Предложению 4.1 у него есть наименьший простой делитель $p$.<br/>
+            Покажем, что $p > n$. Предположим обратное: пусть $p \le n$.<br/>
+            Так как $p \le n$, множитель $p$ входит в факториал $n! = 1 \cdot 2 \cdots p \cdots n$, то есть $p \mid n!$.<br/>
+            Вместе с тем по определению $p \mid M = (n! - 1)$.<br/>
             Следовательно, $p$ делит их разность:
-            $$p \mid (n! - (n! - 1)) \implies p \mid 1$$
-            Противоречие, так как $p > 1$. Значит, наше допущение неверно, и $p > n$.<br>
-            С другой стороны, так как $p \mid M$ и $M > 0$, имеем $p \le M = n! - 1 < n!$.<br>
+            \[p \mid (n! - (n! - 1)) \implies p \mid 1\]
+            Противоречие, так как $p > 1$. Значит, наше допущение неверно, и $p > n$.<br/>
+            С другой стороны, так как $p \mid M$ и $M > 0$, имеем $p \le M = n! - 1 < n!$.<br/>
             Таким образом, найдено простое число $p$, удовлетворяющее $n < p < n!$.
           </p>
-          <p>
-            <strong>Генерация бесконечной последовательности:</strong><br>
-            Положим $n_1 = 2$. Между $2$ и $2! = 2$ есть простое $p_1 = 2$.<br>
-            Положим $n_2 = 3$. По доказанному, существует простое $p_2 \in (3, 3!] = (3, 6]$.<br>
-            Положим $n_3 = p_2$. Существует простое $p_3 \in (p_2, p_2!]$, и так далее.<br>
+<p>
+<strong>Генерация бесконечной последовательности:</strong><br/>
+            Положим $n_1 = 2$. Между $2$ и $2! = 2$ есть простое $p_1 = 2$.<br/>
+            Положим $n_2 = 3$. По доказанному, существует простое $p_2 \in (3, 3!] = (3, 6]$.<br/>
+            Положим $n_3 = p_2$. Существует простое $p_3 \in (p_2, p_2!]$, и так далее.<br/>
             Мы получаем строго возрастающую бесконечную цепочку простых чисел: $p_1 < p_2 < p_3 < \dots$, что завершает доказательство теоремы Евклида.
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
-
-
-      
-<div class="proof" id="proof-18" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-18" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Рассмотрим последовательность чисел Ферма:</p>
-  </div>
-  <div class="proof-full" id="full-18" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
-<details>
-          <summary>Доказательство 3: Метод взаимной простоты чисел Ферма (метод Пойа)</summary>
-          <p>
-            Рассмотрим последовательность чисел Ферма:
-            $$F_n = 2^{2^n} + 1, \quad n = 0, 1, 2, \dots$$
+<span class="qed">$\blacksquare$</span>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="proof" data-proof="" id="proof-35">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-35">
+<div class="proof-label">Идея</div>
+<p>Рассмотрим последовательность чисел Ферма:
+            
             Докажем тождество методом математической индукции:
-            $$\prod_{k=0}^{n-1} F_k = F_n - 2$$
-            - База $n = 1$: $F_0 = 2^1 + 1 = 3$. Справа: $F_1 - 2 = (2^2 + 1) - 2 = 5 - 2 = 3$. Тождество верно.<br>
+            
+            - База $n = 1$: $F_0 = 2^1 + 1 = 3$.</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-35">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
+<details>
+<summary>Доказательство 3: Метод взаимной простоты чисел Ферма (метод Пойа)</summary>
+<p>
+            Рассмотрим последовательность чисел Ферма:
+            \[F_n = 2^{2^n} + 1, \quad n = 0, 1, 2, \dots\]
+            Докажем тождество методом математической индукции:
+            \[\prod_{k=0}^{n-1} F_k = F_n - 2\]
+            - База $n = 1$: $F_0 = 2^1 + 1 = 3$. Справа: $F_1 - 2 = (2^2 + 1) - 2 = 5 - 2 = 3$. Тождество верно.<br/>
             - Переход $n \implies n+1$:
-            $$\prod_{k=0}^n F_k = \left(\prod_{k=0}^{n-1} F_k\right) F_n = (F_n - 2) F_n = (2^{2^n} - 1)(2^{2^n} + 1) = 2^{2^{n+1}} - 1 = F_{n+1} - 2$$
-            Из этого тождества следует, что любые два различных числа Ферма $F_m$ и $F_n$ ($m < n$) попарно взаимно просты! Действительно, если $d = (F_m, F_n)$, то $d \mid F_m \implies d \mid \prod_{k=0}^{n-1} F_k \implies d \mid (F_n - 2)$.<br>
-            Так как $d \mid F_n$ и $d \mid (F_n - 2)$, то $d \mid 2$. Но все числа Ферма нечетные ($2^k + 1$), значит $d = 1$.<br>
+            \[\prod_{k=0}^n F_k = \left(\prod_{k=0}^{n-1} F_k\right) F_n = (F_n - 2) F_n = (2^{2^n} - 1)(2^{2^n} + 1) = 2^{2^{n+1}} - 1 = F_{n+1} - 2\]
+            Из этого тождества следует, что любые два различных числа Ферма $F_m$ и $F_n$ ($m < n$) попарно взаимно просты! Действительно, если $d = (F_m, F_n)$, то $d \mid F_m \implies d \mid \prod_{k=0}^{n-1} F_k \implies d \mid (F_n - 2)$.<br/>
+            Так как $d \mid F_n$ и $d \mid (F_n - 2)$, то $d \mid 2$. Но все числа Ферма нечетные ($2^k + 1$), значит $d = 1$.<br/>
             Так как каждый член бесконечной последовательности $\{F_n\}_{n=0}^\infty$ взаимно прост со всеми остальными, простые делители различных членов этой последовательности не пересекаются. Выбирая у каждого $F_n$ хотя бы один простой делитель, мы получаем бесконечное множество различных простых чисел.
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
-
-
-      <div id="subsec-composite-gaps" class="callout callout-prop">
-        <div class="callout-header">
-          <span class="callout-title">Предложение 8.1 (О сколь угодно длинных отрезках составных чисел)</span>
-          <span class="callout-badge">Предложение</span>
-        </div>
-        <p>
+<span class="qed">$\blacksquare$</span>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="callout callout-prop" id="subsec-composite-gaps">
+<div class="callout-header">
+<span class="callout-title">Предложение 8.1 (О сколь угодно длинных отрезках составных чисел)</span>
+<span class="callout-badge">Предложение</span>
+</div>
+<p>
           Для любого наперёд заданного натурального числа $n \in \mathbb{N}$ существует отрезок натурального ряда, состоящий из <strong>$n$ последовательных составных чисел</strong> подряд («пустыни» простых чисел).
         </p>
-      </div>
-
-      
-<div class="proof" id="proof-19" data-proof>
-  <div class="proof-controls" role="group" aria-label="Доказательство Строгое доказательство">
-    <span>Доказательство</span>
-    <button data-proof-mode="idea">Идея</button>
-    <button data-proof-mode="full">Полностью</button>
-    <button data-proof-mode="hidden" class="collapse-proof">Свернуть</button>
-  </div>
-  <div class="proof-idea" id="idea-19" data-proof-idea>
-    <div class="proof-label">Идея</div>
-    <p>Рассмотрим набор из $n$ последовательных целых чисел:</p>
-  </div>
-  <div class="proof-full" id="full-19" data-proof-full>
-    <div class="proof-label">Доказательство (Строгое доказательство)</div>
-    <div class="proof-content">
-<details open>
-          <summary>Конструктивное доказательство существования отрезка составных чисел</summary>
-          <p>
+</div>
+<div class="proof" data-proof="" id="proof-37">
+<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<span>Доказательство</span>
+<button data-proof-mode="idea">Идея</button>
+<button data-proof-mode="full">Полностью</button>
+<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
+</div>
+<div class="proof-idea" data-proof-idea="" id="idea-37">
+<div class="proof-label">Идея</div>
+<p>Прямое аналитическое доказательство утверждения (Строгое доказательство).</p>
+</div>
+<div class="proof-full" data-proof-full="" id="full-37">
+<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-content">
+<details open="">
+<summary>Конструктивное доказательство существования отрезка составных чисел</summary>
+<p>
             Рассмотрим набор из $n$ последовательных целых чисел:
-            $$C_1 = (n + 1)! + 2, \quad C_2 = (n + 1)! + 3, \quad \dots, \quad C_n = (n + 1)! + (n + 1)$$
-            Исследуем делимость каждого из этих чисел:<br>
-            - Число $C_1 = (n + 1)! + 2$. Поскольку факториал $(n+1)!$ содержит множитель $2$, оба слагаемых делятся на $2$. При этом $C_1 > 2$, следовательно, $C_1$ составное.<br>
-            - Число $C_2 = (n + 1)! + 3$. Аналогично, $(n+1)!$ содержит множитель $3$, значит $C_2$ делится на $3$ и $C_2 > 3$. Число $C_2$ составное.<br>
+            \[C_1 = (n + 1)! + 2, \quad C_2 = (n + 1)! + 3, \quad \dots, \quad C_n = (n + 1)! + (n + 1)\]
+            Исследуем делимость каждого из этих чисел:<br/>
+            - Число $C_1 = (n + 1)! + 2$. Поскольку факториал $(n+1)!$ содержит множитель $2$, оба слагаемых делятся на $2$. При этом $C_1 > 2$, следовательно, $C_1$ составное.<br/>
+            - Число $C_2 = (n + 1)! + 3$. Аналогично, $(n+1)!$ содержит множитель $3$, значит $C_2$ делится на $3$ и $C_2 > 3$. Число $C_2$ составное.<br/>
             - В общем виде: для любого $k \in \{2, 3, \dots, n + 1\}$ число:
-            $$C_{k-1} = (n + 1)! + k$$
-            делится на $k$, так как $k \mid (n+1)!$ и $k \mid k$. Поскольку $(n+1)! + k > k$, каждое из этих $n$ чисел имеет делитель, отличный от $1$ и самого себя.<br>
+            \[C_{k-1} = (n + 1)! + k\]
+            делится на $k$, так как $k \mid (n+1)!$ и $k \mid k$. Поскольку $(n+1)! + k > k$, каждое из этих $n$ чисел имеет делитель, отличный от $1$ и самого себя.<br/>
             Все $n$ чисел идут строго подряд и все они составные.
           </p>
-          
-        
-    <span class="qed" aria-label="Что и требовалось доказать">□</span>
-  </div>
-</div>
-      
-<span class="qed">$\blacksquare$</span>
-  </div>
 </details>
-
-
-      <div id="subsec-bertrand" class="callout callout-remark">
-        <div class="callout-header">
-          <span class="callout-title">Постулат Бертрана (Теорема П. Л. Чебышева)</span>
-          <span class="callout-badge">Теорема</span>
-        </div>
-        <p>
+<span class="qed">$\blacksquare$</span>
+</div>
+<span aria-label="Что и требовалось доказать" class="qed">□</span>
+</div>
+</div>
+<div class="callout callout-remark" id="subsec-bertrand">
+<div class="callout-header">
+<span class="callout-title">Постулат Бертрана (Теорема П. Л. Чебышева)</span>
+<span class="callout-badge">Теорема</span>
+</div>
+<p>
           В доказательстве 2 мы установили слабую оценку: между $n$ и $n!$ всегда лежит простое число. В 1845 году французский математик Жозеф Бертран выдвинул гипотезу о гораздо более плотном распределении:
         </p>
-        <p>
-          <strong>Теорема Чебышева (1850 г.):</strong> <em>Для любого натурального числа $n > 1$ между $n$ и $2n$ существует по крайней мере одно простое число:</em>
-          $$\forall n > 1 \quad \exists p \in \mathbb{P} : n < p < 2n$$
+<p>
+<strong>Теорема Чебышева (1850 г.):</strong> <em>Для любого натурального числа $n > 1$ между $n$ и $2n$ существует по крайней мере одно простое число:</em>
+          \[\forall n > 1 \quad \exists p \in \mathbb{P} : n < p < 2n\]
           <em>В формулировке лекции:</em> Для всякого $n > 3$ между $n$ и $2n - 2$ существует простое число.
         </p>
-        <p>
-          <strong>Асимптотический закон распределения (Адамар, де ла Валле Пуссен, 1896):</strong><br>
+<p>
+<strong>Асимптотический закон распределения (Адамар, де ла Валле Пуссен, 1896):</strong><br/>
           Количество простых чисел $\pi(x)$, не превосходящих вещественного $x$, асимптотически стремится к:
-          $$\pi(x) \sim \frac{x}{\ln x} \quad (x \to \infty)$$
+          \[\pi(x) \sim \frac{x}{\ln x} \quad (x \to \infty)\]
         </p>
-      </div>
-    </section>
+</div>
 
-    <!-- ========================================================================
+<!-- ========================================================================
          РАЗДЕЛ 9: ПРАКТИКУМ РЕШЕНИЯ ЗАДАЧ
          ======================================================================== -->
-    <section id="sec-practice">
+<section id="sec-practice">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-10">
-  <div class="chapter-kicker">10 / Практикум решения университе…</div>
-  <h2 id="chapter-10" data-toc="Практикум решения университе…">9. Практикум решения университетских задач</h2>
-  <div class="worked-example" id="ex-2">
-  <div class="block-label">Пример 2</div>
-  <h3 id="sub-18" data-toc="Задача 1: Алгоритм Евклида, …">Задача 1: Алгоритм Евклида, Безу и связь с НОК</h3>
+  <div class="chapter-kicker">10 / Практикум решения университетс…</div>
+  <h2 id="chapter-10" data-toc="Практикум решения университетс…">9. Практикум решения университетских задач</h2>
   
-        
-          <span class="callout-badge">Задача</span>
-        
-</div>
-        <p>
-          <strong>Условие:</strong> Для чисел $a = 252$ и $b = 198$ найти $(a, b)$, коэффициенты линейного представления $xa + yb = (a, b)$ и наименьшее общее кратное $[a, b]$.
+<div class="worked-example" id="ex-2"><div class="block-label">Пример 2</div><h3 data-toc="Задача 1: Алгоритм Евклида, Бе…" id="sub-10-1">Задача 1: Алгоритм Евклида, Безу и связь с НОКЗадача</h3><div>
+<p>
+<strong>Условие:</strong> Для чисел $a = 252$ и $b = 198$ найти $(a, b)$, коэффициенты линейного представления $xa + yb = (a, b)$ и наименьшее общее кратное $[a, b]$.
         </p>
-        <p>
-          <strong>Решение:</strong><br>
+<p>
+<strong>Решение:</strong><br/>
           1. Применим алгоритм Евклида с делением с остатком:
-          $$252 = 198 \cdot 1 + 54$$
-          $$198 = 54 \cdot 3 + 36$$
-          $$54 = 36 \cdot 1 + 18$$
-          $$36 = 18 \cdot 2 + 0$$
+          \[252 = 198 \cdot 1 + 54\]
+          \[198 = 54 \cdot 3 + 36\]
+          \[54 = 36 \cdot 1 + 18\]
+          \[36 = 18 \cdot 2 + 0\]
           Последний ненулевой остаток равен $18$. Следовательно, $(252, 198) = 18$.
         </p>
-        <p>
+<p>
           2. Найдём линейное представление Безу (обратный ход):
-          $$18 = 54 - 36 \cdot 1$$
+          \[18 = 54 - 36 \cdot 1\]
           Подставляем $36 = 198 - 54 \cdot 3$:
-          $$18 = 54 - (198 - 54 \cdot 3) \cdot 1 = 54 \cdot 4 - 198 \cdot 1$$
+          \[18 = 54 - (198 - 54 \cdot 3) \cdot 1 = 54 \cdot 4 - 198 \cdot 1\]
           Подставляем $54 = 252 - 198 \cdot 1$:
-          $$18 = (252 - 198 \cdot 1) \cdot 4 - 198 \cdot 1 = 252 \cdot 4 + 198 \cdot (-5)$$
+          \[18 = (252 - 198 \cdot 1) \cdot 4 - 198 \cdot 1 = 252 \cdot 4 + 198 \cdot (-5)\]
           Искомые коэффициенты: $x = 4, y = -5$. Проверка: $252 \cdot 4 - 198 \cdot 5 = 1008 - 990 = 18$.
         </p>
-        <p>
+<p>
           3. Вычислим НОК по Теореме 2.2:
-          $$[252, 198] = \frac{252 \cdot 198}{(252, 198)} = \frac{252 \cdot 198}{18} = 252 \cdot 11 = 2772$$
+          \[[252, 198] = \frac{252 \cdot 198}{(252, 198)} = \frac{252 \cdot 198}{18} = 252 \cdot 11 = 2772\]
         </p>
-      </div>
-
-      <div class="worked-example" id="ex-3">
-  <div class="block-label">Пример 3</div>
-  <h3 id="sub-19" data-toc="Задача 2: Доказательство вза…">Задача 2: Доказательство взаимной простоты для всех $n$</h3>
-  
-        
-          <span class="callout-badge">Задача</span>
-        
-</div>
-        <p>
-          <strong>Условие:</strong> Доказать, что дробь $\frac{21n + 4}{14n + 3}$ несократима ни при каких натуральных $n \in \mathbb{N}$.
+</div></div>
+<div class="worked-example" id="ex-3"><div class="block-label">Пример 3</div><h3 data-toc="Задача 2: Доказательство взаим…" id="sub-10-2">Задача 2: Доказательство взаимной простоты для всех $n$Задача</h3><div>
+<p>
+<strong>Условие:</strong> Доказать, что дробь $\frac{21n + 4}{14n + 3}$ несократима ни при каких натуральных $n \in \mathbb{N}$.
         </p>
-        <p>
-          <strong>Решение:</strong><br>
-          Несократимость дроби равносильна взаимной простоте числителя и знаменателя: $(21n + 4, 14n + 3) = 1$.<br>
+<p>
+<strong>Решение:</strong><br/>
+          Несократимость дроби равносильна взаимной простоте числителя и знаменателя: $(21n + 4, 14n + 3) = 1$.<br/>
           Воспользуемся критерием взаимной простоты (Предложение 3.1). Найдём целые коэффициенты $x$ и $y$, элиминирующие переменную $n$:
-          $$x(21n + 4) + y(14n + 3) = 1$$
+          \[x(21n + 4) + y(14n + 3) = 1\]
           Подберём коэффициенты через НОК старших членов ($[21, 14] = 42$):
-          $$2 \cdot (21n + 4) - 3 \cdot (14n + 3) = (42n + 8) - (42n + 9) = -1$$
+          \[2 \cdot (21n + 4) - 3 \cdot (14n + 3) = (42n + 8) - (42n + 9) = -1\]
           Умножая на $-1$, получаем:
-          $$(-2) \cdot (21n + 4) + 3 \cdot (14n + 3) = 1$$
+          \[(-2) \cdot (21n + 4) + 3 \cdot (14n + 3) = 1\]
           Существование линейной комбинации, тождественно равной $1$, по критерию Безу доказывает, что $(21n + 4, 14n + 3) = 1$ для любого $n \in \mathbb{N}$. Дробь всегда несократима. $\blacksquare$
         </p>
-      </div>
-    </section>
+</div></div>
 
-    <!-- ========================================================================
+<!-- ========================================================================
          РАЗДЕЛ 10: СВОДНАЯ ТАБЛИЦА И ЛИТЕРАТУРА
          ======================================================================== -->
-    <section id="sec-summary">
+<section id="sec-summary">
 </section>
-
+</section>
 <section class="chapter" aria-labelledby="chapter-11">
-  <div class="chapter-kicker">11 / Сводная таблица понятий и ли…</div>
-  <h2 id="chapter-11" data-toc="Сводная таблица понятий и ли…">10. Сводная таблица понятий и литература</h2>
-  <div class="table-container">
-        <div class="table-scroll">
+  <div class="chapter-kicker">11 / Сводная таблица понятий и лите…</div>
+  <h2 id="chapter-11" data-toc="Сводная таблица понятий и лите…">10. Сводная таблица понятий и литература</h2>
+  
+<div class="table-container">
 <table>
-          <thead>
-            <tr>
-              <th>Понятие / Теорема</th>
-              <th>Математическая запись</th>
-              <th>Ключевое свойство / Формула</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Деление с остатком</strong></td>
-              <td>$a = bq + r$</td>
-              <td>$0 \le r < b$, пара $(q, r)$ определена однозначно</td>
-            </tr>
-            <tr>
-              <td><strong>НОД двух чисел</strong></td>
-              <td>$d = (a, b)$</td>
-              <td>$xa + yb = (a, b)$ (тождество Безу)</td>
-            </tr>
-            <tr>
-              <td><strong>НОК двух чисел</strong></td>
-              <td>$m = [a, b]$</td>
-              <td>$a \mid m, b \mid m$ и $\forall k : (a\mid k, b\mid k \implies m\mid k)$</td>
-            </tr>
-            <tr>
-              <td><strong>Связь НОД и НОК</strong></td>
-              <td>$(a, b) \cdot [a, b] = ab$</td>
-              <td>Верно строго для двух чисел! При $n \ge 3$ не обобщается напрямую</td>
-            </tr>
-            <tr>
-              <td><strong>Взаимная простота</strong></td>
-              <td>$(a, b) = 1 \iff xa + yb = 1$</td>
-              <td>$a \mid bc \land (a,b)=1 \implies a \mid c$ (Лемма Гаусса)</td>
-            </tr>
-            <tr>
-              <td><strong>Простое число</strong></td>
-              <td>$p \in \mathbb{P} \iff |\mathrm{Div}(p)| = 2$</td>
-              <td>$p \mid ab \implies p \mid a \lor p \mid b$ (Лемма Евклида)</td>
-            </tr>
-            <tr>
-              <td><strong>Оценка делителя</strong></td>
-              <td>$n \notin \mathbb{P} \implies \exists p \mid n$</td>
-              <td>$p \le \sqrt{n}$ — граница отсева в решете Эратосфена</td>
-            </tr>
-            <tr>
-              <td><strong>Канонический вид</strong></td>
-              <td>$n = \prod_{i=1}^k p_i^{\alpha_i}$</td>
-              <td>$(a, b) = \prod p_i^{\min(\alpha_i, \beta_i)}$, $[a, b] = \prod p_i^{\max(\alpha_i, \beta_i)}$</td>
-            </tr>
-            <tr>
-              <td><strong>Бесконечность $\mathbb{P}$</strong></td>
-              <td>$|\mathbb{P}| = \infty$</td>
-              <td>Доказательства: Евклид ($M = \prod p_i + 1$), факториал ($n!-1$), Ферма ($F_n$)</td>
-            </tr>
-            <tr>
-              <td><strong>Постулат Бертрана</strong></td>
-              <td>$\forall n > 1 \; \exists p \in (n, 2n)$</td>
-              <td>Доказан Чебышевым (1850 г.)</td>
-            </tr>
-          </tbody>
-        </table>
+<thead>
+<tr>
+<th>Понятие / Теорема</th>
+<th>Математическая запись</th>
+<th>Ключевое свойство / Формула</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Деление с остатком</strong></td>
+<td>$a = bq + r$</td>
+<td>$0 \le r < b$, пара $(q, r)$ определена однозначно</td>
+</tr>
+<tr>
+<td><strong>НОД двух чисел</strong></td>
+<td>$d = (a, b)$</td>
+<td>$xa + yb = (a, b)$ (тождество Безу)</td>
+</tr>
+<tr>
+<td><strong>НОК двух чисел</strong></td>
+<td>$m = [a, b]$</td>
+<td>$a \mid m, b \mid m$ и $\forall k : (a\mid k, b\mid k \implies m\mid k)$</td>
+</tr>
+<tr>
+<td><strong>Связь НОД и НОК</strong></td>
+<td>$(a, b) \cdot [a, b] = ab$</td>
+<td>Верно строго для двух чисел! При $n \ge 3$ не обобщается напрямую</td>
+</tr>
+<tr>
+<td><strong>Взаимная простота</strong></td>
+<td>$(a, b) = 1 \iff xa + yb = 1$</td>
+<td>$a \mid bc \land (a,b)=1 \implies a \mid c$ (Лемма Гаусса)</td>
+</tr>
+<tr>
+<td><strong>Простое число</strong></td>
+<td>$p \in \mathbb{P} \iff |\mathrm{Div}(p)| = 2$</td>
+<td>$p \mid ab \implies p \mid a \lor p \mid b$ (Лемма Евклида)</td>
+</tr>
+<tr>
+<td><strong>Оценка делителя</strong></td>
+<td>$n \notin \mathbb{P} \implies \exists p \mid n$</td>
+<td>$p \le \sqrt{n}$ — граница отсева в решете Эратосфена</td>
+</tr>
+<tr>
+<td><strong>Канонический вид</strong></td>
+<td>$n = \prod_{i=1}^k p_i^{\alpha_i}$</td>
+<td>$(a, b) = \prod p_i^{\min(\alpha_i, \beta_i)}$, $[a, b] = \prod p_i^{\max(\alpha_i, \beta_i)}$</td>
+</tr>
+<tr>
+<td><strong>Бесконечность $\mathbb{P}$</strong></td>
+<td>$|\mathbb{P}| = \infty$</td>
+<td>Доказательства: Евклид ($M = \prod p_i + 1$), факториал ($n!-1$), Ферма ($F_n$)</td>
+</tr>
+<tr>
+<td><strong>Постулат Бертрана</strong></td>
+<td>$\forall n > 1 \; \exists p \in (n, 2n)$</td>
+<td>Доказан Чебышевым (1850 г.)</td>
+</tr>
+</tbody>
+</table>
 </div>
-      </div>
+<div class="callout callout-remark">
+<div class="callout-header">
+<span class="callout-title">Рекомендуемая литература</span>
+<span class="callout-badge">Источники</span>
+</div>
+<ol>
+<li><strong>Курош А. Г.</strong> <em>Курс высшей алгебры.</em> — М.: Наука, Гл. 1–2 (Делимость целых чисел, теория сравнений и многочленов).</li>
+<li><strong>Кострикин А. И.</strong> <em>Введение в алгебру. Часть I. Основы алгебры.</em> — М.: Физматлит, Гл. 1 (Множества и отображения, кольцо целых чисел).</li>
+<li><strong>Виноградов И. М.</strong> <em>Основы теории чисел.</em> — М.: Наука, Гл. 1 (Элементарные методы, делимость, простые числа).</li>
+<li><strong>Бухштаб А. А.</strong> <em>Теория чисел.</em> — М.: Просвещение (Арифметика целых чисел, каноническое разложение, решето Эратосфена).</li>
+</ol>
+</div>
 
-      <div class="callout callout-remark">
-        <div class="callout-header">
-          <span class="callout-title">Рекомендуемая литература</span>
-          <span class="callout-badge">Источники</span>
-        </div>
-        <ol>
-          <li><strong>Курош А. Г.</strong> <em>Курс высшей алгебры.</em> — М.: Наука, Гл. 1–2 (Делимость целых чисел, теория сравнений и многочленов).</li>
-          <li><strong>Кострикин А. И.</strong> <em>Введение в алгебру. Часть I. Основы алгебры.</em> — М.: Физматлит, Гл. 1 (Множества и отображения, кольцо целых чисел).</li>
-          <li><strong>Виноградов И. М.</strong> <em>Основы теории чисел.</em> — М.: Наука, Гл. 1 (Элементарные методы, делимость, простые числа).</li>
-          <li><strong>Бухштаб А. А.</strong> <em>Теория чисел.</em> — М.: Просвещение (Арифметика целых чисел, каноническое разложение, решето Эратосфена).</li>
-        </ol>
-      </div>
-    </section>
+
+
 </section>
 <!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>
