@@ -37,6 +37,7 @@ async function deploy() {
   execSync('git init', { cwd: DIST_DIR, stdio: 'ignore' });
   execSync('git config user.name "FAM HSE Deployer"', { cwd: DIST_DIR, stdio: 'ignore' });
   execSync('git config user.email "student@hse.ru"', { cwd: DIST_DIR, stdio: 'ignore' });
+  execSync('git config http.postBuffer 524288000', { cwd: DIST_DIR, stdio: 'ignore' });
   execSync('git checkout -b gh-pages', { cwd: DIST_DIR, stdio: 'ignore' });
   execSync('git add -A', { cwd: DIST_DIR, stdio: 'ignore' });
   execSync(`git commit -m "Deploy FAM: ${new Date().toISOString()}"`, { cwd: DIST_DIR, stdio: 'ignore' });
