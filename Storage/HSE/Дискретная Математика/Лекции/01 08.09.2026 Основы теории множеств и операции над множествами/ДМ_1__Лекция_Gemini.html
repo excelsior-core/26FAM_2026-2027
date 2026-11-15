@@ -567,6 +567,99 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 -->
+
+<style id="fam-reviewed-figures">
+#content svg[data-fam-figure] {
+  --fig-paper:#faf8f1; --fig-ink:#24342d; --fig-muted:#52645a;
+  --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+  --fig-rose:#ac3454; --fig-gold:#885914;
+  display:block; max-width:100%; height:auto; margin-inline:auto;
+  color:var(--fig-ink); font-family:Arial, sans-serif;
+}
+html[data-theme="parchment"] #content svg[data-fam-figure] {
+  --fig-paper:#f1e7d3; --fig-ink:#353023; --fig-muted:#665b49;
+  --fig-rule:#cabc9d; --fig-blue:#244fb1; --fig-green:#166349;
+  --fig-rose:#972e4c; --fig-gold:#795419;
+}
+html[data-theme="dark"] #content svg[data-fam-figure] {
+  --fig-paper:#17231e; --fig-ink:#ecf0e6; --fig-muted:#bac9bd;
+  --fig-rule:#465c50; --fig-blue:#a3c0ff; --fig-green:#80d4b2;
+  --fig-rose:#ffa2b5; --fig-gold:#f0c67c;
+}
+#content svg[data-fam-figure] .venn-fill {fill:var(--fig-blue);fill-opacity:.16}
+#content svg[data-fam-figure] .venn-fill-danger {fill:var(--fig-rose);fill-opacity:.19}
+#content svg[data-fam-figure] text {dominant-baseline:auto}
+#content svg[data-fam-figure="plot-original"] {background:white;color:#26352e}
+@media print {
+  html[data-theme] #content svg[data-fam-figure] {
+    --fig-paper:#fff; --fig-ink:#24342d; --fig-muted:#52645a;
+    --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+    --fig-rose:#ac3454; --fig-gold:#885914;
+  }
+}
+</style>
+<style id="fam-reading-navigation">
+/* FAM:READING-NAVIGATION-START */
+@media screen {
+  .topbar {
+    transform: translateY(0);
+  }
+  #toc-toggle, #toc-close {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 11px;
+  }
+  #toc-toggle:hover, #toc-close:hover {
+    color: var(--gold);
+  }
+  .reading-progress {
+    top: max(0px, calc(var(--note-topbar-height, 88px) - 1px));
+  }
+  .contents {
+    top: calc(var(--note-topbar-height, 88px) + 24px);
+    max-height: calc(100svh - var(--note-topbar-height, 88px) - 48px);
+  }
+  .chapter [id], .lecture-head, #content {
+    scroll-margin-top: calc(var(--note-topbar-height, 88px) + 24px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .topbar {
+    transform: translateY(-100%);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .reading-progress {
+    top: 0;
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .contents {
+    top: 24px;
+    max-height: calc(100svh - 48px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) :is(.chapter [id], .lecture-head, #content) {
+    scroll-margin-top: 24px;
+  }
+}
+@media screen and (min-width: 761px) {
+  .layout[data-toc-collapsed] {
+    grid-template-columns: minmax(0, 820px);
+    justify-content: center;
+  }
+  .layout[data-toc-collapsed] > .contents {
+    display: none;
+  }
+}
+@media screen and (max-width: 760px) {
+  .contents.is-open {
+    inset: var(--note-topbar-height, 70px) 0 0;
+    max-height: none;
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .topbar { transition: transform .22s ease; }
+  .contents, .reading-progress { transition: top .22s ease; }
+}
+@media screen {
+  html:has(.contents.is-open) { overflow: hidden; }
+}
+/* FAM:READING-NAVIGATION-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -591,7 +684,7 @@ SOFTWARE.
         <div class="lecture-meta"><span class="subject">Дискретная математика</span><span>Академический конспект ФПМ</span></div>
         <h1>Дискретная математика: Теория множеств, Булева алгебра, Доказательства и Практикум</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[...\]</div></div>
+
       </header>
       <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
       <div class="proof-toolbar" aria-label="Все доказательства">
@@ -611,7 +704,7 @@ SOFTWARE.
   <!-- ======================================================================
          HERO BANNER
          ====================================================================== -->
-<header class="hero-banner" id="top">
+<header class="hero-banner" id="top-2">
 <div class="hero-badges">
 <span class="hero-badge">Курс «Дискретная математика»</span>
 <span class="hero-badge">Лекция 1–2 и Практика (08.09.2026)</span>
@@ -653,7 +746,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Лекционный курс (08.09.2026) с…</div>
   <h2 id="chapter-2" data-toc="Лекционный курс (08.09.2026) с…">Лекционный курс (08.09.2026) с полными доказательствами и дополнениями по В.Е. и В.Б. Алексееву</h2>
-  
+
 <p>
         Все определения и теоремы приведены в точной нумерации лекции (Определения 1–15, Теоремы 4, 10, 13, 14, 16, 17),
         снабжены исчерпывающими аналитическими и графическими доказательствами и расширены материалами университетских учебников.
@@ -669,7 +762,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-3">
   <div class="chapter-kicker">03 / . Математическая скоропись, кв…</div>
   <h2 id="chapter-3" data-toc=". Математическая скоропись, кв…">Глава 1. Математическая скоропись, кванторы и логический аппарат доказательств</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <p>
@@ -811,7 +904,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-4">
   <div class="chapter-kicker">04 / . Понятие множества, способы з…</div>
   <h2 id="chapter-4" data-toc=". Понятие множества, способы з…">Глава 2. Понятие множества, способы задания и равенство множеств</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="statement definition" id="def-2"><div class="block-label">Определение 2</div><h3 data-toc="«Определение» 1 · Лекция Сл. 3…" id="sub-4-1">«Определение» 1 · Лекция Сл. 3Концепция множества по Георгу Кантору (1845–1918)</h3><div>
@@ -896,7 +989,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-5">
   <div class="chapter-kicker">05 / . Подмножества, отношение вклю…</div>
   <h2 id="chapter-5" data-toc=". Подмножества, отношение вклю…">Глава 3. Подмножества, отношение включения, Универс и Пустое множество</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="statement definition" id="def-5"><div class="block-label">Определение 5</div><h3 data-toc="Определение 3 · Лекция Сл. 5По…" id="sub-5-1">Определение 3 · Лекция Сл. 5Подмножество (Отношение включения)</h3><div>
@@ -1013,7 +1106,7 @@ SOFTWARE.
         </p>
 </aside>
 <div class="svg-grid-2">
-<div class="svg-card"><svg aria-label="Пересекающиеся множества" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 250 195">
+<div class="svg-card"><svg aria-label="Пересекающиеся множества" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 250 195" data-fam-figure="diagram" data-fam-index="1">
 <rect class="venn-u-box" height="135" rx="6" width="220" x="15" y="20"></rect>
 <circle class="venn-fill-soft" cx="100" cy="88" r="40"></circle>
 <circle class="venn-fill-2" cx="150" cy="88" r="40"></circle>
@@ -1026,7 +1119,7 @@ SOFTWARE.
 <text class="svg-title" text-anchor="middle" x="125" y="174">1. Общее положение</text>
 <text class="svg-sub" text-anchor="middle" x="125" y="189">A ∩ B ≠ ∅, A ⊄ B, B ⊄ A</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Непересекающиеся множества" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 250 195">
+<div class="svg-card"><svg aria-label="Непересекающиеся множества" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 250 195" data-fam-figure="diagram" data-fam-index="2">
 <rect class="venn-u-box" height="135" rx="6" width="220" x="15" y="20"></rect>
 <circle class="venn-fill-soft" cx="76" cy="88" r="36"></circle>
 <circle class="venn-fill-2" cx="174" cy="88" r="36"></circle>
@@ -1039,7 +1132,7 @@ SOFTWARE.
 <text class="svg-title" text-anchor="middle" x="125" y="174">2. Дизъюнктные множества</text>
 <text class="svg-sub" text-anchor="middle" x="125" y="189">A ∩ B = ∅ (не пересекаются)</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Подмножество A в B" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 250 195">
+<div class="svg-card"><svg aria-label="Подмножество A в B" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 250 195" data-fam-figure="diagram" data-fam-index="3">
 <rect class="venn-u-box" height="135" rx="6" width="220" x="15" y="20"></rect>
 <circle class="venn-fill-2" cx="125" cy="88" r="50"></circle>
 <circle class="venn-fill-1" cx="112" cy="92" r="25"></circle>
@@ -1052,7 +1145,7 @@ SOFTWARE.
 <text class="svg-title" text-anchor="middle" x="125" y="174">3. Включение A ⊂ B</text>
 <text class="svg-sub" text-anchor="middle" x="125" y="189">Каждый x ∈ A принадлежит B</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Транзитивность включения и Универс" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 250 195">
+<div class="svg-card"><svg aria-label="Транзитивность включения и Универс" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 250 195" data-fam-figure="diagram" data-fam-index="4">
 <rect class="venn-u-box" height="135" rx="6" width="220" x="15" y="20"></rect>
 <ellipse class="venn-fill-soft" cx="125" cy="90" rx="82" ry="52"></ellipse>
 <ellipse class="venn-fill-2" cx="118" cy="93" rx="54" ry="35"></ellipse>
@@ -1065,7 +1158,7 @@ SOFTWARE.
 <text class="svg-set-label" text-anchor="middle" x="112" y="99">A</text>
 <text class="svg-set-label" text-anchor="middle" x="154" y="96">B</text>
 <text class="svg-set-label" text-anchor="middle" x="188" y="88">C</text>
-<text class="svg-title" text-anchor="middle" x="125" y="174">4. Транзитивность (рис. из конспекта)</text>
+<text class="svg-title" text-anchor="middle" x="125" y="174">4. Транзитивность</text>
 <text class="svg-sub" text-anchor="middle" x="125" y="189">A ⊂ B ⊂ C ⊂ U ⇒ A ⊂ C</text>
 </svg></div>
 </div>
@@ -1128,7 +1221,7 @@ SOFTWARE.
 </div>
 </div>
 <div class="svg-card" style="margin: 18px 0;">
-<svg aria-label="Сравнение пустого множества и множеств, содержащих пустое множество" class="wide-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 185">
+<svg aria-label="Сравнение пустого множества и множеств, содержащих пустое множество" class="wide-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 185" data-fam-figure="diagram" data-fam-index="5">
 <!-- Box 1: arnothing -->
 <rect class="venn-u-box" height="122" rx="10" stroke-dasharray="5,4" width="196" x="16" y="18"></rect>
 <rect class="venn-c-stroke" fill="none" height="122" rx="10" width="196" x="16" y="18"></rect>
@@ -1175,7 +1268,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-6">
   <div class="chapter-kicker">06 / . Теоретико-множественные опер…</div>
   <h2 id="chapter-6" data-toc=". Теоретико-множественные опер…">Глава 4. Теоретико-множественные операции и Диаграммы Эйлера–Венна</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <p>
@@ -1201,72 +1294,17 @@ SOFTWARE.
 </ul>
 </div></div>
 <div class="svg-grid-2">
-<div class="svg-card"><svg aria-label="Множество A" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205">
-<defs>
-<pattern height="8" id="hatch-single-a" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="142" rx="6" width="224" x="18" y="24"></rect>
-<circle class="venn-fill-1" cx="130" cy="95" r="46"></circle>
-<circle cx="130" cy="95" fill="url(#hatch-single-a)" r="46"></circle>
-<rect class="venn-u-stroke" fill="none" height="142" rx="6" width="224" x="18" y="24"></rect>
-<circle class="venn-c-stroke" cx="130" cy="95" fill="none" r="46"></circle>
-<text class="svg-u-label" text-anchor="end" x="232" y="40">U</text>
-<text class="svg-set-label" text-anchor="middle" x="130" y="100">A</text>
-<text class="svg-title" text-anchor="middle" x="130" y="183">Множество A</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="198">Закрашена внутренняя область круга A</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="Множество A" data-fam-figure="diagram" data-fam-index="6">
+<defs><clipPath id="fam-fig-6-in0"><circle cx="166" cy="114" r="69" /></clipPath><mask id="fam-fig-6-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="166" cy="114" r="69" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-6-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g><circle cx="166" cy="114" r="69" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="112.18" y="80.88" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Множество A</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Дополнение A" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205">
-<defs>
-<pattern height="8" id="hatch-single-abar" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="142" rx="6" width="224" x="18" y="24"></rect>
-<path class="venn-fill-1" d="M 18 24 H 242 V 166 H 18 Z M 84 95 A 46 46 0 1 0 176 95 A 46 46 0 1 0 84 95 Z" fill-rule="evenodd"></path>
-<path d="M 18 24 H 242 V 166 H 18 Z M 84 95 A 46 46 0 1 0 176 95 A 46 46 0 1 0 84 95 Z" fill="url(#hatch-single-abar)" fill-rule="evenodd"></path>
-<rect class="venn-u-stroke" fill="none" height="142" rx="6" width="224" x="18" y="24"></rect>
-<circle class="venn-c-stroke" cx="130" cy="95" fill="none" r="46"></circle>
-<text class="svg-u-label" text-anchor="end" x="232" y="40">U</text>
-<text class="svg-set-label" text-anchor="middle" x="130" y="100">A</text>
-<text class="svg-set-label" text-anchor="middle" x="52" y="56">Ā</text>
-<text class="svg-title" text-anchor="middle" x="130" y="183">Дополнение Ā = U ∖ A</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="198">Закрашено всё в U строго вне круга A</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="Дополнение U ∖ A" data-fam-figure="diagram" data-fam-index="7">
+<defs><clipPath id="fam-fig-7-in0"><circle cx="166" cy="114" r="69" /></clipPath><mask id="fam-fig-7-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="166" cy="114" r="69" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g mask="url(#fam-fig-7-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g><circle cx="166" cy="114" r="69" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="112.18" y="80.88" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Дополнение U ∖ A</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Объединение A ∪ B" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 208">
-<defs>
-<pattern height="8" id="hatch-uab" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="142" rx="6" width="224" x="18" y="24"></rect>
-<path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z" fill="url(#hatch-uab)"></path><path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 0 1 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 0 1 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z" fill="url(#hatch-uab)"></path><path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 1 1 130.00 131.50 A 46.00 46.00 0 0 0 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 1 1 130.00 131.50 A 46.00 46.00 0 0 0 130.00 58.50 Z" fill="url(#hatch-uab)"></path>
-<rect class="venn-u-stroke" fill="none" height="142" rx="6" width="224" x="18" y="24"></rect>
-<circle class="venn-c-stroke" cx="102.0" cy="95.0" fill="none" r="46.0"></circle>
-<circle class="venn-c-stroke" cx="158.0" cy="95.0" fill="none" r="46.0"></circle>
-<text class="svg-u-label" text-anchor="end" x="232" y="40">U</text>
-<text class="svg-set-label" text-anchor="middle" x="74" y="99">A</text>
-<text class="svg-set-label" text-anchor="middle" x="186" y="99">B</text>
-<text class="svg-title" text-anchor="middle" x="130" y="183">Объединение A ∪ B</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="198">Закрашены области R₁₀, R₁₁, R₀₁ (x ∈ A или x ∈ B)</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="A ∪ B" data-fam-figure="diagram" data-fam-index="8">
+<defs><clipPath id="fam-fig-8-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-8-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-8-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-8-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-8-in1)"><g mask="url(#fam-fig-8-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><g mask="url(#fam-fig-8-out1)"><g clip-path="url(#fam-fig-8-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><g clip-path="url(#fam-fig-8-in1)"><g clip-path="url(#fam-fig-8-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A ∪ B</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Пересечение A ∩ B" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 208">
-<defs>
-<pattern height="8" id="hatch-iab" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="142" rx="6" width="224" x="18" y="24"></rect>
-<path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 0 1 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 0 1 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z" fill="url(#hatch-iab)"></path>
-<rect class="venn-u-stroke" fill="none" height="142" rx="6" width="224" x="18" y="24"></rect>
-<circle class="venn-c-stroke" cx="102.0" cy="95.0" fill="none" r="46.0"></circle>
-<circle class="venn-c-stroke" cx="158.0" cy="95.0" fill="none" r="46.0"></circle>
-<text class="svg-u-label" text-anchor="end" x="232" y="40">U</text>
-<text class="svg-set-label" text-anchor="middle" x="74" y="99">A</text>
-<text class="svg-set-label" text-anchor="middle" x="186" y="99">B</text>
-<text class="svg-title" text-anchor="middle" x="130" y="183">Пересечение A ∩ B</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="198">Закрашена только общая линза R₁₁ (x ∈ A и x ∈ B)</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="A ∩ B" data-fam-figure="diagram" data-fam-index="9">
+<defs><clipPath id="fam-fig-9-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-9-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-9-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-9-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-9-in1)"><g clip-path="url(#fam-fig-9-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A ∩ B</text>
 </svg></div>
 </div>
 <h3 data-toc="1. Круги Эйлера и Диаграммы Ве…" id="sec-4-venn">4.1. Круги Эйлера и Диаграммы Венна (Слайд 8 и В.Е. Алексеев, п. 1.4)</h3>
@@ -1296,24 +1334,8 @@ SOFTWARE.
         </p>
 </aside>
 <div class="svg-card" style="max-width: 560px; margin: 18px auto;">
-<svg aria-label="Диаграмма Венна для трёх множеств A, B, C (по В.Е. Алексееву, Рис. 1.3)" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 240">
-<defs>
-<pattern height="8" id="hatch3-atoms3" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="176" rx="6" width="248" x="16" y="20"></rect>
-<rect class="venn-u-stroke" fill="none" height="176" rx="6" width="248" x="16" y="20"></rect>
-<circle class="venn-c-stroke" cx="114.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="166.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="140.0" cy="131.03" fill="none" r="48.00"></circle>
-<text class="svg-u-label" text-anchor="end" x="254" y="36">U</text>
-<text class="svg-set-label" text-anchor="middle" x="64" y="52">A</text>
-<text class="svg-set-label" text-anchor="middle" x="216" y="52">B</text>
-<text class="svg-set-label" text-anchor="middle" x="196" y="176">C</text>
-<text class="svg-reg-code" text-anchor="middle" x="86" y="74">A∩B̄∩C̄</text><text class="svg-reg-code" text-anchor="middle" x="194" y="74">Ā∩B∩C̄</text><text class="svg-reg-code" text-anchor="middle" x="140" y="158">Ā∩B̄∩C</text><text class="svg-reg-code" text-anchor="middle" x="140" y="62">A∩B∩C̄</text><text class="svg-reg-code" text-anchor="middle" x="104" y="117">A∩B̄∩C</text><text class="svg-reg-code" text-anchor="middle" x="176" y="117">Ā∩B∩C</text><text class="svg-reg-code" text-anchor="middle" x="140" y="101">A∩B∩C</text><text class="svg-reg-code" text-anchor="middle" x="44" y="180">Ā∩B̄∩C̄</text>
-<text class="svg-title" text-anchor="middle" x="140" y="214">Диаграмма Венна для трёх множеств A, B, C (по В.Е. Алексееву, Рис. 1.3)</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="230">Разбиение универса U тремя множествами на 2³ = 8 непересекающихся элементарных областей</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="Rᵢⱼₖ: «1» означает принадлежность множеству" data-fam-figure="diagram" data-fam-index="10">
+<defs><clipPath id="fam-fig-10-in0"><circle cx="132" cy="99" r="62" /></clipPath><mask id="fam-fig-10-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="132" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-10-in1"><circle cx="207" cy="99" r="62" /></clipPath><mask id="fam-fig-10-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="207" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-10-in2"><circle cx="169.5" cy="160" r="62" /></clipPath><mask id="fam-fig-10-out2" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="169.5" cy="160" r="62" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><circle cx="132" cy="99" r="62" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83" y="52" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="207" cy="99" r="62" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="256" y="52" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><circle cx="169.5" cy="160" r="62" fill="none" stroke="var(--fig-gold)" stroke-width="1.8"/><text x="214.5" y="199" text-anchor="middle" fill="var(--fig-gold)" font-size="15">C</text><text x="41" y="178" text-anchor="middle" fill="var(--fig-ink)" font-size="12">000</text><text x="113" y="88" text-anchor="middle" fill="var(--fig-ink)" font-size="12">100</text><text x="228" y="88" text-anchor="middle" fill="var(--fig-ink)" font-size="12">010</text><text x="169" y="188" text-anchor="middle" fill="var(--fig-ink)" font-size="12">001</text><text x="170" y="73" text-anchor="middle" fill="var(--fig-ink)" font-size="12">110</text><text x="135" y="137" text-anchor="middle" fill="var(--fig-ink)" font-size="12">101</text><text x="203" y="137" text-anchor="middle" fill="var(--fig-ink)" font-size="12">011</text><text x="170" y="118" text-anchor="middle" fill="var(--fig-ink)" font-size="12">111</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Rᵢⱼₖ: «1» означает принадлежность множеству</text>
 </svg>
 </div>
 
@@ -1327,7 +1349,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-7">
   <div class="chapter-kicker">07 / . Теорема 10: Булева алгебра м…</div>
   <h2 id="chapter-7" data-toc=". Теорема 10: Булева алгебра м…">Глава 5. Теорема 10: Булева алгебра множеств — Строгие доказательства всех 19 равенств и Упражнение 11</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="statement theorem" id="thm-4"><div class="block-label">Утверждение 4</div><h3 data-toc="Теорема 10 · Лекция Сл. 719 ос…" id="sub-7-1">Теорема 10 · Лекция Сл. 719 основных равенств (операции дополнения,∩и∪образуют булеву алгебру множеств)</h3><div>
@@ -1604,62 +1626,14 @@ SOFTWARE.
 </div>
 </div>
 <div class="svg-grid-3">
-<div class="svg-card"><svg aria-label="Шаг 1: B ∩ C" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 240">
-<defs>
-<pattern height="8" id="hatch3-d1s1" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="176" rx="6" width="248" x="16" y="20"></rect>
-<path class="venn-fill-1" d="M 187.94 128.69 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 0 161.94 88.34 A 48.00 48.00 0 0 1 187.94 128.69 Z"></path><path d="M 187.94 128.69 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 0 161.94 88.34 A 48.00 48.00 0 0 1 187.94 128.69 Z" fill="url(#hatch3-d1s1)"></path><path class="venn-fill-1" d="M 161.94 88.34 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 1 161.94 88.34 Z"></path><path d="M 161.94 88.34 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 1 161.94 88.34 Z" fill="url(#hatch3-d1s1)"></path>
-<rect class="venn-u-stroke" fill="none" height="176" rx="6" width="248" x="16" y="20"></rect>
-<circle class="venn-c-stroke" cx="114.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="166.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="140.0" cy="131.03" fill="none" r="48.00"></circle>
-<text class="svg-u-label" text-anchor="end" x="254" y="36">U</text>
-<text class="svg-set-label" text-anchor="middle" x="64" y="52">A</text>
-<text class="svg-set-label" text-anchor="middle" x="216" y="52">B</text>
-<text class="svg-set-label" text-anchor="middle" x="196" y="176">C</text>
-<text class="svg-title" text-anchor="middle" x="140" y="214">Шаг 1: B ∩ C</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="230">Общая линза множеств B и C</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="Шаг 1 · B ∩ C" data-fam-figure="diagram" data-fam-index="11">
+<defs><clipPath id="fam-fig-11-in0"><circle cx="132" cy="99" r="62" /></clipPath><mask id="fam-fig-11-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="132" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-11-in1"><circle cx="207" cy="99" r="62" /></clipPath><mask id="fam-fig-11-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="207" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-11-in2"><circle cx="169.5" cy="160" r="62" /></clipPath><mask id="fam-fig-11-out2" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="169.5" cy="160" r="62" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-11-in2)"><g clip-path="url(#fam-fig-11-in1)"><g mask="url(#fam-fig-11-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g clip-path="url(#fam-fig-11-in2)"><g clip-path="url(#fam-fig-11-in1)"><g clip-path="url(#fam-fig-11-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><circle cx="132" cy="99" r="62" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83" y="52" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="207" cy="99" r="62" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="256" y="52" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><circle cx="169.5" cy="160" r="62" fill="none" stroke="var(--fig-gold)" stroke-width="1.8"/><text x="214.5" y="199" text-anchor="middle" fill="var(--fig-gold)" font-size="15">C</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Шаг 1 · B ∩ C</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Тождество 6: A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C)" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 240">
-<defs>
-<pattern height="8" id="hatch3-d1fin" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="176" rx="6" width="248" x="16" y="20"></rect>
-<path class="venn-fill-1" d="M 92.06 128.69 A 48.00 48.00 0 1 1 140.00 45.65 A 48.00 48.00 0 0 0 118.06 88.34 A 48.00 48.00 0 0 0 92.06 128.69 Z"></path><path d="M 92.06 128.69 A 48.00 48.00 0 1 1 140.00 45.65 A 48.00 48.00 0 0 0 118.06 88.34 A 48.00 48.00 0 0 0 92.06 128.69 Z" fill="url(#hatch3-d1fin)"></path><path class="venn-fill-1" d="M 140.00 45.65 A 48.00 48.00 0 0 1 161.94 88.34 A 48.00 48.00 0 0 0 118.06 88.34 A 48.00 48.00 0 0 1 140.00 45.65 Z"></path><path d="M 140.00 45.65 A 48.00 48.00 0 0 1 161.94 88.34 A 48.00 48.00 0 0 0 118.06 88.34 A 48.00 48.00 0 0 1 140.00 45.65 Z" fill="url(#hatch3-d1fin)"></path><path class="venn-fill-1" d="M 92.06 128.69 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 0 140.00 126.35 A 48.00 48.00 0 0 1 92.06 128.69 Z"></path><path d="M 92.06 128.69 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 0 140.00 126.35 A 48.00 48.00 0 0 1 92.06 128.69 Z" fill="url(#hatch3-d1fin)"></path><path class="venn-fill-1" d="M 161.94 88.34 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 1 161.94 88.34 Z"></path><path d="M 161.94 88.34 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 1 161.94 88.34 Z" fill="url(#hatch3-d1fin)"></path><path class="venn-fill-1" d="M 187.94 128.69 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 0 161.94 88.34 A 48.00 48.00 0 0 1 187.94 128.69 Z"></path><path d="M 187.94 128.69 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 0 161.94 88.34 A 48.00 48.00 0 0 1 187.94 128.69 Z" fill="url(#hatch3-d1fin)"></path>
-<rect class="venn-u-stroke" fill="none" height="176" rx="6" width="248" x="16" y="20"></rect>
-<circle class="venn-c-stroke" cx="114.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="166.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="140.0" cy="131.03" fill="none" r="48.00"></circle>
-<text class="svg-u-label" text-anchor="end" x="254" y="36">U</text>
-<text class="svg-set-label" text-anchor="middle" x="64" y="52">A</text>
-<text class="svg-set-label" text-anchor="middle" x="216" y="52">B</text>
-<text class="svg-set-label" text-anchor="middle" x="196" y="176">C</text>
-<text class="svg-title" text-anchor="middle" x="140" y="214">Тождество 6: A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C)</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="230">Закрашен весь круг A плюс линза B ∩ C (5 областей)</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="A ∪ (B ∩ C)" data-fam-figure="diagram" data-fam-index="12">
+<defs><clipPath id="fam-fig-12-in0"><circle cx="132" cy="99" r="62" /></clipPath><mask id="fam-fig-12-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="132" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-12-in1"><circle cx="207" cy="99" r="62" /></clipPath><mask id="fam-fig-12-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="207" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-12-in2"><circle cx="169.5" cy="160" r="62" /></clipPath><mask id="fam-fig-12-out2" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="169.5" cy="160" r="62" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-12-in2)"><g clip-path="url(#fam-fig-12-in1)"><g mask="url(#fam-fig-12-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g mask="url(#fam-fig-12-out2)"><g mask="url(#fam-fig-12-out1)"><g clip-path="url(#fam-fig-12-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g clip-path="url(#fam-fig-12-in2)"><g mask="url(#fam-fig-12-out1)"><g clip-path="url(#fam-fig-12-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g mask="url(#fam-fig-12-out2)"><g clip-path="url(#fam-fig-12-in1)"><g clip-path="url(#fam-fig-12-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g clip-path="url(#fam-fig-12-in2)"><g clip-path="url(#fam-fig-12-in1)"><g clip-path="url(#fam-fig-12-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><circle cx="132" cy="99" r="62" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83" y="52" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="207" cy="99" r="62" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="256" y="52" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><circle cx="169.5" cy="160" r="62" fill="none" stroke="var(--fig-gold)" stroke-width="1.8"/><text x="214.5" y="199" text-anchor="middle" fill="var(--fig-gold)" font-size="15">C</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A ∪ (B ∩ C)</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Тождество 7: A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 240">
-<defs>
-<pattern height="8" id="hatch3-d2fin" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="176" rx="6" width="248" x="16" y="20"></rect>
-<path class="venn-fill-1" d="M 140.00 45.65 A 48.00 48.00 0 0 1 161.94 88.34 A 48.00 48.00 0 0 0 118.06 88.34 A 48.00 48.00 0 0 1 140.00 45.65 Z"></path><path d="M 140.00 45.65 A 48.00 48.00 0 0 1 161.94 88.34 A 48.00 48.00 0 0 0 118.06 88.34 A 48.00 48.00 0 0 1 140.00 45.65 Z" fill="url(#hatch3-d2fin)"></path><path class="venn-fill-1" d="M 92.06 128.69 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 0 140.00 126.35 A 48.00 48.00 0 0 1 92.06 128.69 Z"></path><path d="M 92.06 128.69 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 0 140.00 126.35 A 48.00 48.00 0 0 1 92.06 128.69 Z" fill="url(#hatch3-d2fin)"></path><path class="venn-fill-1" d="M 161.94 88.34 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 1 161.94 88.34 Z"></path><path d="M 161.94 88.34 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 1 161.94 88.34 Z" fill="url(#hatch3-d2fin)"></path>
-<rect class="venn-u-stroke" fill="none" height="176" rx="6" width="248" x="16" y="20"></rect>
-<circle class="venn-c-stroke" cx="114.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="166.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="140.0" cy="131.03" fill="none" r="48.00"></circle>
-<text class="svg-u-label" text-anchor="end" x="254" y="36">U</text>
-<text class="svg-set-label" text-anchor="middle" x="64" y="52">A</text>
-<text class="svg-set-label" text-anchor="middle" x="216" y="52">B</text>
-<text class="svg-set-label" text-anchor="middle" x="196" y="176">C</text>
-<text class="svg-title" text-anchor="middle" x="140" y="214">Тождество 7: A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="230">Закрашены два лепестка внутри круга A (3 области)</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="A ∩ (B ∪ C)" data-fam-figure="diagram" data-fam-index="13">
+<defs><clipPath id="fam-fig-13-in0"><circle cx="132" cy="99" r="62" /></clipPath><mask id="fam-fig-13-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="132" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-13-in1"><circle cx="207" cy="99" r="62" /></clipPath><mask id="fam-fig-13-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="207" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-13-in2"><circle cx="169.5" cy="160" r="62" /></clipPath><mask id="fam-fig-13-out2" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="169.5" cy="160" r="62" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-13-in2)"><g mask="url(#fam-fig-13-out1)"><g clip-path="url(#fam-fig-13-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g mask="url(#fam-fig-13-out2)"><g clip-path="url(#fam-fig-13-in1)"><g clip-path="url(#fam-fig-13-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g clip-path="url(#fam-fig-13-in2)"><g clip-path="url(#fam-fig-13-in1)"><g clip-path="url(#fam-fig-13-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><circle cx="132" cy="99" r="62" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83" y="52" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="207" cy="99" r="62" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="256" y="52" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><circle cx="169.5" cy="160" r="62" fill="none" stroke="var(--fig-gold)" stroke-width="1.8"/><text x="214.5" y="199" text-anchor="middle" fill="var(--fig-gold)" font-size="15">C</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A ∩ (B ∪ C)</text>
 </svg></div>
 </div>
 <h3 data-toc="2. Законы де Моргана (Равенств…" id="sec-5-demorgan">5.2. Законы де Моргана (Равенства 8 и 9) и Полное решение Упражнения 11</h3>
@@ -1730,107 +1704,23 @@ SOFTWARE.
 </ul>
 </div></div>
 <div class="svg-grid-3">
-<div class="svg-card"><svg aria-label="Шаг 1 (ЛЧ): A ∪ B" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 208">
-<defs>
-<pattern height="8" id="hatch-dm1s1" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="142" rx="6" width="224" x="18" y="24"></rect>
-<path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z" fill="url(#hatch-dm1s1)"></path><path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 0 1 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 0 1 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z" fill="url(#hatch-dm1s1)"></path><path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 1 1 130.00 131.50 A 46.00 46.00 0 0 0 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 1 1 130.00 131.50 A 46.00 46.00 0 0 0 130.00 58.50 Z" fill="url(#hatch-dm1s1)"></path>
-<rect class="venn-u-stroke" fill="none" height="142" rx="6" width="224" x="18" y="24"></rect>
-<circle class="venn-c-stroke" cx="102.0" cy="95.0" fill="none" r="46.0"></circle>
-<circle class="venn-c-stroke" cx="158.0" cy="95.0" fill="none" r="46.0"></circle>
-<text class="svg-u-label" text-anchor="end" x="232" y="40">U</text>
-<text class="svg-set-label" text-anchor="middle" x="74" y="99">A</text>
-<text class="svg-set-label" text-anchor="middle" x="186" y="99">B</text>
-<text class="svg-title" text-anchor="middle" x="130" y="183">Шаг 1 (ЛЧ): A ∪ B</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="198">Объединение кругов A и B (R₁₀, R₁₁, R₀₁)</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="Шаг 1 · A ∪ B" data-fam-figure="diagram" data-fam-index="14">
+<defs><clipPath id="fam-fig-14-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-14-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-14-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-14-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-14-in1)"><g mask="url(#fam-fig-14-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><g mask="url(#fam-fig-14-out1)"><g clip-path="url(#fam-fig-14-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><g clip-path="url(#fam-fig-14-in1)"><g clip-path="url(#fam-fig-14-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Шаг 1 · A ∪ B</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Левая часть (8): Ā∪B̄ = (A ∪ B)'" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 208">
-<defs>
-<pattern height="8" id="hatch-dm1lhs" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="142" rx="6" width="224" x="18" y="24"></rect>
-<path class="venn-fill-1" d="M 18 24 H 242 V 166 H 18 Z M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 1 0 130.00 58.50 Z" fill-rule="evenodd"></path><path d="M 18 24 H 242 V 166 H 18 Z M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 1 0 130.00 58.50 Z" fill="url(#hatch-dm1lhs)" fill-rule="evenodd"></path>
-<rect class="venn-u-stroke" fill="none" height="142" rx="6" width="224" x="18" y="24"></rect>
-<circle class="venn-c-stroke" cx="102.0" cy="95.0" fill="none" r="46.0"></circle>
-<circle class="venn-c-stroke" cx="158.0" cy="95.0" fill="none" r="46.0"></circle>
-<text class="svg-u-label" text-anchor="end" x="232" y="40">U</text>
-<text class="svg-set-label" text-anchor="middle" x="74" y="99">A</text>
-<text class="svg-set-label" text-anchor="middle" x="186" y="99">B</text>
-<text class="svg-title" text-anchor="middle" x="130" y="183">Левая часть (8): Ā∪B̄ = (A ∪ B)'</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="198">Дополнение к A ∪ B: только внешняя область R₀₀</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="Дополнение к A ∪ B" data-fam-figure="diagram" data-fam-index="15">
+<defs><clipPath id="fam-fig-15-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-15-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-15-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-15-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g mask="url(#fam-fig-15-out1)"><g mask="url(#fam-fig-15-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Дополнение к A ∪ B</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Правая часть (8): Ā ∩ B̄" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 208">
-<defs>
-<pattern height="8" id="hatch-dm1rhs" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="142" rx="6" width="224" x="18" y="24"></rect>
-<path class="venn-fill-1" d="M 18 24 H 242 V 166 H 18 Z M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 1 0 130.00 58.50 Z" fill-rule="evenodd"></path><path d="M 18 24 H 242 V 166 H 18 Z M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 1 0 130.00 58.50 Z" fill="url(#hatch-dm1rhs)" fill-rule="evenodd"></path><path class="venn-fill-2" d="M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z"></path><path class="venn-fill-2" d="M 130.00 58.50 A 46.00 46.00 0 1 1 130.00 131.50 A 46.00 46.00 0 0 0 130.00 58.50 Z"></path>
-<rect class="venn-u-stroke" fill="none" height="142" rx="6" width="224" x="18" y="24"></rect>
-<circle class="venn-c-stroke" cx="102.0" cy="95.0" fill="none" r="46.0"></circle>
-<circle class="venn-c-stroke" cx="158.0" cy="95.0" fill="none" r="46.0"></circle>
-<text class="svg-u-label" text-anchor="end" x="232" y="40">U</text>
-<text class="svg-set-label" text-anchor="middle" x="74" y="99">A</text>
-<text class="svg-set-label" text-anchor="middle" x="186" y="99">B</text>
-<text class="svg-title" text-anchor="middle" x="130" y="183">Правая часть (8): Ā ∩ B̄</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="198">Пересечение Ā (R₀₀, R₀₁) и B̄ (R₀₀, R₁₀) даёт R₀₀</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="Ā ∩ B̄" data-fam-figure="diagram" data-fam-index="16">
+<defs><clipPath id="fam-fig-16-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-16-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-16-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-16-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g mask="url(#fam-fig-16-out1)"><g mask="url(#fam-fig-16-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Ā ∩ B̄</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Шаг 1 (ЛЧ): A ∩ B" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 208">
-<defs>
-<pattern height="8" id="hatch-dm2s1" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="142" rx="6" width="224" x="18" y="24"></rect>
-<path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 0 1 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 0 1 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z" fill="url(#hatch-dm2s1)"></path>
-<rect class="venn-u-stroke" fill="none" height="142" rx="6" width="224" x="18" y="24"></rect>
-<circle class="venn-c-stroke" cx="102.0" cy="95.0" fill="none" r="46.0"></circle>
-<circle class="venn-c-stroke" cx="158.0" cy="95.0" fill="none" r="46.0"></circle>
-<text class="svg-u-label" text-anchor="end" x="232" y="40">U</text>
-<text class="svg-set-label" text-anchor="middle" x="74" y="99">A</text>
-<text class="svg-set-label" text-anchor="middle" x="186" y="99">B</text>
-<text class="svg-title" text-anchor="middle" x="130" y="183">Шаг 1 (ЛЧ): A ∩ B</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="198">Пересечение кругов A и B (только линза R₁₁)</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="Шаг 1 · A ∩ B" data-fam-figure="diagram" data-fam-index="17">
+<defs><clipPath id="fam-fig-17-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-17-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-17-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-17-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-17-in1)"><g clip-path="url(#fam-fig-17-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Шаг 1 · A ∩ B</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Левая часть (9): (A ∩ B)'" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 208">
-<defs>
-<pattern height="8" id="hatch-dm2lhs" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="142" rx="6" width="224" x="18" y="24"></rect>
-<path class="venn-fill-1" d="M 18 24 H 242 V 166 H 18 Z M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 1 0 130.00 58.50 Z" fill-rule="evenodd"></path><path d="M 18 24 H 242 V 166 H 18 Z M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 1 0 130.00 58.50 Z" fill="url(#hatch-dm2lhs)" fill-rule="evenodd"></path><path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z" fill="url(#hatch-dm2lhs)"></path><path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 1 1 130.00 131.50 A 46.00 46.00 0 0 0 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 1 1 130.00 131.50 A 46.00 46.00 0 0 0 130.00 58.50 Z" fill="url(#hatch-dm2lhs)"></path>
-<rect class="venn-u-stroke" fill="none" height="142" rx="6" width="224" x="18" y="24"></rect>
-<circle class="venn-c-stroke" cx="102.0" cy="95.0" fill="none" r="46.0"></circle>
-<circle class="venn-c-stroke" cx="158.0" cy="95.0" fill="none" r="46.0"></circle>
-<text class="svg-u-label" text-anchor="end" x="232" y="40">U</text>
-<text class="svg-set-label" text-anchor="middle" x="74" y="99">A</text>
-<text class="svg-set-label" text-anchor="middle" x="186" y="99">B</text>
-<text class="svg-title" text-anchor="middle" x="130" y="183">Левая часть (9): (A ∩ B)'</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="198">Дополнение к линзе A ∩ B: области R₀₀, R₁₀, R₀₁</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="Дополнение к A ∩ B" data-fam-figure="diagram" data-fam-index="18">
+<defs><clipPath id="fam-fig-18-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-18-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-18-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-18-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g mask="url(#fam-fig-18-out1)"><g mask="url(#fam-fig-18-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><g clip-path="url(#fam-fig-18-in1)"><g mask="url(#fam-fig-18-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><g mask="url(#fam-fig-18-out1)"><g clip-path="url(#fam-fig-18-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Дополнение к A ∩ B</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Правая часть (9): Ā ∪ B̄" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 208">
-<defs>
-<pattern height="8" id="hatch-dm2rhs" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="142" rx="6" width="224" x="18" y="24"></rect>
-<path class="venn-fill-1" d="M 18 24 H 242 V 166 H 18 Z M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 1 0 130.00 58.50 Z" fill-rule="evenodd"></path><path d="M 18 24 H 242 V 166 H 18 Z M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 1 0 130.00 58.50 Z" fill="url(#hatch-dm2rhs)" fill-rule="evenodd"></path><path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z" fill="url(#hatch-dm2rhs)"></path><path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 1 1 130.00 131.50 A 46.00 46.00 0 0 0 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 1 1 130.00 131.50 A 46.00 46.00 0 0 0 130.00 58.50 Z" fill="url(#hatch-dm2rhs)"></path>
-<rect class="venn-u-stroke" fill="none" height="142" rx="6" width="224" x="18" y="24"></rect>
-<circle class="venn-c-stroke" cx="102.0" cy="95.0" fill="none" r="46.0"></circle>
-<circle class="venn-c-stroke" cx="158.0" cy="95.0" fill="none" r="46.0"></circle>
-<text class="svg-u-label" text-anchor="end" x="232" y="40">U</text>
-<text class="svg-set-label" text-anchor="middle" x="74" y="99">A</text>
-<text class="svg-set-label" text-anchor="middle" x="186" y="99">B</text>
-<text class="svg-title" text-anchor="middle" x="130" y="183">Правая часть (9): Ā ∪ B̄</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="198">Объединение Ā (R₀₀, R₀₁) и B̄ (R₀₀, R₁₀) даёт R₀₀, R₁₀, R₀₁</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="Ā ∪ B̄" data-fam-figure="diagram" data-fam-index="19">
+<defs><clipPath id="fam-fig-19-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-19-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-19-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-19-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g mask="url(#fam-fig-19-out1)"><g mask="url(#fam-fig-19-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><g clip-path="url(#fam-fig-19-in1)"><g mask="url(#fam-fig-19-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><g mask="url(#fam-fig-19-out1)"><g clip-path="url(#fam-fig-19-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Ā ∪ B̄</text>
 </svg></div>
 </div>
 <h3 data-toc="3. Полные доказательства равен…" id="sec-5-absorb">5.3. Полные доказательства равенств 10–19 (Идемпотентность, <span class="math-inline">U</span> и <span class="math-inline">∅</span>, Поглощение и Законы дополнения)</h3>
@@ -1941,7 +1831,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-8">
   <div class="chapter-kicker">08 / . Разность множеств, Симметрич…</div>
   <h2 id="chapter-8" data-toc=". Разность множеств, Симметрич…">Глава 6. Разность множеств, Симметрическая разность и Критерии включения (Т. 13, 14, 16, 17)</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <h3 data-toc="1. Теоретико-множественная раз…" id="sec-6-diff">6.1. Теоретико-множественная разность: Определение 12, Утверждение 13 и Теорема 14</h3>
@@ -1961,56 +1851,14 @@ SOFTWARE.
         </p>
 </div></div>
 <div class="svg-grid-3">
-<div class="svg-card"><svg aria-label="Разность A ∖ B = A ∩ B̄" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 208">
-<defs>
-<pattern height="8" id="hatch-dab" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="142" rx="6" width="224" x="18" y="24"></rect>
-<path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z" fill="url(#hatch-dab)"></path>
-<rect class="venn-u-stroke" fill="none" height="142" rx="6" width="224" x="18" y="24"></rect>
-<circle class="venn-c-stroke" cx="102.0" cy="95.0" fill="none" r="46.0"></circle>
-<circle class="venn-c-stroke" cx="158.0" cy="95.0" fill="none" r="46.0"></circle>
-<text class="svg-u-label" text-anchor="end" x="232" y="40">U</text>
-<text class="svg-set-label" text-anchor="middle" x="74" y="99">A</text>
-<text class="svg-set-label" text-anchor="middle" x="186" y="99">B</text>
-<text class="svg-title" text-anchor="middle" x="130" y="183">Разность A ∖ B = A ∩ B̄</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="198">Левый полумесяц R₁₀ (x ∈ A и x ∉ B)</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="A ∖ B" data-fam-figure="diagram" data-fam-index="20">
+<defs><clipPath id="fam-fig-20-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-20-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-20-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-20-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g mask="url(#fam-fig-20-out1)"><g clip-path="url(#fam-fig-20-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A ∖ B</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Разность B ∖ A = B ∩ Ā" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 208">
-<defs>
-<pattern height="8" id="hatch-dba" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="142" rx="6" width="224" x="18" y="24"></rect>
-<path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 1 1 130.00 131.50 A 46.00 46.00 0 0 0 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 1 1 130.00 131.50 A 46.00 46.00 0 0 0 130.00 58.50 Z" fill="url(#hatch-dba)"></path>
-<rect class="venn-u-stroke" fill="none" height="142" rx="6" width="224" x="18" y="24"></rect>
-<circle class="venn-c-stroke" cx="102.0" cy="95.0" fill="none" r="46.0"></circle>
-<circle class="venn-c-stroke" cx="158.0" cy="95.0" fill="none" r="46.0"></circle>
-<text class="svg-u-label" text-anchor="end" x="232" y="40">U</text>
-<text class="svg-set-label" text-anchor="middle" x="74" y="99">A</text>
-<text class="svg-set-label" text-anchor="middle" x="186" y="99">B</text>
-<text class="svg-title" text-anchor="middle" x="130" y="183">Разность B ∖ A = B ∩ Ā</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="198">Правый полумесяц R₀₁ (x ∈ B и x ∉ A)</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="B ∖ A" data-fam-figure="diagram" data-fam-index="21">
+<defs><clipPath id="fam-fig-21-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-21-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-21-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-21-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-21-in1)"><g mask="url(#fam-fig-21-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">B ∖ A</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Симметрическая разность A △ B" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 208">
-<defs>
-<pattern height="8" id="hatch-sab" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="142" rx="6" width="224" x="18" y="24"></rect>
-<path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z" fill="url(#hatch-sab)"></path><path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 1 1 130.00 131.50 A 46.00 46.00 0 0 0 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 1 1 130.00 131.50 A 46.00 46.00 0 0 0 130.00 58.50 Z" fill="url(#hatch-sab)"></path>
-<rect class="venn-u-stroke" fill="none" height="142" rx="6" width="224" x="18" y="24"></rect>
-<circle class="venn-c-stroke" cx="102.0" cy="95.0" fill="none" r="46.0"></circle>
-<circle class="venn-c-stroke" cx="158.0" cy="95.0" fill="none" r="46.0"></circle>
-<text class="svg-u-label" text-anchor="end" x="232" y="40">U</text>
-<text class="svg-set-label" text-anchor="middle" x="74" y="99">A</text>
-<text class="svg-set-label" text-anchor="middle" x="186" y="99">B</text>
-<text class="svg-title" text-anchor="middle" x="130" y="183">Симметрическая разность A △ B</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="198">Оба полумесяца R₁₀ ∪ R₀₁ = (A ∪ B) ∖ (A ∩ B)</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="A △ B" data-fam-figure="diagram" data-fam-index="22">
+<defs><clipPath id="fam-fig-22-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-22-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-22-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-22-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-22-in1)"><g mask="url(#fam-fig-22-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><g mask="url(#fam-fig-22-out1)"><g clip-path="url(#fam-fig-22-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A △ B</text>
 </svg></div>
 </div>
 <div class="proof" data-proof="" id="proof-9">
@@ -2176,62 +2024,14 @@ SOFTWARE.
 </div>
 </div>
 <div class="svg-grid-3">
-<div class="svg-card"><svg aria-label="Левая часть: A ∖ (B ∖ C)" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 240">
-<defs>
-<pattern height="8" id="hatch3-dnl" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="176" rx="6" width="248" x="16" y="20"></rect>
-<path class="venn-fill-1" d="M 92.06 128.69 A 48.00 48.00 0 1 1 140.00 45.65 A 48.00 48.00 0 0 0 118.06 88.34 A 48.00 48.00 0 0 0 92.06 128.69 Z"></path><path d="M 92.06 128.69 A 48.00 48.00 0 1 1 140.00 45.65 A 48.00 48.00 0 0 0 118.06 88.34 A 48.00 48.00 0 0 0 92.06 128.69 Z" fill="url(#hatch3-dnl)"></path><path class="venn-fill-1" d="M 92.06 128.69 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 0 140.00 126.35 A 48.00 48.00 0 0 1 92.06 128.69 Z"></path><path d="M 92.06 128.69 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 0 140.00 126.35 A 48.00 48.00 0 0 1 92.06 128.69 Z" fill="url(#hatch3-dnl)"></path><path class="venn-fill-1" d="M 161.94 88.34 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 1 161.94 88.34 Z"></path><path d="M 161.94 88.34 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 1 161.94 88.34 Z" fill="url(#hatch3-dnl)"></path>
-<rect class="venn-u-stroke" fill="none" height="176" rx="6" width="248" x="16" y="20"></rect>
-<circle class="venn-c-stroke" cx="114.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="166.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="140.0" cy="131.03" fill="none" r="48.00"></circle>
-<text class="svg-u-label" text-anchor="end" x="254" y="36">U</text>
-<text class="svg-set-label" text-anchor="middle" x="64" y="52">A</text>
-<text class="svg-set-label" text-anchor="middle" x="216" y="52">B</text>
-<text class="svg-set-label" text-anchor="middle" x="196" y="176">C</text>
-<text class="svg-title" text-anchor="middle" x="140" y="214">Левая часть: A ∖ (B ∖ C)</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="230">Закрашены R₁₀₀, R₁₀₁ и центральная область R₁₁₁ (A ∩ B ∩ C)!</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="A ∖ (B ∖ C)" data-fam-figure="diagram" data-fam-index="23">
+<defs><clipPath id="fam-fig-23-in0"><circle cx="132" cy="99" r="62" /></clipPath><mask id="fam-fig-23-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="132" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-23-in1"><circle cx="207" cy="99" r="62" /></clipPath><mask id="fam-fig-23-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="207" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-23-in2"><circle cx="169.5" cy="160" r="62" /></clipPath><mask id="fam-fig-23-out2" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="169.5" cy="160" r="62" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g mask="url(#fam-fig-23-out2)"><g mask="url(#fam-fig-23-out1)"><g clip-path="url(#fam-fig-23-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g clip-path="url(#fam-fig-23-in2)"><g mask="url(#fam-fig-23-out1)"><g clip-path="url(#fam-fig-23-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g clip-path="url(#fam-fig-23-in2)"><g clip-path="url(#fam-fig-23-in1)"><g clip-path="url(#fam-fig-23-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><circle cx="132" cy="99" r="62" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83" y="52" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="207" cy="99" r="62" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="256" y="52" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><circle cx="169.5" cy="160" r="62" fill="none" stroke="var(--fig-gold)" stroke-width="1.8"/><text x="214.5" y="199" text-anchor="middle" fill="var(--fig-gold)" font-size="15">C</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A ∖ (B ∖ C)</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Правая часть: (A ∖ B) ∖ C" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 240">
-<defs>
-<pattern height="8" id="hatch3-dnr" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="176" rx="6" width="248" x="16" y="20"></rect>
-<path class="venn-fill-1" d="M 92.06 128.69 A 48.00 48.00 0 1 1 140.00 45.65 A 48.00 48.00 0 0 0 118.06 88.34 A 48.00 48.00 0 0 0 92.06 128.69 Z"></path><path d="M 92.06 128.69 A 48.00 48.00 0 1 1 140.00 45.65 A 48.00 48.00 0 0 0 118.06 88.34 A 48.00 48.00 0 0 0 92.06 128.69 Z" fill="url(#hatch3-dnr)"></path>
-<rect class="venn-u-stroke" fill="none" height="176" rx="6" width="248" x="16" y="20"></rect>
-<circle class="venn-c-stroke" cx="114.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="166.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="140.0" cy="131.03" fill="none" r="48.00"></circle>
-<text class="svg-u-label" text-anchor="end" x="254" y="36">U</text>
-<text class="svg-set-label" text-anchor="middle" x="64" y="52">A</text>
-<text class="svg-set-label" text-anchor="middle" x="216" y="52">B</text>
-<text class="svg-set-label" text-anchor="middle" x="196" y="176">C</text>
-<text class="svg-title" text-anchor="middle" x="140" y="214">Правая часть: (A ∖ B) ∖ C</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="230">Закрашена только R₁₀₀ = A ∖ (B ∪ C). Не равно левой части!</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="(A ∖ B) ∖ C" data-fam-figure="diagram" data-fam-index="24">
+<defs><clipPath id="fam-fig-24-in0"><circle cx="132" cy="99" r="62" /></clipPath><mask id="fam-fig-24-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="132" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-24-in1"><circle cx="207" cy="99" r="62" /></clipPath><mask id="fam-fig-24-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="207" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-24-in2"><circle cx="169.5" cy="160" r="62" /></clipPath><mask id="fam-fig-24-out2" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="169.5" cy="160" r="62" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g mask="url(#fam-fig-24-out2)"><g mask="url(#fam-fig-24-out1)"><g clip-path="url(#fam-fig-24-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><circle cx="132" cy="99" r="62" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83" y="52" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="207" cy="99" r="62" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="256" y="52" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><circle cx="169.5" cy="160" r="62" fill="none" stroke="var(--fig-gold)" stroke-width="1.8"/><text x="214.5" y="199" text-anchor="middle" fill="var(--fig-gold)" font-size="15">C</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">(A ∖ B) ∖ C</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Ассоциативность: A △ (B △ C) = (A △ B) △ C" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 240">
-<defs>
-<pattern height="8" id="hatch3-sym3" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="176" rx="6" width="248" x="16" y="20"></rect>
-<path class="venn-fill-1" d="M 92.06 128.69 A 48.00 48.00 0 1 1 140.00 45.65 A 48.00 48.00 0 0 0 118.06 88.34 A 48.00 48.00 0 0 0 92.06 128.69 Z"></path><path d="M 92.06 128.69 A 48.00 48.00 0 1 1 140.00 45.65 A 48.00 48.00 0 0 0 118.06 88.34 A 48.00 48.00 0 0 0 92.06 128.69 Z" fill="url(#hatch3-sym3)"></path><path class="venn-fill-1" d="M 140.00 45.65 A 48.00 48.00 0 1 1 187.94 128.69 A 48.00 48.00 0 0 0 161.94 88.34 A 48.00 48.00 0 0 0 140.00 45.65 Z"></path><path d="M 140.00 45.65 A 48.00 48.00 0 1 1 187.94 128.69 A 48.00 48.00 0 0 0 161.94 88.34 A 48.00 48.00 0 0 0 140.00 45.65 Z" fill="url(#hatch3-sym3)"></path><path class="venn-fill-1" d="M 187.94 128.69 A 48.00 48.00 0 1 1 92.06 128.69 A 48.00 48.00 0 0 0 140.00 126.35 A 48.00 48.00 0 0 0 187.94 128.69 Z"></path><path d="M 187.94 128.69 A 48.00 48.00 0 1 1 92.06 128.69 A 48.00 48.00 0 0 0 140.00 126.35 A 48.00 48.00 0 0 0 187.94 128.69 Z" fill="url(#hatch3-sym3)"></path><path class="venn-fill-1" d="M 161.94 88.34 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 1 161.94 88.34 Z"></path><path d="M 161.94 88.34 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 1 161.94 88.34 Z" fill="url(#hatch3-sym3)"></path>
-<rect class="venn-u-stroke" fill="none" height="176" rx="6" width="248" x="16" y="20"></rect>
-<circle class="venn-c-stroke" cx="114.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="166.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="140.0" cy="131.03" fill="none" r="48.00"></circle>
-<text class="svg-u-label" text-anchor="end" x="254" y="36">U</text>
-<text class="svg-set-label" text-anchor="middle" x="64" y="52">A</text>
-<text class="svg-set-label" text-anchor="middle" x="216" y="52">B</text>
-<text class="svg-set-label" text-anchor="middle" x="196" y="176">C</text>
-<text class="svg-title" text-anchor="middle" x="140" y="214">Ассоциативность: A △ (B △ C) = (A △ B) △ C</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="230">Шахматная раскраска: области нечётной кратности (1 или 3)</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="A △ B △ C" data-fam-figure="diagram" data-fam-index="25">
+<defs><clipPath id="fam-fig-25-in0"><circle cx="132" cy="99" r="62" /></clipPath><mask id="fam-fig-25-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="132" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-25-in1"><circle cx="207" cy="99" r="62" /></clipPath><mask id="fam-fig-25-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="207" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-25-in2"><circle cx="169.5" cy="160" r="62" /></clipPath><mask id="fam-fig-25-out2" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="169.5" cy="160" r="62" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-25-in2)"><g mask="url(#fam-fig-25-out1)"><g mask="url(#fam-fig-25-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g mask="url(#fam-fig-25-out2)"><g clip-path="url(#fam-fig-25-in1)"><g mask="url(#fam-fig-25-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g mask="url(#fam-fig-25-out2)"><g mask="url(#fam-fig-25-out1)"><g clip-path="url(#fam-fig-25-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g clip-path="url(#fam-fig-25-in2)"><g clip-path="url(#fam-fig-25-in1)"><g clip-path="url(#fam-fig-25-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><circle cx="132" cy="99" r="62" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83" y="52" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="207" cy="99" r="62" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="256" y="52" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><circle cx="169.5" cy="160" r="62" fill="none" stroke="var(--fig-gold)" stroke-width="1.8"/><text x="214.5" y="199" text-anchor="middle" fill="var(--fig-gold)" font-size="15">C</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A △ B △ C</text>
 </svg></div>
 </div>
 <h3 data-toc="3. Теорема 17: Критерии включе…" id="sec-6-thm17">6.3. Теорема 17: Критерии включения множеств (С ПОЛНЫМИ ДВУСТОРОННИМИ ДОКАЗАТЕЛЬСТВАМИ)</h3>
@@ -2289,7 +2089,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-9">
   <div class="chapter-kicker">09 / . Мощность конечных множеств, …</div>
   <h2 id="chapter-9" data-toc=". Мощность конечных множеств, …">Глава 7. Мощность конечных множеств, БулеанP(A) = 2Aи доказательство гипотезы с практики</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="statement definition" id="def-10"><div class="block-label">Определение 10</div><h3 data-toc="Конспект практики + В.Е. Алекс…" id="sub-9-1">Конспект практики + В.Е. Алексеев (п. 1.1–1.2, стр. 5–7)Мощность конечного множества и Булеан (множество всех подмножеств)</h3><div>
@@ -2356,7 +2156,7 @@ SOFTWARE.
 </div>
 </div>
 <div class="svg-card" style="margin: 18px 0;">
-<svg aria-label="Схема всех подмножеств булеана 2^A по числу элементов" class="wide-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 310">
+<svg aria-label="Схема всех подмножеств булеана 2^A по числу элементов" class="wide-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 310" data-fam-figure="diagram" data-fam-index="26">
 <!-- Edges from level 0 to level 1 -->
 <line class="venn-c-stroke" stroke-opacity="0.6" x1="340" x2="170" y1="255" y2="185"></line>
 <line class="venn-c-stroke" stroke-opacity="0.6" x1="340" x2="340" y1="255" y2="185"></line>
@@ -2413,7 +2213,7 @@ SOFTWARE.
 <rect class="venn-c-stroke" fill="none" height="42" rx="8" width="120" x="280" y="234"></rect>
 <text class="svg-title" text-anchor="middle" x="340" y="253">∅</text>
 <text class="svg-reg-code" text-anchor="middle" x="340" y="268">β = (0, 0, 0)</text>
-<text class="svg-title" text-anchor="middle" x="340" y="298">Структура булеана 2ᴬ для A = {1, 2, 3} по числу элементов и двоичные коды подмножеств (всего 2³ = 8 подмножеств)</text>
+<text class="svg-title" text-anchor="middle" x="340" y="298">Восемь подмножеств множества {1, 2, 3}</text>
 </svg>
 </div>
 <h3 data-toc="2. Доказательство гипотезы с п…" id="sec-7-hyp">7.2. Доказательство гипотезы с практики (<span class="math-inline">2<sup>A</sup>  ∩  2<sup>B</sup> = 2<sup>A  ∩  B</sup></span>) и свойство для объединения</h3>
@@ -2484,7 +2284,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-10">
   <div class="chapter-kicker">10 / Практика 08.09.2026 (преп. Цап…</div>
   <h2 id="chapter-10" data-toc="Практика 08.09.2026 (преп. Цап…">Практика 08.09.2026 (преп. Цаплина Екатерина Вадимовна) — Полный разбор всех задач</h2>
-  
+
 <p>
         Исчерпывающий пошаговый разбор всех заданий из рабочей тетради: различение принадлежности <span class="math-inline"> ∈ </span> и включения <span class="math-inline"> ⊆ </span>,
         вычисление мощности многоуровневых множеств с <span class="math-inline">∅</span>, операции над числовыми множествами, булеан и задачи на делимость <span class="math-inline">M<sub>2</sub>, M<sub>3</sub>, M<sub>5</sub></span>.
@@ -2500,7 +2300,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-11">
   <div class="chapter-kicker">11 / Практикум 1. Задача №1: Принад…</div>
   <h2 id="chapter-11" data-toc="Практикум 1. Задача №1: Принад…">Практикум 1. Задача №1: Принадлежность (∈) против включения (⊆) — разбор всех 12 пунктов</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="worked-example" id="ex-1"><div class="block-label">Пример 1</div><h3 data-toc="Вводная запись семинараПравило…" id="sub-11-1">Вводная запись семинараПравило различения элемента (ai∈  A) и подмножества (A  ⊆  B)</h3><div>
@@ -2611,7 +2411,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-12">
   <div class="chapter-kicker">12 / Практикум 2. Задача №2: Опреде…</div>
   <h2 id="chapter-12" data-toc="Практикум 2. Задача №2: Опреде…">Практикум 2. Задача №2: Определение мощности множеств со вложенной структурой</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="worked-example" id="ex-3"><div class="block-label">Пример 3</div><h3 data-toc="Задача №2 · Пункты 1–6Условие:…" id="sub-12-1">Задача №2 · Пункты 1–6Условие: «Определить мощность каждого множества» (6 пунктов) — Пошаговый разбор</h3><div>
@@ -2667,7 +2467,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-13">
   <div class="chapter-kicker">13 / Практикум 3. Задача №4: Вычисл…</div>
   <h2 id="chapter-13" data-toc="Практикум 3. Задача №4: Вычисл…">Практикум 3. Задача №4: Вычисление операций над множествами в универсеU = {1, 2, 3, 4, 5, 6, 7, 8}</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="worked-example" id="ex-4"><div class="block-label">Пример 4</div><h3 data-toc="Задача №4Условие задачи и пере…" id="sub-13-1">Задача №4Условие задачи и перевод множествA, B, C, Dв списочную форму</h3><div>
@@ -2757,7 +2557,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-14">
   <div class="chapter-kicker">14 / Практикум 4. Задачи на Булеан …</div>
   <h2 id="chapter-14" data-toc="Практикум 4. Задачи на Булеан …">Практикум 4. Задачи на Булеан и Задача №7 на делимость чисел</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="worked-example" id="ex-5"><div class="block-label">Пример 5</div><h3 data-toc="Разбор задач с БулеаномВычисле…" id="sub-14-1">Разбор задач с БулеаномВычисление2A∩  2Bи2A  ∩  Bна конкретном примере</h3><div>
@@ -2837,65 +2637,14 @@ SOFTWARE.
 </div>
 </div>
 <div class="svg-grid-3">
-<div class="svg-card"><svg aria-label="Задача №7 (п. 1): M₆ = M₂ ∩ M₃" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 240">
-<defs>
-<pattern height="8" id="hatch3-t7m6" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="176" rx="6" width="248" x="16" y="20"></rect>
-<path class="venn-fill-1" d="M 140.00 45.65 A 48.00 48.00 0 0 1 161.94 88.34 A 48.00 48.00 0 0 0 118.06 88.34 A 48.00 48.00 0 0 1 140.00 45.65 Z"></path><path d="M 140.00 45.65 A 48.00 48.00 0 0 1 161.94 88.34 A 48.00 48.00 0 0 0 118.06 88.34 A 48.00 48.00 0 0 1 140.00 45.65 Z" fill="url(#hatch3-t7m6)"></path><path class="venn-fill-1" d="M 161.94 88.34 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 1 161.94 88.34 Z"></path><path d="M 161.94 88.34 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 1 161.94 88.34 Z" fill="url(#hatch3-t7m6)"></path>
-<rect class="venn-u-stroke" fill="none" height="176" rx="6" width="248" x="16" y="20"></rect>
-<circle class="venn-c-stroke" cx="114.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="166.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="140.0" cy="131.03" fill="none" r="48.00"></circle>
-<text class="svg-u-label" text-anchor="end" x="254" y="36">U</text>
-<text class="svg-set-label" text-anchor="middle" x="64" y="52">M₂</text>
-<text class="svg-set-label" text-anchor="middle" x="216" y="52">M₃</text>
-<text class="svg-set-label" text-anchor="middle" x="196" y="176">M₅</text>
-<text class="svg-reg-code" text-anchor="middle" x="140" y="62">6,12,18</text><text class="svg-reg-code" text-anchor="middle" x="140" y="101">30,60</text><text class="svg-reg-code" text-anchor="middle" x="86" y="74">2,4,8</text><text class="svg-reg-code" text-anchor="middle" x="194" y="74">3,9,21</text><text class="svg-reg-code" text-anchor="middle" x="140" y="158">5,25</text><text class="svg-reg-code" text-anchor="middle" x="104" y="117">10,20</text><text class="svg-reg-code" text-anchor="middle" x="176" y="117">15,45</text><text class="svg-reg-code" text-anchor="middle" x="44" y="180">1,7,11</text>
-<text class="svg-title" text-anchor="middle" x="140" y="214">Задача №7 (п. 1): M₆ = M₂ ∩ M₃</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="230">Числа, кратные 6 (одновременно делятся и на 2, и на 3)</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="M₆ = M₂ ∩ M₃" data-fam-figure="diagram" data-fam-index="27">
+<defs><clipPath id="fam-fig-27-in0"><circle cx="132" cy="99" r="62" /></clipPath><mask id="fam-fig-27-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="132" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-27-in1"><circle cx="207" cy="99" r="62" /></clipPath><mask id="fam-fig-27-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="207" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-27-in2"><circle cx="169.5" cy="160" r="62" /></clipPath><mask id="fam-fig-27-out2" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="169.5" cy="160" r="62" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g mask="url(#fam-fig-27-out2)"><g clip-path="url(#fam-fig-27-in1)"><g clip-path="url(#fam-fig-27-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g clip-path="url(#fam-fig-27-in2)"><g clip-path="url(#fam-fig-27-in1)"><g clip-path="url(#fam-fig-27-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><circle cx="132" cy="99" r="62" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83" y="52" text-anchor="middle" fill="var(--fig-blue)" font-size="15">M₂</text><circle cx="207" cy="99" r="62" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="256" y="52" text-anchor="middle" fill="var(--fig-green)" font-size="15">M₃</text><circle cx="169.5" cy="160" r="62" fill="none" stroke="var(--fig-gold)" stroke-width="1.8"/><text x="214.5" y="199" text-anchor="middle" fill="var(--fig-gold)" font-size="15">M₅</text><text x="41" y="178" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1, 7, 11</text><text x="169" y="188" text-anchor="middle" fill="var(--fig-ink)" font-size="12">5, 25</text><text x="228" y="88" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3, 9</text><text x="203" y="137" text-anchor="middle" fill="var(--fig-ink)" font-size="12">15, 45</text><text x="113" y="88" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2, 4</text><text x="135" y="137" text-anchor="middle" fill="var(--fig-ink)" font-size="12">10, 20</text><text x="170" y="73" text-anchor="middle" fill="var(--fig-ink)" font-size="12">6, 12</text><text x="170" y="118" text-anchor="middle" fill="var(--fig-ink)" font-size="12">30, 60</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">M₆ = M₂ ∩ M₃</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Задача №7 (п. 2): K = (M₂ ∪ M₃ ∪ M₅)'" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 240">
-<defs>
-<pattern height="8" id="hatch3-t7k" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="176" rx="6" width="248" x="16" y="20"></rect>
-<path class="venn-fill-1" d="M 16 20 H 264 V 196 H 16 Z M 92.06 128.69 A 48.00 48.00 0 1 1 140.00 45.65 A 48.00 48.00 0 1 1 187.94 128.69 A 48.00 48.00 0 1 1 92.06 128.69 Z" fill-rule="evenodd"></path><path d="M 16 20 H 264 V 196 H 16 Z M 92.06 128.69 A 48.00 48.00 0 1 1 140.00 45.65 A 48.00 48.00 0 1 1 187.94 128.69 A 48.00 48.00 0 1 1 92.06 128.69 Z" fill="url(#hatch3-t7k)" fill-rule="evenodd"></path>
-<rect class="venn-u-stroke" fill="none" height="176" rx="6" width="248" x="16" y="20"></rect>
-<circle class="venn-c-stroke" cx="114.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="166.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="140.0" cy="131.03" fill="none" r="48.00"></circle>
-<text class="svg-u-label" text-anchor="end" x="254" y="36">U</text>
-<text class="svg-set-label" text-anchor="middle" x="64" y="52">M₂</text>
-<text class="svg-set-label" text-anchor="middle" x="216" y="52">M₃</text>
-<text class="svg-set-label" text-anchor="middle" x="196" y="176">M₅</text>
-<text class="svg-reg-code" text-anchor="middle" x="44" y="180">1,7,11,13</text><text class="svg-reg-code" text-anchor="middle" x="140" y="62">6,12</text><text class="svg-reg-code" text-anchor="middle" x="140" y="101">30</text><text class="svg-reg-code" text-anchor="middle" x="86" y="74">2,4</text><text class="svg-reg-code" text-anchor="middle" x="194" y="74">3,9</text><text class="svg-reg-code" text-anchor="middle" x="140" y="158">5,25</text><text class="svg-reg-code" text-anchor="middle" x="104" y="117">10,20</text><text class="svg-reg-code" text-anchor="middle" x="176" y="117">15,45</text>
-<text class="svg-title" text-anchor="middle" x="140" y="214">Задача №7 (п. 2): K = (M₂ ∪ M₃ ∪ M₅)'</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="230">Числа, взаимно простые с 30 (не делятся ни на 2, ни на 3, ни на 5)</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="Числа, взаимно простые с 30" data-fam-figure="diagram" data-fam-index="28">
+<defs><clipPath id="fam-fig-28-in0"><circle cx="132" cy="99" r="62" /></clipPath><mask id="fam-fig-28-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="132" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-28-in1"><circle cx="207" cy="99" r="62" /></clipPath><mask id="fam-fig-28-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="207" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-28-in2"><circle cx="169.5" cy="160" r="62" /></clipPath><mask id="fam-fig-28-out2" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="169.5" cy="160" r="62" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g mask="url(#fam-fig-28-out2)"><g mask="url(#fam-fig-28-out1)"><g mask="url(#fam-fig-28-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><circle cx="132" cy="99" r="62" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83" y="52" text-anchor="middle" fill="var(--fig-blue)" font-size="15">M₂</text><circle cx="207" cy="99" r="62" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="256" y="52" text-anchor="middle" fill="var(--fig-green)" font-size="15">M₃</text><circle cx="169.5" cy="160" r="62" fill="none" stroke="var(--fig-gold)" stroke-width="1.8"/><text x="214.5" y="199" text-anchor="middle" fill="var(--fig-gold)" font-size="15">M₅</text><text x="41" y="178" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1, 7, 11</text><text x="169" y="188" text-anchor="middle" fill="var(--fig-ink)" font-size="12">5, 25</text><text x="228" y="88" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3, 9</text><text x="203" y="137" text-anchor="middle" fill="var(--fig-ink)" font-size="12">15, 45</text><text x="113" y="88" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2, 4</text><text x="135" y="137" text-anchor="middle" fill="var(--fig-ink)" font-size="12">10, 20</text><text x="170" y="73" text-anchor="middle" fill="var(--fig-ink)" font-size="12">6, 12</text><text x="170" y="118" text-anchor="middle" fill="var(--fig-ink)" font-size="12">30, 60</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Числа, взаимно простые с 30</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Задача №7 (п. 3): D = (M₂ ∩ M₅) ∖ M₃" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 240">
-<defs>
-<pattern height="8" id="hatch3-t7d" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="176" rx="6" width="248" x="16" y="20"></rect>
-<path class="venn-fill-1" d="M 92.06 128.69 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 0 140.00 126.35 A 48.00 48.00 0 0 1 92.06 128.69 Z"></path><path d="M 92.06 128.69 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 0 140.00 126.35 A 48.00 48.00 0 0 1 92.06 128.69 Z" fill="url(#hatch3-t7d)"></path>
-<rect class="venn-u-stroke" fill="none" height="176" rx="6" width="248" x="16" y="20"></rect>
-<circle class="venn-c-stroke" cx="114.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="166.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="140.0" cy="131.03" fill="none" r="48.00"></circle>
-<text class="svg-u-label" text-anchor="end" x="254" y="36">U</text>
-<text class="svg-set-label" text-anchor="middle" x="64" y="52">M₂</text>
-<text class="svg-set-label" text-anchor="middle" x="216" y="52">M₃</text>
-<text class="svg-set-label" text-anchor="middle" x="196" y="176">M₅</text>
-<text class="svg-reg-code" text-anchor="middle" x="104" y="117">10,20,40</text><text class="svg-reg-code" text-anchor="middle" x="140" y="101">30,60</text><text class="svg-reg-code" text-anchor="middle" x="86" y="74">2,4</text><text class="svg-reg-code" text-anchor="middle" x="194" y="74">3,9</text><text class="svg-reg-code" text-anchor="middle" x="140" y="158">5,25</text><text class="svg-reg-code" text-anchor="middle" x="140" y="62">6,12</text><text class="svg-reg-code" text-anchor="middle" x="176" y="117">15,45</text><text class="svg-reg-code" text-anchor="middle" x="44" y="180">1,7</text>
-<text class="svg-title" text-anchor="middle" x="140" y="214">Задача №7 (п. 3): D = (M₂ ∩ M₅) ∖ M₃</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="230">Числа, кратные 10 (линза M₂ ∩ M₅), без чисел, кратных 3</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="(M₂ ∩ M₅) ∖ M₃" data-fam-figure="diagram" data-fam-index="29">
+<defs><clipPath id="fam-fig-29-in0"><circle cx="132" cy="99" r="62" /></clipPath><mask id="fam-fig-29-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="132" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-29-in1"><circle cx="207" cy="99" r="62" /></clipPath><mask id="fam-fig-29-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="207" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-29-in2"><circle cx="169.5" cy="160" r="62" /></clipPath><mask id="fam-fig-29-out2" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="169.5" cy="160" r="62" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-29-in2)"><g mask="url(#fam-fig-29-out1)"><g clip-path="url(#fam-fig-29-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><circle cx="132" cy="99" r="62" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83" y="52" text-anchor="middle" fill="var(--fig-blue)" font-size="15">M₂</text><circle cx="207" cy="99" r="62" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="256" y="52" text-anchor="middle" fill="var(--fig-green)" font-size="15">M₃</text><circle cx="169.5" cy="160" r="62" fill="none" stroke="var(--fig-gold)" stroke-width="1.8"/><text x="214.5" y="199" text-anchor="middle" fill="var(--fig-gold)" font-size="15">M₅</text><text x="41" y="178" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1, 7, 11</text><text x="169" y="188" text-anchor="middle" fill="var(--fig-ink)" font-size="12">5, 25</text><text x="228" y="88" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3, 9</text><text x="203" y="137" text-anchor="middle" fill="var(--fig-ink)" font-size="12">15, 45</text><text x="113" y="88" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2, 4</text><text x="135" y="137" text-anchor="middle" fill="var(--fig-ink)" font-size="12">10, 20</text><text x="170" y="73" text-anchor="middle" fill="var(--fig-ink)" font-size="12">6, 12</text><text x="170" y="118" text-anchor="middle" fill="var(--fig-ink)" font-size="12">30, 60</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">(M₂ ∩ M₅) ∖ M₃</text>
 </svg></div>
 </div>
 
@@ -2909,7 +2658,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-15">
   <div class="chapter-kicker">15 / Практикум 5. Свойства операций…</div>
   <h2 id="chapter-15" data-toc="Практикум 5. Свойства операций…">Практикум 5. Свойства операций на практике, Контрпримеры и Итоговая шпаргалка к экзамену</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="worked-example" id="ex-7"><div class="block-label">Пример 7</div><h3 data-toc="Конспект практики · Свойства о…" id="sub-15-1">Конспект практики · Свойства операций над множествамиПолная систематизация коммутативности и ассоциативности пяти операций (∩ ,  ∪ ,  ∖ ,  △)</h3><div>
@@ -3083,31 +2832,145 @@ SOFTWARE.
   $$('[data-all-proofs]').forEach(b=>b.addEventListener('click',()=>{proofs.forEach(p=>setProof(p,b.dataset.allProofs));syncToolbar();updatePosition();}));syncToolbar();
 
   // Render before generating the outline, so math in headings gets a clean label.
-  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:true,strict:false});}catch(e){console.warn('Math render note:', e);}
+  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:false,strict:false,ignoredClasses:["math-svg","fam-svg-labels"]});}catch(e){console.warn('Math render note:', e);}
   const headings=$$('h2[data-toc],h3[data-toc]'),list=document.createElement('ol');
   let number=0;
   for(const heading of headings){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+heading.id;if(heading.tagName==='H2'){const n=document.createElement('span');n.className='toc-number';n.textContent=String(++number).padStart(2,'0');n.setAttribute('aria-hidden','true');a.append(n);}else li.className='toc-sub';a.append(document.createTextNode(heading.dataset.toc));li.append(a);list.append(li);}
   $('#toc').replaceChildren(list);$('#section-count').textContent=`Разделов: ${number}`;
-  const mobile=matchMedia('(max-width:760px)');
-  function closeToc(){ $('#contents').classList.remove('is-open');$('#toc-toggle').setAttribute('aria-expanded','false'); }
-  $('#toc-toggle').addEventListener('click',()=>{const open=$('#contents').classList.toggle('is-open');$('#toc-toggle').setAttribute('aria-expanded',String(open));if(open)$('#toc a')?.focus();});
-  $('#toc-close').addEventListener('click',()=>{closeToc();$('#toc-toggle').focus();});
-  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&$('#contents').classList.contains('is-open')){closeToc();$('#toc-toggle').focus();}});
-  mobile.addEventListener('change',closeToc);
-  function goToHash(hash,push){let target;try{target=document.getElementById(decodeURIComponent(hash.slice(1)));}catch{return;}if(!target)return;
-    const proof=target.closest('[data-proof]');if(proof){setProof(proof,target.closest('[data-proof-idea]')?'idea':'full');syncToolbar();}
-    closeToc();if(push){try{history.pushState(null,'',hash);}catch{/* opaque reader sandbox */}}
-    target.scrollIntoView({behavior:'instant',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});updatePosition();
+  // FAM:READING-NAVIGATION-START
+  const root = document.documentElement;
+  const layout = $('.layout');
+  const topbar = $('.topbar');
+  const contents = $('#contents');
+  const tocToggle = $('#toc-toggle');
+  const mobile = matchMedia('(max-width:760px)');
+  let desktopOpen = true;
+  let mobileOpen = false;
+  try { desktopOpen = localStorage.getItem('fam-note-toc') !== 'collapsed'; } catch {}
+
+  function tocIsOpen() { return mobile.matches ? mobileOpen : desktopOpen; }
+  function syncToc() {
+    contents.classList.toggle('is-open', mobile.matches && mobileOpen);
+    layout.toggleAttribute('data-toc-collapsed', !desktopOpen);
+    tocToggle.setAttribute('aria-expanded', String(tocIsOpen()));
   }
-  document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#"]');if(!a)return;ev.preventDefault();goToHash(a.getAttribute('href'),true);});
-  window.addEventListener('hashchange',()=>goToHash(location.hash,false));
-  function updatePosition(){const y=window.scrollY,span=document.documentElement.scrollHeight-innerHeight;$('#progress-bar').style.width=(span>0?Math.min(100,Math.max(0,100*y/span)):100)+'%';let active=headings[0];for(const h of headings)if(h.getBoundingClientRect().top<145)active=h;
-    $$('#toc a').forEach(a=>{if(a.hash==='#'+active?.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
-  let pending=false;window.addEventListener('scroll',()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;updatePosition();});},{passive:true});window.addEventListener('resize',updatePosition);
-  if(location.hash)goToHash(location.hash,false);updatePosition();
+  function closeMobileToc() {
+    mobileOpen = false;
+    syncToc();
+  }
+  function setTocOpen(open) {
+    if (mobile.matches) {
+      mobileOpen = open;
+      if (open) root.removeAttribute('data-note-bar-hidden');
+    } else {
+      desktopOpen = open;
+      try { localStorage.setItem('fam-note-toc', open ? 'expanded' : 'collapsed'); } catch {}
+    }
+    syncToc();
+    updatePosition();
+  }
+  tocToggle.addEventListener('click', () => {
+    const open = !tocIsOpen();
+    setTocOpen(open);
+    if (open && mobile.matches) $('#toc a')?.focus({preventScroll:true});
+  });
+  function dismissToc() {
+    setTocOpen(false);
+    root.removeAttribute('data-note-bar-hidden');
+    tocToggle.focus({preventScroll:true});
+  }
+  $('#toc-close').addEventListener('click', dismissToc);
+  document.addEventListener('keydown', event => {
+    const focusInToc = contents.contains(document.activeElement) || document.activeElement === tocToggle;
+    if (event.key === 'Escape' && !event.defaultPrevented && tocIsOpen() &&
+        (mobile.matches || focusInToc) && !$('#pdf-dialog').open) dismissToc();
+  });
+  mobile.addEventListener('change', closeMobileToc);
+  syncToc();
+
+  let lastScroll = Math.max(0, window.scrollY);
+  let scrollDistance = 0;
+  let topbarHeight = 0;
+  function syncTopbarHeight() {
+    topbarHeight = topbar.offsetHeight;
+    root.style.setProperty('--note-topbar-height', topbarHeight + 'px');
+    updatePosition();
+  }
+  function updateTopbar() {
+    const y = Math.max(0, Math.min(window.scrollY, root.scrollHeight - innerHeight));
+    const delta = y - lastScroll;
+    lastScroll = y;
+    if (y <= 16 || mobileOpen) {
+      root.removeAttribute('data-note-bar-hidden');
+      scrollDistance = 0;
+      return;
+    }
+    if (!delta) return;
+    scrollDistance = Math.sign(delta) === Math.sign(scrollDistance) ? scrollDistance + delta : delta;
+    if (scrollDistance <= -10) root.removeAttribute('data-note-bar-hidden');
+    if (scrollDistance >= 18 && y > topbarHeight) root.setAttribute('data-note-bar-hidden', '');
+  }
+
+  function goToHash(hash, push) {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (!target) return;
+    const proof = target.closest('[data-proof]');
+    if (proof) {
+      setProof(proof, target.closest('[data-proof-idea]') ? 'idea' : 'full');
+      syncToolbar();
+    }
+    closeMobileToc();
+    if (push) {
+      try { history.pushState(null, '', hash); } catch { /* Opaque reader sandbox. */ }
+    }
+    if (target === $('#top') || target === $('#content')) root.removeAttribute('data-note-bar-hidden');
+    target.scrollIntoView({behavior:'instant', block:'start'});
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+    lastScroll = Math.max(0, window.scrollY);
+    scrollDistance = 0;
+    updatePosition();
+  }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    event.preventDefault();
+    goToHash(link.getAttribute('href'), true);
+  });
+  window.addEventListener('hashchange', () => goToHash(location.hash, false));
+
+  function updatePosition() {
+    const y = window.scrollY;
+    const span = root.scrollHeight - innerHeight;
+    $('#progress-bar').style.width = (span > 0 ? Math.min(100, Math.max(0, 100 * y / span)) : 100) + '%';
+    const barBottom = Math.max(0, topbar.getBoundingClientRect().bottom);
+    let active = headings[0];
+    for (const heading of headings) if (heading.getBoundingClientRect().top <= barBottom + 32) active = heading;
+    $$('#toc a').forEach(link => {
+      if (link.hash === '#' + active?.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let pending = false;
+  window.addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      updateTopbar();
+      updatePosition();
+    });
+  }, {passive:true});
+  window.addEventListener('resize', syncTopbarHeight);
+  topbar.addEventListener('transitionend', updatePosition);
+  new ResizeObserver(syncTopbarHeight).observe(topbar);
+  syncTopbarHeight();
+  if (location.hash) goToHash(location.hash, false);
+  // FAM:READING-NAVIGATION-END
 
   const dialog=$('#pdf-dialog');let printChoice='full';
-  $('#pdf-open').addEventListener('click',()=>{closeToc();$('#pdf-status').textContent='';dialog.showModal();});
+  $('#pdf-open').addEventListener('click',()=>{closeMobileToc();$('#pdf-status').textContent='';dialog.showModal();});
   $('#pdf-close').addEventListener('click',()=>dialog.close());
   $$('input[name="pdf-mode"]').forEach(r=>r.addEventListener('change',()=>{if(r.checked)printChoice=r.value;}));
   // Ctrl+P always exports full proofs; the explicit dialog temporarily selects a variant.

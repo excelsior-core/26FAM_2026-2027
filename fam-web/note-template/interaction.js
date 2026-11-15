@@ -37,26 +37,140 @@
   let number=0;
   for(const heading of headings){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+heading.id;if(heading.tagName==='H2'){const n=document.createElement('span');n.className='toc-number';n.textContent=String(++number).padStart(2,'0');n.setAttribute('aria-hidden','true');a.append(n);}else li.className='toc-sub';a.append(document.createTextNode(heading.dataset.toc));li.append(a);list.append(li);}
   $('#toc').replaceChildren(list);$('#section-count').textContent=`Разделов: ${number}`;
-  const mobile=matchMedia('(max-width:760px)');
-  function closeToc(){ $('#contents').classList.remove('is-open');$('#toc-toggle').setAttribute('aria-expanded','false'); }
-  $('#toc-toggle').addEventListener('click',()=>{const open=$('#contents').classList.toggle('is-open');$('#toc-toggle').setAttribute('aria-expanded',String(open));if(open)$('#toc a')?.focus();});
-  $('#toc-close').addEventListener('click',()=>{closeToc();$('#toc-toggle').focus();});
-  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&$('#contents').classList.contains('is-open')){closeToc();$('#toc-toggle').focus();}});
-  mobile.addEventListener('change',closeToc);
-  function goToHash(hash,push){let target;try{target=document.getElementById(decodeURIComponent(hash.slice(1)));}catch{return;}if(!target)return;
-    const proof=target.closest('[data-proof]');if(proof){setProof(proof,target.closest('[data-proof-idea]')?'idea':'full');syncToolbar();}
-    closeToc();if(push){try{history.pushState(null,'',hash);}catch{/* opaque reader sandbox */}}
-    target.scrollIntoView({behavior:'instant',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});updatePosition();
+  // FAM:READING-NAVIGATION-START
+  const root = document.documentElement;
+  const layout = $('.layout');
+  const topbar = $('.topbar');
+  const contents = $('#contents');
+  const tocToggle = $('#toc-toggle');
+  const mobile = matchMedia('(max-width:760px)');
+  let desktopOpen = true;
+  let mobileOpen = false;
+  try { desktopOpen = localStorage.getItem('fam-note-toc') !== 'collapsed'; } catch {}
+
+  function tocIsOpen() { return mobile.matches ? mobileOpen : desktopOpen; }
+  function syncToc() {
+    contents.classList.toggle('is-open', mobile.matches && mobileOpen);
+    layout.toggleAttribute('data-toc-collapsed', !desktopOpen);
+    tocToggle.setAttribute('aria-expanded', String(tocIsOpen()));
   }
-  document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#"]');if(!a)return;ev.preventDefault();goToHash(a.getAttribute('href'),true);});
-  window.addEventListener('hashchange',()=>goToHash(location.hash,false));
-  function updatePosition(){const y=window.scrollY,span=document.documentElement.scrollHeight-innerHeight;$('#progress-bar').style.width=(span>0?Math.min(100,Math.max(0,100*y/span)):100)+'%';let active=headings[0];for(const h of headings)if(h.getBoundingClientRect().top<145)active=h;
-    $$('#toc a').forEach(a=>{if(a.hash==='#'+active?.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
-  let pending=false;window.addEventListener('scroll',()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;updatePosition();});},{passive:true});window.addEventListener('resize',updatePosition);
-  if(location.hash)goToHash(location.hash,false);updatePosition();
+  function closeMobileToc() {
+    mobileOpen = false;
+    syncToc();
+  }
+  function setTocOpen(open) {
+    if (mobile.matches) {
+      mobileOpen = open;
+      if (open) root.removeAttribute('data-note-bar-hidden');
+    } else {
+      desktopOpen = open;
+      try { localStorage.setItem('fam-note-toc', open ? 'expanded' : 'collapsed'); } catch {}
+    }
+    syncToc();
+    updatePosition();
+  }
+  tocToggle.addEventListener('click', () => {
+    const open = !tocIsOpen();
+    setTocOpen(open);
+    if (open && mobile.matches) $('#toc a')?.focus({preventScroll:true});
+  });
+  function dismissToc() {
+    setTocOpen(false);
+    root.removeAttribute('data-note-bar-hidden');
+    tocToggle.focus({preventScroll:true});
+  }
+  $('#toc-close').addEventListener('click', dismissToc);
+  document.addEventListener('keydown', event => {
+    const focusInToc = contents.contains(document.activeElement) || document.activeElement === tocToggle;
+    if (event.key === 'Escape' && !event.defaultPrevented && tocIsOpen() &&
+        (mobile.matches || focusInToc) && !$('#pdf-dialog').open) dismissToc();
+  });
+  mobile.addEventListener('change', closeMobileToc);
+  syncToc();
+
+  let lastScroll = Math.max(0, window.scrollY);
+  let scrollDistance = 0;
+  let topbarHeight = 0;
+  function syncTopbarHeight() {
+    topbarHeight = topbar.offsetHeight;
+    root.style.setProperty('--note-topbar-height', topbarHeight + 'px');
+    updatePosition();
+  }
+  function updateTopbar() {
+    const y = Math.max(0, Math.min(window.scrollY, root.scrollHeight - innerHeight));
+    const delta = y - lastScroll;
+    lastScroll = y;
+    if (y <= 16 || mobileOpen) {
+      root.removeAttribute('data-note-bar-hidden');
+      scrollDistance = 0;
+      return;
+    }
+    if (!delta) return;
+    scrollDistance = Math.sign(delta) === Math.sign(scrollDistance) ? scrollDistance + delta : delta;
+    if (scrollDistance <= -10) root.removeAttribute('data-note-bar-hidden');
+    if (scrollDistance >= 18 && y > topbarHeight) root.setAttribute('data-note-bar-hidden', '');
+  }
+
+  function goToHash(hash, push) {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (!target) return;
+    const proof = target.closest('[data-proof]');
+    if (proof) {
+      setProof(proof, target.closest('[data-proof-idea]') ? 'idea' : 'full');
+      syncToolbar();
+    }
+    closeMobileToc();
+    if (push) {
+      try { history.pushState(null, '', hash); } catch { /* Opaque reader sandbox. */ }
+    }
+    if (target === $('#top') || target === $('#content')) root.removeAttribute('data-note-bar-hidden');
+    target.scrollIntoView({behavior:'instant', block:'start'});
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+    lastScroll = Math.max(0, window.scrollY);
+    scrollDistance = 0;
+    updatePosition();
+  }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    event.preventDefault();
+    goToHash(link.getAttribute('href'), true);
+  });
+  window.addEventListener('hashchange', () => goToHash(location.hash, false));
+
+  function updatePosition() {
+    const y = window.scrollY;
+    const span = root.scrollHeight - innerHeight;
+    $('#progress-bar').style.width = (span > 0 ? Math.min(100, Math.max(0, 100 * y / span)) : 100) + '%';
+    const barBottom = Math.max(0, topbar.getBoundingClientRect().bottom);
+    let active = headings[0];
+    for (const heading of headings) if (heading.getBoundingClientRect().top <= barBottom + 32) active = heading;
+    $$('#toc a').forEach(link => {
+      if (link.hash === '#' + active?.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let pending = false;
+  window.addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      updateTopbar();
+      updatePosition();
+    });
+  }, {passive:true});
+  window.addEventListener('resize', syncTopbarHeight);
+  topbar.addEventListener('transitionend', updatePosition);
+  new ResizeObserver(syncTopbarHeight).observe(topbar);
+  syncTopbarHeight();
+  if (location.hash) goToHash(location.hash, false);
+  // FAM:READING-NAVIGATION-END
 
   const dialog=$('#pdf-dialog');let printChoice='full';
-  $('#pdf-open').addEventListener('click',()=>{closeToc();$('#pdf-status').textContent='';dialog.showModal();});
+  $('#pdf-open').addEventListener('click',()=>{closeMobileToc();$('#pdf-status').textContent='';dialog.showModal();});
   $('#pdf-close').addEventListener('click',()=>dialog.close());
   $$('input[name="pdf-mode"]').forEach(r=>r.addEventListener('change',()=>{if(r.checked)printChoice=r.value;}));
   // Ctrl+P always exports full proofs; the explicit dialog temporarily selects a variant.

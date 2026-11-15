@@ -567,6 +567,99 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 -->
+
+<style id="fam-reviewed-figures">
+#content svg[data-fam-figure] {
+  --fig-paper:#faf8f1; --fig-ink:#24342d; --fig-muted:#52645a;
+  --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+  --fig-rose:#ac3454; --fig-gold:#885914;
+  display:block; max-width:100%; height:auto; margin-inline:auto;
+  color:var(--fig-ink); font-family:Arial, sans-serif;
+}
+html[data-theme="parchment"] #content svg[data-fam-figure] {
+  --fig-paper:#f1e7d3; --fig-ink:#353023; --fig-muted:#665b49;
+  --fig-rule:#cabc9d; --fig-blue:#244fb1; --fig-green:#166349;
+  --fig-rose:#972e4c; --fig-gold:#795419;
+}
+html[data-theme="dark"] #content svg[data-fam-figure] {
+  --fig-paper:#17231e; --fig-ink:#ecf0e6; --fig-muted:#bac9bd;
+  --fig-rule:#465c50; --fig-blue:#a3c0ff; --fig-green:#80d4b2;
+  --fig-rose:#ffa2b5; --fig-gold:#f0c67c;
+}
+#content svg[data-fam-figure] .venn-fill {fill:var(--fig-blue);fill-opacity:.16}
+#content svg[data-fam-figure] .venn-fill-danger {fill:var(--fig-rose);fill-opacity:.19}
+#content svg[data-fam-figure] text {dominant-baseline:auto}
+#content svg[data-fam-figure="plot-original"] {background:white;color:#26352e}
+@media print {
+  html[data-theme] #content svg[data-fam-figure] {
+    --fig-paper:#fff; --fig-ink:#24342d; --fig-muted:#52645a;
+    --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+    --fig-rose:#ac3454; --fig-gold:#885914;
+  }
+}
+</style>
+<style id="fam-reading-navigation">
+/* FAM:READING-NAVIGATION-START */
+@media screen {
+  .topbar {
+    transform: translateY(0);
+  }
+  #toc-toggle, #toc-close {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 11px;
+  }
+  #toc-toggle:hover, #toc-close:hover {
+    color: var(--gold);
+  }
+  .reading-progress {
+    top: max(0px, calc(var(--note-topbar-height, 88px) - 1px));
+  }
+  .contents {
+    top: calc(var(--note-topbar-height, 88px) + 24px);
+    max-height: calc(100svh - var(--note-topbar-height, 88px) - 48px);
+  }
+  .chapter [id], .lecture-head, #content {
+    scroll-margin-top: calc(var(--note-topbar-height, 88px) + 24px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .topbar {
+    transform: translateY(-100%);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .reading-progress {
+    top: 0;
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .contents {
+    top: 24px;
+    max-height: calc(100svh - 48px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) :is(.chapter [id], .lecture-head, #content) {
+    scroll-margin-top: 24px;
+  }
+}
+@media screen and (min-width: 761px) {
+  .layout[data-toc-collapsed] {
+    grid-template-columns: minmax(0, 820px);
+    justify-content: center;
+  }
+  .layout[data-toc-collapsed] > .contents {
+    display: none;
+  }
+}
+@media screen and (max-width: 760px) {
+  .contents.is-open {
+    inset: var(--note-topbar-height, 70px) 0 0;
+    max-height: none;
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .topbar { transition: transform .22s ease; }
+  .contents, .reading-progress { transition: top .22s ease; }
+}
+@media screen {
+  html:has(.contents.is-open) { overflow: hidden; }
+}
+/* FAM:READING-NAVIGATION-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -591,7 +684,7 @@ SOFTWARE.
         <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
         <h1>Корни из единицы и первообразные корни</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[U_n = \{ z \in \mathbb{C} \mid z^n = 1 \}.\]</div></div>
+        <div class="lecture-abstract" style="grid-template-columns:1fr"><div class="abstract-formula">\[U_n = \{ z \in \mathbb{C} \mid z^n = 1 \}.\]</div></div>
       </header>
       <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
       <div class="proof-toolbar" aria-label="Все доказательства">
@@ -622,7 +715,7 @@ SOFTWARE.
 <span>2 октября 2026</span>
 </div>
 </header>
-<!-- 
+<!--
         =============================================================================
         СЮДА НЕЙРОСЕТЬ ВСТАВЛЯЕТ СОДЕРЖИМОЕ КОНСПЕКТА (ARTICLE CONTENT)
         =============================================================================
@@ -634,7 +727,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Множество корней из единицы и …</div>
   <h2 id="chapter-2" data-toc="Множество корней из единицы и …">1. Множество корней из единицы и геометрическое представление</h2>
-  
+
 <p><span class="drop-cap">К</span>орни из единицы образуют фундаментальный математический мост между тригонометрией, комплексным анализом и абстрактной теорией групп. В поле действительных чисел $\mathbb{R}$ корень $n$-й степени из 1 принимает значение $1$ (при нечетных $n$) или $\pm 1$ (при четных $n$). В поле комплексных чисел $\mathbb{C}$ уравнение степени $n$ всегда имеет ровно $n$ попарно различных решений, образующих исключительную геометрическую структуру правильного $n$-угольника.</p>
 <div class="statement definition" id="def-1"><div class="block-label">Определение 8.1</div><h3 data-toc="Множество корней степени n из …" id="sub-2-1">Множество корней степени $n$ из единицы</h3><div>
 <strong>Множеством корней степени $n$ из единицы</strong> называется множество всех комплексных чисел, $n$-я степень которых равна 1:
@@ -644,7 +737,9 @@ SOFTWARE.
           Следовательно:
           \[U_n = \{ \varepsilon_0, \varepsilon_1, \dots, \varepsilon_{n-1} \}.\]
         </div></div>
-<div class="statement theorem featured" id="thm-1"><div class="block-label">Теорема 8.1</div><h3 data-toc="О геометрическом расположении …" id="sub-2-2">О геометрическом расположении корней из единицы</h3><div>
+<div class="statement theorem featured" id="thm-1"><div class="block-label">Теорема 8.1</div><h3 data-toc="О геометрическом расположении …" id="sub-2-2">О геометрическом расположении корней из единицы</h3><figure class="reviewed-math-figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 315" role="img" aria-label="6 корней единицы на единичной окружности" data-fam-figure="diagram" data-fam-index="1">
+<line x1="44" y1="175" x2="523" y2="175" stroke="var(--fig-rule)" stroke-width="1.5" /><line x1="280" y1="25" x2="280" y2="280" stroke="var(--fig-rule)" stroke-width="1.5" /><text x="522" y="166" text-anchor="middle" fill="var(--fig-muted)" font-size="12">Re</text><text x="291" y="24" text-anchor="middle" fill="var(--fig-muted)" font-size="12">Im</text><text x="268" y="193" text-anchor="middle" fill="var(--fig-muted)" font-size="12">O</text><circle cx="280" cy="175" r="120" fill="none" stroke="var(--fig-muted)"/><line x1="400" y1="175" x2="340" y2="71.08" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="340" y1="71.08" x2="220" y2="71.08" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="220" y1="71.08" x2="160" y2="175" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="160" y1="175" x2="220" y2="278.92" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="220" y1="278.92" x2="340" y2="278.92" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="340" y1="278.92" x2="400" y2="175" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><circle cx="400" cy="175" r="3.3" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="410" y="167" text-anchor="start" fill="var(--fig-blue)" font-size="14">w₀</text><circle cx="340" cy="71.08" r="3.3" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.6"/><text x="350" y="63.08" text-anchor="start" fill="var(--fig-green)" font-size="14">w₁</text><circle cx="220" cy="71.08" r="3.3" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"/><text x="210" y="63.08" text-anchor="end" fill="var(--fig-rose)" font-size="14">w₂</text><circle cx="160" cy="175" r="3.3" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="1.6"/><text x="150" y="167" text-anchor="end" fill="var(--fig-gold)" font-size="14">w₃</text><circle cx="220" cy="278.92" r="3.3" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="210" y="293.92" text-anchor="end" fill="var(--fig-blue)" font-size="14">w₄</text><circle cx="340" cy="278.92" r="3.3" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.6"/><text x="350" y="293.92" text-anchor="start" fill="var(--fig-green)" font-size="14">w₅</text><text x="280" y="306" text-anchor="middle" fill="var(--fig-ink)" font-size="13">Δφ = 2π/6   ·   w₀ = 1</text>
+</svg><figcaption>Шесть корней единицы образуют правильный шестиугольник. Соседние корни отличаются по аргументу на π/3.</figcaption></figure><div>
           Все $n$ корней степени $n$ из единицы расположены на единичной окружности с центром в начале координат (радиуса $R = 1$) в вершинах <strong>правильного $n$-угольника</strong>, вписанного в эту окружность, причем одна из его вершин лежит на действительной оси в точке с координатами $(1, 0)$ (корень $\varepsilon_0 = 1$).
         </div></div>
 <div class="callout callout-remark">
@@ -664,7 +759,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-3">
   <div class="chapter-kicker">03 / Групповые свойства множества U_n</div>
   <h2 id="chapter-3" data-toc="Групповые свойства множества U_n">2. Групповые свойства множества $U_n$</h2>
-  
+
 <div class="statement theorem" id="thm-2"><div class="block-label">Теорема 8.2</div><h3 data-toc="Мультипликативная группа корне…" id="sub-3-1">Мультипликативная группа корней из единицы</h3><div>
           Множество корней из единицы $U_n$ относительно стандартной операции умножения комплексных чисел образует <strong>абелеву группу</strong> порядка $n$.<br/>
           Группа $(U_n, \cdot)$ обладает свойствами:
@@ -707,7 +802,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-4">
   <div class="chapter-kicker">04 / Первообразные (примитивные) ко…</div>
   <h2 id="chapter-4" data-toc="Первообразные (примитивные) ко…">3. Первообразные (примитивные) корни и критерий первообразности</h2>
-  
+
 <div class="statement definition" id="def-2"><div class="block-label">Определение 8.2</div><h3 data-toc="Первообразный корень" id="sub-4-1">Первообразный корень</h3><div>
           Корень $\varepsilon \in U_n$ называется <strong>первообразным (примитивным) корнем степени $n$ из единицы</strong>, если его наименьший положительный порядок равен в точности $n$, то есть:
           \[\varepsilon^n = 1 \quad \text{и} \quad \varepsilon^m \ne 1 \; \text{для всех} \; 0 < m < n.\]
@@ -774,7 +869,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-5">
   <div class="chapter-kicker">05 / Порождение группы U_n и циклич…</div>
   <h2 id="chapter-5" data-toc="Порождение группы U_n и циклич…">4. Порождение группы $U_n$ и циклическая структура</h2>
-  
+
 <div class="statement theorem" id="thm-4"><div class="block-label">Теорема 8.4</div><h3 data-toc="О выражении корней через перво…" id="sub-5-1">О выражении корней через первообразный корень</h3><div>
           Пусть $\varepsilon$ — произвольный первообразный корень степени $n$ из единицы. Тогда любой корень из единицы является некоторой степенью корня $\varepsilon$:
           \[U_n = \{ \varepsilon^0, \varepsilon^1, \varepsilon^2, \dots, \varepsilon^{n-1} \}.\]
@@ -813,7 +908,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-6">
   <div class="chapter-kicker">06 / Выражение корней произвольного…</div>
   <h2 id="chapter-6" data-toc="Выражение корней произвольного…">5. Выражение корней произвольного комплексного числа $z$</h2>
-  
+
 <div class="statement theorem" id="thm-5"><div class="block-label">Теорема 8.5</div><h3 data-toc="О связи корней из z с корнями …" id="sub-6-1">О связи корней из $z$ с корнями из единицы</h3><div>
           Пусть $z \in \mathbb{C}$, $z \ne 0$, и пусть $w$ — некоторый фиксированный корень $n$-й степени из $z$ (то есть $w^n = z$).<br/>
           Тогда все $n$ корней степени $n$ из числа $z$ получаются умножением фиксированного значения $w$ на все корни степени $n$ из единицы:
@@ -918,31 +1013,145 @@ SOFTWARE.
   $$('[data-all-proofs]').forEach(b=>b.addEventListener('click',()=>{proofs.forEach(p=>setProof(p,b.dataset.allProofs));syncToolbar();updatePosition();}));syncToolbar();
 
   // Render before generating the outline, so math in headings gets a clean label.
-  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:true,strict:false});}catch(e){console.warn('Math render note:', e);}
+  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:false,strict:false,ignoredClasses:["math-svg","fam-svg-labels"]});}catch(e){console.warn('Math render note:', e);}
   const headings=$$('h2[data-toc],h3[data-toc]'),list=document.createElement('ol');
   let number=0;
   for(const heading of headings){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+heading.id;if(heading.tagName==='H2'){const n=document.createElement('span');n.className='toc-number';n.textContent=String(++number).padStart(2,'0');n.setAttribute('aria-hidden','true');a.append(n);}else li.className='toc-sub';a.append(document.createTextNode(heading.dataset.toc));li.append(a);list.append(li);}
   $('#toc').replaceChildren(list);$('#section-count').textContent=`Разделов: ${number}`;
-  const mobile=matchMedia('(max-width:760px)');
-  function closeToc(){ $('#contents').classList.remove('is-open');$('#toc-toggle').setAttribute('aria-expanded','false'); }
-  $('#toc-toggle').addEventListener('click',()=>{const open=$('#contents').classList.toggle('is-open');$('#toc-toggle').setAttribute('aria-expanded',String(open));if(open)$('#toc a')?.focus();});
-  $('#toc-close').addEventListener('click',()=>{closeToc();$('#toc-toggle').focus();});
-  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&$('#contents').classList.contains('is-open')){closeToc();$('#toc-toggle').focus();}});
-  mobile.addEventListener('change',closeToc);
-  function goToHash(hash,push){let target;try{target=document.getElementById(decodeURIComponent(hash.slice(1)));}catch{return;}if(!target)return;
-    const proof=target.closest('[data-proof]');if(proof){setProof(proof,target.closest('[data-proof-idea]')?'idea':'full');syncToolbar();}
-    closeToc();if(push){try{history.pushState(null,'',hash);}catch{/* opaque reader sandbox */}}
-    target.scrollIntoView({behavior:'instant',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});updatePosition();
+  // FAM:READING-NAVIGATION-START
+  const root = document.documentElement;
+  const layout = $('.layout');
+  const topbar = $('.topbar');
+  const contents = $('#contents');
+  const tocToggle = $('#toc-toggle');
+  const mobile = matchMedia('(max-width:760px)');
+  let desktopOpen = true;
+  let mobileOpen = false;
+  try { desktopOpen = localStorage.getItem('fam-note-toc') !== 'collapsed'; } catch {}
+
+  function tocIsOpen() { return mobile.matches ? mobileOpen : desktopOpen; }
+  function syncToc() {
+    contents.classList.toggle('is-open', mobile.matches && mobileOpen);
+    layout.toggleAttribute('data-toc-collapsed', !desktopOpen);
+    tocToggle.setAttribute('aria-expanded', String(tocIsOpen()));
   }
-  document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#"]');if(!a)return;ev.preventDefault();goToHash(a.getAttribute('href'),true);});
-  window.addEventListener('hashchange',()=>goToHash(location.hash,false));
-  function updatePosition(){const y=window.scrollY,span=document.documentElement.scrollHeight-innerHeight;$('#progress-bar').style.width=(span>0?Math.min(100,Math.max(0,100*y/span)):100)+'%';let active=headings[0];for(const h of headings)if(h.getBoundingClientRect().top<145)active=h;
-    $$('#toc a').forEach(a=>{if(a.hash==='#'+active?.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
-  let pending=false;window.addEventListener('scroll',()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;updatePosition();});},{passive:true});window.addEventListener('resize',updatePosition);
-  if(location.hash)goToHash(location.hash,false);updatePosition();
+  function closeMobileToc() {
+    mobileOpen = false;
+    syncToc();
+  }
+  function setTocOpen(open) {
+    if (mobile.matches) {
+      mobileOpen = open;
+      if (open) root.removeAttribute('data-note-bar-hidden');
+    } else {
+      desktopOpen = open;
+      try { localStorage.setItem('fam-note-toc', open ? 'expanded' : 'collapsed'); } catch {}
+    }
+    syncToc();
+    updatePosition();
+  }
+  tocToggle.addEventListener('click', () => {
+    const open = !tocIsOpen();
+    setTocOpen(open);
+    if (open && mobile.matches) $('#toc a')?.focus({preventScroll:true});
+  });
+  function dismissToc() {
+    setTocOpen(false);
+    root.removeAttribute('data-note-bar-hidden');
+    tocToggle.focus({preventScroll:true});
+  }
+  $('#toc-close').addEventListener('click', dismissToc);
+  document.addEventListener('keydown', event => {
+    const focusInToc = contents.contains(document.activeElement) || document.activeElement === tocToggle;
+    if (event.key === 'Escape' && !event.defaultPrevented && tocIsOpen() &&
+        (mobile.matches || focusInToc) && !$('#pdf-dialog').open) dismissToc();
+  });
+  mobile.addEventListener('change', closeMobileToc);
+  syncToc();
+
+  let lastScroll = Math.max(0, window.scrollY);
+  let scrollDistance = 0;
+  let topbarHeight = 0;
+  function syncTopbarHeight() {
+    topbarHeight = topbar.offsetHeight;
+    root.style.setProperty('--note-topbar-height', topbarHeight + 'px');
+    updatePosition();
+  }
+  function updateTopbar() {
+    const y = Math.max(0, Math.min(window.scrollY, root.scrollHeight - innerHeight));
+    const delta = y - lastScroll;
+    lastScroll = y;
+    if (y <= 16 || mobileOpen) {
+      root.removeAttribute('data-note-bar-hidden');
+      scrollDistance = 0;
+      return;
+    }
+    if (!delta) return;
+    scrollDistance = Math.sign(delta) === Math.sign(scrollDistance) ? scrollDistance + delta : delta;
+    if (scrollDistance <= -10) root.removeAttribute('data-note-bar-hidden');
+    if (scrollDistance >= 18 && y > topbarHeight) root.setAttribute('data-note-bar-hidden', '');
+  }
+
+  function goToHash(hash, push) {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (!target) return;
+    const proof = target.closest('[data-proof]');
+    if (proof) {
+      setProof(proof, target.closest('[data-proof-idea]') ? 'idea' : 'full');
+      syncToolbar();
+    }
+    closeMobileToc();
+    if (push) {
+      try { history.pushState(null, '', hash); } catch { /* Opaque reader sandbox. */ }
+    }
+    if (target === $('#top') || target === $('#content')) root.removeAttribute('data-note-bar-hidden');
+    target.scrollIntoView({behavior:'instant', block:'start'});
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+    lastScroll = Math.max(0, window.scrollY);
+    scrollDistance = 0;
+    updatePosition();
+  }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    event.preventDefault();
+    goToHash(link.getAttribute('href'), true);
+  });
+  window.addEventListener('hashchange', () => goToHash(location.hash, false));
+
+  function updatePosition() {
+    const y = window.scrollY;
+    const span = root.scrollHeight - innerHeight;
+    $('#progress-bar').style.width = (span > 0 ? Math.min(100, Math.max(0, 100 * y / span)) : 100) + '%';
+    const barBottom = Math.max(0, topbar.getBoundingClientRect().bottom);
+    let active = headings[0];
+    for (const heading of headings) if (heading.getBoundingClientRect().top <= barBottom + 32) active = heading;
+    $$('#toc a').forEach(link => {
+      if (link.hash === '#' + active?.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let pending = false;
+  window.addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      updateTopbar();
+      updatePosition();
+    });
+  }, {passive:true});
+  window.addEventListener('resize', syncTopbarHeight);
+  topbar.addEventListener('transitionend', updatePosition);
+  new ResizeObserver(syncTopbarHeight).observe(topbar);
+  syncTopbarHeight();
+  if (location.hash) goToHash(location.hash, false);
+  // FAM:READING-NAVIGATION-END
 
   const dialog=$('#pdf-dialog');let printChoice='full';
-  $('#pdf-open').addEventListener('click',()=>{closeToc();$('#pdf-status').textContent='';dialog.showModal();});
+  $('#pdf-open').addEventListener('click',()=>{closeMobileToc();$('#pdf-status').textContent='';dialog.showModal();});
   $('#pdf-close').addEventListener('click',()=>dialog.close());
   $$('input[name="pdf-mode"]').forEach(r=>r.addEventListener('change',()=>{if(r.checked)printChoice=r.value;}));
   // Ctrl+P always exports full proofs; the explicit dialog temporarily selects a variant.

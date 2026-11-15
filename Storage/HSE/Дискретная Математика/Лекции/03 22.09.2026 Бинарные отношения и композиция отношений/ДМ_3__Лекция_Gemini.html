@@ -567,6 +567,99 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 -->
+
+<style id="fam-reviewed-figures">
+#content svg[data-fam-figure] {
+  --fig-paper:#faf8f1; --fig-ink:#24342d; --fig-muted:#52645a;
+  --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+  --fig-rose:#ac3454; --fig-gold:#885914;
+  display:block; max-width:100%; height:auto; margin-inline:auto;
+  color:var(--fig-ink); font-family:Arial, sans-serif;
+}
+html[data-theme="parchment"] #content svg[data-fam-figure] {
+  --fig-paper:#f1e7d3; --fig-ink:#353023; --fig-muted:#665b49;
+  --fig-rule:#cabc9d; --fig-blue:#244fb1; --fig-green:#166349;
+  --fig-rose:#972e4c; --fig-gold:#795419;
+}
+html[data-theme="dark"] #content svg[data-fam-figure] {
+  --fig-paper:#17231e; --fig-ink:#ecf0e6; --fig-muted:#bac9bd;
+  --fig-rule:#465c50; --fig-blue:#a3c0ff; --fig-green:#80d4b2;
+  --fig-rose:#ffa2b5; --fig-gold:#f0c67c;
+}
+#content svg[data-fam-figure] .venn-fill {fill:var(--fig-blue);fill-opacity:.16}
+#content svg[data-fam-figure] .venn-fill-danger {fill:var(--fig-rose);fill-opacity:.19}
+#content svg[data-fam-figure] text {dominant-baseline:auto}
+#content svg[data-fam-figure="plot-original"] {background:white;color:#26352e}
+@media print {
+  html[data-theme] #content svg[data-fam-figure] {
+    --fig-paper:#fff; --fig-ink:#24342d; --fig-muted:#52645a;
+    --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+    --fig-rose:#ac3454; --fig-gold:#885914;
+  }
+}
+</style>
+<style id="fam-reading-navigation">
+/* FAM:READING-NAVIGATION-START */
+@media screen {
+  .topbar {
+    transform: translateY(0);
+  }
+  #toc-toggle, #toc-close {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 11px;
+  }
+  #toc-toggle:hover, #toc-close:hover {
+    color: var(--gold);
+  }
+  .reading-progress {
+    top: max(0px, calc(var(--note-topbar-height, 88px) - 1px));
+  }
+  .contents {
+    top: calc(var(--note-topbar-height, 88px) + 24px);
+    max-height: calc(100svh - var(--note-topbar-height, 88px) - 48px);
+  }
+  .chapter [id], .lecture-head, #content {
+    scroll-margin-top: calc(var(--note-topbar-height, 88px) + 24px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .topbar {
+    transform: translateY(-100%);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .reading-progress {
+    top: 0;
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .contents {
+    top: 24px;
+    max-height: calc(100svh - 48px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) :is(.chapter [id], .lecture-head, #content) {
+    scroll-margin-top: 24px;
+  }
+}
+@media screen and (min-width: 761px) {
+  .layout[data-toc-collapsed] {
+    grid-template-columns: minmax(0, 820px);
+    justify-content: center;
+  }
+  .layout[data-toc-collapsed] > .contents {
+    display: none;
+  }
+}
+@media screen and (max-width: 760px) {
+  .contents.is-open {
+    inset: var(--note-topbar-height, 70px) 0 0;
+    max-height: none;
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .topbar { transition: transform .22s ease; }
+  .contents, .reading-progress { transition: top .22s ease; }
+}
+@media screen {
+  html:has(.contents.is-open) { overflow: hidden; }
+}
+/* FAM:READING-NAVIGATION-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -591,7 +684,7 @@ SOFTWARE.
         <div class="lecture-meta"><span class="subject">Дискретная математика</span><span>Академический конспект ФПМ</span></div>
         <h1>Дискретная математика: Теория множеств, Булева алгебра, Доказательства и Практикум</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[...\]</div></div>
+
       </header>
       <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
       <div class="proof-toolbar" aria-label="Все доказательства">
@@ -611,7 +704,7 @@ SOFTWARE.
   <!-- ======================================================================
          HERO BANNER
          ====================================================================== -->
-<header class="hero-banner" id="top">
+<header class="hero-banner" id="top-2">
 <div class="hero-badges">
 <span class="hero-badge">Курс «Дискретная математика»</span>
 <span class="hero-badge">Лекция 3 (22.09.2026) · Пункты 25–32</span>
@@ -652,7 +745,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Пункты 25–32: Множество всех п…</div>
   <h2 id="chapter-2" data-toc="Пункты 25–32: Множество всех п…">Пункты 25–32: Множество всех подмножеств2A, Формула включений-исключений и Характеристические функции</h2>
-  
+
 <p>
         Все теоремы и леммы приведены в точной нумерации лекции (Обозначение 25, Теоремы 26, 27, 28, Определение 29, Теоремы 30, 31, Лемма 32) и снабжены подробными доказательствами без пропущенных шагов.
       </p>
@@ -667,7 +760,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-3">
   <div class="chapter-kicker">03 / . Множество всех подмножеств2A…</div>
   <h2 id="chapter-3" data-toc=". Множество всех подмножеств2A…">Глава 1. Множество всех подмножеств2A, его мощность и пересечение (Пункты 25, 26, 27)</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <p>
@@ -825,7 +918,7 @@ SOFTWARE.
 </div>
 </div>
 <div class="svg-grid-2">
-<div class="svg-card"><svg aria-label="Схема удвоения числа подмножеств при добавлении нового элемента" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 320 220">
+<div class="svg-card"><svg aria-label="Схема удвоения числа подмножеств при добавлении нового элемента" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 320 220" data-fam-figure="diagram" data-fam-index="1">
 <rect class="venn-u-box" height="162" rx="6" width="296" x="12" y="14"></rect>
 <!-- Left box: Subsets of {a, b} (without c) -->
 <rect class="venn-fill-1" height="134" rx="6" stroke="var(--svg-c-stroke)" stroke-width="1.6" width="122" x="24" y="28"></rect>
@@ -849,10 +942,10 @@ SOFTWARE.
 <text class="svg-reg-code" text-anchor="middle" x="235" y="104">6) {a, c}</text>
 <text class="svg-reg-code" text-anchor="middle" x="235" y="124">7) {b, c}</text>
 <text class="svg-reg-code" text-anchor="middle" x="235" y="144">8) {a, b, c}</text>
-<text class="svg-title" text-anchor="middle" x="160" y="194">К доказательству Теоремы 26 (Слайд 6): |2ᴬ| = 2^|A|</text>
-<text class="svg-sub" text-anchor="middle" x="160" y="209">Добавление элемента aₖ₊₁ удваивает число подмножеств: 2ᵏ + 2ᵏ = 2ᵏ⁺¹</text>
+<text class="svg-title" text-anchor="middle" x="160" y="194">Булеан: |2ᴬ| = 2^|A|</text>
+<text class="svg-sub" text-anchor="middle" x="160" y="209">2ᵏ + 2ᵏ = 2ᵏ⁺¹</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Схема Теоремы 27: подмножество X входит и в A, и в B тогда и только тогда, когда X входит в A пересечь с B" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 320 220">
+<div class="svg-card"><svg aria-label="Схема Теоремы 27: подмножество X входит и в A, и в B тогда и только тогда, когда X входит в A пересечь с B" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 320 220" data-fam-figure="diagram" data-fam-index="2">
 <rect class="venn-u-box" height="162" rx="6" width="296" x="12" y="14"></rect>
 <circle class="venn-fill-soft" cx="122" cy="95" r="56" stroke="var(--svg-c-stroke)" stroke-width="2"></circle>
 <circle class="venn-fill-2" cx="198" cy="95" r="56" stroke="var(--svg-c-stroke)" stroke-width="2"></circle>
@@ -864,7 +957,7 @@ SOFTWARE.
 <text class="svg-reg-code" text-anchor="middle" x="160" y="34">Общая часть A ∩ B</text>
 <text class="svg-u-label" text-anchor="end" x="296" y="32">U</text>
 <text class="svg-title" text-anchor="middle" x="160" y="194">К Теореме 27: 2^(A∩B) = 2ᴬ ∩ 2ᴮ</text>
-<text class="svg-sub" text-anchor="middle" x="160" y="209">X ⊂ A и X ⊂ B ⟺ X целиком лежит в общей части A ∩ B</text>
+<text class="svg-sub" text-anchor="middle" x="160" y="209">X ⊆ A ∩ B ⇔ X ⊆ A и X ⊆ B</text>
 </svg></div>
 </div>
 
@@ -878,7 +971,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-4">
   <div class="chapter-kicker">04 / . Задача о числе элементов в о…</div>
   <h2 id="chapter-4" data-toc=". Задача о числе элементов в о…">Глава 2. Задача о числе элементов в объединении и Формула включений-исключений (Теорема 28)</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="statement definition" id="def-2"><div class="block-label">Определение 2</div><h3 data-toc="Постановка задачи · Лекция 3, …" id="sub-4-1">Постановка задачи · Лекция 3, Слайды 6, 7, 8Как найти число элементов в объединении нескольких конечных множеств?</h3><div>
@@ -896,42 +989,11 @@ SOFTWARE.
 </p>
 </div></div>
 <div class="svg-grid-2">
-<div class="svg-card"><svg aria-label="Два множества: |A ∪ B| = |A| + |B| − |A ∩ B| (Слайд 7)" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 208">
-<defs>
-<pattern height="8" id="hatch-ie2" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="142" rx="6" width="224" x="18" y="24"></rect>
-<path class="venn-fill-1" d="M 130.00 58.50 A 46.00 46.00 0 0 1 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z"></path><path d="M 130.00 58.50 A 46.00 46.00 0 0 1 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z" fill="url(#hatch-ie2)"></path><path class="venn-fill-2" d="M 130.00 58.50 A 46.00 46.00 0 1 0 130.00 131.50 A 46.00 46.00 0 0 1 130.00 58.50 Z"></path><path class="venn-fill-2" d="M 130.00 58.50 A 46.00 46.00 0 1 1 130.00 131.50 A 46.00 46.00 0 0 0 130.00 58.50 Z"></path>
-<rect class="venn-u-stroke" fill="none" height="142" rx="6" width="224" x="18" y="24"></rect>
-<circle class="venn-c-stroke" cx="102.0" cy="95.0" fill="none" r="46.0"></circle>
-<circle class="venn-c-stroke" cx="158.0" cy="95.0" fill="none" r="46.0"></circle>
-<text class="svg-u-label" text-anchor="end" x="232" y="40">U</text>
-<text class="svg-set-label" text-anchor="middle" x="74" y="99">A</text>
-<text class="svg-set-label" text-anchor="middle" x="186" y="99">B</text>
-<text class="svg-title" text-anchor="middle" x="130" y="183">Два множества: |A ∪ B| = |A| + |B| − |A ∩ B| (Слайд 7)</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="198">Общая линза A ∩ B в сумме |A| + |B| учтена дважды</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="Общая часть посчитана дважды" data-fam-figure="diagram" data-fam-index="3">
+<defs><clipPath id="fam-fig-3-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-3-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-3-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-3-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-3-in1)"><g clip-path="url(#fam-fig-3-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Общая часть посчитана дважды</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Слайд 8: Три множества (области N₁ … N₇)" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 240">
-<defs>
-<pattern height="8" id="hatch3-ie3" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
-<line class="venn-hatch-line" stroke-width="1.6" x1="0" x2="0" y1="0" y2="8"></line>
-</pattern>
-</defs>
-<rect class="venn-u-box" height="176" rx="6" width="248" x="16" y="20"></rect>
-<path class="venn-fill-1" d="M 140.00 45.65 A 48.00 48.00 0 0 1 161.94 88.34 A 48.00 48.00 0 0 0 118.06 88.34 A 48.00 48.00 0 0 1 140.00 45.65 Z"></path><path d="M 140.00 45.65 A 48.00 48.00 0 0 1 161.94 88.34 A 48.00 48.00 0 0 0 118.06 88.34 A 48.00 48.00 0 0 1 140.00 45.65 Z" fill="url(#hatch3-ie3)"></path><path class="venn-fill-1" d="M 92.06 128.69 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 0 140.00 126.35 A 48.00 48.00 0 0 1 92.06 128.69 Z"></path><path d="M 92.06 128.69 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 0 140.00 126.35 A 48.00 48.00 0 0 1 92.06 128.69 Z" fill="url(#hatch3-ie3)"></path><path class="venn-fill-1" d="M 187.94 128.69 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 0 161.94 88.34 A 48.00 48.00 0 0 1 187.94 128.69 Z"></path><path d="M 187.94 128.69 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 0 161.94 88.34 A 48.00 48.00 0 0 1 187.94 128.69 Z" fill="url(#hatch3-ie3)"></path><path class="venn-fill-1" d="M 161.94 88.34 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 1 161.94 88.34 Z"></path><path d="M 161.94 88.34 A 48.00 48.00 0 0 1 140.00 126.35 A 48.00 48.00 0 0 1 118.06 88.34 A 48.00 48.00 0 0 1 161.94 88.34 Z" fill="url(#hatch3-ie3)"></path>
-<rect class="venn-u-stroke" fill="none" height="176" rx="6" width="248" x="16" y="20"></rect>
-<circle class="venn-c-stroke" cx="114.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="166.0" cy="86.0" fill="none" r="48.00"></circle>
-<circle class="venn-c-stroke" cx="140.0" cy="131.03" fill="none" r="48.00"></circle>
-<text class="svg-u-label" text-anchor="end" x="254" y="36">U</text>
-<text class="svg-set-label" text-anchor="middle" x="64" y="52">A</text>
-<text class="svg-set-label" text-anchor="middle" x="216" y="52">B</text>
-<text class="svg-set-label" text-anchor="middle" x="196" y="176">C</text>
-<text class="svg-reg-code" text-anchor="middle" x="86" y="74">N₅</text><text class="svg-reg-code" text-anchor="middle" x="194" y="74">N₁</text><text class="svg-reg-code" text-anchor="middle" x="140" y="158">N₇</text><text class="svg-reg-code" text-anchor="middle" x="140" y="62">N₂</text><text class="svg-reg-code" text-anchor="middle" x="104" y="117">N₆</text><text class="svg-reg-code" text-anchor="middle" x="176" y="117">N₄</text><text class="svg-reg-code" text-anchor="middle" x="140" y="101">N₃</text>
-<text class="svg-title" text-anchor="middle" x="140" y="214">Слайд 8: Три множества (области N₁ … N₇)</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="230">|A∪B∪C| = |A|+|B|+|C| − |A∩B| − |A∩C| − |B∩C| + |A∩B∩C|</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="В попарных пересечениях учтены четыре области" data-fam-figure="diagram" data-fam-index="4">
+<defs><clipPath id="fam-fig-4-in0"><circle cx="132" cy="99" r="62" /></clipPath><mask id="fam-fig-4-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="132" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-4-in1"><circle cx="207" cy="99" r="62" /></clipPath><mask id="fam-fig-4-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="207" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-4-in2"><circle cx="169.5" cy="160" r="62" /></clipPath><mask id="fam-fig-4-out2" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="169.5" cy="160" r="62" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-4-in2)"><g clip-path="url(#fam-fig-4-in1)"><g mask="url(#fam-fig-4-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g clip-path="url(#fam-fig-4-in2)"><g mask="url(#fam-fig-4-out1)"><g clip-path="url(#fam-fig-4-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g mask="url(#fam-fig-4-out2)"><g clip-path="url(#fam-fig-4-in1)"><g clip-path="url(#fam-fig-4-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g clip-path="url(#fam-fig-4-in2)"><g clip-path="url(#fam-fig-4-in1)"><g clip-path="url(#fam-fig-4-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><circle cx="132" cy="99" r="62" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83" y="52" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="207" cy="99" r="62" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="256" y="52" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><circle cx="169.5" cy="160" r="62" fill="none" stroke="var(--fig-gold)" stroke-width="1.8"/><text x="214.5" y="199" text-anchor="middle" fill="var(--fig-gold)" font-size="15">C</text><text x="113" y="88" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₅</text><text x="228" y="88" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₁</text><text x="169" y="188" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₇</text><text x="170" y="73" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₂</text><text x="135" y="137" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₆</text><text x="203" y="137" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₄</text><text x="170" y="118" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₃</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">В попарных пересечениях учтены четыре области</text>
 </svg></div>
 </div>
 <div class="proof" data-proof="" id="proof-3">
@@ -991,7 +1053,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-5">
   <div class="chapter-kicker">05 / . Характеристическая функция м…</div>
   <h2 id="chapter-5" data-toc=". Характеристическая функция м…">Глава 3. Характеристическая функция множестваχAи её свойства (Пункты 29, 30, 31)</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="statement definition" id="def-3"><div class="block-label">Определение 3</div><h3 data-toc="Определение 29 · Лекция 3, Сла…" id="sub-5-1">Определение 29 · Лекция 3, Слайд 9 и КонспектХарактеристическая функцияχAмножестваA</h3><div>
@@ -1009,32 +1071,10 @@ SOFTWARE.
         </p>
 </div></div>
 <div class="svg-grid-2">
-<div class="svg-card"><svg aria-label="Рисунок из конспекта для характеристической функции на U={1,2,3,4}" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 210">
-<rect class="venn-u-box" height="144" rx="6" width="244" x="18" y="22"></rect>
-<circle class="venn-fill-1" cx="114" cy="94" r="46"></circle>
-<circle class="venn-fill-2" cx="168" cy="94" r="46"></circle>
-<rect class="venn-u-stroke" fill="none" height="144" rx="6" width="244" x="18" y="22"></rect>
-<circle class="venn-c-stroke" cx="114" cy="94" fill="none" r="46"></circle>
-<circle class="venn-c-stroke" cx="168" cy="94" fill="none" r="46"></circle>
-<text class="svg-u-label" text-anchor="end" x="252" y="38">U</text>
-<text class="svg-set-label" text-anchor="middle" x="76" y="54">A</text>
-<text class="svg-set-label" text-anchor="middle" x="206" y="54">B</text>
-<!-- Point 1: outside A and B -->
-<circle cx="44" cy="144" fill="var(--svg-text)" r="4"></circle>
-<text class="svg-set-label" x="55" y="148">1</text>
-<!-- Point 2: in A \ B -->
-<circle cx="92" cy="94" fill="var(--svg-text)" r="4"></circle>
-<text class="svg-set-label" text-anchor="middle" x="92" y="83">2</text>
-<!-- Point 3: in A  ∩  B -->
-<circle cx="141" cy="98" fill="var(--svg-text)" r="4"></circle>
-<text class="svg-set-label" text-anchor="middle" x="141" y="87">3</text>
-<!-- Point 4: in B \ A -->
-<circle cx="190" cy="94" fill="var(--svg-text)" r="4"></circle>
-<text class="svg-set-label" text-anchor="middle" x="190" y="83">4</text>
-<text class="svg-title" text-anchor="middle" x="140" y="184">Пример из конспекта: U = {1, 2, 3, 4}</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="199">A = {2, 3}, B = {3, 4}, A∩B = {3}, U∖(A∪B) = {1}</text>
+<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="A = {2, 3}, B = {3, 4}" data-fam-figure="diagram" data-fam-index="5">
+<defs><clipPath id="fam-fig-5-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-5-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-5-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-5-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-5-in1)"><g clip-path="url(#fam-fig-5-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="47" y="176" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1</text><text x="111" y="123" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2</text><text x="171" y="123" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3</text><text x="230" y="123" text-anchor="middle" fill="var(--fig-ink)" font-size="12">4</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A = {2, 3}, B = {3, 4}</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Значения характеристических функций на элементах 1, 2, 3, 4" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 210">
+<div class="svg-card"><svg aria-label="Значения характеристических функций на элементах 1, 2, 3, 4" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 210" data-fam-figure="diagram" data-fam-index="6">
 <rect class="venn-u-box" height="144" rx="6" stroke="var(--svg-u-stroke)" stroke-width="1.6" width="244" x="18" y="22"></rect>
 <!-- Header -->
 <line class="venn-c-stroke" x1="18" x2="262" y1="52" y2="52"></line>
@@ -1067,8 +1107,8 @@ SOFTWARE.
 <text class="svg-reg-code" text-anchor="middle" x="147" y="151">0</text>
 <text class="svg-reg-code" text-anchor="middle" x="193" y="151">1</text>
 <text class="svg-reg-code" text-anchor="middle" x="239" y="151">0</text>
-<text class="svg-title" text-anchor="middle" x="140" y="184">Таблица значений характеристических функций (Опр. 29)</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="199">Сумма единиц в строке равна мощности: 0 + 1 + 1 + 0 = 2 = |A|</text>
+<text class="svg-title" text-anchor="middle" x="140" y="184">Характеристические функции</text>
+<text class="svg-sub" text-anchor="middle" x="140" y="199">Сумма по строке χ(A, x) равна 2</text>
 </svg></div>
 </div>
 <div class="statement theorem" id="thm-4"><div class="block-label">Утверждение 4</div><h3 data-toc="Теорема 30 · Лекция 3, Слайд 9…" id="sub-5-2">Теорема 30 · Лекция 3, Слайд 9 и КонспектБазовые свойства характеристических функций</h3><div>
@@ -1190,7 +1230,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-6">
   <div class="chapter-kicker">06 / . Лемма 32 и Полное аналитичес…</div>
   <h2 id="chapter-6" data-toc=". Лемма 32 и Полное аналитичес…">Глава 4. Лемма 32 и Полное аналитическое доказательство Формулы включений-исключений (Теорема 28)</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="statement theorem" id="thm-6"><div class="block-label">Утверждение 6</div><h3 data-toc="Лемма 32 · Лекция 3, Слайд 11 …" id="sub-6-1">Лемма 32 · Лекция 3, Слайд 11 и КонспектОбобщённый закон де Моргана для объединенияnмножеств</h3><div>
@@ -1308,7 +1348,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-7">
   <div class="chapter-kicker">07 / Решение уравненияA △ X = Bиз к…</div>
   <h2 id="chapter-7" data-toc="Решение уравненияA △ X = Bиз к…">Решение уравненияA  △  X = Bиз конспекта и задачи на Формулу включений-исключений и функцииχA</h2>
-  
+
 <p>
         Подробный разбор задачи 1 с третьей страницы конспекта (уравнение с симметрической разностью), доказательство единственности решения и типовые задачи на применение Теорем 28, 30 и 31.
       </p>
@@ -1323,7 +1363,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-8">
   <div class="chapter-kicker">08 / Практикум 1. Разбор Примера 1 …</div>
   <h2 id="chapter-8" data-toc="Практикум 1. Разбор Примера 1 …">Практикум 1. Разбор Примера 1 из конспекта: решение теоретико-множественного уравненияA  △  X = B</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="worked-example" id="ex-1"><div class="block-label">Пример 1</div><h3 data-toc="Пример 1 · Конспект от 22.09.2…" id="sub-8-1">Пример 1 · Конспект от 22.09.2026Условие задачи и запись на полях конспекта</h3><div>
@@ -1389,7 +1429,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-9">
   <div class="chapter-kicker">09 / Практикум 2. Применение Формул…</div>
   <h2 id="chapter-9" data-toc="Практикум 2. Применение Формул…">Практикум 2. Применение Формулы включений-исключений (Теорема 28) и Характеристических функций (Теоремы 30–31)</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="worked-example" id="ex-2"><div class="block-label">Пример 2</div><h3 data-toc="Задача 2 · К Теореме 28 (Форму…" id="sub-9-1">Задача 2 · К Теореме 28 (Формула включений-исключений для 3 множеств)Подсчёт чисел, взаимно простых с 30 (количественное продолжение Задачи №7 с первого семинара!)</h3><div>
@@ -1515,31 +1555,145 @@ SOFTWARE.
   $$('[data-all-proofs]').forEach(b=>b.addEventListener('click',()=>{proofs.forEach(p=>setProof(p,b.dataset.allProofs));syncToolbar();updatePosition();}));syncToolbar();
 
   // Render before generating the outline, so math in headings gets a clean label.
-  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:true,strict:false});}catch(e){console.warn('Math render note:', e);}
+  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:false,strict:false,ignoredClasses:["math-svg","fam-svg-labels"]});}catch(e){console.warn('Math render note:', e);}
   const headings=$$('h2[data-toc],h3[data-toc]'),list=document.createElement('ol');
   let number=0;
   for(const heading of headings){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+heading.id;if(heading.tagName==='H2'){const n=document.createElement('span');n.className='toc-number';n.textContent=String(++number).padStart(2,'0');n.setAttribute('aria-hidden','true');a.append(n);}else li.className='toc-sub';a.append(document.createTextNode(heading.dataset.toc));li.append(a);list.append(li);}
   $('#toc').replaceChildren(list);$('#section-count').textContent=`Разделов: ${number}`;
-  const mobile=matchMedia('(max-width:760px)');
-  function closeToc(){ $('#contents').classList.remove('is-open');$('#toc-toggle').setAttribute('aria-expanded','false'); }
-  $('#toc-toggle').addEventListener('click',()=>{const open=$('#contents').classList.toggle('is-open');$('#toc-toggle').setAttribute('aria-expanded',String(open));if(open)$('#toc a')?.focus();});
-  $('#toc-close').addEventListener('click',()=>{closeToc();$('#toc-toggle').focus();});
-  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&$('#contents').classList.contains('is-open')){closeToc();$('#toc-toggle').focus();}});
-  mobile.addEventListener('change',closeToc);
-  function goToHash(hash,push){let target;try{target=document.getElementById(decodeURIComponent(hash.slice(1)));}catch{return;}if(!target)return;
-    const proof=target.closest('[data-proof]');if(proof){setProof(proof,target.closest('[data-proof-idea]')?'idea':'full');syncToolbar();}
-    closeToc();if(push){try{history.pushState(null,'',hash);}catch{/* opaque reader sandbox */}}
-    target.scrollIntoView({behavior:'instant',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});updatePosition();
+  // FAM:READING-NAVIGATION-START
+  const root = document.documentElement;
+  const layout = $('.layout');
+  const topbar = $('.topbar');
+  const contents = $('#contents');
+  const tocToggle = $('#toc-toggle');
+  const mobile = matchMedia('(max-width:760px)');
+  let desktopOpen = true;
+  let mobileOpen = false;
+  try { desktopOpen = localStorage.getItem('fam-note-toc') !== 'collapsed'; } catch {}
+
+  function tocIsOpen() { return mobile.matches ? mobileOpen : desktopOpen; }
+  function syncToc() {
+    contents.classList.toggle('is-open', mobile.matches && mobileOpen);
+    layout.toggleAttribute('data-toc-collapsed', !desktopOpen);
+    tocToggle.setAttribute('aria-expanded', String(tocIsOpen()));
   }
-  document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#"]');if(!a)return;ev.preventDefault();goToHash(a.getAttribute('href'),true);});
-  window.addEventListener('hashchange',()=>goToHash(location.hash,false));
-  function updatePosition(){const y=window.scrollY,span=document.documentElement.scrollHeight-innerHeight;$('#progress-bar').style.width=(span>0?Math.min(100,Math.max(0,100*y/span)):100)+'%';let active=headings[0];for(const h of headings)if(h.getBoundingClientRect().top<145)active=h;
-    $$('#toc a').forEach(a=>{if(a.hash==='#'+active?.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
-  let pending=false;window.addEventListener('scroll',()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;updatePosition();});},{passive:true});window.addEventListener('resize',updatePosition);
-  if(location.hash)goToHash(location.hash,false);updatePosition();
+  function closeMobileToc() {
+    mobileOpen = false;
+    syncToc();
+  }
+  function setTocOpen(open) {
+    if (mobile.matches) {
+      mobileOpen = open;
+      if (open) root.removeAttribute('data-note-bar-hidden');
+    } else {
+      desktopOpen = open;
+      try { localStorage.setItem('fam-note-toc', open ? 'expanded' : 'collapsed'); } catch {}
+    }
+    syncToc();
+    updatePosition();
+  }
+  tocToggle.addEventListener('click', () => {
+    const open = !tocIsOpen();
+    setTocOpen(open);
+    if (open && mobile.matches) $('#toc a')?.focus({preventScroll:true});
+  });
+  function dismissToc() {
+    setTocOpen(false);
+    root.removeAttribute('data-note-bar-hidden');
+    tocToggle.focus({preventScroll:true});
+  }
+  $('#toc-close').addEventListener('click', dismissToc);
+  document.addEventListener('keydown', event => {
+    const focusInToc = contents.contains(document.activeElement) || document.activeElement === tocToggle;
+    if (event.key === 'Escape' && !event.defaultPrevented && tocIsOpen() &&
+        (mobile.matches || focusInToc) && !$('#pdf-dialog').open) dismissToc();
+  });
+  mobile.addEventListener('change', closeMobileToc);
+  syncToc();
+
+  let lastScroll = Math.max(0, window.scrollY);
+  let scrollDistance = 0;
+  let topbarHeight = 0;
+  function syncTopbarHeight() {
+    topbarHeight = topbar.offsetHeight;
+    root.style.setProperty('--note-topbar-height', topbarHeight + 'px');
+    updatePosition();
+  }
+  function updateTopbar() {
+    const y = Math.max(0, Math.min(window.scrollY, root.scrollHeight - innerHeight));
+    const delta = y - lastScroll;
+    lastScroll = y;
+    if (y <= 16 || mobileOpen) {
+      root.removeAttribute('data-note-bar-hidden');
+      scrollDistance = 0;
+      return;
+    }
+    if (!delta) return;
+    scrollDistance = Math.sign(delta) === Math.sign(scrollDistance) ? scrollDistance + delta : delta;
+    if (scrollDistance <= -10) root.removeAttribute('data-note-bar-hidden');
+    if (scrollDistance >= 18 && y > topbarHeight) root.setAttribute('data-note-bar-hidden', '');
+  }
+
+  function goToHash(hash, push) {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (!target) return;
+    const proof = target.closest('[data-proof]');
+    if (proof) {
+      setProof(proof, target.closest('[data-proof-idea]') ? 'idea' : 'full');
+      syncToolbar();
+    }
+    closeMobileToc();
+    if (push) {
+      try { history.pushState(null, '', hash); } catch { /* Opaque reader sandbox. */ }
+    }
+    if (target === $('#top') || target === $('#content')) root.removeAttribute('data-note-bar-hidden');
+    target.scrollIntoView({behavior:'instant', block:'start'});
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+    lastScroll = Math.max(0, window.scrollY);
+    scrollDistance = 0;
+    updatePosition();
+  }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    event.preventDefault();
+    goToHash(link.getAttribute('href'), true);
+  });
+  window.addEventListener('hashchange', () => goToHash(location.hash, false));
+
+  function updatePosition() {
+    const y = window.scrollY;
+    const span = root.scrollHeight - innerHeight;
+    $('#progress-bar').style.width = (span > 0 ? Math.min(100, Math.max(0, 100 * y / span)) : 100) + '%';
+    const barBottom = Math.max(0, topbar.getBoundingClientRect().bottom);
+    let active = headings[0];
+    for (const heading of headings) if (heading.getBoundingClientRect().top <= barBottom + 32) active = heading;
+    $$('#toc a').forEach(link => {
+      if (link.hash === '#' + active?.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let pending = false;
+  window.addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      updateTopbar();
+      updatePosition();
+    });
+  }, {passive:true});
+  window.addEventListener('resize', syncTopbarHeight);
+  topbar.addEventListener('transitionend', updatePosition);
+  new ResizeObserver(syncTopbarHeight).observe(topbar);
+  syncTopbarHeight();
+  if (location.hash) goToHash(location.hash, false);
+  // FAM:READING-NAVIGATION-END
 
   const dialog=$('#pdf-dialog');let printChoice='full';
-  $('#pdf-open').addEventListener('click',()=>{closeToc();$('#pdf-status').textContent='';dialog.showModal();});
+  $('#pdf-open').addEventListener('click',()=>{closeMobileToc();$('#pdf-status').textContent='';dialog.showModal();});
   $('#pdf-close').addEventListener('click',()=>dialog.close());
   $$('input[name="pdf-mode"]').forEach(r=>r.addEventListener('change',()=>{if(r.checked)printChoice=r.value;}));
   // Ctrl+P always exports full proofs; the explicit dialog temporarily selects a variant.

@@ -567,6 +567,99 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 -->
+
+<style id="fam-reviewed-figures">
+#content svg[data-fam-figure] {
+  --fig-paper:#faf8f1; --fig-ink:#24342d; --fig-muted:#52645a;
+  --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+  --fig-rose:#ac3454; --fig-gold:#885914;
+  display:block; max-width:100%; height:auto; margin-inline:auto;
+  color:var(--fig-ink); font-family:Arial, sans-serif;
+}
+html[data-theme="parchment"] #content svg[data-fam-figure] {
+  --fig-paper:#f1e7d3; --fig-ink:#353023; --fig-muted:#665b49;
+  --fig-rule:#cabc9d; --fig-blue:#244fb1; --fig-green:#166349;
+  --fig-rose:#972e4c; --fig-gold:#795419;
+}
+html[data-theme="dark"] #content svg[data-fam-figure] {
+  --fig-paper:#17231e; --fig-ink:#ecf0e6; --fig-muted:#bac9bd;
+  --fig-rule:#465c50; --fig-blue:#a3c0ff; --fig-green:#80d4b2;
+  --fig-rose:#ffa2b5; --fig-gold:#f0c67c;
+}
+#content svg[data-fam-figure] .venn-fill {fill:var(--fig-blue);fill-opacity:.16}
+#content svg[data-fam-figure] .venn-fill-danger {fill:var(--fig-rose);fill-opacity:.19}
+#content svg[data-fam-figure] text {dominant-baseline:auto}
+#content svg[data-fam-figure="plot-original"] {background:white;color:#26352e}
+@media print {
+  html[data-theme] #content svg[data-fam-figure] {
+    --fig-paper:#fff; --fig-ink:#24342d; --fig-muted:#52645a;
+    --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+    --fig-rose:#ac3454; --fig-gold:#885914;
+  }
+}
+</style>
+<style id="fam-reading-navigation">
+/* FAM:READING-NAVIGATION-START */
+@media screen {
+  .topbar {
+    transform: translateY(0);
+  }
+  #toc-toggle, #toc-close {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 11px;
+  }
+  #toc-toggle:hover, #toc-close:hover {
+    color: var(--gold);
+  }
+  .reading-progress {
+    top: max(0px, calc(var(--note-topbar-height, 88px) - 1px));
+  }
+  .contents {
+    top: calc(var(--note-topbar-height, 88px) + 24px);
+    max-height: calc(100svh - var(--note-topbar-height, 88px) - 48px);
+  }
+  .chapter [id], .lecture-head, #content {
+    scroll-margin-top: calc(var(--note-topbar-height, 88px) + 24px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .topbar {
+    transform: translateY(-100%);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .reading-progress {
+    top: 0;
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .contents {
+    top: 24px;
+    max-height: calc(100svh - 48px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) :is(.chapter [id], .lecture-head, #content) {
+    scroll-margin-top: 24px;
+  }
+}
+@media screen and (min-width: 761px) {
+  .layout[data-toc-collapsed] {
+    grid-template-columns: minmax(0, 820px);
+    justify-content: center;
+  }
+  .layout[data-toc-collapsed] > .contents {
+    display: none;
+  }
+}
+@media screen and (max-width: 760px) {
+  .contents.is-open {
+    inset: var(--note-topbar-height, 70px) 0 0;
+    max-height: none;
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .topbar { transition: transform .22s ease; }
+  .contents, .reading-progress { transition: top .22s ease; }
+}
+@media screen {
+  html:has(.contents.is-open) { overflow: hidden; }
+}
+/* FAM:READING-NAVIGATION-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -591,7 +684,7 @@ SOFTWARE.
         <div class="lecture-meta"><span class="subject">Дискретная математика</span><span>Академический конспект ФПМ</span></div>
         <h1>Дискретная математика  4: Уравнения в алгебре множеств и Бинарные отношения (Полный курс с доказательствами)</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[\mathcal{F}\mathcal{A}\mathcal{M} \subset \mathcal{H}\mathcal{S}\mathcal{E}\]</div></div>
+        <div class="lecture-abstract" style="grid-template-columns:1fr"><div class="abstract-formula">\[\mathcal{F}\mathcal{A}\mathcal{M} \subset \mathcal{H}\mathcal{S}\mathcal{E}\]</div></div>
       </header>
       <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
       <div class="proof-toolbar" aria-label="Все доказательства">
@@ -609,7 +702,7 @@ SOFTWARE.
   <div class="chapter-kicker">01 / Введение</div>
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <!-- Титульный блок (Hero) -->
-<section class="title-hero" id="top">
+<section class="title-hero" id="top-2">
 <div class="hero-kicker">НИУ ВШЭ — Нижний Новгород · Курс «Дискретная математика» · Лекция 4 (29.09.2026)</div>
 <h1 class="hero-title">Алгоритм решения уравнений в алгебре множеств и Теория бинарных отношений</h1>
 <p class="hero-subtitle">
@@ -641,7 +734,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Алгоритм (общая процедура) реш…</div>
   <h2 id="chapter-2" data-toc="Алгоритм (общая процедура) реш…">2. Алгоритм (общая процедура) решения уравнений в алгебре множеств</h2>
-  
+
 <p class="part-desc">Каноническое разложение по неизвестному множеству X, критерий существования решений, параметрическая формула и подсчёт мощности множества решений.</p>
 
 <article class="chapter-card" id="ch-1">
@@ -652,7 +745,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-3">
   <div class="chapter-kicker">03 / Универсальный трёхшаговый алго…</div>
   <h2 id="chapter-3" data-toc="Универсальный трёхшаговый алго…">Универсальный трёхшаговый алгоритм решения уравнений вида Φ(X) = Ψ(X)</h2>
-  
+
 <a class="back-top-link" href="#toc-page">↑ К оглавлению</a>
 
 <p>
@@ -927,43 +1020,13 @@ SOFTWARE.
 <div class="venn-pair-header">Рис. 1.1. Геометрическая логика алгоритма: вложенные контуры <span class="math-inline">N ⊂ X ⊂ <span class="ovl">M</span></span> (слайд 4) и случай неразрешимости <span class="math-inline">MN ≠ ∅</span></div>
 <div class="venn-grid">
 <div class="venn-col">
-<svg aria-label="Вложенные контуры N подмножество X подмножество не-M и кольцо свободы" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 290 220">
-<rect class="venn-u-box" height="162" rx="7" stroke="var(--svg-u-stroke)" stroke-width="1.8" width="270" x="10" y="12"></rect>
-<text class="svg-label" x="22" y="30">U</text>
-<text class="svg-reg-code" fill="#dc2626" x="180" y="29">Вне контура M̄ лежит M</text>
-<!-- Внешний красный контур M̄ (в точности как на слайде 4) -->
-<ellipse class="venn-fill-soft" cx="145" cy="98" rx="98" ry="62" stroke="#dc2626" stroke-width="2.6"></ellipse>
-<text class="svg-label" fill="#dc2626" x="68" y="58">M̄</text>
-<!-- Средний синий контур искомого решения X -->
-<path class="venn-fill-2" d="M 84 98 C 84 64, 134 55, 170 64 C 204 72, 214 93, 204 117 C 194 140, 150 144, 114 134 C 92 128, 84 114, 84 98 Z" stroke="var(--accent-lecture)" stroke-width="2.4"></path>
-<text class="svg-label" fill="var(--accent-lecture)" x="104" y="102">X</text>
-<!-- Внутреннее ядро N (обязательная часть каждого решения) -->
-<circle class="venn-fill" cx="160" cy="99" r="24" stroke="var(--svg-c-stroke)" stroke-width="2.2"></circle>
-<text class="svg-label" text-anchor="middle" x="160" y="104">N</text>
-<text class="svg-reg-code" text-anchor="middle" x="145" y="152">Кольцо свободы: M̄ \ N = M̄N̄ (добавка K M̄ N̄)</text>
-<text class="svg-title" text-anchor="middle" x="145" y="191">1. Разрешимый случай: MN = ∅ (N ⊂ M̄) и P = ∅</text>
-<text class="svg-sub" text-anchor="middle" x="145" y="208">Любое решение X содержит ядро N и не выходит за границу M̄</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="N ⊆ X ⊆ M̄: закрашен свободный выбор" data-fam-figure="diagram" data-fam-index="1">
+<defs><clipPath id="fam-fig-1-in0"><circle cx="170" cy="118" r="86" /></clipPath><mask id="fam-fig-1-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="170" cy="118" r="86" fill="black"/></mask><clipPath id="fam-fig-1-in1"><circle cx="192" cy="119" r="37" /></clipPath><mask id="fam-fig-1-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="192" cy="119" r="37" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g mask="url(#fam-fig-1-out1)"><g clip-path="url(#fam-fig-1-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="170" cy="118" r="86" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="102.92" y="76.72" text-anchor="middle" fill="var(--fig-blue)" font-size="15">M̄</text><circle cx="192" cy="119" r="37" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="220.86" y="101.24" text-anchor="middle" fill="var(--fig-green)" font-size="15">N</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">N ⊆ X ⊆ M̄: закрашен свободный выбор</text>
 </svg>
 </div>
 <div class="venn-col">
-<svg aria-label="Случай неразрешимости уравнения, когда пересечение M и N непусто" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 290 220">
-<rect class="venn-u-box" height="162" rx="7" stroke="var(--svg-u-stroke)" stroke-width="1.8" width="270" x="10" y="12"></rect>
-<text class="svg-label" x="22" y="30">U</text>
-<!-- Круг M (запретная зона для X) -->
-<circle class="venn-fill-danger" cx="110" cy="96" r="46" stroke="#dc2626" stroke-width="2.2"></circle>
-<text class="svg-label" fill="#dc2626" x="82" y="68">M</text>
-<text class="svg-sub" fill="#dc2626" text-anchor="middle" x="84" y="100">(запрещено</text>
-<text class="svg-sub" fill="#dc2626" text-anchor="middle" x="84" y="112">для X)</text>
-<!-- Круг N (обязательное ядро X) -->
-<circle class="venn-fill" cx="176" cy="96" r="46" stroke="var(--accent-lecture)" stroke-width="2.2"></circle>
-<text class="svg-label" fill="var(--accent-lecture)" x="204" y="68">N</text>
-<text class="svg-sub" text-anchor="middle" x="202" y="100">(обязано</text>
-<text class="svg-sub" text-anchor="middle" x="202" y="112">лежать в X)</text>
-<!-- Пересечение MN != empty -->
-<text class="svg-title" fill="#dc2626" text-anchor="middle" x="143" y="94">MN ≠ ∅</text>
-<text class="svg-reg-code" fill="#dc2626" text-anchor="middle" x="143" y="108">ПРОТИВОРЕЧИЕ!</text>
-<text class="svg-title" text-anchor="middle" x="145" y="191">2. Неразрешимый случай: MN ≠ ∅ (или P ≠ ∅)</text>
-<text class="svg-sub" text-anchor="middle" x="145" y="208">Элементы из M∩N обязаны входить в X (т.к. N⊂X) и не входить в X (т.к. MX=∅)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="M ∩ N ≠ ∅: решения нет" data-fam-figure="diagram" data-fam-index="2">
+<defs><clipPath id="fam-fig-2-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-2-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-2-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-2-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-2-in1)"><g clip-path="url(#fam-fig-2-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">M</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">N</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">M ∩ N ≠ ∅: решения нет</text>
 </svg>
 </div>
 </div>
@@ -1116,61 +1179,13 @@ SOFTWARE.
 <div class="venn-pair-header">Рис. 1.2. Наглядная проверка обоих примеров лекции на диаграммах Эйлера–Венна</div>
 <div class="venn-grid">
 <div class="venn-col">
-<svg aria-label="Диаграмма Эйлера-Венна для уравнения A симметрическая разность X равно B" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 290 220">
-<rect class="venn-u-box" height="162" rx="7" stroke="var(--svg-u-stroke)" stroke-width="1.8" width="270" x="10" y="12"></rect>
-<text class="svg-label" x="22" y="30">U</text>
-<text class="svg-reg-code" fill="#dc2626" x="195" y="30">M = AB ∪ ĀB̄</text>
-<defs>
-<clippath id="clip-a-ex1"><circle cx="115" cy="96" r="46"></circle></clippath>
-<mask id="mask-symdiff-ex1">
-<rect fill="white" height="220" width="290" x="0" y="0"></rect>
-<circle cx="175" cy="96" fill="black" r="46"></circle>
-</mask>
-<mask id="mask-symdiff-ex1-b">
-<rect fill="white" height="220" width="290" x="0" y="0"></rect>
-<circle cx="115" cy="96" fill="black" r="46"></circle>
-</mask>
-</defs>
-<!-- Закраска A \ B и B \ A = A △ B -->
-<circle class="venn-fill" cx="115" cy="96" mask="url(#mask-symdiff-ex1)" r="46"></circle>
-<circle class="venn-fill" cx="175" cy="96" mask="url(#mask-symdiff-ex1-b)" r="46"></circle>
-<circle cx="115" cy="96" fill="none" r="46" stroke="var(--svg-c-stroke)" stroke-width="2.1"></circle>
-<circle cx="175" cy="96" fill="none" r="46" stroke="var(--svg-c-stroke)" stroke-width="2.1"></circle>
-<text class="svg-label" x="82" y="64">A</text>
-<text class="svg-label" x="206" y="64">B</text>
-<text class="svg-reg-code" text-anchor="middle" x="90" y="100">AB̄⊂N</text>
-<text class="svg-reg-code" text-anchor="middle" x="200" y="100">ĀB⊂N</text>
-<text class="svg-reg-code" fill="#dc2626" text-anchor="middle" x="145" y="100">AB⊂M</text>
-<text class="svg-title" text-anchor="middle" x="145" y="191">Пример 1: A △ X = B</text>
-<text class="svg-sub" text-anchor="middle" x="145" y="208">N = M̄ = A △ B ⇒ кольцо M̄\N = ∅ ⇒ 1 решение X = A △ B</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="A △ X = B  ⇒  X = A △ B" data-fam-figure="diagram" data-fam-index="3">
+<defs><clipPath id="fam-fig-3-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-3-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-3-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-3-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-3-in1)"><g mask="url(#fam-fig-3-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><g mask="url(#fam-fig-3-out1)"><g clip-path="url(#fam-fig-3-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A △ X = B  ⇒  X = A △ B</text>
 </svg>
 </div>
 <div class="venn-col">
-<svg aria-label="Диаграмма Эйлера-Венна для уравнения A без X равно B при условии B подмножество A" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 290 220">
-<rect class="venn-fill-2" height="162" rx="7" stroke="var(--svg-u-stroke)" stroke-width="1.8" width="270" x="10" y="12"></rect>
-<text class="svg-label" x="22" y="30">U</text>
-<text class="svg-reg-code" x="178" y="30">Кольцо M̄N̄ = ĀB̄ = Ā (свободно)</text>
-<defs>
-<mask id="mask-aring-ex2">
-<rect fill="white" height="220" width="290" x="0" y="0"></rect>
-<circle cx="112" cy="100" fill="black" r="28"></circle>
-</mask>
-</defs>
-<!-- Белая подложка под круг A, чтобы отделить от внешнего кольца Ā -->
-<ellipse cx="136" cy="100" fill="var(--svg-u-bg)" rx="78" ry="52"></ellipse>
-<!-- Закраска ядра N = A \ B -->
-<ellipse class="venn-fill" cx="136" cy="100" mask="url(#mask-aring-ex2)" rx="78" ry="52"></ellipse>
-<ellipse cx="136" cy="100" fill="none" rx="78" ry="52" stroke="var(--svg-c-stroke)" stroke-width="2.2"></ellipse>
-<text class="svg-label" x="72" y="64">A</text>
-<!-- Внутренний круг B = M (запретная зона для X) -->
-<circle class="venn-fill-danger" cx="112" cy="100" r="28" stroke="#dc2626" stroke-dasharray="4,3" stroke-width="2.2"></circle>
-<text class="svg-title" fill="#dc2626" text-anchor="middle" x="112" y="96">B = M</text>
-<text class="svg-sub" fill="#dc2626" text-anchor="middle" x="112" y="110">(X ∩ B = ∅)</text>
-<!-- Подпись ядра N = AB̄ -->
-<text class="svg-title" fill="var(--accent-lecture)" text-anchor="middle" x="175" y="96">N = AB̄</text>
-<text class="svg-sub" text-anchor="middle" x="175" y="110">(обязано ⊂ X)</text>
-<text class="svg-title" text-anchor="middle" x="145" y="191">Пример 2 (слайд 5): A ∖ X = B (при B ⊂ A)</text>
-<text class="svg-sub" text-anchor="middle" x="145" y="208">Ядро N = AB̄ (синее) ⊂ X; B запрещено; область Ā (жёлтая) — свободна</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="A ∖ X = B  ⇒  X ∩ A = A ∖ B" data-fam-figure="diagram" data-fam-index="4">
+<defs><clipPath id="fam-fig-4-in0"><circle cx="170" cy="118" r="86" /></clipPath><mask id="fam-fig-4-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="170" cy="118" r="86" fill="black"/></mask><clipPath id="fam-fig-4-in1"><circle cx="192" cy="119" r="37" /></clipPath><mask id="fam-fig-4-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="192" cy="119" r="37" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g mask="url(#fam-fig-4-out1)"><g clip-path="url(#fam-fig-4-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="170" cy="118" r="86" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="102.92" y="76.72" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="192" cy="119" r="37" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="220.86" y="101.24" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A ∖ X = B  ⇒  X ∩ A = A ∖ B</text>
 </svg>
 </div>
 </div>
@@ -1190,7 +1205,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-4">
   <div class="chapter-kicker">04 / Бинарные отношения, способы их…</div>
   <h2 id="chapter-4" data-toc="Бинарные отношения, способы их…">Бинарные отношения, способы их задания и алгебра отношений</h2>
-  
+
 <p class="part-desc">Определения 34–36, матрицы и графы отношений, противоположное отношение ρ̄, произведение (композиция) R₁ ∘ R₂ и обратное отношение ρ⁻¹ со всеми доказательствами.</p>
 
 <!-- ГЛАВА 2. ПОНЯТИЕ БИНАРНОГО ОТНОШЕНИЯ -->
@@ -1202,7 +1217,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-5">
   <div class="chapter-kicker">05 / Понятие бинарного отношения: О…</div>
   <h2 id="chapter-5" data-toc="Понятие бинарного отношения: О…">Понятие бинарного отношения: Определение 34 и 4 способа задания</h2>
-  
+
 <a class="back-top-link" href="#toc-page">↑ К оглавлению</a>
 
 <section id="sec-2-1">
@@ -1318,29 +1333,29 @@ SOFTWARE.
 <div class="venn-pair-card">
 <div class="venn-pair-header">Рис. 2.1. Полное соответствие между множеством пар, ориентированным графом и матрицей отношения <span class="math-inline">M<sub>ρ</sub></span></div>
 <div style="display:flex; justify-content:center; padding: 6px 0;">
-<svg aria-label="Ориентированный граф и матрица бинарного отношения на множестве 1, 2, 3" class="venn-svg" role="img" style="max-width:560px;; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 560 218">
+<svg aria-label="Ориентированный граф и матрица бинарного отношения на множестве 1, 2, 3" class="venn-svg" role="img" style="max-width:560px;; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 560 218" data-fam-figure="diagram" data-fam-index="5">
 <defs>
-<marker id="arr- main" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-5-arr-main" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-lecture)"></path>
 </marker>
 </defs>
 <!-- Левая панель: Ориентированный граф -->
 <rect class="venn-u-box" height="162" rx="7" stroke="var(--svg-u-stroke)" stroke-width="1.8" width="262" x="10" y="12"></rect>
-<text class="svg-title" text-anchor="middle" x="141" y="30">1. Ориентированный граф отношения ρ</text>
+<text class="svg-title" text-anchor="middle" x="141" y="30">1. Граф отношения ρ</text>
 <!-- Петля у вершины 1: <1,1> -->
-<path d="M 62 74 C 42 44, 94 44, 74 74" fill="none" marker-end="url(#arr- main)" stroke="var(--accent-lecture)" stroke-width="2.2"></path>
+<path d="M 62 74 C 42 44, 94 44, 74 74" fill="none" marker-end="url(#fam-fig-5-arr-main)" stroke="var(--accent-lecture)" stroke-width="2.2"></path>
 <text class="svg-reg-code" text-anchor="middle" x="68" y="48">⟨1,1⟩</text>
 <!-- Петля у вершины 2: <2,2> -->
-<path d="M 204 74 C 184 44, 236 44, 216 74" fill="none" marker-end="url(#arr- main)" stroke="var(--accent-lecture)" stroke-width="2.2"></path>
+<path d="M 204 74 C 184 44, 236 44, 216 74" fill="none" marker-end="url(#fam-fig-5-arr-main)" stroke="var(--accent-lecture)" stroke-width="2.2"></path>
 <text class="svg-reg-code" text-anchor="middle" x="210" y="48">⟨2,2⟩</text>
 <!-- Дуга 1 -> 2: <1,2> -->
-<line marker-end="url(#arr- main)" stroke="var(--accent-lecture)" stroke-width="2.2" x1="86" x2="188" y1="86" y2="86"></line>
+<line marker-end="url(#fam-fig-5-arr-main)" stroke="var(--accent-lecture)" stroke-width="2.2" x1="86" x2="188" y1="86" y2="86"></line>
 <text class="svg-reg-code" text-anchor="middle" x="139" y="78">⟨1,2⟩</text>
 <!-- Дуга 2 -> 3: <2,3> -->
-<line marker-end="url(#arr- main)" stroke="var(--accent-lecture)" stroke-width="2.2" x1="198" x2="156" y1="100" y2="138"></line>
+<line marker-end="url(#fam-fig-5-arr-main)" stroke="var(--accent-lecture)" stroke-width="2.2" x1="198" x2="156" y1="100" y2="138"></line>
 <text class="svg-reg-code" text-anchor="middle" x="195" y="128">⟨2,3⟩</text>
 <!-- Дуга 1 -> 3: <1,3> -->
-<line marker-end="url(#arr- main)" stroke="var(--accent-lecture)" stroke-width="2.2" x1="80" x2="122" y1="100" y2="138"></line>
+<line marker-end="url(#fam-fig-5-arr-main)" stroke="var(--accent-lecture)" stroke-width="2.2" x1="80" x2="122" y1="100" y2="138"></line>
 <text class="svg-reg-code" text-anchor="middle" x="83" y="128">⟨1,3⟩</text>
 <!-- Вершины 1, 2, 3 -->
 <circle class="venn-fill-2" cx="68" cy="86" r="15" stroke="var(--svg-c-stroke)" stroke-width="2.1"></circle>
@@ -1351,7 +1366,7 @@ SOFTWARE.
 <text class="svg-label" text-anchor="middle" x="139" y="153">3</text>
 <!-- Правая панель: Матрица отношения M_ρ -->
 <rect class="venn-u-box" height="162" rx="7" stroke="var(--svg-u-stroke)" stroke-width="1.8" width="262" x="288" y="12"></rect>
-<text class="svg-title" text-anchor="middle" x="419" y="30">2. Матрица M(ρ) (строка i → столбец j)</text>
+<text class="svg-title" text-anchor="middle" x="419" y="30">2. Матрица M(ρ)</text>
 <text class="svg-label" text-anchor="middle" x="380" y="55">1</text>
 <text class="svg-label" text-anchor="middle" x="420" y="55">2</text>
 <text class="svg-label" text-anchor="middle" x="460" y="55">3</text>
@@ -1379,7 +1394,7 @@ SOFTWARE.
 <text class="svg-sub" text-anchor="middle" x="420" y="143">0</text>
 <text class="svg-sub" text-anchor="middle" x="460" y="143">0</text>
 <text class="svg-title" text-anchor="middle" x="280" y="193">Отношение ρ = {⟨1,1⟩, ⟨1,2⟩, ⟨1,3⟩, ⟨2,2⟩, ⟨2,3⟩} на множестве A = {1, 2, 3}</text>
-<text class="svg-sub" text-anchor="middle" x="280" y="210">Петли ⟨1,1⟩, ⟨2,2⟩ лежат на главной диагонали M(ρ); строка 3 состоит из нулей, т.к. из вершины 3 не выходит ни одна стрелка</text>
+<text class="svg-sub" text-anchor="middle" x="280" y="210">Петли на диагонали, строка 3 нулевая</text>
 </svg>
 </div>
 <div class="venn-caption">
@@ -1397,7 +1412,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-6">
   <div class="chapter-kicker">06 / Операции над бинарными отношен…</div>
   <h2 id="chapter-6" data-toc="Операции над бинарными отношен…">Операции над бинарными отношениями: дополнениеρ, произведение (композиция)R1∘ R2и обратное отношениеρ−1</h2>
-  
+
 <a class="back-top-link" href="#toc-page">↑ К оглавлению</a>
 
 <!-- 3.1 -->
@@ -1643,84 +1658,20 @@ SOFTWARE.
 <div class="venn-grid-3">
 <!-- Панель 1: Исходное отношение ρ -->
 <div class="venn-col">
-<svg aria-label="Исходное отношение ро из трех пар" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 215 215">
-<defs>
-<marker id="arr-p1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-lecture)"></path>
-</marker>
-</defs>
-<rect class="venn-u-box" height="156" rx="6" stroke="var(--svg-u-stroke)" stroke-width="1.6" width="199" x="8" y="10"></rect>
-<text class="svg-title" text-anchor="middle" x="107" y="26">1. Исходное ρ (3 пары)</text>
-<!-- Петля <1,1> -->
-<path d="M 48 68 C 30 42, 76 42, 58 68" fill="none" marker-end="url(#arr-p1)" stroke="var(--accent-lecture)" stroke-width="2.1"></path>
-<!-- Стрелка 1 -> 2 -->
-<line marker-end="url(#arr-p1)" stroke="var(--accent-lecture)" stroke-width="2.1" x1="68" x2="144" y1="78" y2="78"></line>
-<!-- Стрелка 2 -> 3 -->
-<line marker-end="url(#arr-p1)" stroke="var(--accent-lecture)" stroke-width="2.1" x1="152" x2="118" y1="92" y2="128"></line>
-<circle class="venn-fill-2" cx="53" cy="78" r="13" stroke="var(--svg-c-stroke)" stroke-width="1.8"></circle>
-<text class="svg-label" text-anchor="middle" x="53" y="83">1</text>
-<circle class="venn-fill-2" cx="161" cy="78" r="13" stroke="var(--svg-c-stroke)" stroke-width="1.8"></circle>
-<text class="svg-label" text-anchor="middle" x="161" y="83">2</text>
-<circle class="venn-fill-2" cx="107" cy="138" r="13" stroke="var(--svg-c-stroke)" stroke-width="1.8"></circle>
-<text class="svg-label" text-anchor="middle" x="107" y="143">3</text>
-<text class="svg-reg-code" text-anchor="middle" x="107" y="184">ρ = {⟨1,1⟩, ⟨1,2⟩, ⟨2,3⟩}</text>
-<text class="svg-sub" text-anchor="middle" x="107" y="201">Матрица M(ρ): три единицы</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 200" role="img" aria-label="Исходное отношение ρ" data-fam-figure="diagram" data-fam-index="6">
+<text x="125" y="23" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Исходное отношение ρ</text><line x1="136.65" y1="100.77" x2="181.69" y2="130.8" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M188.35,135.23 L179.79,133.66 L183.6,127.93 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><path d="M42,132 C23,86 80,86 59,132" fill="none" stroke="var(--fig-blue)" stroke-width="2"/><line x1="64" y1="121" x2="61.9" y2="125.63" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M59,132 L59.16,124.38 L64.64,126.87 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="61.65" y1="135.23" x2="106.69" y2="105.2" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M113.35,100.77 L108.6,108.07 L104.79,102.34 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="50" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="50" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1</text><circle cx="125" cy="93" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="125" y="97" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2</text><circle cx="200" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="200" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3</text><text x="125" y="188" text-anchor="middle" fill="var(--fig-muted)" font-size="12">В отношении 3 упорядоченных пар</text>
 </svg>
 </div>
 <!-- Панель 2: Противоположное отношение ρ̄ -->
 <div class="venn-col">
-<svg aria-label="Противоположное отношение не-ро из шести пар" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 215 215">
-<defs>
-<marker id="arr-p2" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#dc2626"></path>
-</marker>
-</defs>
-<rect class="venn-u-box" height="156" rx="6" stroke="var(--svg-u-stroke)" stroke-width="1.6" width="199" x="8" y="10"></rect>
-<text class="svg-title" fill="#dc2626" text-anchor="middle" x="107" y="26">2. Противоположное ρ̄ (6 пар)</text>
-<!-- Петли у 2 и 3 (т.к. у 1 была, а у 2 и 3 не было) -->
-<path d="M 156 68 C 138 42, 184 42, 166 68" fill="none" marker-end="url(#arr-p2)" stroke="#dc2626" stroke-width="2"></path>
-<path d="M 102 150 C 86 168, 128 168, 112 150" fill="none" marker-end="url(#arr-p2)" stroke="#dc2626" stroke-width="2"></path>
-<!-- Стрелка 2 -> 1 -->
-<line marker-end="url(#arr-p2)" stroke="#dc2626" stroke-width="2" x1="146" x2="70" y1="78" y2="78"></line>
-<!-- Стрелка 3 -> 2 -->
-<line marker-end="url(#arr-p2)" stroke="#dc2626" stroke-width="2" x1="118" x2="150" y1="128" y2="94"></line>
-<!-- Двусторонняя связь 1 <-> 3 -->
-<path d="M 60 90 Q 72 118 94 132" fill="none" marker-end="url(#arr-p2)" stroke="#dc2626" stroke-width="1.9"></path>
-<path d="M 98 126 Q 84 102 66 86" fill="none" marker-end="url(#arr-p2)" stroke="#dc2626" stroke-width="1.9"></path>
-<circle class="venn-fill-2" cx="53" cy="78" r="13" stroke="var(--svg-c-stroke)" stroke-width="1.8"></circle>
-<text class="svg-label" text-anchor="middle" x="53" y="83">1</text>
-<circle class="venn-fill-2" cx="161" cy="78" r="13" stroke="var(--svg-c-stroke)" stroke-width="1.8"></circle>
-<text class="svg-label" text-anchor="middle" x="161" y="83">2</text>
-<circle class="venn-fill-2" cx="107" cy="138" r="13" stroke="var(--svg-c-stroke)" stroke-width="1.8"></circle>
-<text class="svg-label" text-anchor="middle" x="107" y="143">3</text>
-<text class="svg-reg-code" fill="#dc2626" text-anchor="middle" x="107" y="184">ρ̄ = (A × A) \ ρ</text>
-<text class="svg-sub" text-anchor="middle" x="107" y="201">В матрице M(ρ̄): инверсия 0 ↔ 1</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 200" role="img" aria-label="Дополнение (A × A) ∖ ρ" data-fam-figure="diagram" data-fam-index="7">
+<text x="125" y="23" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Дополнение (A × A) ∖ ρ</text><line x1="113.35" y1="100.77" x2="68.31" y2="130.8" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M61.65,135.23 L66.4,127.93 L70.21,133.66 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="186" y1="137" x2="72" y2="137" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M64,137 L72,133.56 L72,140.44 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><path d="M192,132 C173,86 230,86 209,132" fill="none" stroke="var(--fig-blue)" stroke-width="2"/><line x1="214" y1="121" x2="211.9" y2="125.63" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M209,132 L209.16,124.38 L214.64,126.87 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><path d="M117,82 C98,36 155,36 134,82" fill="none" stroke="var(--fig-blue)" stroke-width="2"/><line x1="139" y1="71" x2="136.9" y2="75.63" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M134,82 L134.16,74.38 L139.64,76.87 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="188.35" y1="135.23" x2="143.31" y2="105.2" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M136.65,100.77 L145.21,102.34 L141.4,108.07 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="64" y1="149" x2="178" y2="149" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M186,149 L178,152.44 L178,145.56 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="50" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="50" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1</text><circle cx="125" cy="93" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="125" y="97" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2</text><circle cx="200" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="200" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3</text><text x="125" y="188" text-anchor="middle" fill="var(--fig-muted)" font-size="12">В отношении 6 упорядоченных пар</text>
 </svg>
 </div>
 <!-- Панель 3: Обратное отношение ρ⁻¹ -->
 <div class="venn-col">
-<svg aria-label="Обратное отношение ро в минус первой из трех развернутых пар" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 215 215">
-<defs>
-<marker id="arr-p3" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-proof)"></path>
-</marker>
-</defs>
-<rect class="venn-u-box" height="156" rx="6" stroke="var(--svg-u-stroke)" stroke-width="1.6" width="199" x="8" y="10"></rect>
-<text class="svg-title" fill="var(--accent-proof)" text-anchor="middle" x="107" y="26">3. Обратное ρ⁻¹ (3 пары)</text>
-<!-- Петля <1,1> остаётся на месте -->
-<path d="M 48 68 C 30 42, 76 42, 58 68" fill="none" marker-end="url(#arr-p3)" stroke="var(--accent-proof)" stroke-width="2.1"></path>
-<!-- Развёрнутая стрелка 2 -> 1 -->
-<line marker-end="url(#arr-p3)" stroke="var(--accent-proof)" stroke-width="2.1" x1="146" x2="70" y1="78" y2="78"></line>
-<!-- Развёрнутая стрелка 3 -> 2 -->
-<line marker-end="url(#arr-p3)" stroke="var(--accent-proof)" stroke-width="2.1" x1="118" x2="150" y1="128" y2="94"></line>
-<circle class="venn-fill-2" cx="53" cy="78" r="13" stroke="var(--svg-c-stroke)" stroke-width="1.8"></circle>
-<text class="svg-label" text-anchor="middle" x="53" y="83">1</text>
-<circle class="venn-fill-2" cx="161" cy="78" r="13" stroke="var(--svg-c-stroke)" stroke-width="1.8"></circle>
-<text class="svg-label" text-anchor="middle" x="161" y="83">2</text>
-<circle class="venn-fill-2" cx="107" cy="138" r="13" stroke="var(--svg-c-stroke)" stroke-width="1.8"></circle>
-<text class="svg-label" text-anchor="middle" x="107" y="143">3</text>
-<text class="svg-reg-code" fill="var(--accent-proof)" text-anchor="middle" x="107" y="184">ρ⁻¹ = {⟨1,1⟩, ⟨2,1⟩, ⟨3,2⟩}</text>
-<text class="svg-sub" text-anchor="middle" x="107" y="201">Матрица M(ρ⁻¹) = M(ρ)ᵀ (транспонирована)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 200" role="img" aria-label="Обратное отношение ρ⁻¹" data-fam-figure="diagram" data-fam-index="8">
+<text x="125" y="23" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Обратное отношение ρ⁻¹</text><path d="M42,132 C23,86 80,86 59,132" fill="none" stroke="var(--fig-blue)" stroke-width="2"/><line x1="64" y1="121" x2="61.9" y2="125.63" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M59,132 L59.16,124.38 L64.64,126.87 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="188.35" y1="135.23" x2="143.31" y2="105.2" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M136.65,100.77 L145.21,102.34 L141.4,108.07 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="113.35" y1="100.77" x2="68.31" y2="130.8" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M61.65,135.23 L66.4,127.93 L70.21,133.66 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="50" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="50" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1</text><circle cx="125" cy="93" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="125" y="97" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2</text><circle cx="200" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="200" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3</text><text x="125" y="188" text-anchor="middle" fill="var(--fig-muted)" font-size="12">В отношении 3 упорядоченных пар</text>
 </svg>
 </div>
 </div>
@@ -1740,7 +1691,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-7">
   <div class="chapter-kicker">07 / Основные типы (7 свойств) бина…</div>
   <h2 id="chapter-7" data-toc="Основные типы (7 свойств) бина…">Основные типы (7 свойств) бинарных отношений на множестве A</h2>
-  
+
 <p class="part-desc">Рефлексивность, симметричность, транзитивность, антирефлексивность, антисимметричность, связность и слабая связность: логика кванторов, графы, матрицы и доказательства всех критериев.</p>
 
 <article class="chapter-card" id="ch-4">
@@ -1751,7 +1702,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-8">
   <div class="chapter-kicker">08 / Определение 37: Семь фундамент…</div>
   <h2 id="chapter-8" data-toc="Определение 37: Семь фундамент…">Определение 37: Семь фундаментальных свойств бинарных отношений на множестве A</h2>
-  
+
 <a class="back-top-link" href="#toc-page">↑ К оглавлению</a>
 
 <div class="statement definition" id="def-5"><div class="block-label">Определение 5</div><h3 data-toc="Определение 37 · Слайд 7Основн…" id="sub-8-1">Определение 37 · Слайд 7Основные типы бинарных отношений на множестве A</h3><div>
@@ -1779,16 +1730,16 @@ SOFTWARE.
 <div class="venn-grid" style="margin-bottom: 12px;">
 <!-- 1° Рефлексивность -->
 <div class="venn-col">
-<svg aria-label="1 градус Рефлексивность: петли у каждой вершины" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205">
+<svg aria-label="1 градус Рефлексивность: петли у каждой вершины" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="9">
 <defs>
-<marker id="arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-9-arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-lecture)"></path>
 </marker>
 </defs>
 <rect class="venn-u-box" height="146" rx="6" stroke="var(--svg-u-stroke)" stroke-width="1.6" width="256" x="12" y="12"></rect>
-<path d="M 60 94 C 40 64, 92 64, 72 94" fill="none" marker-end="url(#arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2"></path>
-<path d="M 134 62 C 114 32, 166 32, 146 62" fill="none" marker-end="url(#arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2"></path>
-<path d="M 204 94 C 184 64, 236 64, 216 94" fill="none" marker-end="url(#arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2"></path>
+<path d="M 60 94 C 40 64, 92 64, 72 94" fill="none" marker-end="url(#fam-fig-9-arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2"></path>
+<path d="M 134 62 C 114 32, 166 32, 146 62" fill="none" marker-end="url(#fam-fig-9-arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2"></path>
+<path d="M 204 94 C 184 64, 236 64, 216 94" fill="none" marker-end="url(#fam-fig-9-arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2"></path>
 <circle class="venn-fill" cx="66" cy="106" r="13" stroke="var(--svg-c-stroke)" stroke-width="2"></circle>
 <text class="svg-label" text-anchor="middle" x="66" y="111">1</text>
 <circle class="venn-fill" cx="140" cy="74" r="13" stroke="var(--svg-c-stroke)" stroke-width="2"></circle>
@@ -1797,12 +1748,12 @@ SOFTWARE.
 <text class="svg-label" text-anchor="middle" x="210" y="111">3</text>
 <text class="svg-reg-code" text-anchor="middle" x="140" y="144">Диагональ матрицы M(ρ): (1, 1, 1)</text>
 <text class="svg-title" text-anchor="middle" x="140" y="177">1°. Рефлексивность: ∀x ∈ A (xρx)</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="194">Петля обязана быть у КАЖДОЙ вершины графа</text>
+<text class="svg-sub" text-anchor="middle" x="140" y="194">Петля у каждой вершины</text>
 </svg>
 </div>
 <!-- 4° Антирефлексивность -->
 <div class="venn-col">
-<svg aria-label="4 градуса Антирефлексивность: ни одной петли" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205">
+<svg aria-label="4 градуса Антирефлексивность: ни одной петли" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="10">
 <rect class="venn-u-box" height="146" rx="6" stroke="var(--svg-u-stroke)" stroke-width="1.6" width="256" x="12" y="12"></rect>
 <path d="M 60 94 C 40 64, 92 64, 72 94" fill="none" stroke="#dc2626" stroke-dasharray="3,3" stroke-width="1.6"></path>
 <text class="svg-title" fill="#dc2626" text-anchor="middle" x="66" y="70">✗</text>
@@ -1817,15 +1768,15 @@ SOFTWARE.
 <circle class="venn-fill-2" cx="210" cy="106" r="13" stroke="var(--svg-c-stroke)" stroke-width="2"></circle>
 <text class="svg-label" text-anchor="middle" x="210" y="111">3</text>
 <text class="svg-reg-code" fill="#dc2626" text-anchor="middle" x="140" y="144">Диагональ матрицы M(ρ): (0, 0, 0)</text>
-<text class="svg-title" text-anchor="middle" x="140" y="177">4°. Антирефлексивность: ∀x ∈ A (x∌ρx)</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="194">Ни у одной вершины НЕТ петли (≠ нерефлексивность!)</text>
+<text class="svg-title" text-anchor="middle" x="140" y="177">4°. Антирефлексивность</text>
+<text class="svg-sub" text-anchor="middle" x="140" y="194">Петель нет</text>
 </svg>
 </div>
 </div>
 <div class="venn-grid" style="margin-bottom: 12px;">
 <!-- 2° Симметричность -->
 <div class="venn-col">
-<svg aria-label="2 градуса Симметричность: встречные стрелки" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205"><defs><marker id="arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<svg aria-label="2 градуса Симметричность: встречные стрелки" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="11"><defs><marker id="fam-fig-11-arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-lecture)"></path>
 </marker></defs>
 <rect class="venn-u-box" height="146" rx="6" stroke="var(--svg-u-stroke)" stroke-width="1.6" width="256" x="12" y="12"></rect>
@@ -1833,18 +1784,18 @@ SOFTWARE.
 <text class="svg-label" text-anchor="middle" x="74" y="89">x</text>
 <circle class="venn-fill-2" cx="206" cy="84" r="15" stroke="var(--svg-c-stroke)" stroke-width="2"></circle>
 <text class="svg-label" text-anchor="middle" x="206" y="89">y</text>
-<path d="M 90 76 Q 140 50 189 76" fill="none" marker-end="url(#arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2"></path>
+<path d="M 90 76 Q 140 50 189 76" fill="none" marker-end="url(#fam-fig-11-arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2"></path>
 <text class="svg-reg-code" text-anchor="middle" x="140" y="56">Если есть xρy...</text>
-<path d="M 190 92 Q 140 118 91 92" fill="none" marker-end="url(#arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2"></path>
+<path d="M 190 92 Q 140 118 91 92" fill="none" marker-end="url(#fam-fig-11-arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2"></path>
 <text class="svg-reg-code" text-anchor="middle" x="140" y="120">...обязана быть и yρx!</text>
 <text class="svg-reg-code" text-anchor="middle" x="140" y="144">Матрица симметрична: M(ρ) = M(ρ)ᵀ</text>
 <text class="svg-title" text-anchor="middle" x="140" y="177">2°. Симметричность: ∀x,y (xρy → yρx)</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="194">Все связи между вершинами только двусторонние (x ⇄ y)</text>
+<text class="svg-sub" text-anchor="middle" x="140" y="194">Если xρy, то yρx</text>
 </svg>
 </div>
 <!-- 5° Антисимметричность -->
 <div class="venn-col">
-<svg aria-label="5 градусов Антисимметричность: запрет встречных стрелок между разными вершинами" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205"><defs><marker id="arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<svg aria-label="5 градусов Антисимметричность: запрет встречных стрелок между разными вершинами" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="12"><defs><marker id="fam-fig-12-arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-lecture)"></path>
 </marker></defs>
 <rect class="venn-u-box" height="146" rx="6" stroke="var(--svg-u-stroke)" stroke-width="1.6" width="256" x="12" y="12"></rect>
@@ -1852,25 +1803,25 @@ SOFTWARE.
 <text class="svg-label" text-anchor="middle" x="74" y="89">x</text>
 <circle class="venn-fill-2" cx="206" cy="84" r="15" stroke="var(--svg-c-stroke)" stroke-width="2"></circle>
 <text class="svg-label" text-anchor="middle" x="206" y="89">y</text>
-<path d="M 90 76 Q 140 50 189 76" fill="none" marker-end="url(#arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2"></path>
+<path d="M 90 76 Q 140 50 189 76" fill="none" marker-end="url(#fam-fig-12-arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2"></path>
 <text class="svg-reg-code" text-anchor="middle" x="140" y="56">xρy (при x ≠ y)</text>
 <path d="M 190 92 Q 140 118 91 92" fill="none" stroke="#dc2626" stroke-dasharray="4,3" stroke-width="1.8"></path>
 <text class="svg-title" fill="#dc2626" text-anchor="middle" x="140" y="114">✗ встречная yρx запрещена!</text>
-<text class="svg-reg-code" text-anchor="middle" x="140" y="144">При i ≠ j: M[i,j] · M[j,i] = 0 (петли разрешены!)</text>
-<text class="svg-title" text-anchor="middle" x="140" y="177">5°. Антисимметричность: (xρy ∧ yρx) → x = y</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="194">Между РАЗНЫМИ вершинами нет двусторонних стрелок</text>
+<text class="svg-reg-code" text-anchor="middle" x="140" y="144">MᵢⱼMⱼᵢ = 0 при i ≠ j</text>
+<text class="svg-title" text-anchor="middle" x="140" y="177">5°. Антисимметричность</text>
+<text class="svg-sub" text-anchor="middle" x="140" y="194">Петли разрешены</text>
 </svg>
 </div>
 </div>
 <div class="venn-grid">
 <!-- 3° Транзитивность -->
 <div class="venn-col">
-<svg aria-label="3 градуса Транзитивность: замыкание двухшагового пути" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205">
+<svg aria-label="3 градуса Транзитивность: замыкание двухшагового пути" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="13">
 <defs>
-<marker id="arr-g2" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-13-arr-g2" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#dc2626"></path>
 </marker>
-<marker id="arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-13-arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-lecture)"></path>
 </marker></defs>
 <rect class="venn-u-box" height="146" rx="6" stroke="var(--svg-u-stroke)" stroke-width="1.6" width="256" x="12" y="12"></rect>
@@ -1880,35 +1831,35 @@ SOFTWARE.
 <text class="svg-label" text-anchor="middle" x="140" y="49">y</text>
 <circle class="venn-fill-2" cx="216" cy="112" r="13" stroke="var(--svg-c-stroke)" stroke-width="2"></circle>
 <text class="svg-label" text-anchor="middle" x="216" y="117">z</text>
-<line marker-end="url(#arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2" x1="74" x2="127" y1="102" y2="55"></line>
+<line marker-end="url(#fam-fig-13-arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2" x1="74" x2="127" y1="102" y2="55"></line>
 <text class="svg-reg-code" text-anchor="middle" x="89" y="72">xρy</text>
-<line marker-end="url(#arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2" x1="153" x2="205" y1="55" y2="102"></line>
+<line marker-end="url(#fam-fig-13-arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2" x1="153" x2="205" y1="55" y2="102"></line>
 <text class="svg-reg-code" text-anchor="middle" x="191" y="72">yρz</text>
-<line marker-end="url(#arr-g2)" stroke="#dc2626" stroke-dasharray="5,3" stroke-width="2.3" x1="79" x2="199" y1="112" y2="112"></line>
+<line marker-end="url(#fam-fig-13-arr-g2)" stroke="#dc2626" stroke-dasharray="5,3" stroke-width="2.3" x1="79" x2="199" y1="112" y2="112"></line>
 <text class="svg-title" fill="#dc2626" text-anchor="middle" x="140" y="128">обязана быть прямая xρz!</text>
 <text class="svg-reg-code" text-anchor="middle" x="140" y="147">Критерий: (ρ ∘ ρ) ⊂ ρ</text>
 <text class="svg-title" text-anchor="middle" x="140" y="177">3°. Транзитивность: (xρy ∧ yρz) → xρz</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="194">Любой путь длины 2 замыкается прямой стрелкой (вкл. z=x!)</text>
+<text class="svg-sub" text-anchor="middle" x="140" y="194">Две дуги требуют третьей</text>
 </svg>
 </div>
 <!-- 6° Связность и 7° Слабая связность -->
 <div class="venn-col">
-<svg aria-label="6 и 7 градусов Связность и Слабая связность" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205"><defs><marker id="arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<svg aria-label="6 и 7 градусов Связность и Слабая связность" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="14"><defs><marker id="fam-fig-14-arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-lecture)"></path>
 </marker></defs>
 <rect class="venn-u-box" height="146" rx="6" stroke="var(--svg-u-stroke)" stroke-width="1.6" width="256" x="12" y="12"></rect>
-<line marker-end="url(#arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.1" x1="76" x2="128" y1="108" y2="52"></line>
-<line marker-end="url(#arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.1" x1="152" x2="204" y1="52" y2="108"></line>
-<line marker-end="url(#arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.1" x1="80" x2="198" y1="118" y2="118"></line>
+<line marker-end="url(#fam-fig-14-arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.1" x1="76" x2="128" y1="108" y2="52"></line>
+<line marker-end="url(#fam-fig-14-arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.1" x1="152" x2="204" y1="52" y2="108"></line>
+<line marker-end="url(#fam-fig-14-arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.1" x1="80" x2="198" y1="118" y2="118"></line>
 <circle class="venn-fill-2" cx="66" cy="118" r="12" stroke="var(--svg-c-stroke)" stroke-width="2"></circle>
 <text class="svg-label" text-anchor="middle" x="66" y="122">1</text>
 <circle class="venn-fill-2" cx="140" cy="44" r="12" stroke="var(--svg-c-stroke)" stroke-width="2"></circle>
 <text class="svg-label" text-anchor="middle" x="140" y="48">2</text>
 <circle class="venn-fill-2" cx="214" cy="118" r="12" stroke="var(--svg-c-stroke)" stroke-width="2"></circle>
 <text class="svg-label" text-anchor="middle" x="214" y="122">3</text>
-<text class="svg-reg-code" text-anchor="middle" x="140" y="145">Для 6° (связность) нужны ещё и петли у всех вершин!</text>
-<text class="svg-title" text-anchor="middle" x="140" y="177">6° Связность (∀x,y) и 7° Слабая связность (∀x≠y)</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="194">Любые две разные вершины соединены хотя бы в одну сторону</text>
+<text class="svg-reg-code" text-anchor="middle" x="140" y="145">Для связности нужны и петли</text>
+<text class="svg-title" text-anchor="middle" x="140" y="177">Связность отношений</text>
+<text class="svg-sub" text-anchor="middle" x="140" y="194">Между вершинами есть дуга</text>
 </svg>
 </div>
 </div>
@@ -2348,7 +2299,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-9">
   <div class="chapter-kicker">09 / Практикум: решение уравнений в…</div>
   <h2 id="chapter-9" data-toc="Практикум: решение уравнений в…">Практикум: решение уравнений в алгебре множеств и исследование бинарных отношений</h2>
-  
+
 <p class="part-desc">Семь ключевых задач из семинаров и сборника В. Е. Алексеева с полными пошаговыми решениями и доказательствами.</p>
 
 <article class="chapter-card" id="ch-5">
@@ -2359,7 +2310,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-10">
   <div class="chapter-kicker">10 / Подробный разбор типовых задач…</div>
   <h2 id="chapter-10" data-toc="Подробный разбор типовых задач…">Подробный разбор типовых задач с полными доказательствами</h2>
-  
+
 <a class="back-top-link" href="#toc-page">↑ К оглавлению</a>
 
 <!-- 5.1 -->
@@ -2671,31 +2622,145 @@ SOFTWARE.
   $$('[data-all-proofs]').forEach(b=>b.addEventListener('click',()=>{proofs.forEach(p=>setProof(p,b.dataset.allProofs));syncToolbar();updatePosition();}));syncToolbar();
 
   // Render before generating the outline, so math in headings gets a clean label.
-  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:true,strict:false});}catch(e){console.warn('Math render note:', e);}
+  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:false,strict:false,ignoredClasses:["math-svg","fam-svg-labels"]});}catch(e){console.warn('Math render note:', e);}
   const headings=$$('h2[data-toc],h3[data-toc]'),list=document.createElement('ol');
   let number=0;
   for(const heading of headings){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+heading.id;if(heading.tagName==='H2'){const n=document.createElement('span');n.className='toc-number';n.textContent=String(++number).padStart(2,'0');n.setAttribute('aria-hidden','true');a.append(n);}else li.className='toc-sub';a.append(document.createTextNode(heading.dataset.toc));li.append(a);list.append(li);}
   $('#toc').replaceChildren(list);$('#section-count').textContent=`Разделов: ${number}`;
-  const mobile=matchMedia('(max-width:760px)');
-  function closeToc(){ $('#contents').classList.remove('is-open');$('#toc-toggle').setAttribute('aria-expanded','false'); }
-  $('#toc-toggle').addEventListener('click',()=>{const open=$('#contents').classList.toggle('is-open');$('#toc-toggle').setAttribute('aria-expanded',String(open));if(open)$('#toc a')?.focus();});
-  $('#toc-close').addEventListener('click',()=>{closeToc();$('#toc-toggle').focus();});
-  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&$('#contents').classList.contains('is-open')){closeToc();$('#toc-toggle').focus();}});
-  mobile.addEventListener('change',closeToc);
-  function goToHash(hash,push){let target;try{target=document.getElementById(decodeURIComponent(hash.slice(1)));}catch{return;}if(!target)return;
-    const proof=target.closest('[data-proof]');if(proof){setProof(proof,target.closest('[data-proof-idea]')?'idea':'full');syncToolbar();}
-    closeToc();if(push){try{history.pushState(null,'',hash);}catch{/* opaque reader sandbox */}}
-    target.scrollIntoView({behavior:'instant',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});updatePosition();
+  // FAM:READING-NAVIGATION-START
+  const root = document.documentElement;
+  const layout = $('.layout');
+  const topbar = $('.topbar');
+  const contents = $('#contents');
+  const tocToggle = $('#toc-toggle');
+  const mobile = matchMedia('(max-width:760px)');
+  let desktopOpen = true;
+  let mobileOpen = false;
+  try { desktopOpen = localStorage.getItem('fam-note-toc') !== 'collapsed'; } catch {}
+
+  function tocIsOpen() { return mobile.matches ? mobileOpen : desktopOpen; }
+  function syncToc() {
+    contents.classList.toggle('is-open', mobile.matches && mobileOpen);
+    layout.toggleAttribute('data-toc-collapsed', !desktopOpen);
+    tocToggle.setAttribute('aria-expanded', String(tocIsOpen()));
   }
-  document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#"]');if(!a)return;ev.preventDefault();goToHash(a.getAttribute('href'),true);});
-  window.addEventListener('hashchange',()=>goToHash(location.hash,false));
-  function updatePosition(){const y=window.scrollY,span=document.documentElement.scrollHeight-innerHeight;$('#progress-bar').style.width=(span>0?Math.min(100,Math.max(0,100*y/span)):100)+'%';let active=headings[0];for(const h of headings)if(h.getBoundingClientRect().top<145)active=h;
-    $$('#toc a').forEach(a=>{if(a.hash==='#'+active?.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
-  let pending=false;window.addEventListener('scroll',()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;updatePosition();});},{passive:true});window.addEventListener('resize',updatePosition);
-  if(location.hash)goToHash(location.hash,false);updatePosition();
+  function closeMobileToc() {
+    mobileOpen = false;
+    syncToc();
+  }
+  function setTocOpen(open) {
+    if (mobile.matches) {
+      mobileOpen = open;
+      if (open) root.removeAttribute('data-note-bar-hidden');
+    } else {
+      desktopOpen = open;
+      try { localStorage.setItem('fam-note-toc', open ? 'expanded' : 'collapsed'); } catch {}
+    }
+    syncToc();
+    updatePosition();
+  }
+  tocToggle.addEventListener('click', () => {
+    const open = !tocIsOpen();
+    setTocOpen(open);
+    if (open && mobile.matches) $('#toc a')?.focus({preventScroll:true});
+  });
+  function dismissToc() {
+    setTocOpen(false);
+    root.removeAttribute('data-note-bar-hidden');
+    tocToggle.focus({preventScroll:true});
+  }
+  $('#toc-close').addEventListener('click', dismissToc);
+  document.addEventListener('keydown', event => {
+    const focusInToc = contents.contains(document.activeElement) || document.activeElement === tocToggle;
+    if (event.key === 'Escape' && !event.defaultPrevented && tocIsOpen() &&
+        (mobile.matches || focusInToc) && !$('#pdf-dialog').open) dismissToc();
+  });
+  mobile.addEventListener('change', closeMobileToc);
+  syncToc();
+
+  let lastScroll = Math.max(0, window.scrollY);
+  let scrollDistance = 0;
+  let topbarHeight = 0;
+  function syncTopbarHeight() {
+    topbarHeight = topbar.offsetHeight;
+    root.style.setProperty('--note-topbar-height', topbarHeight + 'px');
+    updatePosition();
+  }
+  function updateTopbar() {
+    const y = Math.max(0, Math.min(window.scrollY, root.scrollHeight - innerHeight));
+    const delta = y - lastScroll;
+    lastScroll = y;
+    if (y <= 16 || mobileOpen) {
+      root.removeAttribute('data-note-bar-hidden');
+      scrollDistance = 0;
+      return;
+    }
+    if (!delta) return;
+    scrollDistance = Math.sign(delta) === Math.sign(scrollDistance) ? scrollDistance + delta : delta;
+    if (scrollDistance <= -10) root.removeAttribute('data-note-bar-hidden');
+    if (scrollDistance >= 18 && y > topbarHeight) root.setAttribute('data-note-bar-hidden', '');
+  }
+
+  function goToHash(hash, push) {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (!target) return;
+    const proof = target.closest('[data-proof]');
+    if (proof) {
+      setProof(proof, target.closest('[data-proof-idea]') ? 'idea' : 'full');
+      syncToolbar();
+    }
+    closeMobileToc();
+    if (push) {
+      try { history.pushState(null, '', hash); } catch { /* Opaque reader sandbox. */ }
+    }
+    if (target === $('#top') || target === $('#content')) root.removeAttribute('data-note-bar-hidden');
+    target.scrollIntoView({behavior:'instant', block:'start'});
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+    lastScroll = Math.max(0, window.scrollY);
+    scrollDistance = 0;
+    updatePosition();
+  }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    event.preventDefault();
+    goToHash(link.getAttribute('href'), true);
+  });
+  window.addEventListener('hashchange', () => goToHash(location.hash, false));
+
+  function updatePosition() {
+    const y = window.scrollY;
+    const span = root.scrollHeight - innerHeight;
+    $('#progress-bar').style.width = (span > 0 ? Math.min(100, Math.max(0, 100 * y / span)) : 100) + '%';
+    const barBottom = Math.max(0, topbar.getBoundingClientRect().bottom);
+    let active = headings[0];
+    for (const heading of headings) if (heading.getBoundingClientRect().top <= barBottom + 32) active = heading;
+    $$('#toc a').forEach(link => {
+      if (link.hash === '#' + active?.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let pending = false;
+  window.addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      updateTopbar();
+      updatePosition();
+    });
+  }, {passive:true});
+  window.addEventListener('resize', syncTopbarHeight);
+  topbar.addEventListener('transitionend', updatePosition);
+  new ResizeObserver(syncTopbarHeight).observe(topbar);
+  syncTopbarHeight();
+  if (location.hash) goToHash(location.hash, false);
+  // FAM:READING-NAVIGATION-END
 
   const dialog=$('#pdf-dialog');let printChoice='full';
-  $('#pdf-open').addEventListener('click',()=>{closeToc();$('#pdf-status').textContent='';dialog.showModal();});
+  $('#pdf-open').addEventListener('click',()=>{closeMobileToc();$('#pdf-status').textContent='';dialog.showModal();});
   $('#pdf-close').addEventListener('click',()=>dialog.close());
   $$('input[name="pdf-mode"]').forEach(r=>r.addEventListener('change',()=>{if(r.checked)printChoice=r.value;}));
   // Ctrl+P always exports full proofs; the explicit dialog temporarily selects a variant.

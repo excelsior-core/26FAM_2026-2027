@@ -567,6 +567,99 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 -->
+
+<style id="fam-reviewed-figures">
+#content svg[data-fam-figure] {
+  --fig-paper:#faf8f1; --fig-ink:#24342d; --fig-muted:#52645a;
+  --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+  --fig-rose:#ac3454; --fig-gold:#885914;
+  display:block; max-width:100%; height:auto; margin-inline:auto;
+  color:var(--fig-ink); font-family:Arial, sans-serif;
+}
+html[data-theme="parchment"] #content svg[data-fam-figure] {
+  --fig-paper:#f1e7d3; --fig-ink:#353023; --fig-muted:#665b49;
+  --fig-rule:#cabc9d; --fig-blue:#244fb1; --fig-green:#166349;
+  --fig-rose:#972e4c; --fig-gold:#795419;
+}
+html[data-theme="dark"] #content svg[data-fam-figure] {
+  --fig-paper:#17231e; --fig-ink:#ecf0e6; --fig-muted:#bac9bd;
+  --fig-rule:#465c50; --fig-blue:#a3c0ff; --fig-green:#80d4b2;
+  --fig-rose:#ffa2b5; --fig-gold:#f0c67c;
+}
+#content svg[data-fam-figure] .venn-fill {fill:var(--fig-blue);fill-opacity:.16}
+#content svg[data-fam-figure] .venn-fill-danger {fill:var(--fig-rose);fill-opacity:.19}
+#content svg[data-fam-figure] text {dominant-baseline:auto}
+#content svg[data-fam-figure="plot-original"] {background:white;color:#26352e}
+@media print {
+  html[data-theme] #content svg[data-fam-figure] {
+    --fig-paper:#fff; --fig-ink:#24342d; --fig-muted:#52645a;
+    --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+    --fig-rose:#ac3454; --fig-gold:#885914;
+  }
+}
+</style>
+<style id="fam-reading-navigation">
+/* FAM:READING-NAVIGATION-START */
+@media screen {
+  .topbar {
+    transform: translateY(0);
+  }
+  #toc-toggle, #toc-close {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 11px;
+  }
+  #toc-toggle:hover, #toc-close:hover {
+    color: var(--gold);
+  }
+  .reading-progress {
+    top: max(0px, calc(var(--note-topbar-height, 88px) - 1px));
+  }
+  .contents {
+    top: calc(var(--note-topbar-height, 88px) + 24px);
+    max-height: calc(100svh - var(--note-topbar-height, 88px) - 48px);
+  }
+  .chapter [id], .lecture-head, #content {
+    scroll-margin-top: calc(var(--note-topbar-height, 88px) + 24px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .topbar {
+    transform: translateY(-100%);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .reading-progress {
+    top: 0;
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .contents {
+    top: 24px;
+    max-height: calc(100svh - 48px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) :is(.chapter [id], .lecture-head, #content) {
+    scroll-margin-top: 24px;
+  }
+}
+@media screen and (min-width: 761px) {
+  .layout[data-toc-collapsed] {
+    grid-template-columns: minmax(0, 820px);
+    justify-content: center;
+  }
+  .layout[data-toc-collapsed] > .contents {
+    display: none;
+  }
+}
+@media screen and (max-width: 760px) {
+  .contents.is-open {
+    inset: var(--note-topbar-height, 70px) 0 0;
+    max-height: none;
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .topbar { transition: transform .22s ease; }
+  .contents, .reading-progress { transition: top .22s ease; }
+}
+@media screen {
+  html:has(.contents.is-open) { overflow: hidden; }
+}
+/* FAM:READING-NAVIGATION-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -591,7 +684,7 @@ SOFTWARE.
         <div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>Академический конспект ФПМ</span></div>
         <h1>Аналитическая геометрия | Лекция 5: Прямые на плоскости и смешанное произведение</h1>
         <p class="subtitle">Фундаментальные формы уравнений прямой, метрические соотношения и угловые характеристики</p>
-        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[', right: '\]</div></div>
+
       </header>
       <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
       <div class="proof-toolbar" aria-label="Все доказательства">
@@ -636,7 +729,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / 1. Дополнение векторной алгебр…</div>
   <h2 id="chapter-2" data-toc="1. Дополнение векторной алгебр…">§ 1. Дополнение векторной алгебры: Смешанное произведение в ортонормированном базисе</h2>
-  
+
 <p>
           В завершение аппарата векторной алгебры рассмотрим координатное выражение для смешанного (скалярно-векторного) произведения трех векторов в трехмерном евклидовом пространстве при условии задания их координат в правом ортонормированном базисе $(\mathbf{i}, \mathbf{j}, \mathbf{k})$.
         </p>
@@ -703,57 +796,8 @@ SOFTWARE.
 </div>
 <!-- SVG 1: Mixed Product & Parallelepiped -->
 <div class="diagram-container">
-<svg height="320" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 320" width="650" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<marker id="ag5-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
-</marker>
-<marker id="ag5-arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-amber, #f59e0b)"></path>
-</marker>
-<marker id="ag5-arr-rose" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose, #f43f5e)"></path>
-</marker>
-<marker id="ag5-arr-purple" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-purple, #a855f7)"></path>
-</marker>
-</defs>
-<!-- Parallelepiped faces -->
-<!-- Base plane O-A-B-C: O(110,250), A(320,250), B(430,200), C(220,200) -->
-<polygon fill="var(--accent-blue, #38bdf8)" fill-opacity="0.12" points="110,250 320,250 430,200 220,200" stroke="var(--border-color, #64748b)" stroke-width="1.5"></polygon>
-<!-- Top face: shifted by vector c (40, -130): O'(150,120), A'(360,120), B'(470,70), C'(260,70) -->
-<polygon fill="var(--accent-purple, #a855f7)" fill-opacity="0.10" points="150,120 360,120 470,70 260,70" stroke="var(--border-color, #64748b)" stroke-width="1.5"></polygon>
-<!-- Side faces edges -->
-<line stroke="var(--border-color, #64748b)" stroke-width="1.5" x1="320" x2="360" y1="250" y2="120"></line>
-<line stroke="var(--border-color, #64748b)" stroke-width="1.5" x1="430" x2="470" y1="200" y2="70"></line>
-<line stroke="var(--border-color, #64748b)" stroke-dasharray="4,3" stroke-width="1.5" x1="220" x2="260" y1="200" y2="70"></line>
-<!-- Vectors -->
-<!-- Vector a along base -->
-<line marker-end="url(#ag5-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="110" x2="315" y1="250" y2="250"></line>
-<text fill="var(--accent-blue, #38bdf8)" font-size="15" font-weight="700" x="210" y="272">a</text>
-<!-- Vector b along base -->
-<line marker-end="url(#ag5-arr-amber)" stroke="var(--accent-amber, #f59e0b)" stroke-width="3" x1="110" x2="216" y1="250" y2="202"></line>
-<text fill="var(--accent-amber, #f59e0b)" font-size="15" font-weight="700" x="150" y="215">b</text>
-<!-- Vector [a, b] perpendicular to base plane (straight up) -->
-<line marker-end="url(#ag5-arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3" x1="110" x2="110" y1="250" y2="60"></line>
-<text fill="var(--accent-rose, #f43f5e)" font-size="14" font-weight="700" x="25" y="55">[a, b] ⊥ осн.</text>
-<!-- Vector c (from O to O') -->
-<line marker-end="url(#ag5-arr-purple)" stroke="var(--accent-purple, #a855f7)" stroke-width="3" x1="110" x2="148" y1="250" y2="126"></line>
-<text fill="var(--accent-purple, #a855f7)" font-size="15" font-weight="700" x="108" y="160">c</text>
-<!-- Angle theta between [a, b] and c at O(110, 250) -->
-<path d="M 110 185 A 65 65 0 0 1 129.1 187.9" fill="none" stroke="var(--accent-amber, #f59e0b)" stroke-width="2"></path>
-<text fill="var(--accent-amber, #f59e0b)" font-size="14" font-weight="700" x="122" y="178">θ</text>
-<!-- Height h dropped from O'(150, 120) perpendicularly to base (dx=0, dy=130) -> H(150, 250) -->
-<line stroke="var(--accent-emerald, #10b981)" stroke-dasharray="4,3" stroke-width="2.5" x1="150" x2="150" y1="120" y2="250"></line>
-<path d="M 150 236 L 164 236 L 164 250" fill="none" stroke="var(--accent-emerald, #10b981)" stroke-width="1.4"></path>
-<text fill="var(--accent-emerald, #10b981)" font-size="15" font-weight="700" x="160" y="190">h = |c|·cos θ</text>
-<!-- Vertex O -->
-<circle cx="110" cy="250" fill="var(--text-main, #f3f4f6)" r="4.5"></circle>
-<text fill="var(--text-main, #f3f4f6)" font-size="15" font-weight="700" x="95" y="265">O</text>
-<!-- Info card -->
-<rect fill="var(--bg-card-alt, #1e293b)" height="75" rx="10" stroke="var(--border-color, #334155)" stroke-width="1.2" width="265" x="370" y="225"></rect>
-<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="385" y="252">V = |(a, b, c)| = S_осн · h</text>
-<text fill="var(--accent-blue, #38bdf8)" font-size="13" font-weight="600" x="385" y="276">= |det [a; b; c]| (Определитель 3×3)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340" role="img" aria-label="Косой параллелепипед и его высота" data-fam-figure="diagram" data-fam-index="1">
+<path d="M300,193 L452.88,250.33 L360.06,312.21 L207.18,254.88 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><path d="M300,193 L452.88,250.33 L460.89,167.67 L308.01,110.34 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><path d="M308.01,110.34 L460.89,167.67 L368.07,229.55 L215.19,172.22 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><line x1="300" y1="193" x2="308.01" y2="110.34" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="300" y1="193" x2="207.18" y2="254.88" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="300" y1="193" x2="452.88" y2="250.33" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="308.01" y1="110.34" x2="215.19" y2="172.22" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="308.01" y1="110.34" x2="460.89" y2="167.67" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="207.18" y1="254.88" x2="215.19" y2="172.22" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="207.18" y1="254.88" x2="360.06" y2="312.21" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="215.19" y1="172.22" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="452.88" y1="250.33" x2="460.89" y2="167.67" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="452.88" y1="250.33" x2="360.06" y2="312.21" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="460.89" y1="167.67" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="360.06" y1="312.21" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="300" y1="193" x2="444.45" y2="247.17" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M452.88,250.33 L443.09,250.79 L445.81,243.55 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="460.88" y="267.33" text-anchor="middle" fill="var(--fig-blue)" font-size="14">a</text><line x1="300" y1="193" x2="214.67" y2="249.89" stroke="var(--fig-green)" stroke-width="2.1" /><path d="M207.18,254.88 L212.52,246.67 L216.82,253.11 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="196.18" y="268.88" text-anchor="middle" fill="var(--fig-green)" font-size="14">b</text><line x1="300" y1="193" x2="307.14" y2="119.3" stroke="var(--fig-rose)" stroke-width="2.1" /><path d="M308.01,110.34 L310.99,119.67 L303.29,118.92 Z" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="321.01" y="104.34" text-anchor="middle" fill="var(--fig-rose)" font-size="14">c</text><line x1="308.01" y1="230.13" x2="308.01" y2="110.34" stroke="var(--fig-gold)" stroke-width="2" stroke-dasharray="4 3"/><circle cx="308.01" cy="230.13" r="3" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="1.6"/><text x="295.01" y="170.23" text-anchor="middle" fill="var(--fig-gold)" font-size="14">h</text><text x="320" y="320" text-anchor="middle" fill="var(--fig-ink)" font-size="15">h = |c · n̂|   ·   V = |(a × b) · c| = |a × b|·h</text><text x="285" y="213" text-anchor="middle" fill="var(--fig-ink)" font-size="14">O</text>
 </svg>
 <div class="diagram-caption">Рис. 1. Геометрическая интерпретация смешанного произведения трех векторов как ориентированного объема параллелепипеда</div>
 </div>
@@ -776,7 +820,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-3">
   <div class="chapter-kicker">03 / 2. Теория прямых на плоскости:…</div>
   <h2 id="chapter-3" data-toc="2. Теория прямых на плоскости:…">§ 2. Теория прямых на плоскости: Формы задания уравнений</h2>
-  
+
 <p>
           В аналитической геометрии геометрический объект «прямая» определяется аналитически через совокупность координат ее точек. В зависимости от выбранного геометрического базиса и исходных данных выделяют девять фундаментальных форм уравнения прямой.
         </p>
@@ -804,25 +848,25 @@ SOFTWARE.
 </div></div>
 <!-- SVG 2: Vector Parametric Line -->
 <div class="diagram-container">
-<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650" xmlns="http://www.w3.org/2000/svg">
+<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 2. Геометрическая структура векторно-параметрического уравнения прямой на плоскости" data-fam-figure="diagram" data-fam-index="2">
 <defs>
-<marker id="ag5-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-2-ag5-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
 </marker>
-<marker id="ag5-arr-rose" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-2-ag5-arr-rose" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose, #f43f5e)"></path>
 </marker>
-<marker id="ag5-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-2-ag5-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
 </marker>
-<marker id="ag5-arr-green" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-2-ag5-arr-green" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-emerald, #10b981)"></path>
 </marker>
 </defs>
 <!-- Axes -->
-<line marker-end="url(#ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="60" x2="600" y1="250" y2="250"></line>
+<line marker-end="url(#fam-fig-2-ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="60" x2="600" y1="250" y2="250"></line>
 <text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="595" y="270">X</text>
-<line marker-end="url(#ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="100" x2="100" y1="275" y2="35"></line>
+<line marker-end="url(#fam-fig-2-ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="100" x2="100" y1="275" y2="35"></line>
 <text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="85" y="45">Y</text>
 <text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="85" y="268">O</text>
 <!-- Line L (slope = -0.4) -->
@@ -834,19 +878,19 @@ SOFTWARE.
 <circle cx="200" cy="175" fill="var(--accent-rose, #f43f5e)" r="5"></circle>
 <text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="700" x="195" y="155">M₀(x₀, y₀)</text>
 <!-- Radius-vector r0: O -> M0 -->
-<line marker-end="url(#ag5-arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="2.5" x1="100" x2="195" y1="250" y2="178"></line>
+<line marker-end="url(#fam-fig-2-ag5-arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="2.5" x1="100" x2="195" y1="250" y2="178"></line>
 <text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="700" x="130" y="225">r₀</text>
 <!-- Point M(450, 100) on line L -->
 <circle cx="450" cy="100" fill="var(--accent-emerald, #10b981)" r="5"></circle>
 <text fill="var(--accent-emerald, #10b981)" font-size="15" font-weight="700" x="455" y="95">M(x, y)</text>
 <!-- Vector t·a from M0 to M: exactly closes triangle! -->
-<line marker-end="url(#ag5-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="200" x2="443" y1="175" y2="102"></line>
+<line marker-end="url(#fam-fig-2-ag5-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="200" x2="443" y1="175" y2="102"></line>
 <text fill="var(--accent-blue, #38bdf8)" font-size="15" font-weight="700" x="310" y="128">t · a</text>
 <!-- Resultant radius-vector r: O -> M -->
-<line marker-end="url(#ag5-arr-green)" stroke="var(--accent-emerald, #10b981)" stroke-width="2.5" x1="100" x2="444" y1="250" y2="103"></line>
+<line marker-end="url(#fam-fig-2-ag5-arr-green)" stroke="var(--accent-emerald, #10b981)" stroke-width="2.5" x1="100" x2="444" y1="250" y2="103"></line>
 <text fill="var(--accent-emerald, #10b981)" font-size="16" font-weight="700" x="260" y="205">r = r₀ + t·a</text>
 <!-- Direction vector a banner -->
-<line marker-end="url(#ag5-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="380" x2="460" y1="45" y2="21"></line>
+<line marker-end="url(#fam-fig-2-ag5-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="380" x2="460" y1="45" y2="21"></line>
 <text fill="var(--accent-blue, #38bdf8)" font-size="14" font-weight="700" x="470" y="35">a (направляющий)</text>
 </svg>
 <div class="diagram-caption">Рис. 2. Геометрическая структура векторно-параметрического уравнения прямой на плоскости</div>
@@ -946,16 +990,16 @@ SOFTWARE.
 </div></div>
 <!-- SVG 3: Intercept form -->
 <div class="diagram-container">
-<svg height="280" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 280" width="650" xmlns="http://www.w3.org/2000/svg">
+<svg height="280" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 280" width="650" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 3. Геометрическая иллюстрация уравнения прямой в отрезках на осях координат" data-fam-figure="diagram" data-fam-index="3">
 <defs>
-<marker id="ag5-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-3-ag5-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
 </marker>
 </defs>
 <!-- Axes -->
-<line marker-end="url(#ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="80" x2="580" y1="230" y2="230"></line>
+<line marker-end="url(#fam-fig-3-ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="80" x2="580" y1="230" y2="230"></line>
 <text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="575" y="250">X</text>
-<line marker-end="url(#ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="150" x2="150" y1="260" y2="30"></line>
+<line marker-end="url(#fam-fig-3-ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="150" x2="150" y1="260" y2="30"></line>
 <text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="135" y="40">Y</text>
 <text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="132" y="248">O</text>
 <!-- Shaded triangle O A B -->
@@ -1082,24 +1126,24 @@ SOFTWARE.
 </div></div>
 <!-- SVG 4: Normal Vector Direction Cosines -->
 <div class="diagram-container">
-<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650" xmlns="http://www.w3.org/2000/svg">
+<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 4. Направляющие косинусы нормального вектора в прямоугольной системе координат" data-fam-figure="diagram" data-fam-index="4">
 <defs>
-<marker id="ag5-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-4-ag5-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
 </marker>
-<marker id="ag5-arr-n" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-4-ag5-arr-n" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
 </marker>
 </defs>
 <!-- Axes -->
-<line marker-end="url(#ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="80" x2="580" y1="240" y2="240"></line>
+<line marker-end="url(#fam-fig-4-ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="80" x2="580" y1="240" y2="240"></line>
 <text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="585" y="245">X</text>
-<line marker-end="url(#ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="160" x2="160" y1="270" y2="30"></line>
+<line marker-end="url(#fam-fig-4-ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="160" x2="160" y1="270" y2="30"></line>
 <text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="150" y="22">Y</text>
 <circle cx="160" cy="240" fill="var(--text-main, #f3f4f6)" r="4.5"></circle>
 <text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="142" y="258">O</text>
 <!-- Vector n = (A, B) = (220, -140) from O(160, 240) to (380, 100) -->
-<line marker-end="url(#ag5-arr-n)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3.2" x1="160" x2="374" y1="240" y2="104"></line>
+<line marker-end="url(#fam-fig-4-ag5-arr-n)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3.2" x1="160" x2="374" y1="240" y2="104"></line>
 <text fill="var(--accent-blue, #38bdf8)" font-size="16" font-weight="800" x="385" y="100">n = (A, B)</text>
 <!-- Orthogonal projections to axes -->
 <line stroke="var(--border-color, #64748b)" stroke-dasharray="4,3" stroke-width="1.5" x1="380" x2="380" y1="100" y2="240"></line>
@@ -1130,7 +1174,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-4">
   <div class="chapter-kicker">04 / 3. Метрическая теория: Расстоя…</div>
   <h2 id="chapter-4" data-toc="3. Метрическая теория: Расстоя…">§ 3. Метрическая теория: Расстояние от точки до прямой на плоскости</h2>
-  
+
 <div class="statement theorem" id="thm-4"><div class="block-label">Теорема Полотовского</div><h3 data-toc="Теорема 2: Формула расстояния …" id="sub-4-1">Теорема 2: Формула расстояния от произвольной точки до прямой в ОНСК</h3><div>
 <p>
             В ортонормированной декартовой системе координат расстояние $\rho(M_0, L)$ от произвольной фиксированной точки плоскости $M_0(x_0, y_0)$ до прямой $L$, заданной общим уравнением $Ax + By + C = 0$, вычисляется по формуле:
@@ -1190,43 +1234,8 @@ SOFTWARE.
 </div>
 <!-- SVG 5: Distance from point to line -->
 <div class="diagram-container">
-<svg height="320" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 320" width="680" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<marker id="ag5-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
-</marker>
-<marker id="ag5-arr-purple" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-purple, #a855f7)"></path>
-</marker>
-</defs>
-<!-- Line L: Ax + By + C = 0 (direction (4, -1)) -->
-<line stroke="var(--border-color, #94a3b8)" stroke-width="2.5" x1="50" x2="610" y1="262.5" y2="122.5"></line>
-<text fill="var(--text-main, #f3f4f6)" font-size="15" font-weight="700" x="470" y="115">L: Ax + By + C = 0</text>
-<!-- Normal vector n = (A, B) = (-25, -100): strictly orthogonal to (4, -1) (dot product zero!) -->
-<line marker-end="url(#ag5-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="120" x2="95" y1="245" y2="145"></line>
-<text fill="var(--accent-blue, #38bdf8)" font-size="15" font-weight="700" x="50" y="140">n = (A, B)</text>
-<path d="M 133.58 241.61 L 130.19 228.03 L 116.61 231.42" fill="none" stroke="var(--accent-blue, #38bdf8)" stroke-width="1.2"></path>
-<!-- Point M0(x0, y0) -->
-<circle cx="180" cy="60" fill="var(--accent-amber, #f59e0b)" r="5.5"></circle>
-<text fill="var(--accent-amber, #f59e0b)" font-size="16" font-weight="700" text-anchor="middle" x="180" y="42">M₀(x₀, y₀)</text>
-<!-- Base H(220, 220) on line L -->
-<circle cx="220" cy="220" fill="var(--accent-emerald, #10b981)" r="4.5"></circle>
-<text fill="var(--accent-emerald, #10b981)" font-size="15" font-weight="700" x="210" y="245">H</text>
-<!-- Perpendicular segment M0 H (distance rho(M0, L)) strictly parallel to n -->
-<line stroke="var(--accent-emerald, #10b981)" stroke-width="3" x1="180" x2="220" y1="60" y2="220"></line>
-<text fill="var(--accent-emerald, #10b981)" font-size="15" font-weight="700" x="145" y="150">ρ(M₀, L)</text>
-<!-- Exact aligned right angle square at H -->
-<path d="M 235.52 216.12 L 231.64 200.60 L 216.12 204.48" fill="none" stroke="var(--accent-emerald, #10b981)" stroke-width="1.5"></path>
-<!-- Point N(x1, y1) on line L -->
-<circle cx="440" cy="165" fill="var(--text-main, #f3f4f6)" r="5"></circle>
-<text fill="var(--text-main, #f3f4f6)" font-size="15" font-weight="700" x="445" y="190">N(x₁, y₁) ∈ L</text>
-<!-- Slanted vector M0 N -->
-<line marker-end="url(#ag5-arr-purple)" stroke="var(--accent-purple, #a855f7)" stroke-dasharray="5,4" stroke-width="2.5" x1="180" x2="433" y1="60" y2="162"></line>
-<text fill="var(--accent-purple, #a855f7)" font-size="14" font-weight="600" x="340" y="98">M₀N (наклонная)</text>
-<!-- Formula plate -->
-<rect fill="var(--bg-card-alt, #1e293b)" height="70" rx="10" stroke="var(--border-color, #334155)" stroke-width="1.2" width="310" x="340" y="225"></rect>
-<text fill="var(--text-main, #f3f4f6)" font-size="13" font-weight="700" x="355" y="252">ρ(M₀, L) = |pr_n M₀N|</text>
-<text fill="var(--accent-blue, #38bdf8)" font-size="13" font-weight="600" x="355" y="275">= |Ax₀ + By₀ + C| / √(A² + B²)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 249" role="img" aria-label="Ортогональная проекция точки на прямую и формула расстояния" data-fam-figure="diagram" data-fam-index="5">
+<line x1="88" y1="223" x2="588" y2="98" stroke="var(--fig-muted)" stroke-width="2.4" /><line x1="298" y1="77" x2="471.3" y2="122.7" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M480,125 L470.31,126.45 L472.28,118.96 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="298" y1="77" x2="320" y2="165" stroke="var(--fig-gold)" stroke-width="2.5" stroke-dasharray="5 4"/><path d="M332,162 L329,150 L317,153" fill="none" stroke="var(--fig-green)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" /><line x1="164" y1="204" x2="154.18" y2="164.73" stroke="var(--fig-green)" stroke-width="2.1" /><path d="M152,156 L157.94,163.79 L150.43,165.67 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="320" cy="165" r="4" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="1.6"/><text x="312" y="184" text-anchor="middle" fill="var(--fig-gold)" font-size="15">H</text><circle cx="298" cy="77" r="4" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="282" y="64" text-anchor="middle" fill="var(--fig-blue)" font-size="15">M₀</text><circle cx="480" cy="125" r="4" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="489" y="141" text-anchor="middle" fill="var(--fig-blue)" font-size="15">N</text><text x="495" y="87" text-anchor="middle" fill="var(--fig-ink)" font-size="15">L: Ax + By + C = 0</text><text x="152" y="130" text-anchor="middle" fill="var(--fig-green)" font-size="17">n</text><text x="320" y="234" text-anchor="middle" fill="var(--fig-ink)" font-size="14">M₀H ⟂ L   ·   ρ(M₀, L) = |Ax₀ + By₀ + C| / √(A² + B²)</text>
 </svg>
 <div class="diagram-caption">Рис. 5. Вывод формулы расстояния через ортогональное проецирование наклонной на вектор нормали прямой</div>
 </div>
@@ -1253,7 +1262,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-5">
   <div class="chapter-kicker">05 / 4. Взаимное расположение и уго…</div>
   <h2 id="chapter-5" data-toc="4. Взаимное расположение и уго…">§ 4. Взаимное расположение и угол между двумя прямыми на плоскости</h2>
-  
+
 <p>
           Рассмотрим две прямые $L_1$ и $L_2$ в ортонормированной декартовой системе координат. В зависимости от формы задания прямых угол $\gamma$ между ними и критерии их взаимного расположения (параллельность, совпадение, перпендикулярность) формулируются в трех аналитических эквивалентах.
         </p>
@@ -1282,16 +1291,16 @@ SOFTWARE.
 </div></div>
 <!-- SVG 6: Angle between lines -->
 <div class="diagram-container">
-<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650" xmlns="http://www.w3.org/2000/svg">
+<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 6. Геометрическая схема вычисления угла между прямыми по теореме о внешнем угле треугольника" data-fam-figure="diagram" data-fam-index="6">
 <defs>
-<marker id="ag5-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-6-ag5-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
 </marker>
 </defs>
 <!-- Axes -->
-<line marker-end="url(#ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="50" x2="600" y1="230" y2="230"></line>
+<line marker-end="url(#fam-fig-6-ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="50" x2="600" y1="230" y2="230"></line>
 <text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="590" y="255">X</text>
-<line marker-end="url(#ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="100" x2="100" y1="270" y2="30"></line>
+<line marker-end="url(#fam-fig-6-ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="100" x2="100" y1="270" y2="30"></line>
 <text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="85" y="45">Y</text>
 <text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="85" y="248">O</text>
 <!-- Line L1 (slope -0.5, passes through (180, 230) and (380, 130)) -->
@@ -1383,7 +1392,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-6">
   <div class="chapter-kicker">06 / 5. Сводная сравнительная матри…</div>
   <h2 id="chapter-6" data-toc="5. Сводная сравнительная матри…">§ 5. Сводная сравнительная матрица всех уравнений прямой на плоскости</h2>
-  
+
 <p>
           Ниже представлена полная систематизация всех девяти рассмотренных форм уравнения прямой, их параметров, геометрического смысла и областей применимости.
         </p>
@@ -1473,7 +1482,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-7">
   <div class="chapter-kicker">07 / 6. Аналитический практикум: За…</div>
   <h2 id="chapter-7" data-toc="6. Аналитический практикум: За…">§ 6. Аналитический практикум: Задачи с полными доказательствами</h2>
-  
+
 <!-- Task 1 -->
 <div class="worked-example" id="ex-1"><div class="block-label">Практикум</div><h3 data-toc="Задача 1: Взаимное преобразова…" id="sub-7-1">Задача 1: Взаимное преобразование всех форм уравнения прямой</h3><div>
 <p>
@@ -1629,31 +1638,145 @@ SOFTWARE.
   $$('[data-all-proofs]').forEach(b=>b.addEventListener('click',()=>{proofs.forEach(p=>setProof(p,b.dataset.allProofs));syncToolbar();updatePosition();}));syncToolbar();
 
   // Render before generating the outline, so math in headings gets a clean label.
-  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:true,strict:false});}catch(e){console.warn('Math render note:', e);}
+  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:false,strict:false,ignoredClasses:["math-svg","fam-svg-labels"]});}catch(e){console.warn('Math render note:', e);}
   const headings=$$('h2[data-toc],h3[data-toc]'),list=document.createElement('ol');
   let number=0;
   for(const heading of headings){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+heading.id;if(heading.tagName==='H2'){const n=document.createElement('span');n.className='toc-number';n.textContent=String(++number).padStart(2,'0');n.setAttribute('aria-hidden','true');a.append(n);}else li.className='toc-sub';a.append(document.createTextNode(heading.dataset.toc));li.append(a);list.append(li);}
   $('#toc').replaceChildren(list);$('#section-count').textContent=`Разделов: ${number}`;
-  const mobile=matchMedia('(max-width:760px)');
-  function closeToc(){ $('#contents').classList.remove('is-open');$('#toc-toggle').setAttribute('aria-expanded','false'); }
-  $('#toc-toggle').addEventListener('click',()=>{const open=$('#contents').classList.toggle('is-open');$('#toc-toggle').setAttribute('aria-expanded',String(open));if(open)$('#toc a')?.focus();});
-  $('#toc-close').addEventListener('click',()=>{closeToc();$('#toc-toggle').focus();});
-  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&$('#contents').classList.contains('is-open')){closeToc();$('#toc-toggle').focus();}});
-  mobile.addEventListener('change',closeToc);
-  function goToHash(hash,push){let target;try{target=document.getElementById(decodeURIComponent(hash.slice(1)));}catch{return;}if(!target)return;
-    const proof=target.closest('[data-proof]');if(proof){setProof(proof,target.closest('[data-proof-idea]')?'idea':'full');syncToolbar();}
-    closeToc();if(push){try{history.pushState(null,'',hash);}catch{/* opaque reader sandbox */}}
-    target.scrollIntoView({behavior:'instant',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});updatePosition();
+  // FAM:READING-NAVIGATION-START
+  const root = document.documentElement;
+  const layout = $('.layout');
+  const topbar = $('.topbar');
+  const contents = $('#contents');
+  const tocToggle = $('#toc-toggle');
+  const mobile = matchMedia('(max-width:760px)');
+  let desktopOpen = true;
+  let mobileOpen = false;
+  try { desktopOpen = localStorage.getItem('fam-note-toc') !== 'collapsed'; } catch {}
+
+  function tocIsOpen() { return mobile.matches ? mobileOpen : desktopOpen; }
+  function syncToc() {
+    contents.classList.toggle('is-open', mobile.matches && mobileOpen);
+    layout.toggleAttribute('data-toc-collapsed', !desktopOpen);
+    tocToggle.setAttribute('aria-expanded', String(tocIsOpen()));
   }
-  document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#"]');if(!a)return;ev.preventDefault();goToHash(a.getAttribute('href'),true);});
-  window.addEventListener('hashchange',()=>goToHash(location.hash,false));
-  function updatePosition(){const y=window.scrollY,span=document.documentElement.scrollHeight-innerHeight;$('#progress-bar').style.width=(span>0?Math.min(100,Math.max(0,100*y/span)):100)+'%';let active=headings[0];for(const h of headings)if(h.getBoundingClientRect().top<145)active=h;
-    $$('#toc a').forEach(a=>{if(a.hash==='#'+active?.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
-  let pending=false;window.addEventListener('scroll',()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;updatePosition();});},{passive:true});window.addEventListener('resize',updatePosition);
-  if(location.hash)goToHash(location.hash,false);updatePosition();
+  function closeMobileToc() {
+    mobileOpen = false;
+    syncToc();
+  }
+  function setTocOpen(open) {
+    if (mobile.matches) {
+      mobileOpen = open;
+      if (open) root.removeAttribute('data-note-bar-hidden');
+    } else {
+      desktopOpen = open;
+      try { localStorage.setItem('fam-note-toc', open ? 'expanded' : 'collapsed'); } catch {}
+    }
+    syncToc();
+    updatePosition();
+  }
+  tocToggle.addEventListener('click', () => {
+    const open = !tocIsOpen();
+    setTocOpen(open);
+    if (open && mobile.matches) $('#toc a')?.focus({preventScroll:true});
+  });
+  function dismissToc() {
+    setTocOpen(false);
+    root.removeAttribute('data-note-bar-hidden');
+    tocToggle.focus({preventScroll:true});
+  }
+  $('#toc-close').addEventListener('click', dismissToc);
+  document.addEventListener('keydown', event => {
+    const focusInToc = contents.contains(document.activeElement) || document.activeElement === tocToggle;
+    if (event.key === 'Escape' && !event.defaultPrevented && tocIsOpen() &&
+        (mobile.matches || focusInToc) && !$('#pdf-dialog').open) dismissToc();
+  });
+  mobile.addEventListener('change', closeMobileToc);
+  syncToc();
+
+  let lastScroll = Math.max(0, window.scrollY);
+  let scrollDistance = 0;
+  let topbarHeight = 0;
+  function syncTopbarHeight() {
+    topbarHeight = topbar.offsetHeight;
+    root.style.setProperty('--note-topbar-height', topbarHeight + 'px');
+    updatePosition();
+  }
+  function updateTopbar() {
+    const y = Math.max(0, Math.min(window.scrollY, root.scrollHeight - innerHeight));
+    const delta = y - lastScroll;
+    lastScroll = y;
+    if (y <= 16 || mobileOpen) {
+      root.removeAttribute('data-note-bar-hidden');
+      scrollDistance = 0;
+      return;
+    }
+    if (!delta) return;
+    scrollDistance = Math.sign(delta) === Math.sign(scrollDistance) ? scrollDistance + delta : delta;
+    if (scrollDistance <= -10) root.removeAttribute('data-note-bar-hidden');
+    if (scrollDistance >= 18 && y > topbarHeight) root.setAttribute('data-note-bar-hidden', '');
+  }
+
+  function goToHash(hash, push) {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (!target) return;
+    const proof = target.closest('[data-proof]');
+    if (proof) {
+      setProof(proof, target.closest('[data-proof-idea]') ? 'idea' : 'full');
+      syncToolbar();
+    }
+    closeMobileToc();
+    if (push) {
+      try { history.pushState(null, '', hash); } catch { /* Opaque reader sandbox. */ }
+    }
+    if (target === $('#top') || target === $('#content')) root.removeAttribute('data-note-bar-hidden');
+    target.scrollIntoView({behavior:'instant', block:'start'});
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+    lastScroll = Math.max(0, window.scrollY);
+    scrollDistance = 0;
+    updatePosition();
+  }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    event.preventDefault();
+    goToHash(link.getAttribute('href'), true);
+  });
+  window.addEventListener('hashchange', () => goToHash(location.hash, false));
+
+  function updatePosition() {
+    const y = window.scrollY;
+    const span = root.scrollHeight - innerHeight;
+    $('#progress-bar').style.width = (span > 0 ? Math.min(100, Math.max(0, 100 * y / span)) : 100) + '%';
+    const barBottom = Math.max(0, topbar.getBoundingClientRect().bottom);
+    let active = headings[0];
+    for (const heading of headings) if (heading.getBoundingClientRect().top <= barBottom + 32) active = heading;
+    $$('#toc a').forEach(link => {
+      if (link.hash === '#' + active?.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let pending = false;
+  window.addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      updateTopbar();
+      updatePosition();
+    });
+  }, {passive:true});
+  window.addEventListener('resize', syncTopbarHeight);
+  topbar.addEventListener('transitionend', updatePosition);
+  new ResizeObserver(syncTopbarHeight).observe(topbar);
+  syncTopbarHeight();
+  if (location.hash) goToHash(location.hash, false);
+  // FAM:READING-NAVIGATION-END
 
   const dialog=$('#pdf-dialog');let printChoice='full';
-  $('#pdf-open').addEventListener('click',()=>{closeToc();$('#pdf-status').textContent='';dialog.showModal();});
+  $('#pdf-open').addEventListener('click',()=>{closeMobileToc();$('#pdf-status').textContent='';dialog.showModal();});
   $('#pdf-close').addEventListener('click',()=>dialog.close());
   $$('input[name="pdf-mode"]').forEach(r=>r.addEventListener('change',()=>{if(r.checked)printChoice=r.value;}));
   // Ctrl+P always exports full proofs; the explicit dialog temporarily selects a variant.

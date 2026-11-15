@@ -567,6 +567,99 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 -->
+
+<style id="fam-reviewed-figures">
+#content svg[data-fam-figure] {
+  --fig-paper:#faf8f1; --fig-ink:#24342d; --fig-muted:#52645a;
+  --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+  --fig-rose:#ac3454; --fig-gold:#885914;
+  display:block; max-width:100%; height:auto; margin-inline:auto;
+  color:var(--fig-ink); font-family:Arial, sans-serif;
+}
+html[data-theme="parchment"] #content svg[data-fam-figure] {
+  --fig-paper:#f1e7d3; --fig-ink:#353023; --fig-muted:#665b49;
+  --fig-rule:#cabc9d; --fig-blue:#244fb1; --fig-green:#166349;
+  --fig-rose:#972e4c; --fig-gold:#795419;
+}
+html[data-theme="dark"] #content svg[data-fam-figure] {
+  --fig-paper:#17231e; --fig-ink:#ecf0e6; --fig-muted:#bac9bd;
+  --fig-rule:#465c50; --fig-blue:#a3c0ff; --fig-green:#80d4b2;
+  --fig-rose:#ffa2b5; --fig-gold:#f0c67c;
+}
+#content svg[data-fam-figure] .venn-fill {fill:var(--fig-blue);fill-opacity:.16}
+#content svg[data-fam-figure] .venn-fill-danger {fill:var(--fig-rose);fill-opacity:.19}
+#content svg[data-fam-figure] text {dominant-baseline:auto}
+#content svg[data-fam-figure="plot-original"] {background:white;color:#26352e}
+@media print {
+  html[data-theme] #content svg[data-fam-figure] {
+    --fig-paper:#fff; --fig-ink:#24342d; --fig-muted:#52645a;
+    --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+    --fig-rose:#ac3454; --fig-gold:#885914;
+  }
+}
+</style>
+<style id="fam-reading-navigation">
+/* FAM:READING-NAVIGATION-START */
+@media screen {
+  .topbar {
+    transform: translateY(0);
+  }
+  #toc-toggle, #toc-close {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 11px;
+  }
+  #toc-toggle:hover, #toc-close:hover {
+    color: var(--gold);
+  }
+  .reading-progress {
+    top: max(0px, calc(var(--note-topbar-height, 88px) - 1px));
+  }
+  .contents {
+    top: calc(var(--note-topbar-height, 88px) + 24px);
+    max-height: calc(100svh - var(--note-topbar-height, 88px) - 48px);
+  }
+  .chapter [id], .lecture-head, #content {
+    scroll-margin-top: calc(var(--note-topbar-height, 88px) + 24px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .topbar {
+    transform: translateY(-100%);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .reading-progress {
+    top: 0;
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .contents {
+    top: 24px;
+    max-height: calc(100svh - 48px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) :is(.chapter [id], .lecture-head, #content) {
+    scroll-margin-top: 24px;
+  }
+}
+@media screen and (min-width: 761px) {
+  .layout[data-toc-collapsed] {
+    grid-template-columns: minmax(0, 820px);
+    justify-content: center;
+  }
+  .layout[data-toc-collapsed] > .contents {
+    display: none;
+  }
+}
+@media screen and (max-width: 760px) {
+  .contents.is-open {
+    inset: var(--note-topbar-height, 70px) 0 0;
+    max-height: none;
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .topbar { transition: transform .22s ease; }
+  .contents, .reading-progress { transition: top .22s ease; }
+}
+@media screen {
+  html:has(.contents.is-open) { overflow: hidden; }
+}
+/* FAM:READING-NAVIGATION-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -591,7 +684,7 @@ SOFTWARE.
         <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
         <h1>Делимость, сравнения и кольцо классов вычетов</h1>
         <p class="subtitle">Теория делимости в кольце целых чисел, строгое доказательство теоремы о делении с остатком, отношение сравнимости по модулю, алгебраическая структура кольца классов вычетов Z_m и критерий поля.</p>
-        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[a = bq + r, \quad \text{где } 0 \le r < |b|.\]</div></div>
+        <div class="lecture-abstract" style="grid-template-columns:1fr"><div class="abstract-formula">\[a = bq + r, \quad \text{где } 0 \le r < |b|.\]</div></div>
       </header>
       <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
       <div class="proof-toolbar" aria-label="Все доказательства">
@@ -622,7 +715,7 @@ SOFTWARE.
 <span>16, 18 сентября 2026</span>
 </div>
 </header>
-<!-- 
+<!--
         =============================================================================
         СЮДА НЕЙРОСЕТЬ ВСТАВЛЯЕТ СОДЕРЖИМОЕ КОНСПЕКТА (ARTICLE CONTENT)
         =============================================================================
@@ -636,10 +729,10 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / 1Алгебраическая структура целы…</div>
   <h2 id="chapter-2" data-toc="1Алгебраическая структура целы…">1Алгебраическая структура целых чисел $\mathbb{Z}$</h2>
-  
+
 <div id="sec-intro-ring"></div>
-<p><span class="drop-cap">В</span>          В современной математике изучение числовых систем строится на аксиоматическом фундаменте теории колец и полей. 
-          Множество целых чисел $\mathbb{Z} = \{ \dots, -2, -1, 0, 1, 2, \dots \}$ относительно стандартных арифметических 
+<p><span class="drop-cap">В</span>          В современной математике изучение числовых систем строится на аксиоматическом фундаменте теории колец и полей.
+          Множество целых чисел $\mathbb{Z} = \{ \dots, -2, -1, 0, 1, 2, \dots \}$ относительно стандартных арифметических
           операций сложения ($+$) и умножения ($\cdot$) образует канонический пример фундаментальной алгебраической структуры.
         </p>
 <div class="statement definition" id="def-1"><div class="block-label">Определение 1</div><h3 data-toc="📌 Определение 1.1 (Кольцо целы…" id="sub-2-1">📌 Определение 1.1 (Кольцо целых чисел)</h3><div>
@@ -660,7 +753,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-3">
   <div class="chapter-kicker">03 / 2Теория делимости в</div>
   <h2 id="chapter-3" data-toc="2Теория делимости в">2Теория делимости в $\mathbb{Z}$</h2>
-  
+
 <h3 class="subsection-heading" data-toc="1. Теорема о делении с остатко…" id="sec-division-theorem">2.1. Теорема о делении с остатком (Алгоритм Евклида)</h3>
 <p>
           Краеугольным камнем всей элементарной и абстрактной арифметики целых чисел является возможность деления с остатком.
@@ -699,7 +792,7 @@ SOFTWARE.
             Таким образом, при любом $a \in \mathbb{Z}$ число $a - b(-b a^2) \ge 0$, то есть $S \ne \emptyset$.
           </p>
 <p>
-            Итак, $S$ — непустое подмножество неотрицательных целых чисел ($\mathbb{N}_0 \subset \mathbb{Z}$). 
+            Итак, $S$ — непустое подмножество неотрицательных целых чисел ($\mathbb{N}_0 \subset \mathbb{Z}$).
             В силу <em>принципа наименьшего элемента</em> (аксиомы вполне упорядоченности множества неотрицательных чисел) в множестве $S$ существует минимальный элемент. Обозначим его через $r$.
           </p>
 <p>
@@ -722,7 +815,7 @@ SOFTWARE.
             \[a = bq_1 + r_1, \quad 0 \le r_1 < |b|.\]
             Вычтем второе равенство из первого:
             \[(bq + r) - (bq_1 + r_1) = 0 \iff b(q - q_1) + (r - r_1) = 0 \iff r - r_1 = b(q_1 - q).\]
-            Без ограничения общности положим $r \ge r_1$. Тогда $r - r_1 \ge 0$. 
+            Без ограничения общности положим $r \ge r_1$. Тогда $r - r_1 \ge 0$.
             Поскольку $r < |b|$ и $r_1 \ge 0$, имеет место строгая оценка:
             \[0 \le r - r_1 \le r < |b| \implies 0 \le b(q_1 - q) < |b|.\]
             Перейдём к абсолютным величинам:
@@ -742,26 +835,8 @@ SOFTWARE.
 </div>
 <!-- SVG 1: Геометрическая иллюстрация деления с остатком -->
 <div class="svg-wrapper">
-<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 800 180" xmlns="http://www.w3.org/2000/svg">
-<!-- Координатная прямая -->
-<line stroke="var(--text-muted)" stroke-width="2.5" x1="40" x2="760" y1="100" y2="100"></line>
-<polygon fill="var(--text-muted)" points="765,100 750,94 750,106"></polygon>
-<!-- Отрезок bq до b(q+1) -->
-<!-- Засечки -->
-<line stroke="var(--text-heading)" stroke-width="3" x1="120" x2="120" y1="85" y2="115"></line>
-<line stroke="var(--text-heading)" stroke-width="3" x1="620" x2="620" y1="85" y2="115"></line>
-<!-- Точка a -->
-<circle cx="430" cy="100" fill="#38bdf8" r="7" stroke="var(--bg-body)" stroke-width="2"></circle>
-<!-- Текстовые метки точек -->
-<text fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle" x="120" y="140">bq</text>
-<text fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle" x="620" y="140">b(q+1)</text>
-<text fill="#38bdf8" font-size="18" font-weight="800" text-anchor="middle" x="430" y="75">a = bq + r</text>
-<!-- Интервал длины |b| (верхняя дуга) -->
-<path d="M 125,50 L 370,50 Q 375,50 375,40 Q 375,50 380,50 L 615,50" fill="none" stroke="var(--border-accent)" stroke-width="2"></path>
-<text fill="var(--border-accent)" font-size="15" font-weight="600" text-anchor="middle" x="375" y="30">Шаг длины |b|</text>
-<!-- Интервал остатка r (нижняя скобка) -->
-<path d="M 125,165 L 270,165 Q 275,165 275,175 Q 275,165 280,165 L 425,165" fill="none" stroke="#10b8a6" stroke-width="2"></path>
-<text fill="#10b8a6" font-size="15" font-weight="600" text-anchor="middle" x="275" y="195">Остаток r (0 ≤ r &lt; |b|)</text>
+<figure class="figure-plate"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 178" role="img" aria-label="Остаток измеряется вправо от кратного bq независимо от знака b" data-fam-figure="diagram" data-fam-index="1">
+<line x1="44" y1="94" x2="570" y2="94" stroke="var(--fig-muted)" stroke-width="1.7" /><line x1="535" y1="94" x2="572" y2="94" stroke="var(--fig-muted)" stroke-width="2.1" /><path d="M581,94 L572,97.87 L572,90.13 Z" fill="var(--fig-muted)" stroke="var(--fig-muted)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="120" cy="94" r="4" fill="var(--fig-ink)" stroke="var(--fig-ink)" stroke-width="1.6"/><text x="120" y="122" text-anchor="middle" fill="var(--fig-ink)" font-size="15">bq</text><circle cx="280" cy="94" r="4" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="280" y="122" text-anchor="middle" fill="var(--fig-ink)" font-size="15">a = bq + r</text><circle cx="500" cy="94" r="4" fill="var(--fig-ink)" stroke="var(--fig-ink)" stroke-width="1.6"/><text x="500" y="122" text-anchor="middle" fill="var(--fig-ink)" font-size="15">bq + |b|</text><line x1="120" y1="58" x2="280" y2="58" stroke="var(--fig-blue)" stroke-width="2.4" /><text x="200" y="46" text-anchor="middle" fill="var(--fig-blue)" font-size="15">r</text><text x="310" y="163" text-anchor="middle" fill="var(--fig-ink)" font-size="14">0 ≤ r &lt; |b|  ·  пример 0 &lt; r</text>
 </svg></figure>
 <div class="svg-caption">Рисунок 2.1: Геометрическая модель деления с остатком на числовой прямой $\mathbb{Z}$. Число $a$ лежит строго внутри полуинтервала $[bq, b(q+1))$.</div>
 </div>
@@ -840,7 +915,7 @@ SOFTWARE.
           </p>
 <p>
 <strong>7)</strong> Доказывается по индукции по количеству слагаемых $k$. Для $k = 1$ утверждение следует из п. 6: если $m \mid a_1$, то $m \mid (t_1 a_1)$.
-            Шаг индукции: пусть утверждение верно для $k-1$ слагаемых, то есть $m \mid \sum_{i=1}^{k-1} t_i a_i$. 
+            Шаг индукции: пусть утверждение верно для $k-1$ слагаемых, то есть $m \mid \sum_{i=1}^{k-1} t_i a_i$.
             По п. 6 $m \mid (t_k a_k)$. Применяя свойство 5 к сумме двух величин $\left(\sum_{i=1}^{k-1} t_i a_i\right) + t_k a_k$, получаем $m \mid \sum_{i=1}^{k} t_i a_i$.
           </p>
 <span class="qed">$\blacksquare$</span>
@@ -856,7 +931,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-4">
   <div class="chapter-kicker">04 / 3Отношение сравнимости по модулю</div>
   <h2 id="chapter-4" data-toc="3Отношение сравнимости по модулю">3Отношение сравнимости по модулю</h2>
-  
+
 <h3 class="subsection-heading" data-toc="1. Определение сравнимости (К.…" id="sec-cong-def">3.1. Определение сравнимости (К. Ф. Гаусс)</h3>
 <p>
           Понятие сравнимости по модулю было введено Карлом Фридрихом Гауссом в его фундаментальном труде «Арифметические исследования» (1801 г.) и является языком современной модулярной арифметики и криптографии.
@@ -1016,7 +1091,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-5">
   <div class="chapter-kicker">05 / 4Классы вычетов по модулю m</div>
   <h2 id="chapter-5" data-toc="4Классы вычетов по модулю m">4Классы вычетов по модулю $m$</h2>
-  
+
 <h3 class="subsection-heading" data-toc="1. Определение классов вычетов…" id="sec-classes-def">4.1. Определение классов вычетов и разбиение $\mathbb{Z}$</h3>
 <p>
           Поскольку отношение сравнимости по модулю $m$ является отношением эквивалентности (Предложение 3.2), по фундаментальной теореме теории множеств оно разбивает всё множество целых чисел $\mathbb{Z}$ на попарно непересекающиеся классы эквивалентности.
@@ -1131,41 +1206,8 @@ SOFTWARE.
         </div></div>
 <!-- SVG 2: Циклическая диаграмма классов вычетов -->
 <div class="svg-wrapper" id="sec-clock-model">
-<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 340" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"></path>
-</marker></defs>
-<!-- Окружность циферблата -->
-<circle cx="325" cy="170" fill="none" r="110" stroke="var(--border-color)" stroke-dasharray="6,6" stroke-width="3"></circle>
-<!-- Стрелка обхода -->
-<path d="M 325,45 A 125,125 0 0,1 445,145" fill="none" marker-end="url(#arrow)" stroke="var(--border-accent)" stroke-width="2"></path>
-<!-- Узлы классов вычетов Z6 (0..5) -->
-<!-- 0 (верх) -->
-<circle cx="325" cy="60" fill="var(--bg-card)" r="22" stroke="var(--border-accent)" stroke-width="2.5"></circle>
-<text fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle" x="325" y="66">0̄</text>
-<text fill="var(--text-muted)" font-size="12" text-anchor="middle" x="325" y="26">{..., -6, 0, 6, 12, ...}</text>
-<!-- 1 (справа вверху) -->
-<circle cx="420" cy="115" fill="var(--bg-card)" r="22" stroke="var(--border-accent)" stroke-width="2.5"></circle>
-<text fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle" x="420" y="121">1̄</text>
-<text fill="var(--text-muted)" font-size="12" text-anchor="start" x="515" y="118">{..., -5, 1, 7, ...}</text>
-<!-- 2 (справа внизу) -->
-<circle cx="420" cy="225" fill="var(--bg-card)" r="22" stroke="var(--border-accent)" stroke-width="2.5"></circle>
-<text fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle" x="420" y="231">2̄</text>
-<text fill="var(--text-muted)" font-size="12" text-anchor="start" x="515" y="230">{..., -4, 2, 8, ...}</text>
-<!-- 3 (низ) -->
-<circle cx="325" cy="280" fill="var(--bg-card)" r="22" stroke="var(--border-accent)" stroke-width="2.5"></circle>
-<text fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle" x="325" y="286">3̄</text>
-<text fill="var(--text-muted)" font-size="12" text-anchor="middle" x="325" y="322">{..., -3, 3, 9, ...}</text>
-<!-- 4 (слева внизу) -->
-<circle cx="230" cy="225" fill="var(--bg-card)" r="22" stroke="var(--border-accent)" stroke-width="2.5"></circle>
-<text fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle" x="230" y="231">4̄</text>
-<text fill="var(--text-muted)" font-size="12" text-anchor="end" x="135" y="230">{..., -2, 4, 10, ...}</text>
-<!-- 5 (слева вверху) -->
-<circle cx="230" cy="115" fill="var(--bg-card)" r="22" stroke="var(--border-accent)" stroke-width="2.5"></circle>
-<text fill="var(--text-heading)" font-size="16" font-weight="700" text-anchor="middle" x="230" y="121">5̄</text>
-<text fill="var(--text-muted)" font-size="12" text-anchor="end" x="135" y="118">{..., -1, 5, 11, ...}</text>
-<!-- Центр -->
-<text fill="var(--text-heading)" font-size="18" font-weight="800" text-anchor="middle" x="325" y="166">ℤ₆</text>
-<text fill="var(--text-muted)" font-size="12" text-anchor="middle" x="325" y="185">Шаг +1 mod 6</text>
+<figure class="figure-plate"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 278" role="img" aria-label="Четыре класса вычетов по модулю 4" data-fam-figure="diagram" data-fam-index="2">
+<text x="57" y="60" text-anchor="middle" fill="var(--fig-blue)" font-size="16">[0]₄</text><line x1="96" y1="55" x2="570" y2="55" stroke="var(--fig-rule)" stroke-width="1.5" /><text x="125" y="60" text-anchor="middle" fill="var(--fig-ink)" font-size="15">-8</text><text x="227" y="60" text-anchor="middle" fill="var(--fig-ink)" font-size="15">-4</text><text x="329" y="60" text-anchor="middle" fill="var(--fig-ink)" font-size="15">0</text><text x="431" y="60" text-anchor="middle" fill="var(--fig-ink)" font-size="15">4</text><text x="533" y="60" text-anchor="middle" fill="var(--fig-ink)" font-size="15">8</text><text x="57" y="114" text-anchor="middle" fill="var(--fig-blue)" font-size="16">[1]₄</text><line x1="96" y1="109" x2="570" y2="109" stroke="var(--fig-rule)" stroke-width="1.5" /><text x="125" y="114" text-anchor="middle" fill="var(--fig-ink)" font-size="15">-7</text><text x="227" y="114" text-anchor="middle" fill="var(--fig-ink)" font-size="15">-3</text><text x="329" y="114" text-anchor="middle" fill="var(--fig-ink)" font-size="15">1</text><text x="431" y="114" text-anchor="middle" fill="var(--fig-ink)" font-size="15">5</text><text x="533" y="114" text-anchor="middle" fill="var(--fig-ink)" font-size="15">9</text><text x="57" y="168" text-anchor="middle" fill="var(--fig-blue)" font-size="16">[2]₄</text><line x1="96" y1="163" x2="570" y2="163" stroke="var(--fig-rule)" stroke-width="1.5" /><text x="125" y="168" text-anchor="middle" fill="var(--fig-ink)" font-size="15">-6</text><text x="227" y="168" text-anchor="middle" fill="var(--fig-ink)" font-size="15">-2</text><text x="329" y="168" text-anchor="middle" fill="var(--fig-ink)" font-size="15">2</text><text x="431" y="168" text-anchor="middle" fill="var(--fig-ink)" font-size="15">6</text><text x="533" y="168" text-anchor="middle" fill="var(--fig-ink)" font-size="15">10</text><text x="57" y="222" text-anchor="middle" fill="var(--fig-blue)" font-size="16">[3]₄</text><line x1="96" y1="217" x2="570" y2="217" stroke="var(--fig-rule)" stroke-width="1.5" /><text x="125" y="222" text-anchor="middle" fill="var(--fig-ink)" font-size="15">-5</text><text x="227" y="222" text-anchor="middle" fill="var(--fig-ink)" font-size="15">-1</text><text x="329" y="222" text-anchor="middle" fill="var(--fig-ink)" font-size="15">3</text><text x="431" y="222" text-anchor="middle" fill="var(--fig-ink)" font-size="15">7</text><text x="533" y="222" text-anchor="middle" fill="var(--fig-ink)" font-size="15">11</text><text x="320" y="259" text-anchor="middle" fill="var(--fig-muted)" font-size="13">В каждой строке соседние числа отличаются на 4</text>
 </svg></figure>
 <div class="svg-caption">Рисунок 4.1: Геометрическая модель кольца вычетов $\mathbb{Z}_6$ в виде циклического циферблата периода $m = 6$.</div>
 </div>
@@ -1177,7 +1219,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-6">
   <div class="chapter-kicker">06 / 5Алгебраическая структура на _…</div>
   <h2 id="chapter-6" data-toc="5Алгебраическая структура на _…">5Алгебраическая структура на $\mathbb{Z}_m$: Кольцо классов вычетов</h2>
-  
+
 <p>
           Чтобы наделить конечное множество $\mathbb{Z}_m$ алгебраической структурой, необходимо определить бинарные операции сложения ($+$) и умножения ($\cdot$).
         </p>
@@ -1193,7 +1235,7 @@ SOFTWARE.
         </p>
 <div class="statement theorem" id="thm-8"><div class="block-label">Утверждение 8</div><h3 data-toc="⚖️ Теорема 5.1 (Корректность о…" id="sub-6-3">⚖️ Теорема 5.1 (Корректность операций над классами)</h3><div>
 
-          Операции сложения и умножения классов вычетов корректно определены (инвариантны относительно выбора представителей). 
+          Операции сложения и умножения классов вычетов корректно определены (инвариантны относительно выбора представителей).
           То есть если $\bar{a} = \bar{c}$ и $\bar{b} = \bar{d}$, то:
           \[\overline{a + b} = \overline{c + d} \quad \text{и} \quad \overline{a \cdot b} = \overline{c \cdot d}.\]
         </div></div>
@@ -1370,7 +1412,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-7">
   <div class="chapter-kicker">07 / 6Делители нуля и целостные кол…</div>
   <h2 id="chapter-7" data-toc="6Делители нуля и целостные кол…">6Делители нуля и целостные кольца</h2>
-  
+
 <h3 class="subsection-heading" data-toc="1. Определение делителей нуля …" id="sec-zero-def">6.1. Определение делителей нуля и областей целостности</h3>
 <p>
           В обычных числовых системах ($\mathbb{Z}, \mathbb{Q}, \mathbb{R}, \mathbb{C}$) произведение двух чисел равно нулю тогда и только тогда, когда хотя бы один из сомножителей равен нулю. Однако в абстрактных кольцах это фундаментальное свойство может нарушаться!
@@ -1410,7 +1452,7 @@ SOFTWARE.
             Пусть $a$ обратим и пусть для некоторого $b \in K$ выполнено равенство $a \cdot b = 0$.
             Умножим обе части этого равенства слева на обратный элемент $a^{-1}$:
             \[a^{-1} \cdot (a \cdot b) = a^{-1} \cdot 0 \iff (a^{-1} a) \cdot b = 0 \iff 1 \cdot b = 0 \implies b = 0.\]
-            Следовательно, не существует ненулевого элемента $b \neq 0$, дающего в произведении с $a$ ноль. 
+            Следовательно, не существует ненулевого элемента $b \neq 0$, дающего в произведении с $a$ ноль.
             Значит, обратимый элемент $a$ не может являться делителем нуля.
           </p>
 <span class="qed">$\blacksquare$</span>
@@ -1473,7 +1515,7 @@ SOFTWARE.
             \[\bar{u} \neq \bar{0} \quad \text{и} \quad \bar{v} \neq \bar{0}.\]
             Однако вычислим их произведение в кольце $\mathbb{Z}_m$:
             \[\bar{u} \cdot \bar{v} = \overline{u \cdot v} = \bar{m} = \bar{0}.\]
-            Мы нашли два ненулевых элемента $\bar{u}, \bar{v} \in \mathbb{Z}_m$, чьё произведение равно нулевому классу $\bar{0}$. 
+            Мы нашли два ненулевых элемента $\bar{u}, \bar{v} \in \mathbb{Z}_m$, чьё произведение равно нулевому классу $\bar{0}$.
             Это означает, что $\bar{u}$ и $\bar{v}$ — делители нуля в $\mathbb{Z}_m$, что напрямую противоречит предположению о целостности $\mathbb{Z}_m$.
             Следовательно, $m$ не может быть составным, то есть $m$ — простое число.
           </p>
@@ -1544,13 +1586,13 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-8">
   <div class="chapter-kicker">08 / 7Алгебраическая иерархия и сра…</div>
   <h2 id="chapter-8" data-toc="7Алгебраическая иерархия и сра…">7Алгебраическая иерархия и сравнительный анализ</h2>
-  
+
 <p id="sec-hierarchy-chart">
           Обобщая изученные понятия, выстроим чёткую классификационную иерархию алгебраических структур от общего понятия кольца до поля.
         </p>
 <!-- SVG 3: Структурная диаграмма классов систем -->
 <div class="svg-wrapper">
-<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 840 220" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
+<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 840 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Кольцо (K, +, ·) • Абелева группа (K, +) • Дистрибутивность Пример: 2ℤ, Матрицы Mₙ Комм. кольцо с " data-fam-figure="diagram" data-fam-index="3"><defs><marker id="fam-fig-3-arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"></path>
 </marker></defs>
 <!-- Блок 1: Кольцо -->
@@ -1560,7 +1602,7 @@ SOFTWARE.
 <text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="105" y="105">• Дистрибутивность</text>
 <text fill="var(--border-accent)" font-size="12" font-weight="600" text-anchor="middle" x="105" y="145">Пример: 2ℤ, Матрицы Mₙ</text>
 <!-- Стрелка 1 -->
-<path d="M 195,105 L 235,105" marker-end="url(#arrow)" stroke="var(--border-accent)" stroke-width="2.5"></path>
+<path d="M 195,105 L 235,105" marker-end="url(#fam-fig-3-arrow)" stroke="var(--border-accent)" stroke-width="2.5"></path>
 <!-- Блок 2: Комм. кольцо с 1 -->
 <rect fill="var(--bg-card)" height="150" rx="10" stroke="var(--border-color)" stroke-width="2" width="170" x="240" y="30"></rect>
 <text fill="var(--text-heading)" font-size="14" font-weight="700" text-anchor="middle" x="325" y="60">Комм. кольцо с 1</text>
@@ -1568,7 +1610,7 @@ SOFTWARE.
 <text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="325" y="105">• Есть единица 1 ≠ 0</text>
 <text fill="#ef4444" font-size="12" font-weight="600" text-anchor="middle" x="325" y="145">ℤ₄, ℤ₁₂, ℝ×ℝ (Делители 0!)</text>
 <!-- Стрелка 2 -->
-<path d="M 415,105 L 455,105" marker-end="url(#arrow)" stroke="var(--border-accent)" stroke-width="2.5"></path>
+<path d="M 415,105 L 455,105" marker-end="url(#fam-fig-3-arrow)" stroke="var(--border-accent)" stroke-width="2.5"></path>
 <!-- Блок 3: Область целостности -->
 <rect fill="var(--bg-card)" height="150" rx="10" stroke="var(--border-color)" stroke-width="2" width="170" x="460" y="30"></rect>
 <text fill="var(--text-heading)" font-size="14" font-weight="700" text-anchor="middle" x="545" y="60">Область целостности</text>
@@ -1576,7 +1618,7 @@ SOFTWARE.
 <text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="545" y="105">• xy = 0 ⇒ x=0 ∨ y=0</text>
 <text fill="#10b8a6" font-size="12" font-weight="600" text-anchor="middle" x="545" y="145">Пример: ℤ, ℤ[x]</text>
 <!-- Стрелка 3 -->
-<path d="M 635,105 L 675,105" marker-end="url(#arrow)" stroke="var(--border-accent)" stroke-width="2.5"></path>
+<path d="M 635,105 L 675,105" marker-end="url(#fam-fig-3-arrow)" stroke="var(--border-accent)" stroke-width="2.5"></path>
 <!-- Блок 4: Поле -->
 <rect fill="var(--bg-card)" height="150" rx="10" stroke="#10b8a6" stroke-width="2.5" width="140" x="680" y="30"></rect>
 <text fill="#10b8a6" font-size="16" font-weight="800" text-anchor="middle" x="750" y="60">Поле</text>
@@ -1729,31 +1771,145 @@ SOFTWARE.
   $$('[data-all-proofs]').forEach(b=>b.addEventListener('click',()=>{proofs.forEach(p=>setProof(p,b.dataset.allProofs));syncToolbar();updatePosition();}));syncToolbar();
 
   // Render before generating the outline, so math in headings gets a clean label.
-  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:true,strict:false});}catch(e){console.warn('Math render note:', e);}
+  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:false,strict:false,ignoredClasses:["math-svg","fam-svg-labels"]});}catch(e){console.warn('Math render note:', e);}
   const headings=$$('h2[data-toc],h3[data-toc]'),list=document.createElement('ol');
   let number=0;
   for(const heading of headings){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+heading.id;if(heading.tagName==='H2'){const n=document.createElement('span');n.className='toc-number';n.textContent=String(++number).padStart(2,'0');n.setAttribute('aria-hidden','true');a.append(n);}else li.className='toc-sub';a.append(document.createTextNode(heading.dataset.toc));li.append(a);list.append(li);}
   $('#toc').replaceChildren(list);$('#section-count').textContent=`Разделов: ${number}`;
-  const mobile=matchMedia('(max-width:760px)');
-  function closeToc(){ $('#contents').classList.remove('is-open');$('#toc-toggle').setAttribute('aria-expanded','false'); }
-  $('#toc-toggle').addEventListener('click',()=>{const open=$('#contents').classList.toggle('is-open');$('#toc-toggle').setAttribute('aria-expanded',String(open));if(open)$('#toc a')?.focus();});
-  $('#toc-close').addEventListener('click',()=>{closeToc();$('#toc-toggle').focus();});
-  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&$('#contents').classList.contains('is-open')){closeToc();$('#toc-toggle').focus();}});
-  mobile.addEventListener('change',closeToc);
-  function goToHash(hash,push){let target;try{target=document.getElementById(decodeURIComponent(hash.slice(1)));}catch{return;}if(!target)return;
-    const proof=target.closest('[data-proof]');if(proof){setProof(proof,target.closest('[data-proof-idea]')?'idea':'full');syncToolbar();}
-    closeToc();if(push){try{history.pushState(null,'',hash);}catch{/* opaque reader sandbox */}}
-    target.scrollIntoView({behavior:'instant',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});updatePosition();
+  // FAM:READING-NAVIGATION-START
+  const root = document.documentElement;
+  const layout = $('.layout');
+  const topbar = $('.topbar');
+  const contents = $('#contents');
+  const tocToggle = $('#toc-toggle');
+  const mobile = matchMedia('(max-width:760px)');
+  let desktopOpen = true;
+  let mobileOpen = false;
+  try { desktopOpen = localStorage.getItem('fam-note-toc') !== 'collapsed'; } catch {}
+
+  function tocIsOpen() { return mobile.matches ? mobileOpen : desktopOpen; }
+  function syncToc() {
+    contents.classList.toggle('is-open', mobile.matches && mobileOpen);
+    layout.toggleAttribute('data-toc-collapsed', !desktopOpen);
+    tocToggle.setAttribute('aria-expanded', String(tocIsOpen()));
   }
-  document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#"]');if(!a)return;ev.preventDefault();goToHash(a.getAttribute('href'),true);});
-  window.addEventListener('hashchange',()=>goToHash(location.hash,false));
-  function updatePosition(){const y=window.scrollY,span=document.documentElement.scrollHeight-innerHeight;$('#progress-bar').style.width=(span>0?Math.min(100,Math.max(0,100*y/span)):100)+'%';let active=headings[0];for(const h of headings)if(h.getBoundingClientRect().top<145)active=h;
-    $$('#toc a').forEach(a=>{if(a.hash==='#'+active?.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
-  let pending=false;window.addEventListener('scroll',()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;updatePosition();});},{passive:true});window.addEventListener('resize',updatePosition);
-  if(location.hash)goToHash(location.hash,false);updatePosition();
+  function closeMobileToc() {
+    mobileOpen = false;
+    syncToc();
+  }
+  function setTocOpen(open) {
+    if (mobile.matches) {
+      mobileOpen = open;
+      if (open) root.removeAttribute('data-note-bar-hidden');
+    } else {
+      desktopOpen = open;
+      try { localStorage.setItem('fam-note-toc', open ? 'expanded' : 'collapsed'); } catch {}
+    }
+    syncToc();
+    updatePosition();
+  }
+  tocToggle.addEventListener('click', () => {
+    const open = !tocIsOpen();
+    setTocOpen(open);
+    if (open && mobile.matches) $('#toc a')?.focus({preventScroll:true});
+  });
+  function dismissToc() {
+    setTocOpen(false);
+    root.removeAttribute('data-note-bar-hidden');
+    tocToggle.focus({preventScroll:true});
+  }
+  $('#toc-close').addEventListener('click', dismissToc);
+  document.addEventListener('keydown', event => {
+    const focusInToc = contents.contains(document.activeElement) || document.activeElement === tocToggle;
+    if (event.key === 'Escape' && !event.defaultPrevented && tocIsOpen() &&
+        (mobile.matches || focusInToc) && !$('#pdf-dialog').open) dismissToc();
+  });
+  mobile.addEventListener('change', closeMobileToc);
+  syncToc();
+
+  let lastScroll = Math.max(0, window.scrollY);
+  let scrollDistance = 0;
+  let topbarHeight = 0;
+  function syncTopbarHeight() {
+    topbarHeight = topbar.offsetHeight;
+    root.style.setProperty('--note-topbar-height', topbarHeight + 'px');
+    updatePosition();
+  }
+  function updateTopbar() {
+    const y = Math.max(0, Math.min(window.scrollY, root.scrollHeight - innerHeight));
+    const delta = y - lastScroll;
+    lastScroll = y;
+    if (y <= 16 || mobileOpen) {
+      root.removeAttribute('data-note-bar-hidden');
+      scrollDistance = 0;
+      return;
+    }
+    if (!delta) return;
+    scrollDistance = Math.sign(delta) === Math.sign(scrollDistance) ? scrollDistance + delta : delta;
+    if (scrollDistance <= -10) root.removeAttribute('data-note-bar-hidden');
+    if (scrollDistance >= 18 && y > topbarHeight) root.setAttribute('data-note-bar-hidden', '');
+  }
+
+  function goToHash(hash, push) {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (!target) return;
+    const proof = target.closest('[data-proof]');
+    if (proof) {
+      setProof(proof, target.closest('[data-proof-idea]') ? 'idea' : 'full');
+      syncToolbar();
+    }
+    closeMobileToc();
+    if (push) {
+      try { history.pushState(null, '', hash); } catch { /* Opaque reader sandbox. */ }
+    }
+    if (target === $('#top') || target === $('#content')) root.removeAttribute('data-note-bar-hidden');
+    target.scrollIntoView({behavior:'instant', block:'start'});
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+    lastScroll = Math.max(0, window.scrollY);
+    scrollDistance = 0;
+    updatePosition();
+  }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    event.preventDefault();
+    goToHash(link.getAttribute('href'), true);
+  });
+  window.addEventListener('hashchange', () => goToHash(location.hash, false));
+
+  function updatePosition() {
+    const y = window.scrollY;
+    const span = root.scrollHeight - innerHeight;
+    $('#progress-bar').style.width = (span > 0 ? Math.min(100, Math.max(0, 100 * y / span)) : 100) + '%';
+    const barBottom = Math.max(0, topbar.getBoundingClientRect().bottom);
+    let active = headings[0];
+    for (const heading of headings) if (heading.getBoundingClientRect().top <= barBottom + 32) active = heading;
+    $$('#toc a').forEach(link => {
+      if (link.hash === '#' + active?.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let pending = false;
+  window.addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      updateTopbar();
+      updatePosition();
+    });
+  }, {passive:true});
+  window.addEventListener('resize', syncTopbarHeight);
+  topbar.addEventListener('transitionend', updatePosition);
+  new ResizeObserver(syncTopbarHeight).observe(topbar);
+  syncTopbarHeight();
+  if (location.hash) goToHash(location.hash, false);
+  // FAM:READING-NAVIGATION-END
 
   const dialog=$('#pdf-dialog');let printChoice='full';
-  $('#pdf-open').addEventListener('click',()=>{closeToc();$('#pdf-status').textContent='';dialog.showModal();});
+  $('#pdf-open').addEventListener('click',()=>{closeMobileToc();$('#pdf-status').textContent='';dialog.showModal();});
   $('#pdf-close').addEventListener('click',()=>dialog.close());
   $$('input[name="pdf-mode"]').forEach(r=>r.addEventListener('change',()=>{if(r.checked)printChoice=r.value;}));
   // Ctrl+P always exports full proofs; the explicit dialog temporarily selects a variant.

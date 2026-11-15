@@ -567,6 +567,99 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 -->
+
+<style id="fam-reviewed-figures">
+#content svg[data-fam-figure] {
+  --fig-paper:#faf8f1; --fig-ink:#24342d; --fig-muted:#52645a;
+  --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+  --fig-rose:#ac3454; --fig-gold:#885914;
+  display:block; max-width:100%; height:auto; margin-inline:auto;
+  color:var(--fig-ink); font-family:Arial, sans-serif;
+}
+html[data-theme="parchment"] #content svg[data-fam-figure] {
+  --fig-paper:#f1e7d3; --fig-ink:#353023; --fig-muted:#665b49;
+  --fig-rule:#cabc9d; --fig-blue:#244fb1; --fig-green:#166349;
+  --fig-rose:#972e4c; --fig-gold:#795419;
+}
+html[data-theme="dark"] #content svg[data-fam-figure] {
+  --fig-paper:#17231e; --fig-ink:#ecf0e6; --fig-muted:#bac9bd;
+  --fig-rule:#465c50; --fig-blue:#a3c0ff; --fig-green:#80d4b2;
+  --fig-rose:#ffa2b5; --fig-gold:#f0c67c;
+}
+#content svg[data-fam-figure] .venn-fill {fill:var(--fig-blue);fill-opacity:.16}
+#content svg[data-fam-figure] .venn-fill-danger {fill:var(--fig-rose);fill-opacity:.19}
+#content svg[data-fam-figure] text {dominant-baseline:auto}
+#content svg[data-fam-figure="plot-original"] {background:white;color:#26352e}
+@media print {
+  html[data-theme] #content svg[data-fam-figure] {
+    --fig-paper:#fff; --fig-ink:#24342d; --fig-muted:#52645a;
+    --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+    --fig-rose:#ac3454; --fig-gold:#885914;
+  }
+}
+</style>
+<style id="fam-reading-navigation">
+/* FAM:READING-NAVIGATION-START */
+@media screen {
+  .topbar {
+    transform: translateY(0);
+  }
+  #toc-toggle, #toc-close {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 11px;
+  }
+  #toc-toggle:hover, #toc-close:hover {
+    color: var(--gold);
+  }
+  .reading-progress {
+    top: max(0px, calc(var(--note-topbar-height, 88px) - 1px));
+  }
+  .contents {
+    top: calc(var(--note-topbar-height, 88px) + 24px);
+    max-height: calc(100svh - var(--note-topbar-height, 88px) - 48px);
+  }
+  .chapter [id], .lecture-head, #content {
+    scroll-margin-top: calc(var(--note-topbar-height, 88px) + 24px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .topbar {
+    transform: translateY(-100%);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .reading-progress {
+    top: 0;
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .contents {
+    top: 24px;
+    max-height: calc(100svh - 48px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) :is(.chapter [id], .lecture-head, #content) {
+    scroll-margin-top: 24px;
+  }
+}
+@media screen and (min-width: 761px) {
+  .layout[data-toc-collapsed] {
+    grid-template-columns: minmax(0, 820px);
+    justify-content: center;
+  }
+  .layout[data-toc-collapsed] > .contents {
+    display: none;
+  }
+}
+@media screen and (max-width: 760px) {
+  .contents.is-open {
+    inset: var(--note-topbar-height, 70px) 0 0;
+    max-height: none;
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .topbar { transition: transform .22s ease; }
+  .contents, .reading-progress { transition: top .22s ease; }
+}
+@media screen {
+  html:has(.contents.is-open) { overflow: hidden; }
+}
+/* FAM:READING-NAVIGATION-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -591,7 +684,7 @@ SOFTWARE.
         <div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>Академический конспект ФПМ</span></div>
         <h1>Аналитическая геометрия  6: Плоскость и прямая в пространстве</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[', right: '\]</div></div>
+
       </header>
       <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
       <div class="proof-toolbar" aria-label="Все доказательства">
@@ -648,7 +741,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Плоскость в пространстве</div>
   <h2 id="chapter-2" data-toc="Плоскость в пространстве">Плоскость в пространстве</h2>
-  
+
 <p>Векторные, параметрические, координатные и метрические формы задания плоскости в $\mathbb{R}^3$</p>
 
 
@@ -678,83 +771,8 @@ SOFTWARE.
         </p>
 <!-- SVG 1: Векторно-параметрическое задание плоскости -->
 <div class="figure-box">
-<svg aria-label="Векторно-параметрическое уравнение плоскости" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 315" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<lineargradient id="planeGrad1" x1="0%" x2="100%" y1="0%" y2="100%">
-<stop offset="0%" stop-color="var(--accent-blue)" stop-opacity="0.28"></stop>
-<stop offset="100%" stop-color="var(--accent-teal)" stop-opacity="0.10"></stop>
-</lineargradient>
-<marker id="m-axis" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--text-muted)"></path>
-</marker>
-<marker id="m-rose" markerheight="6.5" markerwidth="6.5" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose)"></path>
-</marker>
-<marker id="m-blue" markerheight="6.5" markerwidth="6.5" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue)"></path>
-</marker>
-<marker id="m-teal" markerheight="6.5" markerwidth="6.5" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-teal)"></path>
-</marker>
-<marker id="m-prim" markerheight="6.5" markerwidth="6.5" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--text-primary)"></path>
-</marker>
-</defs>
-<!-- Фоновая координатная сетка -->
-<g opacity="0.55" stroke="var(--svg-grid)" stroke-width="1">
-<line x1="20" x2="660" y1="60" y2="60"></line>
-<line x1="20" x2="660" y1="120" y2="120"></line>
-<line x1="20" x2="660" y1="180" y2="180"></line>
-<line x1="20" x2="660" y1="240" y2="240"></line>
-<line x1="120" x2="120" y1="20" y2="295"></line>
-<line x1="260" x2="260" y1="20" y2="295"></line>
-<line x1="400" x2="400" y1="20" y2="295"></line>
-<line x1="540" x2="540" y1="20" y2="295"></line>
-</g>
-<!-- Плоскость P (параллелограмм с внутренними линиями координатной сетки u,v) -->
-<polygon fill="url(#planeGrad1)" points="215,190 320,58 595,128 490,260" stroke="var(--accent-blue)" stroke-width="1.8"></polygon>
-<line opacity="0.5" stroke="var(--accent-blue)" stroke-dasharray="4,4" stroke-width="0.8" x1="250" x2="525" y1="146" y2="216"></line>
-<line opacity="0.5" stroke="var(--accent-blue)" stroke-dasharray="4,4" stroke-width="0.8" x1="285" x2="560" y1="102" y2="172"></line>
-<line opacity="0.5" stroke="var(--accent-blue)" stroke-dasharray="4,4" stroke-width="0.8" x1="306" x2="411" y1="213" y2="81"></line>
-<line opacity="0.5" stroke="var(--accent-blue)" stroke-dasharray="4,4" stroke-width="0.8" x1="398" x2="503" y1="236" y2="104"></line>
-<rect fill="var(--svg-label-bg)" height="24" rx="5" stroke="var(--accent-blue)" stroke-width="1" width="32" x="548" y="132"></rect>
-<text fill="var(--accent-blue)" font-size="15" font-style="italic" font-weight="800" text-anchor="middle" x="564" y="149">P</text>
-<!-- Оси координат OXYZ (как на слайде 2) -->
-<line marker-end="url(#m-axis)" stroke="var(--text-muted)" stroke-width="2" x1="145" x2="145" y1="248" y2="140"></line>
-<line marker-end="url(#m-axis)" stroke="var(--text-muted)" stroke-width="2" x1="145" x2="245" y1="248" y2="248"></line>
-<line marker-end="url(#m-axis)" stroke="var(--text-muted)" stroke-width="2" x1="145" x2="92" y1="248" y2="294"></line>
-<text fill="var(--text-secondary)" font-size="14" font-style="italic" font-weight="700" x="128" y="148">Z</text>
-<text fill="var(--text-secondary)" font-size="14" font-style="italic" font-weight="700" x="252" y="253">X</text>
-<text fill="var(--text-secondary)" font-size="14" font-style="italic" font-weight="700" x="75" y="298">Y</text>
-<text fill="var(--text-heading)" font-size="14" font-style="italic" font-weight="800" x="126" y="244">O</text>
-<circle cx="145" cy="248" fill="var(--text-heading)" r="3.5"></circle>
-<!-- Параллелограмм разложения вектора M0M = ua + vb на плоскости P -->
-<!-- M0 = (305, 168), M0 + ua = (365, 118), M0 + vb = (430, 203), M = (490, 153) -->
-<line stroke="var(--accent-teal)" stroke-dasharray="5,4" stroke-width="1.6" x1="365" x2="490" y1="118" y2="153"></line>
-<line stroke="var(--accent-teal)" stroke-dasharray="5,4" stroke-width="1.6" x1="430" x2="490" y1="203" y2="153"></line>
-<line marker-end="url(#m-teal)" stroke="var(--accent-teal)" stroke-width="2.3" x1="305" x2="365" y1="168" y2="118"></line>
-<line marker-end="url(#m-teal)" stroke="var(--accent-teal)" stroke-width="2.3" x1="305" x2="430" y1="168" y2="203"></line>
-<line marker-end="url(#m-blue)" stroke="var(--accent-blue)" stroke-width="2.5" x1="305" x2="490" y1="168" y2="153"></line>
-<text fill="var(--accent-teal)" font-size="14" font-style="italic" font-weight="700" x="318" y="132">uā</text>
-<text fill="var(--accent-teal)" font-size="14" font-style="italic" font-weight="700" x="355" y="203">vb̄</text>
-<text fill="var(--accent-blue)" font-size="13.5" font-weight="700" x="382" y="148">uā + vb̄</text>
-<!-- Свободные направляющие векторы a и b вне плоскости (как на слайде 2) -->
-<line marker-end="url(#m-blue)" stroke="var(--accent-blue)" stroke-width="2.3" x1="325" x2="385" y1="45" y2="33"></line>
-<text fill="var(--accent-blue)" font-size="15" font-style="italic" font-weight="800" x="350" y="28">ā</text>
-<line marker-end="url(#m-blue)" stroke="var(--accent-blue)" stroke-width="2.3" x1="370" x2="445" y1="248" y2="270"></line>
-<text fill="var(--accent-blue)" font-size="15" font-style="italic" font-weight="800" x="402" y="284">b̄</text>
-<!-- Радиус-векторы r0 и r -->
-<line marker-end="url(#m-rose)" stroke="var(--accent-rose)" stroke-width="2.5" x1="145" x2="305" y1="248" y2="168"></line>
-<line marker-end="url(#m-prim)" stroke="var(--text-primary)" stroke-width="2.3" x1="145" x2="490" y1="248" y2="153"></line>
-<rect fill="var(--svg-label-bg)" height="22" rx="4" width="28" x="202" y="182"></rect>
-<text fill="var(--accent-rose)" font-size="15" font-style="italic" font-weight="800" text-anchor="middle" x="216" y="198">r̄₀</text>
-<rect fill="var(--svg-label-bg)" height="22" rx="4" width="24" x="308" y="205"></rect>
-<text fill="var(--text-primary)" font-size="15" font-style="italic" font-weight="800" text-anchor="middle" x="320" y="221">r̄</text>
-<!-- Точки M0 и M -->
-<circle cx="305" cy="168" fill="var(--accent-rose)" r="4.5" stroke="var(--bg-surface)" stroke-width="1.5"></circle>
-<text fill="var(--text-heading)" font-size="15" font-style="italic" font-weight="800" x="275" y="160">M₀</text>
-<circle cx="490" cy="153" fill="var(--accent-blue)" r="4.5" stroke="var(--bg-surface)" stroke-width="1.5"></circle>
-<text fill="var(--text-heading)" font-size="15" font-style="italic" font-weight="800" x="502" y="157">M(r̄)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 316" role="img" aria-label="Радиус-векторы двух точек и параллелограмм направляющих векторов плоскости" data-fam-figure="diagram" data-fam-index="1"><g transform="translate(0 -79)">
+<path d="M306.1,162.35 L496.42,233.72 L363.04,322.64 L172.72,251.27 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><line x1="242.92" y1="180.51" x2="304.97" y2="188.5" stroke="var(--fig-rose)" stroke-width="2.1" /><path d="M313.9,189.65 L304.48,192.34 L305.47,184.66 Z" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="291.9" y="185.65" text-anchor="middle" fill="var(--fig-rose)" font-size="14">r₀</text><line x1="242.92" y1="180.51" x2="335.78" y2="253.45" stroke="var(--fig-ink)" stroke-width="2.1" /><path d="M342.85,259.01 L333.39,256.49 L338.17,250.4 Z" fill="var(--fig-ink)" stroke="var(--fig-ink)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="368.85" y="268.01" text-anchor="middle" fill="var(--fig-ink)" font-size="14">r</text><line x1="313.9" y1="189.65" x2="390.59" y2="218.41" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M399.01,221.57 L389.23,222.03 L391.95,214.78 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="411.01" y="237.57" text-anchor="middle" fill="var(--fig-blue)" font-size="14">ua</text><line x1="313.9" y1="189.65" x2="265.23" y2="222.1" stroke="var(--fig-green)" stroke-width="2.1" /><path d="M257.74,227.09 L263.08,218.88 L267.38,225.32 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="245.74" y="243.09" text-anchor="middle" fill="var(--fig-green)" font-size="14">vb</text><line x1="313.9" y1="189.65" x2="339.39" y2="250.7" stroke="var(--fig-gold)" stroke-width="2.1" /><path d="M342.85,259.01 L335.82,252.19 L342.96,249.21 Z" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="373.85" y="249.01" text-anchor="middle" fill="var(--fig-gold)" font-size="14">ua + vb</text><line x1="399.01" y1="221.57" x2="342.85" y2="259.01" stroke="var(--fig-muted)" stroke-width="1.2" stroke-dasharray="4 4"/><line x1="257.74" y1="227.09" x2="342.85" y2="259.01" stroke="var(--fig-muted)" stroke-width="1.2" stroke-dasharray="4 4"/><text x="228.92" y="192.51" text-anchor="middle" fill="var(--fig-ink)" font-size="14">O</text><text x="294.9" y="198.65" text-anchor="middle" fill="var(--fig-ink)" font-size="14">M₀</text><text x="342.85" y="240.01" text-anchor="middle" fill="var(--fig-ink)" font-size="14">M</text></g><text x="320" y="294" text-anchor="middle" fill="var(--fig-ink)" font-size="16">P: r = r₀ + ua + vb</text>
 </svg>
 <div class="figure-caption">
 <strong>Рис. 1 (к слайду 2).</strong> Векторно-параметрическое задание плоскости $P$ начальной точкой $M_0(\bar{r}_0)$ и парой неколлинеарных направляющих векторов $\bar{a} \nparallel \bar{b}$: радиус-вектор любой точки $M \in P$ складывается из $\bar{r}_0$ и линейной комбинации $u\bar{a} + v\bar{b}$.
@@ -893,18 +911,18 @@ SOFTWARE.
 </div>
 <!-- SVG 2: Плоскость в отрезках и векторные формы -->
 <div class="figure-box">
-<svg height="290" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 290" width="680" xmlns="http://www.w3.org/2000/svg">
+<svg height="290" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 290" width="680" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 2 (к слайдам 4–5). а) Плоскость в отрезках $\frac{x}{a} + \frac{y}{b} + \frac{z}{c} = 1$, отсекающая на осях координат отрезки $a, b, c$. б) Задание плоскости точкой $M_0(\bar{r}_0)$ и нормальным вектором $\bar{n} \perp P$: вектор $\bar{r} - \bar{r}_0$ лежит в плоскости $P$ тогда и только тогда, когда $(\bar{r} - \bar{r}_0, \bar{n}) = 0$." data-fam-figure="diagram" data-fam-index="2">
 <defs>
-<marker id="ag6-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-2-ag6-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
 </marker>
-<marker id="ag6-arr-rose" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-2-ag6-arr-rose" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose, #f43f5e)"></path>
 </marker>
-<marker id="ag6-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-2-ag6-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
 </marker>
-<marker id="ag6-arr-teal" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-2-ag6-arr-teal" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-teal, #14b8a6)"></path>
 </marker>
 </defs>
@@ -913,11 +931,11 @@ SOFTWARE.
 <rect fill="var(--bg-card-alt, #1e293b)" height="265" rx="10" stroke="var(--border-color, #334155)" stroke-width="1.2" width="310" x="0" y="0"></rect>
 <text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="800" text-anchor="middle" x="155" y="26">а) Плоскость в отрезках (п. 3)</text>
 <!-- Axes Z, Y, X -->
-<line marker-end="url(#ag6-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="115" x2="115" y1="175" y2="45"></line>
+<line marker-end="url(#fam-fig-2-ag6-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="115" x2="115" y1="175" y2="45"></line>
 <text fill="var(--border-color, #94a3b8)" font-size="14" font-weight="700" x="98" y="52">Z</text>
-<line marker-end="url(#ag6-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="115" x2="285" y1="175" y2="175"></line>
+<line marker-end="url(#fam-fig-2-ag6-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="115" x2="285" y1="175" y2="175"></line>
 <text fill="var(--border-color, #94a3b8)" font-size="14" font-weight="700" x="290" y="180">Y</text>
-<line marker-end="url(#ag6-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="115" x2="32" y1="175" y2="246"></line>
+<line marker-end="url(#fam-fig-2-ag6-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="115" x2="32" y1="175" y2="246"></line>
 <text fill="var(--border-color, #94a3b8)" font-size="14" font-weight="700" x="18" y="255">X</text>
 <text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="98" y="170">O</text>
 <!-- Triangle M1(a,0,0), M2(0,b,0), M3(0,0,c) -->
@@ -943,14 +961,14 @@ SOFTWARE.
 <!-- Right angle square -->
 <polyline fill="none" points="130,160 144,161.5 144,175.5" stroke="var(--accent-rose, #f43f5e)" stroke-width="1.8"></polyline>
 <!-- Normal n = [p, q] -->
-<line marker-end="url(#ag6-arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="2.8" x1="130" x2="130" y1="174" y2="58"></line>
+<line marker-end="url(#fam-fig-2-ag6-arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="2.8" x1="130" x2="130" y1="174" y2="58"></line>
 <text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="800" x="142" y="72">n̄ = [p̄, q̄] ⊥ P</text>
 <!-- Vector r - r0 -->
-<line marker-end="url(#ag6-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="2.6" x1="130" x2="232" y1="174" y2="185"></line>
+<line marker-end="url(#fam-fig-2-ag6-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="2.6" x1="130" x2="232" y1="174" y2="185"></line>
 <text fill="var(--accent-blue, #38bdf8)" font-size="14" font-weight="800" x="165" y="205">r̄ − r̄₀</text>
 <!-- Direction vectors p and q -->
-<line marker-end="url(#ag6-arr-teal)" stroke="var(--accent-teal, #14b8a6)" stroke-width="1.8" x1="130" x2="92" y1="174" y2="198"></line>
-<line marker-end="url(#ag6-arr-teal)" stroke="var(--accent-teal, #14b8a6)" stroke-width="1.8" x1="130" x2="170" y1="174" y2="146"></line>
+<line marker-end="url(#fam-fig-2-ag6-arr-teal)" stroke="var(--accent-teal, #14b8a6)" stroke-width="1.8" x1="130" x2="92" y1="174" y2="198"></line>
+<line marker-end="url(#fam-fig-2-ag6-arr-teal)" stroke="var(--accent-teal, #14b8a6)" stroke-width="1.8" x1="130" x2="170" y1="174" y2="146"></line>
 <text fill="var(--accent-teal, #14b8a6)" font-size="13" font-weight="700" x="75" y="196">p̄</text>
 <text fill="var(--accent-teal, #14b8a6)" font-size="13" font-weight="700" x="175" y="144">q̄</text>
 <!-- Points M0 and M -->
@@ -1146,73 +1164,8 @@ SOFTWARE.
         </p>
 <!-- SVG 3: Параллелепипед и высота h = расстояние от точки до плоскости -->
 <div class="figure-box">
-<svg aria-label="Вывод расстояния от точки до плоскости через объём параллелепипеда" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 315" xmlns="http://www.w3.org/2000/svg"><defs><marker id="m-rose" markerheight="6.5" markerwidth="6.5" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose)"></path>
-</marker><marker id="m-prim" markerheight="6.5" markerwidth="6.5" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--text-primary)"></path>
-</marker><marker id="m-blue" markerheight="6.5" markerwidth="6.5" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue)"></path>
-</marker></defs>
-<!-- Фоновая координатная сетка -->
-<g opacity="0.5" stroke="var(--svg-grid)" stroke-width="1">
-<line x1="20" x2="660" y1="60" y2="60"></line>
-<line x1="20" x2="660" y1="120" y2="120"></line>
-<line x1="20" x2="660" y1="180" y2="180"></line>
-<line x1="20" x2="660" y1="240" y2="240"></line>
-<line x1="140" x2="140" y1="20" y2="295"></line>
-<line x1="280" x2="280" y1="20" y2="295"></line>
-<line x1="420" x2="420" y1="20" y2="295"></line>
-<line x1="560" x2="560" y1="20" y2="295"></line>
-</g>
-<!-- Плоскость P -->
-<polygon fill="url(#planeGrad1)" points="185,228 275,132 585,132 495,228" stroke="var(--accent-blue)" stroke-width="1.8"></polygon>
-<rect fill="var(--svg-label-bg)" height="24" rx="5" stroke="var(--accent-blue)" stroke-width="1" width="32" x="535" y="195"></rect>
-<text fill="var(--accent-blue)" font-size="15" font-style="italic" font-weight="800" text-anchor="middle" x="551" y="212">P</text>
-<!-- Начало координат O -->
-<line marker-end="url(#m-rose)" stroke="var(--accent-rose)" stroke-width="2" x1="125" x2="125" y1="274" y2="215"></line>
-<line marker-end="url(#m-rose)" stroke="var(--accent-rose)" stroke-width="2" x1="125" x2="185" y1="274" y2="274"></line>
-<line marker-end="url(#m-rose)" stroke="var(--accent-rose)" stroke-width="2" x1="125" x2="92" y1="274" y2="302"></line>
-<circle cx="125" cy="274" fill="var(--accent-rose)" r="3.5"></circle>
-<text fill="var(--text-heading)" font-size="14" font-style="italic" font-weight="800" x="105" y="298">O</text>
-<!-- Полупрозрачная заливка граней параллелепипеда -->
-<!-- M0=(320,200), p=(115,0)->(435,200), q=(42,-48)->(362,152), M0+p+q=(477,152) -->
-<!-- M=(355,82), M+p=(470,82), M+q=(397,34), M+p+q=(512,34) -->
-<polygon fill="var(--svg-plane-teal)" opacity="0.6" points="320,200 435,200 477,152 362,152"></polygon>
-<polygon fill="var(--svg-plane-purple)" opacity="0.45" points="355,82 470,82 512,34 397,34"></polygon>
-<!-- Пунктирные рёбра параллелепипеда -->
-<line stroke="var(--text-muted)" stroke-dasharray="5,4" stroke-width="1.5" x1="362" x2="477" y1="152" y2="152"></line>
-<line stroke="var(--text-muted)" stroke-dasharray="5,4" stroke-width="1.5" x1="435" x2="477" y1="200" y2="152"></line>
-<line stroke="var(--text-secondary)" stroke-dasharray="5,4" stroke-width="1.6" x1="355" x2="470" y1="82" y2="82"></line>
-<line stroke="var(--text-secondary)" stroke-dasharray="5,4" stroke-width="1.6" x1="355" x2="397" y1="82" y2="34"></line>
-<line stroke="var(--text-secondary)" stroke-dasharray="5,4" stroke-width="1.6" x1="397" x2="512" y1="34" y2="34"></line>
-<line stroke="var(--text-secondary)" stroke-dasharray="5,4" stroke-width="1.6" x1="470" x2="512" y1="82" y2="34"></line>
-<line stroke="var(--text-secondary)" stroke-dasharray="5,4" stroke-width="1.6" x1="435" x2="470" y1="200" y2="82"></line>
-<line stroke="var(--text-secondary)" stroke-dasharray="5,4" stroke-width="1.6" x1="362" x2="397" y1="152" y2="34"></line>
-<line stroke="var(--text-secondary)" stroke-dasharray="5,4" stroke-width="1.6" x1="477" x2="512" y1="152" y2="34"></line>
-<!-- Высота h из M(355, 82) на плоскость P в точку H(355, 182) -->
-<line stroke="var(--accent-teal)" stroke-width="2.8" x1="355" x2="355" y1="82" y2="182"></line>
-<polyline fill="none" points="355,170 366,170 366,182" stroke="var(--accent-teal)" stroke-width="1.8"></polyline>
-<rect fill="var(--svg-label-bg)" height="22" rx="4" width="24" x="362" y="118"></rect>
-<text fill="var(--accent-teal)" font-size="15" font-style="italic" font-weight="800" text-anchor="middle" x="374" y="135">h</text>
-<!-- Векторы основания p и q -->
-<line marker-end="url(#m-prim)" stroke="var(--text-primary)" stroke-width="2.4" x1="320" x2="435" y1="200" y2="200"></line>
-<line marker-end="url(#m-prim)" stroke="var(--text-primary)" stroke-width="2.4" x1="320" x2="362" y1="200" y2="152"></line>
-<text fill="var(--text-heading)" font-size="15" font-style="italic" font-weight="800" x="378" y="218">p̄</text>
-<text fill="var(--text-heading)" font-size="15" font-style="italic" font-weight="800" x="324" y="172">q̄</text>
-<!-- Боковое ребро R - r0 -->
-<line marker-end="url(#m-blue)" stroke="var(--accent-blue)" stroke-width="2.6" x1="320" x2="355" y1="200" y2="82"></line>
-<rect fill="var(--svg-label-bg)" height="24" rx="5" stroke="var(--border-color)" width="62" x="242" y="96"></rect>
-<text fill="var(--accent-blue)" font-size="14.5" font-style="italic" font-weight="800" text-anchor="middle" x="273" y="113">R̄ − r̄₀</text>
-<!-- Радиус-векторы r0 и R -->
-<line marker-end="url(#m-prim)" stroke="var(--text-primary)" stroke-width="2.2" x1="125" x2="320" y1="274" y2="200"></line>
-<line marker-end="url(#m-prim)" stroke="var(--text-primary)" stroke-width="2.2" x1="125" x2="355" y1="274" y2="82"></line>
-<text fill="var(--text-heading)" font-size="15" font-style="italic" font-weight="800" x="242" y="252">r̄₀</text>
-<text fill="var(--text-heading)" font-size="15" font-style="italic" font-weight="800" x="215" y="172">R̄</text>
-<!-- Точки M0 и M -->
-<circle cx="320" cy="200" fill="var(--text-heading)" r="4.5" stroke="var(--bg-surface)" stroke-width="1.5"></circle>
-<text fill="var(--text-heading)" font-size="14" font-weight="800" x="290" y="216">M₀</text>
-<circle cx="355" cy="82" fill="var(--accent-blue)" r="4.5" stroke="var(--bg-surface)" stroke-width="1.5"></circle>
-<text fill="var(--text-heading)" font-size="14" font-weight="800" x="315" y="68">M(x₁, y₁, z₁)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 326" role="img" aria-label="Перпендикуляр MH к плоскости и параллелепипед на p, q, M₀M" data-fam-figure="diagram" data-fam-index="3"><g transform="translate(0 -38)">
+<path d="M320.36,153.76 L521,229 L378.44,324.04 L177.8,248.8 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><path d="M326.52,197.32 L435.64,238.24 L370.17,281.89 L261.05,240.97 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><path d="M349.93,97.05 L459.05,137.97 L393.58,181.62 L284.46,140.7 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><line x1="326.52" y1="197.32" x2="349.93" y2="97.05" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="5 4"/><line x1="435.64" y1="238.24" x2="459.05" y2="137.97" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="5 4"/><line x1="370.17" y1="281.89" x2="393.58" y2="181.62" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="5 4"/><line x1="261.05" y1="240.97" x2="284.46" y2="140.7" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="5 4"/><line x1="326.52" y1="197.32" x2="347.88" y2="105.81" stroke="var(--fig-rose)" stroke-width="2.1" /><path d="M349.93,97.05 L351.65,106.69 L344.11,104.93 Z" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="371.93" y="84.05" text-anchor="middle" fill="var(--fig-rose)" font-size="14">M₀M</text><line x1="326.52" y1="197.32" x2="427.21" y2="235.08" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M435.64,238.24 L425.85,238.7 L428.57,231.46 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="449.64" y="256.24" text-anchor="middle" fill="var(--fig-blue)" font-size="14">p</text><line x1="326.52" y1="197.32" x2="268.54" y2="235.98" stroke="var(--fig-green)" stroke-width="2.1" /><path d="M261.05,240.97 L266.39,232.76 L270.68,239.2 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="247.05" y="257.97" text-anchor="middle" fill="var(--fig-green)" font-size="14">q</text><line x1="349.93" y1="241.85" x2="349.93" y2="97.05" stroke="var(--fig-gold)" stroke-width="2.8" stroke-dasharray="4 3"/><circle cx="349.93" cy="241.85" r="3" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="1.6"/><circle cx="349.93" cy="97.05" r="3" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"/><text x="363.93" y="169.45" text-anchor="middle" fill="var(--fig-gold)" font-size="14">h</text><text x="307.52" y="206.32" text-anchor="middle" fill="var(--fig-ink)" font-size="14">M₀</text><text x="359.93" y="251.85" text-anchor="middle" fill="var(--fig-ink)" font-size="14">H</text><text x="337.93" y="87.05" text-anchor="middle" fill="var(--fig-ink)" font-size="14">M</text></g><text x="320" y="306" text-anchor="middle" fill="var(--fig-ink)" font-size="16">MH ⟂ P   ·   V = |p × q| · MH</text>
 </svg>
 <div class="figure-caption">
 <strong>Рис. 3 (к слайду 8).</strong> Вычисление расстояния $h = \rho(M, P)$ от точки $M(\bar{R})$ до плоскости $P$: объём параллелепипеда $V_{\text{пар-да}} = |\langle \bar{R} - \bar{r}_0, \bar{p}, \bar{q} \rangle|$ равен произведению высоты $h$ на площадь основания $S_{\text{осн}} = |[\bar{p}, \bar{q}]|$.
@@ -1331,7 +1284,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-3">
   <div class="chapter-kicker">03 / Уравнения прямой в пространстве</div>
   <h2 id="chapter-3" data-toc="Уравнения прямой в пространстве">Уравнения прямой в пространстве</h2>
-  
+
 <p>Векторные, параметрические, канонические и общие уравнения прямой и переходы между ними</p>
 
 
@@ -1450,52 +1403,8 @@ SOFTWARE.
 </div>
 <!-- SVG 4: Общее уравнение прямой как пересечение двух плоскостей -->
 <div class="figure-box">
-<svg aria-label="Прямая как пересечение двух плоскостей и направляющий вектор a = [n1, n2]" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 295" xmlns="http://www.w3.org/2000/svg"><defs><marker id="m-rose" markerheight="6.5" markerwidth="6.5" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose)"></path>
-</marker><marker id="m-teal" markerheight="6.5" markerwidth="6.5" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-teal)"></path>
-</marker><marker id="m-blue" markerheight="6.5" markerwidth="6.5" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue)"></path>
-</marker></defs>
-<!-- Фоновая координатная сетка -->
-<g opacity="0.5" stroke="var(--svg-grid)" stroke-width="1">
-<line x1="20" x2="660" y1="60" y2="60"></line>
-<line x1="20" x2="660" y1="120" y2="120"></line>
-<line x1="20" x2="660" y1="180" y2="180"></line>
-<line x1="20" x2="660" y1="240" y2="240"></line>
-<line x1="140" x2="140" y1="20" y2="280"></line>
-<line x1="340" x2="340" y1="20" y2="280"></line>
-<line x1="540" x2="540" y1="20" y2="280"></line>
-</g>
-<!-- Задние полы плоскостей (I) и (II) -->
-<polygon fill="url(#planeGrad1)" points="340,42 485,12 485,212 340,242" stroke="var(--accent-blue)" stroke-width="1.5"></polygon>
-<polygon fill="url(#planeGrad3)" points="340,42 215,22 215,222 340,242" stroke="var(--accent-teal)" stroke-width="1.5"></polygon>
-<!-- Передние полы плоскостей (I) и (II) -->
-<polygon fill="url(#planeGrad1)" points="340,42 195,72 195,272 340,242" stroke="var(--accent-blue)" stroke-width="1.8"></polygon>
-<polygon fill="url(#planeGrad3)" points="340,42 465,62 465,262 340,242" stroke="var(--accent-teal)" stroke-width="1.8"></polygon>
-<!-- Прямая пересечения (**) -->
-<line stroke="var(--text-primary)" stroke-dasharray="5,4" stroke-width="2.4" x1="340" x2="340" y1="24" y2="266"></line>
-<!-- Уголки прямых углов между a и n1, n2 -->
-<polyline fill="none" points="340,145 352,149 352,162" stroke="var(--accent-blue)" stroke-width="1.5"></polyline>
-<polyline fill="none" points="340,145 328,149 328,162" stroke="var(--accent-teal)" stroke-width="1.5"></polyline>
-<!-- Нормальный вектор n1 (к плоскости I) -->
-<line marker-end="url(#m-blue)" stroke="var(--accent-blue)" stroke-width="2.6" x1="340" x2="442" y1="158" y2="188"></line>
-<rect fill="var(--svg-label-bg)" height="26" rx="6" stroke="var(--accent-blue)" stroke-width="1" width="155" x="450" y="172"></rect>
-<text fill="var(--accent-blue)" font-size="14" font-style="italic" font-weight="800" text-anchor="middle" x="527" y="190">n̄₁ = (A₁, B₁, C₁)</text>
-<!-- Нормальный вектор n2 (к плоскости II) -->
-<line marker-end="url(#m-teal)" stroke="var(--accent-teal)" stroke-width="2.6" x1="340" x2="238" y1="158" y2="188"></line>
-<rect fill="var(--svg-label-bg)" height="26" rx="6" stroke="var(--accent-teal)" stroke-width="1" width="155" x="72" y="172"></rect>
-<text fill="var(--accent-teal)" font-size="14" font-style="italic" font-weight="800" text-anchor="middle" x="149" y="190">n̄₂ = (A₂, B₂, C₂)</text>
-<!-- Направляющий вектор прямой a = [n1, n2] -->
-<line marker-end="url(#m-rose)" stroke="var(--accent-rose)" stroke-width="3.2" x1="340" x2="340" y1="158" y2="68"></line>
-<rect fill="var(--svg-label-bg)" height="26" rx="6" stroke="var(--accent-rose)" stroke-width="1" width="118" x="352" y="68"></rect>
-<text fill="var(--accent-rose)" font-size="14.5" font-style="italic" font-weight="800" text-anchor="middle" x="411" y="86">ā = [n̄₁, n̄₂]</text>
-<circle cx="340" cy="158" fill="var(--text-heading)" r="4.5" stroke="var(--bg-surface)" stroke-width="1.5"></circle>
-<!-- Метки плоскостей (I) и (II) -->
-<rect fill="var(--svg-label-bg)" height="24" rx="5" stroke="var(--accent-blue)" stroke-width="1" width="36" x="208" y="236"></rect>
-<text fill="var(--accent-blue)" font-size="13.5" font-weight="800" text-anchor="middle" x="226" y="253">(I)</text>
-<rect fill="var(--svg-label-bg)" height="24" rx="5" stroke="var(--accent-teal)" stroke-width="1" width="38" x="420" y="230"></rect>
-<text fill="var(--accent-teal)" font-size="13.5" font-weight="800" text-anchor="middle" x="439" y="247">(II)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 335" role="img" aria-label="Две плоскости и векторное произведение нормалей" data-fam-figure="diagram" data-fam-index="4"><g transform="translate(32 2) scale(.9)">
+<path d="M424.4,177.28 L215.6,316.48 L215.6,150.72 L424.4,11.52 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><path d="M180.8,194.68 L459.2,299.08 L459.2,133.32 L180.8,28.92 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><line x1="320" y1="288.32" x2="320" y2="39.68" stroke="var(--fig-gold)" stroke-width="2.1" stroke-dasharray="5 4"/><line x1="320" y1="164" x2="398.57" y2="193.46" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M407,196.62 L397.21,197.09 L399.93,189.84 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="421" y="210.62" text-anchor="middle" fill="var(--fig-blue)" font-size="14">n₁</text><line x1="320" y1="164" x2="262.24" y2="202.51" stroke="var(--fig-green)" stroke-width="2.1" /><path d="M254.75,207.5 L260.09,199.29 L264.39,205.73 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="237.75" y="221.5" text-anchor="middle" fill="var(--fig-green)" font-size="14">n₂</text><line x1="320" y1="164" x2="320" y2="59.98" stroke="var(--fig-gold)" stroke-width="2.1" /><path d="M320,50.98 L323.87,59.98 L316.13,59.98 Z" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="407" y="48.98" text-anchor="middle" fill="var(--fig-gold)" font-size="14">a = n₁ × n₂</text><text x="214.04" y="164.6" text-anchor="middle" fill="var(--fig-blue)" font-size="14">I</text><text x="460.28" y="148.94" text-anchor="middle" fill="var(--fig-green)" font-size="14">II</text></g><text x="320" y="315" text-anchor="middle" fill="var(--fig-ink)" font-size="15">Линия пересечения параллельна n₁ × n₂</text>
 </svg>
 <div class="figure-caption">
 <strong>Рис. 4 (к слайду 13).</strong> Нахождение направляющего вектора прямой $(**)$, заданной пересечением двух плоскостей $(\text{I})$ и $(\text{II})$: векторное произведение $\bar{a} = [\bar{n}_1, \bar{n}_2]$ ортогонально обеим нормалям $\bar{n}_1$ и $\bar{n}_2$, а значит, параллельно линии пересечения плоскостей.
@@ -1618,7 +1527,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-4">
   <div class="chapter-kicker">04 / Сводная таблица всех уравнений…</div>
   <h2 id="chapter-4" data-toc="Сводная таблица всех уравнений…">Сводная таблица всех уравнений Лекции 6</h2>
-  
+
 <p>Быстрый справочник по всем формам уравнений плоскости и прямой в пространстве</p>
 
 
@@ -1811,31 +1720,145 @@ SOFTWARE.
   $$('[data-all-proofs]').forEach(b=>b.addEventListener('click',()=>{proofs.forEach(p=>setProof(p,b.dataset.allProofs));syncToolbar();updatePosition();}));syncToolbar();
 
   // Render before generating the outline, so math in headings gets a clean label.
-  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:true,strict:false});}catch(e){console.warn('Math render note:', e);}
+  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:false,strict:false,ignoredClasses:["math-svg","fam-svg-labels"]});}catch(e){console.warn('Math render note:', e);}
   const headings=$$('h2[data-toc],h3[data-toc]'),list=document.createElement('ol');
   let number=0;
   for(const heading of headings){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+heading.id;if(heading.tagName==='H2'){const n=document.createElement('span');n.className='toc-number';n.textContent=String(++number).padStart(2,'0');n.setAttribute('aria-hidden','true');a.append(n);}else li.className='toc-sub';a.append(document.createTextNode(heading.dataset.toc));li.append(a);list.append(li);}
   $('#toc').replaceChildren(list);$('#section-count').textContent=`Разделов: ${number}`;
-  const mobile=matchMedia('(max-width:760px)');
-  function closeToc(){ $('#contents').classList.remove('is-open');$('#toc-toggle').setAttribute('aria-expanded','false'); }
-  $('#toc-toggle').addEventListener('click',()=>{const open=$('#contents').classList.toggle('is-open');$('#toc-toggle').setAttribute('aria-expanded',String(open));if(open)$('#toc a')?.focus();});
-  $('#toc-close').addEventListener('click',()=>{closeToc();$('#toc-toggle').focus();});
-  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&$('#contents').classList.contains('is-open')){closeToc();$('#toc-toggle').focus();}});
-  mobile.addEventListener('change',closeToc);
-  function goToHash(hash,push){let target;try{target=document.getElementById(decodeURIComponent(hash.slice(1)));}catch{return;}if(!target)return;
-    const proof=target.closest('[data-proof]');if(proof){setProof(proof,target.closest('[data-proof-idea]')?'idea':'full');syncToolbar();}
-    closeToc();if(push){try{history.pushState(null,'',hash);}catch{/* opaque reader sandbox */}}
-    target.scrollIntoView({behavior:'instant',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});updatePosition();
+  // FAM:READING-NAVIGATION-START
+  const root = document.documentElement;
+  const layout = $('.layout');
+  const topbar = $('.topbar');
+  const contents = $('#contents');
+  const tocToggle = $('#toc-toggle');
+  const mobile = matchMedia('(max-width:760px)');
+  let desktopOpen = true;
+  let mobileOpen = false;
+  try { desktopOpen = localStorage.getItem('fam-note-toc') !== 'collapsed'; } catch {}
+
+  function tocIsOpen() { return mobile.matches ? mobileOpen : desktopOpen; }
+  function syncToc() {
+    contents.classList.toggle('is-open', mobile.matches && mobileOpen);
+    layout.toggleAttribute('data-toc-collapsed', !desktopOpen);
+    tocToggle.setAttribute('aria-expanded', String(tocIsOpen()));
   }
-  document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#"]');if(!a)return;ev.preventDefault();goToHash(a.getAttribute('href'),true);});
-  window.addEventListener('hashchange',()=>goToHash(location.hash,false));
-  function updatePosition(){const y=window.scrollY,span=document.documentElement.scrollHeight-innerHeight;$('#progress-bar').style.width=(span>0?Math.min(100,Math.max(0,100*y/span)):100)+'%';let active=headings[0];for(const h of headings)if(h.getBoundingClientRect().top<145)active=h;
-    $$('#toc a').forEach(a=>{if(a.hash==='#'+active?.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
-  let pending=false;window.addEventListener('scroll',()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;updatePosition();});},{passive:true});window.addEventListener('resize',updatePosition);
-  if(location.hash)goToHash(location.hash,false);updatePosition();
+  function closeMobileToc() {
+    mobileOpen = false;
+    syncToc();
+  }
+  function setTocOpen(open) {
+    if (mobile.matches) {
+      mobileOpen = open;
+      if (open) root.removeAttribute('data-note-bar-hidden');
+    } else {
+      desktopOpen = open;
+      try { localStorage.setItem('fam-note-toc', open ? 'expanded' : 'collapsed'); } catch {}
+    }
+    syncToc();
+    updatePosition();
+  }
+  tocToggle.addEventListener('click', () => {
+    const open = !tocIsOpen();
+    setTocOpen(open);
+    if (open && mobile.matches) $('#toc a')?.focus({preventScroll:true});
+  });
+  function dismissToc() {
+    setTocOpen(false);
+    root.removeAttribute('data-note-bar-hidden');
+    tocToggle.focus({preventScroll:true});
+  }
+  $('#toc-close').addEventListener('click', dismissToc);
+  document.addEventListener('keydown', event => {
+    const focusInToc = contents.contains(document.activeElement) || document.activeElement === tocToggle;
+    if (event.key === 'Escape' && !event.defaultPrevented && tocIsOpen() &&
+        (mobile.matches || focusInToc) && !$('#pdf-dialog').open) dismissToc();
+  });
+  mobile.addEventListener('change', closeMobileToc);
+  syncToc();
+
+  let lastScroll = Math.max(0, window.scrollY);
+  let scrollDistance = 0;
+  let topbarHeight = 0;
+  function syncTopbarHeight() {
+    topbarHeight = topbar.offsetHeight;
+    root.style.setProperty('--note-topbar-height', topbarHeight + 'px');
+    updatePosition();
+  }
+  function updateTopbar() {
+    const y = Math.max(0, Math.min(window.scrollY, root.scrollHeight - innerHeight));
+    const delta = y - lastScroll;
+    lastScroll = y;
+    if (y <= 16 || mobileOpen) {
+      root.removeAttribute('data-note-bar-hidden');
+      scrollDistance = 0;
+      return;
+    }
+    if (!delta) return;
+    scrollDistance = Math.sign(delta) === Math.sign(scrollDistance) ? scrollDistance + delta : delta;
+    if (scrollDistance <= -10) root.removeAttribute('data-note-bar-hidden');
+    if (scrollDistance >= 18 && y > topbarHeight) root.setAttribute('data-note-bar-hidden', '');
+  }
+
+  function goToHash(hash, push) {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (!target) return;
+    const proof = target.closest('[data-proof]');
+    if (proof) {
+      setProof(proof, target.closest('[data-proof-idea]') ? 'idea' : 'full');
+      syncToolbar();
+    }
+    closeMobileToc();
+    if (push) {
+      try { history.pushState(null, '', hash); } catch { /* Opaque reader sandbox. */ }
+    }
+    if (target === $('#top') || target === $('#content')) root.removeAttribute('data-note-bar-hidden');
+    target.scrollIntoView({behavior:'instant', block:'start'});
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+    lastScroll = Math.max(0, window.scrollY);
+    scrollDistance = 0;
+    updatePosition();
+  }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    event.preventDefault();
+    goToHash(link.getAttribute('href'), true);
+  });
+  window.addEventListener('hashchange', () => goToHash(location.hash, false));
+
+  function updatePosition() {
+    const y = window.scrollY;
+    const span = root.scrollHeight - innerHeight;
+    $('#progress-bar').style.width = (span > 0 ? Math.min(100, Math.max(0, 100 * y / span)) : 100) + '%';
+    const barBottom = Math.max(0, topbar.getBoundingClientRect().bottom);
+    let active = headings[0];
+    for (const heading of headings) if (heading.getBoundingClientRect().top <= barBottom + 32) active = heading;
+    $$('#toc a').forEach(link => {
+      if (link.hash === '#' + active?.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let pending = false;
+  window.addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      updateTopbar();
+      updatePosition();
+    });
+  }, {passive:true});
+  window.addEventListener('resize', syncTopbarHeight);
+  topbar.addEventListener('transitionend', updatePosition);
+  new ResizeObserver(syncTopbarHeight).observe(topbar);
+  syncTopbarHeight();
+  if (location.hash) goToHash(location.hash, false);
+  // FAM:READING-NAVIGATION-END
 
   const dialog=$('#pdf-dialog');let printChoice='full';
-  $('#pdf-open').addEventListener('click',()=>{closeToc();$('#pdf-status').textContent='';dialog.showModal();});
+  $('#pdf-open').addEventListener('click',()=>{closeMobileToc();$('#pdf-status').textContent='';dialog.showModal();});
   $('#pdf-close').addEventListener('click',()=>dialog.close());
   $$('input[name="pdf-mode"]').forEach(r=>r.addEventListener('change',()=>{if(r.checked)printChoice=r.value;}));
   // Ctrl+P always exports full proofs; the explicit dialog temporarily selects a variant.

@@ -567,6 +567,99 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 -->
+
+<style id="fam-reviewed-figures">
+#content svg[data-fam-figure] {
+  --fig-paper:#faf8f1; --fig-ink:#24342d; --fig-muted:#52645a;
+  --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+  --fig-rose:#ac3454; --fig-gold:#885914;
+  display:block; max-width:100%; height:auto; margin-inline:auto;
+  color:var(--fig-ink); font-family:Arial, sans-serif;
+}
+html[data-theme="parchment"] #content svg[data-fam-figure] {
+  --fig-paper:#f1e7d3; --fig-ink:#353023; --fig-muted:#665b49;
+  --fig-rule:#cabc9d; --fig-blue:#244fb1; --fig-green:#166349;
+  --fig-rose:#972e4c; --fig-gold:#795419;
+}
+html[data-theme="dark"] #content svg[data-fam-figure] {
+  --fig-paper:#17231e; --fig-ink:#ecf0e6; --fig-muted:#bac9bd;
+  --fig-rule:#465c50; --fig-blue:#a3c0ff; --fig-green:#80d4b2;
+  --fig-rose:#ffa2b5; --fig-gold:#f0c67c;
+}
+#content svg[data-fam-figure] .venn-fill {fill:var(--fig-blue);fill-opacity:.16}
+#content svg[data-fam-figure] .venn-fill-danger {fill:var(--fig-rose);fill-opacity:.19}
+#content svg[data-fam-figure] text {dominant-baseline:auto}
+#content svg[data-fam-figure="plot-original"] {background:white;color:#26352e}
+@media print {
+  html[data-theme] #content svg[data-fam-figure] {
+    --fig-paper:#fff; --fig-ink:#24342d; --fig-muted:#52645a;
+    --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+    --fig-rose:#ac3454; --fig-gold:#885914;
+  }
+}
+</style>
+<style id="fam-reading-navigation">
+/* FAM:READING-NAVIGATION-START */
+@media screen {
+  .topbar {
+    transform: translateY(0);
+  }
+  #toc-toggle, #toc-close {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 11px;
+  }
+  #toc-toggle:hover, #toc-close:hover {
+    color: var(--gold);
+  }
+  .reading-progress {
+    top: max(0px, calc(var(--note-topbar-height, 88px) - 1px));
+  }
+  .contents {
+    top: calc(var(--note-topbar-height, 88px) + 24px);
+    max-height: calc(100svh - var(--note-topbar-height, 88px) - 48px);
+  }
+  .chapter [id], .lecture-head, #content {
+    scroll-margin-top: calc(var(--note-topbar-height, 88px) + 24px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .topbar {
+    transform: translateY(-100%);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .reading-progress {
+    top: 0;
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .contents {
+    top: 24px;
+    max-height: calc(100svh - 48px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) :is(.chapter [id], .lecture-head, #content) {
+    scroll-margin-top: 24px;
+  }
+}
+@media screen and (min-width: 761px) {
+  .layout[data-toc-collapsed] {
+    grid-template-columns: minmax(0, 820px);
+    justify-content: center;
+  }
+  .layout[data-toc-collapsed] > .contents {
+    display: none;
+  }
+}
+@media screen and (max-width: 760px) {
+  .contents.is-open {
+    inset: var(--note-topbar-height, 70px) 0 0;
+    max-height: none;
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .topbar { transition: transform .22s ease; }
+  .contents, .reading-progress { transition: top .22s ease; }
+}
+@media screen {
+  html:has(.contents.is-open) { overflow: hidden; }
+}
+/* FAM:READING-NAVIGATION-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -591,7 +684,7 @@ SOFTWARE.
         <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
         <h1>НОД, тождество Безу и алгоритм Евклида</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[\bar{4} \cdot \bar{3} = \overline{12} = \bar{0}.\]</div></div>
+        <div class="lecture-abstract" style="grid-template-columns:1fr"><div class="abstract-formula">\[\bar{4} \cdot \bar{3} = \overline{12} = \bar{0}.\]</div></div>
       </header>
       <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
       <div class="proof-toolbar" aria-label="Все доказательства">
@@ -622,7 +715,7 @@ SOFTWARE.
 <span>25 сентября 2026</span>
 </div>
 </header>
-<!-- 
+<!--
         =============================================================================
         СЮДА НЕЙРОСЕТЬ ВСТАВЛЯЕТ СОДЕРЖИМОЕ КОНСПЕКТА (ARTICLE CONTENT)
         =============================================================================
@@ -636,7 +729,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / 1Мотивация: Связь с кольцом кл…</div>
   <h2 id="chapter-2" data-toc="1Мотивация: Связь с кольцом кл…">1Мотивация: Связь с кольцом классов вычетов $\mathbb{Z}_m$</h2>
-  
+
 <p><span class="drop-cap">В</span>          В теории кольца классов вычетов $\mathbb{Z}_m$ алгебраическая природа элементов тесно связана со структурой их общих делителей:
         </p>
 <div class="callout callout-remark">
@@ -666,9 +759,9 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-3">
   <div class="chapter-kicker">03 / 2Понятие наибольшего общего де…</div>
   <h2 id="chapter-3" data-toc="2Понятие наибольшего общего де…">2Понятие наибольшего общего делителя</h2>
-  
+
 <p>
-          Пусть задан набор целых чисел $a_1, a_2, \dots, a_n \in \mathbb{Z}$. 
+          Пусть задан набор целых чисел $a_1, a_2, \dots, a_n \in \mathbb{Z}$.
           Число $t \in \mathbb{Z}$ называется <strong>общим делителем</strong> данных чисел, если оно делит каждое из них: $t \mid a_1, t \mid a_2, \dots, t \mid a_n$.
         </p>
 <p>
@@ -677,7 +770,7 @@ SOFTWARE.
 <h3 class="subsection-heading" data-toc="1. Определение НОД для двух чи…" id="sec-gcd-two">2.1. Определение НОД для двух чисел</h3>
 <div class="statement definition" id="def-1"><div class="block-label">Определение 1</div><h3 data-toc="📌 Определение 2.1 (НОД двух чи…" id="sub-3-2">📌 Определение 2.1 (НОД двух чисел)</h3><div>
 
-          Пусть $a, b \in \mathbb{Z}$, причём хотя бы одно из чисел отлично от нуля. 
+          Пусть $a, b \in \mathbb{Z}$, причём хотя бы одно из чисел отлично от нуля.
           Натуральное число $d \in \mathbb{N}$ называется <strong>наибольшим общим делителем</strong> чисел $a$ и $b$ (обозначается $d = (a, b)$ или $\operatorname{gcd}(a, b)$), если выполняются два условия:
           <ol class="prop-list" style="margin-top: 0.5rem;">
 <li>$d$ является общим делителем $a$ и $b$:
@@ -691,7 +784,7 @@ SOFTWARE.
 <div class="callout callout-remark" id="sec-gcd-notes">
 <div class="box-header">💬 Замечание о требованиях к знаку и максимуму</div>
 <p>
-            В высшей алгебре НОД определяется структурно — через <strong>максимальность по отношению делимости</strong> (условие 2). 
+            В высшей алгебре НОД определяется структурно — через <strong>максимальность по отношению делимости</strong> (условие 2).
             Требование $d \in \mathbb{N}$ ($d > 0$) устраняет неопределённость знака, так как делители $d$ и $-d$ одновременно удовлетворяли бы условиям делимости.
           </p>
 <p style="margin-bottom: 0;">
@@ -701,7 +794,7 @@ SOFTWARE.
 <h3 class="subsection-heading" data-toc="2. Обобщение на систему n целы…" id="sec-gcd-many">2.2. Обобщение на систему $n$ целых чисел</h3>
 <div class="statement definition" id="def-2"><div class="block-label">Определение 2</div><h3 data-toc="📌 Определение 2.2 (НОД n чисел)" id="sub-3-4">📌 Определение 2.2 (НОД $n$ чисел)</h3><div>
 
-          Пусть $a_1, a_2, \dots, a_n \in \mathbb{Z}$, где хотя бы одно число отлично от нуля. 
+          Пусть $a_1, a_2, \dots, a_n \in \mathbb{Z}$, где хотя бы одно число отлично от нуля.
           Натуральное число $d \in \mathbb{N}$ называется <strong>наибольшим общим делителем</strong> чисел $a_1, a_2, \dots, a_n$ (обозначается $(a_1, a_2, \dots, a_n)$), если:
           <ol class="prop-list" style="margin-top: 0.5rem;">
 <li>$d$ является общим делителем всех чисел:
@@ -720,7 +813,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-4">
   <div class="chapter-kicker">04 / 3Теорема о НОД и тождество Безу</div>
   <h2 id="chapter-4" data-toc="3Теорема о НОД и тождество Безу">3Теорема о НОД и тождество Безу</h2>
-  
+
 <p>
           Фундаментальная теорема связывает отношение делимости с линейной структурой кольца целых чисел.
         </p>
@@ -752,7 +845,7 @@ SOFTWARE.
 <div class="proof-content">
 <p>
 <strong>1. Множество положительных линейных комбинаций:</strong><br/>
-            Рассмотрим множество $S = \{ x_1 a_1 + \dots + x_n a_n \mid x_i \in \mathbb{Z}, \; \sum x_i a_i > 0 \}$. 
+            Рассмотрим множество $S = \{ x_1 a_1 + \dots + x_n a_n \mid x_i \in \mathbb{Z}, \; \sum x_i a_i > 0 \}$.
             Если $a_k \neq 0$, то полагая $x_k = a_k$ и $x_j = 0$ при $j \neq k$, получаем $a_k^2 > 0$, откуда $a_k^2 \in S$. Значит, $S \neq \emptyset$.
           </p>
 <p>
@@ -761,14 +854,14 @@ SOFTWARE.
           </p>
 <p>
 <strong>3. Делимость $d \mid a_i$:</strong><br/>
-            Для любого $i$ разделим $a_i$ на $d$ с остатком: $a_i = d q + r$, где $0 \le r < d$. 
-            Тогда $r = a_i - q d = a_i - q \sum m_j a_j = (-q m_1) a_1 + \dots + (1 - q m_i) a_i + \dots + (-q m_n) a_n$. 
-            Коэффициенты целые, следовательно $r$ — линейная комбинация. Если $r > 0$, то $r \in S$, что противоречит минимальности $d = \min S$ (так как $r < d$). 
+            Для любого $i$ разделим $a_i$ на $d$ с остатком: $a_i = d q + r$, где $0 \le r < d$.
+            Тогда $r = a_i - q d = a_i - q \sum m_j a_j = (-q m_1) a_1 + \dots + (1 - q m_i) a_i + \dots + (-q m_n) a_n$.
+            Коэффициенты целые, следовательно $r$ — линейная комбинация. Если $r > 0$, то $r \in S$, что противоречит минимальности $d = \min S$ (так как $r < d$).
             Следовательно, $r = 0$, то есть $d \mid a_i$. Число $d$ является общим делителем.
           </p>
 <p>
 <strong>4. Условие максимальности:</strong><br/>
-            Если $t$ — произвольный общий делитель всех $a_i$, то по линейности делимости $t \mid \sum m_i a_i \implies t \mid d$. 
+            Если $t$ — произвольный общий делитель всех $a_i$, то по линейности делимости $t \mid \sum m_i a_i \implies t \mid d$.
             Таким образом, $d = (a_1, \dots, a_n)$, и $d$ — наименьший элемент в $S$.
           </p>
 <span class="qed">$\blacksquare$</span>
@@ -786,9 +879,9 @@ SOFTWARE.
 <div class="proof-idea" data-proof-idea="" id="idea-2">
 <div class="proof-label">Идея</div>
 <p>Для двух чисел $a, b$ выполним алгоритм Евклида до последнего ненулевого остатка $r_k$:
-            
+
             Проведём индукцию назад:
-            
+
 Из предпоследней строки: $r_k = r_{k-2} - r_{k-1} q_k$, то есть $r_k$ выражается линейно через $r_{k-2}$ и $r_{k-1}$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-2">
@@ -854,10 +947,10 @@ SOFTWARE.
 <div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Экстремальный (через единственность минимума линейного порядка)))</div>
 <div class="proof-content">
 <p>
-            По Методу 1 существования число $d = \min S$ является наименьшим элементом множества $S = \{ \sum x_i a_i > 0 \mid x_i \in \mathbb{Z} \} \subseteq \mathbb{N}$. 
+            По Методу 1 существования число $d = \min S$ является наименьшим элементом множества $S = \{ \sum x_i a_i > 0 \mid x_i \in \mathbb{Z} \} \subseteq \mathbb{N}$.
             В любом частично упорядоченном множестве наименьший элемент единственен: если $m_1, m_2 \in S$ оба минимальны, то $m_1 \le m_2$ и $m_2 \le m_1 \implies m_1 = m_2$.
-            Если $d'$ — какой-либо другой НОД тех же чисел, то $d' \mid a_i$ для всех $i$, следовательно $d' \mid d$ (так как $d \in S$). 
-            Поскольку $d, d' \in \mathbb{N}$, получаем $d' \le d$. С другой стороны, $d$ — общий делитель, а $d'$ — НОД, значит $d \mid d' \implies d \le d'$. 
+            Если $d'$ — какой-либо другой НОД тех же чисел, то $d' \mid a_i$ для всех $i$, следовательно $d' \mid d$ (так как $d \in S$).
+            Поскольку $d, d' \in \mathbb{N}$, получаем $d' \le d$. С другой стороны, $d$ — общий делитель, а $d'$ — НОД, значит $d \mid d' \implies d \le d'$.
             Отсюда $d' = d = \min S$.
           </p>
 <span class="qed">$\blacksquare$</span>
@@ -905,9 +998,9 @@ SOFTWARE.
 <div class="proof-label">Доказательство (Строгое доказательство (Метод 4: Алгоритмический / детерминистический (через алгоритм Евклида)))</div>
 <div class="proof-content">
 <p>
-            По теореме о делении с остатком для любых целых чисел $x$ и $y \neq 0$ неполное частное $q$ и остаток $r$ определены строго единственным образом. 
-            Следовательно, на каждом шаге алгоритма Евклида результат деления детерминирован однозначно: шаг 0 даёт единственную пару $(q_0, r_0)$, шаг 1 — единственную пару $(q_1, r_1)$, и так далее. 
-            Конечная цепочка остатков $r_0, r_1, \dots, r_k$ детерминирована абсолютно однозначно. 
+            По теореме о делении с остатком для любых целых чисел $x$ и $y \neq 0$ неполное частное $q$ и остаток $r$ определены строго единственным образом.
+            Следовательно, на каждом шаге алгоритма Евклида результат деления детерминирован однозначно: шаг 0 даёт единственную пару $(q_0, r_0)$, шаг 1 — единственную пару $(q_1, r_1)$, и так далее.
+            Конечная цепочка остатков $r_0, r_1, \dots, r_k$ детерминирована абсолютно однозначно.
             Поскольку НОД равен последнему ненулевому остатку $r_k$, его значение единственно.
           </p>
 <span class="qed">$\blacksquare$</span>
@@ -917,7 +1010,7 @@ SOFTWARE.
 </div>
 <!-- SVG 1: Решётка линейных комбинаций и минимальный элемент d -->
 <div class="svg-wrapper">
-<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 820 220" xmlns="http://www.w3.org/2000/svg">
+<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 820 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="0 &lt; 0 d = min S = gcd d 2d b = q₂ d 3d 4d a = q₁ d 5d Множество S = { xa + yb &gt; 0 } ⊆ ℕ. Единствен" data-fam-figure="diagram" data-fam-index="1">
 <line stroke="var(--text-muted)" stroke-width="2.5" x1="40" x2="780" y1="120" y2="120"></line>
 <polygon fill="var(--text-muted)" points="785,120 770,114 770,126"></polygon>
 <circle cx="120" cy="120" fill="var(--text-muted)" r="6"></circle>
@@ -951,7 +1044,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-5">
   <div class="chapter-kicker">05 / 4Фундаментальные свойства НОД</div>
   <h2 id="chapter-5" data-toc="4Фундаментальные свойства НОД">4Фундаментальные свойства НОД</h2>
-  
+
 <h3 class="subsection-heading" data-toc="1. Свойство ассоциативности (п…" id="sec-prop-assoc">4.1. Свойство ассоциативности (принцип редукции)</h3>
 <div class="statement theorem" id="thm-2"><div class="block-label">Утверждение 2</div><h3 data-toc="📜 Предложение 4.1 (Ассоциативн…" id="sub-5-2">📜 Предложение 4.1 (Ассоциативность НОД)</h3><div>
 
@@ -973,15 +1066,15 @@ SOFTWARE.
 <div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Алгебраический (через взаимную делимость)))</div>
 <div class="proof-content">
 <p>
-            Обозначим $d = (a_1, a_2, \dots, a_n)$, $\delta = (a_1, a_2, \dots, a_{n-1})$ и $D = (\delta, a_n)$. 
+            Обозначим $d = (a_1, a_2, \dots, a_n)$, $\delta = (a_1, a_2, \dots, a_{n-1})$ и $D = (\delta, a_n)$.
             Докажем, что $d \mid D$ и $D \mid d$:
           </p>
 <p>
-            1. Так как $d \mid a_1, \dots, d \mid a_{n-1}$, число $d$ является общим делителем первых $n-1$ чисел, поэтому $d \mid \delta$. 
+            1. Так как $d \mid a_1, \dots, d \mid a_{n-1}$, число $d$ является общим делителем первых $n-1$ чисел, поэтому $d \mid \delta$.
             Поскольку $d \mid \delta$ и $d \mid a_n$, число $d$ делит их НОД: $d \mid D$.
           </p>
 <p>
-            2. Так как $D = (\delta, a_n)$, то $D \mid \delta$ и $D \mid a_n$. Но $\delta \mid a_1, \dots, \delta \mid a_{n-1}$, поэтому по транзитивности $D \mid a_i$ для всех $i \in \{1, \dots, n-1\}$. 
+            2. Так как $D = (\delta, a_n)$, то $D \mid \delta$ и $D \mid a_n$. Но $\delta \mid a_1, \dots, \delta \mid a_{n-1}$, поэтому по транзитивности $D \mid a_i$ для всех $i \in \{1, \dots, n-1\}$.
             С учётом $D \mid a_n$ число $D$ является общим делителем всех $n$ чисел, следовательно $D \mid d$.
           </p>
 <p>
@@ -1007,7 +1100,7 @@ SOFTWARE.
 <div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Теоретико-множественный (через пересечение множеств общих делителей)))</div>
 <div class="proof-content">
 <p>
-            Обозначим через $\operatorname{Div}(x_1, \dots, x_k)$ множество всех общих делителей чисел $x_1, \dots, x_k$. 
+            Обозначим через $\operatorname{Div}(x_1, \dots, x_k)$ множество всех общих делителей чисел $x_1, \dots, x_k$.
             По определению принадлежности к множеству делителей:
             \[\operatorname{Div}(a_1, \dots, a_n) = \bigcap_{i=1}^n \operatorname{Div}(a_i) = \left( \bigcap_{i=1}^{n-1} \operatorname{Div}(a_i) \right) \cap \operatorname{Div}(a_n) = \operatorname{Div}(a_1, \dots, a_{n-1}) \cap \operatorname{Div}(a_n).\]
             Но множество делителей набора чисел совпадает с множеством делителей их НОД: $\operatorname{Div}(a_1, \dots, a_{n-1}) = \operatorname{Div}(\delta)$, где $\delta = (a_1, \dots, a_{n-1})$.
@@ -1073,16 +1166,16 @@ SOFTWARE.
           </p>
 <p>
 <strong>1. Докажем, что $m d \mid D$:</strong><br/>
-            Так как $d \mid a_i$ для каждого $i \in \{1, \dots, n\}$, то домножая на $m$, получаем $m d \mid m a_i$. 
-            Значит, $m d$ является общим делителем чисел $m a_1, \dots, m a_n$. 
+            Так как $d \mid a_i$ для каждого $i \in \{1, \dots, n\}$, то домножая на $m$, получаем $m d \mid m a_i$.
+            Значит, $m d$ является общим делителем чисел $m a_1, \dots, m a_n$.
             По определению НОД общий делитель обязан делить их НОД $D$:
             \[m d \mid D \implies D = m d \cdot q \quad (q \in \mathbb{N}).\]
           </p>
 <p>
 <strong>2. Докажем, что $D \mid m d$:</strong><br/>
-            Из $D = m d \cdot q$ следует, что $m \mid D$, то есть дробь $\frac{D}{m}$ является натуральным числом. 
-            Так как $D \mid m a_i$, имеем $m a_i = D q_i \implies a_i = \left(\frac{D}{m}\right) q_i$, откуда $\frac{D}{m} \mid a_i$ для всех $i$. 
-            Следовательно, $\frac{D}{m}$ является общим делителем чисел $a_1, \dots, a_n$. 
+            Из $D = m d \cdot q$ следует, что $m \mid D$, то есть дробь $\frac{D}{m}$ является натуральным числом.
+            Так как $D \mid m a_i$, имеем $m a_i = D q_i \implies a_i = \left(\frac{D}{m}\right) q_i$, откуда $\frac{D}{m} \mid a_i$ для всех $i$.
+            Следовательно, $\frac{D}{m}$ является общим делителем чисел $a_1, \dots, a_n$.
             Поэтому он делит их наибольший общий делитель $d$:
             \[\frac{D}{m} \mid d \implies D \mid m d.\]
           </p>
@@ -1104,7 +1197,7 @@ SOFTWARE.
 <div class="proof-idea" data-proof-idea="" id="idea-11">
 <div class="proof-label">Идея</div>
 <p>Рассмотрим множество положительных линейных комбинаций для набора $(m a_1, \dots, m a_n)$:
-            
+
             где $S_a = \{ \sum x_i a_i > 0 \mid x_i \in \mathbb{Z} \}$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-11">
@@ -1135,10 +1228,10 @@ SOFTWARE.
 <div class="proof-idea" data-proof-idea="" id="idea-12">
 <div class="proof-label">Идея</div>
 <p>Для двух чисел $a, b$ умножим каждое равенство алгоритма Евклида на $m \in \mathbb{N}$:
-            
-            
-            
-            
+
+
+
+
             Неполные частные $q_i$ остаются неизменными, а каждый остаток умножается на $m$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-12">
@@ -1150,8 +1243,8 @@ SOFTWARE.
             \[b = r_0 q_1 + r_1 \iff m b = (m r_0) q_1 + (m r_1), \quad \text{где } 0 \le m r_1 < m r_0,\]
             \[\dots \iff \dots\]
             \[r_{k-1} = r_k q_{k+1} + 0 \iff m r_{k-1} = (m r_k) q_{k+1} + 0.\]
-            Неполные частные $q_i$ остаются неизменными, а каждый остаток умножается на $m$. 
-            Следовательно, последний ненулевой остаток для масштабированной пары равен $m r_k$. 
+            Неполные частные $q_i$ остаются неизменными, а каждый остаток умножается на $m$.
+            Следовательно, последний ненулевой остаток для масштабированной пары равен $m r_k$.
             Поскольку последний ненулевой остаток равен НОД, получаем $\operatorname{gcd}(m a, m b) = m r_k = m \cdot \operatorname{gcd}(a, b)$.
           </p>
 <span class="qed">$\blacksquare$</span>
@@ -1203,7 +1296,7 @@ SOFTWARE.
 <div class="proof-idea" data-proof-idea="" id="idea-14">
 <div class="proof-label">Идея</div>
 <p>Связь пар выражается линейным преобразованием:
-            
+
             Матрица перехода $T = \begin{pmatrix} q & 1 \\ 1 & 0 \end{pmatrix}$ целочисленна, и её определитель равен $\det(T) = 0 \cdot q - 1 \cdot 1 = -1 \neq 0$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-14">
@@ -1212,10 +1305,10 @@ SOFTWARE.
 <p>
             Связь пар выражается линейным преобразованием:
             \[\begin{pmatrix} a \\ b \end{pmatrix} = \begin{pmatrix} q & 1 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} b \\ r \end{pmatrix}.\]
-            Матрица перехода $T = \begin{pmatrix} q & 1 \\ 1 & 0 \end{pmatrix}$ целочисленна, и её определитель равен $\det(T) = 0 \cdot q - 1 \cdot 1 = -1 \neq 0$. 
+            Матрица перехода $T = \begin{pmatrix} q & 1 \\ 1 & 0 \end{pmatrix}$ целочисленна, и её определитель равен $\det(T) = 0 \cdot q - 1 \cdot 1 = -1 \neq 0$.
             Так как $\det(T) = \pm 1$, матрица $T$ обратима в кольце целых матриц $GL_2(\mathbb{Z})$, и обратное преобразование также целочисленно:
             \[\begin{pmatrix} b \\ r \end{pmatrix} = \begin{pmatrix} 0 & 1 \\ 1 & -q \end{pmatrix} \begin{pmatrix} a \\ b \end{pmatrix}.\]
-            Следовательно, множество всех целочисленных линейных комбинаций $\{ x a + y b \mid x, y \in \mathbb{Z} \}$ тождественно совпадает с множеством $\{ u b + v r \mid u, v \in \mathbb{Z} \}$. 
+            Следовательно, множество всех целочисленных линейных комбинаций $\{ x a + y b \mid x, y \in \mathbb{Z} \}$ тождественно совпадает с множеством $\{ u b + v r \mid u, v \in \mathbb{Z} \}$.
             Совпадение множеств влечёт совпадение их наименьших положительных элементов, то есть $(a, b) = (b, r)$.
           </p>
 <span class="qed">$\blacksquare$</span>
@@ -1231,7 +1324,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-6">
   <div class="chapter-kicker">06 / 5Алгоритм Евклида</div>
   <h2 id="chapter-6" data-toc="5Алгоритм Евклида">5Алгоритм Евклида</h2>
-  
+
 <p>
           Алгоритм Евклида представляет собой конструктивный метод отыскания НОД двух чисел путём итеративного применения деления с остатком.
         </p>
@@ -1275,7 +1368,7 @@ SOFTWARE.
 <p>
 <strong>2. Корректность:</strong> Применяя Предложение 4.3 последовательно к каждой строке:
             \[(a, b) = (b, r_0) = (r_0, r_1) = \dots = (r_{k-2}, r_{k-1}) = (r_{k-1}, r_k).\]
-            Так как $r_{k-1} = r_k q_{k+1}$, то $r_k \mid r_{k-1}$, откуда $(r_{k-1}, r_k) = r_k$. 
+            Так как $r_{k-1} = r_k q_{k+1}$, то $r_k \mid r_{k-1}$, откуда $(r_{k-1}, r_k) = r_k$.
             Следовательно, $(a, b) = r_k$.
           </p>
 <span class="qed">$\blacksquare$</span>
@@ -1301,10 +1394,10 @@ SOFTWARE.
             База индукции ($k = 0$): $a = b q_0 + 0 \implies b \mid a \implies (a, b) = |b| = r_0$. Утверждение верно.
           </p>
 <p>
-            Шаг индукции: предположим, что для любой пары чисел, алгоритм Евклида для которой требует $k$ шагов деления, последний ненулевой остаток равен НОД. 
-            Рассмотрим пару $(a, b)$, требующую $k+1$ шагов. Первый шаг даёт $a = b q_0 + r_0$. 
-            Тогда пара $(b, r_0)$ требует ровно $k$ шагов алгоритма с точно теми же последующими остатками $r_1, \dots, r_k$. 
-            По индукционному предположению последний ненулевой остаток этой пары $r_k$ равен $(b, r_0)$. 
+            Шаг индукции: предположим, что для любой пары чисел, алгоритм Евклида для которой требует $k$ шагов деления, последний ненулевой остаток равен НОД.
+            Рассмотрим пару $(a, b)$, требующую $k+1$ шагов. Первый шаг даёт $a = b q_0 + r_0$.
+            Тогда пара $(b, r_0)$ требует ровно $k$ шагов алгоритма с точно теми же последующими остатками $r_1, \dots, r_k$.
+            По индукционному предположению последний ненулевой остаток этой пары $r_k$ равен $(b, r_0)$.
             Но по Предложению 4.3 $(a, b) = (b, r_0)$. Следовательно, $(a, b) = r_k$.
           </p>
 <span class="qed">$\blacksquare$</span>
@@ -1314,25 +1407,25 @@ SOFTWARE.
 </div>
 <!-- SVG 2: Схема каскадных шагов алгоритма Евклида -->
 <div class="svg-wrapper" id="sec-euclid-svg">
-<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 760 210" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
+<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 760 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="(a, b) a = bq₀ + r₀ (b, r₀) b = r₀q₁ + r₁ (r₀, r₁) r₀ = r₁q₂ + r₂ (rₖ₋₁, rₖ) rₖ₋₁ = rₖqₖ₊₁ + 0 rₖ " data-fam-figure="diagram" data-fam-index="2"><defs><marker id="fam-fig-2-arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"></path>
 </marker></defs>
 <rect fill="var(--bg-card)" height="60" rx="8" stroke="var(--border-accent)" stroke-width="2" width="120" x="20" y="30"></rect>
 <text fill="var(--text-heading)" font-size="15" font-weight="700" text-anchor="middle" x="80" y="55">(a, b)</text>
 <text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="80" y="75">a = bq₀ + r₀</text>
-<path d="M 140,60 L 175,60" marker-end="url(#arrow)" stroke="var(--border-accent)" stroke-width="2.5"></path>
+<path d="M 140,60 L 175,60" marker-end="url(#fam-fig-2-arrow)" stroke="var(--border-accent)" stroke-width="2.5"></path>
 <rect fill="var(--bg-card)" height="60" rx="8" stroke="var(--border-color)" stroke-width="2" width="120" x="180" y="30"></rect>
 <text fill="var(--text-heading)" font-size="15" font-weight="700" text-anchor="middle" x="240" y="55">(b, r₀)</text>
 <text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="240" y="75">b = r₀q₁ + r₁</text>
-<path d="M 300,60 L 335,60" marker-end="url(#arrow)" stroke="var(--border-accent)" stroke-width="2.5"></path>
+<path d="M 300,60 L 335,60" marker-end="url(#fam-fig-2-arrow)" stroke="var(--border-accent)" stroke-width="2.5"></path>
 <rect fill="var(--bg-card)" height="60" rx="8" stroke="var(--border-color)" stroke-width="2" width="120" x="340" y="30"></rect>
 <text fill="var(--text-heading)" font-size="15" font-weight="700" text-anchor="middle" x="400" y="55">(r₀, r₁)</text>
 <text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="400" y="75">r₀ = r₁q₂ + r₂</text>
-<path d="M 460,60 L 495,60" marker-end="url(#arrow)" stroke="var(--border-accent)" stroke-dasharray="4,4" stroke-width="2.5"></path>
+<path d="M 460,60 L 495,60" marker-end="url(#fam-fig-2-arrow)" stroke="var(--border-accent)" stroke-dasharray="4,4" stroke-width="2.5"></path>
 <rect fill="var(--bg-card)" height="60" rx="8" stroke="#10b8a6" stroke-width="2" width="120" x="500" y="30"></rect>
 <text fill="#10b8a6" font-size="15" font-weight="700" text-anchor="middle" x="560" y="55">(rₖ₋₁, rₖ)</text>
 <text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="560" y="75">rₖ₋₁ = rₖqₖ₊₁ + 0</text>
-<path d="M 620,60 L 655,60" marker-end="url(#arrow)" stroke="#10b8a6" stroke-width="2.5"></path>
+<path d="M 620,60 L 655,60" marker-end="url(#fam-fig-2-arrow)" stroke="#10b8a6" stroke-width="2.5"></path>
 <circle cx="695" cy="60" fill="#10b8a6" r="30" stroke="var(--bg-body)" stroke-width="2"></circle>
 <text fill="#ffffff" font-size="16" font-weight="800" text-anchor="middle" x="695" y="66">rₖ</text>
 <text fill="var(--text-muted)" font-size="13" text-anchor="middle" x="380" y="145">
@@ -1352,7 +1445,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-7">
   <div class="chapter-kicker">07 / 6Практические примеры вычислений</div>
   <h2 id="chapter-7" data-toc="6Практические примеры вычислений">6Практические примеры вычислений</h2>
-  
+
 <h3 class="subsection-heading" data-toc="1. Пример 1: Нахождение (840, …" id="sec-ex-840">6.1. Пример 1: Нахождение $\operatorname{gcd}(840, 189)$</h3>
 <p>
           Вычислим НОД чисел $a = 840$ и $b = 189$ по алгоритму Евклида:
@@ -1440,7 +1533,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-8">
   <div class="chapter-kicker">08 / 7Взаимная простота и обратимос…</div>
   <h2 id="chapter-8" data-toc="7Взаимная простота и обратимос…">7Взаимная простота и обратимость в $\mathbb{Z}_m$</h2>
-  
+
 <div class="statement definition" id="def-4"><div class="block-label">Определение 4</div><h3 data-toc="📌 Определение 7.1 (Взаимно про…" id="sub-8-1">📌 Определение 7.1 (Взаимно простые числа)</h3><div>
 
           Числа $a$ и $b$ называются <strong>взаимно простыми</strong>, если их наибольший общий делитель равен единице:
@@ -1501,7 +1594,7 @@ SOFTWARE.
 <div class="proof-idea" data-proof-idea="" id="idea-18">
 <div class="proof-label">Идея</div>
 <p>Рассмотрим отображение умножения на вычет $\bar{a}$ в конечной группе $(\mathbb{Z}_m, +)$:
-            
+
             1.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-18">
@@ -1515,7 +1608,7 @@ SOFTWARE.
             Ядро тривиально ($\bar{x} = \bar{0}$) тогда и только тогда, когда $\frac{m}{\operatorname{gcd}(a, m)} = m$, то есть $\operatorname{gcd}(a, m) = 1$.
           </p>
 <p>
-            2. Поскольку множество $\mathbb{Z}_m$ конечно, любое инъективное отображение из $\mathbb{Z}_m$ в себя является сюръективным (биективным). 
+            2. Поскольку множество $\mathbb{Z}_m$ конечно, любое инъективное отображение из $\mathbb{Z}_m$ в себя является сюръективным (биективным).
             Следовательно, при $\operatorname{gcd}(a, m) = 1$ отображение $\varphi_a$ сюръективно, а значит, единица $\bar{1} \in \mathbb{Z}_m$ обязана иметь прообраз: найдётся такой $\bar{u}$, что $\varphi_a(\bar{u}) = \bar{a} \cdot \bar{u} = \bar{1}$. Это означает обратимость $\bar{a}$.
           </p>
 <span class="qed">$\blacksquare$</span>
@@ -1595,31 +1688,145 @@ SOFTWARE.
   $$('[data-all-proofs]').forEach(b=>b.addEventListener('click',()=>{proofs.forEach(p=>setProof(p,b.dataset.allProofs));syncToolbar();updatePosition();}));syncToolbar();
 
   // Render before generating the outline, so math in headings gets a clean label.
-  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:true,strict:false});}catch(e){console.warn('Math render note:', e);}
+  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:false,strict:false,ignoredClasses:["math-svg","fam-svg-labels"]});}catch(e){console.warn('Math render note:', e);}
   const headings=$$('h2[data-toc],h3[data-toc]'),list=document.createElement('ol');
   let number=0;
   for(const heading of headings){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+heading.id;if(heading.tagName==='H2'){const n=document.createElement('span');n.className='toc-number';n.textContent=String(++number).padStart(2,'0');n.setAttribute('aria-hidden','true');a.append(n);}else li.className='toc-sub';a.append(document.createTextNode(heading.dataset.toc));li.append(a);list.append(li);}
   $('#toc').replaceChildren(list);$('#section-count').textContent=`Разделов: ${number}`;
-  const mobile=matchMedia('(max-width:760px)');
-  function closeToc(){ $('#contents').classList.remove('is-open');$('#toc-toggle').setAttribute('aria-expanded','false'); }
-  $('#toc-toggle').addEventListener('click',()=>{const open=$('#contents').classList.toggle('is-open');$('#toc-toggle').setAttribute('aria-expanded',String(open));if(open)$('#toc a')?.focus();});
-  $('#toc-close').addEventListener('click',()=>{closeToc();$('#toc-toggle').focus();});
-  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&$('#contents').classList.contains('is-open')){closeToc();$('#toc-toggle').focus();}});
-  mobile.addEventListener('change',closeToc);
-  function goToHash(hash,push){let target;try{target=document.getElementById(decodeURIComponent(hash.slice(1)));}catch{return;}if(!target)return;
-    const proof=target.closest('[data-proof]');if(proof){setProof(proof,target.closest('[data-proof-idea]')?'idea':'full');syncToolbar();}
-    closeToc();if(push){try{history.pushState(null,'',hash);}catch{/* opaque reader sandbox */}}
-    target.scrollIntoView({behavior:'instant',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});updatePosition();
+  // FAM:READING-NAVIGATION-START
+  const root = document.documentElement;
+  const layout = $('.layout');
+  const topbar = $('.topbar');
+  const contents = $('#contents');
+  const tocToggle = $('#toc-toggle');
+  const mobile = matchMedia('(max-width:760px)');
+  let desktopOpen = true;
+  let mobileOpen = false;
+  try { desktopOpen = localStorage.getItem('fam-note-toc') !== 'collapsed'; } catch {}
+
+  function tocIsOpen() { return mobile.matches ? mobileOpen : desktopOpen; }
+  function syncToc() {
+    contents.classList.toggle('is-open', mobile.matches && mobileOpen);
+    layout.toggleAttribute('data-toc-collapsed', !desktopOpen);
+    tocToggle.setAttribute('aria-expanded', String(tocIsOpen()));
   }
-  document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#"]');if(!a)return;ev.preventDefault();goToHash(a.getAttribute('href'),true);});
-  window.addEventListener('hashchange',()=>goToHash(location.hash,false));
-  function updatePosition(){const y=window.scrollY,span=document.documentElement.scrollHeight-innerHeight;$('#progress-bar').style.width=(span>0?Math.min(100,Math.max(0,100*y/span)):100)+'%';let active=headings[0];for(const h of headings)if(h.getBoundingClientRect().top<145)active=h;
-    $$('#toc a').forEach(a=>{if(a.hash==='#'+active?.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
-  let pending=false;window.addEventListener('scroll',()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;updatePosition();});},{passive:true});window.addEventListener('resize',updatePosition);
-  if(location.hash)goToHash(location.hash,false);updatePosition();
+  function closeMobileToc() {
+    mobileOpen = false;
+    syncToc();
+  }
+  function setTocOpen(open) {
+    if (mobile.matches) {
+      mobileOpen = open;
+      if (open) root.removeAttribute('data-note-bar-hidden');
+    } else {
+      desktopOpen = open;
+      try { localStorage.setItem('fam-note-toc', open ? 'expanded' : 'collapsed'); } catch {}
+    }
+    syncToc();
+    updatePosition();
+  }
+  tocToggle.addEventListener('click', () => {
+    const open = !tocIsOpen();
+    setTocOpen(open);
+    if (open && mobile.matches) $('#toc a')?.focus({preventScroll:true});
+  });
+  function dismissToc() {
+    setTocOpen(false);
+    root.removeAttribute('data-note-bar-hidden');
+    tocToggle.focus({preventScroll:true});
+  }
+  $('#toc-close').addEventListener('click', dismissToc);
+  document.addEventListener('keydown', event => {
+    const focusInToc = contents.contains(document.activeElement) || document.activeElement === tocToggle;
+    if (event.key === 'Escape' && !event.defaultPrevented && tocIsOpen() &&
+        (mobile.matches || focusInToc) && !$('#pdf-dialog').open) dismissToc();
+  });
+  mobile.addEventListener('change', closeMobileToc);
+  syncToc();
+
+  let lastScroll = Math.max(0, window.scrollY);
+  let scrollDistance = 0;
+  let topbarHeight = 0;
+  function syncTopbarHeight() {
+    topbarHeight = topbar.offsetHeight;
+    root.style.setProperty('--note-topbar-height', topbarHeight + 'px');
+    updatePosition();
+  }
+  function updateTopbar() {
+    const y = Math.max(0, Math.min(window.scrollY, root.scrollHeight - innerHeight));
+    const delta = y - lastScroll;
+    lastScroll = y;
+    if (y <= 16 || mobileOpen) {
+      root.removeAttribute('data-note-bar-hidden');
+      scrollDistance = 0;
+      return;
+    }
+    if (!delta) return;
+    scrollDistance = Math.sign(delta) === Math.sign(scrollDistance) ? scrollDistance + delta : delta;
+    if (scrollDistance <= -10) root.removeAttribute('data-note-bar-hidden');
+    if (scrollDistance >= 18 && y > topbarHeight) root.setAttribute('data-note-bar-hidden', '');
+  }
+
+  function goToHash(hash, push) {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (!target) return;
+    const proof = target.closest('[data-proof]');
+    if (proof) {
+      setProof(proof, target.closest('[data-proof-idea]') ? 'idea' : 'full');
+      syncToolbar();
+    }
+    closeMobileToc();
+    if (push) {
+      try { history.pushState(null, '', hash); } catch { /* Opaque reader sandbox. */ }
+    }
+    if (target === $('#top') || target === $('#content')) root.removeAttribute('data-note-bar-hidden');
+    target.scrollIntoView({behavior:'instant', block:'start'});
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+    lastScroll = Math.max(0, window.scrollY);
+    scrollDistance = 0;
+    updatePosition();
+  }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    event.preventDefault();
+    goToHash(link.getAttribute('href'), true);
+  });
+  window.addEventListener('hashchange', () => goToHash(location.hash, false));
+
+  function updatePosition() {
+    const y = window.scrollY;
+    const span = root.scrollHeight - innerHeight;
+    $('#progress-bar').style.width = (span > 0 ? Math.min(100, Math.max(0, 100 * y / span)) : 100) + '%';
+    const barBottom = Math.max(0, topbar.getBoundingClientRect().bottom);
+    let active = headings[0];
+    for (const heading of headings) if (heading.getBoundingClientRect().top <= barBottom + 32) active = heading;
+    $$('#toc a').forEach(link => {
+      if (link.hash === '#' + active?.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let pending = false;
+  window.addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      updateTopbar();
+      updatePosition();
+    });
+  }, {passive:true});
+  window.addEventListener('resize', syncTopbarHeight);
+  topbar.addEventListener('transitionend', updatePosition);
+  new ResizeObserver(syncTopbarHeight).observe(topbar);
+  syncTopbarHeight();
+  if (location.hash) goToHash(location.hash, false);
+  // FAM:READING-NAVIGATION-END
 
   const dialog=$('#pdf-dialog');let printChoice='full';
-  $('#pdf-open').addEventListener('click',()=>{closeToc();$('#pdf-status').textContent='';dialog.showModal();});
+  $('#pdf-open').addEventListener('click',()=>{closeMobileToc();$('#pdf-status').textContent='';dialog.showModal();});
   $('#pdf-close').addEventListener('click',()=>dialog.close());
   $$('input[name="pdf-mode"]').forEach(r=>r.addEventListener('change',()=>{if(r.checked)printChoice=r.value;}));
   // Ctrl+P always exports full proofs; the explicit dialog temporarily selects a variant.

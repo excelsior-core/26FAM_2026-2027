@@ -567,6 +567,99 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 -->
+
+<style id="fam-reviewed-figures">
+#content svg[data-fam-figure] {
+  --fig-paper:#faf8f1; --fig-ink:#24342d; --fig-muted:#52645a;
+  --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+  --fig-rose:#ac3454; --fig-gold:#885914;
+  display:block; max-width:100%; height:auto; margin-inline:auto;
+  color:var(--fig-ink); font-family:Arial, sans-serif;
+}
+html[data-theme="parchment"] #content svg[data-fam-figure] {
+  --fig-paper:#f1e7d3; --fig-ink:#353023; --fig-muted:#665b49;
+  --fig-rule:#cabc9d; --fig-blue:#244fb1; --fig-green:#166349;
+  --fig-rose:#972e4c; --fig-gold:#795419;
+}
+html[data-theme="dark"] #content svg[data-fam-figure] {
+  --fig-paper:#17231e; --fig-ink:#ecf0e6; --fig-muted:#bac9bd;
+  --fig-rule:#465c50; --fig-blue:#a3c0ff; --fig-green:#80d4b2;
+  --fig-rose:#ffa2b5; --fig-gold:#f0c67c;
+}
+#content svg[data-fam-figure] .venn-fill {fill:var(--fig-blue);fill-opacity:.16}
+#content svg[data-fam-figure] .venn-fill-danger {fill:var(--fig-rose);fill-opacity:.19}
+#content svg[data-fam-figure] text {dominant-baseline:auto}
+#content svg[data-fam-figure="plot-original"] {background:white;color:#26352e}
+@media print {
+  html[data-theme] #content svg[data-fam-figure] {
+    --fig-paper:#fff; --fig-ink:#24342d; --fig-muted:#52645a;
+    --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+    --fig-rose:#ac3454; --fig-gold:#885914;
+  }
+}
+</style>
+<style id="fam-reading-navigation">
+/* FAM:READING-NAVIGATION-START */
+@media screen {
+  .topbar {
+    transform: translateY(0);
+  }
+  #toc-toggle, #toc-close {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 11px;
+  }
+  #toc-toggle:hover, #toc-close:hover {
+    color: var(--gold);
+  }
+  .reading-progress {
+    top: max(0px, calc(var(--note-topbar-height, 88px) - 1px));
+  }
+  .contents {
+    top: calc(var(--note-topbar-height, 88px) + 24px);
+    max-height: calc(100svh - var(--note-topbar-height, 88px) - 48px);
+  }
+  .chapter [id], .lecture-head, #content {
+    scroll-margin-top: calc(var(--note-topbar-height, 88px) + 24px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .topbar {
+    transform: translateY(-100%);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .reading-progress {
+    top: 0;
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .contents {
+    top: 24px;
+    max-height: calc(100svh - 48px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) :is(.chapter [id], .lecture-head, #content) {
+    scroll-margin-top: 24px;
+  }
+}
+@media screen and (min-width: 761px) {
+  .layout[data-toc-collapsed] {
+    grid-template-columns: minmax(0, 820px);
+    justify-content: center;
+  }
+  .layout[data-toc-collapsed] > .contents {
+    display: none;
+  }
+}
+@media screen and (max-width: 760px) {
+  .contents.is-open {
+    inset: var(--note-topbar-height, 70px) 0 0;
+    max-height: none;
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .topbar { transition: transform .22s ease; }
+  .contents, .reading-progress { transition: top .22s ease; }
+}
+@media screen {
+  html:has(.contents.is-open) { overflow: hidden; }
+}
+/* FAM:READING-NAVIGATION-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -591,7 +684,7 @@ SOFTWARE.
         <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
         <h1>Определители, правило Крамера и перестановки</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[\left\{
+        <div class="lecture-abstract" style="grid-template-columns:1fr"><div class="abstract-formula">\[\left\{
           \begin{alignedat}{5}
           c_{11}\underline{\underline{x_1}} &+ \dots + c_{1,j_2}\!x_{j_2} &+ \dots + c_{1,j_r}\!x_{j_r} &+ \dots + c_{1n}x_n &&= \bar{b}_1, \\
           &\phantom{+\dots+{}} c_{2,j_2}\underline{\underline{x_{j_2}}} &+ \dots + c_{2,j_r}\!x_{j_r} &+ \dots + c_{2n}x_n &&= \bar{b}_2, \\
@@ -632,7 +725,7 @@ SOFTWARE.
 <span>16 октября 2026</span>
 </div>
 </header>
-<!-- 
+<!--
         =============================================================================
         СЮДА НЕЙРОСЕТЬ ВСТАВЛЯЕТ СОДЕРЖИМОЕ КОНСПЕКТА (ARTICLE CONTENT)
         =============================================================================
@@ -654,14 +747,14 @@ SOFTWARE.
 <!-- =====================================================================
            CHAPTER 1: СЛЕДСТВИЯ ИЗ КРИТЕРИЯ СОВМЕСТНОСТИ И МЕТОДА ГАУССА
            ===================================================================== -->
-<section class="chapter-section" id="chapter-1">
+<section class="chapter-section" id="chapter-1-2">
 <div class="chapter-banner ch1">
 <span class="chapter-kicker">Тема I • Системы линейных алгебраических уравнений</span>
 </section>
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Следствия из метода Гаусса и к…</div>
   <h2 id="chapter-2" data-toc="Следствия из метода Гаусса и к…">Следствия из метода Гаусса и критерия совместности СЛАУ</h2>
-  
+
 
 <h3 class="sub-heading" data-toc="1.1Ступенчатый вид системы, гл…" id="sec-1-1">
 <span class="sec-tag">§ 1.1</span>
@@ -696,67 +789,8 @@ SOFTWARE.
 </div></div>
 <!-- SVG ILLUSTRATION 1: ECHELON MATRIX & FREE VARIABLES -->
 <figure class="figure-card">
-<svg aria-label="Схема ступенчатого вида системы (3)" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 820 300" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<marker id="arrow-ch1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1 L 10 5 L 0 9 z" fill="var(--ch1-color)"></path>
-</marker>
-</defs>
-<!-- Background Grid & Frame -->
-<rect fill="var(--svg-bg)" height="260" rx="10" stroke="var(--border-color)" stroke-width="1.5" width="780" x="20" y="20"></rect>
-<!-- Left Panel: Echelon staircase -->
-<text fill="var(--svg-text)" font-size="14" font-weight="700" x="50" y="48">Структура ступенчатой системы (3): всего n неизвестных, r ступенек</text>
-<!-- Column headers -->
-<rect fill="var(--svg-highlight-soft)" height="26" rx="5" stroke="var(--svg-highlight)" width="62" x="70" y="62"></rect>
-<text fill="var(--svg-highlight)" font-size="12" font-weight="700" text-anchor="middle" x="101" y="80">x₁ (гл.)</text>
-<rect fill="var(--svg-amber-soft)" height="26" rx="5" stroke="var(--svg-amber)" width="72" x="138" y="62"></rect>
-<text fill="var(--svg-amber)" font-size="12" font-weight="700" text-anchor="middle" x="174" y="80">... своб. ...</text>
-<rect fill="var(--svg-highlight-soft)" height="26" rx="5" stroke="var(--svg-highlight)" width="68" x="216" y="62"></rect>
-<text fill="var(--svg-highlight)" font-size="12" font-weight="700" text-anchor="middle" x="250" y="80">x_j₂ (гл.)</text>
-<rect fill="var(--svg-amber-soft)" height="26" rx="5" stroke="var(--svg-amber)" width="72" x="290" y="62"></rect>
-<text fill="var(--svg-amber)" font-size="12" font-weight="700" text-anchor="middle" x="326" y="80">... своб. ...</text>
-<rect fill="var(--svg-highlight-soft)" height="26" rx="5" stroke="var(--svg-highlight)" width="68" x="368" y="62"></rect>
-<text fill="var(--svg-highlight)" font-size="12" font-weight="700" text-anchor="middle" x="402" y="80">x_jᵣ (гл.)</text>
-<rect fill="var(--svg-amber-soft)" height="26" rx="5" stroke="var(--svg-amber)" width="84" x="442" y="62"></rect>
-<text fill="var(--svg-amber)" font-size="12" font-weight="700" text-anchor="middle" x="484" y="80">x_n (своб.)</text>
-<text fill="var(--svg-text)" font-size="12" font-weight="700" text-anchor="middle" x="558" y="80">Правая часть</text>
-<!-- Echelon Staircase Path -->
-<path d="M 66 95 L 66 128 L 212 128 L 212 162 L 364 162 L 364 198 L 530 198" fill="none" stroke="var(--svg-highlight)" stroke-width="3"></path>
-<!-- Row 1 -->
-<text fill="var(--svg-highlight)" font-size="13" font-weight="700" text-anchor="middle" x="101" y="116">c₁₁ ≠ 0</text>
-<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="174" y="116">* * *</text>
-<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="250" y="116">c₁,j₂</text>
-<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="326" y="116">* * *</text>
-<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="402" y="116">c₁,jᵣ</text>
-<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="484" y="116">c₁ₙ</text>
-<text fill="var(--svg-text)" font-size="13" font-weight="600" text-anchor="middle" x="558" y="116">= b̄₁</text>
-<!-- Row 2 -->
-<text fill="var(--svg-muted)" font-size="12" text-anchor="middle" x="135" y="150">0</text>
-<text fill="var(--svg-highlight)" font-size="13" font-weight="700" text-anchor="middle" x="250" y="150">c₂,j₂ ≠ 0</text>
-<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="326" y="150">* * *</text>
-<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="402" y="150">c₂,jᵣ</text>
-<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="484" y="150">c₂ₙ</text>
-<text fill="var(--svg-text)" font-size="13" font-weight="600" text-anchor="middle" x="558" y="150">= b̄₂</text>
-<!-- Row r -->
-<text fill="var(--svg-muted)" font-size="12" text-anchor="middle" x="250" y="186">0 ... 0</text>
-<text fill="var(--svg-highlight)" font-size="13" font-weight="700" text-anchor="middle" x="402" y="186">cᵣ,jᵣ ≠ 0</text>
-<text fill="var(--svg-muted)" font-size="13" text-anchor="middle" x="484" y="186">... cᵣₙ</text>
-<text fill="var(--svg-text)" font-size="13" font-weight="600" text-anchor="middle" x="558" y="186">= b̄ᵣ</text>
-<!-- Zero rows r+1 .. m -->
-<rect fill="var(--svg-pos-soft)" height="48" rx="6" stroke="var(--svg-pos)" stroke-dasharray="4 3" width="528" x="66" y="208"></rect>
-<text fill="var(--svg-pos)" font-size="12" font-weight="700" text-anchor="middle" x="330" y="228">Уравнения r+1, ..., m имеют вид: 0 = b̄ᵣ₊₁, ..., 0 = b̄ₘ</text>
-<text fill="var(--svg-text)" font-size="11" text-anchor="middle" x="330" y="246">Для совместности системы необходимо и достаточно: b̄ᵣ₊₁ = ... = b̄ₘ = 0</text>
-<!-- Right Summary Box -->
-<rect fill="var(--bg-elevated)" height="194" rx="8" stroke="var(--border-color)" width="174" x="610" y="62"></rect>
-<text fill="var(--svg-text)" font-size="12" font-weight="700" text-anchor="middle" x="697" y="86">Баланс неизвестных</text>
-<line stroke="var(--border-color)" x1="622" x2="772" y1="94" y2="94"></line>
-<text fill="var(--svg-text)" font-size="12" x="624" y="116">• Всего неизвестных: <tspan font-weight="700">n</tspan></text>
-<text fill="var(--svg-highlight)" font-size="12" x="624" y="140">• Главных (ступенек): <tspan font-weight="700">r</tspan></text>
-<text fill="var(--svg-amber)" font-size="12" x="624" y="164">• Свободных: <tspan font-weight="700">n − r</tspan></text>
-<line stroke="var(--border-color)" x1="622" x2="772" y1="178" y2="178"></line>
-<text fill="var(--svg-pos)" font-size="12" font-weight="700" text-anchor="middle" x="697" y="200">Единственность ⇔</text>
-<text fill="var(--svg-pos)" font-size="13" font-weight="800" text-anchor="middle" x="697" y="220">n − r = 0  ⇔  r = n</text>
-<text fill="var(--svg-muted)" font-size="11" text-anchor="middle" x="697" y="242">(нет свободных неизвестных)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 258" role="img" aria-label="Ступенчатая расширенная матрица: три ведущих элемента" data-fam-figure="diagram" data-fam-index="1">
+<text x="340" y="30" text-anchor="middle" fill="var(--fig-ink)" font-size="16">x₁          x₂          x₃          x₄          x₅        правая часть</text><rect x="110" y="52" width="32" height="30" rx="5" fill="var(--fig-green)" fill-opacity=".15" stroke="var(--fig-green)"/><text x="126" y="72" text-anchor="middle" fill="var(--fig-green)" font-size="17">1</text><text x="206" y="72" text-anchor="middle" fill="var(--fig-ink)" font-size="17">2</text><text x="286" y="72" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="366" y="72" text-anchor="middle" fill="var(--fig-ink)" font-size="17">3</text><text x="446" y="72" text-anchor="middle" fill="var(--fig-ink)" font-size="17">1</text><text x="526" y="72" text-anchor="middle" fill="var(--fig-ink)" font-size="17">5</text><text x="126" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="206" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><rect x="270" y="90" width="32" height="30" rx="5" fill="var(--fig-green)" fill-opacity=".15" stroke="var(--fig-green)"/><text x="286" y="110" text-anchor="middle" fill="var(--fig-green)" font-size="17">2</text><text x="366" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="17">−1</text><text x="446" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="17">4</text><text x="526" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="126" y="148" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="206" y="148" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="286" y="148" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="366" y="148" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><rect x="430" y="128" width="32" height="30" rx="5" fill="var(--fig-green)" fill-opacity=".15" stroke="var(--fig-green)"/><text x="446" y="148" text-anchor="middle" fill="var(--fig-green)" font-size="17">3</text><text x="526" y="148" text-anchor="middle" fill="var(--fig-ink)" font-size="17">6</text><text x="126" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="206" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="286" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="366" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="446" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="526" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><line x1="487" y1="46" x2="487" y2="195" stroke="var(--fig-muted)" stroke-width="1.5" /><text x="340" y="242" text-anchor="middle" fill="var(--fig-ink)" font-size="15">Главные неизвестные: x₁, x₃, x₅   ·   свободные: x₂, x₄</text>
 </svg>
 <figcaption class="figure-caption">
 <strong>Рис. 1.1.</strong> Геометрия ступенчатой системы $(3)$ (по кадру лекции): на каждой из $r$ ступенек стоит ровно одна главная неизвестная $\underline{\underline{x_{j_k}}}$ с ненулевым коэффициентом $c_{k,j_k} \neq 0$. Все остальные $n - r$ неизвестных являются свободными и переносятся в правую часть при обратном ходе метода Гаусса.
@@ -877,31 +911,145 @@ SOFTWARE.
   $$('[data-all-proofs]').forEach(b=>b.addEventListener('click',()=>{proofs.forEach(p=>setProof(p,b.dataset.allProofs));syncToolbar();updatePosition();}));syncToolbar();
 
   // Render before generating the outline, so math in headings gets a clean label.
-  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:true,strict:false});}catch(e){console.warn('Math render note:', e);}
+  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:false,strict:false,ignoredClasses:["math-svg","fam-svg-labels"]});}catch(e){console.warn('Math render note:', e);}
   const headings=$$('h2[data-toc],h3[data-toc]'),list=document.createElement('ol');
   let number=0;
   for(const heading of headings){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+heading.id;if(heading.tagName==='H2'){const n=document.createElement('span');n.className='toc-number';n.textContent=String(++number).padStart(2,'0');n.setAttribute('aria-hidden','true');a.append(n);}else li.className='toc-sub';a.append(document.createTextNode(heading.dataset.toc));li.append(a);list.append(li);}
   $('#toc').replaceChildren(list);$('#section-count').textContent=`Разделов: ${number}`;
-  const mobile=matchMedia('(max-width:760px)');
-  function closeToc(){ $('#contents').classList.remove('is-open');$('#toc-toggle').setAttribute('aria-expanded','false'); }
-  $('#toc-toggle').addEventListener('click',()=>{const open=$('#contents').classList.toggle('is-open');$('#toc-toggle').setAttribute('aria-expanded',String(open));if(open)$('#toc a')?.focus();});
-  $('#toc-close').addEventListener('click',()=>{closeToc();$('#toc-toggle').focus();});
-  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&$('#contents').classList.contains('is-open')){closeToc();$('#toc-toggle').focus();}});
-  mobile.addEventListener('change',closeToc);
-  function goToHash(hash,push){let target;try{target=document.getElementById(decodeURIComponent(hash.slice(1)));}catch{return;}if(!target)return;
-    const proof=target.closest('[data-proof]');if(proof){setProof(proof,target.closest('[data-proof-idea]')?'idea':'full');syncToolbar();}
-    closeToc();if(push){try{history.pushState(null,'',hash);}catch{/* opaque reader sandbox */}}
-    target.scrollIntoView({behavior:'instant',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});updatePosition();
+  // FAM:READING-NAVIGATION-START
+  const root = document.documentElement;
+  const layout = $('.layout');
+  const topbar = $('.topbar');
+  const contents = $('#contents');
+  const tocToggle = $('#toc-toggle');
+  const mobile = matchMedia('(max-width:760px)');
+  let desktopOpen = true;
+  let mobileOpen = false;
+  try { desktopOpen = localStorage.getItem('fam-note-toc') !== 'collapsed'; } catch {}
+
+  function tocIsOpen() { return mobile.matches ? mobileOpen : desktopOpen; }
+  function syncToc() {
+    contents.classList.toggle('is-open', mobile.matches && mobileOpen);
+    layout.toggleAttribute('data-toc-collapsed', !desktopOpen);
+    tocToggle.setAttribute('aria-expanded', String(tocIsOpen()));
   }
-  document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#"]');if(!a)return;ev.preventDefault();goToHash(a.getAttribute('href'),true);});
-  window.addEventListener('hashchange',()=>goToHash(location.hash,false));
-  function updatePosition(){const y=window.scrollY,span=document.documentElement.scrollHeight-innerHeight;$('#progress-bar').style.width=(span>0?Math.min(100,Math.max(0,100*y/span)):100)+'%';let active=headings[0];for(const h of headings)if(h.getBoundingClientRect().top<145)active=h;
-    $$('#toc a').forEach(a=>{if(a.hash==='#'+active?.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
-  let pending=false;window.addEventListener('scroll',()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;updatePosition();});},{passive:true});window.addEventListener('resize',updatePosition);
-  if(location.hash)goToHash(location.hash,false);updatePosition();
+  function closeMobileToc() {
+    mobileOpen = false;
+    syncToc();
+  }
+  function setTocOpen(open) {
+    if (mobile.matches) {
+      mobileOpen = open;
+      if (open) root.removeAttribute('data-note-bar-hidden');
+    } else {
+      desktopOpen = open;
+      try { localStorage.setItem('fam-note-toc', open ? 'expanded' : 'collapsed'); } catch {}
+    }
+    syncToc();
+    updatePosition();
+  }
+  tocToggle.addEventListener('click', () => {
+    const open = !tocIsOpen();
+    setTocOpen(open);
+    if (open && mobile.matches) $('#toc a')?.focus({preventScroll:true});
+  });
+  function dismissToc() {
+    setTocOpen(false);
+    root.removeAttribute('data-note-bar-hidden');
+    tocToggle.focus({preventScroll:true});
+  }
+  $('#toc-close').addEventListener('click', dismissToc);
+  document.addEventListener('keydown', event => {
+    const focusInToc = contents.contains(document.activeElement) || document.activeElement === tocToggle;
+    if (event.key === 'Escape' && !event.defaultPrevented && tocIsOpen() &&
+        (mobile.matches || focusInToc) && !$('#pdf-dialog').open) dismissToc();
+  });
+  mobile.addEventListener('change', closeMobileToc);
+  syncToc();
+
+  let lastScroll = Math.max(0, window.scrollY);
+  let scrollDistance = 0;
+  let topbarHeight = 0;
+  function syncTopbarHeight() {
+    topbarHeight = topbar.offsetHeight;
+    root.style.setProperty('--note-topbar-height', topbarHeight + 'px');
+    updatePosition();
+  }
+  function updateTopbar() {
+    const y = Math.max(0, Math.min(window.scrollY, root.scrollHeight - innerHeight));
+    const delta = y - lastScroll;
+    lastScroll = y;
+    if (y <= 16 || mobileOpen) {
+      root.removeAttribute('data-note-bar-hidden');
+      scrollDistance = 0;
+      return;
+    }
+    if (!delta) return;
+    scrollDistance = Math.sign(delta) === Math.sign(scrollDistance) ? scrollDistance + delta : delta;
+    if (scrollDistance <= -10) root.removeAttribute('data-note-bar-hidden');
+    if (scrollDistance >= 18 && y > topbarHeight) root.setAttribute('data-note-bar-hidden', '');
+  }
+
+  function goToHash(hash, push) {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (!target) return;
+    const proof = target.closest('[data-proof]');
+    if (proof) {
+      setProof(proof, target.closest('[data-proof-idea]') ? 'idea' : 'full');
+      syncToolbar();
+    }
+    closeMobileToc();
+    if (push) {
+      try { history.pushState(null, '', hash); } catch { /* Opaque reader sandbox. */ }
+    }
+    if (target === $('#top') || target === $('#content')) root.removeAttribute('data-note-bar-hidden');
+    target.scrollIntoView({behavior:'instant', block:'start'});
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+    lastScroll = Math.max(0, window.scrollY);
+    scrollDistance = 0;
+    updatePosition();
+  }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    event.preventDefault();
+    goToHash(link.getAttribute('href'), true);
+  });
+  window.addEventListener('hashchange', () => goToHash(location.hash, false));
+
+  function updatePosition() {
+    const y = window.scrollY;
+    const span = root.scrollHeight - innerHeight;
+    $('#progress-bar').style.width = (span > 0 ? Math.min(100, Math.max(0, 100 * y / span)) : 100) + '%';
+    const barBottom = Math.max(0, topbar.getBoundingClientRect().bottom);
+    let active = headings[0];
+    for (const heading of headings) if (heading.getBoundingClientRect().top <= barBottom + 32) active = heading;
+    $$('#toc a').forEach(link => {
+      if (link.hash === '#' + active?.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let pending = false;
+  window.addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      updateTopbar();
+      updatePosition();
+    });
+  }, {passive:true});
+  window.addEventListener('resize', syncTopbarHeight);
+  topbar.addEventListener('transitionend', updatePosition);
+  new ResizeObserver(syncTopbarHeight).observe(topbar);
+  syncTopbarHeight();
+  if (location.hash) goToHash(location.hash, false);
+  // FAM:READING-NAVIGATION-END
 
   const dialog=$('#pdf-dialog');let printChoice='full';
-  $('#pdf-open').addEventListener('click',()=>{closeToc();$('#pdf-status').textContent='';dialog.showModal();});
+  $('#pdf-open').addEventListener('click',()=>{closeMobileToc();$('#pdf-status').textContent='';dialog.showModal();});
   $('#pdf-close').addEventListener('click',()=>dialog.close());
   $$('input[name="pdf-mode"]').forEach(r=>r.addEventListener('change',()=>{if(r.checked)printChoice=r.value;}));
   // Ctrl+P always exports full proofs; the explicit dialog temporarily selects a variant.

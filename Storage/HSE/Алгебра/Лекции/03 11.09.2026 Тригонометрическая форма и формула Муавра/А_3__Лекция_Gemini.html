@@ -567,6 +567,99 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 -->
+
+<style id="fam-reviewed-figures">
+#content svg[data-fam-figure] {
+  --fig-paper:#faf8f1; --fig-ink:#24342d; --fig-muted:#52645a;
+  --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+  --fig-rose:#ac3454; --fig-gold:#885914;
+  display:block; max-width:100%; height:auto; margin-inline:auto;
+  color:var(--fig-ink); font-family:Arial, sans-serif;
+}
+html[data-theme="parchment"] #content svg[data-fam-figure] {
+  --fig-paper:#f1e7d3; --fig-ink:#353023; --fig-muted:#665b49;
+  --fig-rule:#cabc9d; --fig-blue:#244fb1; --fig-green:#166349;
+  --fig-rose:#972e4c; --fig-gold:#795419;
+}
+html[data-theme="dark"] #content svg[data-fam-figure] {
+  --fig-paper:#17231e; --fig-ink:#ecf0e6; --fig-muted:#bac9bd;
+  --fig-rule:#465c50; --fig-blue:#a3c0ff; --fig-green:#80d4b2;
+  --fig-rose:#ffa2b5; --fig-gold:#f0c67c;
+}
+#content svg[data-fam-figure] .venn-fill {fill:var(--fig-blue);fill-opacity:.16}
+#content svg[data-fam-figure] .venn-fill-danger {fill:var(--fig-rose);fill-opacity:.19}
+#content svg[data-fam-figure] text {dominant-baseline:auto}
+#content svg[data-fam-figure="plot-original"] {background:white;color:#26352e}
+@media print {
+  html[data-theme] #content svg[data-fam-figure] {
+    --fig-paper:#fff; --fig-ink:#24342d; --fig-muted:#52645a;
+    --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+    --fig-rose:#ac3454; --fig-gold:#885914;
+  }
+}
+</style>
+<style id="fam-reading-navigation">
+/* FAM:READING-NAVIGATION-START */
+@media screen {
+  .topbar {
+    transform: translateY(0);
+  }
+  #toc-toggle, #toc-close {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 11px;
+  }
+  #toc-toggle:hover, #toc-close:hover {
+    color: var(--gold);
+  }
+  .reading-progress {
+    top: max(0px, calc(var(--note-topbar-height, 88px) - 1px));
+  }
+  .contents {
+    top: calc(var(--note-topbar-height, 88px) + 24px);
+    max-height: calc(100svh - var(--note-topbar-height, 88px) - 48px);
+  }
+  .chapter [id], .lecture-head, #content {
+    scroll-margin-top: calc(var(--note-topbar-height, 88px) + 24px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .topbar {
+    transform: translateY(-100%);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .reading-progress {
+    top: 0;
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .contents {
+    top: 24px;
+    max-height: calc(100svh - 48px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) :is(.chapter [id], .lecture-head, #content) {
+    scroll-margin-top: 24px;
+  }
+}
+@media screen and (min-width: 761px) {
+  .layout[data-toc-collapsed] {
+    grid-template-columns: minmax(0, 820px);
+    justify-content: center;
+  }
+  .layout[data-toc-collapsed] > .contents {
+    display: none;
+  }
+}
+@media screen and (max-width: 760px) {
+  .contents.is-open {
+    inset: var(--note-topbar-height, 70px) 0 0;
+    max-height: none;
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .topbar { transition: transform .22s ease; }
+  .contents, .reading-progress { transition: top .22s ease; }
+}
+@media screen {
+  html:has(.contents.is-open) { overflow: hidden; }
+}
+/* FAM:READING-NAVIGATION-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -591,7 +684,7 @@ SOFTWARE.
         <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
         <h1>Тригонометрическая форма и формула Муавра</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[z = a + bi, \quad a, b \in \mathbb{R}\]</div></div>
+        <div class="lecture-abstract" style="grid-template-columns:1fr"><div class="abstract-formula">\[z = a + bi, \quad a, b \in \mathbb{R}\]</div></div>
       </header>
       <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
       <div class="proof-toolbar" aria-label="Все доказательства">
@@ -622,7 +715,7 @@ SOFTWARE.
 <span>11 сентября 2026</span>
 </div>
 </header>
-<!-- 
+<!--
         =============================================================================
         СЮДА НЕЙРОСЕТЬ ВСТАВЛЯЕТ СОДЕРЖИМОЕ КОНСПЕКТА (ARTICLE CONTENT)
         =============================================================================
@@ -650,7 +743,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / 1. Алгебраическая и геометриче…</div>
   <h2 id="chapter-2" data-toc="1. Алгебраическая и геометриче…">§ 1. Алгебраическая и геометрическая модель комплексных чисел</h2>
-  
+
 <p><span class="drop-cap">В</span>          В университетском курсе алгебры поле комплексных чисел $\mathbb{C}$ определяется как расширение поля действительных чисел $\mathbb{R}$, полученное присоединением элемента $i$ (мнимой единицы), удовлетворяющего фундаментальному соотношению $i^2 = -1$.
         </p>
 <div class="statement definition" id="def-1"><div class="block-label">Определение 1</div><h3 data-toc="Определение 1.1 (Алгебраическа…" id="sub-2-1">Определение 1.1 (Алгебраическая форма)</h3><div>
@@ -694,49 +787,15 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-3">
   <div class="chapter-kicker">03 / 2. Полярные координаты и триго…</div>
   <h2 id="chapter-3" data-toc="2. Полярные координаты и триго…">§ 2. Полярные координаты и тригонометрическая форма</h2>
-  
+
 <p>
           Векторное описание на плоскости позволяет перейти от декартовых координат $(a, b)$ к полярным координатам $(r, \varphi)$.
         </p>
 <!-- Рисунок 1: Тригонометрическая форма комплексного числа -->
 <div class="svg-figure">
 <div class="svg-container">
-<svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 520 380" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<marker id="arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"></path>
-</marker>
-<marker id="arrow-vec" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-vector1)"></path>
-</marker>
-</defs>
-<!-- Координатные оси -->
-<line marker-end="url(#arrow)" stroke="var(--svg-axis)" stroke-width="2" x1="40" x2="480" y1="310" y2="310"></line>
-<line marker-end="url(#arrow)" stroke="var(--svg-axis)" stroke-width="2" x1="100" x2="100" y1="350" y2="40"></line>
-<text fill="var(--text-main)" font-size="14" font-weight="600" x="475" y="335">X (Re)</text>
-<text fill="var(--text-main)" font-size="14" font-weight="600" x="70" y="45">Y (Im)</text>
-<text fill="var(--text-muted)" font-size="14" x="80" y="330">O</text>
-<!-- Единичный штрих на осях -->
-<line stroke="var(--text-main)" stroke-width="2" x1="180" x2="180" y1="305" y2="315"></line>
-<text fill="var(--text-muted)" font-size="13" x="176" y="332">1</text>
-<line stroke="var(--text-main)" stroke-width="2" x1="95" x2="105" y1="230" y2="230"></line>
-<text fill="var(--text-muted)" font-size="13" x="78" y="234">1</text>
-<!-- Проекции и штриховые линии к точке z -->
-<!-- z = (360, 110) => a = 260, b = 200 -->
-<line stroke="var(--svg-axis)" stroke-dasharray="5,5" stroke-width="1.5" x1="360" x2="360" y1="310" y2="110"></line>
-<line stroke="var(--svg-axis)" stroke-dasharray="5,5" stroke-width="1.5" x1="100" x2="360" y1="110" y2="110"></line>
-<!-- Засечки a и b -->
-<text fill="var(--accent-primary)" font-size="15" font-weight="700" x="355" y="335">a</text>
-<text fill="var(--accent-primary)" font-size="15" font-weight="700" x="75" y="115">b</text>
-<!-- Дуга угла phi -->
-<path d="M 175 310 A 75 75 0 0 0 157 266" fill="none" stroke="var(--svg-accent)" stroke-width="2"></path>
-<text fill="var(--svg-accent)" font-size="16" font-weight="700" x="180" y="280">φ</text>
-<!-- Радиус-вектор z -->
-<line marker-end="url(#arrow-vec)" stroke="var(--svg-vector1)" stroke-width="3" x1="100" x2="356" y1="310" y2="113"></line>
-<!-- Точка z -->
-<circle cx="360" cy="110" fill="var(--svg-vector1)" r="5"></circle>
-<text fill="var(--text-main)" font-size="16" font-weight="700" x="372" y="105">z = a + bi</text>
-<text fill="var(--svg-vector1)" font-size="17" font-weight="700" x="215" y="195">r = |z|</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 292" role="img" aria-label="Комплексное число, его проекции и аргумент" data-fam-figure="diagram" data-fam-index="1">
+<line x1="44" y1="175" x2="523" y2="175" stroke="var(--fig-rule)" stroke-width="1.5" /><line x1="280" y1="25" x2="280" y2="280" stroke="var(--fig-rule)" stroke-width="1.5" /><text x="522" y="166" text-anchor="middle" fill="var(--fig-muted)" font-size="12">Re</text><text x="291" y="24" text-anchor="middle" fill="var(--fig-muted)" font-size="12">Im</text><text x="268" y="193" text-anchor="middle" fill="var(--fig-muted)" font-size="12">O</text><line x1="382" y1="98.2" x2="382" y2="175" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="382" y1="98.2" x2="280" y2="98.2" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="280" y1="175" x2="374.81" y2="103.61" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M382,98.2 L377.14,106.71 L372.48,100.52 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="382" cy="98.2" r="3.3" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="392" y="90.2" text-anchor="start" fill="var(--fig-blue)" font-size="14">z = a + bi</text><path d="M314.8,175 L314.8,174.44 L314.78,173.88 L314.76,173.32 L314.73,172.76 L314.69,172.2 L314.64,171.64 L314.58,171.08 L314.51,170.52 L314.43,169.96 L314.35,169.41 L314.25,168.86 L314.15,168.3 L314.04,167.75 L313.92,167.21 L313.79,166.66 L313.65,166.12 L313.5,165.57 L313.34,165.03 L313.18,164.5 L313,163.96 L312.82,163.43 L312.63,162.91 L312.43,162.38 L312.22,161.86 L312.01,161.34 L311.78,160.83 L311.55,160.31 L311.31,159.81 L311.06,159.3 L310.8,158.81 L310.54,158.31 L310.26,157.82 L309.98,157.33 L309.69,156.85 L309.4,156.38 L309.09,155.9 L308.78,155.44 L308.46,154.98 L308.13,154.52 L307.8,154.07" fill="none" stroke="var(--fig-gold)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><text x="321" y="163" text-anchor="middle" fill="var(--fig-gold)" font-size="14">φ</text><text x="385" y="194" text-anchor="middle" fill="var(--fig-muted)" font-size="14">a</text><text x="265" y="99" text-anchor="middle" fill="var(--fig-muted)" font-size="14">b</text>
 </svg>
 </div>
 <div class="figure-caption">Рис. 1. Представление комплексного числа $z$ в декартовых и полярных координатах на комплексной плоскости</div>
@@ -747,7 +806,7 @@ SOFTWARE.
 <p>Из прямоугольного треугольника с катетами $a, b$ и гипотенузой $r$ получаем формулы связи:</p>
         \[r = |z| = \sqrt{a^2 + b^2} > 0\]
         \[\cos\varphi = \frac{a}{\sqrt{a^2 + b^2}} = \frac{a}{r}, \qquad \sin\varphi = \frac{b}{\sqrt{a^2 + b^2}} = \frac{b}{r}\]
-        
+
         <p>Отсюда выражаем декартовы координаты через полярные: $a = r\cos\varphi$, $b = r\sin\varphi$. Подставляя их в алгебраическую форму $z = a + bi$, имеем:</p>
         \[z = r\cos\varphi + i(r\sin\varphi) = r(\cos\varphi + i\sin\varphi)\]
 
@@ -804,7 +863,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-4">
   <div class="chapter-kicker">04 / 3. Критерий равенства в тригон…</div>
   <h2 id="chapter-4" data-toc="3. Критерий равенства в тригон…">§ 3. Критерий равенства в тригонометрической форме</h2>
-  
+
 <p>
           В алгебраической форме два числа равны тогда и только тогда, когда равны их действительные и мнимые части. Сформулируем и строго докажем критерий для тригонометрической формы.
         </p>
@@ -870,7 +929,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-5">
   <div class="chapter-kicker">05 / 4. Правила действий над компле…</div>
   <h2 id="chapter-5" data-toc="4. Правила действий над компле…">§ 4. Правила действий над комплексными числами в тригонометрической форме</h2>
-  
+
 <p>
           Главное преимущество тригонометрической формы заключается в исключительной простоте операций умножения, деления и возведения в степень.
         </p>
@@ -933,41 +992,8 @@ SOFTWARE.
 <!-- Рисунок 2: Геометрический смысл умножения -->
 <div class="svg-figure">
 <div class="svg-container">
-<svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 540 380" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<marker id="arr2" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"></path>
-</marker>
-<marker id="arr-prod" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-accent)"></path>
-</marker>
-</defs>
-<!-- Оси координат -->
-<line marker-end="url(#arr2)" stroke="var(--svg-axis)" stroke-width="2" x1="30" x2="500" y1="320" y2="320"></line>
-<line marker-end="url(#arr2)" stroke="var(--svg-axis)" stroke-width="2" x1="120" x2="120" y1="360" y2="30"></line>
-<text fill="var(--text-main)" font-size="13" font-weight="600" x="495" y="340">Re</text>
-<text fill="var(--text-main)" font-size="13" font-weight="600" x="90" y="35">Im</text>
-<text fill="var(--text-muted)" font-size="13" x="100" y="340">O</text>
-<!-- Вектор z1: угол 25 град, r1 = 170 -->
-<!-- x = 120 + 170*cos(25) = 120 + 154 = 274; y = 320 - 170*sin(25) = 320 - 72 = 248 -->
-<line stroke="var(--svg-vector1)" stroke-width="2.5" x1="120" x2="274" y1="320" y2="248"></line>
-<circle cx="274" cy="248" fill="var(--svg-vector1)" r="4"></circle>
-<text fill="var(--svg-vector1)" font-size="14" font-weight="700" x="285" y="250">z₁ (r₁, φ₁)</text>
-<!-- Вектор z2: угол 35 град, r2 = 140 -->
-<!-- x = 120 + 140*cos(35) = 120 + 115 = 235; y = 320 - 140*sin(35) = 320 - 80 = 240 -->
-<line stroke="var(--svg-vector2)" stroke-width="2.5" x1="120" x2="235" y1="320" y2="240"></line>
-<circle cx="235" cy="240" fill="var(--svg-vector2)" r="4"></circle>
-<text fill="var(--svg-vector2)" font-size="14" font-weight="700" x="175" y="225">z₂ (r₂, φ₂)</text>
-<!-- Вектор z1 * z2: угол 60 град, длина r = 260 -->
-<!-- x = 120 + 260*cos(60) = 120 + 130 = 250; y = 320 - 260*sin(60) = 320 - 225 = 95 -->
-<line marker-end="url(#arr-prod)" stroke="var(--svg-accent)" stroke-width="3" x1="120" x2="248" y1="320" y2="98"></line>
-<circle cx="250" cy="95" fill="var(--svg-accent)" r="5"></circle>
-<text fill="var(--svg-accent)" font-size="15" font-weight="700" x="262" y="95">z₁·z₂ (r₁r₂, φ₁ + φ₂)</text>
-<!-- Дуги углов -->
-<path d="M 180 320 A 60 60 0 0 0 174 295" fill="none" stroke="var(--svg-vector1)" stroke-width="1.5"></path>
-<text fill="var(--svg-vector1)" font-size="12" x="185" y="310">φ₁</text>
-<path d="M 220 320 A 100 100 0 0 0 170 233" fill="none" stroke="var(--svg-accent)" stroke-dasharray="4,3" stroke-width="1.8"></path>
-<text fill="var(--svg-accent)" font-size="13" x="215" y="275">φ₁ + φ₂</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 292" role="img" aria-label="Умножение комплексных чисел: модули перемножаются, аргументы складываются" data-fam-figure="diagram" data-fam-index="2">
+<line x1="44" y1="175" x2="523" y2="175" stroke="var(--fig-rule)" stroke-width="1.5" /><line x1="280" y1="25" x2="280" y2="280" stroke="var(--fig-rule)" stroke-width="1.5" /><text x="522" y="166" text-anchor="middle" fill="var(--fig-muted)" font-size="12">Re</text><text x="291" y="24" text-anchor="middle" fill="var(--fig-muted)" font-size="12">Im</text><text x="268" y="193" text-anchor="middle" fill="var(--fig-muted)" font-size="12">O</text><line x1="280" y1="175" x2="371.27" y2="137.61" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M379.6,134.2 L372.74,141.19 L369.8,134.03 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="379.6" cy="134.2" r="3.3" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="389.6" y="126.2" text-anchor="start" fill="var(--fig-blue)" font-size="14">z₁</text><line x1="280" y1="175" x2="341.86" y2="91.05" stroke="var(--fig-green)" stroke-width="2.1" /><path d="M347.2,83.8 L344.98,93.34 L338.75,88.75 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="347.2" cy="83.8" r="3.3" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.6"/><text x="357.2" y="75.8" text-anchor="start" fill="var(--fig-green)" font-size="14">z₂</text><line x1="280" y1="175" x2="302.57" y2="85.18" stroke="var(--fig-rose)" stroke-width="2.1" /><path d="M304.77,76.46 L306.33,86.13 L298.82,84.24 Z" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="304.77" cy="76.46" r="3.3" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"/><text x="314.77" y="68.46" text-anchor="start" fill="var(--fig-rose)" font-size="14">z₁z₂</text><text x="280" y="270" text-anchor="middle" fill="var(--fig-ink)" font-size="13">|z₁z₂| = |z₁|·|z₂|   ·   arg(z₁z₂) ≡ arg z₁ + arg z₂ (mod 2π)</text>
 </svg>
 </div>
 <div class="figure-caption">Рис. 2. Геометрический смысл умножения комплексных чисел: растяжение в $r_2$ раз и поворот на угол $\varphi_2$</div>
@@ -1017,7 +1043,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-6">
   <div class="chapter-kicker">06 / 5. Свойства модуля и неравенст…</div>
   <h2 id="chapter-6" data-toc="5. Свойства модуля и неравенст…">§ 5. Свойства модуля и неравенство треугольника</h2>
-  
+
 <div class="statement theorem" id="thm-5"><div class="block-label">Утверждение 5</div><h3 data-toc="Теорема 5.1 (Свойства модуля к…" id="sub-6-1">Теорема 5.1 (Свойства модуля комплексных чисел)</h3><div>
 
           Для любых комплексных чисел $z, z_1, z_2 \in \mathbb{C}$ справедливы соотношения:
@@ -1059,38 +1085,8 @@ SOFTWARE.
 <!-- Рисунок 3: Неравенство треугольника на плоскости -->
 <div class="svg-figure">
 <div class="svg-container">
-<svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 540 380" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<marker id="arr3" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"></path>
-</marker>
-<marker id="arr-sum" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-accent)"></path>
-</marker>
-</defs>
-<line marker-end="url(#arr3)" stroke="var(--svg-axis)" stroke-width="2" x1="30" x2="510" y1="320" y2="320"></line>
-<line marker-end="url(#arr3)" stroke="var(--svg-axis)" stroke-width="2" x1="80" x2="80" y1="360" y2="40"></line>
-<text fill="var(--text-main)" font-size="13" x="500" y="340">X</text>
-<text fill="var(--text-main)" font-size="13" x="60" y="45">Y</text>
-<text fill="var(--text-muted)" font-size="13" x="65" y="335">O</text>
-<!-- z1 = (190, 140) => вектор из (80, 320) в (190, 140), dx=110, dy=-180 -->
-<line stroke="var(--svg-vector1)" stroke-width="2.5" x1="80" x2="190" y1="320" y2="140"></line>
-<circle cx="190" cy="140" fill="var(--svg-vector1)" r="4"></circle>
-<text fill="var(--svg-vector1)" font-size="15" font-weight="700" x="140" y="130">z₁</text>
-<!-- z2 = (330, 240) => вектор из (80, 320) в (330, 240), dx=250, dy=-80 -->
-<line stroke="var(--svg-vector2)" stroke-width="2.5" x1="80" x2="330" y1="320" y2="240"></line>
-<circle cx="330" cy="240" fill="var(--svg-vector2)" r="4"></circle>
-<text fill="var(--svg-vector2)" font-size="15" font-weight="700" x="340" y="255">z₂</text>
-<!-- Сумма z1 + z2: конец в (80 + 110 + 250, 320 - 180 - 80) = (440, 60) -->
-<line marker-end="url(#arr-sum)" stroke="var(--svg-accent)" stroke-width="3" x1="80" x2="436" y1="320" y2="63"></line>
-<circle cx="440" cy="60" fill="var(--svg-accent)" r="5"></circle>
-<text fill="var(--svg-accent)" font-size="16" font-weight="700" x="450" y="60">z₁ + z₂</text>
-<!-- Стороны параллелограмма -->
-<line stroke="var(--svg-vector2)" stroke-dasharray="5,4" stroke-width="1.8" x1="190" x2="440" y1="140" y2="60"></line>
-<line stroke="var(--svg-vector1)" stroke-dasharray="5,4" stroke-width="1.8" x1="330" x2="440" y1="240" y2="60"></line>
-<!-- Разность z1 - z2: соединяет конец z2 с концом z1 -->
-<line stroke="var(--svg-vector3)" stroke-width="2.5" x1="330" x2="190" y1="240" y2="140"></line>
-<text fill="var(--svg-vector3)" font-size="15" font-weight="700" x="265" y="180">z₁ - z₂</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 292" role="img" aria-label="Параллелограмм суммы, разность направлена от z₂ к z₁" data-fam-figure="diagram" data-fam-index="3">
+<line x1="44" y1="175" x2="523" y2="175" stroke="var(--fig-rule)" stroke-width="1.5" /><line x1="280" y1="25" x2="280" y2="280" stroke="var(--fig-rule)" stroke-width="1.5" /><text x="522" y="166" text-anchor="middle" fill="var(--fig-muted)" font-size="12">Re</text><text x="291" y="24" text-anchor="middle" fill="var(--fig-muted)" font-size="12">Im</text><text x="268" y="193" text-anchor="middle" fill="var(--fig-muted)" font-size="12">O</text><line x1="379.6" y1="134.2" x2="410.8" y2="57.4" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="311.2" y1="98.2" x2="410.8" y2="57.4" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="280" y1="175" x2="371.27" y2="137.61" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M379.6,134.2 L372.74,141.19 L369.8,134.03 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="379.6" cy="134.2" r="3.3" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="389.6" y="126.2" text-anchor="start" fill="var(--fig-blue)" font-size="14">z₁</text><line x1="280" y1="175" x2="307.81" y2="106.54" stroke="var(--fig-green)" stroke-width="2.1" /><path d="M311.2,98.2 L311.4,107.99 L304.23,105.08 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="311.2" cy="98.2" r="3.3" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.6"/><text x="321.2" y="90.2" text-anchor="start" fill="var(--fig-green)" font-size="14">z₂</text><line x1="280" y1="175" x2="404.11" y2="63.42" stroke="var(--fig-rose)" stroke-width="2.1" /><path d="M410.8,57.4 L406.69,66.3 L401.52,60.54 Z" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="410.8" cy="57.4" r="3.3" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"/><text x="420.8" y="49.4" text-anchor="start" fill="var(--fig-rose)" font-size="14">z₁ + z₂</text><line x1="311.2" y1="98.2" x2="371.64" y2="130.01" stroke="var(--fig-gold)" stroke-width="2.1" /><path d="M379.6,134.2 L369.83,133.43 L373.44,126.58 Z" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="346" y="103" text-anchor="middle" fill="var(--fig-gold)" font-size="14">z₁ − z₂</text>
 </svg>
 </div>
 <div class="figure-caption">Рис. 3. Геометрическая иллюстрация неравенства треугольника: стороны параллелограмма $|z_1|$, $|z_2|$ и диагонали $|z_1 + z_2|$, $|z_1 - z_2|$</div>
@@ -1167,7 +1163,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-7">
   <div class="chapter-kicker">07 / 6. Целые степени комплексного …</div>
   <h2 id="chapter-7" data-toc="6. Целые степени комплексного …">§ 6. Целые степени комплексного числа и формула Муавра</h2>
-  
+
 <div class="statement definition" id="def-4"><div class="block-label">Определение 4</div><h3 data-toc="Определение 6.1 (Степень с цел…" id="sub-7-1">Определение 6.1 (Степень с целым показателем)</h3><div>
 
           Для любого $z \in \mathbb{C}$ и натурального $n \in \mathbb{N}$ по индукции определяется $n$-я степень:
@@ -1250,7 +1246,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-8">
   <div class="chapter-kicker">08 / 7. Извлечение корня n-й степен…</div>
   <h2 id="chapter-8" data-toc="7. Извлечение корня n-й степен…">§ 7. Извлечение корня $n$-й степени из комплексного числа</h2>
-  
+
 <div class="statement definition" id="def-5"><div class="block-label">Определение 5</div><h3 data-toc="Определение 7.1 (Корень степен…" id="sub-8-1">Определение 7.1 (Корень степени $n$)</h3><div>
 
           Корнем степени $n \in \mathbb{N}$ из комплексного числа $z$ называется всякое такое комплексное число $w \in \mathbb{C}$, которое при возведении в $n$-ю степень дает число $z$:
@@ -1332,7 +1328,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-9">
   <div class="chapter-kicker">09 / 8. Алгебра корней из единицы и…</div>
   <h2 id="chapter-9" data-toc="8. Алгебра корней из единицы и…">§ 8. Алгебра корней из единицы и циклическая группа $U_n$</h2>
-  
+
 <p>
           В курсах А. И. Кострикина и А. Г. Куроша фундаментальную роль играет изучение корней из единицы. Рассмотрим частный случай Теоремы 7.1 для $z = 1 = 1(\cos 0 + i\sin 0)$.
         </p>
@@ -1381,7 +1377,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-10">
   <div class="chapter-kicker">10 / 9. Геометрическое расположение…</div>
   <h2 id="chapter-10" data-toc="9. Геометрическое расположение…">§ 9. Геометрическое расположение корней на комплексной плоскости</h2>
-  
+
 <div class="statement theorem" id="thm-9"><div class="block-label">Утверждение 9</div><h3 data-toc="Теорема 9.1 (О геометрическом …" id="sub-10-1">Теорема 9.1 (О геометрическом расположении корней)</h3><div>
 
           Все $n$ корней степени $n$ из ненулевого комплексного числа $z = r(\cos\varphi + i\sin\varphi)$ расположены на комплексной плоскости на окружности радиуса $R = \sqrt[n]{r} = \sqrt[n]{|z|}$ с центром в начале координат $O(0, 0)$ и являются вершинами правильного $n$-угольника, вписанного в эту окружность.
@@ -1426,58 +1422,8 @@ SOFTWARE.
 <!-- Рисунок 4: Корни 8-й степени из единицы -->
 <div class="svg-figure">
 <div class="svg-container">
-<svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<marker id="arr4" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"></path>
-</marker>
-</defs>
-<!-- Координатные оси -->
-<line marker-end="url(#arr4)" stroke="var(--svg-axis)" stroke-width="1.8" x1="30" x2="490" y1="260" y2="260"></line>
-<line marker-end="url(#arr4)" stroke="var(--svg-axis)" stroke-width="1.8" x1="260" x2="260" y1="490" y2="30"></line>
-<text fill="var(--text-main)" font-size="14" font-weight="600" x="480" y="280">Re</text>
-<text fill="var(--text-main)" font-size="14" font-weight="600" x="235" y="35">Im</text>
-<text fill="var(--text-muted)" font-size="14" x="245" y="280">O</text>
-<!-- Окружность единичного радиуса R = 180 -->
-<circle cx="260" cy="260" fill="none" r="180" stroke="var(--svg-axis)" stroke-dasharray="4,4" stroke-width="1.5"></circle>
-<!-- Вершины правильного восьмиугольника R = 180 -->
-<!-- w0: (260 + 180, 260) = (440, 260) -->
-<!-- w1: (260 + 127.3, 260 - 127.3) = (387.3, 132.7) -->
-<!-- w2: (260, 260 - 180) = (260, 80) -->
-<!-- w3: (260 - 127.3, 260 - 127.3) = (132.7, 132.7) -->
-<!-- w4: (260 - 180, 260) = (80, 260) -->
-<!-- w5: (260 - 127.3, 260 + 127.3) = (132.7, 387.3) -->
-<!-- w6: (260, 260 + 180) = (260, 440) -->
-<!-- w7: (260 + 127.3, 260 + 127.3) = (387.3, 387.3) -->
-<!-- Стороны правильного восьмиугольника -->
-<polygon fill="rgba(129, 140, 248, 0.08)" points="440,260 387.3,132.7 260,80 132.7,132.7 80,260 132.7,387.3 260,440 387.3,387.3" stroke="var(--svg-poly)" stroke-width="2.5"></polygon>
-<!-- Лучи из начала координат к вершинам -->
-<line stroke="var(--svg-axis)" stroke-width="1.2" x1="260" x2="440" y1="260" y2="260"></line>
-<line stroke="var(--svg-axis)" stroke-width="1.2" x1="260" x2="387.3" y1="260" y2="132.7"></line>
-<line stroke="var(--svg-axis)" stroke-width="1.2" x1="260" x2="260" y1="260" y2="80"></line>
-<line stroke="var(--svg-axis)" stroke-width="1.2" x1="260" x2="132.7" y1="260" y2="132.7"></line>
-<line stroke="var(--svg-axis)" stroke-width="1.2" x1="260" x2="80" y1="260" y2="260"></line>
-<line stroke="var(--svg-axis)" stroke-width="1.2" x1="260" x2="132.7" y1="260" y2="387.3"></line>
-<line stroke="var(--svg-axis)" stroke-width="1.2" x1="260" x2="260" y1="260" y2="440"></line>
-<line stroke="var(--svg-axis)" stroke-width="1.2" x1="260" x2="387.3" y1="260" y2="387.3"></line>
-<!-- Точки-вершины -->
-<circle cx="440" cy="260" fill="var(--svg-accent)" r="5"></circle>
-<circle cx="387.3" cy="132.7" fill="var(--svg-poly)" r="5"></circle>
-<circle cx="260" cy="80" fill="var(--svg-poly)" r="5"></circle>
-<circle cx="132.7" cy="132.7" fill="var(--svg-poly)" r="5"></circle>
-<circle cx="80" cy="260" fill="var(--svg-poly)" r="5"></circle>
-<circle cx="132.7" cy="387.3" fill="var(--svg-poly)" r="5"></circle>
-<circle cx="260" cy="440" fill="var(--svg-poly)" r="5"></circle>
-<circle cx="387.3" cy="387.3" fill="var(--svg-poly)" r="5"></circle>
-<!-- Подписи вершин -->
-<text fill="var(--text-main)" font-size="14" font-weight="700" x="448" y="255">w₀ = 1</text>
-<text fill="var(--text-main)" font-size="14" font-weight="700" x="395" y="125">w₁</text>
-<text fill="var(--text-main)" font-size="14" font-weight="700" x="268" y="75">w₂ = i</text>
-<text fill="var(--text-main)" font-size="14" font-weight="700" x="95" y="125">w₃</text>
-<text fill="var(--text-main)" font-size="14" font-weight="700" x="25" y="255">w₄ = -1</text>
-<text fill="var(--text-main)" font-size="14" font-weight="700" x="95" y="405">w₅</text>
-<text fill="var(--text-main)" font-size="14" font-weight="700" x="268" y="460">w₆ = -i</text>
-<text fill="var(--text-main)" font-size="14" font-weight="700" x="395" y="405">w₇</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 315" role="img" aria-label="8 корней единицы на единичной окружности" data-fam-figure="diagram" data-fam-index="4">
+<line x1="44" y1="175" x2="523" y2="175" stroke="var(--fig-rule)" stroke-width="1.5" /><line x1="280" y1="25" x2="280" y2="280" stroke="var(--fig-rule)" stroke-width="1.5" /><text x="522" y="166" text-anchor="middle" fill="var(--fig-muted)" font-size="12">Re</text><text x="291" y="24" text-anchor="middle" fill="var(--fig-muted)" font-size="12">Im</text><text x="268" y="193" text-anchor="middle" fill="var(--fig-muted)" font-size="12">O</text><circle cx="280" cy="175" r="120" fill="none" stroke="var(--fig-muted)"/><line x1="400" y1="175" x2="364.85" y2="90.15" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="364.85" y1="90.15" x2="280" y2="55" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="280" y1="55" x2="195.15" y2="90.15" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="195.15" y1="90.15" x2="160" y2="175" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="160" y1="175" x2="195.15" y2="259.85" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="195.15" y1="259.85" x2="280" y2="295" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="280" y1="295" x2="364.85" y2="259.85" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="364.85" y1="259.85" x2="400" y2="175" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><circle cx="400" cy="175" r="3.3" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="410" y="167" text-anchor="start" fill="var(--fig-blue)" font-size="14">w₀</text><circle cx="364.85" cy="90.15" r="3.3" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.6"/><text x="374.85" y="82.15" text-anchor="start" fill="var(--fig-green)" font-size="14">w₁</text><circle cx="280" cy="55" r="3.3" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"/><text x="290" y="47" text-anchor="start" fill="var(--fig-rose)" font-size="14">w₂</text><circle cx="195.15" cy="90.15" r="3.3" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="1.6"/><text x="185.15" y="82.15" text-anchor="end" fill="var(--fig-gold)" font-size="14">w₃</text><circle cx="160" cy="175" r="3.3" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="150" y="167" text-anchor="end" fill="var(--fig-blue)" font-size="14">w₄</text><circle cx="195.15" cy="259.85" r="3.3" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.6"/><text x="185.15" y="274.85" text-anchor="end" fill="var(--fig-green)" font-size="14">w₅</text><circle cx="280" cy="295" r="3.3" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"/><text x="270" y="310" text-anchor="end" fill="var(--fig-rose)" font-size="14">w₆</text><circle cx="364.85" cy="259.85" r="3.3" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="1.6"/><text x="374.85" y="274.85" text-anchor="start" fill="var(--fig-gold)" font-size="14">w₇</text><text x="280" y="306" text-anchor="middle" fill="var(--fig-ink)" font-size="13">Δφ = 2π/8   ·   w₀ = 1</text>
 </svg>
 </div>
 <div class="figure-caption">Рис. 4. Корни 8-й степени из единицы: вершины правильного восьмиугольника на единичной окружности ($\Delta\psi = \frac{2\pi}{8} = \frac{\pi}{4} = 45^\circ$)</div>
@@ -1492,7 +1438,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-11">
   <div class="chapter-kicker">11 / 10. Подробный разбор практичес…</div>
   <h2 id="chapter-11" data-toc="10. Подробный разбор практичес…">§ 10. Подробный разбор практических задач</h2>
-  
+
 <div class="worked-example" id="ex-2"><div class="block-label">Пример 2</div><h3 data-toc="Задача 10.1 (Извлечение кубиче…" id="sub-11-1">Задача 10.1 (Извлечение кубического корня $\sqrt[3]{-2 - 2i}$)</h3><div>
 <em>Условие:</em> Найти все значения корня $\sqrt[3]{-2 - 2i}$ и представить их в алгебраической форме.<br/>
 <em>Пошаговое решение:</em>
@@ -1582,7 +1528,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-12">
   <div class="chapter-kicker">12 / 11. Сводная таблица фундамента…</div>
   <h2 id="chapter-12" data-toc="11. Сводная таблица фундамента…">§ 11. Сводная таблица фундаментальных формул</h2>
-  
+
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1703,31 +1649,145 @@ SOFTWARE.
   $$('[data-all-proofs]').forEach(b=>b.addEventListener('click',()=>{proofs.forEach(p=>setProof(p,b.dataset.allProofs));syncToolbar();updatePosition();}));syncToolbar();
 
   // Render before generating the outline, so math in headings gets a clean label.
-  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:true,strict:false});}catch(e){console.warn('Math render note:', e);}
+  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:false,strict:false,ignoredClasses:["math-svg","fam-svg-labels"]});}catch(e){console.warn('Math render note:', e);}
   const headings=$$('h2[data-toc],h3[data-toc]'),list=document.createElement('ol');
   let number=0;
   for(const heading of headings){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+heading.id;if(heading.tagName==='H2'){const n=document.createElement('span');n.className='toc-number';n.textContent=String(++number).padStart(2,'0');n.setAttribute('aria-hidden','true');a.append(n);}else li.className='toc-sub';a.append(document.createTextNode(heading.dataset.toc));li.append(a);list.append(li);}
   $('#toc').replaceChildren(list);$('#section-count').textContent=`Разделов: ${number}`;
-  const mobile=matchMedia('(max-width:760px)');
-  function closeToc(){ $('#contents').classList.remove('is-open');$('#toc-toggle').setAttribute('aria-expanded','false'); }
-  $('#toc-toggle').addEventListener('click',()=>{const open=$('#contents').classList.toggle('is-open');$('#toc-toggle').setAttribute('aria-expanded',String(open));if(open)$('#toc a')?.focus();});
-  $('#toc-close').addEventListener('click',()=>{closeToc();$('#toc-toggle').focus();});
-  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&$('#contents').classList.contains('is-open')){closeToc();$('#toc-toggle').focus();}});
-  mobile.addEventListener('change',closeToc);
-  function goToHash(hash,push){let target;try{target=document.getElementById(decodeURIComponent(hash.slice(1)));}catch{return;}if(!target)return;
-    const proof=target.closest('[data-proof]');if(proof){setProof(proof,target.closest('[data-proof-idea]')?'idea':'full');syncToolbar();}
-    closeToc();if(push){try{history.pushState(null,'',hash);}catch{/* opaque reader sandbox */}}
-    target.scrollIntoView({behavior:'instant',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});updatePosition();
+  // FAM:READING-NAVIGATION-START
+  const root = document.documentElement;
+  const layout = $('.layout');
+  const topbar = $('.topbar');
+  const contents = $('#contents');
+  const tocToggle = $('#toc-toggle');
+  const mobile = matchMedia('(max-width:760px)');
+  let desktopOpen = true;
+  let mobileOpen = false;
+  try { desktopOpen = localStorage.getItem('fam-note-toc') !== 'collapsed'; } catch {}
+
+  function tocIsOpen() { return mobile.matches ? mobileOpen : desktopOpen; }
+  function syncToc() {
+    contents.classList.toggle('is-open', mobile.matches && mobileOpen);
+    layout.toggleAttribute('data-toc-collapsed', !desktopOpen);
+    tocToggle.setAttribute('aria-expanded', String(tocIsOpen()));
   }
-  document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#"]');if(!a)return;ev.preventDefault();goToHash(a.getAttribute('href'),true);});
-  window.addEventListener('hashchange',()=>goToHash(location.hash,false));
-  function updatePosition(){const y=window.scrollY,span=document.documentElement.scrollHeight-innerHeight;$('#progress-bar').style.width=(span>0?Math.min(100,Math.max(0,100*y/span)):100)+'%';let active=headings[0];for(const h of headings)if(h.getBoundingClientRect().top<145)active=h;
-    $$('#toc a').forEach(a=>{if(a.hash==='#'+active?.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
-  let pending=false;window.addEventListener('scroll',()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;updatePosition();});},{passive:true});window.addEventListener('resize',updatePosition);
-  if(location.hash)goToHash(location.hash,false);updatePosition();
+  function closeMobileToc() {
+    mobileOpen = false;
+    syncToc();
+  }
+  function setTocOpen(open) {
+    if (mobile.matches) {
+      mobileOpen = open;
+      if (open) root.removeAttribute('data-note-bar-hidden');
+    } else {
+      desktopOpen = open;
+      try { localStorage.setItem('fam-note-toc', open ? 'expanded' : 'collapsed'); } catch {}
+    }
+    syncToc();
+    updatePosition();
+  }
+  tocToggle.addEventListener('click', () => {
+    const open = !tocIsOpen();
+    setTocOpen(open);
+    if (open && mobile.matches) $('#toc a')?.focus({preventScroll:true});
+  });
+  function dismissToc() {
+    setTocOpen(false);
+    root.removeAttribute('data-note-bar-hidden');
+    tocToggle.focus({preventScroll:true});
+  }
+  $('#toc-close').addEventListener('click', dismissToc);
+  document.addEventListener('keydown', event => {
+    const focusInToc = contents.contains(document.activeElement) || document.activeElement === tocToggle;
+    if (event.key === 'Escape' && !event.defaultPrevented && tocIsOpen() &&
+        (mobile.matches || focusInToc) && !$('#pdf-dialog').open) dismissToc();
+  });
+  mobile.addEventListener('change', closeMobileToc);
+  syncToc();
+
+  let lastScroll = Math.max(0, window.scrollY);
+  let scrollDistance = 0;
+  let topbarHeight = 0;
+  function syncTopbarHeight() {
+    topbarHeight = topbar.offsetHeight;
+    root.style.setProperty('--note-topbar-height', topbarHeight + 'px');
+    updatePosition();
+  }
+  function updateTopbar() {
+    const y = Math.max(0, Math.min(window.scrollY, root.scrollHeight - innerHeight));
+    const delta = y - lastScroll;
+    lastScroll = y;
+    if (y <= 16 || mobileOpen) {
+      root.removeAttribute('data-note-bar-hidden');
+      scrollDistance = 0;
+      return;
+    }
+    if (!delta) return;
+    scrollDistance = Math.sign(delta) === Math.sign(scrollDistance) ? scrollDistance + delta : delta;
+    if (scrollDistance <= -10) root.removeAttribute('data-note-bar-hidden');
+    if (scrollDistance >= 18 && y > topbarHeight) root.setAttribute('data-note-bar-hidden', '');
+  }
+
+  function goToHash(hash, push) {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (!target) return;
+    const proof = target.closest('[data-proof]');
+    if (proof) {
+      setProof(proof, target.closest('[data-proof-idea]') ? 'idea' : 'full');
+      syncToolbar();
+    }
+    closeMobileToc();
+    if (push) {
+      try { history.pushState(null, '', hash); } catch { /* Opaque reader sandbox. */ }
+    }
+    if (target === $('#top') || target === $('#content')) root.removeAttribute('data-note-bar-hidden');
+    target.scrollIntoView({behavior:'instant', block:'start'});
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+    lastScroll = Math.max(0, window.scrollY);
+    scrollDistance = 0;
+    updatePosition();
+  }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    event.preventDefault();
+    goToHash(link.getAttribute('href'), true);
+  });
+  window.addEventListener('hashchange', () => goToHash(location.hash, false));
+
+  function updatePosition() {
+    const y = window.scrollY;
+    const span = root.scrollHeight - innerHeight;
+    $('#progress-bar').style.width = (span > 0 ? Math.min(100, Math.max(0, 100 * y / span)) : 100) + '%';
+    const barBottom = Math.max(0, topbar.getBoundingClientRect().bottom);
+    let active = headings[0];
+    for (const heading of headings) if (heading.getBoundingClientRect().top <= barBottom + 32) active = heading;
+    $$('#toc a').forEach(link => {
+      if (link.hash === '#' + active?.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let pending = false;
+  window.addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      updateTopbar();
+      updatePosition();
+    });
+  }, {passive:true});
+  window.addEventListener('resize', syncTopbarHeight);
+  topbar.addEventListener('transitionend', updatePosition);
+  new ResizeObserver(syncTopbarHeight).observe(topbar);
+  syncTopbarHeight();
+  if (location.hash) goToHash(location.hash, false);
+  // FAM:READING-NAVIGATION-END
 
   const dialog=$('#pdf-dialog');let printChoice='full';
-  $('#pdf-open').addEventListener('click',()=>{closeToc();$('#pdf-status').textContent='';dialog.showModal();});
+  $('#pdf-open').addEventListener('click',()=>{closeMobileToc();$('#pdf-status').textContent='';dialog.showModal();});
   $('#pdf-close').addEventListener('click',()=>dialog.close());
   $$('input[name="pdf-mode"]').forEach(r=>r.addEventListener('change',()=>{if(r.checked)printChoice=r.value;}));
   // Ctrl+P always exports full proofs; the explicit dialog temporarily selects a variant.

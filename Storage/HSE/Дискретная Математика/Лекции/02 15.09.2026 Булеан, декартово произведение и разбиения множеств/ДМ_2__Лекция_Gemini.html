@@ -567,6 +567,99 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 -->
+
+<style id="fam-reviewed-figures">
+#content svg[data-fam-figure] {
+  --fig-paper:#faf8f1; --fig-ink:#24342d; --fig-muted:#52645a;
+  --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+  --fig-rose:#ac3454; --fig-gold:#885914;
+  display:block; max-width:100%; height:auto; margin-inline:auto;
+  color:var(--fig-ink); font-family:Arial, sans-serif;
+}
+html[data-theme="parchment"] #content svg[data-fam-figure] {
+  --fig-paper:#f1e7d3; --fig-ink:#353023; --fig-muted:#665b49;
+  --fig-rule:#cabc9d; --fig-blue:#244fb1; --fig-green:#166349;
+  --fig-rose:#972e4c; --fig-gold:#795419;
+}
+html[data-theme="dark"] #content svg[data-fam-figure] {
+  --fig-paper:#17231e; --fig-ink:#ecf0e6; --fig-muted:#bac9bd;
+  --fig-rule:#465c50; --fig-blue:#a3c0ff; --fig-green:#80d4b2;
+  --fig-rose:#ffa2b5; --fig-gold:#f0c67c;
+}
+#content svg[data-fam-figure] .venn-fill {fill:var(--fig-blue);fill-opacity:.16}
+#content svg[data-fam-figure] .venn-fill-danger {fill:var(--fig-rose);fill-opacity:.19}
+#content svg[data-fam-figure] text {dominant-baseline:auto}
+#content svg[data-fam-figure="plot-original"] {background:white;color:#26352e}
+@media print {
+  html[data-theme] #content svg[data-fam-figure] {
+    --fig-paper:#fff; --fig-ink:#24342d; --fig-muted:#52645a;
+    --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+    --fig-rose:#ac3454; --fig-gold:#885914;
+  }
+}
+</style>
+<style id="fam-reading-navigation">
+/* FAM:READING-NAVIGATION-START */
+@media screen {
+  .topbar {
+    transform: translateY(0);
+  }
+  #toc-toggle, #toc-close {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 11px;
+  }
+  #toc-toggle:hover, #toc-close:hover {
+    color: var(--gold);
+  }
+  .reading-progress {
+    top: max(0px, calc(var(--note-topbar-height, 88px) - 1px));
+  }
+  .contents {
+    top: calc(var(--note-topbar-height, 88px) + 24px);
+    max-height: calc(100svh - var(--note-topbar-height, 88px) - 48px);
+  }
+  .chapter [id], .lecture-head, #content {
+    scroll-margin-top: calc(var(--note-topbar-height, 88px) + 24px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .topbar {
+    transform: translateY(-100%);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .reading-progress {
+    top: 0;
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .contents {
+    top: 24px;
+    max-height: calc(100svh - 48px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) :is(.chapter [id], .lecture-head, #content) {
+    scroll-margin-top: 24px;
+  }
+}
+@media screen and (min-width: 761px) {
+  .layout[data-toc-collapsed] {
+    grid-template-columns: minmax(0, 820px);
+    justify-content: center;
+  }
+  .layout[data-toc-collapsed] > .contents {
+    display: none;
+  }
+}
+@media screen and (max-width: 760px) {
+  .contents.is-open {
+    inset: var(--note-topbar-height, 70px) 0 0;
+    max-height: none;
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .topbar { transition: transform .22s ease; }
+  .contents, .reading-progress { transition: top .22s ease; }
+}
+@media screen {
+  html:has(.contents.is-open) { overflow: hidden; }
+}
+/* FAM:READING-NAVIGATION-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -591,7 +684,7 @@ SOFTWARE.
         <div class="lecture-meta"><span class="subject">Дискретная математика</span><span>Академический конспект ФПМ</span></div>
         <h1>Дискретная математика: Теория множеств, Булева алгебра, Доказательства и Практикум</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[...\]</div></div>
+
       </header>
       <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
       <div class="proof-toolbar" aria-label="Все доказательства">
@@ -611,7 +704,7 @@ SOFTWARE.
   <!-- ======================================================================
          HERO BANNER
          ====================================================================== -->
-<header class="hero-banner" id="top">
+<header class="hero-banner" id="top-2">
 <div class="hero-badges">
 <span class="hero-badge">Курс «Дискретная математика»</span>
 <span class="hero-badge">Лекция 2 (15.09.2026) · Пункты 18–24</span>
@@ -652,7 +745,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Теоремы и определения 18–24: С…</div>
   <h2 id="chapter-2" data-toc="Теоремы и определения 18–24: С…">Теоремы и определения 18–24: Симметрическая разность, Типы, Диаграммы Венна и Декартово произведение</h2>
-  
+
 <p>
         Все утверждения доказаны строго на основе определений и теорем первых двух лекций и метода математической индукции — без использования понятий из будущих тем курса.
       </p>
@@ -667,7 +760,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-3">
   <div class="chapter-kicker">03 / . Два представления симметриче…</div>
   <h2 id="chapter-3" data-toc=". Два представления симметриче…">Глава 1. Два представления симметрической разности и Критерий равенства множеств (Теорема 18)</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <p>
@@ -742,7 +835,7 @@ SOFTWARE.
 </div>
 </div>
 <div class="svg-grid-2">
-<div class="svg-card"><svg aria-label="Теорема 18: A = B тогда и только тогда, когда A △ B = ∅" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205">
+<div class="svg-card"><svg aria-label="Теорема 18: A = B тогда и только тогда, когда A △ B = ∅" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="1">
 <rect class="venn-u-box" height="142" rx="6" width="248" x="16" y="22"></rect>
 <circle class="venn-fill-1" cx="140" cy="93" r="55"></circle>
 <rect class="venn-u-stroke" fill="none" height="142" rx="6" width="248" x="16" y="22"></rect>
@@ -752,9 +845,9 @@ SOFTWARE.
 <text class="svg-set-label" text-anchor="middle" x="140" y="90">A = B</text>
 <text class="svg-reg-code" text-anchor="middle" x="140" y="108">A∖B = ∅ и B∖A = ∅</text>
 <text class="svg-title" text-anchor="middle" x="140" y="182">Теорема 18: A △ B = ∅ ⟺ A = B</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="197">Обе разности пусты — множества совпадают</text>
+<text class="svg-sub" text-anchor="middle" x="140" y="197">Обе разности пусты</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Предупреждение: A ∖ B = ∅ не влечёт A = B" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205">
+<div class="svg-card"><svg aria-label="Предупреждение: A ∖ B = ∅ не влечёт A = B" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="2">
 <rect class="venn-u-box" height="142" rx="6" width="248" x="16" y="22"></rect>
 <circle class="venn-fill-2" cx="140" cy="93" r="54"></circle>
 <circle class="venn-fill-1" cx="110" cy="96" r="21"></circle>
@@ -765,8 +858,8 @@ SOFTWARE.
 <text class="svg-set-label" text-anchor="middle" x="110" y="100">A</text>
 <text class="svg-set-label" text-anchor="middle" x="162" y="70">B</text>
 <text class="svg-reg-code" text-anchor="middle" x="162" y="104">B∖A ≠ ∅</text>
-<text class="svg-title" text-anchor="middle" x="140" y="182">Внимание (Слайд 2): A ∖ B = ∅ ⇏ A = B</text>
-<text class="svg-sub" text-anchor="middle" x="140" y="197">При A ⊂ B (A ≠ B) имеем A ∖ B = ∅, но B ∖ A ≠ ∅</text>
+<text class="svg-title" text-anchor="middle" x="140" y="182">A ∖ B = ∅ ⇏ A = B</text>
+<text class="svg-sub" text-anchor="middle" x="140" y="197">Здесь B ∖ A ≠ ∅</text>
 </svg></div>
 </div>
 
@@ -780,7 +873,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-4">
   <div class="chapter-kicker">04 / . Типы относительно набора мно…</div>
   <h2 id="chapter-4" data-toc=". Типы относительно набора мно…">Глава 2. Типы относительно набора множествS = {A1, A2, …, An}(Определение 19 и Теорема 20)</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="statement definition" id="def-2"><div class="block-label">Определение 2</div><h3 data-toc="Определение 19 · Лекция 2, Сла…" id="sub-4-1">Определение 19 · Лекция 2, Слайд 2 и КонспектПонятие типа относительно набора множествSи однотипных элементов</h3><div>
@@ -890,7 +983,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-5">
   <div class="chapter-kicker">05 / . Клеточные диаграммы Венна дл…</div>
   <h2 id="chapter-5" data-toc=". Клеточные диаграммы Венна дл…">Глава 3. Клеточные диаграммы Венна для системы множеств (Определение 21)</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="statement definition" id="def-3"><div class="block-label">Определение 3</div><h3 data-toc="Определение 21 · Лекция 2, Сла…" id="sub-5-1">Определение 21 · Лекция 2, Слайд 3 и КонспектДиаграмма Венна в виде разбиения прямоугольника на2nклеток</h3><div>
@@ -920,7 +1013,7 @@ SOFTWARE.
         </li>
 </ul>
 <div class="svg-grid-3">
-<div class="svg-card"><svg aria-label="Диаграмма Венна в виде клеток для n=1" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 215">
+<div class="svg-card"><svg aria-label="Диаграмма Венна в виде клеток для n=1" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 215" data-fam-figure="diagram" data-fam-index="3">
 <text class="svg-set-label" text-anchor="middle" x="90" y="36">A₁</text>
 <text class="svg-set-label" text-anchor="middle" x="170" y="36">Ā₁</text>
 <line class="venn-c-stroke" stroke-width="2.5" x1="130" x2="130" y1="38" y2="48"></line>
@@ -933,9 +1026,9 @@ SOFTWARE.
 <text class="svg-title" text-anchor="middle" x="170" y="92">Тип 2: Ā₁</text>
 <text class="svg-reg-code" text-anchor="middle" x="170" y="110">x ∉ A₁</text>
 <text class="svg-title" text-anchor="middle" x="130" y="182">1. Набор S = {A₁} (n = 1)</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="198">Разбиение прямоугольника U на 2¹ = 2 клетки</text>
+<text class="svg-sub" text-anchor="middle" x="130" y="198">2¹ = 2 области</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Диаграмма Венна в виде клеток для n=2" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 215">
+<div class="svg-card"><svg aria-label="Диаграмма Венна в виде клеток для n=2" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 215" data-fam-figure="diagram" data-fam-index="4">
 <text class="svg-set-label" text-anchor="middle" x="85" y="32">A₁</text>
 <text class="svg-set-label" text-anchor="middle" x="165" y="32">Ā₁</text>
 <line class="venn-c-stroke" stroke-width="2.5" x1="125" x2="125" y1="34" y2="44"></line>
@@ -957,9 +1050,9 @@ SOFTWARE.
 <text class="svg-title" text-anchor="middle" x="165" y="120">Ā₁ ∩ Ā₂</text>
 <text class="svg-reg-code" text-anchor="middle" x="165" y="135">Тип 4</text>
 <text class="svg-title" text-anchor="middle" x="130" y="182">2. Набор S = {A₁, A₂} (n = 2)</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="198">Таблица 2×2 из конспекта: 2² = 4 клетки-типа</text>
+<text class="svg-sub" text-anchor="middle" x="130" y="198">2² = 4 области</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Диаграмма Венна для n=3 со слайда 3" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 360 215">
+<div class="svg-card"><svg aria-label="Диаграмма Венна для n=3 со слайда 3" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 360 215" data-fam-figure="diagram" data-fam-index="5">
 <text class="svg-set-label" text-anchor="middle" x="96" y="28">A₁</text>
 <text class="svg-set-label" text-anchor="middle" x="240" y="28">Ā₁</text>
 <line class="venn-c-stroke" stroke-width="3.2" x1="168" x2="168" y1="26" y2="40"></line>
@@ -1018,7 +1111,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-6">
   <div class="chapter-kicker">06 / . Кардинальные операции над мн…</div>
   <h2 id="chapter-6" data-toc=". Кардинальные операции над мн…">Глава 4. Кардинальные операции над множествами: Декартово произведение и Мощность (Опр. 22, 23, Т. 24)</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="statement definition" id="def-4"><div class="block-label">Определение 4</div><h3 data-toc="Определение 22 · Лекция 2, Сла…" id="sub-6-1">Определение 22 · Лекция 2, Слайд 4 и Конспект (+ В.Е. Алексеев, п. 1.5, стр. 11–12)Декартово произведение множествA  ×  B, декартов квадратA2и декартова степеньAk</h3><div>
@@ -1067,7 +1160,7 @@ SOFTWARE.
         </p>
 </aside>
 <div class="svg-grid-2">
-<div class="svg-card"><svg aria-label="График декартова произведения A × C из конспекта" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 300 215">
+<div class="svg-card"><svg aria-label="График декартова произведения A × C из конспекта" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 300 215" data-fam-figure="diagram" data-fam-index="6">
 <rect class="venn-u-box" height="156" rx="6" width="272" x="14" y="14"></rect>
 <line class="venn-c-stroke" stroke-width="2" x1="54" x2="254" y1="146" y2="146"></line>
 <polygon fill="var(--svg-c-stroke)" points="258,146 248,141 248,151"></polygon>
@@ -1102,12 +1195,12 @@ SOFTWARE.
 <text class="svg-reg-code" x="193" y="79">⟨b, 2⟩</text>
 <circle cx="185" cy="48" fill="var(--accent-proof)" r="4.5"></circle>
 <text class="svg-reg-code" x="193" y="45">⟨b, 3⟩</text>
-<text class="svg-title" text-anchor="middle" x="150" y="186">Координатный график A × C (из конспекта)</text>
-<text class="svg-sub" text-anchor="middle" x="150" y="201">A = {a, b}, C = {1, 2, 3} ⇒ |A × C| = 2 · 3 = 6 пар</text>
+<text class="svg-title" text-anchor="middle" x="150" y="186">Точки A × C</text>
+<text class="svg-sub" text-anchor="middle" x="150" y="201">2 · 3 = 6 пар</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Модель зрительного зала со слайда 4" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 300 215">
+<div class="svg-card"><svg aria-label="Модель зрительного зала со слайда 4" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 300 215" data-fam-figure="diagram" data-fam-index="7">
 <rect class="venn-u-box" height="156" rx="6" width="272" x="14" y="14"></rect>
-<text class="svg-sub" text-anchor="middle" x="150" y="31">СЦЕНА (Множество кресел в ряду B = {1, 2, 3, 4})</text>
+<text class="svg-sub" text-anchor="middle" x="150" y="31">Сцена</text>
 <line class="venn-c-stroke" stroke-width="2.5" x1="65" x2="255" y1="36" y2="36"></line>
 <text class="svg-title" text-anchor="middle" x="42" y="66">Ряд 1</text>
 <text class="svg-title" text-anchor="middle" x="42" y="102">Ряд 2</text>
@@ -1136,8 +1229,8 @@ SOFTWARE.
 <text class="svg-reg-code" text-anchor="middle" x="190" y="137">⟨3,3⟩</text>
 <rect class="venn-fill-2" height="26" rx="4" stroke="var(--svg-c-stroke)" width="40" x="218" y="120"></rect>
 <text class="svg-reg-code" text-anchor="middle" x="238" y="137">⟨3,4⟩</text>
-<text class="svg-title" text-anchor="middle" x="150" y="186">Модель «Зрительный зал» (Слайд 4 и Теорема 24)</text>
-<text class="svg-sub" text-anchor="middle" x="150" y="201">|A| = 3 ряда, |B| = 4 кресла ⇒ |A × B| = 3 · 4 = 12 мест</text>
+<text class="svg-title" text-anchor="middle" x="150" y="186">Места в зрительном зале</text>
+<text class="svg-sub" text-anchor="middle" x="150" y="201">3 · 4 = 12 мест</text>
 </svg></div>
 </div>
 <div class="statement definition" id="def-5"><div class="block-label">Определение 5</div><h3 data-toc="Определение 23 и Теорема 24 · …" id="sub-6-2">Определение 23 и Теорема 24 · Лекция 2, Слайд 5Мощность конечного множества и формулы мощности дляA  ×  BиAk</h3><div>
@@ -1221,7 +1314,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-7">
   <div class="chapter-kicker">07 / Геометрический практикум по Де…</div>
   <h2 id="chapter-7" data-toc="Геометрический практикум по Де…">Геометрический практикум по Декартову произведению (Слайд 5) и решение задач на клеточных диаграммах Венна</h2>
-  
+
 <p>
         Подробный разбор всех геометрических заданий со слайда 5 презентации, примеры из пособия В.Е. Алексеева (п. 1.5) и тренировочные задачи с полными доказательствами.
       </p>
@@ -1236,7 +1329,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-8">
   <div class="chapter-kicker">08 / Практикум 1. Разбор упражнения…</div>
   <h2 id="chapter-8" data-toc="Практикум 1. Разбор упражнения…">Практикум 1. Разбор упражнения со слайда 5: Геометрическое описание множестваA  ×  B</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="worked-example" id="ex-1"><div class="block-label">Пример 1</div><h3 data-toc="Упражнение · Лекция 2, Слайд 5…" id="sub-8-1">Упражнение · Лекция 2, Слайд 5 (+ В.Е. Алексеев, п. 1.5, стр. 11–12)Условие задачи и правило геометрического построения декартова произведения</h3><div>
@@ -1305,7 +1398,7 @@ SOFTWARE.
 </div>
 </div>
 <div class="svg-grid-3">
-<div class="svg-card"><svg aria-label="Отрезок на точку равно отрезок" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205">
+<div class="svg-card"><svg aria-label="Отрезок на точку равно отрезок" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="8">
 <rect class="venn-u-box" height="142" rx="6" width="228" x="16" y="18"></rect>
 <line class="venn-u-stroke" x1="44" x2="220" y1="132" y2="132"></line>
 <line class="venn-u-stroke" x1="44" x2="44" y1="132" y2="32"></line>
@@ -1323,9 +1416,9 @@ SOFTWARE.
 <circle cx="184" cy="78" fill="var(--accent-proof)" r="4"></circle>
 <text class="svg-reg-code" text-anchor="middle" x="132" y="68">[a, b] × {y₀}</text>
 <text class="svg-title" text-anchor="middle" x="130" y="178">Пример: «отрезок» × «точка»</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="194">Результат: «отрезок» (на высоте y = y₀)</text>
+<text class="svg-sub" text-anchor="middle" x="130" y="194">Отрезок на высоте y₀</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Точка на точку равно точка" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205">
+<div class="svg-card"><svg aria-label="Точка на точку равно точка" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="9">
 <rect class="venn-u-box" height="142" rx="6" width="228" x="16" y="18"></rect>
 <line class="venn-u-stroke" x1="44" x2="220" y1="132" y2="132"></line>
 <line class="venn-u-stroke" x1="44" x2="44" y1="132" y2="32"></line>
@@ -1338,9 +1431,9 @@ SOFTWARE.
 <circle cx="132" cy="78" fill="var(--accent-proof)" r="6"></circle>
 <text class="svg-reg-code" x="144" y="74">⟨x₀, y₀⟩</text>
 <text class="svg-title" text-anchor="middle" x="130" y="178">1) «точка» × «точка» = «точка»</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="194">Единственная точка ⟨x₀, y₀⟩ на плоскости</text>
+<text class="svg-sub" text-anchor="middle" x="130" y="194">Точка ⟨x₀, y₀⟩</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Отрезок на отрезок равно прямоугольник" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205">
+<div class="svg-card"><svg aria-label="Отрезок на отрезок равно прямоугольник" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="10">
 <rect class="venn-u-box" height="142" rx="6" width="228" x="16" y="18"></rect>
 <line class="venn-u-stroke" x1="44" x2="220" y1="132" y2="132"></line>
 <line class="venn-u-stroke" x1="44" x2="44" y1="132" y2="32"></line>
@@ -1354,9 +1447,9 @@ SOFTWARE.
 <rect class="venn-fill-1" height="56" stroke="var(--accent-proof)" stroke-width="2.2" width="104" x="82" y="52"></rect>
 <text class="svg-reg-code" text-anchor="middle" x="134" y="84">[a, b] × [c, d]</text>
 <text class="svg-title" text-anchor="middle" x="130" y="178">2) «отрезок» × «отрезок»</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="194">Результат: «прямоугольник» (или «квадрат»)</text>
+<text class="svg-sub" text-anchor="middle" x="130" y="194">Декартово произведение отрезков</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Окружность на отрезок равно цилиндр" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205">
+<div class="svg-card"><svg aria-label="Окружность на отрезок равно цилиндр" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="11">
 <rect class="venn-u-box" height="142" rx="6" width="228" x="16" y="18"></rect>
 <path class="venn-fill-1" d="M 76 54 L 76 124 A 54 18 0 0 0 184 124 L 184 54 Z"></path>
 <ellipse class="venn-u-stroke" cx="130" cy="124" fill="none" rx="54" ry="18" stroke-dasharray="4,3"></ellipse>
@@ -1367,9 +1460,9 @@ SOFTWARE.
 <line stroke="var(--accent-proof)" stroke-dasharray="3,2" stroke-width="2" x1="130" x2="130" y1="72" y2="142"></line>
 <text class="svg-reg-code" text-anchor="middle" x="130" y="102">Цилиндр</text>
 <text class="svg-title" text-anchor="middle" x="130" y="178">3) «окружность» × «отрезок»</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="194">Боковая поверхность цилиндра (труба)</text>
+<text class="svg-sub" text-anchor="middle" x="130" y="194">Боковая поверхность цилиндра</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Квадрат на отрезок равно призма или куб" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205">
+<div class="svg-card"><svg aria-label="Квадрат на отрезок равно призма или куб" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="12">
 <rect class="venn-u-box" height="142" rx="6" width="228" x="16" y="18"></rect>
 <rect class="venn-fill-1" height="68" stroke="var(--svg-c-stroke)" stroke-width="2" width="84" x="68" y="68"></rect>
 <polygon class="venn-fill-soft" points="68,68 104,40 188,40 152,68" stroke="var(--svg-c-stroke)" stroke-width="2"></polygon>
@@ -1379,9 +1472,9 @@ SOFTWARE.
 <line class="venn-u-stroke" stroke-dasharray="3,3" x1="104" x2="188" y1="108" y2="108"></line>
 <text class="svg-reg-code" text-anchor="middle" x="110" y="106">Призма / Куб</text>
 <text class="svg-title" text-anchor="middle" x="130" y="178">4) «квадрат» × «отрезок»</text>
-<text class="svg-sub" text-anchor="middle" x="130" y="194">Прямая призма / параллелепипед (куб)</text>
+<text class="svg-sub" text-anchor="middle" x="130" y="194">Прямая призма</text>
 </svg></div>
-<div class="svg-card"><svg aria-label="Окружность на окружность равно поверхность тора" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205">
+<div class="svg-card"><svg aria-label="Окружность на окружность равно поверхность тора" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="13">
 <rect class="venn-u-box" height="142" rx="6" width="228" x="16" y="18"></rect>
 <path class="venn-fill-1" d="M 54 90 A 76 44 0 1 0 206 90 A 76 44 0 1 0 54 90 Z M 102 90 A 28 14 0 1 0 158 90 A 28 14 0 1 0 102 90 Z" fill-rule="evenodd"></path>
 <ellipse class="venn-c-stroke" cx="130" cy="90" fill="none" rx="76" ry="44" stroke-width="2.2"></ellipse>
@@ -1405,7 +1498,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-9">
   <div class="chapter-kicker">09 / Практикум 2. Применение клеточ…</div>
   <h2 id="chapter-9" data-toc="Практикум 2. Применение клеточ…">Практикум 2. Применение клеточных диаграмм Венна (Определение 21) и свойства Декартова произведения</h2>
-  
+
 <a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
 
 <div class="worked-example" id="ex-2"><div class="block-label">Пример 2</div><h3 data-toc="Практическая задача 1 · К Слай…" id="sub-9-1">Практическая задача 1 · К Слайду 3 (Определение 21)Как с помощью клеточной диаграммы Венна проверить равносильность систем условий на множества?</h3><div>
@@ -1534,31 +1627,145 @@ SOFTWARE.
   $$('[data-all-proofs]').forEach(b=>b.addEventListener('click',()=>{proofs.forEach(p=>setProof(p,b.dataset.allProofs));syncToolbar();updatePosition();}));syncToolbar();
 
   // Render before generating the outline, so math in headings gets a clean label.
-  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:true,strict:false});}catch(e){console.warn('Math render note:', e);}
+  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:false,strict:false,ignoredClasses:["math-svg","fam-svg-labels"]});}catch(e){console.warn('Math render note:', e);}
   const headings=$$('h2[data-toc],h3[data-toc]'),list=document.createElement('ol');
   let number=0;
   for(const heading of headings){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+heading.id;if(heading.tagName==='H2'){const n=document.createElement('span');n.className='toc-number';n.textContent=String(++number).padStart(2,'0');n.setAttribute('aria-hidden','true');a.append(n);}else li.className='toc-sub';a.append(document.createTextNode(heading.dataset.toc));li.append(a);list.append(li);}
   $('#toc').replaceChildren(list);$('#section-count').textContent=`Разделов: ${number}`;
-  const mobile=matchMedia('(max-width:760px)');
-  function closeToc(){ $('#contents').classList.remove('is-open');$('#toc-toggle').setAttribute('aria-expanded','false'); }
-  $('#toc-toggle').addEventListener('click',()=>{const open=$('#contents').classList.toggle('is-open');$('#toc-toggle').setAttribute('aria-expanded',String(open));if(open)$('#toc a')?.focus();});
-  $('#toc-close').addEventListener('click',()=>{closeToc();$('#toc-toggle').focus();});
-  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&$('#contents').classList.contains('is-open')){closeToc();$('#toc-toggle').focus();}});
-  mobile.addEventListener('change',closeToc);
-  function goToHash(hash,push){let target;try{target=document.getElementById(decodeURIComponent(hash.slice(1)));}catch{return;}if(!target)return;
-    const proof=target.closest('[data-proof]');if(proof){setProof(proof,target.closest('[data-proof-idea]')?'idea':'full');syncToolbar();}
-    closeToc();if(push){try{history.pushState(null,'',hash);}catch{/* opaque reader sandbox */}}
-    target.scrollIntoView({behavior:'instant',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});updatePosition();
+  // FAM:READING-NAVIGATION-START
+  const root = document.documentElement;
+  const layout = $('.layout');
+  const topbar = $('.topbar');
+  const contents = $('#contents');
+  const tocToggle = $('#toc-toggle');
+  const mobile = matchMedia('(max-width:760px)');
+  let desktopOpen = true;
+  let mobileOpen = false;
+  try { desktopOpen = localStorage.getItem('fam-note-toc') !== 'collapsed'; } catch {}
+
+  function tocIsOpen() { return mobile.matches ? mobileOpen : desktopOpen; }
+  function syncToc() {
+    contents.classList.toggle('is-open', mobile.matches && mobileOpen);
+    layout.toggleAttribute('data-toc-collapsed', !desktopOpen);
+    tocToggle.setAttribute('aria-expanded', String(tocIsOpen()));
   }
-  document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#"]');if(!a)return;ev.preventDefault();goToHash(a.getAttribute('href'),true);});
-  window.addEventListener('hashchange',()=>goToHash(location.hash,false));
-  function updatePosition(){const y=window.scrollY,span=document.documentElement.scrollHeight-innerHeight;$('#progress-bar').style.width=(span>0?Math.min(100,Math.max(0,100*y/span)):100)+'%';let active=headings[0];for(const h of headings)if(h.getBoundingClientRect().top<145)active=h;
-    $$('#toc a').forEach(a=>{if(a.hash==='#'+active?.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
-  let pending=false;window.addEventListener('scroll',()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;updatePosition();});},{passive:true});window.addEventListener('resize',updatePosition);
-  if(location.hash)goToHash(location.hash,false);updatePosition();
+  function closeMobileToc() {
+    mobileOpen = false;
+    syncToc();
+  }
+  function setTocOpen(open) {
+    if (mobile.matches) {
+      mobileOpen = open;
+      if (open) root.removeAttribute('data-note-bar-hidden');
+    } else {
+      desktopOpen = open;
+      try { localStorage.setItem('fam-note-toc', open ? 'expanded' : 'collapsed'); } catch {}
+    }
+    syncToc();
+    updatePosition();
+  }
+  tocToggle.addEventListener('click', () => {
+    const open = !tocIsOpen();
+    setTocOpen(open);
+    if (open && mobile.matches) $('#toc a')?.focus({preventScroll:true});
+  });
+  function dismissToc() {
+    setTocOpen(false);
+    root.removeAttribute('data-note-bar-hidden');
+    tocToggle.focus({preventScroll:true});
+  }
+  $('#toc-close').addEventListener('click', dismissToc);
+  document.addEventListener('keydown', event => {
+    const focusInToc = contents.contains(document.activeElement) || document.activeElement === tocToggle;
+    if (event.key === 'Escape' && !event.defaultPrevented && tocIsOpen() &&
+        (mobile.matches || focusInToc) && !$('#pdf-dialog').open) dismissToc();
+  });
+  mobile.addEventListener('change', closeMobileToc);
+  syncToc();
+
+  let lastScroll = Math.max(0, window.scrollY);
+  let scrollDistance = 0;
+  let topbarHeight = 0;
+  function syncTopbarHeight() {
+    topbarHeight = topbar.offsetHeight;
+    root.style.setProperty('--note-topbar-height', topbarHeight + 'px');
+    updatePosition();
+  }
+  function updateTopbar() {
+    const y = Math.max(0, Math.min(window.scrollY, root.scrollHeight - innerHeight));
+    const delta = y - lastScroll;
+    lastScroll = y;
+    if (y <= 16 || mobileOpen) {
+      root.removeAttribute('data-note-bar-hidden');
+      scrollDistance = 0;
+      return;
+    }
+    if (!delta) return;
+    scrollDistance = Math.sign(delta) === Math.sign(scrollDistance) ? scrollDistance + delta : delta;
+    if (scrollDistance <= -10) root.removeAttribute('data-note-bar-hidden');
+    if (scrollDistance >= 18 && y > topbarHeight) root.setAttribute('data-note-bar-hidden', '');
+  }
+
+  function goToHash(hash, push) {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (!target) return;
+    const proof = target.closest('[data-proof]');
+    if (proof) {
+      setProof(proof, target.closest('[data-proof-idea]') ? 'idea' : 'full');
+      syncToolbar();
+    }
+    closeMobileToc();
+    if (push) {
+      try { history.pushState(null, '', hash); } catch { /* Opaque reader sandbox. */ }
+    }
+    if (target === $('#top') || target === $('#content')) root.removeAttribute('data-note-bar-hidden');
+    target.scrollIntoView({behavior:'instant', block:'start'});
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+    lastScroll = Math.max(0, window.scrollY);
+    scrollDistance = 0;
+    updatePosition();
+  }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    event.preventDefault();
+    goToHash(link.getAttribute('href'), true);
+  });
+  window.addEventListener('hashchange', () => goToHash(location.hash, false));
+
+  function updatePosition() {
+    const y = window.scrollY;
+    const span = root.scrollHeight - innerHeight;
+    $('#progress-bar').style.width = (span > 0 ? Math.min(100, Math.max(0, 100 * y / span)) : 100) + '%';
+    const barBottom = Math.max(0, topbar.getBoundingClientRect().bottom);
+    let active = headings[0];
+    for (const heading of headings) if (heading.getBoundingClientRect().top <= barBottom + 32) active = heading;
+    $$('#toc a').forEach(link => {
+      if (link.hash === '#' + active?.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let pending = false;
+  window.addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      updateTopbar();
+      updatePosition();
+    });
+  }, {passive:true});
+  window.addEventListener('resize', syncTopbarHeight);
+  topbar.addEventListener('transitionend', updatePosition);
+  new ResizeObserver(syncTopbarHeight).observe(topbar);
+  syncTopbarHeight();
+  if (location.hash) goToHash(location.hash, false);
+  // FAM:READING-NAVIGATION-END
 
   const dialog=$('#pdf-dialog');let printChoice='full';
-  $('#pdf-open').addEventListener('click',()=>{closeToc();$('#pdf-status').textContent='';dialog.showModal();});
+  $('#pdf-open').addEventListener('click',()=>{closeMobileToc();$('#pdf-status').textContent='';dialog.showModal();});
   $('#pdf-close').addEventListener('click',()=>dialog.close());
   $$('input[name="pdf-mode"]').forEach(r=>r.addEventListener('change',()=>{if(r.checked)printChoice=r.value;}));
   // Ctrl+P always exports full proofs; the explicit dialog temporarily selects a variant.

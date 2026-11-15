@@ -567,6 +567,99 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 -->
+
+<style id="fam-reviewed-figures">
+#content svg[data-fam-figure] {
+  --fig-paper:#faf8f1; --fig-ink:#24342d; --fig-muted:#52645a;
+  --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+  --fig-rose:#ac3454; --fig-gold:#885914;
+  display:block; max-width:100%; height:auto; margin-inline:auto;
+  color:var(--fig-ink); font-family:Arial, sans-serif;
+}
+html[data-theme="parchment"] #content svg[data-fam-figure] {
+  --fig-paper:#f1e7d3; --fig-ink:#353023; --fig-muted:#665b49;
+  --fig-rule:#cabc9d; --fig-blue:#244fb1; --fig-green:#166349;
+  --fig-rose:#972e4c; --fig-gold:#795419;
+}
+html[data-theme="dark"] #content svg[data-fam-figure] {
+  --fig-paper:#17231e; --fig-ink:#ecf0e6; --fig-muted:#bac9bd;
+  --fig-rule:#465c50; --fig-blue:#a3c0ff; --fig-green:#80d4b2;
+  --fig-rose:#ffa2b5; --fig-gold:#f0c67c;
+}
+#content svg[data-fam-figure] .venn-fill {fill:var(--fig-blue);fill-opacity:.16}
+#content svg[data-fam-figure] .venn-fill-danger {fill:var(--fig-rose);fill-opacity:.19}
+#content svg[data-fam-figure] text {dominant-baseline:auto}
+#content svg[data-fam-figure="plot-original"] {background:white;color:#26352e}
+@media print {
+  html[data-theme] #content svg[data-fam-figure] {
+    --fig-paper:#fff; --fig-ink:#24342d; --fig-muted:#52645a;
+    --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+    --fig-rose:#ac3454; --fig-gold:#885914;
+  }
+}
+</style>
+<style id="fam-reading-navigation">
+/* FAM:READING-NAVIGATION-START */
+@media screen {
+  .topbar {
+    transform: translateY(0);
+  }
+  #toc-toggle, #toc-close {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 11px;
+  }
+  #toc-toggle:hover, #toc-close:hover {
+    color: var(--gold);
+  }
+  .reading-progress {
+    top: max(0px, calc(var(--note-topbar-height, 88px) - 1px));
+  }
+  .contents {
+    top: calc(var(--note-topbar-height, 88px) + 24px);
+    max-height: calc(100svh - var(--note-topbar-height, 88px) - 48px);
+  }
+  .chapter [id], .lecture-head, #content {
+    scroll-margin-top: calc(var(--note-topbar-height, 88px) + 24px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .topbar {
+    transform: translateY(-100%);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .reading-progress {
+    top: 0;
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .contents {
+    top: 24px;
+    max-height: calc(100svh - 48px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) :is(.chapter [id], .lecture-head, #content) {
+    scroll-margin-top: 24px;
+  }
+}
+@media screen and (min-width: 761px) {
+  .layout[data-toc-collapsed] {
+    grid-template-columns: minmax(0, 820px);
+    justify-content: center;
+  }
+  .layout[data-toc-collapsed] > .contents {
+    display: none;
+  }
+}
+@media screen and (max-width: 760px) {
+  .contents.is-open {
+    inset: var(--note-topbar-height, 70px) 0 0;
+    max-height: none;
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .topbar { transition: transform .22s ease; }
+  .contents, .reading-progress { transition: top .22s ease; }
+}
+@media screen {
+  html:has(.contents.is-open) { overflow: hidden; }
+}
+/* FAM:READING-NAVIGATION-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -591,7 +684,7 @@ SOFTWARE.
         <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
         <h1>Теория перестановок и подстановок: чётность, симметрическая группа и циклическая структура</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[\alpha = (\alpha_1, \alpha_2, \dots, \alpha_n),\]</div></div>
+        <div class="lecture-abstract" style="grid-template-columns:1fr"><div class="abstract-formula">\[\alpha = (\alpha_1, \alpha_2, \dots, \alpha_n),\]</div></div>
       </header>
       <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
       <div class="proof-toolbar" aria-label="Все доказательства">
@@ -622,7 +715,7 @@ SOFTWARE.
 <span>23 октября 2026 г.</span>
 </div>
 </header>
-<!-- 
+<!--
         =============================================================================
         СЮДА НЕЙРОСЕТЬ ВСТАВЛЯЕТ СОДЕРЖИМОЕ КОНСПЕКТА (ARTICLE CONTENT)
         =============================================================================
@@ -632,7 +725,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Комбинаторная теория перестано…</div>
   <h2 id="chapter-2" data-toc="Комбинаторная теория перестано…">1. Комбинаторная теория перестановок и закон сохранения чётности</h2>
-  
+
 <p>
 <span class="drop-cap">К</span>лассическая высшая алгебра берёт своё начало в исследовании симметрий корней алгебраических уравнений и перестановок конечных множеств. Прежде чем переходить к абстрактным группам отображений, необходимо заложить строгий комбинаторный фундамент упорядоченных совокупностей символов, формализовать меру их неупорядоченности через понятие инверсий и доказать фундаментальный топологический инвариант: неизбежную перемену чётности при любой единичной перестановке двух элементов.
         </p>
@@ -654,7 +747,7 @@ SOFTWARE.
           </div></div>
 <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin: 20px 0;"><div class="equation">
           \[I(\alpha) = \operatorname{card}\Big\{(i, j) \;\Big|\; 1 \leqslant i < j \leqslant n, \; \alpha_i > \alpha_j\Big\}, \qquad 0 \leqslant I(\alpha) \leqslant \frac{n(n-1)}{2}.\]
-          
+
 </div><span class="formula-num">§ 12.1</span></div>
 <div class="statement definition" id="def-3"><div class="block-label">Определение 12.3</div><h3 data-toc="Чётность и сигнатура (знак) пе…" id="sub-2-4">Чётность и сигнатура (знак) перестановки</h3><div>
             Перестановка $\alpha$ называется <strong>чётной</strong>, если её общее число инверсий $I(\alpha)$ является чётным числом ($I(\alpha) \equiv 0 \pmod 2$), и <strong>нечётной</strong>, если число инверсий нечётно ($I(\alpha) \equiv 1 \pmod 2$).<br/>
@@ -753,15 +846,15 @@ SOFTWARE.
 <!-- Научная гравюра 12.1: Схема волнового сдвига транспозиции -->
 <figure class="figure-card">
 <div class="figure-svg-container">
-<svg aria-label="Схема транспозиции произвольных элементов через 2r+1 элементарных шагов" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 740 280" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="Схема транспозиции произвольных элементов через 2r+1 элементарных шагов" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 740 280" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="1">
 <defs>
-<marker id="arr-gold-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-1-arr-gold-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--svg-stroke-gold)"></path>
 </marker>
-<marker id="arr-cyan-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-1-arr-cyan-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--svg-stroke-cyan)"></path>
 </marker>
-<marker id="arr-emerald-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-1-arr-emerald-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--svg-stroke-emerald)"></path>
 </marker>
 </defs>
@@ -799,13 +892,13 @@ SOFTWARE.
 <circle cx="630" cy="140" fill="var(--svg-bg)" r="6" stroke="var(--svg-axis)" stroke-width="2"></circle>
 <text fill="var(--svg-axis)" font-family="'Cormorant Garamond', Georgia, serif" font-size="16" text-anchor="middle" x="630" y="170">α_{k+r+2}</text>
 <!-- Траектория 1: сдвиг a вправо (r шагов) -->
-<path d="M 205 125 C 260 50, 460 50, 515 125" fill="none" marker-end="url(#arr-gold-1)" stroke="var(--svg-stroke-gold)" stroke-width="2.2"></path>
+<path d="M 205 125 C 260 50, 460 50, 515 125" fill="none" marker-end="url(#fam-fig-1-arr-gold-1)" stroke="var(--svg-stroke-gold)" stroke-width="2.2"></path>
 <text fill="var(--text-gold)" font-family="'Cormorant Garamond', Georgia, serif" font-size="16" font-weight="600" text-anchor="middle" x="360" y="48">Этап 1: r транспозиций вправо (a →)</text>
 <!-- Траектория 2: соседний обмен a и b (1 шаг) -->
 <path d="M 520 130 C 527 115, 533 115, 538 130" fill="none" stroke="var(--text-gold-bright)" stroke-dasharray="3 2" stroke-width="2"></path>
 <text fill="var(--text-gold-bright)" font-family="'Cormorant Garamond', Georgia, serif" font-size="13" text-anchor="middle" x="530" y="98">Этап 2: 1 обмен</text>
 <!-- Траектория 3: сдвиг b влево (r шагов) -->
-<path d="M 535 155 C 480 230, 280 230, 215 155" fill="none" marker-end="url(#arr-emerald-1)" stroke="var(--svg-stroke-emerald)" stroke-width="2.2"></path>
+<path d="M 535 155 C 480 230, 280 230, 215 155" fill="none" marker-end="url(#fam-fig-1-arr-emerald-1)" stroke="var(--svg-stroke-emerald)" stroke-width="2.2"></path>
 <text fill="var(--thm-accent)" font-family="'Cormorant Garamond', Georgia, serif" font-size="16" font-weight="600" text-anchor="middle" x="360" y="248">Этап 3: r транспозиций влево (← b)</text>
 </svg>
 </div>
@@ -894,7 +987,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-3">
   <div class="chapter-kicker">03 / Подстановки конечных множеств …</div>
   <h2 id="chapter-3" data-toc="Подстановки конечных множеств …">2. Подстановки конечных множеств и критерий биективности</h2>
-  
+
 <p>
           Переход от пассивных перестановок (статических кортежей элементов) к динамическим операциям знаменует рождение современной алгебры. Вместо того чтобы просто рассматривать различные порядки расположения символов, мы определяем <em>активное преобразование</em>, переводящее каждый символ в некоторый другой.
         </p>
@@ -934,7 +1027,7 @@ SOFTWARE.
 <div class="proof-idea" data-proof-idea="" id="idea-3">
 <div class="proof-label">Идея</div>
 <p>Введём в рассмотрение образ отображения $\alpha$, определяемый как подмножество всех фактически принимаемых значений:
-              
+
               По определению сюръективности, $\alpha$ сюръективно тогда и только тогда, когда $\operatorname{Im}(\alpha) = M_n$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-3">
@@ -1010,7 +1103,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-4">
   <div class="chapter-kicker">04 / Двухстрочный формализм Коши и …</div>
   <h2 id="chapter-4" data-toc="Двухстрочный формализм Коши и …">3. Двухстрочный формализм Коши и чётность подстановок</h2>
-  
+
 <p>
           Для эффективной практической работы с биекциями конечных множеств Огюстен Луи Коши предложил универсальный двухстрочный табличный матричный синтаксис, ставший общепринятым каноном мировой алгебры.
         </p>
@@ -1051,7 +1144,7 @@ SOFTWARE.
           </div></div>
 <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin: 20px 0;"><div class="equation">
           \[\operatorname{sgn}(\alpha) = (-1)^{I(i_1, \dots, i_n) + I(j_1, \dots, j_n)} \in \{+1, -1\}.\]
-          
+
 </div><span class="formula-num">§ 12.2</span></div>
 <h3 data-toc="3. Фундаментальная теорема о к…" id="sub-4-5">3.3. Фундаментальная теорема о корректности знака подстановки</h3>
 <div class="statement theorem" id="thm-4"><div class="block-label">Теорема 12.4</div><h3 data-toc="Инвариантность знака относител…" id="sub-4-6">Инвариантность знака относительно перестановок столбцов</h3><div>
@@ -1067,7 +1160,7 @@ SOFTWARE.
 <div class="proof-idea" data-proof-idea="" id="idea-4">
 <div class="proof-label">Идея</div>
 <p>Пусть одна и та же подстановка $\alpha \in S_n$ записана в двух произвольных двухстрочных представлениях:
-              
+
               Переход от первого расположения столбцов ко второму можно осуществить за конечное число $k$ последовательных перестановок пар столбцов (транспозиций столбцов).</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-4">
@@ -1127,7 +1220,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-5">
   <div class="chapter-kicker">05 / Алгебраическая структура симме…</div>
   <h2 id="chapter-5" data-toc="Алгебраическая структура симме…">4. Алгебраическая структура симметрической группы $S_n$</h2>
-  
+
 <p>
           Симметрическая группа $S_n$ является прототипом всех конечных групп: согласно фундаментальной теореме Кэли, <em>любая конечная группа изоморфна некоторой подгруппе симметрической группы $S_n$</em>. Исследуем операцию композиции подстановок и групповые аксиомы.
         </p>
@@ -1152,7 +1245,7 @@ SOFTWARE.
         </p>
 <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin: 20px 0;"><div class="equation">
           \[\alpha \beta = \begin{pmatrix} \beta_1 & \beta_2 & \dots & \beta_n \\ \alpha(\beta_1) & \alpha(\beta_2) & \dots & \alpha(\beta_n) \end{pmatrix} \begin{pmatrix} 1 & 2 & \dots & n \\ \beta_1 & \beta_2 & \dots & \beta_n \end{pmatrix} = \begin{pmatrix} 1 & 2 & \dots & n \\ \alpha(\beta_1) & \alpha(\beta_2) & \dots & \alpha(\beta_n) \end{pmatrix}.\]
-          
+
 </div><span class="formula-num">§ 12.3</span></div>
 <div class="statement theorem" id="thm-5"><div class="block-label">Теорема 12.5</div><h3 data-toc="Групповые аксиомы симметрическ…" id="sub-5-3">Групповые аксиомы симметрической группы $S_n$</h3><div>
             Множество всех подстановок $S_n$ с операцией функциональной композиции образует <strong>группу</strong> порядка $n!$, то есть удовлетворяет следующим четырём аксиомам:
@@ -1308,7 +1401,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-6">
   <div class="chapter-kicker">06 / Циклическая структура подстано…</div>
   <h2 id="chapter-6" data-toc="Циклическая структура подстано…">5. Циклическая структура подстановок (по Курошу и Кострикину)</h2>
-  
+
 <p>
           В конце лекции профессор ставит перед аудиторией ключевую проблему: подсчёт инверсий в перестановке на 10–15 элементах становится чрезвычайно трудоёмким и чреват вычислительными сбоями. Решение этой проблемы лежит в <strong>теории циклов</strong> — элегантном геометрическом представлении подстановок, разработанном А. Г. Курошем и А. И. Кострикиным.
         </p>
@@ -1423,78 +1516,8 @@ SOFTWARE.
 <!-- Научная гравюра 12.2: Орбитальный ориентированный граф -->
 <figure class="figure-card">
 <div class="figure-svg-container">
-<svg aria-label="Орбитальный граф подстановки: расслоение множества на независимые циклы" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 740 300" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<marker id="arr-cyan-2" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--svg-stroke-cyan)"></path>
-</marker>
-<marker id="arr-gold-2" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--svg-stroke-gold)"></path>
-</marker>
-<marker id="arr-emerald-2" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--svg-stroke-emerald)"></path>
-</marker>
-</defs>
-<!-- Сетка -->
-<g stroke="var(--svg-grid)" stroke-dasharray="3 3" stroke-width="1">
-<line x1="30" x2="710" y1="150" y2="150"></line>
-<line x1="250" x2="250" y1="30" y2="270"></line>
-<line x1="510" x2="510" y1="30" y2="270"></line>
-</g>
-<!-- ОРБИТА 1 (4-цикл): слева -->
-<rect fill="var(--svg-fill-cyan)" height="230" rx="16" stroke="var(--svg-stroke-cyan)" stroke-dasharray="5 3" stroke-width="1.2" width="190" x="40" y="35"></rect>
-<text fill="var(--svg-stroke-cyan)" font-family="'Cinzel', Georgia, serif" font-size="14" font-weight="700" text-anchor="middle" x="135" y="60">ОРБИТА I (длина 4)</text>
-<!-- Узлы 4-цикла: (1 -> 4 -> 7 -> 3) -->
-<!-- 1 -->
-<circle cx="135" cy="90" fill="var(--svg-bg)" r="14" stroke="var(--svg-stroke-cyan)" stroke-width="2"></circle>
-<text fill="var(--text-heading)" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" text-anchor="middle" x="135" y="95">1</text>
-<!-- 4 -->
-<circle cx="190" cy="150" fill="var(--svg-bg)" r="14" stroke="var(--svg-stroke-cyan)" stroke-width="2"></circle>
-<text fill="var(--text-heading)" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" text-anchor="middle" x="190" y="155">4</text>
-<!-- 7 -->
-<circle cx="135" cy="210" fill="var(--svg-bg)" r="14" stroke="var(--svg-stroke-cyan)" stroke-width="2"></circle>
-<text fill="var(--text-heading)" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" text-anchor="middle" x="135" y="215">7</text>
-<!-- 3 -->
-<circle cx="80" cy="150" fill="var(--svg-bg)" r="14" stroke="var(--svg-stroke-cyan)" stroke-width="2"></circle>
-<text fill="var(--text-heading)" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" text-anchor="middle" x="80" y="155">3</text>
-<!-- Стрелки 4-цикла -->
-<path d="M 148 95 Q 185 105 188 134" fill="none" marker-end="url(#arr-cyan-2)" stroke="var(--svg-stroke-cyan)" stroke-width="2"></path>
-<path d="M 188 166 Q 180 198 149 208" fill="none" marker-end="url(#arr-cyan-2)" stroke="var(--svg-stroke-cyan)" stroke-width="2"></path>
-<path d="M 121 208 Q 90 198 82 166" fill="none" marker-end="url(#arr-cyan-2)" stroke="var(--svg-stroke-cyan)" stroke-width="2"></path>
-<path d="M 82 134 Q 90 105 121 95" fill="none" marker-end="url(#arr-cyan-2)" stroke="var(--svg-stroke-cyan)" stroke-width="2"></path>
-<text fill="var(--svg-stroke-cyan)" font-family="'Cormorant Garamond', Georgia, serif" font-size="15" font-style="italic" text-anchor="middle" x="135" y="250">σ₁ = (1, 4, 7, 3)</text>
-<!-- ОРБИТА 2 (3-цикл): в центре -->
-<rect fill="var(--svg-fill-gold)" height="230" rx="16" stroke="var(--svg-stroke-gold)" stroke-dasharray="5 3" stroke-width="1.2" width="220" x="270" y="35"></rect>
-<text fill="var(--text-gold)" font-family="'Cinzel', Georgia, serif" font-size="14" font-weight="700" text-anchor="middle" x="380" y="60">ОРБИТА II (длина 3)</text>
-<!-- Узлы 3-цикла: (2 -> 8 -> 5) -->
-<!-- 2 -->
-<circle cx="380" cy="100" fill="var(--svg-bg)" r="14" stroke="var(--svg-stroke-gold)" stroke-width="2"></circle>
-<text fill="var(--text-gold)" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" text-anchor="middle" x="380" y="105">2</text>
-<!-- 8 -->
-<circle cx="440" cy="190" fill="var(--svg-bg)" r="14" stroke="var(--svg-stroke-gold)" stroke-width="2"></circle>
-<text fill="var(--text-gold)" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" text-anchor="middle" x="440" y="195">8</text>
-<!-- 5 -->
-<circle cx="320" cy="190" fill="var(--svg-bg)" r="14" stroke="var(--svg-stroke-gold)" stroke-width="2"></circle>
-<text fill="var(--text-gold)" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" text-anchor="middle" x="320" y="195">5</text>
-<!-- Стрелки 3-цикла -->
-<path d="M 394 107 Q 435 130 436 174" fill="none" marker-end="url(#arr-gold-2)" stroke="var(--svg-stroke-gold)" stroke-width="2"></path>
-<path d="M 424 195 Q 380 205 336 195" fill="none" marker-end="url(#arr-gold-2)" stroke="var(--svg-stroke-gold)" stroke-width="2"></path>
-<path d="M 324 174 Q 325 130 366 107" fill="none" marker-end="url(#arr-gold-2)" stroke="var(--svg-stroke-gold)" stroke-width="2"></path>
-<text fill="var(--text-gold)" font-family="'Cormorant Garamond', Georgia, serif" font-size="15" font-style="italic" text-anchor="middle" x="380" y="250">σ₂ = (2, 8, 5)</text>
-<!-- ОРБИТА 3 (2-цикл / транспозиция): справа -->
-<rect fill="var(--thm-bg)" height="230" rx="16" stroke="var(--svg-stroke-emerald)" stroke-dasharray="5 3" stroke-width="1.2" width="180" x="530" y="35"></rect>
-<text fill="var(--thm-accent)" font-family="'Cinzel', Georgia, serif" font-size="14" font-weight="700" text-anchor="middle" x="620" y="60">ОРБИТА III (длина 2)</text>
-<!-- Узлы 2-цикла: (6 <-> 9) -->
-<!-- 6 -->
-<circle cx="620" cy="110" fill="var(--svg-bg)" r="14" stroke="var(--svg-stroke-emerald)" stroke-width="2"></circle>
-<text fill="var(--thm-accent)" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" text-anchor="middle" x="620" y="115">6</text>
-<!-- 9 -->
-<circle cx="620" cy="190" fill="var(--svg-bg)" r="14" stroke="var(--svg-stroke-emerald)" stroke-width="2"></circle>
-<text fill="var(--thm-accent)" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" text-anchor="middle" x="620" y="195">9</text>
-<!-- Двунаправленные стрелки 2-цикла -->
-<path d="M 633 120 C 655 140 655 160 633 180" fill="none" marker-end="url(#arr-emerald-2)" stroke="var(--svg-stroke-emerald)" stroke-width="2"></path>
-<path d="M 607 180 C 585 160 585 140 607 120" fill="none" marker-end="url(#arr-emerald-2)" stroke="var(--svg-stroke-emerald)" stroke-width="2"></path>
-<text fill="var(--thm-accent)" font-family="'Cormorant Garamond', Georgia, serif" font-size="15" font-style="italic" text-anchor="middle" x="620" y="250">σ₃ = (6, 9)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 270" role="img" aria-label="Три непересекающихся цикла (1 4 7 3), (2 8 5) и (6 9)" data-fam-figure="diagram" data-fam-index="2">
+<line x1="72.9" y1="133.1" x2="114.44" y2="91.56" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M120.1,85.9 L116.88,93.99 L112.01,89.12 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="187.1" y1="152.9" x2="145.56" y2="194.44" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M139.9,200.1 L143.12,192.01 L147.99,196.88 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="139.9" y1="85.9" x2="181.44" y2="127.44" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M187.1,133.1 L179.01,129.88 L183.88,125.01 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="120.1" y1="200.1" x2="78.56" y2="158.56" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M72.9,152.9 L80.99,156.12 L76.12,160.99 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="130.0" cy="76.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="130" y="80" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1</text><circle cx="197.0" cy="143.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="197" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">4</text><circle cx="130.0" cy="210.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="130" y="214" text-anchor="middle" fill="var(--fig-ink)" font-size="12">7</text><circle cx="63.0" cy="143.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="63" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3</text><text x="130" y="247" text-anchor="middle" fill="var(--fig-ink)" font-size="16">(1, 4, 7, 3)</text><line x1="338.98" y1="164.38" x2="379" y2="95.05" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M383,88.12 L381.98,96.77 L376.02,93.33 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="434.02" y1="176.5" x2="353.98" y2="176.5" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M345.98,176.5 L353.98,173.06 L353.98,179.94 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="397" y1="88.12" x2="437.02" y2="157.45" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M441.02,164.38 L434.04,159.17 L440,155.73 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="390.0" cy="76.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="390" y="80" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2</text><circle cx="448.0237020535574" cy="176.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="448.02" y="180.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">8</text><circle cx="331.9762979464426" cy="176.50000000000003" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="331.98" y="180.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">5</text><text x="390" y="247" text-anchor="middle" fill="var(--fig-ink)" font-size="16">(2, 8, 5)</text><line x1="656" y1="196" x2="656" y2="98" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M656,90 L659.44,98 L652.56,98 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="644" y1="90" x2="644" y2="188" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M644,196 L640.56,188 L647.44,188 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="650.0" cy="76.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="650" y="80" text-anchor="middle" fill="var(--fig-ink)" font-size="12">6</text><circle cx="650.0" cy="210.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="650" y="214" text-anchor="middle" fill="var(--fig-ink)" font-size="12">9</text><text x="650" y="247" text-anchor="middle" fill="var(--fig-ink)" font-size="16">(6, 9)</text>
 </svg>
 </div>
 <figcaption class="figure-caption">
@@ -1551,7 +1574,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-7">
   <div class="chapter-kicker">07 / Разложение в транспозиции, дек…</div>
   <h2 id="chapter-7" data-toc="Разложение в транспозиции, дек…">6. Разложение в транспозиции, декремент и скоростная чётность по Курошу</h2>
-  
+
 <p>
           Мы подошли к кульминационному ответу на вопрос лектора: <em>как мгновенно и безошибочно определить чётность сложнейшей подстановки без утомительного подсчёта инверсий?</em> Классическая теория Александра Геннадиевича Куроша связывает чётность подстановки с её алгебраическим декрементом и разложением в транспозиции.
         </p>
@@ -1595,7 +1618,7 @@ SOFTWARE.
         </p>
 <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin: 20px 0;"><div class="equation">
           \[\forall \alpha \in S_n \quad \exists \tau_1, \tau_2, \dots, \tau_N : \quad \alpha = \tau_1 \tau_2 \cdots \tau_N, \quad \tau_p = (a_p, b_p).\]
-          
+
 </div><span class="formula-num">§ 12.4</span></div>
 <h3 data-toc="2. Декремент подстановки и фун…" id="sub-7-3">6.2. Декремент подстановки и фундаментальная теория Куроша</h3>
 <div class="statement definition" id="def-12"><div class="block-label">Определение 12.12</div><h3 data-toc="Декремент подстановки (по А. Г…" id="sub-7-4">Декремент подстановки (по А. Г. Курошу)</h3><div>
@@ -1728,7 +1751,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-8">
   <div class="chapter-kicker">08 / Мультипликативность знака и зн…</div>
   <h2 id="chapter-8" data-toc="Мультипликативность знака и зн…">7. Мультипликативность знака и знакопеременная группа $A_n$ (по Кострикину)</h2>
-  
+
 <p>
           В курсе алгебры Алексея Ивановича Кострикина функция знака подстановки $\operatorname{sgn}: S_n \to \{+1, -1\}$ рассматривается как фундаментальный гомоморфизм групп. Это позволяет применить мощный аппарат теории групп: ядра гомоморфизмов, нормальные подгруппы и факторгруппы.
         </p>
@@ -1787,7 +1810,7 @@ SOFTWARE.
 <div class="statement theorem" id="thm-14"><div class="block-label">Теорема 12.12</div><h3 data-toc="Свойства знакопеременной подгр…" id="sub-8-5">Свойства знакопеременной подгруппы</h3><div>
 <ol>
 <li>$A_n$ является <strong>нормальной подгруппой</strong> в $S_n$ ($A_n \triangleleft S_n$).</li>
-<li>Индекс подгруппы равен 2: $[S_n : A_n] = 2$, а порядок группы равен:
+<li>При $n \ge 2$ индекс подгруппы равен 2: $[S_n : A_n] = 2$, а порядок группы равен:
                 \[|A_n| = \frac{|S_n|}{2} = \frac{n!}{2}.\]
               </li>
 <li>Факторгруппа $S_n / A_n$ изоморфна циклической группе порядка 2: $S_n / A_n \cong \mathbb{Z}_2$.</li>
@@ -1799,12 +1822,12 @@ SOFTWARE.
 <!-- Научная гравюра 12.3: Архитектура гомоморфизма знака -->
 <figure class="figure-card">
 <div class="figure-svg-container">
-<svg aria-label="Архитектура симметрической группы: ядро гомоморфизма знака и знакопеременная подгруппа" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 740 280" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="Архитектура симметрической группы: ядро гомоморфизма знака и знакопеременная подгруппа" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 740 280" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="3">
 <defs>
-<marker id="arr-gold-3" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-3-arr-gold-3" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--svg-stroke-gold)"></path>
 </marker>
-<marker id="arr-cyan-3" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-3-arr-cyan-3" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--svg-stroke-cyan)"></path>
 </marker>
 </defs>
@@ -1814,7 +1837,7 @@ SOFTWARE.
 </g>
 <!-- Левая область: Симметрическая группа S_n (Эллипс) -->
 <ellipse cx="220" cy="140" fill="var(--svg-bg)" rx="160" ry="110" stroke="var(--border-medium)" stroke-width="2"></ellipse>
-<text fill="var(--text-heading)" font-family="'Cinzel', Georgia, serif" font-size="16" font-weight="700" text-anchor="middle" x="220" y="55">СИММЕТРИЧЕСКАЯ ГРУППА S_n (|S_n| = n!)</text>
+<text fill="var(--text-heading)" font-family="'Cinzel', Georgia, serif" font-size="16" font-weight="700" text-anchor="middle" x="220" y="55">СИММЕТРИЧЕСКАЯ ГРУППА Sₙ, n ≥ 2 (|Sₙ| = n!)</text>
 <!-- Верхняя половина S_n: Знакопеременная группа A_n -->
 <path d="M 64 140 A 160 110 0 0 1 376 140 Z" fill="var(--thm-bg)" stroke="var(--svg-stroke-emerald)" stroke-width="1.8"></path>
 <text fill="var(--thm-accent)" font-family="'Cinzel', Georgia, serif" font-size="16" font-weight="700" text-anchor="middle" x="220" y="100">A_n = ker(sgn)</text>
@@ -1826,7 +1849,7 @@ SOFTWARE.
 <!-- Разделительная ось инварианта -->
 <line stroke="var(--text-gold)" stroke-dasharray="6 3" stroke-width="2" x1="64" x2="376" y1="140" y2="140"></line>
 <!-- Биекция между классами -->
-<path d="M 120 120 C 100 135 100 145 120 160" fill="none" marker-end="url(#arr-gold-3)" stroke="var(--svg-stroke-gold)" stroke-width="2"></path>
+<path d="M 120 120 C 100 135 100 145 120 160" fill="none" marker-end="url(#fam-fig-3-arr-gold-3)" stroke="var(--svg-stroke-gold)" stroke-width="2"></path>
 <text fill="var(--text-gold)" font-family="'Cormorant Garamond', Georgia, serif" font-size="14" font-weight="600" text-anchor="middle" x="80" y="145">× τ</text>
 <!-- Правая область: Мультипликативная группа Z_2 {+1, -1} -->
 <rect fill="var(--svg-surface-elevated)" height="180" rx="14" stroke="var(--border-strong)" stroke-width="2" width="140" x="540" y="50"></rect>
@@ -1838,9 +1861,9 @@ SOFTWARE.
 <circle cx="610" cy="185" fill="var(--warn-bg)" r="18" stroke="var(--warn-border)" stroke-width="2"></circle>
 <text fill="var(--warn-accent)" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="700" text-anchor="middle" x="610" y="191">-1</text>
 <!-- Стрелка гомоморфизма sgn: S_n -> Z_2 -->
-<path d="M 385 105 L 515 112" fill="none" marker-end="url(#arr-cyan-3)" stroke="var(--svg-stroke-emerald)" stroke-width="2.5"></path>
+<path d="M 385 105 L 515 112" fill="none" marker-end="url(#fam-fig-3-arr-cyan-3)" stroke="var(--svg-stroke-emerald)" stroke-width="2.5"></path>
 <text fill="var(--thm-accent)" font-family="'Cinzel', Georgia, serif" font-size="13" font-weight="700" text-anchor="middle" x="450" y="98">sgn(α) = +1</text>
-<path d="M 385 175 L 515 182" fill="none" marker-end="url(#arr-cyan-3)" stroke="var(--warn-border)" stroke-width="2.5"></path>
+<path d="M 385 175 L 515 182" fill="none" marker-end="url(#fam-fig-3-arr-cyan-3)" stroke="var(--warn-border)" stroke-width="2.5"></path>
 <text fill="var(--warn-accent)" font-family="'Cinzel', Georgia, serif" font-size="13" font-weight="700" text-anchor="middle" x="450" y="200">sgn(α) = -1</text>
 </svg>
 </div>
@@ -1909,7 +1932,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-9">
   <div class="chapter-kicker">09 / Академический задачник: подроб…</div>
   <h2 id="chapter-9" data-toc="Академический задачник: подроб…">8. Академический задачник: подробные решения экзаменационных задач</h2>
-  
+
 <p>
           Для закрепления теории разберём типовые коллоквиумные и экзаменационные задачи университетских курсов высшей алгебры МГУ и СПбГУ, демонстрирующие мощь циклического и декрементного аппарата.
         </p>
@@ -2062,7 +2085,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-10">
   <div class="chapter-kicker">10 / Сводный академический канон и …</div>
   <h2 id="chapter-10" data-toc="Сводный академический канон и …">9. Сводный академический канон и скрижаль ключевых инвариантов</h2>
-  
+
 <p>
           Сведём воедино всю терминологическую и формульную систему двенадцатой лекции, объединив лекционный материал с классическими руководствами А. Г. Куроша и А. И. Кострикина.
         </p>
@@ -2152,13 +2175,13 @@ SOFTWARE.
           </div>
 <ul>
 <li><strong>Инвариант смены чётности при транспозиции:</strong> Любая транспозиция (как соседних, так и несоседних элементов с $r$ промежуточными символами) меняет чётность перестановки строго на противоположную: $\operatorname{sgn}(\tau \alpha) = -\operatorname{sgn}(\alpha)$. Общее число шагов редукции к соседним транспозициям всегда равно нечётному числу $2r + 1$.</li>
-<li><strong>Равномощность классов чётности при $n \geqslant 2$:</strong> Множество перестановок делится ровно пополам: ровно $\frac{n!}{2}$ чётных и ровно $\frac{n!}{2}$ нечётных перестановок (доказано как цепным методом гамильтонова пути, так и биективным умножением на транспозицию $\tau = (1, 2)$).</li>
+<li><strong>Равномощность классов чётности при $n \geqslant 2$:</strong> При $n\ge2$ множество перестановок делится ровно пополам: ровно $\frac{n!}{2}$ чётных и ровно $\frac{n!}{2}$ нечётных перестановок (доказано как цепным методом гамильтонова пути, так и биективным умножением на транспозицию $\tau = (1, 2)$).</li>
 <li><strong>Критерий биективности эндоморфизмов конечных множеств:</strong> Для отображения конечного множества мощности $n$ в себя инъективность, сюръективность и биективность логически равносильны: $\alpha \text{ биективно} \iff |\operatorname{Im} \alpha| = n$. На бесконечных множествах этот закон рушится!</li>
 <li><strong>Инвариантность знака подстановки в форме Коши:</strong> Величина $\operatorname{sgn}(\alpha) = (-1)^{I(\text{верх}) + I(\text{низ})}$ не зависит от порядка расположения столбцов в двухстрочной матрице, поскольку при перемене любых двух столбцов сумма инверсий обеих строк меняется на чётное число $\pm 2$ или $0$. В каноническом виде чётность подстановки тождественна чётности её нижней строки.</li>
 <li><strong>Теорема о циклическом разложении:</strong> Всякая подстановка однозначно представляется в виде произведения попарно независимых (дизъюнктных) циклов. Независимые циклы коммутируют: $\sigma \tau = \tau \sigma$.</li>
 <li><strong>Порядок как НОК длин циклов:</strong> Порядок подстановки $\operatorname{ord}(\alpha)$ равен наименьшему общему кратному длин независимых циклов, что позволяет мгновенно вычислять гигантские степени $\alpha^M = \alpha^{M \pmod{\operatorname{ord}(\alpha)}}$.</li>
 <li><strong>Декрементная теория чётности Куроша:</strong> Чётность подстановки тождественна чётности её декремента: $\operatorname{sgn}(\alpha) = (-1)^{n - s}$. Цикл нечётной длины чётен, а цикл чётной длины нечётен! Для вычисления знака подстановки степени 100 достаточно разложить её на циклы и сложить $(k_i - 1)$, избегая подсчёта тысяч инверсий.</li>
-<li><strong>Мультипликативность сигнатуры и знакопеременная подгруппа:</strong> Знак произведения равен произведению знаков $\operatorname{sgn}(\alpha\beta) = \operatorname{sgn}(\alpha)\operatorname{sgn}(\beta)$. Ядро гомоморфизма образует нормальную подгруппу чётных подстановок $A_n \triangleleft S_n$ порядка $\frac{n!}{2}$ и индекса 2. Две подстановки сопряжены в $S_n$ тогда и только тогда, когда они имеют одинаковый циклический тип.</li>
+<li><strong>Мультипликативность сигнатуры и знакопеременная подгруппа:</strong> Знак произведения равен произведению знаков $\operatorname{sgn}(\alpha\beta) = \operatorname{sgn}(\alpha)\operatorname{sgn}(\beta)$. При $n\ge2$ ядро гомоморфизма образует нормальную подгруппу чётных подстановок $A_n \triangleleft S_n$ порядка $\frac{n!}{2}$ и индекса 2. Две подстановки сопряжены в $S_n$ тогда и только тогда, когда они имеют одинаковый циклический тип.</li>
 </ul>
 </div>
 
@@ -2222,31 +2245,145 @@ SOFTWARE.
   $$('[data-all-proofs]').forEach(b=>b.addEventListener('click',()=>{proofs.forEach(p=>setProof(p,b.dataset.allProofs));syncToolbar();updatePosition();}));syncToolbar();
 
   // Render before generating the outline, so math in headings gets a clean label.
-  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:true,strict:false});}catch(e){console.warn('Math render note:', e);}
+  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:false,strict:false,ignoredClasses:["math-svg","fam-svg-labels"]});}catch(e){console.warn('Math render note:', e);}
   const headings=$$('h2[data-toc],h3[data-toc]'),list=document.createElement('ol');
   let number=0;
   for(const heading of headings){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+heading.id;if(heading.tagName==='H2'){const n=document.createElement('span');n.className='toc-number';n.textContent=String(++number).padStart(2,'0');n.setAttribute('aria-hidden','true');a.append(n);}else li.className='toc-sub';a.append(document.createTextNode(heading.dataset.toc));li.append(a);list.append(li);}
   $('#toc').replaceChildren(list);$('#section-count').textContent=`Разделов: ${number}`;
-  const mobile=matchMedia('(max-width:760px)');
-  function closeToc(){ $('#contents').classList.remove('is-open');$('#toc-toggle').setAttribute('aria-expanded','false'); }
-  $('#toc-toggle').addEventListener('click',()=>{const open=$('#contents').classList.toggle('is-open');$('#toc-toggle').setAttribute('aria-expanded',String(open));if(open)$('#toc a')?.focus();});
-  $('#toc-close').addEventListener('click',()=>{closeToc();$('#toc-toggle').focus();});
-  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&$('#contents').classList.contains('is-open')){closeToc();$('#toc-toggle').focus();}});
-  mobile.addEventListener('change',closeToc);
-  function goToHash(hash,push){let target;try{target=document.getElementById(decodeURIComponent(hash.slice(1)));}catch{return;}if(!target)return;
-    const proof=target.closest('[data-proof]');if(proof){setProof(proof,target.closest('[data-proof-idea]')?'idea':'full');syncToolbar();}
-    closeToc();if(push){try{history.pushState(null,'',hash);}catch{/* opaque reader sandbox */}}
-    target.scrollIntoView({behavior:'instant',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});updatePosition();
+  // FAM:READING-NAVIGATION-START
+  const root = document.documentElement;
+  const layout = $('.layout');
+  const topbar = $('.topbar');
+  const contents = $('#contents');
+  const tocToggle = $('#toc-toggle');
+  const mobile = matchMedia('(max-width:760px)');
+  let desktopOpen = true;
+  let mobileOpen = false;
+  try { desktopOpen = localStorage.getItem('fam-note-toc') !== 'collapsed'; } catch {}
+
+  function tocIsOpen() { return mobile.matches ? mobileOpen : desktopOpen; }
+  function syncToc() {
+    contents.classList.toggle('is-open', mobile.matches && mobileOpen);
+    layout.toggleAttribute('data-toc-collapsed', !desktopOpen);
+    tocToggle.setAttribute('aria-expanded', String(tocIsOpen()));
   }
-  document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#"]');if(!a)return;ev.preventDefault();goToHash(a.getAttribute('href'),true);});
-  window.addEventListener('hashchange',()=>goToHash(location.hash,false));
-  function updatePosition(){const y=window.scrollY,span=document.documentElement.scrollHeight-innerHeight;$('#progress-bar').style.width=(span>0?Math.min(100,Math.max(0,100*y/span)):100)+'%';let active=headings[0];for(const h of headings)if(h.getBoundingClientRect().top<145)active=h;
-    $$('#toc a').forEach(a=>{if(a.hash==='#'+active?.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
-  let pending=false;window.addEventListener('scroll',()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;updatePosition();});},{passive:true});window.addEventListener('resize',updatePosition);
-  if(location.hash)goToHash(location.hash,false);updatePosition();
+  function closeMobileToc() {
+    mobileOpen = false;
+    syncToc();
+  }
+  function setTocOpen(open) {
+    if (mobile.matches) {
+      mobileOpen = open;
+      if (open) root.removeAttribute('data-note-bar-hidden');
+    } else {
+      desktopOpen = open;
+      try { localStorage.setItem('fam-note-toc', open ? 'expanded' : 'collapsed'); } catch {}
+    }
+    syncToc();
+    updatePosition();
+  }
+  tocToggle.addEventListener('click', () => {
+    const open = !tocIsOpen();
+    setTocOpen(open);
+    if (open && mobile.matches) $('#toc a')?.focus({preventScroll:true});
+  });
+  function dismissToc() {
+    setTocOpen(false);
+    root.removeAttribute('data-note-bar-hidden');
+    tocToggle.focus({preventScroll:true});
+  }
+  $('#toc-close').addEventListener('click', dismissToc);
+  document.addEventListener('keydown', event => {
+    const focusInToc = contents.contains(document.activeElement) || document.activeElement === tocToggle;
+    if (event.key === 'Escape' && !event.defaultPrevented && tocIsOpen() &&
+        (mobile.matches || focusInToc) && !$('#pdf-dialog').open) dismissToc();
+  });
+  mobile.addEventListener('change', closeMobileToc);
+  syncToc();
+
+  let lastScroll = Math.max(0, window.scrollY);
+  let scrollDistance = 0;
+  let topbarHeight = 0;
+  function syncTopbarHeight() {
+    topbarHeight = topbar.offsetHeight;
+    root.style.setProperty('--note-topbar-height', topbarHeight + 'px');
+    updatePosition();
+  }
+  function updateTopbar() {
+    const y = Math.max(0, Math.min(window.scrollY, root.scrollHeight - innerHeight));
+    const delta = y - lastScroll;
+    lastScroll = y;
+    if (y <= 16 || mobileOpen) {
+      root.removeAttribute('data-note-bar-hidden');
+      scrollDistance = 0;
+      return;
+    }
+    if (!delta) return;
+    scrollDistance = Math.sign(delta) === Math.sign(scrollDistance) ? scrollDistance + delta : delta;
+    if (scrollDistance <= -10) root.removeAttribute('data-note-bar-hidden');
+    if (scrollDistance >= 18 && y > topbarHeight) root.setAttribute('data-note-bar-hidden', '');
+  }
+
+  function goToHash(hash, push) {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (!target) return;
+    const proof = target.closest('[data-proof]');
+    if (proof) {
+      setProof(proof, target.closest('[data-proof-idea]') ? 'idea' : 'full');
+      syncToolbar();
+    }
+    closeMobileToc();
+    if (push) {
+      try { history.pushState(null, '', hash); } catch { /* Opaque reader sandbox. */ }
+    }
+    if (target === $('#top') || target === $('#content')) root.removeAttribute('data-note-bar-hidden');
+    target.scrollIntoView({behavior:'instant', block:'start'});
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+    lastScroll = Math.max(0, window.scrollY);
+    scrollDistance = 0;
+    updatePosition();
+  }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    event.preventDefault();
+    goToHash(link.getAttribute('href'), true);
+  });
+  window.addEventListener('hashchange', () => goToHash(location.hash, false));
+
+  function updatePosition() {
+    const y = window.scrollY;
+    const span = root.scrollHeight - innerHeight;
+    $('#progress-bar').style.width = (span > 0 ? Math.min(100, Math.max(0, 100 * y / span)) : 100) + '%';
+    const barBottom = Math.max(0, topbar.getBoundingClientRect().bottom);
+    let active = headings[0];
+    for (const heading of headings) if (heading.getBoundingClientRect().top <= barBottom + 32) active = heading;
+    $$('#toc a').forEach(link => {
+      if (link.hash === '#' + active?.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let pending = false;
+  window.addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      updateTopbar();
+      updatePosition();
+    });
+  }, {passive:true});
+  window.addEventListener('resize', syncTopbarHeight);
+  topbar.addEventListener('transitionend', updatePosition);
+  new ResizeObserver(syncTopbarHeight).observe(topbar);
+  syncTopbarHeight();
+  if (location.hash) goToHash(location.hash, false);
+  // FAM:READING-NAVIGATION-END
 
   const dialog=$('#pdf-dialog');let printChoice='full';
-  $('#pdf-open').addEventListener('click',()=>{closeToc();$('#pdf-status').textContent='';dialog.showModal();});
+  $('#pdf-open').addEventListener('click',()=>{closeMobileToc();$('#pdf-status').textContent='';dialog.showModal();});
   $('#pdf-close').addEventListener('click',()=>dialog.close());
   $$('input[name="pdf-mode"]').forEach(r=>r.addEventListener('change',()=>{if(r.checked)printChoice=r.value;}));
   // Ctrl+P always exports full proofs; the explicit dialog temporarily selects a variant.

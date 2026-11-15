@@ -567,6 +567,99 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 -->
+
+<style id="fam-reviewed-figures">
+#content svg[data-fam-figure] {
+  --fig-paper:#faf8f1; --fig-ink:#24342d; --fig-muted:#52645a;
+  --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+  --fig-rose:#ac3454; --fig-gold:#885914;
+  display:block; max-width:100%; height:auto; margin-inline:auto;
+  color:var(--fig-ink); font-family:Arial, sans-serif;
+}
+html[data-theme="parchment"] #content svg[data-fam-figure] {
+  --fig-paper:#f1e7d3; --fig-ink:#353023; --fig-muted:#665b49;
+  --fig-rule:#cabc9d; --fig-blue:#244fb1; --fig-green:#166349;
+  --fig-rose:#972e4c; --fig-gold:#795419;
+}
+html[data-theme="dark"] #content svg[data-fam-figure] {
+  --fig-paper:#17231e; --fig-ink:#ecf0e6; --fig-muted:#bac9bd;
+  --fig-rule:#465c50; --fig-blue:#a3c0ff; --fig-green:#80d4b2;
+  --fig-rose:#ffa2b5; --fig-gold:#f0c67c;
+}
+#content svg[data-fam-figure] .venn-fill {fill:var(--fig-blue);fill-opacity:.16}
+#content svg[data-fam-figure] .venn-fill-danger {fill:var(--fig-rose);fill-opacity:.19}
+#content svg[data-fam-figure] text {dominant-baseline:auto}
+#content svg[data-fam-figure="plot-original"] {background:white;color:#26352e}
+@media print {
+  html[data-theme] #content svg[data-fam-figure] {
+    --fig-paper:#fff; --fig-ink:#24342d; --fig-muted:#52645a;
+    --fig-rule:#cccfc1; --fig-blue:#224fc0; --fig-green:#137451;
+    --fig-rose:#ac3454; --fig-gold:#885914;
+  }
+}
+</style>
+<style id="fam-reading-navigation">
+/* FAM:READING-NAVIGATION-START */
+@media screen {
+  .topbar {
+    transform: translateY(0);
+  }
+  #toc-toggle, #toc-close {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 11px;
+  }
+  #toc-toggle:hover, #toc-close:hover {
+    color: var(--gold);
+  }
+  .reading-progress {
+    top: max(0px, calc(var(--note-topbar-height, 88px) - 1px));
+  }
+  .contents {
+    top: calc(var(--note-topbar-height, 88px) + 24px);
+    max-height: calc(100svh - var(--note-topbar-height, 88px) - 48px);
+  }
+  .chapter [id], .lecture-head, #content {
+    scroll-margin-top: calc(var(--note-topbar-height, 88px) + 24px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .topbar {
+    transform: translateY(-100%);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .reading-progress {
+    top: 0;
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .contents {
+    top: 24px;
+    max-height: calc(100svh - 48px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) :is(.chapter [id], .lecture-head, #content) {
+    scroll-margin-top: 24px;
+  }
+}
+@media screen and (min-width: 761px) {
+  .layout[data-toc-collapsed] {
+    grid-template-columns: minmax(0, 820px);
+    justify-content: center;
+  }
+  .layout[data-toc-collapsed] > .contents {
+    display: none;
+  }
+}
+@media screen and (max-width: 760px) {
+  .contents.is-open {
+    inset: var(--note-topbar-height, 70px) 0 0;
+    max-height: none;
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .topbar { transition: transform .22s ease; }
+  .contents, .reading-progress { transition: top .22s ease; }
+}
+@media screen {
+  html:has(.contents.is-open) { overflow: hidden; }
+}
+/* FAM:READING-NAVIGATION-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -591,7 +684,7 @@ SOFTWARE.
         <div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>Академический конспект ФПМ</span></div>
         <h1>Аналитическая геометрия: Векторная алгебра, базисы и системы координат</h1>
         <p class="subtitle">Полный курс теории, геометрических доказательств и разбора типовых задач на основе лекций 1 и 2</p>
-        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[', right: '\]</div></div>
+
       </header>
       <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
       <div class="proof-toolbar" aria-label="Все доказательства">
@@ -635,7 +728,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Часть I. Векторы: понятия, рав…</div>
   <h2 id="chapter-2" data-toc="Часть I. Векторы: понятия, рав…">Часть I. Векторы: понятия, равенство, свободные векторы и линейные операции</h2>
-  
+
 <h3 data-toc="1. Интуиция и строгое определе…" id="sec-1-1">1.1. Интуиция и строгое определение направленного отрезка</h3>
 <p>
         В математике и физике скалярные величины (масса, температура, время) задаются одним действительным числом. Однако такие величины, как перемещение точки, скорость, ускорение или сила, принципиально требуют задания не только величины, но и <strong>пространственной направленности</strong>.
@@ -668,14 +761,14 @@ SOFTWARE.
 <!-- РИСУНОК 1: Направленный отрезок -->
 <figure>
 <div class="svg-container">
-<svg height="130" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 480 130" width="480">
+<svg height="130" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 480 130" width="480" role="img" aria-label="Рис. 1. Направленный отрезок: точка начала $A$, точка конца $B$, длина и ориентация стрелки." data-fam-figure="diagram" data-fam-index="1">
 <defs>
-<marker id="arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-1-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"></path>
 </marker>
 </defs>
 <!-- Направленная линия вектора -->
-<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="3" x1="70" x2="390" y1="90" y2="40"></line>
+<line marker-end="url(#fam-fig-1-arr-blue)" stroke="var(--svg-blue)" stroke-width="3" x1="70" x2="390" y1="90" y2="40"></line>
 <!-- Точка A (начало) -->
 <circle cx="70" cy="90" fill="var(--svg-red)" r="5"></circle>
 <text fill="var(--svg-text)" font-size="14" font-weight="bold" x="50" y="115">A (начало)</text>
@@ -722,32 +815,8 @@ SOFTWARE.
 <!-- РИСУНОК 2: Свободные векторы -->
 <figure>
 <div class="svg-container">
-<svg height="150" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 480 150" width="480">
-<!-- Фоновая сетка -->
-<defs>
-<pattern height="20" id="smallGrid" patternunits="userSpaceOnUse" width="20">
-<path d="M 20 0 L 0 0 0 20" fill="none" stroke="var(--svg-grid)" stroke-width="0.7"></path>
-</pattern>
-<marker id="arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"></path>
-</marker></defs>
-<rect fill="url(#smallGrid)" height="100%" opacity="0.3" width="100%"></rect>
-<!-- Вектор AB -->
-<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="2.8" x1="50" x2="160" y1="110" y2="40"></line>
-<circle cx="50" cy="110" fill="var(--svg-red)" r="4"></circle>
-<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="35" y="125">A</text>
-<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="165" y="35">B</text>
-<!-- Вектор CD -->
-<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="2.8" x1="190" x2="300" y1="125" y2="55"></line>
-<circle cx="190" cy="125" fill="var(--svg-red)" r="4"></circle>
-<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="175" y="140">C</text>
-<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="305" y="50">D</text>
-<!-- Вектор EF -->
-<line marker-end="url(#arr-blue)" stroke="var(--svg-blue)" stroke-width="2.8" x1="330" x2="440" y1="95" y2="25"></line>
-<circle cx="330" cy="95" fill="var(--svg-red)" r="4"></circle>
-<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="315" y="110">E</text>
-<text fill="var(--svg-text)" font-size="13" font-weight="bold" x="445" y="20">F</text>
-<text fill="var(--svg-amber)" font-size="15" font-weight="bold" x="210" y="25">AB ~ CD ~ EF = a</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 590 218" role="img" aria-label="Одинаковые векторы в трёх разных положениях" data-fam-figure="diagram" data-fam-index="2">
+<line x1="72" y1="155" x2="160.44" y2="97.88" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M168,93 L162.54,101.13 L158.34,94.63 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="72" cy="155" r="4" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"/><text x="64" y="173" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A</text><text x="176" y="85" text-anchor="middle" fill="var(--fig-ink)" font-size="14">B</text><line x1="242" y1="180" x2="330.44" y2="122.88" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M338,118 L332.54,126.13 L328.34,119.63 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="242" cy="180" r="4" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"/><text x="234" y="198" text-anchor="middle" fill="var(--fig-ink)" font-size="14">C</text><text x="346" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="14">D</text><line x1="412" y1="115" x2="500.44" y2="57.88" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M508,53 L502.54,61.13 L498.34,54.63 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="412" cy="115" r="4" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"/><text x="404" y="133" text-anchor="middle" fill="var(--fig-ink)" font-size="14">E</text><text x="516" y="45" text-anchor="middle" fill="var(--fig-ink)" font-size="14">F</text><text x="295" y="207" text-anchor="middle" fill="var(--fig-ink)" font-size="15">AB, CD и EF — один свободный вектор</text>
 </svg>
 </div>
 <figcaption>Рис. 2. Свободный вектор как класс эквивалентных направленных отрезков, получаемых параллельным переносом.</figcaption>
@@ -779,7 +848,7 @@ SOFTWARE.
 </div>
 <div class="proof-full" data-proof-full="" id="full-1">
 <div class="proof-label">Доказательство (утверждения 1)</div>
-    
+
 
         Отложим оба свободных вектора от одной произвольной точки $O$: $\vec{OA} = \vec{a}$, $\vec{OB} = \vec{b}$. Точки $O, A, B$ всегда принадлежат хотя бы одной плоскости (если точки не лежат на одной прямой, плоскость единственна; если лежат — плоскостей бесконечно много). Векторы лежат в этой плоскости, а значит, компланарны.
         <span class="proof-qed">■</span>
@@ -813,7 +882,7 @@ SOFTWARE.
 </div>
 <div class="proof-full" data-proof-full="" id="full-2">
 <div class="proof-label">Доказательство (утверждения 2)</div>
-    
+
 
         При выборе другой точки $A'$ треугольник $A'B'C'$ переводится в треугольник $ABC$ параллельным переносом на вектор $\vec{AA'}$. Сторона $\vec{A'C'}$ переходит в $\vec{AC}$, откуда $\vec{AC} \sim \vec{A'C'}$ как свободные векторы.
         <span class="proof-qed">■</span>
@@ -846,9 +915,9 @@ SOFTWARE.
 </div>
 <div class="proof-full" data-proof-full="" id="full-3">
 <div class="proof-label">Доказательство (утверждения 3)</div>
-    
 
-        В параллелограмме $ABCD$ стороны $\vec{BC} = \vec{AD} = \vec{v}$ и $\vec{DC} = \vec{AB} = \vec{u}$. 
+
+        В параллелограмме $ABCD$ стороны $\vec{BC} = \vec{AD} = \vec{v}$ и $\vec{DC} = \vec{AB} = \vec{u}$.
         По треугольнику $ABC$: $\vec{AC} = \vec{u} + \vec{v}$. По треугольнику $ADC$: $\vec{AC} = \vec{v} + \vec{u}$. Диагональ одна, следовательно, $\vec{u} + \vec{v} = \vec{v} + \vec{u}$.
         <span class="proof-qed">■</span>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
@@ -857,15 +926,15 @@ SOFTWARE.
 <!-- РИСУНОК 3: Два правила сложения -->
 <figure>
 <div class="svg-container">
-<svg height="220" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 620 220" width="620" xmlns="http://www.w3.org/2000/svg">
+<svg height="220" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 620 220" width="620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 3. Геометрическое сложение векторов: правило параллелограмма (диагонали суммы и разности) и правило треугольника." data-fam-figure="diagram" data-fam-index="3">
 <defs>
-<marker id="ag12-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-3-ag12-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
 </marker>
-<marker id="ag12-arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-3-ag12-arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-amber, #f59e0b)"></path>
 </marker>
-<marker id="ag12-arr-rose" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-3-ag12-arr-rose" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose, #f43f5e)"></path>
 </marker>
 </defs>
@@ -877,16 +946,16 @@ SOFTWARE.
 <circle cx="40" cy="150" fill="var(--text-main, #f3f4f6)" r="4.5"></circle>
 <text fill="var(--text-main, #f3f4f6)" font-size="13" font-weight="700" x="25" y="165">A</text>
 <!-- Vector u: (40, 150) -> (190, 150) -->
-<line marker-end="url(#ag12-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="2.8" x1="40" x2="184" y1="150" y2="150"></line>
+<line marker-end="url(#fam-fig-3-ag12-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="2.8" x1="40" x2="184" y1="150" y2="150"></line>
 <text fill="var(--accent-blue, #38bdf8)" font-size="14" font-weight="700" x="110" y="170">u</text>
 <!-- Vector v: (40, 150) -> (100, 70) -->
-<line marker-end="url(#ag12-arr-amber)" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.8" x1="40" x2="96" y1="150" y2="75"></line>
+<line marker-end="url(#fam-fig-3-ag12-arr-amber)" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.8" x1="40" x2="96" y1="150" y2="75"></line>
 <text fill="var(--accent-amber, #f59e0b)" font-size="14" font-weight="700" x="55" y="105">v</text>
 <!-- Dashed sides -->
 <line stroke="var(--border-color, #64748b)" stroke-dasharray="4,3" stroke-width="1.5" x1="190" x2="250" y1="150" y2="70"></line>
 <line stroke="var(--border-color, #64748b)" stroke-dasharray="4,3" stroke-width="1.5" x1="100" x2="250" y1="70" y2="70"></line>
 <!-- Diagonal u + v: (40, 150) -> (250, 70) -->
-<line marker-end="url(#ag12-arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3" x1="40" x2="244" y1="150" y2="73"></line>
+<line marker-end="url(#fam-fig-3-ag12-arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3" x1="40" x2="244" y1="150" y2="73"></line>
 <!-- Label placed strictly ABOVE diagonal -->
 <text fill="var(--accent-rose, #f43f5e)" font-size="14" font-weight="800" x="155" y="95">u + v</text>
 </g>
@@ -898,22 +967,22 @@ SOFTWARE.
 <circle cx="40" cy="150" fill="var(--text-main, #f3f4f6)" r="4.5"></circle>
 <text fill="var(--text-main, #f3f4f6)" font-size="13" font-weight="700" x="25" y="165">A</text>
 <!-- Vector u: A(40, 150) -> B(160, 150) -->
-<line marker-end="url(#ag12-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="2.8" x1="40" x2="154" y1="150" y2="150"></line>
+<line marker-end="url(#fam-fig-3-ag12-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="2.8" x1="40" x2="154" y1="150" y2="150"></line>
 <text fill="var(--accent-blue, #38bdf8)" font-size="14" font-weight="700" x="95" y="170">u</text>
 <circle cx="160" cy="150" fill="var(--text-main, #f3f4f6)" r="4"></circle>
 <text fill="var(--text-main, #f3f4f6)" font-size="13" font-weight="700" x="165" y="168">B</text>
 <!-- Vector v: B(160, 150) -> C(240, 70) -->
-<line marker-end="url(#ag12-arr-amber)" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.8" x1="160" x2="235" y1="150" y2="75"></line>
+<line marker-end="url(#fam-fig-3-ag12-arr-amber)" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.8" x1="160" x2="235" y1="150" y2="75"></line>
 <text fill="var(--accent-amber, #f59e0b)" font-size="14" font-weight="700" x="212" y="120">v</text>
 <circle cx="240" cy="70" fill="var(--text-main, #f3f4f6)" r="4"></circle>
 <text fill="var(--text-main, #f3f4f6)" font-size="13" font-weight="700" x="248" y="68">C</text>
 <!-- Resultant u + v: A(40, 150) -> C(240, 70) -->
-<line marker-end="url(#ag12-arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3" x1="40" x2="234" y1="150" y2="73"></line>
+<line marker-end="url(#fam-fig-3-ag12-arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3" x1="40" x2="234" y1="150" y2="73"></line>
 <text fill="var(--accent-rose, #f43f5e)" font-size="14" font-weight="800" x="110" y="95">u + v</text>
 </g>
 </svg>
 </div>
-<figcaption>Рис. 3. Геометрическое сложение векторов: правило параллелограмма (диагонали суммы и разности) и правило треугольника.</figcaption>
+<figcaption>Рис. 3. Геометрическое сложение векторов: правило параллелограмма (диагональ суммы) и правило треугольника.</figcaption>
 </figure>
 <h3 data-toc="5. Умножение вектора на число …" id="sec-1-5">1.5. Умножение вектора на число и вычитание</h3>
 <div class="statement definition" id="def-10"><div class="block-label">Определение 12 (Умножение вектора на число)</div><h3 data-toc="Определение 10" id="sub-2-18">Определение 10</h3><div>
@@ -954,7 +1023,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-3">
   <div class="chapter-kicker">03 / Часть II. Линейная зависимость…</div>
   <h2 id="chapter-3" data-toc="Часть II. Линейная зависимость…">Часть II. Линейная зависимость систем векторов, базисы и координаты</h2>
-  
+
 <h3 data-toc="1. Линейные комбинации, линейн…" id="sec-2-1">2.1. Линейные комбинации, линейная зависимость и независимость</h3>
 <div class="statement definition" id="def-12"><div class="block-label">Определение 15 (Линейная комбинация)</div><h3 data-toc="Определение 12" id="sub-3-2">Определение 12</h3><div>
 <strong>Линейной комбинацией</strong> набора векторов $\vec{a}_1, \dots, \vec{a}_k$ с вещественными коэффициентами $\alpha_1, \dots, \alpha_k \in \mathbb{R}$ называется выражение:
@@ -1046,7 +1115,7 @@ SOFTWARE.
 </div>
 <div class="proof-full" data-proof-full="" id="full-6">
 <div class="proof-label">Доказательство (утверждения 6)</div>
-    
+
 
         Пусть $k_1 \vec{a}_1 + \dots + k_n \vec{a}_n = \vec{0}$ (не все $k_i = 0$). Добавляя новые векторы с коэффициентами ноль: $k_1 \vec{a}_1 + \dots + k_n \vec{a}_n + 0\cdot\vec{b}_1 + \dots + 0\cdot\vec{b}_m = \vec{0}$. Набор коэффициентов остаётся нетривиальным, расширенная система зависима.
         <span class="proof-qed">■</span>
@@ -1070,7 +1139,7 @@ SOFTWARE.
 </div>
 <div class="proof-full" data-proof-full="" id="full-7">
 <div class="proof-label">Доказательство (Доказательство (от противного))</div>
-    
+
 
         Если бы подсистема была зависима, то по теореме 21 вся исходная система была бы зависима, что противоречит условию.
         <span class="proof-qed">■</span>
@@ -1108,15 +1177,15 @@ SOFTWARE.
 <!-- РИСУНОК 4: Четкое разложение на плоскости -->
 <figure>
 <div class="svg-container">
-<svg height="220" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 620 220" width="620" xmlns="http://www.w3.org/2000/svg">
+<svg height="220" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 620 220" width="620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 4. Разложение вектора $\vec{w}$ по базису неколлинеарных векторов $\{\vec{e}_1, \vec{e}_2\}$ по правилу параллелограмма." data-fam-figure="diagram" data-fam-index="4">
 <defs>
-<marker id="ag12-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-4-ag12-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
 </marker>
-<marker id="ag12-arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-4-ag12-arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-amber, #f59e0b)"></path>
 </marker>
-<marker id="ag12-arr-rose" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-4-ag12-arr-rose" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose, #f43f5e)"></path>
 </marker>
 </defs>
@@ -1127,10 +1196,10 @@ SOFTWARE.
 <circle cx="40" cy="150" fill="var(--text-main, #f3f4f6)" r="4.5"></circle>
 <text fill="var(--text-main, #f3f4f6)" font-size="13" font-weight="700" x="25" y="165">O</text>
 <!-- Basis e1: (40, 150) -> (110, 150) -->
-<line marker-end="url(#ag12-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="2.8" x1="40" x2="104" y1="150" y2="150"></line>
+<line marker-end="url(#fam-fig-4-ag12-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="2.8" x1="40" x2="104" y1="150" y2="150"></line>
 <text fill="var(--accent-blue, #38bdf8)" font-size="14" font-weight="700" x="80" y="170">e₁</text>
 <!-- Basis e2: (40, 150) -> (75, 95) -->
-<line marker-end="url(#ag12-arr-amber)" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.8" x1="40" x2="71" y1="150" y2="100"></line>
+<line marker-end="url(#fam-fig-4-ag12-arr-amber)" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.8" x1="40" x2="71" y1="150" y2="100"></line>
 <text fill="var(--accent-amber, #f59e0b)" font-size="14" font-weight="700" x="45" y="115">e₂</text>
 </g>
 <!-- Panel 2: Decomposition w = k1 e1 + k2 e2 -->
@@ -1140,16 +1209,16 @@ SOFTWARE.
 <circle cx="40" cy="150" fill="var(--text-main, #f3f4f6)" r="4.5"></circle>
 <text fill="var(--text-main, #f3f4f6)" font-size="13" font-weight="700" x="25" y="165">O</text>
 <!-- Component k1 e1: (40, 150) -> (210, 150) -->
-<line marker-end="url(#ag12-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="2.8" x1="40" x2="204" y1="150" y2="150"></line>
+<line marker-end="url(#fam-fig-4-ag12-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="2.8" x1="40" x2="204" y1="150" y2="150"></line>
 <text fill="var(--accent-blue, #38bdf8)" font-size="14" font-weight="700" x="135" y="170">k₁e₁</text>
 <!-- Component k2 e2: (40, 150) -> (115, 45) -->
-<line marker-end="url(#ag12-arr-amber)" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.8" x1="40" x2="111" y1="150" y2="50"></line>
+<line marker-end="url(#fam-fig-4-ag12-arr-amber)" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.8" x1="40" x2="111" y1="150" y2="50"></line>
 <text fill="var(--accent-amber, #f59e0b)" font-size="14" font-weight="700" x="60" y="85">k₂e₂</text>
 <!-- Parallelogram dashed lines -->
 <line stroke="var(--border-color, #64748b)" stroke-dasharray="4,3" stroke-width="1.5" x1="210" x2="285" y1="150" y2="45"></line>
 <line stroke="var(--border-color, #64748b)" stroke-dasharray="4,3" stroke-width="1.5" x1="115" x2="285" y1="45" y2="45"></line>
 <!-- Resultant w: (40, 150) -> (285, 45) -->
-<line marker-end="url(#ag12-arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3.2" x1="40" x2="279" y1="150" y2="48"></line>
+<line marker-end="url(#fam-fig-4-ag12-arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3.2" x1="40" x2="279" y1="150" y2="48"></line>
 <text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="800" x="170" y="80">w = k₁e₁ + k₂e₂</text>
 </g>
 </svg>
@@ -1206,47 +1275,8 @@ SOFTWARE.
 <!-- РИСУНОК 5: Разложение в пространстве (Параллелепипед) -->
 <figure>
 <div class="svg-container">
-<svg height="260" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 550 260" width="550" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<marker id="ag12-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
-</marker>
-<marker id="ag12-arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-amber, #f59e0b)"></path>
-</marker>
-<marker id="ag12-arr-emerald" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-emerald, #10b981)"></path>
-</marker>
-<marker id="ag12-arr-rose" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose, #f43f5e)"></path>
-</marker>
-</defs>
-<!-- Origin O(120, 190) -->
-<circle cx="120" cy="190" fill="var(--text-main, #f3f4f6)" r="4.5"></circle>
-<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="100" y="205">O</text>
-<!-- Box faces background -->
-<polygon fill="var(--accent-blue, #38bdf8)" fill-opacity="0.08" points="120,190 360,190 290,235 50,235" stroke="none"></polygon>
-<polygon fill="var(--accent-rose, #f43f5e)" fill-opacity="0.06" points="120,50 360,50 290,95 50,95" stroke="none"></polygon>
-<!-- Back dashed lines and components -->
-<line marker-end="url(#ag12-arr-emerald)" stroke="var(--accent-emerald, #10b981)" stroke-width="2.5" x1="120" x2="120" y1="190" y2="50"></line>
-<text fill="var(--accent-emerald, #10b981)" font-size="14" font-weight="700" x="130" y="110">a₃e₃</text>
-<line marker-end="url(#ag12-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="2.8" x1="120" x2="354" y1="190" y2="190"></line>
-<text fill="var(--accent-blue, #38bdf8)" font-size="14" font-weight="700" x="240" y="210">a₁e₁</text>
-<line marker-end="url(#ag12-arr-amber)" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.8" x1="120" x2="54" y1="190" y2="232"></line>
-<text fill="var(--accent-amber, #f59e0b)" font-size="14" font-weight="700" x="40" y="215">a₂e₂</text>
-<!-- Complete 3D box -->
-<line stroke="var(--border-color, #64748b)" stroke-width="1.4" x1="50" x2="290" y1="235" y2="235"></line>
-<line stroke="var(--border-color, #64748b)" stroke-width="1.4" x1="360" x2="290" y1="190" y2="235"></line>
-<line stroke="var(--border-color, #64748b)" stroke-width="1.4" x1="50" x2="50" y1="235" y2="95"></line>
-<line stroke="var(--border-color, #64748b)" stroke-width="1.4" x1="360" x2="360" y1="190" y2="50"></line>
-<line stroke="var(--border-color, #64748b)" stroke-width="1.4" x1="290" x2="290" y1="235" y2="95"></line>
-<line stroke="var(--border-color, #64748b)" stroke-width="1.4" x1="120" x2="360" y1="50" y2="50"></line>
-<line stroke="var(--border-color, #64748b)" stroke-width="1.4" x1="120" x2="50" y1="50" y2="95"></line>
-<line stroke="var(--border-color, #64748b)" stroke-width="1.4" x1="50" x2="290" y1="95" y2="95"></line>
-<line stroke="var(--border-color, #64748b)" stroke-width="1.4" x1="360" x2="290" y1="50" y2="95"></line>
-<!-- Main 3D diagonal vector a: from O(120, 190) to opposite vertex (290, 95) -->
-<line marker-end="url(#ag12-arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3.4" x1="120" x2="284" y1="190" y2="98"></line>
-<text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="800" x="215" y="130">a = a₁e₁ + a₂e₂ + a₃e₃</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340" role="img" aria-label="Диагональ параллелепипеда как сумма трёх компонент" data-fam-figure="diagram" data-fam-index="5">
+<path d="M300,193 L452.88,250.33 L360.06,312.21 L207.18,254.88 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><path d="M300,193 L452.88,250.33 L460.89,167.67 L308.01,110.34 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><path d="M308.01,110.34 L460.89,167.67 L368.07,229.55 L215.19,172.22 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><line x1="300" y1="193" x2="308.01" y2="110.34" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="300" y1="193" x2="207.18" y2="254.88" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="300" y1="193" x2="452.88" y2="250.33" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="308.01" y1="110.34" x2="215.19" y2="172.22" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="308.01" y1="110.34" x2="460.89" y2="167.67" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="207.18" y1="254.88" x2="215.19" y2="172.22" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="207.18" y1="254.88" x2="360.06" y2="312.21" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="215.19" y1="172.22" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="452.88" y1="250.33" x2="460.89" y2="167.67" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="452.88" y1="250.33" x2="360.06" y2="312.21" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="460.89" y1="167.67" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="360.06" y1="312.21" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="300" y1="193" x2="444.45" y2="247.17" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M452.88,250.33 L443.09,250.79 L445.81,243.55 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="460.88" y="267.33" text-anchor="middle" fill="var(--fig-blue)" font-size="14">a₁e₁</text><line x1="300" y1="193" x2="214.67" y2="249.89" stroke="var(--fig-green)" stroke-width="2.1" /><path d="M207.18,254.88 L212.52,246.67 L216.82,253.11 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="196.18" y="268.88" text-anchor="middle" fill="var(--fig-green)" font-size="14">a₂e₂</text><line x1="300" y1="193" x2="307.14" y2="119.3" stroke="var(--fig-rose)" stroke-width="2.1" /><path d="M308.01,110.34 L310.99,119.67 L303.29,118.92 Z" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="321.01" y="104.34" text-anchor="middle" fill="var(--fig-rose)" font-size="14">a₃e₃</text><line x1="300" y1="193" x2="360.14" y2="225.29" stroke="var(--fig-gold)" stroke-width="2.1" /><path d="M368.07,229.55 L358.31,228.7 L361.97,221.88 Z" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="392.07" y="220.55" text-anchor="middle" fill="var(--fig-gold)" font-size="14">a₁e₁ + a₂e₂ + a₃e₃</text><text x="285" y="213" text-anchor="middle" fill="var(--fig-ink)" font-size="14">O</text>
 </svg>
 </div>
 <figcaption>Рис. 5. Разложение пространственного вектора $\vec{a}$ по трём некомпланарным базисным векторам в диагональ параллелепипеда.</figcaption>
@@ -1277,7 +1307,7 @@ SOFTWARE.
       </div></div>
 <div class="statement definition" id="def-19"><div class="block-label">Определение 30 (Радиус-вектор и координаты точки)</div><h3 data-toc="Определение 19" id="sub-3-24">Определение 19</h3><div>
 
-        Вектор $\vec{OM}$, соединяющий начало координат с точкой $M$, называется <strong>радиус-вектором</strong> точки $M$ и обозначается $\vec{r}_M$. 
+        Вектор $\vec{OM}$, соединяющий начало координат с точкой $M$, называется <strong>радиус-вектором</strong> точки $M$ и обозначается $\vec{r}_M$.
         <br/>
 <strong>Координатами точки $M$</strong> называются координаты её радиус-вектора $\vec{OM}$ в базисе системы координат:
         \[\vec{OM} = x\vec{e}_1 + y\vec{e}_2 + z\vec{e}_3 \iff M(x, y, z)\]
@@ -1285,34 +1315,34 @@ SOFTWARE.
 <!-- РИСУНОК 6: АСК и радиус-векторы -->
 <figure>
 <div class="svg-container">
-<svg height="240" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 520 240" width="520" xmlns="http://www.w3.org/2000/svg">
+<svg height="240" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 520 240" width="520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 6. Аффинная система координат $\{O; \vec{e}_1, \vec{e}_2\}$, радиус-векторы точек и вектор $\vec{AB} = \vec{r}_B - \vec{r}_A$." data-fam-figure="diagram" data-fam-index="6">
 <defs>
-<marker id="ag12-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-6-ag12-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
 </marker>
-<marker id="ag12-arr-basis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-6-ag12-arr-basis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
 </marker>
-<marker id="ag12-arr-ra" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-6-ag12-arr-ra" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-amber, #f59e0b)"></path>
 </marker>
-<marker id="ag12-arr-rb" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-6-ag12-arr-rb" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-emerald, #10b981)"></path>
 </marker>
-<marker id="ag12-arr-ab" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="fam-fig-6-ag12-arr-ab" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose, #f43f5e)"></path>
 </marker>
 </defs>
 <!-- Axes -->
-<line marker-end="url(#ag12-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="50" x2="480" y1="190" y2="190"></line>
+<line marker-end="url(#fam-fig-6-ag12-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="50" x2="480" y1="190" y2="190"></line>
 <text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="485" y="195">X</text>
-<line marker-end="url(#ag12-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="70" x2="70" y1="220" y2="30"></line>
+<line marker-end="url(#fam-fig-6-ag12-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="70" x2="70" y1="220" y2="30"></line>
 <text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="55" y="40">Y</text>
 <text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="50" y="208">O</text>
 <!-- Basis vectors e1 and e2 -->
-<line marker-end="url(#ag12-arr-basis)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="70" x2="130" y1="190" y2="190"></line>
+<line marker-end="url(#fam-fig-6-ag12-arr-basis)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="70" x2="130" y1="190" y2="190"></line>
 <text fill="var(--accent-blue, #38bdf8)" font-size="13" font-weight="700" x="95" y="175">e₁</text>
-<line marker-end="url(#ag12-arr-basis)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="70" x2="70" y1="190" y2="130"></line>
+<line marker-end="url(#fam-fig-6-ag12-arr-basis)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="70" x2="70" y1="190" y2="130"></line>
 <text fill="var(--accent-blue, #38bdf8)" font-size="13" font-weight="700" x="45" y="155">e₂</text>
 <!-- Points A(160, 75) and B(400, 130): distinctly non-collinear! -->
 <circle cx="160" cy="75" fill="var(--accent-amber, #f59e0b)" r="5"></circle>
@@ -1320,13 +1350,13 @@ SOFTWARE.
 <circle cx="400" cy="130" fill="var(--accent-emerald, #10b981)" r="5"></circle>
 <text fill="var(--accent-emerald, #10b981)" font-size="15" font-weight="700" x="410" y="135">B</text>
 <!-- Radius-vector r_A: O(70, 190) -> A(160, 75) -->
-<line marker-end="url(#ag12-arr-ra)" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.5" x1="70" x2="154" y1="190" y2="82"></line>
+<line marker-end="url(#fam-fig-6-ag12-arr-ra)" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.5" x1="70" x2="154" y1="190" y2="82"></line>
 <text fill="var(--accent-amber, #f59e0b)" font-size="14" font-weight="700" x="95" y="120">r_A</text>
 <!-- Radius-vector r_B: O(70, 190) -> B(400, 130) -->
-<line marker-end="url(#ag12-arr-rb)" stroke="var(--accent-emerald, #10b981)" stroke-width="2.5" x1="70" x2="392" y1="190" y2="131"></line>
+<line marker-end="url(#fam-fig-6-ag12-arr-rb)" stroke="var(--accent-emerald, #10b981)" stroke-width="2.5" x1="70" x2="392" y1="190" y2="131"></line>
 <text fill="var(--accent-emerald, #10b981)" font-size="14" font-weight="700" x="240" y="180">r_B</text>
 <!-- Vector AB = r_B - r_A: A(160, 75) -> B(400, 130) -->
-<line marker-end="url(#ag12-arr-ab)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3" x1="160" x2="392" y1="75" y2="128"></line>
+<line marker-end="url(#fam-fig-6-ag12-arr-ab)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3" x1="160" x2="392" y1="75" y2="128"></line>
 <text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="800" x="250" y="90">AB = r_B − r_A</text>
 </svg>
 </div>
@@ -1390,7 +1420,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-4">
   <div class="chapter-kicker">04 / Сводная таблица ключевых понятий</div>
   <h2 id="chapter-4" data-toc="Сводная таблица ключевых понятий">Сводная таблица ключевых понятий</h2>
-  
+
 <table>
 <thead>
 <tr>
@@ -1504,31 +1534,145 @@ SOFTWARE.
   $$('[data-all-proofs]').forEach(b=>b.addEventListener('click',()=>{proofs.forEach(p=>setProof(p,b.dataset.allProofs));syncToolbar();updatePosition();}));syncToolbar();
 
   // Render before generating the outline, so math in headings gets a clean label.
-  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:true,strict:false});}catch(e){console.warn('Math render note:', e);}
+  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:false,strict:false,ignoredClasses:["math-svg","fam-svg-labels"]});}catch(e){console.warn('Math render note:', e);}
   const headings=$$('h2[data-toc],h3[data-toc]'),list=document.createElement('ol');
   let number=0;
   for(const heading of headings){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+heading.id;if(heading.tagName==='H2'){const n=document.createElement('span');n.className='toc-number';n.textContent=String(++number).padStart(2,'0');n.setAttribute('aria-hidden','true');a.append(n);}else li.className='toc-sub';a.append(document.createTextNode(heading.dataset.toc));li.append(a);list.append(li);}
   $('#toc').replaceChildren(list);$('#section-count').textContent=`Разделов: ${number}`;
-  const mobile=matchMedia('(max-width:760px)');
-  function closeToc(){ $('#contents').classList.remove('is-open');$('#toc-toggle').setAttribute('aria-expanded','false'); }
-  $('#toc-toggle').addEventListener('click',()=>{const open=$('#contents').classList.toggle('is-open');$('#toc-toggle').setAttribute('aria-expanded',String(open));if(open)$('#toc a')?.focus();});
-  $('#toc-close').addEventListener('click',()=>{closeToc();$('#toc-toggle').focus();});
-  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&$('#contents').classList.contains('is-open')){closeToc();$('#toc-toggle').focus();}});
-  mobile.addEventListener('change',closeToc);
-  function goToHash(hash,push){let target;try{target=document.getElementById(decodeURIComponent(hash.slice(1)));}catch{return;}if(!target)return;
-    const proof=target.closest('[data-proof]');if(proof){setProof(proof,target.closest('[data-proof-idea]')?'idea':'full');syncToolbar();}
-    closeToc();if(push){try{history.pushState(null,'',hash);}catch{/* opaque reader sandbox */}}
-    target.scrollIntoView({behavior:'instant',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});updatePosition();
+  // FAM:READING-NAVIGATION-START
+  const root = document.documentElement;
+  const layout = $('.layout');
+  const topbar = $('.topbar');
+  const contents = $('#contents');
+  const tocToggle = $('#toc-toggle');
+  const mobile = matchMedia('(max-width:760px)');
+  let desktopOpen = true;
+  let mobileOpen = false;
+  try { desktopOpen = localStorage.getItem('fam-note-toc') !== 'collapsed'; } catch {}
+
+  function tocIsOpen() { return mobile.matches ? mobileOpen : desktopOpen; }
+  function syncToc() {
+    contents.classList.toggle('is-open', mobile.matches && mobileOpen);
+    layout.toggleAttribute('data-toc-collapsed', !desktopOpen);
+    tocToggle.setAttribute('aria-expanded', String(tocIsOpen()));
   }
-  document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#"]');if(!a)return;ev.preventDefault();goToHash(a.getAttribute('href'),true);});
-  window.addEventListener('hashchange',()=>goToHash(location.hash,false));
-  function updatePosition(){const y=window.scrollY,span=document.documentElement.scrollHeight-innerHeight;$('#progress-bar').style.width=(span>0?Math.min(100,Math.max(0,100*y/span)):100)+'%';let active=headings[0];for(const h of headings)if(h.getBoundingClientRect().top<145)active=h;
-    $$('#toc a').forEach(a=>{if(a.hash==='#'+active?.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
-  let pending=false;window.addEventListener('scroll',()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;updatePosition();});},{passive:true});window.addEventListener('resize',updatePosition);
-  if(location.hash)goToHash(location.hash,false);updatePosition();
+  function closeMobileToc() {
+    mobileOpen = false;
+    syncToc();
+  }
+  function setTocOpen(open) {
+    if (mobile.matches) {
+      mobileOpen = open;
+      if (open) root.removeAttribute('data-note-bar-hidden');
+    } else {
+      desktopOpen = open;
+      try { localStorage.setItem('fam-note-toc', open ? 'expanded' : 'collapsed'); } catch {}
+    }
+    syncToc();
+    updatePosition();
+  }
+  tocToggle.addEventListener('click', () => {
+    const open = !tocIsOpen();
+    setTocOpen(open);
+    if (open && mobile.matches) $('#toc a')?.focus({preventScroll:true});
+  });
+  function dismissToc() {
+    setTocOpen(false);
+    root.removeAttribute('data-note-bar-hidden');
+    tocToggle.focus({preventScroll:true});
+  }
+  $('#toc-close').addEventListener('click', dismissToc);
+  document.addEventListener('keydown', event => {
+    const focusInToc = contents.contains(document.activeElement) || document.activeElement === tocToggle;
+    if (event.key === 'Escape' && !event.defaultPrevented && tocIsOpen() &&
+        (mobile.matches || focusInToc) && !$('#pdf-dialog').open) dismissToc();
+  });
+  mobile.addEventListener('change', closeMobileToc);
+  syncToc();
+
+  let lastScroll = Math.max(0, window.scrollY);
+  let scrollDistance = 0;
+  let topbarHeight = 0;
+  function syncTopbarHeight() {
+    topbarHeight = topbar.offsetHeight;
+    root.style.setProperty('--note-topbar-height', topbarHeight + 'px');
+    updatePosition();
+  }
+  function updateTopbar() {
+    const y = Math.max(0, Math.min(window.scrollY, root.scrollHeight - innerHeight));
+    const delta = y - lastScroll;
+    lastScroll = y;
+    if (y <= 16 || mobileOpen) {
+      root.removeAttribute('data-note-bar-hidden');
+      scrollDistance = 0;
+      return;
+    }
+    if (!delta) return;
+    scrollDistance = Math.sign(delta) === Math.sign(scrollDistance) ? scrollDistance + delta : delta;
+    if (scrollDistance <= -10) root.removeAttribute('data-note-bar-hidden');
+    if (scrollDistance >= 18 && y > topbarHeight) root.setAttribute('data-note-bar-hidden', '');
+  }
+
+  function goToHash(hash, push) {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (!target) return;
+    const proof = target.closest('[data-proof]');
+    if (proof) {
+      setProof(proof, target.closest('[data-proof-idea]') ? 'idea' : 'full');
+      syncToolbar();
+    }
+    closeMobileToc();
+    if (push) {
+      try { history.pushState(null, '', hash); } catch { /* Opaque reader sandbox. */ }
+    }
+    if (target === $('#top') || target === $('#content')) root.removeAttribute('data-note-bar-hidden');
+    target.scrollIntoView({behavior:'instant', block:'start'});
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+    lastScroll = Math.max(0, window.scrollY);
+    scrollDistance = 0;
+    updatePosition();
+  }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    event.preventDefault();
+    goToHash(link.getAttribute('href'), true);
+  });
+  window.addEventListener('hashchange', () => goToHash(location.hash, false));
+
+  function updatePosition() {
+    const y = window.scrollY;
+    const span = root.scrollHeight - innerHeight;
+    $('#progress-bar').style.width = (span > 0 ? Math.min(100, Math.max(0, 100 * y / span)) : 100) + '%';
+    const barBottom = Math.max(0, topbar.getBoundingClientRect().bottom);
+    let active = headings[0];
+    for (const heading of headings) if (heading.getBoundingClientRect().top <= barBottom + 32) active = heading;
+    $$('#toc a').forEach(link => {
+      if (link.hash === '#' + active?.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let pending = false;
+  window.addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      updateTopbar();
+      updatePosition();
+    });
+  }, {passive:true});
+  window.addEventListener('resize', syncTopbarHeight);
+  topbar.addEventListener('transitionend', updatePosition);
+  new ResizeObserver(syncTopbarHeight).observe(topbar);
+  syncTopbarHeight();
+  if (location.hash) goToHash(location.hash, false);
+  // FAM:READING-NAVIGATION-END
 
   const dialog=$('#pdf-dialog');let printChoice='full';
-  $('#pdf-open').addEventListener('click',()=>{closeToc();$('#pdf-status').textContent='';dialog.showModal();});
+  $('#pdf-open').addEventListener('click',()=>{closeMobileToc();$('#pdf-status').textContent='';dialog.showModal();});
   $('#pdf-close').addEventListener('click',()=>dialog.close());
   $$('input[name="pdf-mode"]').forEach(r=>r.addEventListener('change',()=>{if(r.checked)printChoice=r.value;}));
   // Ctrl+P always exports full proofs; the explicit dialog temporarily selects a variant.

@@ -567,6 +567,68 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 -->
+<style id="fam-reading-navigation">
+/* FAM:READING-NAVIGATION-START */
+@media screen {
+  .topbar {
+    transform: translateY(0);
+  }
+  #toc-toggle, #toc-close {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 11px;
+  }
+  #toc-toggle:hover, #toc-close:hover {
+    color: var(--gold);
+  }
+  .reading-progress {
+    top: max(0px, calc(var(--note-topbar-height, 88px) - 1px));
+  }
+  .contents {
+    top: calc(var(--note-topbar-height, 88px) + 24px);
+    max-height: calc(100svh - var(--note-topbar-height, 88px) - 48px);
+  }
+  .chapter [id], .lecture-head, #content {
+    scroll-margin-top: calc(var(--note-topbar-height, 88px) + 24px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .topbar {
+    transform: translateY(-100%);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .reading-progress {
+    top: 0;
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) .contents {
+    top: 24px;
+    max-height: calc(100svh - 48px);
+  }
+  html[data-note-bar-hidden]:not(:has(.topbar :focus-visible)) :is(.chapter [id], .lecture-head, #content) {
+    scroll-margin-top: 24px;
+  }
+}
+@media screen and (min-width: 761px) {
+  .layout[data-toc-collapsed] {
+    grid-template-columns: minmax(0, 820px);
+    justify-content: center;
+  }
+  .layout[data-toc-collapsed] > .contents {
+    display: none;
+  }
+}
+@media screen and (max-width: 760px) {
+  .contents.is-open {
+    inset: var(--note-topbar-height, 70px) 0 0;
+    max-height: none;
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .topbar { transition: transform .22s ease; }
+  .contents, .reading-progress { transition: top .22s ease; }
+}
+@media screen {
+  html:has(.contents.is-open) { overflow: hidden; }
+}
+/* FAM:READING-NAVIGATION-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -591,7 +653,7 @@ SOFTWARE.
         <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
         <h1>Все билеты к коллоквиуму (1-й модуль)</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
-        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula">\[(a_1, b_1) + (a_2, b_2) = (a_1 + a_2, \, b_1 + b_2).\]</div></div>
+        <div class="lecture-abstract" style="grid-template-columns:1fr"><div class="abstract-formula">\[(a_1, b_1) + (a_2, b_2) = (a_1 + a_2, \, b_1 + b_2).\]</div></div>
       </header>
       <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
       <div class="proof-toolbar" aria-label="Все доказательства">
@@ -622,7 +684,7 @@ SOFTWARE.
 <span>31 октября 2026</span>
 </div>
 </header>
-<!-- 
+<!--
         =============================================================================
         СЮДА НЕЙРОСЕТЬ ВСТАВЛЯЕТ СОДЕРЖИМОЕ КОНСПЕКТА (ARTICLE CONTENT)
         =============================================================================
@@ -637,7 +699,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Билет 1. Поле комплексных чисе…</div>
   <h2 id="chapter-2" data-toc="Билет 1. Поле комплексных чисе…">Билет 1. Поле комплексных чисел: модель Гамильтона, алгебраическая форма и сопряжение</h2>
-  
+
 <p><span class="drop-cap">П</span>оле действительных чисел $\mathbb{R}$, будучи полным линейно упорядоченным полем, страдает непреодолимым алгебраическим изъяном: в нем неразрешимы простейшие полиномиальные уравнения четной степени (в частности, $x^2 + 1 = 0$). Решением этой фундаментальной проблемы стало расширение вещественной числовой оси до двумерного континуума — поля комплексных чисел $\mathbb{C}$. В данном билете строго рассматриваются аксиоматическое построение Гамильтона через упорядоченные пары, вывод алгебраической формы числа, мнимая единица и алгебраическая операция комплексного сопряжения со всеми ее инвариантами.</p>
 <h3 data-toc="1. Аксиоматическое построение:…" id="sub-2-1">1.1. Аксиоматическое построение: модель упорядоченных пар Гамильтона</h3>
 <p>В строгой теории множеств введение мнимой единицы как «корня из минус единицы» методологически некорректно без предварительного доказательства непротиворечивости системы. Сэр Уильям Роуэн Гамильтон (1835 г.) предложил строгую модель, определив комплексные числа как упорядоченные пары вещественных чисел.</p>
@@ -799,7 +861,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-3">
   <div class="chapter-kicker">03 / Билет 2. Тригонометрическая фо…</div>
   <h2 id="chapter-3" data-toc="Билет 2. Тригонометрическая фо…">Билет 2. Тригонометрическая форма комплексного числа: умножение и деление</h2>
-  
+
 <p><span class="drop-cap">А</span>лгебраическая форма комплексного числа $z = a + bi$ превосходно приспособлена для аддитивных операций, однако при многократном умножении и делении приводит к громоздким полиномиальным вычислениям. Переход к полярным координатам на комплексной плоскости рождает тригонометрическую форму числа, в которой операции умножения и деления приобретают исключительную гармонию и прозрачный геометрический смысл растяжения и поворота.</p>
 <h3 data-toc="1. Полярные координаты и опред…" id="sub-3-1">2.1. Полярные координаты и определение тригонометрической формы</h3>
 <p>Отождествим комплексное число $z = a + bi$ с точкой плоскости $M(a, b)$ или радиус-вектором $\vec{r} = (a, b)$. Введем на плоскости полярные координаты $(r, \varphi)$:</p>
@@ -903,7 +965,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-4">
   <div class="chapter-kicker">04 / Билет 3. Модуль комплексного ч…</div>
   <h2 id="chapter-4" data-toc="Билет 3. Модуль комплексного ч…">Билет 3. Модуль комплексного числа: свойства и неравенство треугольника</h2>
-  
+
 <p><span class="drop-cap">М</span>одуль комплексного числа играет фундаментальную роль метрического инварианта в $\mathbb{C}$, индуцируя на комплексной плоскости евклидову метрику. Центральным аналитическим аппаратом метрических пространств является неравенство треугольника. В этом билете даются строгие формулировки свойств модуля, связь с сопряжением и полное аналитическое доказательство неравенства треугольника с исследованием критерия достижения равенства.</p>
 <h3 data-toc="1. Определение и алгебраически…" id="sub-4-1">3.1. Определение и алгебраические свойства модуля</h3>
 <div class="statement definition" id="def-6"><div class="block-label">Определение 3.1</div><h3 data-toc="Модуль комплексного числа" id="sub-4-2">Модуль комплексного числа</h3><div>
@@ -1023,7 +1085,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-5">
   <div class="chapter-kicker">05 / Билет 4. Возведение в степень …</div>
   <h2 id="chapter-5" data-toc="Билет 4. Возведение в степень …">Билет 4. Возведение в степень и извлечение корней: формула Муавра и геометрия корней</h2>
-  
+
 <p><span class="drop-cap">О</span>дной из вершин алгебры комплексных чисел является замкнутость относительно операции извлечения корней произвольной натуральной степени. В поле действительных чисел корень четной степени из отрицательного числа не существует, а из положительного — принимает два противоположных значения. В поле $\mathbb{C}$ корень любой степени $n$ из всякого ненулевого числа существует и принимает ровно $n$ попарно различных значений. Этот результат базируется на великой формуле Абрахама де Муавра.</p>
 <h3 data-toc="1. Формула Муавра для целых по…" id="sub-5-1">4.1. Формула Муавра для целых показателей</h3>
 <div class="statement theorem" id="thm-6"><div class="block-label">Теорема 4.1</div><h3 data-toc="Формула Муавра" id="sub-5-2">Формула Муавра</h3><div>
@@ -1140,7 +1202,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-6">
   <div class="chapter-kicker">06 / Билет 5. Корни из единицы: гру…</div>
   <h2 id="chapter-6" data-toc="Билет 5. Корни из единицы: гру…">Билет 5. Корни из единицы: группа $U_n$, первообразные корни и цикличность</h2>
-  
+
 <p><span class="drop-cap">К</span>орни из единицы занимают центральное положение в абстрактной алгебре, теории чисел и цифровой обработке сигналов (дискретное преобразование Фурье). Корни степени $n$ из единицы замыкаются относительно обычного комплексного умножения, образуя конечную абелеву группу. В данном билете исследуются групповые свойства множества $U_n$, понятие первообразного корня, точный критерий первообразности через взаимную простоту и изоморфизм $U_n \cong \mathbb{Z}_n$.</p>
 <h3 data-toc="1. Группа корней из единицы U_n" id="sub-6-1">5.1. Группа корней из единицы $U_n$</h3>
 <div class="statement definition" id="def-8"><div class="block-label">Определение 5.1</div><h3 data-toc="Множество корней из единицы" id="sub-6-2">Множество корней из единицы</h3><div>
@@ -1210,7 +1272,7 @@ SOFTWARE.
 <div class="proof-content">
 <p>Пусть корень имеет вид $\varepsilon_k$. Рассмотрим условие $(\varepsilon_k)^m = 1$ для натурального $m$:</p>
           \[(\varepsilon_k)^m = e^{i \frac{2\pi k m}{n}} = 1 \iff \frac{2\pi k m}{n} = 2\pi l \; (l \in \mathbb{Z}) \iff km = n l \iff n \mid km.\]
-          
+
           <p><strong>Необходимость ($\implies$):</strong></p>
 <p>Пусть $\varepsilon_k$ — первообразный корень. Предположим, что $\gcd(k, n) = d > 1$.</p>
 <p>Положим $m = \frac{n}{d}$. Так как $d > 1$, имеем $1 \le m < n$.</p>
@@ -1252,7 +1314,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-7">
   <div class="chapter-kicker">07 / Билет 6. Отношение делимости в…</div>
   <h2 id="chapter-7" data-toc="Билет 6. Отношение делимости в…">Билет 6. Отношение делимости в $\mathbb{Z}$ и теорема о делении с остатком</h2>
-  
+
 <p><span class="drop-cap">Т</span>еория чисел берет свое начало из фундаментального свойства кольца целых чисел $\mathbb{Z}$ — дискретности и отсутствия обратимости для большинства элементов. Операция деления в $\mathbb{Z}$ не является всюду определенной, что порождает отношение делимости и теорему о делении с остатком. В данном билете исследуются алгебраические свойства отношения делимости, доказательство их истинности и исчерпывающее строгое доказательство теоремы о существовании и единственности неполного частного и остатка.</p>
 <h3 data-toc="1. Отношение делимости и его с…" id="sub-7-1">6.1. Отношение делимости и его свойства</h3>
 <div class="statement definition" id="def-10"><div class="block-label">Определение 6.1</div><h3 data-toc="Отношение делимости в" id="sub-7-2">Отношение делимости в $\mathbb{Z}$</h3><div>
@@ -1386,7 +1448,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-8">
   <div class="chapter-kicker">08 / Билет 7. Наибольший общий дели…</div>
   <h2 id="chapter-8" data-toc="Билет 7. Наибольший общий дели…">Билет 7. Наибольший общий делитель: алгоритм Евклида и тождество Безу</h2>
-  
+
 <p><span class="drop-cap">П</span>онятие общего делителя двух целых чисел лежит в самом фундаменте алгебраической теории чисел. Поиск наибольшего общего делителя является одним из древнейших алгоритмов в истории науки: алгоритм Евклида (около 300 г. до н.э.) решает эту задачу с исключительной эффективностью и приводит к фундаментальному алгебраическому результату — линейному представлению делителя, известному как тождество Безу.</p>
 <h3 data-toc="1. Определения и существование…" id="sub-8-1">7.1. Определения и существование НОД</h3>
 <div class="statement definition" id="def-11"><div class="block-label">Определение 7.1</div><h3 data-toc="Наибольший общий делитель (НОД)" id="sub-8-2">Наибольший общий делитель (НОД)</h3><div>
@@ -1518,7 +1580,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-9">
   <div class="chapter-kicker">09 / Билет 8. Свойства НОД и фундам…</div>
   <h2 id="chapter-9" data-toc="Билет 8. Свойства НОД и фундам…">Билет 8. Свойства НОД и фундаментальная связь между НОД и НОК</h2>
-  
+
 <p><span class="drop-cap">Н</span>аибольший общий делитель и наименьшее общее кратное представляют собой дуальные решеточные операции на множестве натуральных чисел. Понимание их алгебраических свойств, таких как дистрибутивность относительно умножения и закон сокращения, необходимо для решения диофантовых уравнений. Кульминацией теории является строгая теорема о связи между НОД и НОК двух чисел.</p>
 <h3 data-toc="1. Алгебраические свойства НОД" id="sub-9-1">8.1. Алгебраические свойства НОД</h3>
 <div class="statement theorem" id="thm-16"><div class="block-label">Теорема 8.1</div><h3 data-toc="Свойства наибольшего общего де…" id="sub-9-2">Свойства наибольшего общего делителя</h3><div>
@@ -1629,7 +1691,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-10">
   <div class="chapter-kicker">10 / Билет 9. Взаимно простые числа…</div>
   <h2 id="chapter-10" data-toc="Билет 9. Взаимно простые числа…">Билет 9. Взаимно простые числа: критерий Безу и лемма Евклида</h2>
-  
+
 <p><span class="drop-cap">П</span>ара целых чисел называется взаимно простой, если они не обладают никакими общими делителями, отличными от $\pm 1$. Это элементарное на первый взгляд условие порождает мощнейший алгебраический аппарат делимости. В билете строго доказываются критерий взаимной простоты через линейную комбинацию Безу, знаменитая лемма Евклида о делении произведения и ее фундаментальные следствия.</p>
 <h3 data-toc="1. Определение и критерий взаи…" id="sub-10-1">9.1. Определение и критерий взаимной простоты</h3>
 <div class="statement definition" id="def-13"><div class="block-label">Определение 9.1</div><h3 data-toc="Взаимно простые числа" id="sub-10-2">Взаимно простые числа</h3><div>
@@ -1728,7 +1790,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-11">
   <div class="chapter-kicker">11 / Билет 10. Простые числа: наиме…</div>
   <h2 id="chapter-11" data-toc="Билет 10. Простые числа: наиме…">Билет 10. Простые числа: наименьший делитель, фундаментальное свойство и бесконечность</h2>
-  
+
 <p><span class="drop-cap">П</span>ростые числа образуют неразложимые атомы мультипликативной структуры целых чисел. Все составные числа строятся из них посредством умножения. В данном билете формулируются аксиоматические определения простых чисел, строго доказывается лемма о наименьшем нетривиальном делителе и оценка $p \le \sqrt{n}$, формулируется фундаментальное характеристическое свойство простых чисел и приводится классическое доказательство Евклида о бесконечности их множества.</p>
 <h3 data-toc="1. Определение и лемма о наиме…" id="sub-11-1">10.1. Определение и лемма о наименьшем делителе</h3>
 <div class="statement definition" id="def-14"><div class="block-label">Определение 10.1</div><h3 data-toc="Простые и составные числа" id="sub-11-2">Простые и составные числа</h3><div>
@@ -1856,7 +1918,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-12">
   <div class="chapter-kicker">12 / Билет 11. Основная теорема ари…</div>
   <h2 id="chapter-12" data-toc="Билет 11. Основная теорема ари…">Билет 11. Основная теорема арифметики: канонический вид и мультипликативные функции</h2>
-  
+
 <p><span class="drop-cap">О</span>сновная теорема арифметики (ОТА) утверждает факториальность кольца $\mathbb{Z}$: каждое натуральное число однозначно разлагается на простые множители. Это положение превращает мультипликативную теорию чисел в строгую комбинаторику векторных степеней простых чисел, позволяя тривиально вычислять НОД, НОК, число делителей $\tau(n)$ и сумму делителей $\sigma(n)$.</p>
 <h3 data-toc="1. Формулировка и строгое дока…" id="sub-12-1">11.1. Формулировка и строгое доказательство ОТА</h3>
 <div class="statement theorem" id="thm-24"><div class="block-label">Теорема 11.1</div><h3 data-toc="Основная теорема арифметики" id="sub-12-2">Основная теорема арифметики</h3><div>
@@ -1944,7 +2006,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-13">
   <div class="chapter-kicker">13 / Билет 12. Сравнения по модулю:…</div>
   <h2 id="chapter-13" data-toc="Билет 12. Сравнения по модулю:…">Билет 12. Сравнения по модулю: отношение эквивалентности, кольцо $\mathbb{Z}_m$ и поле $\mathbb{Z}_p$</h2>
-  
+
 <p><span class="drop-cap">К</span>онцепция сравнений по модулю, систематизированная Карлом Фридрихом Гауссом в его монументальном труде «Арифметические исследования» (1801 г.), является мостом между элементарной теорией чисел и современной абстрактной алгеброй. Сравнение факторизует бесконечное кольцо целых чисел по идеалу кратных $m\mathbb{Z}$, порождая конечные алгебраические структуры — кольца классов вычетов $\mathbb{Z}_m$ и конечные поля Галуа $\mathbb{F}_p$.</p>
 <h3 data-toc="1. Отношение сравнимости и его…" id="sub-13-1">12.1. Отношение сравнимости и его свойства</h3>
 <div class="statement definition" id="def-15"><div class="block-label">Определение 12.1</div><h3 data-toc="Сравнение по модулю m" id="sub-13-2">Сравнение по модулю $m$</h3><div>
@@ -2051,7 +2113,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-14">
   <div class="chapter-kicker">14 / Билет 13. Системы линейных ура…</div>
   <h2 id="chapter-14" data-toc="Билет 13. Системы линейных ура…">Билет 13. Системы линейных уравнений: элементарные преобразования и метод Гаусса</h2>
-  
+
 <p><span class="drop-cap">С</span>истемы линейных алгебраических уравнений (СЛАУ) служат универсальным математическим аппаратом описания линейных взаимосвязей во всей математике, физике и информатике. Центральным алгоритмическим инструментом решения произвольных систем над любым полем является метод исключения неизвестных Гаусса. В этом билете даются строгие матричные определения, исследуется инвариантность множества решений при элементарных преобразованиях и доказывается теорема о приведении матрицы к ступенчатому виду.</p>
 <h3 data-toc="1. Основные определения СЛАУ и…" id="sub-14-1">13.1. Основные определения СЛАУ и матричная форма</h3>
 <div class="statement definition" id="def-17"><div class="block-label">Определение 13.1</div><h3 data-toc="Система линейных уравнений (СЛ…" id="sub-14-2">Система линейных уравнений (СЛАУ)</h3><div>
@@ -2185,7 +2247,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-15">
   <div class="chapter-kicker">15 / Билет 14. Исследование совмест…</div>
   <h2 id="chapter-15" data-toc="Билет 14. Исследование совмест…">Билет 14. Исследование совместности СЛАУ: критерий разрешимости и структура решений</h2>
-  
+
 <p><span class="drop-cap">П</span>риведение расширенной матрицы системы к ступенчатому виду прямым ходом метода Гаусса открывает полную картину совместности и внутренней геометрической структуры множества решений. В этом билете формулируется и доказывается критерий совместности ступенчатой системы, вводится строгое деление неизвестных на главные и свободные, анализируются случаи единственности и бесконечности решений, а также свойства однородных систем.</p>
 <h3 data-toc="1. Критерий совместности ступе…" id="sub-15-1">14.1. Критерий совместности ступенчатой СЛАУ</h3>
 <div class="statement theorem" id="thm-33"><div class="block-label">Теорема 14.1</div><h3 data-toc="Критерий совместности (разреши…" id="sub-15-2">Критерий совместности (разрешимости) СЛАУ</h3><div>
@@ -2285,7 +2347,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-16">
   <div class="chapter-kicker">16 / Билет 15. Определители 2-го и …</div>
   <h2 id="chapter-16" data-toc="Билет 15. Определители 2-го и …">Билет 15. Определители 2-го и 3-го порядков: формулы Крамера и правило Саррюса</h2>
-  
+
 <p><span class="drop-cap">О</span>пределитель (детерминант) квадратной матрицы представляет собой числовую характеристику линейного оператора, кодирующую масштаб искажения ориентированного объема при отображении пространства. В данном билете детально рассматриваются детерминанты порядков 2 и 3, строгий аналитический вывод формул Крамера для системы $2 \times 2$, мнемоническое правило Саррюса и геометрический смысл определителя как ориентированной площади и объема.</p>
 <h3 data-toc="1. Определитель 2-го порядка и…" id="sub-16-1">15.1. Определитель 2-го порядка и вывод формул Крамера</h3>
 <div class="statement definition" id="def-23"><div class="block-label">Определение 15.1</div><h3 data-toc="Определитель 2-го порядка" id="sub-16-2">Определитель 2-го порядка</h3><div>
@@ -2381,7 +2443,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-17">
   <div class="chapter-kicker">17 / Билет 16. Перестановки и подст…</div>
   <h2 id="chapter-17" data-toc="Билет 16. Перестановки и подст…">Билет 16. Перестановки и подстановки: число $n!$, транспозиции и теорема о ряде</h2>
-  
+
 <p><span class="drop-cap">К</span>омбинаторика перестановок конечных множеств является базисом для формального построения определителей произвольного порядка $n$ и фундаментальной теории симметрических групп в абстрактной алгебре. В билете строго определяются понятия перестановки и транспозиции, выводится формула общего числа $n!$ и доказывается глубокая структурная теорема о возможности расположить все $n!$ перестановок в последовательность, где каждый переход осуществляется ровно одной соседней транспозицией.</p>
 <h3 data-toc="1. Определения перестановки и …" id="sub-17-1">16.1. Определения перестановки и число $n!$</h3>
 <div class="statement definition" id="def-25"><div class="block-label">Определение 16.1</div><h3 data-toc="Перестановка и подстановка" id="sub-17-2">Перестановка и подстановка</h3><div>
@@ -2483,7 +2545,7 @@ SOFTWARE.
 <section class="chapter" aria-labelledby="chapter-18">
   <div class="chapter-kicker">18 / Билет 17. Инверсии и четность …</div>
   <h2 id="chapter-18" data-toc="Билет 17. Инверсии и четность …">Билет 17. Инверсии и четность перестановок: знак, смена четности и группа $A_n$</h2>
-  
+
 <p><span class="drop-cap">О</span>пределение общего детерминанта матрицы $n$-го порядка базируется на понятии знака перестановки индексов. Знак определяется числом инверсий (нарушений естественного порядка). В этом финальном билете строго исследуется смена четности при любой транспозиции (через сведение к нечетному числу соседних транспозиций), доказывается инвариантность четности и равенство числа четных и нечетных перестановок.</p>
 <h3 data-toc="1. Понятие инверсии и четности…" id="sub-18-1">17.1. Понятие инверсии и четности перестановки</h3>
 <div class="statement definition" id="def-27"><div class="block-label">Определение 17.1</div><h3 data-toc="Инверсия (беспорядок)" id="sub-18-2">Инверсия (беспорядок)</h3><div>
@@ -2662,31 +2724,145 @@ SOFTWARE.
   $$('[data-all-proofs]').forEach(b=>b.addEventListener('click',()=>{proofs.forEach(p=>setProof(p,b.dataset.allProofs));syncToolbar();updatePosition();}));syncToolbar();
 
   // Render before generating the outline, so math in headings gets a clean label.
-  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:true,strict:false});}catch(e){console.warn('Math render note:', e);}
+  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:false,strict:false,ignoredClasses:["math-svg","fam-svg-labels"]});}catch(e){console.warn('Math render note:', e);}
   const headings=$$('h2[data-toc],h3[data-toc]'),list=document.createElement('ol');
   let number=0;
   for(const heading of headings){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+heading.id;if(heading.tagName==='H2'){const n=document.createElement('span');n.className='toc-number';n.textContent=String(++number).padStart(2,'0');n.setAttribute('aria-hidden','true');a.append(n);}else li.className='toc-sub';a.append(document.createTextNode(heading.dataset.toc));li.append(a);list.append(li);}
   $('#toc').replaceChildren(list);$('#section-count').textContent=`Разделов: ${number}`;
-  const mobile=matchMedia('(max-width:760px)');
-  function closeToc(){ $('#contents').classList.remove('is-open');$('#toc-toggle').setAttribute('aria-expanded','false'); }
-  $('#toc-toggle').addEventListener('click',()=>{const open=$('#contents').classList.toggle('is-open');$('#toc-toggle').setAttribute('aria-expanded',String(open));if(open)$('#toc a')?.focus();});
-  $('#toc-close').addEventListener('click',()=>{closeToc();$('#toc-toggle').focus();});
-  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&$('#contents').classList.contains('is-open')){closeToc();$('#toc-toggle').focus();}});
-  mobile.addEventListener('change',closeToc);
-  function goToHash(hash,push){let target;try{target=document.getElementById(decodeURIComponent(hash.slice(1)));}catch{return;}if(!target)return;
-    const proof=target.closest('[data-proof]');if(proof){setProof(proof,target.closest('[data-proof-idea]')?'idea':'full');syncToolbar();}
-    closeToc();if(push){try{history.pushState(null,'',hash);}catch{/* opaque reader sandbox */}}
-    target.scrollIntoView({behavior:'instant',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});updatePosition();
+  // FAM:READING-NAVIGATION-START
+  const root = document.documentElement;
+  const layout = $('.layout');
+  const topbar = $('.topbar');
+  const contents = $('#contents');
+  const tocToggle = $('#toc-toggle');
+  const mobile = matchMedia('(max-width:760px)');
+  let desktopOpen = true;
+  let mobileOpen = false;
+  try { desktopOpen = localStorage.getItem('fam-note-toc') !== 'collapsed'; } catch {}
+
+  function tocIsOpen() { return mobile.matches ? mobileOpen : desktopOpen; }
+  function syncToc() {
+    contents.classList.toggle('is-open', mobile.matches && mobileOpen);
+    layout.toggleAttribute('data-toc-collapsed', !desktopOpen);
+    tocToggle.setAttribute('aria-expanded', String(tocIsOpen()));
   }
-  document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#"]');if(!a)return;ev.preventDefault();goToHash(a.getAttribute('href'),true);});
-  window.addEventListener('hashchange',()=>goToHash(location.hash,false));
-  function updatePosition(){const y=window.scrollY,span=document.documentElement.scrollHeight-innerHeight;$('#progress-bar').style.width=(span>0?Math.min(100,Math.max(0,100*y/span)):100)+'%';let active=headings[0];for(const h of headings)if(h.getBoundingClientRect().top<145)active=h;
-    $$('#toc a').forEach(a=>{if(a.hash==='#'+active?.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
-  let pending=false;window.addEventListener('scroll',()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;updatePosition();});},{passive:true});window.addEventListener('resize',updatePosition);
-  if(location.hash)goToHash(location.hash,false);updatePosition();
+  function closeMobileToc() {
+    mobileOpen = false;
+    syncToc();
+  }
+  function setTocOpen(open) {
+    if (mobile.matches) {
+      mobileOpen = open;
+      if (open) root.removeAttribute('data-note-bar-hidden');
+    } else {
+      desktopOpen = open;
+      try { localStorage.setItem('fam-note-toc', open ? 'expanded' : 'collapsed'); } catch {}
+    }
+    syncToc();
+    updatePosition();
+  }
+  tocToggle.addEventListener('click', () => {
+    const open = !tocIsOpen();
+    setTocOpen(open);
+    if (open && mobile.matches) $('#toc a')?.focus({preventScroll:true});
+  });
+  function dismissToc() {
+    setTocOpen(false);
+    root.removeAttribute('data-note-bar-hidden');
+    tocToggle.focus({preventScroll:true});
+  }
+  $('#toc-close').addEventListener('click', dismissToc);
+  document.addEventListener('keydown', event => {
+    const focusInToc = contents.contains(document.activeElement) || document.activeElement === tocToggle;
+    if (event.key === 'Escape' && !event.defaultPrevented && tocIsOpen() &&
+        (mobile.matches || focusInToc) && !$('#pdf-dialog').open) dismissToc();
+  });
+  mobile.addEventListener('change', closeMobileToc);
+  syncToc();
+
+  let lastScroll = Math.max(0, window.scrollY);
+  let scrollDistance = 0;
+  let topbarHeight = 0;
+  function syncTopbarHeight() {
+    topbarHeight = topbar.offsetHeight;
+    root.style.setProperty('--note-topbar-height', topbarHeight + 'px');
+    updatePosition();
+  }
+  function updateTopbar() {
+    const y = Math.max(0, Math.min(window.scrollY, root.scrollHeight - innerHeight));
+    const delta = y - lastScroll;
+    lastScroll = y;
+    if (y <= 16 || mobileOpen) {
+      root.removeAttribute('data-note-bar-hidden');
+      scrollDistance = 0;
+      return;
+    }
+    if (!delta) return;
+    scrollDistance = Math.sign(delta) === Math.sign(scrollDistance) ? scrollDistance + delta : delta;
+    if (scrollDistance <= -10) root.removeAttribute('data-note-bar-hidden');
+    if (scrollDistance >= 18 && y > topbarHeight) root.setAttribute('data-note-bar-hidden', '');
+  }
+
+  function goToHash(hash, push) {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (!target) return;
+    const proof = target.closest('[data-proof]');
+    if (proof) {
+      setProof(proof, target.closest('[data-proof-idea]') ? 'idea' : 'full');
+      syncToolbar();
+    }
+    closeMobileToc();
+    if (push) {
+      try { history.pushState(null, '', hash); } catch { /* Opaque reader sandbox. */ }
+    }
+    if (target === $('#top') || target === $('#content')) root.removeAttribute('data-note-bar-hidden');
+    target.scrollIntoView({behavior:'instant', block:'start'});
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+    lastScroll = Math.max(0, window.scrollY);
+    scrollDistance = 0;
+    updatePosition();
+  }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    event.preventDefault();
+    goToHash(link.getAttribute('href'), true);
+  });
+  window.addEventListener('hashchange', () => goToHash(location.hash, false));
+
+  function updatePosition() {
+    const y = window.scrollY;
+    const span = root.scrollHeight - innerHeight;
+    $('#progress-bar').style.width = (span > 0 ? Math.min(100, Math.max(0, 100 * y / span)) : 100) + '%';
+    const barBottom = Math.max(0, topbar.getBoundingClientRect().bottom);
+    let active = headings[0];
+    for (const heading of headings) if (heading.getBoundingClientRect().top <= barBottom + 32) active = heading;
+    $$('#toc a').forEach(link => {
+      if (link.hash === '#' + active?.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let pending = false;
+  window.addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      updateTopbar();
+      updatePosition();
+    });
+  }, {passive:true});
+  window.addEventListener('resize', syncTopbarHeight);
+  topbar.addEventListener('transitionend', updatePosition);
+  new ResizeObserver(syncTopbarHeight).observe(topbar);
+  syncTopbarHeight();
+  if (location.hash) goToHash(location.hash, false);
+  // FAM:READING-NAVIGATION-END
 
   const dialog=$('#pdf-dialog');let printChoice='full';
-  $('#pdf-open').addEventListener('click',()=>{closeToc();$('#pdf-status').textContent='';dialog.showModal();});
+  $('#pdf-open').addEventListener('click',()=>{closeMobileToc();$('#pdf-status').textContent='';dialog.showModal();});
   $('#pdf-close').addEventListener('click',()=>dialog.close());
   $$('input[name="pdf-mode"]').forEach(r=>r.addEventListener('change',()=>{if(r.checked)printChoice=r.value;}));
   // Ctrl+P always exports full proofs; the explicit dialog temporarily selects a variant.
