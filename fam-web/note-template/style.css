@@ -1,11 +1,6 @@
 :root{--paper:#f8f6f0;--ink:#202e29;--muted:#657067;--gold:#8a6b32;--rule:#d9d9cd;--soft:#eeeee5;--serif:'Cormorant Garamond Variable',Georgia,serif;--sans:'Manrope Variable',Arial,sans-serif;color-scheme:light;font-family:var(--sans);color:var(--ink);background:var(--paper);font-synthesis:none;
-  /* Visual math and diagram variables for SVG/cards (light) */
-  --bg-page:#f8f6f0;--bg-paper:#ffffff;--bg-card:#ffffff;--bg-elevated:#f0eee4;--text-main:#202e29;--text-secondary:#3a4b42;--text-muted:#657067;--border-color:#d9d9cd;--border-subtle:#e5e5d8;
-  --svg-bg:#ffffff;--svg-node-fill:#f8f6f0;--svg-set-a:rgba(37,99,235,0.12);--svg-set-b:rgba(124,58,237,0.12);--svg-set-c:rgba(5,150,105,0.12);--svg-stroke-a:#2563eb;--svg-stroke-b:#7c3aed;--svg-stroke-c:#059669;
-  --svg-axis:#4b5563;--svg-grid:#e5e7eb;--svg-curve:#2563eb;--svg-line-main:#1e293b;--svg-line-sec:#64748b;--svg-text:#1f2937;--svg-muted:#6b7280;
-  --svg-amber:#d97706;--svg-blue:#2563eb;--svg-green:#059669;--svg-red:#e11d48;--svg-purple:#7c3aed;--svg-pos:#059669;--svg-neg:#e11d48;
-  --accent-primary:#2563eb;--accent-secondary:#4f46e5;--accent-amber:#d97706;--accent-emerald:#059669;--accent-blue:#2563eb;--accent-rose:#e11d48;
-  --accent-def:#2563eb;--accent-thm:#7c3aed;--accent-prf:#059669;--accent-ex:#d97706;--accent-warn:#e11d48;
+  /* Complete diagram, SVG and theme variables (light) */
+  --bg-page:#f8f6f0;--bg-paper:#ffffff;--bg-card:#ffffff;--bg-card-alt:#f8f6f0;--bg-card-subtle:#faf8f5;--bg-elevated:#f0eee4;--bg-surface:#ffffff;--bg-surface-elevated:#f8fafc;--bg-main:#f8f6f0;--bg-body:#f8f6f0;--bg-canvas:#f8f6f0;--bg-primary:#ffffff;--bg-secondary:#f8f6f0;--bg-tertiary:#f0eee4;--bg-sidebar:#f3f1e9;--bg-hero:#f8f6f0;--bg-lecture:#ffffff;--bg-formula:#f8f6f0;--bg-glass:rgba(255, 255, 255, 0.85);--bg-thm:#ecebe0;--bg-proof:#ffffff;--bg-practice:#fdfaf3;--bg-warning:#fffbeb;--bg-alekseev:#fbf7ee;--card-bg:#ffffff;--card-def-bg:#edf0e9;--card-theorem-bg:#ecebe0;--card-example-bg:#fdfaf3;--card-proof-bg:#ffffff;--card-remark-bg:#fbf7ee;--box-def-bg:#edf0e9;--box-thm-bg:#ecebe0;--box-ex-bg:#fdfaf3;--box-proof-bg:#ffffff;--box-warn-bg:#fffbeb;--box-intuition-bg:#f0f7ff;--ch1-bg:#f0f7ff;--ch2-bg:#f5f3ff;--ch3-bg:#ecfdf5;--cor-bg:#edf0e9;--def-bg:#edf0e9;--ex-bg:#fdfaf3;--example-bg:#fdfaf3;--exam-bg:#fef2f2;--prf-bg:#ffffff;--proof-bg:#ffffff;--prop-bg:#eef2ff;--q-bg:#f0f7ff;--remark-bg:#fbf7ee;--rem-bg:#fbf7ee;--thm-bg:#ecebe0;--warn-bg:#fffbeb;--axiom-bg:#fffbeb;--note-bg:#f4f4ec;--toc-bg:#ffffff;--toc-header-bg:#f8f6f0;--text-main:#202e29;--text-heading:#161d19;--text-primary:#202e29;--text-secondary:#4b5563;--text-muted:#657067;--text-soft:#6b7280;--text-dim:#9ca3af;--text-sub:#6b7280;--text-gold:#8a6b32;--text-gold-bright:#a27b3b;--text-sidebar:#202e29;--text-sidebar-muted:#657067;--ch1-color:#1d4ed8;--ch2-color:#6d28d9;--ch3-color:#047857;--cor-color:#166534;--def-text:#202e29;--ex-text:#202e29;--exam-text:#991b1b;--proof-text:#202e29;--prop-text:#202e29;--rem-text:#202e29;--thm-text:#202e29;--warn-text:#92400e;--thm-color:#7c3aed;--border-color:#d9d9cd;--border-subtle:#e5e5d8;--border-medium:#cbd5e1;--border-strong:#94a3b8;--border-accent:#8a6b32;--border-glow:rgba(37, 99, 235, 0.2);--border-lecture:#d9d9cd;--border-practice:#e2e8f0;--border-proof:#d9d9cd;--border-warning:#fde68a;--border-thm:#c4c6b4;--border-alekseev:#e2d9c8;--box-def-border:#6c8175;--box-thm-border:#a28b52;--box-ex-border:#d97706;--box-proof-border:#cecebc;--box-warn-border:#f59e0b;--box-intuition-border:#93c5fd;--ch1-border:#bfdbfe;--ch2-border:#ddd6fe;--ch3-border:#a7f3d0;--axiom-border:#f59e0b;--prop-border:#6366f1;--cor-border:#86efac;--def-border:#6c8175;--ex-border:#d97706;--exam-border:#fca5a5;--note-border:#929c8c;--prf-border:#a7f3d0;--proof-border:#d9d9cd;--q-border:#93c5fd;--rem-border:#e2d9c8;--thm-border:#c4c6b4;--warn-border:#f59e0b;--primary:#2563eb;--primary-hover:#1d4ed8;--primary-subtle:rgba(37, 99, 235, 0.1);--accent:#2563eb;--accent-primary:#2563eb;--accent-primary-hover:#1d4ed8;--accent-primary-light:#dbeafe;--accent-primary-soft:rgba(37,99,235,0.12);--accent-secondary:#4f46e5;--accent-blue:#2563eb;--accent-blue-bg:rgba(37,99,235,0.1);--accent-blue-border:rgba(37,99,235,0.35);--accent-blue-strong:#1d4ed8;--accent-purple:#7c3aed;--accent-purple-bg:rgba(124,58,237,0.1);--accent-purple-border:rgba(124,58,237,0.35);--accent-purple-soft:rgba(124,58,237,0.12);--accent-teal:#0d9488;--accent-cyan:#0284c7;--accent-cyan-bg:rgba(2,132,199,0.1);--accent-cyan-border:rgba(2,132,199,0.35);--accent-amber:#d97706;--accent-amber-bg:rgba(217,119,6,0.1);--accent-amber-border:rgba(217,119,6,0.35);--accent-emerald:#059669;--accent-emerald-bg:rgba(5,150,105,0.1);--accent-emerald-border:rgba(5,150,105,0.35);--accent-rose:#e11d48;--accent-rose-bg:rgba(225,29,72,0.1);--accent-rose-border:rgba(225,29,72,0.35);--accent-gold:#8a6b32;--accent-gold-bright:#a27b3b;--accent-gold-soft:rgba(138,107,50,0.12);--accent-def:#2563eb;--accent-thm:#7c3aed;--accent-prf:#059669;--accent-proof:#059669;--accent-ex:#d97706;--accent-example:#d97706;--accent-warn:#e11d48;--accent-warning:#e11d48;--accent-warning-light:#fef3c7;--accent-danger:#e11d48;--accent-danger-light:#fee2e2;--accent-info:#0284c7;--accent-info-light:#e0f2fe;--accent-info-soft:rgba(2,132,199,0.12);--accent-soft:rgba(37,99,235,0.1);--accent-success:#059669;--accent-success-soft:rgba(5,150,105,0.12);--accent-remark:#7c3aed;--accent-lecture:#2563eb;--accent-practice:#d97706;--accent-theorem:#7c3aed;--accent-alekseev:#8a6b32;--def-accent:#2563eb;--example-accent:#d97706;--remark-accent:#7c3aed;--thm-accent:#7c3aed;--warn-accent:#e11d48;--box-def-badge:#6c8175;--box-def-header:#edf0e9;--box-def-title:#202e29;--box-ex-badge:#d97706;--box-ex-header:#fdfaf3;--box-ex-title:#202e29;--box-intuition-header:#f0f7ff;--box-proof-badge:#059669;--box-proof-header:#ffffff;--box-proof-title:#202e29;--box-thm-badge:#7c3aed;--box-thm-header:#ecebe0;--box-thm-title:#202e29;--box-warn-badge:#e11d48;--box-warn-header:#fffbeb;--box-warn-title:#92400e;--def-badge:#2563eb;--def-badge-bg:rgba(37, 99, 235, 0.12);--def-badge-text:#1d4ed8;--def-title:#202e29;--ex-badge:#d97706;--ex-badge-bg:rgba(217, 119, 6, 0.12);--ex-badge-text:#b45309;--ex-title:#202e29;--exam-badge:#dc2626;--note-badge-bg:rgba(101, 112, 103, 0.12);--note-badge-text:#556051;--note-title:#556051;--prf-badge-bg:rgba(5, 150, 105, 0.12);--prf-badge-text:#047857;--prf-title:#202e29;--proof-badge:#059669;--prop-badge:#6366f1;--q-badge:#0284c7;--rem-badge:#7c3aed;--thm-badge:#7c3aed;--thm-badge-bg:rgba(124, 58, 237, 0.12);--thm-badge-text:#6d28d9;--thm-title:#202e29;--warn-badge:#e11d48;--warn-badge-bg:rgba(225, 29, 72, 0.12);--warn-badge-text:#be123c;--warn-title:#92400e;--svg-bg:#ffffff;--svg-node-fill:#f8f6f0;--svg-text:#1f2937;--svg-muted:#6b7280;--svg-accent:#2563eb;--svg-sub:#6b7280;--svg-surface-elevated:#f8fafc;--svg-stroke-a:#2563eb;--svg-stroke-b:#7c3aed;--svg-stroke-c:#059669;--svg-stroke-cyan:#0284c7;--svg-stroke-emerald:#059669;--svg-stroke-gold:#8a6b32;--svg-set-a:rgba(37,99,235,0.12);--svg-set-b:rgba(124,58,237,0.12);--svg-set-c:rgba(5,150,105,0.12);--svg-c-stroke:#4b5563;--svg-u-stroke:#d9d9cd;--svg-u-bg:#f8f6f0;--svg-axis:#4b5563;--svg-grid:#e5e7eb;--svg-curve:#2563eb;--svg-line-main:#1e293b;--svg-line-sec:#64748b;--svg-amber:#d97706;--svg-amber-soft:rgba(217,119,6,0.15);--svg-blue:#2563eb;--svg-green:#059669;--svg-red:#e11d48;--svg-purple:#7c3aed;--svg-slate:#64748b;--svg-pos:#059669;--svg-neg:#e11d48;--svg-pos-soft:rgba(5,150,105,0.15);--svg-neg-soft:rgba(225,29,72,0.15);--svg-plane-purple:rgba(124,58,237,0.15);--svg-plane-teal:rgba(13,148,136,0.15);--svg-poly:rgba(37,99,235,0.12);--svg-band:rgba(37,99,235,0.1);--svg-band2:rgba(124,58,237,0.1);--svg-vec:#2563eb;--svg-vector1:#2563eb;--svg-vector2:#e11d48;--svg-vector3:#059669;--svg-v1:#2563eb;--svg-v2:#7c3aed;--svg-v3:#059669;--svg-v4:#d97706;--svg-highlight:#d97706;--svg-highlight-soft:rgba(217,119,6,0.15);--svg-label-bg:#ffffff;--svg-fill-1:rgba(37,99,235,0.12);--svg-fill-2:rgba(124,58,237,0.12);--svg-fill-3:rgba(5,150,105,0.12);--svg-fill-cyan:rgba(2,132,199,0.15);--svg-fill-danger:rgba(225,29,72,0.15);--svg-fill-gold:rgba(138,107,50,0.15);--svg-fill-info:rgba(2,132,199,0.15);--svg-fill-primary:rgba(37,99,235,0.15);--svg-fill-soft:rgba(37,99,235,0.08);--svg-fill-warn:rgba(217,119,6,0.15);--svg-hatch:#cbd5e1;--font-body:var(--sans);--font-main:var(--sans);--font-mono:ui-monospace, SFMono-Regular, Menlo, monospace;--font-sans:var(--sans);--shadow:0 1px 3px rgba(0,0,0,0.06);--shadow-card:0 2px 8px rgba(0,0,0,0.05);--shadow-md:0 4px 12px rgba(0,0,0,0.08);--shadow-sm:0 1px 2px rgba(0,0,0,0.04);--shadow-ambient:0 1px 3px rgba(0,0,0,0.05);--shadow-eq:0 2px 4px rgba(0,0,0,0.04);--shadow-gold:0 2px 6px rgba(138,107,50,0.2);--gold-gradient:linear-gradient(135deg, #8a6b32, #a27b3b);--sidebar-width:280px;--toc-active:#8a6b32;--toc-border:#d9d9cd;--toc-link:#4b5563;--transition-base:0.2s ease;--transition-speed:0.2s;--base-font-size:16px;
 }
 *{box-sizing:border-box}body{margin:0;font-size:16px;line-height:1.85}button,input{font:inherit}button,a,input{-webkit-tap-highlight-color:transparent}button{color:inherit;cursor:pointer}button:disabled{opacity:.5;cursor:wait}a{color:inherit;text-decoration-thickness:1px;text-underline-offset:4px}a:hover{color:var(--gold)}button:focus-visible,a:focus-visible,input:focus-visible,[tabindex="-1"]:focus-visible{outline:2px solid var(--gold);outline-offset:5px}button{border:0;background:none}[hidden]{display:none!important}::selection{background:#e8ddbd}h1,h2,h3,p{margin-top:0}h1,h2,h3{font-weight:500}h1,h2{font-family:var(--serif)}p{margin-bottom:1.2em}h3{line-height:1.4}em{font-style:italic}strong{font-weight:650}.skip-link{position:fixed;top:-100px;left:20px;background:white;padding:12px;z-index:100}.skip-link:focus{top:10px}
 .topbar{height:88px;border-bottom:1px solid var(--rule);padding:0 5vw;display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--paper);position:sticky;top:0;z-index:10}.wordmark{font-family:var(--serif);font-size:32px;font-weight:600;letter-spacing:1px;text-decoration:none;display:flex;align-items:center;gap:23px}.wordmark span{font:9px/1.6 var(--sans);letter-spacing:1.5px;max-width:140px}.top-actions{display:flex;gap:12px;align-items:center}.pdf-button{font-size:12px;letter-spacing:.2px;border:1px solid #a59b80;padding:10px 20px}.pdf-button span{margin-left:26px;color:var(--gold);font-size:18px}.pdf-button:hover,.print-button:hover{background:var(--soft)}#toc-toggle,#toc-close{display:none}.reading-progress{position:fixed;left:0;right:0;top:87px;height:2px;z-index:11;pointer-events:none}#progress-bar{display:block;height:100%;width:0;background:var(--gold)}
@@ -31,20 +26,12 @@ dialog{background:var(--paper);color:var(--ink);border:1px solid #babba9;padding
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 .theme-control select{font:12px var(--sans);color:var(--ink);background:var(--paper);border:1px solid var(--rule);padding:10px 8px;max-width:130px}
 html[data-theme="dark"]{color-scheme:dark;--paper:#17221e;--ink:#e8e9dd;--muted:#b0baad;--gold:#d5b878;--rule:#3e4b40;--soft:#29372d;
-  --bg-page:#121815;--bg-paper:#1a2520;--bg-card:#1e2a24;--bg-elevated:#243329;--text-main:#e8e9dd;--text-secondary:#c5cdbf;--text-muted:#8a9688;--border-color:#3e4b40;--border-subtle:#2a362d;
-  --svg-bg:#16201b;--svg-node-fill:#121815;--svg-set-a:rgba(56,189,248,0.22);--svg-set-b:rgba(168,85,247,0.22);--svg-set-c:rgba(52,211,153,0.22);--svg-stroke-a:#38bdf8;--svg-stroke-b:#c084fc;--svg-stroke-c:#34d399;
-  --svg-axis:#9ca3af;--svg-grid:#2e3e34;--svg-curve:#38bdf8;--svg-line-main:#f1f5f9;--svg-line-sec:#94a3b8;--svg-text:#e2e8f0;--svg-muted:#94a3b8;
-  --svg-amber:#fbbf24;--svg-blue:#60a5fa;--svg-green:#34d399;--svg-red:#fb7185;--svg-purple:#c084fc;--svg-pos:#34d399;--svg-neg:#fb7185;
-  --accent-primary:#60a5fa;--accent-secondary:#818cf8;--accent-amber:#f59e0b;--accent-emerald:#10b981;--accent-blue:#38bdf8;--accent-rose:#f43f5e;
-  --accent-def:#38bdf8;--accent-thm:#c084fc;--accent-prf:#34d399;--accent-ex:#fbbf24;--accent-warn:#fb7185;
+  /* Complete diagram, SVG and theme variables (dark) */
+  --bg-page:#121815;--bg-paper:#1a2520;--bg-card:#1e2a24;--bg-card-alt:#16201b;--bg-card-subtle:#1a2520;--bg-elevated:#243329;--bg-surface:#1e2a24;--bg-surface-elevated:#25362e;--bg-main:#121815;--bg-body:#17221e;--bg-canvas:#121815;--bg-primary:#1a2520;--bg-secondary:#17221e;--bg-tertiary:#243329;--bg-sidebar:#16201b;--bg-hero:#17221e;--bg-lecture:#1a2520;--bg-formula:#16201b;--bg-glass:rgba(26, 37, 32, 0.85);--bg-thm:#243329;--bg-proof:#1a2520;--bg-practice:#25281e;--bg-warning:#2d2618;--bg-alekseev:#26271e;--card-bg:#1e2a24;--card-def-bg:#213630;--card-theorem-bg:#243329;--card-example-bg:#25281e;--card-proof-bg:#1a2520;--card-remark-bg:#26271e;--box-def-bg:#213630;--box-thm-bg:#243329;--box-ex-bg:#25281e;--box-proof-bg:#1a2520;--box-warn-bg:#2d2618;--box-intuition-bg:#1a2a35;--ch1-bg:#1a2838;--ch2-bg:#251e38;--ch3-bg:#162e24;--cor-bg:#213630;--def-bg:#213630;--ex-bg:#25281e;--example-bg:#25281e;--exam-bg:#2c1e22;--prf-bg:#1a2520;--proof-bg:#1a2520;--prop-bg:#20243d;--q-bg:#1a2838;--remark-bg:#26271e;--rem-bg:#26271e;--thm-bg:#243329;--warn-bg:#2d2618;--axiom-bg:#2d2618;--note-bg:#1e2823;--toc-bg:#1a2520;--toc-header-bg:#16201b;--text-main:#e8e9dd;--text-heading:#f8fafc;--text-primary:#f1f5f9;--text-secondary:#cbd5e1;--text-muted:#94a3b8;--text-soft:#94a3b8;--text-dim:#64748b;--text-sub:#94a3b8;--text-gold:#d5b878;--text-gold-bright:#f3d48d;--text-sidebar:#f1f5f9;--text-sidebar-muted:#94a3b8;--ch1-color:#60a5fa;--ch2-color:#c084fc;--ch3-color:#34d399;--cor-color:#34d399;--def-text:#f1f5f9;--ex-text:#f1f5f9;--exam-text:#fecdd3;--proof-text:#f1f5f9;--prop-text:#f1f5f9;--rem-text:#f1f5f9;--thm-text:#f1f5f9;--warn-text:#fbbf24;--thm-color:#c084fc;--border-color:#3e4b40;--border-subtle:#2a362d;--border-medium:#475569;--border-strong:#64748b;--border-accent:#d5b878;--border-glow:rgba(96, 165, 250, 0.3);--border-lecture:#3e4b40;--border-practice:#475569;--border-proof:#3e4b40;--border-warning:#d97706;--border-thm:#7e8b67;--border-alekseev:#544e3b;--box-def-border:#7eaa99;--box-thm-border:#a28b52;--box-ex-border:#fbbf24;--box-proof-border:#3e4b40;--box-warn-border:#fbbf24;--box-intuition-border:#60a5fa;--ch1-border:#2563eb;--ch2-border:#7c3aed;--ch3-border:#059669;--axiom-border:#fbbf24;--prop-border:#818cf8;--cor-border:#34d399;--def-border:#7eaa99;--ex-border:#fbbf24;--exam-border:#f43f5e;--note-border:#475569;--prf-border:#059669;--proof-border:#3e4b40;--q-border:#38bdf8;--rem-border:#544e3b;--thm-border:#7e8b67;--warn-border:#fbbf24;--primary:#60a5fa;--primary-hover:#93c5fd;--primary-subtle:rgba(96, 165, 250, 0.18);--accent:#60a5fa;--accent-primary:#60a5fa;--accent-primary-hover:#93c5fd;--accent-primary-light:rgba(96,165,250,0.2);--accent-primary-soft:rgba(96,165,250,0.18);--accent-secondary:#818cf8;--accent-blue:#38bdf8;--accent-blue-bg:rgba(56,189,248,0.15);--accent-blue-border:rgba(56,189,248,0.45);--accent-blue-strong:#60a5fa;--accent-purple:#c084fc;--accent-purple-bg:rgba(192,132,252,0.15);--accent-purple-border:rgba(192,132,252,0.45);--accent-purple-soft:rgba(192,132,252,0.2);--accent-teal:#2dd4bf;--accent-cyan:#38bdf8;--accent-cyan-bg:rgba(56,189,248,0.15);--accent-cyan-border:rgba(56,189,248,0.45);--accent-amber:#fbbf24;--accent-amber-bg:rgba(251,191,36,0.15);--accent-amber-border:rgba(251,191,36,0.45);--accent-emerald:#34d399;--accent-emerald-bg:rgba(52,211,153,0.15);--accent-emerald-border:rgba(52,211,153,0.45);--accent-rose:#fb7185;--accent-rose-bg:rgba(251,113,133,0.15);--accent-rose-border:rgba(251,113,133,0.45);--accent-gold:#d5b878;--accent-gold-bright:#f3d48d;--accent-gold-soft:rgba(213,184,120,0.2);--accent-def:#38bdf8;--accent-thm:#c084fc;--accent-prf:#34d399;--accent-proof:#34d399;--accent-ex:#fbbf24;--accent-example:#fbbf24;--accent-warn:#fb7185;--accent-warning:#fb7185;--accent-warning-light:rgba(251,191,36,0.2);--accent-danger:#fb7185;--accent-danger-light:rgba(251,113,133,0.2);--accent-info:#38bdf8;--accent-info-light:rgba(56,189,248,0.2);--accent-info-soft:rgba(56,189,248,0.15);--accent-soft:rgba(96,165,250,0.15);--accent-success:#34d399;--accent-success-soft:rgba(52,211,153,0.18);--accent-remark:#c084fc;--accent-lecture:#38bdf8;--accent-practice:#fbbf24;--accent-theorem:#c084fc;--accent-alekseev:#d5b878;--def-accent:#38bdf8;--example-accent:#fbbf24;--remark-accent:#c084fc;--thm-accent:#c084fc;--warn-accent:#fb7185;--box-def-badge:#7eaa99;--box-def-header:#213630;--box-def-title:#f1f5f9;--box-ex-badge:#fbbf24;--box-ex-header:#25281e;--box-ex-title:#f1f5f9;--box-intuition-header:#1a2a35;--box-proof-badge:#34d399;--box-proof-header:#1a2520;--box-proof-title:#f1f5f9;--box-thm-badge:#c084fc;--box-thm-header:#243329;--box-thm-title:#f1f5f9;--box-warn-badge:#fb7185;--box-warn-header:#2d2618;--box-warn-title:#fbbf24;--def-badge:#38bdf8;--def-badge-bg:rgba(56, 189, 248, 0.2);--def-badge-text:#7dd3fc;--def-title:#f1f5f9;--ex-badge:#fbbf24;--ex-badge-bg:rgba(251, 191, 36, 0.2);--ex-badge-text:#fde68a;--ex-title:#f1f5f9;--exam-badge:#fb7185;--note-badge-bg:rgba(148, 163, 184, 0.2);--note-badge-text:#cbd5e1;--note-title:#cbd5e1;--prf-badge-bg:rgba(52, 211, 153, 0.2);--prf-badge-text:#a7f3d0;--prf-title:#f1f5f9;--proof-badge:#34d399;--prop-badge:#818cf8;--q-badge:#38bdf8;--rem-badge:#c084fc;--thm-badge:#c084fc;--thm-badge-bg:rgba(192, 132, 252, 0.2);--thm-badge-text:#e9d5ff;--thm-title:#f1f5f9;--warn-badge:#fb7185;--warn-badge-bg:rgba(251, 113, 133, 0.2);--warn-badge-text:#fecdd3;--warn-title:#fbbf24;--svg-bg:#1e2a24;--svg-node-fill:#263830;--svg-text:#f1f5f9;--svg-muted:#cbd5e1;--svg-accent:#38bdf8;--svg-sub:#94a3b8;--svg-surface-elevated:#25362e;--svg-stroke-a:#38bdf8;--svg-stroke-b:#c084fc;--svg-stroke-c:#34d399;--svg-stroke-cyan:#38bdf8;--svg-stroke-emerald:#34d399;--svg-stroke-gold:#d5b878;--svg-set-a:rgba(56,189,248,0.22);--svg-set-b:rgba(192,132,252,0.22);--svg-set-c:rgba(52,211,153,0.22);--svg-c-stroke:#cbd5e1;--svg-u-stroke:#475569;--svg-u-bg:#1a2520;--svg-axis:#9ca3af;--svg-grid:#2e3e34;--svg-curve:#38bdf8;--svg-line-main:#f1f5f9;--svg-line-sec:#cbd5e1;--svg-amber:#fbbf24;--svg-amber-soft:rgba(251,191,36,0.25);--svg-blue:#60a5fa;--svg-green:#34d399;--svg-red:#fb7185;--svg-purple:#c084fc;--svg-slate:#94a3b8;--svg-pos:#34d399;--svg-neg:#fb7185;--svg-pos-soft:rgba(52,211,153,0.25);--svg-neg-soft:rgba(251,113,133,0.25);--svg-plane-purple:rgba(192,132,252,0.25);--svg-plane-teal:rgba(45,212,191,0.25);--svg-poly:rgba(56,189,248,0.2);--svg-band:rgba(56,189,248,0.2);--svg-band2:rgba(192,132,252,0.2);--svg-vec:#38bdf8;--svg-vector1:#38bdf8;--svg-vector2:#fb7185;--svg-vector3:#34d399;--svg-v1:#38bdf8;--svg-v2:#c084fc;--svg-v3:#34d399;--svg-v4:#fbbf24;--svg-highlight:#fbbf24;--svg-highlight-soft:rgba(251,191,36,0.25);--svg-label-bg:#1e2a24;--svg-fill-1:rgba(56,189,248,0.22);--svg-fill-2:rgba(192,132,252,0.22);--svg-fill-3:rgba(52,211,153,0.22);--svg-fill-cyan:rgba(56,189,248,0.25);--svg-fill-danger:rgba(251,113,133,0.25);--svg-fill-gold:rgba(213,184,120,0.25);--svg-fill-info:rgba(56,189,248,0.25);--svg-fill-primary:rgba(56,189,248,0.25);--svg-fill-soft:rgba(56,189,248,0.18);--svg-fill-warn:rgba(251,191,36,0.25);--svg-hatch:#475569;--font-body:var(--sans);--font-main:var(--sans);--font-mono:ui-monospace, SFMono-Regular, Menlo, monospace;--font-sans:var(--sans);--shadow:0 1px 3px rgba(0,0,0,0.3);--shadow-card:0 2px 8px rgba(0,0,0,0.3);--shadow-md:0 4px 12px rgba(0,0,0,0.4);--shadow-sm:0 1px 2px rgba(0,0,0,0.2);--shadow-ambient:0 1px 3px rgba(0,0,0,0.3);--shadow-eq:0 2px 4px rgba(0,0,0,0.25);--shadow-gold:0 2px 6px rgba(213,184,120,0.25);--gold-gradient:linear-gradient(135deg, #d5b878, #f3d48d);--sidebar-width:280px;--toc-active:#d5b878;--toc-border:#3e4b40;--toc-link:#cbd5e1;--transition-base:0.2s ease;--transition-speed:0.2s;--base-font-size:16px;
 }
 html[data-theme="parchment"]{--paper:#eee3cc;--ink:#372f22;--muted:#6d604b;--gold:#795a24;--rule:#cbbd9f;--soft:#e4d7bc;
-  --bg-page:#eee3cc;--bg-paper:#f7f1e4;--bg-card:#f7f1e4;--bg-elevated:#e7dbc1;--text-main:#372f22;--text-secondary:#4d4231;--text-muted:#786655;--border-color:#cbbd9f;--border-subtle:#ded2b8;
-  --svg-bg:#f7f1e4;--svg-node-fill:#eee3cc;--svg-set-a:rgba(43,108,176,0.15);--svg-set-b:rgba(109,40,217,0.15);--svg-set-c:rgba(4,120,87,0.15);--svg-stroke-a:#2b6cb0;--svg-stroke-b:#6d28d9;--svg-stroke-c:#047857;
-  --svg-axis:#574c3d;--svg-grid:#ded2b8;--svg-curve:#2b6cb0;--svg-line-main:#2b2118;--svg-line-sec:#5c4f3f;--svg-text:#2b2118;--svg-muted:#786655;
-  --svg-amber:#b45309;--svg-blue:#2b6cb0;--svg-green:#047857;--svg-red:#b91c1c;--svg-purple:#6d28d9;--svg-pos:#047857;--svg-neg:#b91c1c;
-  --accent-primary:#9a3412;--accent-secondary:#7c2d12;--accent-amber:#b45309;--accent-emerald:#047857;--accent-blue:#2b6cb0;--accent-rose:#b91c1c;
-  --accent-def:#2b6cb0;--accent-thm:#6d28d9;--accent-prf:#047857;--accent-ex:#b45309;--accent-warn:#b91c1c;
+  /* Complete diagram, SVG and theme variables (parchment) */
+  --bg-page:#eee3cc;--bg-paper:#f7f1e4;--bg-card:#f7f1e4;--bg-card-alt:#ebdcc0;--bg-card-subtle:#f0e6cf;--bg-elevated:#e7dbc1;--bg-surface:#f7f1e4;--bg-surface-elevated:#fcf9f2;--bg-main:#eee3cc;--bg-body:#eee3cc;--bg-canvas:#eee3cc;--bg-primary:#f7f1e4;--bg-secondary:#eee3cc;--bg-tertiary:#e7dbc1;--bg-sidebar:#e9ddc3;--bg-hero:#eee3cc;--bg-lecture:#f7f1e4;--bg-formula:#ebe0c8;--bg-glass:rgba(247, 241, 228, 0.85);--bg-thm:#e7dbc1;--bg-proof:#f7f1e4;--bg-practice:#fbf5e6;--bg-warning:#fef3c7;--bg-alekseev:#ebdcc0;--card-bg:#f7f1e4;--card-def-bg:#e0dfca;--card-theorem-bg:#e7dbc1;--card-example-bg:#fbf5e6;--card-proof-bg:#f7f1e4;--card-remark-bg:#ebdcc0;--box-def-bg:#e0dfca;--box-thm-bg:#e7dbc1;--box-ex-bg:#fbf5e6;--box-proof-bg:#f7f1e4;--box-warn-bg:#fef3c7;--box-intuition-bg:#e2edf8;--ch1-bg:#e2edf8;--ch2-bg:#ede5f8;--ch3-bg:#dff2e8;--cor-bg:#e0dfca;--def-bg:#e0dfca;--ex-bg:#fbf5e6;--example-bg:#fbf5e6;--exam-bg:#fbf0f0;--prf-bg:#f7f1e4;--proof-bg:#f7f1e4;--prop-bg:#edeafc;--q-bg:#e2edf8;--remark-bg:#ebdcc0;--rem-bg:#ebdcc0;--thm-bg:#e7dbc1;--warn-bg:#fef3c7;--axiom-bg:#fef3c7;--note-bg:#ebdcc0;--toc-bg:#f7f1e4;--toc-header-bg:#eee3cc;--text-main:#372f22;--text-heading:#262015;--text-primary:#372f22;--text-secondary:#574c3d;--text-muted:#786655;--text-soft:#6e5842;--text-dim:#8c765c;--text-sub:#786655;--text-gold:#795a24;--text-gold-bright:#96702e;--text-sidebar:#372f22;--text-sidebar-muted:#786655;--ch1-color:#1e40af;--ch2-color:#5b21b6;--ch3-color:#065f46;--cor-color:#065f46;--def-text:#372f22;--ex-text:#372f22;--exam-text:#7f1d1d;--proof-text:#372f22;--prop-text:#372f22;--rem-text:#372f22;--thm-text:#372f22;--warn-text:#b45309;--thm-color:#6d28d9;--border-color:#cbbd9f;--border-subtle:#ded2b8;--border-medium:#b8a887;--border-strong:#968364;--border-accent:#795a24;--border-glow:rgba(154, 52, 18, 0.25);--border-lecture:#cbbd9f;--border-practice:#cbbd9f;--border-proof:#cbbd9f;--border-warning:#d97706;--border-thm:#a18c60;--border-alekseev:#b8a37e;--box-def-border:#5b7364;--box-thm-border:#8c733f;--box-ex-border:#b45309;--box-proof-border:#cbbd9f;--box-warn-border:#b45309;--box-intuition-border:#7ba3cf;--ch1-border:#93c5fd;--ch2-border:#c4b5fd;--ch3-border:#86efac;--axiom-border:#b45309;--prop-border:#6366f1;--cor-border:#86efac;--def-border:#5b7364;--ex-border:#b45309;--exam-border:#f87171;--note-border:#b8a37e;--prf-border:#6ee7b7;--proof-border:#cbbd9f;--q-border:#7ba3cf;--rem-border:#b8a37e;--thm-border:#a18c60;--warn-border:#b45309;--primary:#2b6cb0;--primary-hover:#1e40af;--primary-subtle:rgba(43, 108, 176, 0.12);--accent:#2b6cb0;--accent-primary:#9a3412;--accent-primary-hover:#7c2d12;--accent-primary-light:rgba(43,108,176,0.15);--accent-primary-soft:rgba(154,52,18,0.15);--accent-secondary:#7c2d12;--accent-blue:#2b6cb0;--accent-blue-bg:rgba(43,108,176,0.12);--accent-blue-border:rgba(43,108,176,0.35);--accent-blue-strong:#1e40af;--accent-purple:#6d28d9;--accent-purple-bg:rgba(109,40,217,0.12);--accent-purple-border:rgba(109,40,217,0.35);--accent-purple-soft:rgba(109,40,217,0.15);--accent-teal:#0f766e;--accent-cyan:#0369a1;--accent-cyan-bg:rgba(3,105,161,0.12);--accent-cyan-border:rgba(3,105,161,0.35);--accent-amber:#b45309;--accent-amber-bg:rgba(180,83,9,0.12);--accent-amber-border:rgba(180,83,9,0.35);--accent-emerald:#047857;--accent-emerald-bg:rgba(4,120,87,0.12);--accent-emerald-border:rgba(4,120,87,0.35);--accent-rose:#b91c1c;--accent-rose-bg:rgba(185,28,28,0.12);--accent-rose-border:rgba(185,28,28,0.35);--accent-gold:#795a24;--accent-gold-bright:#96702e;--accent-gold-soft:rgba(121,90,36,0.15);--accent-def:#2b6cb0;--accent-thm:#6d28d9;--accent-prf:#047857;--accent-proof:#047857;--accent-ex:#b45309;--accent-example:#b45309;--accent-warn:#b91c1c;--accent-warning:#b91c1c;--accent-warning-light:rgba(180,83,9,0.15);--accent-danger:#b91c1c;--accent-danger-light:rgba(185,28,28,0.15);--accent-info:#0369a1;--accent-info-light:rgba(3,105,161,0.15);--accent-info-soft:rgba(3,105,161,0.12);--accent-soft:rgba(43,108,176,0.12);--accent-success:#047857;--accent-success-soft:rgba(4,120,87,0.15);--accent-remark:#6d28d9;--accent-lecture:#2b6cb0;--accent-practice:#b45309;--accent-theorem:#6d28d9;--accent-alekseev:#795a24;--def-accent:#2b6cb0;--example-accent:#b45309;--remark-accent:#6d28d9;--thm-accent:#6d28d9;--warn-accent:#b91c1c;--box-def-badge:#5b7364;--box-def-header:#e0dfca;--box-def-title:#372f22;--box-ex-badge:#b45309;--box-ex-header:#fbf5e6;--box-ex-title:#372f22;--box-intuition-header:#e2edf8;--box-proof-badge:#047857;--box-proof-header:#f7f1e4;--box-proof-title:#372f22;--box-thm-badge:#6d28d9;--box-thm-header:#e7dbc1;--box-thm-title:#372f22;--box-warn-badge:#b91c1c;--box-warn-header:#fef3c7;--box-warn-title:#b45309;--def-badge:#2b6cb0;--def-badge-bg:rgba(43, 108, 176, 0.15);--def-badge-text:#1e40af;--def-title:#372f22;--ex-badge:#b45309;--ex-badge-bg:rgba(180, 83, 9, 0.15);--ex-badge-text:#92400e;--ex-title:#372f22;--exam-badge:#b91c1c;--note-badge-bg:rgba(120, 102, 85, 0.15);--note-badge-text:#574c3d;--note-title:#574c3d;--prf-badge-bg:rgba(4, 120, 87, 0.15);--prf-badge-text:#065f46;--prf-title:#372f22;--proof-badge:#047857;--prop-badge:#6366f1;--q-badge:#0369a1;--rem-badge:#6d28d9;--thm-badge:#6d28d9;--thm-badge-bg:rgba(109, 40, 217, 0.15);--thm-badge-text:#5b21b6;--thm-title:#372f22;--warn-badge:#b91c1c;--warn-badge-bg:rgba(185, 28, 28, 0.15);--warn-badge-text:#991b1b;--warn-title:#b45309;--svg-bg:#f7f1e4;--svg-node-fill:#ebdcc0;--svg-text:#2b2118;--svg-muted:#574c3d;--svg-accent:#2b6cb0;--svg-sub:#786655;--svg-surface-elevated:#fcf9f2;--svg-stroke-a:#2b6cb0;--svg-stroke-b:#6d28d9;--svg-stroke-c:#047857;--svg-stroke-cyan:#0369a1;--svg-stroke-emerald:#047857;--svg-stroke-gold:#795a24;--svg-set-a:rgba(43,108,176,0.15);--svg-set-b:rgba(109,40,217,0.15);--svg-set-c:rgba(4,120,87,0.15);--svg-c-stroke:#574c3d;--svg-u-stroke:#cbbd9f;--svg-u-bg:#eee3cc;--svg-axis:#574c3d;--svg-grid:#ded2b8;--svg-curve:#2b6cb0;--svg-line-main:#2b2118;--svg-line-sec:#5c4f3f;--svg-amber:#b45309;--svg-amber-soft:rgba(180,83,9,0.18);--svg-blue:#2b6cb0;--svg-green:#047857;--svg-red:#b91c1c;--svg-purple:#6d28d9;--svg-slate:#786655;--svg-pos:#047857;--svg-neg:#b91c1c;--svg-pos-soft:rgba(4,120,87,0.18);--svg-neg-soft:rgba(185,28,28,0.18);--svg-plane-purple:rgba(109,40,217,0.18);--svg-plane-teal:rgba(15,118,110,0.18);--svg-poly:rgba(43,108,176,0.15);--svg-band:rgba(43,108,176,0.15);--svg-band2:rgba(109,40,217,0.15);--svg-vec:#2b6cb0;--svg-vector1:#2b6cb0;--svg-vector2:#b91c1c;--svg-vector3:#047857;--svg-v1:#2b6cb0;--svg-v2:#6d28d9;--svg-v3:#047857;--svg-v4:#b45309;--svg-highlight:#b45309;--svg-highlight-soft:rgba(180,83,9,0.18);--svg-label-bg:#f7f1e4;--svg-fill-1:rgba(43,108,176,0.15);--svg-fill-2:rgba(109,40,217,0.15);--svg-fill-3:rgba(4,120,87,0.15);--svg-fill-cyan:rgba(3,105,161,0.18);--svg-fill-danger:rgba(185,28,28,0.18);--svg-fill-gold:rgba(121,90,36,0.18);--svg-fill-info:rgba(3,105,161,0.18);--svg-fill-primary:rgba(43,108,176,0.18);--svg-fill-soft:rgba(43,108,176,0.12);--svg-fill-warn:rgba(180,83,9,0.18);--svg-hatch:#b8a887;--font-body:var(--sans);--font-main:var(--sans);--font-mono:ui-monospace, SFMono-Regular, Menlo, monospace;--font-sans:var(--sans);--shadow:0 1px 3px rgba(55,47,34,0.08);--shadow-card:0 2px 8px rgba(55,47,34,0.08);--shadow-md:0 4px 12px rgba(55,47,34,0.12);--shadow-sm:0 1px 2px rgba(55,47,34,0.05);--shadow-ambient:0 1px 3px rgba(55,47,34,0.08);--shadow-eq:0 2px 4px rgba(55,47,34,0.06);--shadow-gold:0 2px 6px rgba(121,90,36,0.2);--gold-gradient:linear-gradient(135deg, #795a24, #96702e);--sidebar-width:280px;--toc-active:#795a24;--toc-border:#cbbd9f;--toc-link:#574c3d;--transition-base:0.2s ease;--transition-speed:0.2s;--base-font-size:16px;
 }
 html[data-theme="dark"] .statement,html[data-theme="dark"] .statement.featured{background:#243329;border-color:#7e8b67}
 html[data-theme="dark"] .definition{background:#213630;border-color:#7eaa99}
@@ -88,3 +75,158 @@ html[data-theme="parchment"] .figure-plate{background:var(--bg-card);color:var(-
 svg{max-width:100%;height:auto}
 svg text{font-family:var(--sans)}
 
+
+
+/* ==========================================================================
+   LECTURE DIAGRAMS, VENN DIAGRAMS & CARD COMPONENTS
+   ========================================================================== */
+
+.props-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 1.15rem;
+  margin: 1.5rem 0;
+}
+
+.prop-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.85rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.prop-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.6rem;
+}
+
+.prop-card-title {
+  font-weight: 800;
+  font-size: 1.02rem;
+  color: var(--accent-cyan);
+}
+
+.prop-card-tag {
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  background: var(--accent-cyan-bg);
+  color: var(--accent-cyan);
+  border: 1px solid var(--accent-cyan-border);
+}
+
+.venn-svg, .wide-svg {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.venn-c-stroke { stroke: var(--svg-c-stroke); stroke-width: 2.0; }
+.venn-u-box { fill: var(--svg-u-bg); }
+.venn-fill-1 { fill: var(--svg-fill-1); }
+.venn-fill-2 { fill: var(--svg-fill-2); }
+.venn-fill-3 { fill: var(--svg-fill-3); }
+.venn-fill-soft { fill: var(--svg-fill-soft); }
+.venn-u-stroke { stroke: var(--svg-u-stroke); stroke-width: 1.8; }
+.venn-hatch-line { stroke: var(--svg-hatch); stroke-opacity: 0.55; }
+
+.venn-col {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.venn-caption {
+  margin-top: 12px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.55;
+}
+
+.figure-card, .figure-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.figure-caption {
+  margin-top: 1rem;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.svg-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.block-card {
+  margin: 24px 0;
+  padding: 20px 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  border-left: 4.5px solid var(--accent-primary);
+  background-color: var(--bg-card);
+  position: relative;
+}
+
+.block-card-title {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.topic-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 1.75rem 2rem;
+  margin-bottom: 1.85rem;
+  box-shadow: var(--shadow-sm);
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* SVG text: default to high-contrast svg-text only when fill attribute is absent */
+svg text:not([fill]) {
+  fill: var(--svg-text, currentColor);
+}
