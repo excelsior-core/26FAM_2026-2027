@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Линейные отображения: ядро, образ и теорема о ранге. Пример оформления конспекта FAM.">
+  <title>Линейные отображения — FAM</title>
+  <!-- FAM:ASSETS -->
+</head>
+<body>
+  <a class="skip-link" href="#content">К тексту конспекта</a>
+  <header class="topbar">
+    <a class="wordmark" href="#top" aria-label="К началу конспекта">FAM<span>FUNDAMENTAL &amp; APPLIED MATH</span></a>
+    <div class="top-actions">
+      <label class="theme-control"><span class="sr-only">Тема конспекта</span><select id="note-theme" aria-label="Тема конспекта"><option value="system">Системная</option><option value="light">Светлая</option><option value="dark">Тёмная</option><option value="parchment">Пергамент</option></select></label>
+      <button id="toc-toggle" aria-expanded="false" aria-controls="contents">Оглавление</button>
+      <button id="pdf-open" class="pdf-button">Сохранить PDF <span aria-hidden="true">↗</span></button>
+    </div>
+  </header>
+  <div class="reading-progress" aria-hidden="true"><span id="progress-bar"></span></div>
+  <div class="layout">
+    <aside id="contents" class="contents" aria-label="Оглавление">
+      <div class="contents-head"><span class="eyebrow">Оглавление</span><button id="toc-close" aria-label="Закрыть оглавление">Закрыть</button></div>
+      <nav id="toc" aria-label="Разделы конспекта"></nav>
+      <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
+    </aside>
+    <main id="content">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
+      <header class="lecture-head" id="top">
+        <div class="lecture-meta"><span class="subject">Алгебра</span><span>Пример оформления</span></div>
+        <h1>Линейные<br>отображения</h1>
+        <p class="subtitle">Ядро, образ и теорема о ранге</p>
+        <div class="lecture-abstract"><p>Как линейное отображение меняет пространство, какие векторы переводит в ноль и как связаны размерности ядра и образа.</p><div class="abstract-formula" aria-label="Размерность V равна сумме размерностей ядра и образа T">\[\dim V=\dim\ker T+\dim\operatorname{im}T\]</div></div>
+      </header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
+      <section class="chapter" aria-labelledby="linear">
+        <div class="chapter-kicker">01 / Основные понятия</div>
+        <h2 id="linear" data-toc="Линейность">Что сохраняет отображение</h2>
+        <p>Пусть $V$ и $W$ — векторные пространства над одним полем $\mathbb F$. Отображение $T\colon V\to W$ называется линейным, если оно сохраняет сложение векторов и умножение на скаляр.</p>
+        <div class="statement definition" id="def-linear">
+          <div class="block-label">Определение 1.1</div>
+          <h3>Линейное отображение</h3>
+          <p>Для любых $u,v\in V$ и $\alpha,\beta\in\mathbb F$ выполняется</p>
+          <div class="equation">\[T(\alpha u+\beta v)=\alpha T(u)+\beta T(v).\]</div>
+        </div>
+        <p>В частности, $T(0)=0$: достаточно подставить нулевые коэффициенты. Преобразование $x\mapsto Ax+b$ при $b\ne0$ не является линейным, хотя его график в одномерном случае — прямая.</p>
+        <aside class="note"><strong>Важно.</strong> Слово «линейный» здесь описывает сохранение операций. Наличие прямых линий на рисунке само по себе ничего не доказывает.</aside>
+      </section>
+      <section class="chapter" aria-labelledby="kernel-image">
+        <div class="chapter-kicker">02 / Два подпространства</div>
+        <h2 id="kernel-image" data-toc="Ядро и образ">Ядро и образ</h2>
+        <div class="definition-pair">
+          <div class="definition-entry"><div class="block-label">Определение 2.1</div><h3 id="kernel" data-toc="Ядро">Ядро</h3><p>Все векторы, которые $T$ переводит в ноль:</p><div class="equation">\[\ker T=\{v\in V:T(v)=0\}.\]</div></div>
+          <div class="definition-entry"><div class="block-label">Определение 2.2</div><h3 id="image" data-toc="Образ">Образ</h3><p>Все значения, которые принимает $T$:</p><div class="equation">\[\operatorname{im}T=\{T(v):v\in V\}.\]</div></div>
+        </div>
+        <div class="statement theorem" id="subspaces">
+          <div class="block-label">Утверждение 2.3</div><h3>Ядро и образ — подпространства</h3>
+          <p>$\ker T$ является подпространством $V$, а $\operatorname{im}T$ — подпространством $W$.</p>
+          <div class="proof" id="proof-subspaces" data-proof>
+            <div class="proof-controls" role="group" aria-label="Доказательство утверждения 2.3"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
+            <div class="proof-idea" id="idea-subspaces" data-proof-idea><div class="proof-label">Идея</div><p>Проверим, что оба множества содержат ноль и замкнуты относительно линейных комбинаций. Для образа возьмём прообразы двух произвольных элементов.</p></div>
+            <div class="proof-full" id="full-subspaces" data-proof-full><div class="proof-label">Доказательство</div><ol class="proof-steps"><li><strong>Ядро.</strong> Из $T(0)=0$ следует $0\in\ker T$. Если $u,v\in\ker T$, то $T(\alpha u+\beta v)=\alpha T(u)+\beta T(v)=0$, поэтому $\alpha u+\beta v\in\ker T$.</li><li><strong>Образ.</strong> Нулевой вектор равен $T(0)$ и принадлежит образу. Пусть $a=T(u)$ и $b=T(v)$. Тогда $\alpha a+\beta b=T(\alpha u+\beta v)\in\operatorname{im}T$.</li></ol><p>Таким образом, оба множества удовлетворяют критерию подпространства. <span class="qed" aria-label="Что и требовалось доказать">□</span></p></div>
+          </div>
+        </div>
+        <div class="statement theorem" id="injectivity">
+          <div class="block-label">Утверждение 2.4</div><h3>Критерий инъективности</h3><p>Линейное отображение $T$ инъективно тогда и только тогда, когда $\ker T=\{0\}$.</p>
+          <div class="proof" id="proof-injectivity" data-proof>
+            <div class="proof-controls" role="group" aria-label="Доказательство утверждения 2.4"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
+            <div class="proof-idea" id="idea-injectivity" data-proof-idea><div class="proof-label">Идея</div><p>Равенство $T(u)=T(v)$ равносильно тому, что разность $u-v$ принадлежит ядру. Поэтому нетривиальное ядро означает, что разные векторы имеют одинаковый образ.</p></div>
+            <div class="proof-full" id="full-injectivity" data-proof-full><div class="proof-label">Доказательство</div><p><strong>Необходимость.</strong> Пусть $T$ инъективно и $v\in\ker T$. Тогда $T(v)=0=T(0)$, откуда $v=0$.</p><p><strong>Достаточность.</strong> Пусть $\ker T=\{0\}$ и $T(u)=T(v)$. По линейности $T(u-v)=0$. Значит, $u-v\in\ker T$ и $u=v$. <span class="qed" aria-label="Что и требовалось доказать">□</span></p></div>
+          </div>
+        </div>
+      </section>
+      <section class="chapter" aria-labelledby="rank-nullity">
+        <div class="chapter-kicker">03 / Размерности</div>
+        <h2 id="rank-nullity" data-toc="Теорема о ранге">Теорема о ранге</h2>
+        <p>Размерность образа называют <em>рангом</em> отображения. Если исходное пространство конечномерно, ранг и размерность ядра связаны одним равенством.</p>
+        <div class="statement theorem featured" id="rank-theorem">
+          <div class="block-label">Теорема 3.1</div><h3>Размерность ядра и образа</h3>
+          <p>Пусть $T\colon V\to W$ — линейное отображение и $\dim V=n&lt;\infty$. Тогда</p>
+          <div class="equation">\[\dim\ker T+\dim\operatorname{im}T=n.\]</div>
+          <div class="proof" id="proof-rank" data-proof>
+            <div class="proof-controls" role="group" aria-label="Доказательство теоремы 3.1"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
+            <div class="proof-idea" id="idea-rank" data-proof-idea><div class="proof-label">Идея</div><p>Дополним базис ядра до базиса всего $V$. Векторы ядра исчезнут при применении $T$, а образы добавленных векторов образуют базис $\operatorname{im}T$.</p></div>
+            <div class="proof-full" id="full-rank" data-proof-full><div class="proof-label">Доказательство</div><ol class="proof-steps"><li><strong>Выбор базиса.</strong> Пусть $e_1,\ldots,e_k$ — базис $\ker T$. Дополним его до базиса $e_1,\ldots,e_n$ пространства $V$.</li><li><strong>Порождающая система.</strong> Любой вектор $v\in V$ имеет разложение $v=\sum_{i=1}^{n}a_i e_i$. Так как $T(e_i)=0$ при $i\le k$, получаем<div class="equation">\[T(v)=\sum_{i=k+1}^{n}a_iT(e_i).\]</div>Следовательно, $T(e_{k+1}),\ldots,T(e_n)$ порождают образ.</li><li><strong>Линейная независимость.</strong> Если $\sum_{i=k+1}^{n}b_iT(e_i)=0$, то $\sum_{i=k+1}^{n}b_i e_i\in\ker T$. Этот вектор выражается через $e_1,\ldots,e_k$. Линейная независимость полного базиса даёт $b_{k+1}=\cdots=b_n=0$.</li></ol><p>Получили базис образа из $n-k$ векторов. Поэтому $\dim\operatorname{im}T=n-k$, что и доказывает равенство. При $k=n$ система образов пуста и является базисом нулевого пространства. <span class="qed" aria-label="Что и требовалось доказать">□</span></p></div>
+          </div>
+        </div>
+        <div class="worked-example" id="projection"><div class="block-label">Пример 3.2</div><h3 data-toc="Проекция из ℝ³ в ℝ²" id="projection-example">Проекция из $\mathbb R^3$ в $\mathbb R^2$</h3><p>Рассмотрим $T(x,y,z)=(x,y)$. Тогда</p><div class="equation">\[\ker T=\{(0,0,z):z\in\mathbb R\},\qquad\operatorname{im}T=\mathbb R^2.\]</div><p>Ядро — прямая размерности $1$, образ имеет размерность $2$. Теорема даёт $1+2=3$. Отображение не инъективно: например, $T(0,0,0)=T(0,0,1)$.</p></div>
+        <aside class="note"><strong>Граница применимости.</strong> Теорема 3.1 сформулирована для конечномерного $V$. Не переносите привычную арифметику размерностей на бесконечномерный случай без отдельного обоснования.</aside>
+      </section>
+      <section class="chapter" aria-labelledby="recap">
+        <div class="chapter-kicker">04 / Для повторения</div><h2 id="recap" data-toc="Для повторения">Ключевые связи</h2>
+        <div class="table-scroll"><table><caption>Понятия и критерии</caption><thead><tr><th scope="col">Понятие</th><th scope="col">Что проверять</th><th scope="col">В тексте</th></tr></thead><tbody><tr><th scope="row">Линейность</th><td>Сохранение линейных комбинаций</td><td><a href="#def-linear">Определение 1.1</a></td></tr><tr><th scope="row">Инъективность</th><td>$\ker T=\{0\}$</td><td><a href="#full-injectivity">Доказательство 2.4 ↗</a></td></tr><tr><th scope="row">Ранг</th><td>$\dim V-\dim\ker T$ при $\dim V&lt;\infty$</td><td><a href="#full-rank">Доказательство 3.1 ↗</a></td></tr></tbody></table></div>
+        <p class="endnote">Предполагается знакомство с базисом, размерностью и критерием подпространства.</p>
+      </section>
+      <!-- FAM:CONTENT-END -->
+      <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>
+    </main>
+  </div>
+  <dialog id="pdf-dialog" aria-labelledby="pdf-title" aria-describedby="pdf-description">
+    <div class="dialog-heading"><span class="eyebrow">Экспорт</span><button id="pdf-close" aria-label="Закрыть настройки PDF">Закрыть</button></div>
+    <h2 id="pdf-title">Сохранить конспект</h2>
+    <p id="pdf-description">Выберите содержание. В окне печати укажите «Сохранить как PDF».</p>
+    <fieldset><legend>Доказательства в PDF</legend>
+      <label class="pdf-option"><input type="radio" name="pdf-mode" value="full" checked><span><strong>Полностью</strong><small>Идеи и полные доказательства</small></span></label>
+      <label class="pdf-option"><input type="radio" name="pdf-mode" value="idea"><span><strong>Только идеи</strong><small>Формулировки и краткий ход рассуждений</small></span></label>
+      <label class="pdf-option"><input type="radio" name="pdf-mode" value="hidden"><span><strong>Без доказательств</strong><small>Определения, формулировки и примеры</small></span></label>
+    </fieldset>
+    <p class="pdf-note">A4 · светлый фон · без элементов управления.<br>Раскрытые блоки на экране сохранят своё состояние.</p>
+    <button id="pdf-print" class="print-button">Перейти к печати <span aria-hidden="true">↗</span></button>
+    <p id="pdf-status" role="status" class="pdf-note"></p>
+  </dialog>
+  <!-- FAM:SCRIPTS -->
+</body>
+</html>

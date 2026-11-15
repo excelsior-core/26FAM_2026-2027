@@ -1,23 +1,11 @@
-# Local storage with raw notes and lecturer originals (DO NOT COMMIT!)
-Storage/
-/Storage/
-
-# Sync configuration with private keys/passwords
-scripts/sync.json
-
-# Temporary distribution builds
+# FAM - Local & Build Ignores
+.local/
+fam-web/.local/
+fam-web/export/
 .gh-dist/
-
-# Node dependencies
+Storage_original_html_backup/
+*.log
+*.pid
 node_modules/
-
-# OS and editor files
 .DS_Store
 Thumbs.db
-desktop.ini
-.vscode/
-.idea/
-*.log
-
-__pycache__/
-*.pyc

@@ -1,9 +1,0 @@
-{
-  "storagePath": "./Storage",
-  "repoUrl": "",
-  "sharedPassword": "famlovesmath",
-  "adminPassword": "excelsiorcatharsis",
-  "vaultSalt": "",
-  "branchDeploy": "gh-pages",
-  "branchSource": "main"
-}

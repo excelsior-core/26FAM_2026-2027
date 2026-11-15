@@ -1,0 +1,5 @@
+{
+  "name": "fam-library", "version": "1.0.0", "private": true, "type": "module",
+  "scripts": {"dev":"node scripts/server.mjs", "build":"node scripts/build.mjs", "notes:build":"node note-template/build.mjs", "test":"node --test tests/*.test.mjs"},
+  "engines": {"node": ">=22"}
+}

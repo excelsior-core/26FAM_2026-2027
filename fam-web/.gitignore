@@ -1,0 +1,5 @@
+.local/
+export/
+release/
+node_modules/
+*.log
