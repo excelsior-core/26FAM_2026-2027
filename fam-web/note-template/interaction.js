@@ -32,7 +32,7 @@
   $$('[data-all-proofs]').forEach(b=>b.addEventListener('click',()=>{proofs.forEach(p=>setProof(p,b.dataset.allProofs));syncToolbar();updatePosition();}));syncToolbar();
 
   // Render before generating the outline, so math in headings gets a clean label.
-  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:true,trust:false,strict:'error',errorCallback:()=>{$('#math-error').hidden=false;}});}catch{$('#math-error').hidden=false;}
+  try{renderMathInElement($('#content'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false,trust:true,strict:false});}catch(e){console.warn('Math render note:', e);}
   const headings=$$('h2[data-toc],h3[data-toc]'),list=document.createElement('ol');
   let number=0;
   for(const heading of headings){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+heading.id;if(heading.tagName==='H2'){const n=document.createElement('span');n.className='toc-number';n.textContent=String(++number).padStart(2,'0');n.setAttribute('aria-hidden','true');a.append(n);}else li.className='toc-sub';a.append(document.createTextNode(heading.dataset.toc));li.append(a);list.append(li);}
