@@ -691,106 +691,112 @@ SOFTWARE.
 </div></div>
 <!-- Figure 1.1: Relation vs Partial Function vs Total Mapping -->
 <div class="figure-card" id="fig-1-1">
-<svg aria-label="Сравнение нефункционального отношения, частичной функции и тотальной функции" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 860 270" xmlns="http://www.w3.org/2000/svg">
+<svg height="270" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 860 270" width="860" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="arr-red" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1 L 10 5 L 0 9 z" fill="#e11d48"></path>
+<marker id="dm6-arr-red" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#e11d48"></path>
 </marker>
-<marker id="arr-amber" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1 L 10 5 L 0 9 z" fill="#d97706"></path>
+<marker id="dm6-arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#f59e0b"></path>
 </marker>
-<marker id="arr-green" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1 L 10 5 L 0 9 z" fill="#059669"></path>
+<marker id="dm6-arr-green" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#10b981"></path>
 </marker>
-<marker id="arr-blue" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1 L 10 5 L 0 9 z" fill="#2563eb"></path>
+<marker id="dm6-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#38bdf8"></path>
 </marker>
 </defs>
 <!-- Panel 1: Non-functional relation -->
 <g transform="translate(15, 10)">
-<rect fill="var(--bg-paper)" height="250" rx="10" stroke="#e11d48" stroke-width="1.8" width="260" x="0" y="0"></rect>
-<text fill="#e11d48" font-size="13" font-weight="700" text-anchor="middle" x="130" y="24">1. Нефункциональное отношение</text>
-<text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="130" y="42">Нарушена однозначность: a₁ → b₁ и a₁ → b₂</text>
-<ellipse cx="65" cy="140" fill="var(--svg-set-a)" rx="36" ry="72" stroke="var(--svg-stroke-a)" stroke-width="1.5"></ellipse>
-<text fill="var(--svg-stroke-a)" font-size="12" font-weight="700" text-anchor="middle" x="65" y="60">A</text>
-<ellipse cx="195" cy="140" fill="var(--svg-set-b)" rx="36" ry="72" stroke="var(--svg-stroke-b)" stroke-width="1.5"></ellipse>
-<text fill="var(--svg-stroke-b)" font-size="12" font-weight="700" text-anchor="middle" x="195" y="60">B</text>
+<rect fill="var(--bg-card-alt, #1e293b)" height="250" rx="10" stroke="#e11d48" stroke-width="1.8" width="260" x="0" y="0"></rect>
+<text fill="#f43f5e" font-size="13.5" font-weight="800" text-anchor="middle" x="130" y="25">1. Нефункциональное отношение</text>
+<text fill="var(--border-color, #94a3b8)" font-size="11" text-anchor="middle" x="130" y="43">Нарушена однозначность: a₁ → b₁ и a₁ → b₂</text>
+<!-- Set A envelope -->
+<ellipse cx="65" cy="140" fill="rgba(56, 189, 248, 0.12)" rx="36" ry="72" stroke="#38bdf8" stroke-width="1.5"></ellipse>
+<text fill="#38bdf8" font-size="13" font-weight="800" text-anchor="middle" x="65" y="60">A</text>
+<!-- Set B envelope -->
+<ellipse cx="195" cy="140" fill="rgba(168, 85, 247, 0.12)" rx="36" ry="72" stroke="#a855f7" stroke-width="1.5"></ellipse>
+<text fill="#a855f7" font-size="13" font-weight="800" text-anchor="middle" x="195" y="60">B</text>
 <!-- Nodes A -->
 <circle cx="65" cy="95" fill="#ffe4e6" r="12" stroke="#e11d48" stroke-width="2"></circle>
-<text fill="#881337" font-size="11" font-weight="700" text-anchor="middle" x="65" y="99">a₁</text>
-<circle cx="65" cy="140" fill="var(--svg-node-fill)" r="12" stroke="var(--svg-stroke-a)" stroke-width="1.5"></circle>
-<text fill="var(--text-main)" font-size="11" text-anchor="middle" x="65" y="144">a₂</text>
-<circle cx="65" cy="185" fill="var(--svg-node-fill)" r="12" stroke="var(--svg-stroke-a)" stroke-width="1.5"></circle>
-<text fill="var(--text-main)" font-size="11" text-anchor="middle" x="65" y="189">a₃</text>
+<text fill="#881337" font-size="11" font-weight="800" text-anchor="middle" x="65" y="99">a₁</text>
+<circle cx="65" cy="140" fill="var(--bg-card, #0f172a)" r="12" stroke="#38bdf8" stroke-width="1.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="700" text-anchor="middle" x="65" y="144">a₂</text>
+<circle cx="65" cy="185" fill="var(--bg-card, #0f172a)" r="12" stroke="#38bdf8" stroke-width="1.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="700" text-anchor="middle" x="65" y="189">a₃</text>
 <!-- Nodes B -->
-<circle cx="195" cy="95" fill="var(--svg-node-fill)" r="12" stroke="var(--svg-stroke-b)" stroke-width="1.5"></circle>
-<text fill="var(--text-main)" font-size="11" text-anchor="middle" x="195" y="99">b₁</text>
-<circle cx="195" cy="140" fill="var(--svg-node-fill)" r="12" stroke="var(--svg-stroke-b)" stroke-width="1.5"></circle>
-<text fill="var(--text-main)" font-size="11" text-anchor="middle" x="195" y="144">b₂</text>
-<circle cx="195" cy="185" fill="var(--svg-node-fill)" r="12" stroke="var(--svg-stroke-b)" stroke-width="1.5"></circle>
-<text fill="var(--text-main)" font-size="11" text-anchor="middle" x="195" y="189">b₃</text>
-<!-- Arrows -->
-<line marker-end="url(#arr-red)" stroke="#e11d48" stroke-width="2.2" x1="78" x2="180" y1="93" y2="93"></line>
-<line marker-end="url(#arr-red)" stroke="#e11d48" stroke-width="2.2" x1="78" x2="180" y1="98" y2="136"></line>
-<line marker-end="url(#arr-blue)" stroke="#2563eb" stroke-width="1.8" x1="78" x2="180" y1="185" y2="185"></line>
-<text fill="#e11d48" font-size="11" font-weight="600" text-anchor="middle" x="130" y="234">✗ Не функция (ветвление 1 → 2)</text>
+<circle cx="195" cy="95" fill="var(--bg-card, #0f172a)" r="12" stroke="#a855f7" stroke-width="1.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="700" text-anchor="middle" x="195" y="99">b₁</text>
+<circle cx="195" cy="140" fill="var(--bg-card, #0f172a)" r="12" stroke="#a855f7" stroke-width="1.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="700" text-anchor="middle" x="195" y="144">b₂</text>
+<circle cx="195" cy="185" fill="var(--bg-card, #0f172a)" r="12" stroke="#a855f7" stroke-width="1.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="700" text-anchor="middle" x="195" y="189">b₃</text>
+<!-- Arrows: branching from a1 -->
+<line marker-end="url(#dm6-arr-red)" stroke="#e11d48" stroke-width="2.2" x1="78" x2="180" y1="93" y2="93"></line>
+<line marker-end="url(#dm6-arr-red)" stroke="#e11d48" stroke-width="2.2" x1="78" x2="180" y1="98" y2="136"></line>
+<line marker-end="url(#dm6-arr-blue)" stroke="#38bdf8" stroke-width="1.8" x1="78" x2="180" y1="185" y2="185"></line>
+<text fill="#f43f5e" font-size="11.5" font-weight="700" text-anchor="middle" x="130" y="234">✗ Не функция (ветвление 1 → 2)</text>
 </g>
 <!-- Panel 2: Partial function -->
 <g transform="translate(300, 10)">
-<rect fill="var(--bg-paper)" height="250" rx="10" stroke="#d97706" stroke-width="1.8" width="260" x="0" y="0"></rect>
-<text fill="#d97706" font-size="13" font-weight="700" text-anchor="middle" x="130" y="24">2. Частичная функция</text>
-<text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="130" y="42">Однозначна, но из a₃ нет стрелки</text>
-<ellipse cx="65" cy="140" fill="var(--svg-set-a)" rx="36" ry="72" stroke="var(--svg-stroke-a)" stroke-width="1.5"></ellipse>
-<text fill="var(--svg-stroke-a)" font-size="12" font-weight="700" text-anchor="middle" x="65" y="60">A</text>
-<ellipse cx="195" cy="140" fill="var(--svg-set-b)" rx="36" ry="72" stroke="var(--svg-stroke-b)" stroke-width="1.5"></ellipse>
-<text fill="var(--svg-stroke-b)" font-size="12" font-weight="700" text-anchor="middle" x="195" y="60">B</text>
+<rect fill="var(--bg-card-alt, #1e293b)" height="250" rx="10" stroke="#f59e0b" stroke-width="1.8" width="260" x="0" y="0"></rect>
+<text fill="#f59e0b" font-size="13.5" font-weight="800" text-anchor="middle" x="130" y="25">2. Частичная функция</text>
+<text fill="var(--border-color, #94a3b8)" font-size="11" text-anchor="middle" x="130" y="43">Однозначна, но из a₃ нет стрелки</text>
+<!-- Set A envelope -->
+<ellipse cx="65" cy="140" fill="rgba(56, 189, 248, 0.12)" rx="36" ry="72" stroke="#38bdf8" stroke-width="1.5"></ellipse>
+<text fill="#38bdf8" font-size="13" font-weight="800" text-anchor="middle" x="65" y="60">A</text>
+<!-- Set B envelope -->
+<ellipse cx="195" cy="140" fill="rgba(168, 85, 247, 0.12)" rx="36" ry="72" stroke="#a855f7" stroke-width="1.5"></ellipse>
+<text fill="#a855f7" font-size="13" font-weight="800" text-anchor="middle" x="195" y="60">B</text>
 <!-- Nodes A -->
-<circle cx="65" cy="95" fill="var(--svg-node-fill)" r="12" stroke="var(--svg-stroke-a)" stroke-width="1.5"></circle>
-<text fill="var(--text-main)" font-size="11" text-anchor="middle" x="65" y="99">a₁</text>
-<circle cx="65" cy="140" fill="var(--svg-node-fill)" r="12" stroke="var(--svg-stroke-a)" stroke-width="1.5"></circle>
-<text fill="var(--text-main)" font-size="11" text-anchor="middle" x="65" y="144">a₂</text>
-<circle cx="65" cy="185" fill="#fef3c7" r="12" stroke="#d97706" stroke-dasharray="3,2" stroke-width="2"></circle>
-<text fill="#92400e" font-size="11" font-weight="700" text-anchor="middle" x="65" y="189">a₃</text>
+<circle cx="65" cy="95" fill="var(--bg-card, #0f172a)" r="12" stroke="#38bdf8" stroke-width="1.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="700" text-anchor="middle" x="65" y="99">a₁</text>
+<circle cx="65" cy="140" fill="var(--bg-card, #0f172a)" r="12" stroke="#38bdf8" stroke-width="1.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="700" text-anchor="middle" x="65" y="144">a₂</text>
+<circle cx="65" cy="185" fill="#fef3c7" r="12" stroke="#f59e0b" stroke-dasharray="3,2" stroke-width="2"></circle>
+<text fill="#92400e" font-size="11" font-weight="800" text-anchor="middle" x="65" y="189">a₃</text>
 <!-- Nodes B -->
-<circle cx="195" cy="95" fill="var(--svg-node-fill)" r="12" stroke="var(--svg-stroke-b)" stroke-width="1.5"></circle>
-<text fill="var(--text-main)" font-size="11" text-anchor="middle" x="195" y="99">b₁</text>
-<circle cx="195" cy="140" fill="var(--svg-node-fill)" r="12" stroke="var(--svg-stroke-b)" stroke-width="1.5"></circle>
-<text fill="var(--text-main)" font-size="11" text-anchor="middle" x="195" y="144">b₂</text>
-<circle cx="195" cy="185" fill="var(--svg-node-fill)" r="12" stroke="var(--svg-stroke-b)" stroke-width="1.5"></circle>
-<text fill="var(--text-main)" font-size="11" text-anchor="middle" x="195" y="189">b₃</text>
+<circle cx="195" cy="95" fill="var(--bg-card, #0f172a)" r="12" stroke="#a855f7" stroke-width="1.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="700" text-anchor="middle" x="195" y="99">b₁</text>
+<circle cx="195" cy="140" fill="var(--bg-card, #0f172a)" r="12" stroke="#a855f7" stroke-width="1.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="700" text-anchor="middle" x="195" y="144">b₂</text>
+<circle cx="195" cy="185" fill="var(--bg-card, #0f172a)" r="12" stroke="#a855f7" stroke-width="1.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="700" text-anchor="middle" x="195" y="189">b₃</text>
 <!-- Arrows -->
-<line marker-end="url(#arr-amber)" stroke="#d97706" stroke-width="2" x1="78" x2="180" y1="95" y2="95"></line>
-<line marker-end="url(#arr-amber)" stroke="#d97706" stroke-width="2" x1="78" x2="180" y1="140" y2="140"></line>
-<text fill="#d97706" font-size="11" font-weight="600" text-anchor="middle" x="130" y="234">◐ D(f) = {a₁, a₂} ⊂ A (не тотальна)</text>
+<line marker-end="url(#dm6-arr-amber)" stroke="#f59e0b" stroke-width="2" x1="78" x2="180" y1="95" y2="95"></line>
+<line marker-end="url(#dm6-arr-amber)" stroke="#f59e0b" stroke-width="2" x1="78" x2="180" y1="140" y2="140"></line>
+<text fill="#f59e0b" font-size="11.5" font-weight="700" text-anchor="middle" x="130" y="234">◐ D(f) = {a₁, a₂} ⊂ A (не тотальна)</text>
 </g>
 <!-- Panel 3: Total function (Mapping) -->
 <g transform="translate(585, 10)">
-<rect fill="var(--bg-paper)" height="250" rx="10" stroke="#059669" stroke-width="1.8" width="260" x="0" y="0"></rect>
-<text fill="#059669" font-size="13" font-weight="700" text-anchor="middle" x="130" y="24">3. Тотальная функция (Отображение)</text>
-<text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="130" y="42">Из каждого x ∈ A ровно 1 стрелка</text>
-<ellipse cx="65" cy="140" fill="var(--svg-set-a)" rx="36" ry="72" stroke="var(--svg-stroke-a)" stroke-width="1.5"></ellipse>
-<text fill="var(--svg-stroke-a)" font-size="12" font-weight="700" text-anchor="middle" x="65" y="60">A</text>
-<ellipse cx="195" cy="140" fill="var(--svg-set-b)" rx="36" ry="72" stroke="var(--svg-stroke-b)" stroke-width="1.5"></ellipse>
-<text fill="var(--svg-stroke-b)" font-size="12" font-weight="700" text-anchor="middle" x="195" y="60">B</text>
+<rect fill="var(--bg-card-alt, #1e293b)" height="250" rx="10" stroke="#10b981" stroke-width="1.8" width="260" x="0" y="0"></rect>
+<text fill="#10b981" font-size="13.5" font-weight="800" text-anchor="middle" x="130" y="25">3. Тотальная функция (Отображение)</text>
+<text fill="var(--border-color, #94a3b8)" font-size="11" text-anchor="middle" x="130" y="43">Из каждого x ∈ A ровно 1 стрелка</text>
+<!-- Set A envelope -->
+<ellipse cx="65" cy="140" fill="rgba(56, 189, 248, 0.12)" rx="36" ry="72" stroke="#38bdf8" stroke-width="1.5"></ellipse>
+<text fill="#38bdf8" font-size="13" font-weight="800" text-anchor="middle" x="65" y="60">A</text>
+<!-- Set B envelope -->
+<ellipse cx="195" cy="140" fill="rgba(168, 85, 247, 0.12)" rx="36" ry="72" stroke="#a855f7" stroke-width="1.5"></ellipse>
+<text fill="#a855f7" font-size="13" font-weight="800" text-anchor="middle" x="195" y="60">B</text>
 <!-- Nodes A -->
-<circle cx="65" cy="95" fill="var(--svg-node-fill)" r="12" stroke="var(--svg-stroke-a)" stroke-width="1.5"></circle>
-<text fill="var(--text-main)" font-size="11" text-anchor="middle" x="65" y="99">a₁</text>
-<circle cx="65" cy="140" fill="var(--svg-node-fill)" r="12" stroke="var(--svg-stroke-a)" stroke-width="1.5"></circle>
-<text fill="var(--text-main)" font-size="11" text-anchor="middle" x="65" y="144">a₂</text>
-<circle cx="65" cy="185" fill="var(--svg-node-fill)" r="12" stroke="var(--svg-stroke-a)" stroke-width="1.5"></circle>
-<text fill="var(--text-main)" font-size="11" text-anchor="middle" x="65" y="189">a₃</text>
+<circle cx="65" cy="95" fill="var(--bg-card, #0f172a)" r="12" stroke="#38bdf8" stroke-width="1.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="700" text-anchor="middle" x="65" y="99">a₁</text>
+<circle cx="65" cy="140" fill="var(--bg-card, #0f172a)" r="12" stroke="#38bdf8" stroke-width="1.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="700" text-anchor="middle" x="65" y="144">a₂</text>
+<circle cx="65" cy="185" fill="var(--bg-card, #0f172a)" r="12" stroke="#38bdf8" stroke-width="1.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="700" text-anchor="middle" x="65" y="189">a₃</text>
 <!-- Nodes B -->
-<circle cx="195" cy="95" fill="var(--svg-node-fill)" r="12" stroke="var(--svg-stroke-b)" stroke-width="1.5"></circle>
-<text fill="var(--text-main)" font-size="11" text-anchor="middle" x="195" y="99">b₁</text>
-<circle cx="195" cy="140" fill="var(--svg-node-fill)" r="12" stroke="var(--svg-stroke-b)" stroke-width="1.5"></circle>
-<text fill="var(--text-main)" font-size="11" text-anchor="middle" x="195" y="144">b₂</text>
-<circle cx="195" cy="185" fill="var(--svg-node-fill)" r="12" stroke="var(--svg-stroke-b)" stroke-width="1.5"></circle>
-<text fill="var(--text-main)" font-size="11" text-anchor="middle" x="195" y="189">b₃</text>
-<!-- Arrows -->
-<line marker-end="url(#arr-green)" stroke="#059669" stroke-width="2.2" x1="78" x2="180" y1="95" y2="95"></line>
-<line marker-end="url(#arr-green)" stroke="#059669" stroke-width="2.2" x1="78" x2="180" y1="140" y2="138"></line>
-<line marker-end="url(#arr-green)" stroke="#059669" stroke-width="2.2" x1="78" x2="180" y1="185" y2="144"></line>
-<text fill="#059669" font-size="11" font-weight="600" text-anchor="middle" x="130" y="234">✓ Отображение f : A → B</text>
+<circle cx="195" cy="95" fill="var(--bg-card, #0f172a)" r="12" stroke="#a855f7" stroke-width="1.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="700" text-anchor="middle" x="195" y="99">b₁</text>
+<circle cx="195" cy="140" fill="var(--bg-card, #0f172a)" r="12" stroke="#a855f7" stroke-width="1.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="700" text-anchor="middle" x="195" y="144">b₂</text>
+<circle cx="195" cy="185" fill="var(--bg-card, #0f172a)" r="12" stroke="#a855f7" stroke-width="1.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="700" text-anchor="middle" x="195" y="189">b₃</text>
+<!-- Arrows: total mapping -->
+<line marker-end="url(#dm6-arr-green)" stroke="#10b981" stroke-width="2.2" x1="78" x2="180" y1="95" y2="95"></line>
+<line marker-end="url(#dm6-arr-green)" stroke="#10b981" stroke-width="2.2" x1="78" x2="180" y1="140" y2="138"></line>
+<line marker-end="url(#dm6-arr-green)" stroke="#10b981" stroke-width="2.2" x1="78" x2="180" y1="185" y2="144"></line>
+<text fill="#10b981" font-size="11.5" font-weight="700" text-anchor="middle" x="130" y="234">✓ Отображение f : A → B</text>
 </g>
 </svg>
 <div class="figure-caption">
@@ -897,10 +903,10 @@ SOFTWARE.
 <div class="figure-card" id="fig-2-1">
 <svg aria-label="Четыре класса отображений на конечных множествах" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 860 285" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arr-green" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-green)"></path>
-</marker><marker id="arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1 L 10 5 L 0 9 z" fill="var(--svg-amber)"></path>
 </marker><marker id="arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"></path>
+</marker><marker id="arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1 L 10 5 L 0 9 z" fill="var(--svg-amber)"></path>
 </marker></defs>
 <!-- 1. Injection, not surjection -->
 <g transform="translate(12, 10)">
@@ -1087,10 +1093,10 @@ SOFTWARE.
 <div class="figure-card" id="fig-3-1">
 <svg aria-label="Схема композиции отображений f кружок g" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 840 245" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arr-green" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-green)"></path>
-</marker><marker id="arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1 L 10 5 L 0 9 z" fill="var(--svg-amber)"></path>
 </marker><marker id="arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"></path>
+</marker><marker id="arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1 L 10 5 L 0 9 z" fill="var(--svg-amber)"></path>
 </marker></defs>
 <rect fill="var(--bg-paper)" height="225" rx="10" stroke="var(--border-color)" stroke-width="1.5" width="820" x="10" y="10"></rect>
 <!-- Set A -->
@@ -1379,10 +1385,10 @@ SOFTWARE.
 <div class="figure-card" id="fig-4-1">
 <svg aria-label="Схема построения левого обратного отображения для инъекции" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 840 280" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arr-green" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-green)"></path>
-</marker><marker id="arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1 L 10 5 L 0 9 z" fill="var(--svg-amber)"></path>
 </marker><marker id="arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"></path>
+</marker><marker id="arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1 L 10 5 L 0 9 z" fill="var(--svg-amber)"></path>
 </marker></defs>
 <rect fill="var(--bg-paper)" height="260" rx="10" stroke="var(--border-color)" stroke-width="1.5" width="820" x="10" y="10"></rect>
 <text fill="var(--text-main)" font-size="13" font-weight="700" text-anchor="middle" x="420" y="30">Конструктивное построение левого обратного g : B → A для инъекции f : A → B (g ∘ f = id<tspan baseline-shift="sub" font-size="9.5">A</tspan>)</text>
@@ -1476,10 +1482,10 @@ SOFTWARE.
 <div class="figure-card" id="fig-4-2">
 <svg aria-label="Схема построения правого обратного отображения для сюръекции" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 840 280" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arr-green" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-green)"></path>
-</marker><marker id="arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1 L 10 5 L 0 9 z" fill="var(--svg-amber)"></path>
 </marker><marker id="arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"></path>
+</marker><marker id="arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1 L 10 5 L 0 9 z" fill="var(--svg-amber)"></path>
 </marker></defs>
 <rect fill="var(--bg-paper)" height="260" rx="10" stroke="var(--border-color)" stroke-width="1.5" width="820" x="10" y="10"></rect>
 <text fill="var(--text-main)" font-size="13" font-weight="700" text-anchor="middle" x="420" y="30">Конструктивное построение правого обратного g : B → A для сюръекции f : A → B (f ∘ g = id<tspan baseline-shift="sub" font-size="9.5">B</tspan>)</text>
@@ -1657,10 +1663,10 @@ SOFTWARE.
 <div class="figure-card" id="fig-5-1">
 <svg aria-label="Логическая схема связей между определениями 42-50 и теоремами 48, 49, 51" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 860 295" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arr-red" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-red)"></path>
-</marker><marker id="arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1 L 10 5 L 0 9 z" fill="var(--svg-amber)"></path>
 </marker><marker id="arr-green" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-green)"></path>
+</marker><marker id="arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1 L 10 5 L 0 9 z" fill="var(--svg-amber)"></path>
 </marker></defs>
 <rect fill="var(--bg-paper)" height="275" rx="10" stroke="var(--border-color)" stroke-width="1.5" width="840" x="10" y="10"></rect>
 <text fill="var(--text-main)" font-size="13.5" font-weight="800" text-anchor="middle" x="430" y="32">Логическая архитектура лекции: как из Теорем 48 и 49 выводится Теорема 51</text>

@@ -664,7 +664,7 @@ SOFTWARE.
           </div>
 </div></div>
 <div class="proof" data-proof="" id="proof-1">
-<div aria-label="Доказательство Доказательство теоремыДоказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Доказательство теоремы" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -672,10 +672,10 @@ SOFTWARE.
 </div>
 <div class="proof-idea" data-proof-idea="" id="idea-1">
 <div class="proof-label">Идея</div>
-<p>Прямое аналитическое доказательство утверждения (Доказательство теоремыДоказательство).</p>
+<p>Прямое аналитическое доказательство утверждения (Доказательство теоремы).</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-1">
-<div class="proof-label">Доказательство (Доказательство теоремыДоказательство)</div>
+<div class="proof-label">Доказательство (Доказательство теоремы)</div>
 <p>
             1. В ортонормированном базисе векторное произведение $[\mathbf{a}, \mathbf{b}]$ выражается через формальный символический определитель с разложением по первой строке:
             \[[\mathbf{a}, \mathbf{b}] = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \end{vmatrix} = (y_1 z_2 - z_1 y_2)\mathbf{i} - (x_1 z_2 - z_1 x_2)\mathbf{j} + (x_1 y_2 - y_1 x_2)\mathbf{k}\]
@@ -703,53 +703,57 @@ SOFTWARE.
 </div>
 <!-- SVG 1: Mixed Product & Parallelepiped -->
 <div class="diagram-container">
-<svg height="320" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 320" width="650">
+<svg height="320" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 320" width="650" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="arrow-green" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
-<path d="M0,0 L0,6 L8,3 z" fill="var(--svg-vec)"></path>
+<marker id="ag5-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
 </marker>
-<marker id="arrow-blue" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
-<path d="M0,0 L0,6 L8,3 z" fill="var(--svg-line-main)"></path>
+<marker id="ag5-arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-amber, #f59e0b)"></path>
 </marker>
-<marker id="arrow-orange" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
-<path d="M0,0 L0,6 L8,3 z" fill="var(--svg-line-sec)"></path>
+<marker id="ag5-arr-rose" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose, #f43f5e)"></path>
 </marker>
-<marker id="arrow-pink" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
-<path d="M0,0 L0,6 L8,3 z" fill="var(--svg-accent)"></path>
+<marker id="ag5-arr-purple" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-purple, #a855f7)"></path>
 </marker>
 </defs>
-<!-- Base Parallelogram Fill -->
-<polygon fill="var(--card-theorem-bg)" points="120,240 320,240 440,180 240,180" stroke="var(--border-color)" stroke-width="1.5"></polygon>
-<!-- Top Face Parallelogram Fill -->
-<polygon fill="var(--card-theorem-bg)" points="170,140 370,140 490,80 290,80" stroke="var(--border-color)" stroke-dasharray="4,4" stroke-width="1.5"></polygon>
-<!-- Edges of Parallelepiped -->
-<line stroke="var(--border-color)" stroke-width="1.5" x1="120" x2="170" y1="240" y2="140"></line>
-<line stroke="var(--border-color)" stroke-width="1.5" x1="320" x2="370" y1="240" y2="140"></line>
-<line stroke="var(--border-color)" stroke-width="1.5" x1="440" x2="490" y1="180" y2="80"></line>
-<line stroke="var(--border-color)" stroke-dasharray="4,4" stroke-width="1.5" x1="240" x2="290" y1="180" y2="80"></line>
-<!-- Vector a (along bottom edge) -->
-<line marker-end="url(#arrow-blue)" stroke="var(--svg-line-main)" stroke-width="3" x1="120" x2="320" y1="240" y2="240"></line>
-<text fill="var(--svg-line-main)" font-size="16" font-weight="700" x="210" y="265">a = (x₁, y₁, z₁)</text>
-<!-- Vector b (along depth edge) -->
-<line marker-end="url(#arrow-orange)" stroke="var(--svg-line-sec)" stroke-width="3" x1="120" x2="238" y1="240" y2="181"></line>
-<text fill="var(--svg-line-sec)" font-size="16" font-weight="700" x="150" y="195">b = (x₂, y₂, z₂)</text>
-<!-- Vector c (along slanted vertical edge) -->
-<line marker-end="url(#arrow-green)" stroke="var(--svg-vec)" stroke-width="3" x1="120" x2="168" y1="240" y2="144"></line>
-<text fill="var(--svg-vec)" font-size="16" font-weight="700" x="80" y="165">c = (x₃, y₃, z₃)</text>
-<!-- Cross Product [a, b] Normal Vector -->
-<line marker-end="url(#arrow-pink)" stroke="var(--svg-accent)" stroke-width="3" x1="120" x2="120" y1="240" y2="60"></line>
-<text fill="var(--svg-accent)" font-size="16" font-weight="700" x="30" y="55">[a, b] ⊥ (Основание)</text>
-<!-- Height h projection -->
-<line stroke="var(--svg-axis)" stroke-dasharray="3,3" stroke-width="2" x1="170" x2="170" y1="140" y2="240"></line>
-<text fill="var(--svg-axis)" font-size="14" font-weight="600" x="178" y="200">h = |c| cos θ</text>
-<circle cx="170" cy="240" fill="var(--svg-axis)" r="3"></circle>
-<!-- Base Origin Point -->
-<circle cx="120" cy="240" fill="var(--text-main)" r="5"></circle>
-<text fill="var(--text-main)" font-size="15" font-weight="700" x="95" y="255">O</text>
-<!-- Label for Volume -->
-<rect fill="var(--bg-card-alt)" height="60" rx="8" stroke="var(--border-color)" width="260" x="360" y="220"></rect>
-<text fill="var(--text-main)" font-size="14" font-weight="600" x="375" y="245">V = |⟨a, b, c⟩| = S_осн · h</text>
-<text fill="var(--accent-primary)" font-size="13" font-weight="600" x="375" y="267">Определитель матрицы 3×3</text>
+<!-- Parallelepiped faces -->
+<!-- Base plane O-A-B-C: O(110,250), A(320,250), B(430,200), C(220,200) -->
+<polygon fill="var(--accent-blue, #38bdf8)" fill-opacity="0.12" points="110,250 320,250 430,200 220,200" stroke="var(--border-color, #64748b)" stroke-width="1.5"></polygon>
+<!-- Top face: shifted by vector c (40, -130): O'(150,120), A'(360,120), B'(470,70), C'(260,70) -->
+<polygon fill="var(--accent-purple, #a855f7)" fill-opacity="0.10" points="150,120 360,120 470,70 260,70" stroke="var(--border-color, #64748b)" stroke-width="1.5"></polygon>
+<!-- Side faces edges -->
+<line stroke="var(--border-color, #64748b)" stroke-width="1.5" x1="320" x2="360" y1="250" y2="120"></line>
+<line stroke="var(--border-color, #64748b)" stroke-width="1.5" x1="430" x2="470" y1="200" y2="70"></line>
+<line stroke="var(--border-color, #64748b)" stroke-dasharray="4,3" stroke-width="1.5" x1="220" x2="260" y1="200" y2="70"></line>
+<!-- Vectors -->
+<!-- Vector a along base -->
+<line marker-end="url(#ag5-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="110" x2="315" y1="250" y2="250"></line>
+<text fill="var(--accent-blue, #38bdf8)" font-size="15" font-weight="700" x="210" y="272">a</text>
+<!-- Vector b along base -->
+<line marker-end="url(#ag5-arr-amber)" stroke="var(--accent-amber, #f59e0b)" stroke-width="3" x1="110" x2="216" y1="250" y2="202"></line>
+<text fill="var(--accent-amber, #f59e0b)" font-size="15" font-weight="700" x="150" y="215">b</text>
+<!-- Vector [a, b] perpendicular to base plane (straight up) -->
+<line marker-end="url(#ag5-arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3" x1="110" x2="110" y1="250" y2="60"></line>
+<text fill="var(--accent-rose, #f43f5e)" font-size="14" font-weight="700" x="25" y="55">[a, b] ⊥ осн.</text>
+<!-- Vector c (from O to O') -->
+<line marker-end="url(#ag5-arr-purple)" stroke="var(--accent-purple, #a855f7)" stroke-width="3" x1="110" x2="148" y1="250" y2="126"></line>
+<text fill="var(--accent-purple, #a855f7)" font-size="15" font-weight="700" x="108" y="160">c</text>
+<!-- Angle theta between [a, b] and c at O(110, 250) -->
+<path d="M 110 185 A 65 65 0 0 1 129.1 187.9" fill="none" stroke="var(--accent-amber, #f59e0b)" stroke-width="2"></path>
+<text fill="var(--accent-amber, #f59e0b)" font-size="14" font-weight="700" x="122" y="178">θ</text>
+<!-- Height h dropped from O'(150, 120) perpendicularly to base (dx=0, dy=130) -> H(150, 250) -->
+<line stroke="var(--accent-emerald, #10b981)" stroke-dasharray="4,3" stroke-width="2.5" x1="150" x2="150" y1="120" y2="250"></line>
+<path d="M 150 236 L 164 236 L 164 250" fill="none" stroke="var(--accent-emerald, #10b981)" stroke-width="1.4"></path>
+<text fill="var(--accent-emerald, #10b981)" font-size="15" font-weight="700" x="160" y="190">h = |c|·cos θ</text>
+<!-- Vertex O -->
+<circle cx="110" cy="250" fill="var(--text-main, #f3f4f6)" r="4.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="15" font-weight="700" x="95" y="265">O</text>
+<!-- Info card -->
+<rect fill="var(--bg-card-alt, #1e293b)" height="75" rx="10" stroke="var(--border-color, #334155)" stroke-width="1.2" width="265" x="370" y="225"></rect>
+<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="385" y="252">V = |(a, b, c)| = S_осн · h</text>
+<text fill="var(--accent-blue, #38bdf8)" font-size="13" font-weight="600" x="385" y="276">= |det [a; b; c]| (Определитель 3×3)</text>
 </svg>
 <div class="diagram-caption">Рис. 1. Геометрическая интерпретация смешанного произведения трех векторов как ориентированного объема параллелепипеда</div>
 </div>
@@ -800,48 +804,50 @@ SOFTWARE.
 </div></div>
 <!-- SVG 2: Vector Parametric Line -->
 <div class="diagram-container">
-<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650">
+<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="arrow-axis" markerheight="7" markerwidth="7" orient="auto" refx="5" refy="2.5">
-<path d="M0,0 L0,5 L7,2.5 z" fill="var(--svg-axis)"></path>
+<marker id="ag5-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
 </marker>
-<marker id="arrow-line-dir" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
-<path d="M0,0 L0,6 L8,3 z" fill="var(--svg-line-main)"></path>
+<marker id="ag5-arr-rose" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose, #f43f5e)"></path>
 </marker>
-<marker id="arrow-r0" markerheight="7" markerwidth="7" orient="auto" refx="5" refy="2.5">
-<path d="M0,0 L0,5 L7,2.5 z" fill="var(--accent-remark)"></path>
+<marker id="ag5-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
 </marker>
-<marker id="arrow-r" markerheight="7" markerwidth="7" orient="auto" refx="5" refy="2.5">
-<path d="M0,0 L0,5 L7,2.5 z" fill="var(--text-muted)"></path>
+<marker id="ag5-arr-green" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-emerald, #10b981)"></path>
 </marker>
-<marker id="arrow-green" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
-<path d="M0,0 L0,6 L8,3 z" fill="var(--svg-vec)"></path>
-</marker></defs>
-<!-- Coordinate Axes -->
-<line marker-end="url(#arrow-axis)" stroke="var(--svg-axis)" stroke-width="1.8" x1="50" x2="600" y1="250" y2="250"></line>
-<text fill="var(--svg-axis)" font-size="15" font-weight="700" x="590" y="275">X</text>
-<line marker-end="url(#arrow-axis)" stroke="var(--svg-axis)" stroke-width="1.8" x1="100" x2="100" y1="280" y2="30"></line>
-<text fill="var(--svg-axis)" font-size="15" font-weight="700" x="75" y="45">Y</text>
-<text fill="var(--svg-axis)" font-size="14" x="82" y="268">O</text>
-<!-- Line L (Extended) -->
-<line stroke="var(--border-color)" stroke-dasharray="3,3" stroke-width="2" x1="40" x2="570" y1="210" y2="70"></line>
-<text fill="var(--text-muted)" font-size="15" font-weight="700" x="575" y="68">L</text>
-<!-- Vector r0 to M0 -->
-<line marker-end="url(#arrow-r0)" stroke="var(--accent-remark)" stroke-width="2.5" x1="100" x2="220" y1="250" y2="162"></line>
-<circle cx="220" cy="162" fill="var(--accent-remark)" r="4.5"></circle>
-<text fill="var(--accent-remark)" font-size="15" font-weight="700" x="145" y="215">r₀</text>
-<text fill="var(--accent-remark)" font-size="15" font-weight="700" x="210" y="145">M₀(x₀, y₀)</text>
-<!-- Vector r to M -->
-<line marker-end="url(#arrow-r)" stroke="var(--text-muted)" stroke-dasharray="4,4" stroke-width="1.8" x1="100" x2="420" y1="250" y2="109"></line>
-<circle cx="420" cy="109" fill="var(--svg-line-main)" r="4.5"></circle>
-<text fill="var(--text-muted)" font-size="14" font-weight="600" x="270" y="195">r</text>
-<text fill="var(--svg-line-main)" font-size="15" font-weight="700" x="425" y="105">M(x, y)</text>
-<!-- Segment M0 M on Line representing t*a -->
-<line marker-end="url(#arrow-line-dir)" stroke="var(--svg-line-main)" stroke-width="3.5" x1="220" x2="416" y1="162" y2="110"></line>
-<text fill="var(--svg-line-main)" font-size="15" font-weight="700" x="290" y="125">t · a</text>
-<!-- Free Direction Vector a shown parallel -->
-<line marker-end="url(#arrow-green)" stroke="var(--svg-vec)" stroke-width="2.5" x1="330" x2="430" y1="60" y2="34"></line>
-<text fill="var(--svg-vec)" font-size="14" font-weight="700" x="370" y="40">a (направляющий)</text>
+</defs>
+<!-- Axes -->
+<line marker-end="url(#ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="60" x2="600" y1="250" y2="250"></line>
+<text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="595" y="270">X</text>
+<line marker-end="url(#ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="100" x2="100" y1="275" y2="35"></line>
+<text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="85" y="45">Y</text>
+<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="85" y="268">O</text>
+<!-- Line L (slope = -0.4) -->
+<line stroke="var(--border-color, #cbd5e1)" stroke-width="2.5" x1="50" x2="590" y1="220" y2="60"></line>
+<text fill="var(--border-color, #cbd5e1)" font-size="16" font-weight="800" x="595" y="65">L</text>
+<!-- Origin O(100, 250) -->
+<circle cx="100" cy="250" fill="var(--text-main, #f3f4f6)" r="4.5"></circle>
+<!-- Point M0(200, 175) on line L -->
+<circle cx="200" cy="175" fill="var(--accent-rose, #f43f5e)" r="5"></circle>
+<text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="700" x="195" y="155">M₀(x₀, y₀)</text>
+<!-- Radius-vector r0: O -> M0 -->
+<line marker-end="url(#ag5-arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="2.5" x1="100" x2="195" y1="250" y2="178"></line>
+<text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="700" x="130" y="225">r₀</text>
+<!-- Point M(450, 100) on line L -->
+<circle cx="450" cy="100" fill="var(--accent-emerald, #10b981)" r="5"></circle>
+<text fill="var(--accent-emerald, #10b981)" font-size="15" font-weight="700" x="455" y="95">M(x, y)</text>
+<!-- Vector t·a from M0 to M: exactly closes triangle! -->
+<line marker-end="url(#ag5-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="200" x2="443" y1="175" y2="102"></line>
+<text fill="var(--accent-blue, #38bdf8)" font-size="15" font-weight="700" x="310" y="128">t · a</text>
+<!-- Resultant radius-vector r: O -> M -->
+<line marker-end="url(#ag5-arr-green)" stroke="var(--accent-emerald, #10b981)" stroke-width="2.5" x1="100" x2="444" y1="250" y2="103"></line>
+<text fill="var(--accent-emerald, #10b981)" font-size="16" font-weight="700" x="260" y="205">r = r₀ + t·a</text>
+<!-- Direction vector a banner -->
+<line marker-end="url(#ag5-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="380" x2="460" y1="45" y2="21"></line>
+<text fill="var(--accent-blue, #38bdf8)" font-size="14" font-weight="700" x="470" y="35">a (направляющий)</text>
 </svg>
 <div class="diagram-caption">Рис. 2. Геометрическая структура векторно-параметрического уравнения прямой на плоскости</div>
 </div>
@@ -940,32 +946,36 @@ SOFTWARE.
 </div></div>
 <!-- SVG 3: Intercept form -->
 <div class="diagram-container">
-<svg height="280" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 280" width="650">
+<svg height="280" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 280" width="650" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="arrow-axis-2" markerheight="7" markerwidth="7" orient="auto" refx="5" refy="2.5">
-<path d="M0,0 L0,5 L7,2.5 z" fill="var(--svg-axis)"></path>
+<marker id="ag5-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
 </marker>
 </defs>
 <!-- Axes -->
-<line marker-end="url(#arrow-axis-2)" stroke="var(--svg-axis)" stroke-width="1.8" x1="80" x2="580" y1="230" y2="230"></line>
-<text fill="var(--svg-axis)" font-size="15" font-weight="700" x="570" y="255">X</text>
-<line marker-end="url(#arrow-axis-2)" stroke="var(--svg-axis)" stroke-width="1.8" x1="160" x2="160" y1="260" y2="30"></line>
-<text fill="var(--svg-axis)" font-size="15" font-weight="700" x="135" y="45">Y</text>
-<text fill="var(--svg-axis)" font-size="14" x="142" y="248">O</text>
-<!-- Intercept Triangle Shading -->
-<polygon fill="var(--card-example-bg)" points="160,230 160,80 400,230" stroke="none"></polygon>
-<!-- Straight Line Cutting Axes -->
-<line stroke="var(--accent-example)" stroke-width="3" x1="100" x2="460" y1="42" y2="268"></line>
-<!-- Point (a, 0) -->
-<circle cx="400" cy="230" fill="var(--accent-example)" r="5"></circle>
-<text fill="var(--accent-example)" font-size="16" font-weight="700" x="395" y="255">a (a, 0)</text>
-<!-- Point (0, b) -->
-<circle cx="160" cy="80" fill="var(--accent-example)" r="5"></circle>
-<text fill="var(--accent-example)" font-size="16" font-weight="700" x="120" y="85">b (0, b)</text>
-<!-- Formula callout on diagram -->
-<rect fill="var(--bg-card-alt)" height="60" rx="8" stroke="var(--border-color)" width="220" x="330" y="70"></rect>
-<text fill="var(--text-main)" font-size="16" font-weight="700" x="350" y="98">x / a + y / b = 1</text>
-<text fill="var(--text-muted)" font-size="13" x="350" y="118">S_треуг = ½ |a · b|</text>
+<line marker-end="url(#ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="80" x2="580" y1="230" y2="230"></line>
+<text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="575" y="250">X</text>
+<line marker-end="url(#ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="150" x2="150" y1="260" y2="30"></line>
+<text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="135" y="40">Y</text>
+<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="132" y="248">O</text>
+<!-- Shaded triangle O A B -->
+<polygon fill="var(--accent-blue, #38bdf8)" fill-opacity="0.15" points="150,230 430,230 150,70" stroke="none"></polygon>
+<!-- Right angle marker at O -->
+<path d="M 150 216 L 164 216 L 164 230" fill="none" stroke="var(--border-color, #64748b)" stroke-width="1.5"></path>
+<!-- Line L through A and B -->
+<line stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="100" x2="480" y1="41" y2="259"></line>
+<!-- Intercept point A(a, 0) on X -->
+<circle cx="430" cy="230" fill="var(--accent-amber, #f59e0b)" r="5"></circle>
+<text fill="var(--accent-amber, #f59e0b)" font-size="15" font-weight="700" x="425" y="255">A(a, 0)</text>
+<text fill="var(--accent-amber, #f59e0b)" font-size="14" font-weight="700" x="280" y="248">отрезок a</text>
+<!-- Intercept point B(0, b) on Y -->
+<circle cx="150" cy="70" fill="var(--accent-rose, #f43f5e)" r="5"></circle>
+<text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="700" x="80" y="75">B(0, b)</text>
+<text fill="var(--accent-rose, #f43f5e)" font-size="14" font-weight="700" x="158" y="155">отрезок b</text>
+<!-- Equation card -->
+<rect fill="var(--bg-card-alt, #1e293b)" height="80" rx="10" stroke="var(--border-color, #334155)" stroke-width="1.2" width="280" x="310" y="70"></rect>
+<text fill="var(--accent-blue, #38bdf8)" font-size="18" font-weight="800" x="330" y="102">x/a + y/b = 1</text>
+<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="600" x="330" y="132">Площадь: S = ½ · |a · b|</text>
 </svg>
 <div class="diagram-caption">Рис. 3. Геометрическая иллюстрация уравнения прямой в отрезках на осях координат</div>
 </div>
@@ -1004,7 +1014,7 @@ SOFTWARE.
             </p>
 </div></div>
 <div class="proof" data-proof="" id="proof-2">
-<div aria-label="Доказательство Доказательство теоремы 1Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Доказательство теоремы 1" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1015,7 +1025,7 @@ SOFTWARE.
 <p>Выберем на прямой две произвольные различные точки $M(x_0, y_0)$ и $N(x_1, y_1)$ ($M \ne N$).</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-2">
-<div class="proof-label">Доказательство (Доказательство теоремы 1Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Доказательство теоремы 1)</div>
 <p>
               Выберем на прямой две произвольные различные точки $M(x_0, y_0)$ и $N(x_1, y_1)$ ($M \ne N$). Так как обе точки принадлежат данной прямой, их координаты удовлетворяют общему уравнению:
               \[\begin{cases} A x_0 + B y_0 + C = 0 \\ A x_1 + B y_1 + C = 0 \end{cases}\]
@@ -1072,43 +1082,42 @@ SOFTWARE.
 </div></div>
 <!-- SVG 4: Normal Vector Direction Cosines -->
 <div class="diagram-container">
-<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650">
+<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="arrow-n" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
-<path d="M0,0 L0,6 L8,3 z" fill="var(--accent-primary)"></path>
+<marker id="ag5-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
 </marker>
-<marker id="arrow-axis" markerheight="7" markerwidth="7" orient="auto" refx="5" refy="2.5">
-<path d="M0,0 L0,5 L7,2.5 z" fill="var(--svg-axis)"></path>
-</marker></defs>
+<marker id="ag5-arr-n" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
+</marker>
+</defs>
 <!-- Axes -->
-<line marker-end="url(#arrow-axis)" stroke="var(--svg-axis)" stroke-width="1.8" x1="80" x2="580" y1="240" y2="240"></line>
-<text fill="var(--svg-axis)" font-size="15" font-weight="700" x="575" y="265">X</text>
-<line marker-end="url(#arrow-axis)" stroke="var(--svg-axis)" stroke-width="1.8" x1="160" x2="160" y1="270" y2="30"></line>
-<text fill="var(--svg-axis)" font-size="15" font-weight="700" x="135" y="45">Y</text>
-<text fill="var(--svg-axis)" font-size="14" x="142" y="258">O</text>
-<!-- Normal Vector n = (A, B) -->
-<line marker-end="url(#arrow-n)" stroke="var(--accent-primary)" stroke-width="3" x1="160" x2="420" y1="240" y2="100"></line>
-<circle cx="420" cy="100" fill="var(--accent-primary)" r="4.5"></circle>
-<text fill="var(--accent-primary)" font-size="16" font-weight="700" x="430" y="95">n = (A, B)</text>
-<!-- Projections on Axes -->
-<line stroke="var(--svg-axis)" stroke-dasharray="3,3" stroke-width="1.5" x1="420" x2="420" y1="100" y2="240"></line>
-<line stroke="var(--svg-axis)" stroke-dasharray="3,3" stroke-width="1.5" x1="420" x2="160" y1="100" y2="100"></line>
-<circle cx="420" cy="240" fill="var(--svg-axis)" r="3.5"></circle>
-<circle cx="160" cy="100" fill="var(--svg-axis)" r="3.5"></circle>
-<text fill="var(--text-main)" font-size="14" font-weight="600" x="415" y="260">A</text>
-<text fill="var(--text-main)" font-size="14" font-weight="600" x="140" y="105">B</text>
-<!-- Angle alpha with X-axis -->
-<path d="M 230,240 A 70,70 0 0,0 220,208" fill="none" stroke="var(--accent-example)" stroke-width="2.5"></path>
-<text fill="var(--accent-example)" font-size="15" font-weight="700" x="238" y="222">α</text>
-<!-- Angle beta with Y-axis -->
-<path d="M 160,180 A 60,60 0 0,0 195,195" fill="none" stroke="var(--accent-def)" stroke-width="2.5"></path>
-<text fill="var(--accent-def)" font-size="15" font-weight="700" x="175" y="170">β</text>
-<!-- Hypotenuse / Magnitude Label -->
-<text fill="var(--accent-primary)" font-size="14" font-weight="600" x="270" y="145">|n| = √(A² + B²)</text>
-<!-- Cosine Formulas Box -->
-<rect fill="var(--bg-card-alt)" height="75" rx="8" stroke="var(--border-color)" width="190" x="440" y="150"></rect>
-<text fill="var(--text-main)" font-size="14" x="455" y="178">p = cos α = A / |n|</text>
-<text fill="var(--text-main)" font-size="14" x="455" y="206">q = cos β = B / |n|</text>
+<line marker-end="url(#ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="80" x2="580" y1="240" y2="240"></line>
+<text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="585" y="245">X</text>
+<line marker-end="url(#ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="160" x2="160" y1="270" y2="30"></line>
+<text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="150" y="22">Y</text>
+<circle cx="160" cy="240" fill="var(--text-main, #f3f4f6)" r="4.5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="142" y="258">O</text>
+<!-- Vector n = (A, B) = (220, -140) from O(160, 240) to (380, 100) -->
+<line marker-end="url(#ag5-arr-n)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3.2" x1="160" x2="374" y1="240" y2="104"></line>
+<text fill="var(--accent-blue, #38bdf8)" font-size="16" font-weight="800" x="385" y="100">n = (A, B)</text>
+<!-- Orthogonal projections to axes -->
+<line stroke="var(--border-color, #64748b)" stroke-dasharray="4,3" stroke-width="1.5" x1="380" x2="380" y1="100" y2="240"></line>
+<line stroke="var(--border-color, #64748b)" stroke-dasharray="4,3" stroke-width="1.5" x1="380" x2="160" y1="100" y2="100"></line>
+<circle cx="380" cy="240" fill="var(--accent-blue, #38bdf8)" r="4"></circle>
+<text fill="var(--accent-blue, #38bdf8)" font-size="14" font-weight="700" x="375" y="260">A</text>
+<circle cx="160" cy="100" fill="var(--accent-blue, #38bdf8)" r="4"></circle>
+<text fill="var(--accent-blue, #38bdf8)" font-size="14" font-weight="700" x="135" y="105">B</text>
+<!-- Circular arc for alpha with X-axis (R=70, center (160, 240)) -->
+<path d="M 230 240 A 70 70 0 0 0 221.6 206.8" fill="none" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.5"></path>
+<text fill="var(--accent-amber, #f59e0b)" font-size="15" font-weight="700" x="240" y="225">α</text>
+<!-- Circular arc for beta with Y-axis (R=60, center (160, 240)) -->
+<path d="M 160 180 A 60 60 0 0 1 212.8 211.5" fill="none" stroke="var(--accent-rose, #f43f5e)" stroke-width="2.5"></path>
+<text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="700" x="180" y="170">β</text>
+<!-- Formula plate -->
+<rect fill="var(--bg-card-alt, #1e293b)" height="75" rx="8" stroke="var(--border-color, #334155)" stroke-width="1.2" width="200" x="430" y="145"></rect>
+<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="600" x="445" y="172">p = cos α = A / |n|</text>
+<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="600" x="445" y="198">q = cos β = B / |n|</text>
 </svg>
 <div class="diagram-caption">Рис. 4. Направляющие косинусы нормального вектора в прямоугольной системе координат</div>
 </div>
@@ -1131,7 +1140,7 @@ SOFTWARE.
           </div>
 </div></div>
 <div class="proof" data-proof="" id="proof-3">
-<div aria-label="Доказательство Строгое аналитико-геометрическое доказательствоДоказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое аналитико-геометрическое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1139,10 +1148,10 @@ SOFTWARE.
 </div>
 <div class="proof-idea" data-proof-idea="" id="idea-3">
 <div class="proof-label">Идея</div>
-<p>Прямое аналитическое доказательство утверждения (Строгое аналитико-геометрическое доказательствоДоказательство).</p>
+<p>Прямое аналитическое доказательство утверждения (Строгое аналитико-геометрическое).</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-3">
-<div class="proof-label">Доказательство (Строгое аналитико-геометрическое доказательствоДоказательство)</div>
+<div class="proof-label">Доказательство (Строгое аналитико-геометрическое)</div>
 <p>
 <strong>Шаг 1. Геометрическая проекция на нормаль.</strong><br/>
             Пусть $N(x_1, y_1)$ — <em>произвольная</em> точка, лежащая на прямой $L$. Поскольку прямая ортогональна своему нормальному вектору $\mathbf{n} = (A, B)$, расстояние $\rho(M_0, L)$ от точки $M_0$ до прямой в точности равно модулю ортогональной проекции вектора «наклонной» $\overrightarrow{M_0 N}$ на направление вектора нормали $\mathbf{n}$:
@@ -1181,44 +1190,43 @@ SOFTWARE.
 </div>
 <!-- SVG 5: Distance from point to line -->
 <div class="diagram-container">
-<svg height="320" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 320" width="650">
+<svg height="320" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 320" width="680" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="arrow-norm-2" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
-<path d="M0,0 L0,6 L8,3 z" fill="var(--accent-theorem)"></path>
+<marker id="ag5-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
 </marker>
-<marker id="arrow-hyp" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
-<path d="M0,0 L0,6 L8,3 z" fill="var(--accent-remark)"></path>
+<marker id="ag5-arr-purple" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-purple, #a855f7)"></path>
 </marker>
-<marker id="arrow-green" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
-<path d="M0,0 L0,6 L8,3 z" fill="var(--svg-vec)"></path>
-</marker></defs>
-<!-- Line L -->
-<line stroke="var(--svg-line-main)" stroke-width="2.5" x1="50" x2="590" y1="280" y2="170"></line>
-<text fill="var(--svg-line-main)" font-size="15" font-weight="700" x="600" y="175">L: Ax + By + C = 0</text>
+</defs>
+<!-- Line L: Ax + By + C = 0 (direction (4, -1)) -->
+<line stroke="var(--border-color, #94a3b8)" stroke-width="2.5" x1="50" x2="610" y1="262.5" y2="122.5"></line>
+<text fill="var(--text-main, #f3f4f6)" font-size="15" font-weight="700" x="470" y="115">L: Ax + By + C = 0</text>
+<!-- Normal vector n = (A, B) = (-25, -100): strictly orthogonal to (4, -1) (dot product zero!) -->
+<line marker-end="url(#ag5-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="120" x2="95" y1="245" y2="145"></line>
+<text fill="var(--accent-blue, #38bdf8)" font-size="15" font-weight="700" x="50" y="140">n = (A, B)</text>
+<path d="M 133.58 241.61 L 130.19 228.03 L 116.61 231.42" fill="none" stroke="var(--accent-blue, #38bdf8)" stroke-width="1.2"></path>
 <!-- Point M0(x0, y0) -->
-<circle cx="280" cy="60" fill="var(--accent-example)" r="5"></circle>
-<text fill="var(--accent-example)" font-size="16" font-weight="700" x="285" y="55">M₀(x₀, y₀)</text>
-<!-- Point N on line -->
-<circle cx="450" cy="198" fill="var(--svg-axis)" r="4.5"></circle>
-<text fill="var(--text-main)" font-size="15" font-weight="600" x="460" y="215">N(x₁, y₁) ∈ L</text>
-<!-- Vector M0 N (Slanted line) -->
-<line marker-end="url(#arrow-hyp)" stroke="var(--accent-remark)" stroke-dasharray="4,4" stroke-width="2" x1="280" x2="444" y1="60" y2="194"></line>
-<text fill="var(--accent-remark)" font-size="14" font-weight="600" x="380" y="125">M₀N (наклонная)</text>
-<!-- Foot of perpendicular H -->
-<circle cx="240" cy="242" fill="var(--accent-theorem)" r="4.5"></circle>
-<text fill="var(--accent-theorem)" font-size="14" font-weight="600" x="235" y="265">H</text>
-<!-- Altitude / Distance line M0 H -->
-<line stroke="var(--accent-theorem)" stroke-width="3" x1="280" x2="240" y1="60" y2="242"></line>
-<text fill="var(--accent-theorem)" font-size="16" font-weight="700" x="235" y="150">ρ(M₀, L)</text>
-<!-- Right-angle marker at H -->
-<path d="M 248,206 L 284,214 L 276,250" fill="none" stroke="var(--accent-theorem)" stroke-width="1.5"></path>
-<!-- Normal vector from line -->
-<line marker-end="url(#arrow-green)" stroke="var(--accent-def)" stroke-width="2.5" x1="160" x2="198" y1="258" y2="70"></line>
-<text fill="var(--accent-def)" font-size="15" font-weight="700" x="140" y="110">n = (A, B)</text>
-<!-- Projection bracket / callout -->
-<rect fill="var(--bg-card-alt)" height="55" rx="8" stroke="var(--border-color)" width="260" x="360" y="240"></rect>
-<text fill="var(--text-main)" font-size="13" font-weight="600" x="375" y="263">ρ(M₀, L) = |pr_n M₀N|</text>
-<text fill="var(--accent-primary)" font-size="13" font-weight="600" x="375" y="283">= |Ax₀ + By₀ + C| / √(A² + B²)</text>
+<circle cx="180" cy="60" fill="var(--accent-amber, #f59e0b)" r="5.5"></circle>
+<text fill="var(--accent-amber, #f59e0b)" font-size="16" font-weight="700" text-anchor="middle" x="180" y="42">M₀(x₀, y₀)</text>
+<!-- Base H(220, 220) on line L -->
+<circle cx="220" cy="220" fill="var(--accent-emerald, #10b981)" r="4.5"></circle>
+<text fill="var(--accent-emerald, #10b981)" font-size="15" font-weight="700" x="210" y="245">H</text>
+<!-- Perpendicular segment M0 H (distance rho(M0, L)) strictly parallel to n -->
+<line stroke="var(--accent-emerald, #10b981)" stroke-width="3" x1="180" x2="220" y1="60" y2="220"></line>
+<text fill="var(--accent-emerald, #10b981)" font-size="15" font-weight="700" x="145" y="150">ρ(M₀, L)</text>
+<!-- Exact aligned right angle square at H -->
+<path d="M 235.52 216.12 L 231.64 200.60 L 216.12 204.48" fill="none" stroke="var(--accent-emerald, #10b981)" stroke-width="1.5"></path>
+<!-- Point N(x1, y1) on line L -->
+<circle cx="440" cy="165" fill="var(--text-main, #f3f4f6)" r="5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="15" font-weight="700" x="445" y="190">N(x₁, y₁) ∈ L</text>
+<!-- Slanted vector M0 N -->
+<line marker-end="url(#ag5-arr-purple)" stroke="var(--accent-purple, #a855f7)" stroke-dasharray="5,4" stroke-width="2.5" x1="180" x2="433" y1="60" y2="162"></line>
+<text fill="var(--accent-purple, #a855f7)" font-size="14" font-weight="600" x="340" y="98">M₀N (наклонная)</text>
+<!-- Formula plate -->
+<rect fill="var(--bg-card-alt, #1e293b)" height="70" rx="10" stroke="var(--border-color, #334155)" stroke-width="1.2" width="310" x="340" y="225"></rect>
+<text fill="var(--text-main, #f3f4f6)" font-size="13" font-weight="700" x="355" y="252">ρ(M₀, L) = |pr_n M₀N|</text>
+<text fill="var(--accent-blue, #38bdf8)" font-size="13" font-weight="600" x="355" y="275">= |Ax₀ + By₀ + C| / √(A² + B²)</text>
 </svg>
 <div class="diagram-caption">Рис. 5. Вывод формулы расстояния через ортогональное проецирование наклонной на вектор нормали прямой</div>
 </div>
@@ -1274,35 +1282,39 @@ SOFTWARE.
 </div></div>
 <!-- SVG 6: Angle between lines -->
 <div class="diagram-container">
-<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650"><defs><marker id="arrow-axis" markerheight="7" markerwidth="7" orient="auto" refx="5" refy="2.5">
-<path d="M0,0 L0,5 L7,2.5 z" fill="var(--svg-axis)"></path>
-</marker></defs>
+<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ag5-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
+</marker>
+</defs>
 <!-- Axes -->
-<line marker-end="url(#arrow-axis)" stroke="var(--svg-axis)" stroke-width="1.8" x1="50" x2="600" y1="230" y2="230"></line>
-<text fill="var(--svg-axis)" font-size="15" font-weight="700" x="590" y="255">X</text>
-<line marker-end="url(#arrow-axis)" stroke="var(--svg-axis)" stroke-width="1.8" x1="120" x2="120" y1="270" y2="30"></line>
-<text fill="var(--svg-axis)" font-size="15" font-weight="700" x="95" y="45">Y</text>
-<text fill="var(--svg-axis)" font-size="14" x="105" y="248">O</text>
-<!-- Line L1 -->
-<line stroke="var(--svg-line-main)" stroke-width="2.5" x1="60" x2="520" y1="275" y2="45"></line>
-<text fill="var(--svg-line-main)" font-size="15" font-weight="700" x="530" y="55">L₁: y = k₁x + b₁</text>
-<!-- Line L2 -->
-<line stroke="var(--svg-line-sec)" stroke-width="2.5" x1="280" x2="460" y1="275" y2="30"></line>
-<text fill="var(--svg-line-sec)" font-size="15" font-weight="700" x="470" y="35">L₂: y = k₂x + b₂</text>
-<!-- Angle phi 1 -->
-<path d="M 220,230 A 40,40 0 0,0 205,202" fill="none" stroke="var(--svg-line-main)" stroke-width="2.2"></path>
-<text fill="var(--svg-line-main)" font-size="15" font-weight="700" x="215" y="210">φ₁</text>
-<!-- Angle phi 2 -->
-<path d="M 370,230 A 40,40 0 0,0 348,187" fill="none" stroke="var(--svg-line-sec)" stroke-width="2.2"></path>
-<text fill="var(--svg-line-sec)" font-size="15" font-weight="700" x="360" y="200">φ₂</text>
-<!-- Angle gamma between lines -->
-<circle cx="428" cy="91" fill="var(--text-main)" r="4.5"></circle>
-<path d="M 405,103 A 30,30 0 0,0 415,125" fill="none" stroke="var(--accent-proof)" stroke-width="2.5"></path>
-<text fill="var(--accent-proof)" font-size="16" font-weight="700" x="390" y="130">γ</text>
-<!-- Callout Theorem text -->
-<rect fill="var(--bg-card-alt)" height="70" rx="8" stroke="var(--border-color)" width="220" x="50" y="60"></rect>
-<text fill="var(--text-main)" font-size="14" font-weight="600" x="65" y="85">Внешний угол: φ₂ = φ₁ + γ</text>
-<text fill="var(--accent-proof)" font-size="14" font-weight="700" x="65" y="105">γ = φ₂ − φ₁</text>
+<line marker-end="url(#ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="50" x2="600" y1="230" y2="230"></line>
+<text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="590" y="255">X</text>
+<line marker-end="url(#ag5-arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="100" x2="100" y1="270" y2="30"></line>
+<text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="85" y="45">Y</text>
+<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="85" y="248">O</text>
+<!-- Line L1 (slope -0.5, passes through (180, 230) and (380, 130)) -->
+<line stroke="var(--accent-blue, #38bdf8)" stroke-width="2.5" x1="100" x2="520" y1="270" y2="60"></line>
+<text fill="var(--accent-blue, #38bdf8)" font-size="15" font-weight="700" x="525" y="65">L₁: y = k₁x + b₁</text>
+<!-- Line L2 (slope -1.25, passes through (300, 230) and (380, 130)) -->
+<line stroke="var(--accent-amber, #f59e0b)" stroke-width="2.5" x1="268" x2="450" y1="270" y2="42.5"></line>
+<text fill="var(--accent-amber, #f59e0b)" font-size="15" font-weight="700" x="455" y="40">L₂: y = k₂x + b₂</text>
+<!-- Intersection vertex (380, 130) -->
+<circle cx="380" cy="130" fill="var(--accent-purple, #a855f7)" r="5"></circle>
+<!-- Circular arc for phi1 at (180, 230) -->
+<path d="M 225 230 A 45 45 0 0 0 220.2 209.9" fill="none" stroke="var(--accent-blue, #38bdf8)" stroke-width="2.2"></path>
+<text fill="var(--accent-blue, #38bdf8)" font-size="15" font-weight="700" x="232" y="218">φ₁</text>
+<!-- Circular arc for phi2 at (300, 230) -->
+<path d="M 340 230 A 40 40 0 0 0 325 198.8" fill="none" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.2"></path>
+<text fill="var(--accent-amber, #f59e0b)" font-size="15" font-weight="700" x="345" y="210">φ₂</text>
+<!-- Circular arc for gamma at (380, 130) -->
+<path d="M 348.7 145.7 A 35 35 0 0 0 358.1 157.3" fill="none" stroke="var(--accent-purple, #a855f7)" stroke-width="2.5"></path>
+<text fill="var(--accent-purple, #a855f7)" font-size="16" font-weight="700" x="335" y="170">γ</text>
+<!-- Plate -->
+<rect fill="var(--bg-card-alt, #1e293b)" height="70" rx="8" stroke="var(--border-color, #334155)" stroke-width="1.2" width="230" x="40" y="60"></rect>
+<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="600" x="55" y="85">Внешний угол: φ₂ = φ₁ + γ</text>
+<text fill="var(--accent-purple, #a855f7)" font-size="14" font-weight="700" x="55" y="108">γ = φ₂ − φ₁</text>
 </svg>
 <div class="diagram-caption">Рис. 6. Геометрическая схема вычисления угла между прямыми по теореме о внешнем угле треугольника</div>
 </div>

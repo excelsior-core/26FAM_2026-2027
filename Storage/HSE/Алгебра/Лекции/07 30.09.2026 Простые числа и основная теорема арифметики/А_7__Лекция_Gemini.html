@@ -673,7 +673,7 @@ SOFTWARE.
         </div>
 </div></div>
 <div class="proof" data-proof="" id="proof-1">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -681,10 +681,10 @@ SOFTWARE.
 </div>
 <div class="proof-idea" data-proof-idea="" id="idea-1">
 <div class="proof-label">Идея</div>
-<p>Прямое аналитическое доказательство утверждения (Строгое доказательство).</p>
+<p>Прямое аналитическое доказательство утверждения (Строгое).</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-1">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details open="">
 <summary>Доказательство теоремы о делении с остатком</summary>
@@ -755,7 +755,7 @@ SOFTWARE.
         </p>
 </div></div>
 <div class="proof" data-proof="" id="proof-3">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -766,7 +766,7 @@ SOFTWARE.
 <p>Шаг 1: Существование общих кратных.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-3">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details open="">
 <summary>Полное доказательство теоремы существования и единственности НОК</summary>
@@ -817,36 +817,27 @@ SOFTWARE.
 <!-- Иллюстрация связи НОД и НОК -->
 <div class="svg-wrapper">
 <figure class="figure-plate"><svg height="240" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 600 240" width="600" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<lineargradient id="gradA" x1="0%" x2="100%" y1="0%" y2="100%">
-<stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35"></stop>
-<stop offset="100%" stop-color="#0284c7" stop-opacity="0.2"></stop>
-</lineargradient>
-<lineargradient id="gradB" x1="0%" x2="100%" y1="0%" y2="100%">
-<stop offset="0%" stop-color="#34d399" stop-opacity="0.35"></stop>
-<stop offset="100%" stop-color="#059669" stop-opacity="0.2"></stop>
-</lineargradient>
-<lineargradient id="gradIntersection" x1="0%" x2="100%" y1="0%" y2="100%">
-<stop offset="0%" stop-color="#c084fc" stop-opacity="0.6"></stop>
-<stop offset="100%" stop-color="#7c3aed" stop-opacity="0.5"></stop>
-</lineargradient>
-<clippath id="clipLeft">
-<circle cx="230" cy="120" r="85"></circle>
-</clippath>
-</defs>
-<!-- Круги мульти-множеств простых сомножителей -->
-<circle cx="230" cy="120" fill="url(#gradA)" r="85" stroke="var(--accent-blue, #38bdf8)" stroke-width="2.5"></circle>
-<circle cx="370" cy="120" fill="url(#gradB)" r="85" stroke="var(--accent-emerald, #10b981)" stroke-width="2.5"></circle>
-<!-- Пересечение (НОД) -->
-<circle clip-path="url(#clipLeft)" cx="370" cy="120" fill="url(#gradIntersection)" r="85"></circle>
-<!-- Текстовые метки и формулы -->
-<text fill="var(--accent-blue, #38bdf8)" font-size="15" font-weight="700" text-anchor="middle" x="180" y="125">a / (a, b)</text>
-<text fill="var(--accent-emerald, #10b981)" font-size="15" font-weight="700" text-anchor="middle" x="420" y="125">b / (a, b)</text>
-<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" text-anchor="middle" x="300" y="112">НОД (a, b)</text>
-<text fill="var(--accent-purple, #c084fc)" font-size="13" font-weight="600" text-anchor="middle" x="300" y="132">∏ pᵢ^min(αᵢ, βᵢ)</text>
-<!-- Подписи множеств -->
-<text fill="var(--accent-blue, #38bdf8)" font-size="14" font-weight="700" text-anchor="middle" x="170" y="25">Число a</text>
-<text fill="var(--accent-emerald, #10b981)" font-size="14" font-weight="700" text-anchor="middle" x="430" y="25">Число b</text>
+<!-- Фон / рамка карточки -->
+<rect fill="var(--bg-card-alt, #1e293b)" height="240" rx="12" stroke="var(--border-color, #334155)" stroke-width="1.2" width="600" x="0" y="0"></rect>
+<!-- Заголовок -->
+<text fill="var(--text-main, #f3f4f6)" font-size="15" font-weight="800" text-anchor="middle" x="300" y="30">Взаимная простота редуцированных чисел a/(a,b) и b/(a,b)</text>
+<!-- Круг A (число a): центр (230, 120), R=75 -->
+<circle cx="230" cy="120" fill="var(--accent-blue, #38bdf8)" fill-opacity="0.18" r="75" stroke="var(--accent-blue, #38bdf8)" stroke-width="2.2"></circle>
+<!-- Круг B (число b): центр (370, 120), R=75 -->
+<circle cx="370" cy="120" fill="var(--accent-amber, #f59e0b)" fill-opacity="0.18" r="75" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.2"></circle>
+<!-- Левая область a/(a,b) -->
+<text fill="var(--accent-blue, #38bdf8)" font-size="16" font-weight="800" text-anchor="middle" x="180" y="115">a / (a, b)</text>
+<text fill="var(--text-main, #f3f4f6)" font-size="12" font-weight="600" text-anchor="middle" x="180" y="135">pᵢ^(αᵢ - min)</text>
+<!-- Правая область b/(a,b) -->
+<text fill="var(--accent-amber, #f59e0b)" font-size="16" font-weight="800" text-anchor="middle" x="420" y="115">b / (a, b)</text>
+<text fill="var(--text-main, #f3f4f6)" font-size="12" font-weight="600" text-anchor="middle" x="420" y="135">pᵢ^(βᵢ - min)</text>
+<!-- Пересечение НОД (a, b) -->
+<text fill="var(--accent-emerald, #10b981)" font-size="15" font-weight="800" text-anchor="middle" x="300" y="105">НОД (a, b)</text>
+<text fill="var(--accent-emerald, #10b981)" font-size="14" font-weight="700" text-anchor="middle" x="300" y="125">∏ pᵢ^min(αᵢ, βᵢ)</text>
+<text fill="var(--text-main, #f3f4f6)" font-size="11" font-weight="600" text-anchor="middle" x="300" y="145">Общие делители</text>
+<!-- Подписи кругов сверху -->
+<text fill="var(--accent-blue, #38bdf8)" font-size="14" font-weight="700" text-anchor="middle" x="170" y="55">Число a</text>
+<text fill="var(--accent-amber, #f59e0b)" font-size="14" font-weight="700" text-anchor="middle" x="430" y="55">Число b</text>
 <!-- Разделитель и формула НОК -->
 <line stroke="var(--border-color, #4b5563)" stroke-dasharray="4,4" stroke-width="1.5" x1="140" x2="460" y1="212" y2="212"></line>
 <text fill="var(--text-main, #f3f4f6)" font-size="13" font-weight="700" text-anchor="middle" x="300" y="230">Объединение (НОК): [a, b] = ∏ pᵢ^max(αᵢ, βᵢ)  ⟹  (a, b) · [a, b] = a · b</text>
@@ -854,7 +845,7 @@ SOFTWARE.
 <span class="svg-caption">Рис. 2.1. Теоретико-множественная интерпретация связи НОД и НОК через мультимножества простых сомножителей</span>
 </div>
 <div class="proof" data-proof="" id="proof-5">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -865,7 +856,7 @@ SOFTWARE.
 <p>Обозначим $d = (a, b)$ и $m = [a, b]$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-5">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details open="">
 <summary>Доказательство 1 (Классическое лекционное через отношение делимости)</summary>
@@ -901,7 +892,7 @@ SOFTWARE.
 </div>
 </div>
 <div class="proof" data-proof="" id="proof-7">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -912,7 +903,7 @@ SOFTWARE.
 <p>Пусть $a = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k}$ и $b = p_1^{\beta_1} p_2^{\beta_2} \cdots p_k^{\beta_k}$, где $\alpha_i, \beta_i \ge 0$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-7">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details>
 <summary>Доказательство 2 (Конструктивное через показатели канонического разложения)</summary>
@@ -950,7 +941,7 @@ SOFTWARE.
 </ol>
 </div>
 <div class="proof" data-proof="" id="proof-9">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -963,7 +954,7 @@ SOFTWARE.
             База доказана.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-9">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details>
 <summary>Доказательство свойства однородности НОК (индукция по $n$)</summary>
@@ -1032,7 +1023,7 @@ SOFTWARE.
         </div>
 </div>
 <div class="proof" data-proof="" id="proof-11">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1043,7 +1034,7 @@ SOFTWARE.
 <p>Необходимость ($\implies$): Пусть $(a_1, \dots, a_n) = 1$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-11">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details open="">
 <summary>Полное доказательство критерия взаимной простоты</summary>
@@ -1076,7 +1067,7 @@ SOFTWARE.
 </ol>
 </div>
 <div class="proof" data-proof="" id="proof-13">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1084,10 +1075,10 @@ SOFTWARE.
 </div>
 <div class="proof-idea" data-proof-idea="" id="idea-13">
 <div class="proof-label">Идея</div>
-<p>Прямое аналитическое доказательство утверждения (Строгое доказательство).</p>
+<p>Прямое аналитическое доказательство утверждения (Строгое).</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-13">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details open="">
 <summary>Развёрнутые доказательства всех четырех свойств (из лекции)</summary>
@@ -1196,7 +1187,7 @@ SOFTWARE.
         </p>
 </div>
 <div class="proof" data-proof="" id="proof-15">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1209,7 +1200,7 @@ SOFTWARE.
             Это множество не пусто, так как $n \mid n$ и $n > 1$, следовательно, $n \in D$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-15">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details open="">
 <summary>Доказательство предложения о наименьшем делителе</summary>
@@ -1236,7 +1227,7 @@ SOFTWARE.
         </div>
 </div></div>
 <div class="proof" data-proof="" id="proof-17">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1249,7 +1240,7 @@ SOFTWARE.
             Предположим от противного, что $a > \sqrt{n}$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-17">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details open="">
 <summary>Доказательство оценки $p \le \sqrt{n}$</summary>
@@ -1293,7 +1284,7 @@ SOFTWARE.
         </div>
 </div></div>
 <div class="proof" data-proof="" id="proof-19">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1301,10 +1292,10 @@ SOFTWARE.
 </div>
 <div class="proof-idea" data-proof-idea="" id="idea-19">
 <div class="proof-label">Идея</div>
-<p>Прямое аналитическое доказательство утверждения (Строгое доказательство).</p>
+<p>Прямое аналитическое доказательство утверждения (Строгое).</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-19">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details open="">
 <summary>Доказательство леммы Евклида</summary>
@@ -1453,7 +1444,7 @@ SOFTWARE.
         </p>
 </div></div>
 <div class="proof" data-proof="" id="proof-21">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1464,7 +1455,7 @@ SOFTWARE.
 <p>База индукции ($n = 2$): Число $2$ является простым по определению, поэтому $2 = 2$ — искомое разложение (состоящее из одного сомножителя).</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-21">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details open="">
 <summary>Часть 1: Доказательство существования (метод сильной индукции по $n$)</summary>
@@ -1492,7 +1483,7 @@ SOFTWARE.
 </div>
 </div>
 <div class="proof" data-proof="" id="proof-23">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1503,7 +1494,7 @@ SOFTWARE.
 <p>Индукция по числу $n$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-23">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details open="">
 <summary>Часть 2: Доказательство единственности (метод индукции через лемму Евклида)</summary>
@@ -1539,7 +1530,7 @@ SOFTWARE.
 </div>
 </div>
 <div class="proof" data-proof="" id="proof-25">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1550,7 +1541,7 @@ SOFTWARE.
 <p>Это изящное альтернативное доказательство (приводимое в монографии А.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-25">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details>
 <summary>Альтернативное доказательство единственности (метод наименьшего контрпримера / бесконечный спуск)</summary>
@@ -1613,7 +1604,7 @@ SOFTWARE.
         </div>
 </div></div>
 <div class="proof" data-proof="" id="proof-27">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1624,7 +1615,7 @@ SOFTWARE.
 <p>Необходимость ($\implies$): Пусть $d \mid n$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-27">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details open="">
 <summary>Полное доказательство теоремы о виде делителя</summary>
@@ -1660,7 +1651,7 @@ SOFTWARE.
         </div>
 </div></div>
 <div class="proof" data-proof="" id="proof-29">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1668,10 +1659,10 @@ SOFTWARE.
 </div>
 <div class="proof-idea" data-proof-idea="" id="idea-29">
 <div class="proof-label">Идея</div>
-<p>Прямое аналитическое доказательство утверждения (Строгое доказательство).</p>
+<p>Прямое аналитическое доказательство утверждения (Строгое).</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-29">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details open="">
 <summary>Полное доказательство формул для НОД и НОК</summary>
@@ -1793,7 +1784,7 @@ SOFTWARE.
         </p>
 </div></div>
 <div class="proof" data-proof="" id="proof-31">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1804,7 +1795,7 @@ SOFTWARE.
 <p>Предположим от противного, что множество простых чисел конечно.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-31">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details open="">
 <summary>Доказательство 1: Классическое доказательство Евклида (от противного)</summary>
@@ -1830,7 +1821,7 @@ SOFTWARE.
 </div>
 </div>
 <div class="proof" data-proof="" id="proof-33">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1841,7 +1832,7 @@ SOFTWARE.
 <p>Докажем ключевую лемму: для любого натурального $n > 1$ между $n$ и $n!$ существует хотя бы одно простое число $p$ ($n < p \le n!$).</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-33">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details open="">
 <summary>Доказательство 2: Аналитическое через факториал $M = n! - 1$</summary>
@@ -1876,7 +1867,7 @@ SOFTWARE.
 </div>
 </div>
 <div class="proof" data-proof="" id="proof-35">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1891,7 +1882,7 @@ SOFTWARE.
             - База $n = 1$: $F_0 = 2^1 + 1 = 3$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-35">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details>
 <summary>Доказательство 3: Метод взаимной простоты чисел Ферма (метод Пойа)</summary>
@@ -1923,7 +1914,7 @@ SOFTWARE.
         </p>
 </div>
 <div class="proof" data-proof="" id="proof-37">
-<div aria-label="Доказательство Строгое доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство Строгое" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1931,10 +1922,10 @@ SOFTWARE.
 </div>
 <div class="proof-idea" data-proof-idea="" id="idea-37">
 <div class="proof-label">Идея</div>
-<p>Прямое аналитическое доказательство утверждения (Строгое доказательство).</p>
+<p>Прямое аналитическое доказательство утверждения (Строгое).</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-37">
-<div class="proof-label">Доказательство (Строгое доказательство)</div>
+<div class="proof-label">Доказательство (Строгое)</div>
 <div class="proof-content">
 <details open="">
 <summary>Конструктивное доказательство существования отрезка составных чисел</summary>

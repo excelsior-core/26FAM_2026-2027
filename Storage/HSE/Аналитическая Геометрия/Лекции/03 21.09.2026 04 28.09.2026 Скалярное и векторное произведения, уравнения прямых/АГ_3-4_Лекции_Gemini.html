@@ -727,7 +727,7 @@ SOFTWARE.
         <em>Правило:</em> чтобы найти координаты вектора, необходимо из координат его конца вычесть соответствующие координаты его начала.
       </div></div>
 <div class="proof" data-proof="" id="proof-1">
-<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство утверждения 1" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -735,10 +735,10 @@ SOFTWARE.
 </div>
 <div class="proof-idea" data-proof-idea="" id="idea-1">
 <div class="proof-label">Идея</div>
-<p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
+<p>Прямое аналитическое доказательство утверждения (утверждения 1).</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-1">
-<div class="proof-label">Доказательство (Доказательство)</div>
+<div class="proof-label">Доказательство (утверждения 1)</div>
     
 
         Рассмотрим замкнутый треугольник $OAB$. По определению сложения векторов (правило треугольника):
@@ -805,36 +805,37 @@ SOFTWARE.
 <path d="M 8.5 1.5 L 0 5 L 8.5 8.5 z" fill="var(--accent-amber, #f59e0b)"></path>
 </marker>
 </defs>
-<!-- Прямая L (базовая ось) -->
-<line stroke="var(--border-color, #4b5563)" stroke-dasharray="4,4" stroke-width="1.5" x1="30" x2="650" y1="50" y2="50"></line>
+<!-- Прямая линия (ось) -->
+<line stroke="var(--border-color, #4b5563)" stroke-dasharray="6,6" stroke-width="2" x1="40" x2="640" y1="90" y2="90"></line>
 <!-- Основной отрезок AB -->
-<line stroke="var(--accent-blue, #38bdf8)" stroke-linecap="round" stroke-width="4.5" x1="140" x2="380" y1="50" y2="50"></line>
-<!-- Вертикальные маркерные линии проекций -->
-<line stroke="var(--border-color, #374151)" stroke-dasharray="2,3" stroke-width="1" x1="140" x2="140" y1="42" y2="200"></line>
-<line stroke="var(--border-color, #374151)" stroke-dasharray="2,3" stroke-width="1" x1="380" x2="380" y1="42" y2="200"></line>
-<line stroke="var(--border-color, #374151)" stroke-dasharray="2,3" stroke-width="1" x1="300" x2="300" y1="42" y2="120"></line>
-<line stroke="var(--border-color, #374151)" stroke-dasharray="2,3" stroke-width="1" x1="540" x2="540" y1="42" y2="200"></line>
-<!-- Точки A, B, M1, M2 -->
-<circle cx="140" cy="50" fill="var(--text-main, #f3f4f6)" r="5.5"></circle>
-<text fill="var(--text-main, #f3f4f6)" font-size="15" font-weight="700" text-anchor="middle" x="140" y="32">A</text>
-<circle cx="380" cy="50" fill="var(--text-main, #f3f4f6)" r="5.5"></circle>
-<text fill="var(--text-main, #f3f4f6)" font-size="15" font-weight="700" text-anchor="middle" x="380" y="32">B</text>
-<circle cx="300" cy="50" fill="var(--accent-emerald, #10b981)" r="5.5"></circle>
-<text fill="var(--accent-emerald, #10b981)" font-size="15" font-weight="700" text-anchor="middle" x="300" y="32">M₁</text>
-<circle cx="540" cy="50" fill="var(--accent-rose, #f43f5e)" r="5.5"></circle>
-<text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="700" text-anchor="middle" x="540" y="32">M₂</text>
-<!-- 1. Внутреннее деление: M1 -->
-<text fill="var(--accent-emerald, #10b981)" font-size="12" font-weight="700" x="50" y="84">Внутреннее деление: M₁ (k = λ/μ &gt; 0, векторы сонаправлены)</text>
-<line marker-end="url(#arr-green)" stroke="var(--accent-emerald, #10b981)" stroke-width="2.5" x1="140" x2="292" y1="102" y2="102"></line>
-<text fill="var(--accent-emerald, #10b981)" font-size="12" font-weight="600" text-anchor="middle" x="216" y="97">AM₁ →</text>
-<line marker-end="url(#arr-green)" stroke="var(--accent-emerald, #10b981)" stroke-width="2.5" x1="300" x2="372" y1="102" y2="102"></line>
-<text fill="var(--accent-emerald, #10b981)" font-size="12" font-weight="600" text-anchor="middle" x="338" y="97">M₁B →</text>
-<!-- 2. Внешнее деление: M2 -->
-<text fill="var(--accent-rose, #f43f5e)" font-size="12" font-weight="700" x="50" y="136">Внешнее деление: M₂ (k = λ/μ &lt; 0, векторы противоположно направлены)</text>
-<line marker-end="url(#arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="2.5" x1="140" x2="532" y1="154" y2="154"></line>
-<text fill="var(--accent-rose, #f43f5e)" font-size="12" font-weight="600" text-anchor="middle" x="340" y="148">AM₂ → (вдоль L)</text>
-<line marker-start="url(#arr-amber-rev)" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.5" x1="388" x2="540" y1="180" y2="180"></line>
-<text fill="var(--accent-amber, #f59e0b)" font-size="12" font-weight="600" text-anchor="middle" x="464" y="198">← M₂B (направлен противоположно, k = λ/μ &lt; 0)</text>
+<line stroke="var(--accent-blue, #38bdf8)" stroke-width="4.5" x1="160" x2="420" y1="90" y2="90"></line>
+<!-- Точки на прямой: A(160), M1(290), B(420), M2(560) -->
+<circle cx="160" cy="90" fill="var(--text-main, #f3f4f6)" r="6"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="16" font-weight="800" text-anchor="middle" x="160" y="65">A</text>
+<circle cx="290" cy="90" fill="var(--accent-emerald, #10b981)" r="6"></circle>
+<text fill="var(--accent-emerald, #10b981)" font-size="16" font-weight="800" text-anchor="middle" x="290" y="65">M₁</text>
+<circle cx="420" cy="90" fill="var(--text-main, #f3f4f6)" r="6"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="16" font-weight="800" text-anchor="middle" x="420" y="65">B</text>
+<circle cx="560" cy="90" fill="var(--accent-rose, #f43f5e)" r="6"></circle>
+<text fill="var(--accent-rose, #f43f5e)" font-size="16" font-weight="800" text-anchor="middle" x="560" y="65">M₂</text>
+<!-- Подписи деления -->
+<text fill="var(--accent-emerald, #10b981)" font-size="13" font-weight="700" text-anchor="middle" x="225" y="115">Внутреннее деление (k &gt; 0)</text>
+<text fill="var(--accent-rose, #f43f5e)" font-size="13" font-weight="700" text-anchor="middle" x="490" y="115">Внешнее деление (k &lt; 0)</text>
+<!-- Векторы для внутреннего деления M1: AM1 и M1B сонаправлены -->
+<!-- AM1: 160 -> 285 -->
+<line marker-end="url(#arr-green)" stroke="var(--accent-emerald, #10b981)" stroke-width="2.5" x1="160" x2="282" y1="140" y2="140"></line>
+<text fill="var(--accent-emerald, #10b981)" font-size="12" font-weight="600" text-anchor="middle" x="220" y="158">AM₁</text>
+<!-- M1B: 290 -> 415 -->
+<line marker-end="url(#arr-green)" stroke="var(--accent-emerald, #10b981)" stroke-width="2.5" x1="290" x2="412" y1="140" y2="140"></line>
+<text fill="var(--accent-emerald, #10b981)" font-size="12" font-weight="600" text-anchor="middle" x="355" y="158">M₁B</text>
+<text fill="var(--accent-emerald, #10b981)" font-size="11.5" font-weight="600" text-anchor="middle" x="290" y="180">AM₁ ↑↑ M₁B  ⟹  k = λ/μ &gt; 0</text>
+<!-- Векторы для внешнего деления M2: AM2 и M2B противоположно направлены -->
+<!-- AM2: 160 -> 555 на уровне y=195 -->
+<line marker-end="url(#arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="2" x1="160" x2="552" y1="195" y2="195"></line>
+<text fill="var(--accent-rose, #f43f5e)" font-size="12" font-weight="600" text-anchor="middle" x="360" y="212">AM₂ (вправо)</text>
+<!-- M2B: стрелка влево от 560 к 420 -->
+<line marker-start="url(#arr-amber-rev)" stroke="var(--accent-amber, #f59e0b)" stroke-width="2" x1="428" x2="560" y1="140" y2="140"></line>
+<text fill="var(--accent-amber, #f59e0b)" font-size="12" font-weight="600" text-anchor="middle" x="490" y="158">M₂B (влево)</text>
 </svg>
 </div>
 <figcaption>Рис. 2. Деление отрезка $AB$: внутреннее положение точки $M_1$ ($\lambda/\mu > 0$) и внешнее положение $M_2$ ($\lambda/\mu < 0$).</figcaption>
@@ -928,48 +929,38 @@ SOFTWARE.
 <!-- РИСУНОК 3: Ортогональная проекция вектора a на ось e1 -->
 <figure>
 <div class="svg-container">
-<svg height="240" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 540 240" width="540" xmlns="http://www.w3.org/2000/svg">
+<svg height="230" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 540 230" width="540" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="arr-slate" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="arr-axis-3" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
 </marker>
-<marker id="arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="arr-a-3" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
 </marker>
-<marker id="arr-rose" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose, #f43f5e)"></path>
-</marker>
 </defs>
-<!-- Координатные оси X, Y, Z -->
-<line marker-end="url(#arr-slate)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="60" x2="490" y1="180" y2="180"></line>
-<text fill="var(--border-color, #94a3b8)" font-size="14" font-weight="700" x="495" y="185">X</text>
-<line marker-end="url(#arr-slate)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="60" x2="60" y1="180" y2="25"></line>
-<text fill="var(--border-color, #94a3b8)" font-size="14" font-weight="700" x="55" y="18">Z</text>
-<line marker-end="url(#arr-slate)" stroke="var(--border-color, #64748b)" stroke-width="1.5" x1="60" x2="165" y1="180" y2="228"></line>
-<text fill="var(--border-color, #94a3b8)" font-size="14" font-weight="700" x="170" y="232">Y</text>
-<!-- Базисный вектор e1 -->
-<line marker-end="url(#arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3.5" x1="60" x2="142" y1="180" y2="180"></line>
-<text fill="var(--accent-blue, #38bdf8)" font-size="14" font-weight="700" x="100" y="170">e₁</text>
-<!-- Вектор a -->
-<line marker-end="url(#arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3" x1="60" x2="322" y1="180" y2="64"></line>
-<text fill="var(--accent-rose, #f43f5e)" font-size="16" font-weight="700" x="180" y="105">a</text>
-<!-- Прямоугольная проекция на ось Ox -->
-<line stroke="var(--border-color, #64748b)" stroke-dasharray="4,4" stroke-width="1.8" x1="330" x2="330" y1="60" y2="180"></line>
-<!-- Квадрат прямого угла -->
-<path d="M 315 180 L 315 165 L 330 165" fill="none" stroke="var(--border-color, #64748b)" stroke-width="1.5"></path>
-<!-- Отрезок катета OP (проекция pr_e1 a) -->
-<line stroke="var(--accent-emerald, #10b981)" stroke-width="3" x1="60" x2="330" y1="180" y2="180"></line>
-<text fill="var(--accent-emerald, #10b981)" font-size="13" font-weight="700" x="195" y="202">OP = pr_{e₁} a = |a| cos φ</text>
-<!-- ТОЧНАЯ КРУГОВАЯ ДУГА УГЛА φ (R=50, центр O(60, 180)) -->
-<!-- Vector a has dx=270, dy=-120, unit=(0.9138, -0.4061). End=(60+50*0.9138, 180-50*0.4061)=(105.7, 159.7) -->
-<path d="M 110 180 A 50 50 0 0 0 105.7 159.7" fill="none" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.2"></path>
-<text fill="var(--accent-amber, #f59e0b)" font-size="14" font-weight="700" x="118" y="172">φ</text>
-<circle cx="60" cy="180" fill="var(--text-main, #f3f4f6)" r="4.5"></circle>
-<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="45" y="195">O</text>
-<circle cx="330" cy="60" fill="var(--text-main, #f3f4f6)" r="4.5"></circle>
-<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="338" y="55">A</text>
-<circle cx="330" cy="180" fill="var(--text-main, #f3f4f6)" r="4.5"></circle>
-<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="338" y="195">P</text>
+<!-- Оси: Z (вертикально) и X (вправо) -->
+<line marker-end="url(#arr-axis-3)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="60" x2="500" y1="190" y2="190"></line>
+<text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="505" y="195">X</text>
+<line marker-end="url(#arr-axis-3)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="60" x2="60" y1="210" y2="30"></line>
+<text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="45" y="40">Z</text>
+<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="45" y="208">O</text>
+<!-- Вектор a: от (60, 190) к (260, 60) -->
+<line marker-end="url(#arr-a-3)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="60" x2="254" y1="190" y2="64"></line>
+<text fill="var(--accent-blue, #38bdf8)" font-size="16" font-weight="700" x="145" y="115">a</text>
+<!-- Проекция на ось X: точка (260, 190) -->
+<line stroke="var(--border-color, #64748b)" stroke-dasharray="4,3" stroke-width="1.5" x1="260" x2="260" y1="60" y2="190"></line>
+<circle cx="260" cy="190" fill="var(--accent-emerald, #10b981)" r="4.5"></circle>
+<text fill="var(--accent-emerald, #10b981)" font-size="14" font-weight="700" x="245" y="212">a_x</text>
+<!-- Проекция вектор-отрезок на оси X -->
+<line stroke="var(--accent-emerald, #10b981)" stroke-width="3.5" x1="60" x2="252" y1="190" y2="190"></line>
+<text fill="var(--accent-emerald, #10b981)" font-size="13" font-weight="700" x="130" y="210">pr_x a = |a| cos φ</text>
+<!-- Дуга угла phi (центр (60, 190), R=50, от (110, 190) к (105.7, 159.7)) -->
+<path d="M 110 190 A 50 50 0 0 0 105.7 159.7" fill="none" stroke="var(--accent-amber, #f59e0b)" stroke-width="2"></path>
+<text fill="var(--accent-amber, #f59e0b)" font-size="15" font-weight="700" x="120" y="175">φ</text>
+<!-- Карточка формулы -->
+<rect fill="var(--bg-card-alt, #1e293b)" height="70" rx="8" stroke="var(--border-color, #334155)" stroke-width="1.2" width="200" x="310" y="60"></rect>
+<text fill="var(--text-main, #f3f4f6)" font-size="13.5" font-weight="700" x="325" y="88">pr_L a = |a| · cos φ</text>
+<text fill="var(--accent-blue, #38bdf8)" font-size="13" font-weight="600" x="325" y="112">(a, e) = |a| cos φ</text>
 </svg>
 </div>
 <figcaption>Рис. 3. Проекция вектора $\vec{a}$ на ось базисного вектора $\vec{e}_1$: прямоугольный треугольник $OAP$ и катет $OP$.</figcaption>
@@ -1026,7 +1017,7 @@ SOFTWARE.
         \[(\vec{a}(x_1, y_1, z_1), \, \vec{b}(x_2, y_2, z_2)) = x_1 x_2 + y_1 y_2 + z_1 z_2\]
       </div></div>
 <div class="proof" data-proof="" id="proof-5">
-<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство утверждения 5" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1034,10 +1025,10 @@ SOFTWARE.
 </div>
 <div class="proof-idea" data-proof-idea="" id="idea-5">
 <div class="proof-label">Идея</div>
-<p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
+<p>Прямое аналитическое доказательство утверждения (утверждения 5).</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-5">
-<div class="proof-label">Доказательство (Доказательство)</div>
+<div class="proof-label">Доказательство (утверждения 5)</div>
     
 
         Подставим разложения векторов по ОНБ $\{\vec{e}_1, \vec{e}_2, \vec{e}_3\}$ и раскроем скобки в силу билинейности:
@@ -1074,39 +1065,48 @@ SOFTWARE.
 <!-- РИСУНОК 4: Правая тройка векторов -->
 <figure>
 <div class="svg-container">
-<svg height="240" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 520 240" width="520" xmlns="http://www.w3.org/2000/svg">
+<svg height="240" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 500 240" width="500" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="arr-purple" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-purple, #a855f7)"></path>
-</marker>
-<marker id="arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="arr-axis-4" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
 </marker>
-<marker id="arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-amber, #f59e0b)"></path>
-</marker>
-<marker id="arr-arc" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
+<marker id="arr-c-4" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose, #f43f5e)"></path>
 </marker>
+<marker id="arr-b-4" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-amber, #f59e0b)"></path>
+</marker>
+<marker id="arr-rot-4" markerheight="5" markerwidth="5" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-amber, #f59e0b)"></path>
+</marker>
 </defs>
-<!-- Вектор c (направлен вверх) -->
-<line marker-end="url(#arr-purple)" stroke="var(--accent-purple, #a855f7)" stroke-width="3.5" x1="160" x2="160" y1="180" y2="48"></line>
-<text fill="var(--accent-purple, #a855f7)" font-size="16" font-weight="700" x="140" y="42">c</text>
-<!-- Векторы a и b в плоскости основания -->
-<line marker-end="url(#arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3.5" x1="160" x2="372" y1="180" y2="195"></line>
-<text fill="var(--accent-blue, #38bdf8)" font-size="16" font-weight="700" x="382" y="200">a</text>
-<line marker-end="url(#arr-amber)" stroke="var(--accent-amber, #f59e0b)" stroke-width="3.5" x1="160" x2="304" y1="180" y2="124"></line>
-<text fill="var(--accent-amber, #f59e0b)" font-size="16" font-weight="700" x="316" y="120">b</text>
-<!-- Дуга кратчайшего поворота a -> b -->
-<path d="M 270 187 A 110 50 0 0 0 242 145" fill="none" marker-end="url(#arr-arc)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3"></path>
-<text fill="var(--accent-rose, #f43f5e)" font-size="13" font-weight="700" x="275" y="155">Кратчайший поворот</text>
-<text fill="var(--accent-rose, #f43f5e)" font-size="11" font-weight="600" x="275" y="170">(против часовой стрелки)</text>
-<!-- Стилизованный глаз наблюдателя у вершины c -->
-<path d="M 145 22 Q 160 12 175 22 Q 160 32 145 22 Z" fill="none" stroke="var(--accent-blue, #38bdf8)" stroke-width="1.8"></path>
-<circle cx="160" cy="22" fill="var(--accent-blue, #38bdf8)" r="3.5"></circle>
-<text fill="var(--text-muted, #94a3b8)" font-size="12" font-weight="600" x="185" y="26">Взгляд с конца вектора c</text>
-<circle cx="160" cy="180" fill="var(--text-main, #f3f4f6)" r="5"></circle>
-<text fill="var(--text-main, #f3f4f6)" font-size="15" font-weight="700" x="145" y="198">O</text>
+<!-- Начало O -->
+<circle cx="120" cy="170" fill="var(--text-main, #f3f4f6)" r="5"></circle>
+<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="100" y="185">O</text>
+<!-- Вектор a: (120, 170) -> (300, 170) -->
+<line marker-end="url(#arr-axis-4)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="120" x2="294" y1="170" y2="170"></line>
+<text fill="var(--accent-blue, #38bdf8)" font-size="16" font-weight="700" x="210" y="195">a</text>
+<!-- Вектор b: (120, 170) -> (210, 110) -->
+<line marker-end="url(#arr-b-4)" stroke="var(--accent-amber, #f59e0b)" stroke-width="3" x1="120" x2="204" y1="170" y2="114"></line>
+<text fill="var(--accent-amber, #f59e0b)" font-size="16" font-weight="700" x="150" y="125">b</text>
+<!-- Вектор c = [a, b]: строго вверх (120, 170) -> (120, 40) -->
+<line marker-end="url(#arr-c-4)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3.2" x1="120" x2="120" y1="170" y2="48"></line>
+<text fill="var(--accent-rose, #f43f5e)" font-size="16" font-weight="800" x="80" y="45">c = [a, b]</text>
+<!-- Дуга кратчайшего поворота от a к b (против часовой стрелки при взгляде с конца c) -->
+<path d="M 180 170 A 60 60 0 0 0 162.4 127.6" fill="none" marker-end="url(#arr-rot-4)" stroke="var(--accent-amber, #f59e0b)" stroke-width="2"></path>
+<text fill="var(--accent-amber, #f59e0b)" font-size="14" font-weight="700" x="185" y="145">φ</text>
+<!-- Символ наблюдателя у конца вектора c -->
+<g transform="translate(130, 25)">
+<circle cx="12" cy="12" fill="none" r="10" stroke="var(--text-main, #f3f4f6)" stroke-width="1.5"></circle>
+<circle cx="12" cy="12" fill="var(--accent-rose, #f43f5e)" r="4"></circle>
+<path d="M 2 12 Q 12 2 22 12 Q 12 22 2 12" fill="none" stroke="var(--text-main, #f3f4f6)" stroke-width="1.2"></path>
+<text fill="var(--text-main, #f3f4f6)" font-size="13" font-weight="600" x="30" y="17">Вид с конца c: против часовой</text>
+</g>
+<!-- Информационная плашка -->
+<rect fill="var(--bg-card-alt, #1e293b)" height="75" rx="8" stroke="var(--border-color, #334155)" stroke-width="1.2" width="230" x="250" y="70"></rect>
+<text fill="var(--accent-emerald, #10b981)" font-size="14" font-weight="700" x="265" y="96">Правая тройка {a, b, c}</text>
+<text fill="var(--text-main, #f3f4f6)" font-size="13" font-weight="600" x="265" y="118">Кратчайший поворот a → b</text>
+<text fill="var(--border-color, #94a3b8)" font-size="12" x="265" y="136">виден против часовой стрелки</text>
 </svg>
 </div>
 <figcaption>Рис. 4. Правая упорядоченная тройка $(\vec{a}, \vec{b}, \vec{c})$: с конца вектора $\vec{c}$ поворот $\vec{a} \to \vec{b}$ виден против часовой стрелки.</figcaption>
@@ -1176,7 +1176,7 @@ SOFTWARE.
         \[[\vec{a}, \vec{b}] = \Big(y_1 z_2 - z_1 y_2, \quad -(x_1 z_2 - z_1 x_2), \quad x_1 y_2 - y_1 x_2\Big)\]
       </div></div>
 <div class="proof" data-proof="" id="proof-6">
-<div aria-label="Доказательство Доказательство" class="proof-controls" role="group">
+<div aria-label="Доказательство утверждения 6" class="proof-controls" role="group">
 <span>Доказательство</span>
 <button data-proof-mode="idea">Идея</button>
 <button data-proof-mode="full">Полностью</button>
@@ -1184,10 +1184,10 @@ SOFTWARE.
 </div>
 <div class="proof-idea" data-proof-idea="" id="idea-6">
 <div class="proof-label">Идея</div>
-<p>Прямое аналитическое доказательство утверждения (Доказательство).</p>
+<p>Прямое аналитическое доказательство утверждения (утверждения 6).</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-6">
-<div class="proof-label">Доказательство (Доказательство)</div>
+<div class="proof-label">Доказательство (утверждения 6)</div>
     
 
         Распишем векторное произведение линейных комбинаций по таблице умножения ортов:
@@ -1208,58 +1208,59 @@ SOFTWARE.
 <!-- РИСУНОК 5: Геометрический смысл смешанного произведения -->
 <figure>
 <div class="svg-container">
-<svg height="310" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 640 310" width="640" xmlns="http://www.w3.org/2000/svg">
+<svg height="270" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 580 270" width="580" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="arr-axis-5" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
 </marker>
-<marker id="arr-amber" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-amber, #f59e0b)"></path>
-</marker>
-<marker id="arr-purple" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-purple, #a855f7)"></path>
-</marker>
-<marker id="arr-rose" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="arr-prod-5" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose, #f43f5e)"></path>
 </marker>
+<marker id="arr-amber-5" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-amber, #f59e0b)"></path>
+</marker>
+<marker id="arr-purple-5" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-purple, #a855f7)"></path>
+</marker>
 </defs>
-<!-- Нижнее основание параллелепипеда (заливка) -->
-<polygon fill="rgba(56, 189, 248, 0.12)" points="120,240 340,240 450,185 230,185" stroke="var(--border-color, #4b5563)" stroke-width="1.5"></polygon>
-<!-- Верхнее основание параллелепипеда (заливка) -->
-<polygon fill="rgba(168, 85, 247, 0.08)" points="170,90 390,90 500,35 280,35" stroke="var(--border-color, #4b5563)" stroke-dasharray="4,4" stroke-width="1.5"></polygon>
-<!-- Боковые ребра каркаса -->
-<line stroke="var(--border-color, #4b5563)" stroke-width="1.5" x1="340" x2="390" y1="240" y2="90"></line>
-<line stroke="var(--border-color, #4b5563)" stroke-width="1.5" x1="450" x2="500" y1="185" y2="35"></line>
-<line stroke="var(--border-color, #4b5563)" stroke-dasharray="3,3" stroke-width="1.5" x1="230" x2="280" y1="185" y2="35"></line>
-<!-- Вектор a (вдоль нижнего основания) -->
-<line marker-end="url(#arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3.5" x1="120" x2="332" y1="240" y2="240"></line>
-<text fill="var(--accent-blue, #38bdf8)" font-size="16" font-weight="700" text-anchor="middle" x="230" y="265">a</text>
-<!-- Вектор b (в глубину) -->
-<line marker-end="url(#arr-amber)" stroke="var(--accent-amber, #f59e0b)" stroke-width="3.5" x1="120" x2="224" y1="240" y2="188"></line>
-<text fill="var(--accent-amber, #f59e0b)" font-size="16" font-weight="700" x="185" y="215">b</text>
-<!-- Вектор c (боковое ребро) -->
-<line marker-end="url(#arr-purple)" stroke="var(--accent-purple, #a855f7)" stroke-width="3.5" x1="120" x2="167" y1="240" y2="99"></line>
-<text fill="var(--accent-purple, #a855f7)" font-size="16" font-weight="700" x="100" y="140">c</text>
-<!-- Вектор нормали [a, b] перпендикулярно основанию -->
-<line marker-end="url(#arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3" x1="120" x2="120" y1="240" y2="40"></line>
-<text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="700" x="35" y="48">[a, b] ⊥ осн</text>
-<!-- Высота h: перпендикуляр из вершины c к основанию -->
-<line stroke="var(--border-color, #4b5563)" stroke-dasharray="2,3" stroke-width="1.2" x1="170" x2="120" y1="90" y2="90"></line>
-<line stroke="var(--accent-emerald, #10b981)" stroke-dasharray="3,3" stroke-width="2.2" x1="170" x2="170" y1="90" y2="240"></line>
-<circle cx="170" cy="240" fill="var(--accent-emerald, #10b981)" r="3"></circle>
-<!-- Квадрат прямого угла высоты у основания -->
-<path d="M 170 230 L 160 230 L 160 240" fill="none" stroke="var(--accent-emerald, #10b981)" stroke-width="1.2"></path>
-<text fill="var(--accent-emerald, #10b981)" font-size="14" font-weight="700" x="180" y="165">h = |c| cos ψ</text>
-<!-- ТОЧНАЯ КРУГОВАЯ ДУГА УГЛА ψ (R=75, центр A(120,240)) -->
-<path d="M 120 165 A 75 75 0 0 1 143.7 168.8" fill="none" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.2"></path>
-<text fill="var(--accent-amber, #f59e0b)" font-size="14" font-weight="700" x="128" y="155">ψ</text>
-<!-- Начальная вершина A -->
+<!-- Параллелепипед: плоскости -->
+<polygon fill="var(--accent-blue, #38bdf8)" fill-opacity="0.10" points="120,240 380,240 500,190 240,190" stroke="none"></polygon>
+<polygon fill="var(--accent-purple, #a855f7)" fill-opacity="0.08" points="170,110 430,110 550,60 290,60" stroke="none"></polygon>
+<!-- Ребра параллелепипеда -->
+<line stroke="var(--border-color, #64748b)" stroke-width="1.5" x1="380" x2="500" y1="240" y2="190"></line>
+<line stroke="var(--border-color, #64748b)" stroke-dasharray="4,3" stroke-width="1.5" x1="240" x2="500" y1="190" y2="190"></line>
+<line stroke="var(--border-color, #64748b)" stroke-width="1.5" x1="170" x2="430" y1="110" y2="110"></line>
+<line stroke="var(--border-color, #64748b)" stroke-width="1.5" x1="430" x2="550" y1="110" y2="60"></line>
+<line stroke="var(--border-color, #64748b)" stroke-width="1.5" x1="550" x2="290" y1="60" y2="60"></line>
+<line stroke="var(--border-color, #64748b)" stroke-width="1.5" x1="290" x2="170" y1="60" y2="110"></line>
+<line stroke="var(--border-color, #64748b)" stroke-width="1.5" x1="380" x2="430" y1="240" y2="110"></line>
+<line stroke="var(--border-color, #64748b)" stroke-width="1.5" x1="500" x2="550" y1="190" y2="60"></line>
+<line stroke="var(--border-color, #64748b)" stroke-dasharray="4,3" stroke-width="1.5" x1="240" x2="290" y1="190" y2="60"></line>
+<!-- Вершина A(120, 240) -->
 <circle cx="120" cy="240" fill="var(--text-main, #f3f4f6)" r="5"></circle>
-<text fill="var(--text-main, #f3f4f6)" font-size="16" font-weight="700" x="96" y="255">A</text>
-<!-- Информационная плашка объема -->
-<rect fill="var(--bg-card-alt, #1e293b)" height="60" rx="8" stroke="var(--border-color, #334155)" stroke-width="1.2" width="260" x="360" y="210"></rect>
-<text fill="var(--text-main, #f3f4f6)" font-size="13" font-weight="700" x="375" y="234">V = S_осн · h = |⟨a, b, c⟩|</text>
-<text fill="var(--accent-blue, #38bdf8)" font-size="12" font-weight="600" x="375" y="254">= |[a, b]| · |c| cos ψ</text>
+<text fill="var(--text-main, #f3f4f6)" font-size="16" font-weight="800" x="100" y="255">A</text>
+<!-- Вектор a: (120, 240) -> (380, 240) -->
+<line marker-end="url(#arr-axis-5)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="120" x2="374" y1="240" y2="240"></line>
+<text fill="var(--accent-blue, #38bdf8)" font-size="16" font-weight="700" x="250" y="260">a</text>
+<!-- Вектор b: (120, 240) -> (240, 190) -->
+<line marker-end="url(#arr-amber-5)" stroke="var(--accent-amber, #f59e0b)" stroke-width="3" x1="120" x2="236" y1="240" y2="193"></line>
+<text fill="var(--accent-amber, #f59e0b)" font-size="16" font-weight="700" x="195" y="222">b</text>
+<!-- Нормаль [a, b]: строго вверх (120, 240) -> (120, 45) -->
+<line marker-end="url(#arr-prod-5)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3.2" x1="120" x2="120" y1="240" y2="52"></line>
+<text fill="var(--accent-rose, #f43f5e)" font-size="16" font-weight="800" x="35" y="55">[a, b]</text>
+<!-- Вектор c: (120, 240) -> (170, 110) -->
+<line marker-end="url(#arr-purple-5)" stroke="var(--accent-purple, #a855f7)" stroke-width="3" x1="120" x2="167" y1="240" y2="117"></line>
+<text fill="var(--accent-purple, #a855f7)" font-size="16" font-weight="700" x="128" y="160">c</text>
+<!-- Идеальная круговая дуга угла psi (между [a, b] и c) -->
+<!-- Центр (120, 240), радиус R=75. Начало на [a,b]: (120, 165). Конец на c: cos ~ 0.933, sin ~ 0.359 -> (146.9, 170.0) -->
+<path d="M 120 165 A 75 75 0 0 1 143.7 168.8" fill="none" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.2"></path>
+<text fill="var(--accent-amber, #f59e0b)" font-size="14" font-weight="700" x="138" y="155">ψ</text>
+<!-- Высота h: от (170, 110) вертикально вниз до основания z=240, то есть до (170, 240) -->
+<line stroke="var(--accent-emerald, #10b981)" stroke-dasharray="4,3" stroke-width="2" x1="170" x2="170" y1="110" y2="240"></line>
+<line stroke="var(--accent-emerald, #10b981)" stroke-dasharray="3,3" stroke-width="1.5" x1="120" x2="170" y1="110" y2="110"></line>
+<!-- Прямой угол у основания высоты -->
+<path d="M 170 228 L 182 228 L 182 240" fill="none" stroke="var(--accent-emerald, #10b981)" stroke-width="1.2"></path>
+<text fill="var(--accent-emerald, #10b981)" font-size="15" font-weight="700" x="180" y="180">h</text>
 </svg>
 </div>
 <figcaption>Рис. 5. Геометрический смысл смешанного произведения: объём косого параллелепипеда $V = S_{\text{осн}} \cdot h = |[\vec{a}, \vec{b}]| \cdot |\vec{c}|\cos\psi$.</figcaption>
@@ -1396,50 +1397,45 @@ SOFTWARE.
 <!-- РИСУНОК 6: Векторно-параметрическое уравнение прямой -->
 <figure>
 <div class="svg-container">
-<svg height="260" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 620 260" width="620" xmlns="http://www.w3.org/2000/svg">
+<svg height="230" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 580 230" width="580" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="arr-axis-6" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
 </marker>
-<marker id="arr-r0" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="arr-r0-6" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-rose, #f43f5e)"></path>
 </marker>
-<marker id="arr-ta" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="arr-ta-6" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
 </marker>
-<marker id="arr-r" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<marker id="arr-r-6" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-emerald, #10b981)"></path>
 </marker>
-<marker id="arr-dir" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
-<path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-amber, #f59e0b)"></path>
-</marker>
 </defs>
-<!-- Оси координат X и Y -->
-<line marker-end="url(#arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="50" x2="570" y1="210" y2="210"></line>
-<text fill="var(--border-color, #94a3b8)" font-size="14" font-weight="700" x="575" y="215">X</text>
-<line marker-end="url(#arr-axis)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="80" x2="80" y1="240" y2="25"></line>
-<text fill="var(--border-color, #94a3b8)" font-size="14" font-weight="700" x="72" y="18">Y</text>
-<circle cx="80" cy="210" fill="var(--text-main, #f3f4f6)" r="4"></circle>
-<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="65" y="225">O</text>
-<!-- Прямая L (проходит через M0 и M) -->
-<line stroke="var(--border-color, #4b5563)" stroke-dasharray="5,4" stroke-width="2" x1="70" x2="540" y1="173.3" y2="16.7"></line>
-<text fill="var(--text-muted, #94a3b8)" font-size="16" font-weight="700" x="545" y="22">L</text>
-<!-- Радиус-вектор r0 к точке M0 -->
-<line marker-end="url(#arr-r0)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3" x1="80" x2="194" y1="210" y2="134"></line>
-<text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="700" x="125" y="165">r₀</text>
-<circle cx="200" cy="130" fill="var(--accent-rose, #f43f5e)" r="5"></circle>
-<text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="700" x="195" y="112">M₀</text>
-<!-- Вектор t·a от точки M0 ПРЯМО К ТОЧКЕ M (ТОЧНОЕ ВЕКТОРНОЕ СЛОЖЕНИЕ!) -->
-<line marker-end="url(#arr-ta)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3.5" x1="200" x2="433" y1="130" y2="52"></line>
-<text fill="var(--accent-blue, #38bdf8)" font-size="15" font-weight="700" x="315" y="80">t · a</text>
-<!-- Единичный направляющий вектор a, показанный параллельно -->
-<line marker-end="url(#arr-dir)" stroke="var(--accent-amber, #f59e0b)" stroke-width="2.5" x1="280" x2="360" y1="185" y2="158.3"></line>
-<text fill="var(--accent-amber, #f59e0b)" font-size="13" font-weight="600" x="370" y="163">a (направляющий вектор)</text>
-<!-- Радиус-вектор r к точке M (замыкает векторный треугольник r = r0 + t·a) -->
-<line marker-end="url(#arr-r)" stroke="var(--accent-emerald, #10b981)" stroke-dasharray="6,3" stroke-width="2.8" x1="80" x2="432" y1="210" y2="53"></line>
-<text fill="var(--accent-emerald, #10b981)" font-size="15" font-weight="700" x="270" y="148">r = r₀ + t · a</text>
-<circle cx="440" cy="50" fill="var(--accent-emerald, #10b981)" r="5"></circle>
-<text fill="var(--accent-emerald, #10b981)" font-size="15" font-weight="700" x="442" y="34">M</text>
+<!-- Оси координат -->
+<line marker-end="url(#arr-axis-6)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="50" x2="520" y1="190" y2="190"></line>
+<text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="525" y="195">X</text>
+<line marker-end="url(#arr-axis-6)" stroke="var(--border-color, #64748b)" stroke-width="1.8" x1="80" x2="80" y1="210" y2="30"></line>
+<text fill="var(--border-color, #94a3b8)" font-size="15" font-weight="700" x="65" y="40">Y</text>
+<text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="700" x="65" y="208">O</text>
+<!-- Прямая L: от (40, 160) к (500, 45) -->
+<line stroke="var(--border-color, #cbd5e1)" stroke-width="2.5" x1="40" x2="500" y1="160" y2="45"></line>
+<text fill="var(--border-color, #cbd5e1)" font-size="16" font-weight="800" x="505" y="50">L</text>
+<!-- Точка M0(180, 125) на прямой L -->
+<circle cx="180" cy="125" fill="var(--accent-rose, #f43f5e)" r="5"></circle>
+<text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="700" x="175" y="105">M₀</text>
+<!-- Радиус-вектор r0: O(80, 190) -> M0(180, 125) -->
+<line marker-end="url(#arr-r0-6)" stroke="var(--accent-rose, #f43f5e)" stroke-width="2.5" x1="80" x2="175" y1="190" y2="128"></line>
+<text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="700" x="115" y="165">r₀</text>
+<!-- Точка M(380, 75) на прямой L -->
+<circle cx="380" cy="75" fill="var(--accent-emerald, #10b981)" r="5"></circle>
+<text fill="var(--accent-emerald, #10b981)" font-size="15" font-weight="700" x="385" y="70">M</text>
+<!-- Вектор t·a от M0 до M: строго соединяет M0 и M, замыкая векторный треугольник! -->
+<line marker-end="url(#arr-ta-6)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="180" x2="373" y1="125" y2="77"></line>
+<text fill="var(--accent-blue, #38bdf8)" font-size="15" font-weight="700" x="265" y="98">t · a</text>
+<!-- Результирующий радиус-вектор r: O(80, 190) -> M(380, 75) -->
+<line marker-end="url(#arr-r-6)" stroke="var(--accent-emerald, #10b981)" stroke-width="2.5" x1="80" x2="374" y1="190" y2="78"></line>
+<text fill="var(--accent-emerald, #10b981)" font-size="16" font-weight="700" x="235" y="155">r = r₀ + t·a</text>
 </svg>
 </div>
 <figcaption>Рис. 6. Векторно-параметрическое уравнение прямой: радиус-вектор $\vec{r} = \vec{r}_0 + t\vec{a}$.</figcaption>
