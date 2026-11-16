@@ -35,7 +35,7 @@ export async function build(v,progress=()=>{}) {
   for(const r of records){const pub={...r};delete pub.group;delete pub.confirmed;pub.module=r.module||v.modules.find(m=>r.dates.some(d=>d>=m.start&&d<=m.end))?.name||'';pub.attachments=[];
     for(const a of r.attachments){if(a.missing)continue;const p=path.join(v.source,a.path),data=await fs.readFile(p),entry=await object(data,'original',a.id),ex=extracts[p];let resources=[];
       if(a.mime==='text/html'){const html=data.toString();for(const match of html.matchAll(/(?:src|href)\s*=\s*["']([^"'#]+\.(?:png|jpg|jpeg|svg|webp))["']/gi)){const url=match[1];if(/^(data:|https?:|\/\/)/.test(url))continue;const img=path.resolve(path.dirname(p),url);if(!img.startsWith(v.source+path.sep))continue;try{resources.push({url,mime:mime(img),...await object(await fs.readFile(img),'resource',img)});}catch{resources.push({url,missing:true});}}}
-      pub.attachments.push({id:a.id,name:downloadName(r,a),mime:a.mime,bytes:data.length,object:entry,resources,indexStatus:ex?.status||'error',scannedPages:ex?.scannedPages||0});
+      pub.attachments.push({id:a.id,name:downloadName(r,a),mime:a.mime,role:a.role,bytes:data.length,object:entry,resources,indexStatus:ex?.status||'error',scannedPages:ex?.scannedPages||0});
       (bySubject[r.subject]??=[]).push({record:r.id,attachment:a.id,title:r.title,tags:r.tags,source:attachmentLabel(r,a),pages:ex?.pages||[]});
     }catalog.push(pub);
   }
