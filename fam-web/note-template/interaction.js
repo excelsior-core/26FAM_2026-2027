@@ -10,25 +10,32 @@
   themeSelect.addEventListener('change',()=>{themeChoice=themeSelect.value;try{localStorage.setItem('fam-note-theme',themeChoice);}catch{}applyTheme();});
   systemTheme.addEventListener('change',applyTheme);applyTheme();
   const proofs=$$('[data-proof]'),modes=['hidden','idea','full'];
+  const hasIdeas=Boolean($('[data-proof-idea]'));
+  const proofCount=proofs.length;
+  const proofNoun={one:'доказательство',few:'доказательства',many:'доказательств'};
+  const proofCountLabel=`${proofCount} ${proofNoun[new Intl.PluralRules('ru').select(proofCount)]}`;
   document.body.dataset.printMode='full';
   function syncToolbar(){
     const states=new Set(proofs.map(p=>p.dataset.mode));
-    $$('[data-all-proofs]').forEach(b=>b.setAttribute('aria-pressed',String(states.size===1&&states.has(b.dataset.allProofs))));
-    $('#proof-state').textContent=states.size>1?'Индивидуально':`${proofs.length} ${proofs.length%10===1&&proofs.length%100!==11?'доказательство':proofs.length%10>=2&&proofs.length%10<=4&&(proofs.length%100<12||proofs.length%100>14)?'доказательства':'доказательств'}`;
-    $$('[data-all-proofs]').forEach(b=>b.disabled=proofs.length===0);
+    $$('[data-all-proofs]').forEach(b=>{
+      b.setAttribute('aria-pressed',String(states.size===1&&states.has(b.dataset.allProofs)));
+      b.disabled=proofCount===0||(b.dataset.allProofs==='idea'&&!hasIdeas);
+    });
+    $('#proof-state').textContent=states.size>1?`${proofCountLabel} · Индивидуально`:proofCountLabel;
   }
   function setProof(proof,mode){
     if(!modes.includes(mode))return;
     proof.dataset.mode=mode;
     const idea=proof.querySelector('[data-proof-idea]'),full=proof.querySelector('[data-proof-full]');
-    idea.hidden=mode!=='idea';full.hidden=mode!=='full';
+    if(idea)idea.hidden=mode!=='idea';
+    full.hidden=mode!=='full';
     proof.querySelectorAll('[data-proof-mode]').forEach(b=>{
       const own=b.dataset.proofMode;b.setAttribute('aria-pressed',String(own===mode));
       if(own!=='hidden'){b.setAttribute('aria-expanded',String(own===mode));b.setAttribute('aria-controls',(own==='idea'?idea:full).id);}
       else b.hidden=mode==='hidden';
     });
   }
-  for(const p of proofs){setProof(p,'idea');p.querySelectorAll('[data-proof-mode]').forEach(b=>b.addEventListener('click',()=>{setProof(p,b.dataset.proofMode);syncToolbar();updatePosition();}));}
+  for(const p of proofs){setProof(p,hasIdeas?'idea':'full');p.querySelectorAll('[data-proof-mode]').forEach(b=>b.addEventListener('click',()=>{setProof(p,b.dataset.proofMode);syncToolbar();updatePosition();}));}
   $$('[data-all-proofs]').forEach(b=>b.addEventListener('click',()=>{proofs.forEach(p=>setProof(p,b.dataset.allProofs));syncToolbar();updatePosition();}));syncToolbar();
 
   // Render before generating the outline, so math in headings gets a clean label.
