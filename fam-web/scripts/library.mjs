@@ -14,7 +14,11 @@ export async function scan(v) {
     let rec=Object.values(v.records).find(r=>r.group===group);
     if(!rec){const folder=group.split('/').at(-1),dates=[...folder.matchAll(/(\d{2})\.(\d{2})\.(\d{4})/g)].map(m=>`${m[3]}-${m[2]}-${m[1]}`);const nums=[...folder.matchAll(/(?:^|\s)(\d{1,2})\s+\d{2}\.\d{2}\.\d{4}/g)].map(m=>Number(m[1]));
       rec={id:id(),group,title:folder.replace(/^(?:(?:\d+\s+)?\d{2}\.\d{2}\.\d{4}\s*)+/,'').replace(/^\d+\s+/,''),subject:parts[1]||'Материалы',type:parts.includes('Коллоквиумы')?'Коллоквиум':'Лекция',course:1,year:'2026/27',module:'',dates,number:nums.join('–'),tags:[],added:new Date().toISOString(),attachments:[],confirmed:false};v.records[rec.id]=rec;added++;}
-    if(!rec.attachments.some(a=>a.path===rel))rec.attachments.push({id:id(),path:rel,name:path.basename(file),mime:mime(file)});
+    if(!rec.attachments.some(a=>a.path===rel)){
+      const name=path.basename(file),type=mime(file);
+      const role=type==='application/pdf'&&/^Конспект(?:[ ._-]|$)/iu.test(name)?'note':undefined;
+      rec.attachments.push({id:id(),path:rel,name,mime:type,role});
+    }
   }
   for(const r of Object.values(v.records))for(const a of r.attachments)a.missing=!files.includes(path.join(v.source,a.path));
   await saveVault(v);return {added,records:Object.values(v.records).length,files:files.length,html:supported.filter(p=>p.endsWith('.html')).length,pdf:supported.filter(p=>p.endsWith('.pdf')).length};
