@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Общий перпендикуляр к скрещивающимся прямым, замена координат, поворот осей и классификация при двух квадратах.">
+  <title>Приведение кривых второго порядка к каноническому виду — FAM</title>
+  <!-- FAM:ASSETS -->
+</head>
+<body>
+  <a class="skip-link" href="#content">К тексту конспекта</a>
+  <header class="topbar">
+    <a class="wordmark" href="#top" aria-label="К началу конспекта">FAM<span>FUNDAMENTAL &amp; APPLIED MATH</span></a>
+    <div class="top-actions">
+      <label class="theme-control"><span class="sr-only">Тема конспекта</span><select id="note-theme" aria-label="Тема конспекта"><option value="system">Системная</option><option value="light">Светлая</option><option value="dark">Тёмная</option><option value="parchment">Пергамент</option></select></label>
+      <button id="toc-toggle" aria-expanded="false" aria-controls="contents">Оглавление</button>
+      <button id="pdf-open" class="pdf-button">Сохранить PDF <span aria-hidden="true">↗</span></button>
+    </div>
+  </header>
+  <div class="reading-progress" aria-hidden="true"><span id="progress-bar"></span></div>
+  <div class="layout">
+    <aside id="contents" class="contents" aria-label="Оглавление">
+      <div class="contents-head"><span class="eyebrow">Оглавление</span><button id="toc-close" aria-label="Закрыть оглавление">Закрыть</button></div>
+      <nav id="toc" aria-label="Разделы конспекта"></nav>
+      <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
+    </aside>
+    <main id="content">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
+<header class="lecture-head" id="top">
+<div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>Лекция 8 · 2 ноября 2026</span></div>
+<h1>Приведение кривых второго порядка к каноническому виду</h1>
+<p class="subtitle">Общий перпендикуляр к скрещивающимся прямым, замена координат, поворот осей и классификация при двух квадратах.</p>
+<p>По материалам лекции Г. М. Полотовского</p></header>
+      <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
+      <div class="proof-toolbar" aria-label="Все доказательства">
+        <span class="toolbar-label">Доказательства</span>
+        <div class="segmented" role="group" aria-label="Режим всех доказательств">
+          <button data-all-proofs="hidden" aria-pressed="false">Скрыть</button>
+          <button data-all-proofs="idea" aria-pressed="true">Идеи</button>
+          <button data-all-proofs="full" aria-pressed="false">Полностью</button>
+        </div>
+        <span id="proof-state" class="proof-state" aria-live="polite"></span>
+      </div>
+      <noscript><p class="note">JavaScript отключён: все доказательства показаны полностью. Для PDF используйте печать браузера.</p></noscript>
+      <p id="math-error" class="note error" role="alert" hidden>Некоторые формулы не удалось отобразить. Проверьте исходный TeX перед сохранением PDF.</p>
+
+<section class="chapter" aria-labelledby="normal"><h2 id="normal" data-toc="Общий перпендикуляр">Общий перпендикуляр</h2>
+<div class="statement theorem" id="normal-line"><h3>Два способа построения общего перпендикуляра</h3>
+<p>Пусть $L_1=M_1+\mathbb R a$, $L_2=M_2+\mathbb R b$ — скрещивающиеся прямые. Существует единственная прямая, пересекающая обе под прямым углом. Её направление $n=a\times b\ne0$.</p>
+<div class="proof" id="proof-normal-line" data-proof>
+            <div class="proof-controls" role="group" aria-label="Доказательство. Два способа построения общего перпендикуляра"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
+            <div class="proof-idea" id="idea-normal-line" data-proof-idea><div class="proof-label">Идея</div>
+<p>Либо пересечём плоскости, натянутые на соответствующую прямую и $n$, либо найдём концы перпендикуляра из двух скалярных уравнений.</p>
+</div><div class="proof-full" id="full-normal-line" data-proof-full>
+<p><strong>Способ A.</strong> Плоскости $\Pi_1=M_1+\operatorname{span}(a,n)$ и $\Pi_2=M_2+\operatorname{span}(b,n)$ имеют независимые нормали $a\times n,b\times n$: оператор $v\mapsto v\times n$ инъективен на $n^\perp$, где $a,b$ независимы. Значит они пересекаются по прямой направления $n$. В $\Pi_1$ эта прямая пересекает $L_1$, поскольку направления $n$ и $a$ независимы. Аналогично она пересекает $L_2$ в $\Pi_2$. Искомая прямая обязана лежать в обеих плоскостях, что даёт единственность. Перпендикулярность $\Pi_1$ к $L_2$ и $\Pi_2$ к $L_1$ имела бы место лишь при $a\cdot b=0$.</p>
+<p><strong>Способ Б.</strong> Положим $w=M_2-M_1$, $N_1=M_1+t a$, $N_2=M_2+s b$. Требуем, чтобы $w+s b-t a$ был ортогонален $a,b$. Получаем систему</p>
+<div class="equation">\[\begin{cases}
+\|a\|^2 t-(a\cdot b)s=w\cdot a,\\
+-(a\cdot b)t+\|b\|^2s=-w\cdot b.
+\end{cases}\]</div>
+<p>Её определитель $\|a\|^2\|b\|^2-(a\cdot b)^2=\|a\times b\|^2&gt;0$. Значит пара параметров единственна. Так как прямые скрещиваются, $N_2-N_1\ne0$. Прямая записывается как $N_1+\mathbb R(N_2-N_1)$ или как $N_1+\mathbb R n$. При нулевой компоненте направления соответствующая координата постоянна. <span class="qed" aria-label="Что и требовалось доказать">□</span></p></div></div></div>
+</section>
+<section class="chapter" aria-labelledby="coordinates"><h2 id="coordinates" data-toc="Базис и координаты">Базис и координаты</h2>
+<div class="statement theorem" id="change"><h3>Формула перехода от новых координат к старым</h3>
+<p>Пусть $E=(e_1,\ldots,e_m)$ и $E'=(e'_1,\ldots,e'_m)$ — базисы, $S_{ij}$ — $i$-я старая координата $e'_j$. Для вектора $v$ имеем $[v]_E=S[v]_{E'}$. Для точки $X$ при переносе начала $O$ в $O'$ имеем $x=Sx'+q$, где $q=[\overrightarrow{OO'}]_E$.</p>
+<div class="proof" id="proof-change" data-proof>
+            <div class="proof-controls" role="group" aria-label="Доказательство. Формула перехода от новых координат к старым"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
+            <div class="proof-idea" id="idea-change" data-proof-idea><div class="proof-label">Идея</div>
+<p>Столбцы $S$ — новые базисные векторы в старых координатах. Сдвиг влияет на координаты точек через $\overrightarrow{OO'}$.</p>
+</div><div class="proof-full" id="full-change" data-proof-full>
+<p>Подставим $e'_j=\sum_i S_{ij}e_i$ в $v=\sum_j v'_j e'_j$. Коэффициент при $e_i$ равен $\sum_j S_{ij}v'_j$. Столбцы независимы, так как $E'$ — базис, поэтому $S$ обратима и $[v]_{E'}=S^{-1}[v]_E$. Для точки используем $\overrightarrow{OX}=\overrightarrow{OO'}+\overrightarrow{O'X}$ и получаем $x'=S^{-1}(x-q)$. <span class="qed" aria-label="Что и требовалось доказать">□</span></p></div></div></div>
+<p>При повороте ортонормированных осей против часовой стрелки на $\varphi$ столбцы равны $(\cos\varphi,\sin\varphi)$ и $(-\sin\varphi,\cos\varphi)$, поэтому</p>
+<div class="equation">\[\begin{pmatrix}x\\y\end{pmatrix}
+=\begin{pmatrix}\cos\varphi&amp;-\sin\varphi\\\sin\varphi&amp;\cos\varphi\end{pmatrix}
+\begin{pmatrix}x'\\y'\end{pmatrix}+\begin{pmatrix}q_1\\q_2\end{pmatrix}.\]</div>
+<figure class="figure-plate"><img src="data:image/png;base64,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" width="250" height="130" style="max-width:250px" alt="Исходный и повёрнутый ортонормированные базисы и проекции нового первого вектора"><figcaption>Рисунок 1. Поворот базиса на угол $\varphi$. Первый столбец матрицы перехода — старые координаты $e'_1$, второй — старые координаты $e'_2$. Фрагмент лекции 8.</figcaption></figure>
+</section>
+<section class="chapter" aria-labelledby="reduction"><h2 id="reduction" data-toc="Кривые степени два">Кривые степени два</h2>
+<div class="statement definition"><h3>Общее уравнение</h3><div class="equation">\[Ax^2+2Bxy+Cy^2+2Dx+2Ey+F=0,\quad A^2+B^2+C^2&gt;0.\]</div><p>Кривой степени два называют множество вещественных решений такого уравнения. Оно может оказаться точкой, прямой, парой прямых или пустым множеством.</p></div>
+<div class="statement theorem" id="rotation"><h3>Теорема A. Поворот устраняет смешанный член</h3>
+<p>Существует поворот осей, после которого коэффициент при $x'y'$ равен нулю.</p>
+<div class="proof" id="proof-rotation" data-proof>
+            <div class="proof-controls" role="group" aria-label="Доказательство. Теорема A. Поворот устраняет смешанный член"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
+            <div class="proof-idea" id="idea-rotation" data-proof-idea><div class="proof-label">Идея</div>
+<p>Коэффициент после подстановки зависит от $\sin 2\varphi$ и $\cos 2\varphi$. Выберем угол, зануляющий эту комбинацию.</p>
+</div><div class="proof-full" id="full-rotation" data-proof-full>
+<p>Подставим $x=u\cos\varphi-v\sin\varphi$, $y=u\sin\varphi+v\cos\varphi$. Члены $Ax^2$, $2Bxy$, $Cy^2$ дают при $uv$ соответственно $-2A\sin\varphi\cos\varphi$, $2B(\cos^2\varphi-\sin^2\varphi)$ и $2C\sin\varphi\cos\varphi$. Итак, коэффициент равен $2B\cos 2\varphi+(C-A)\sin 2\varphi$. Если $B=0$, можно взять $\varphi=0$. Если $A=C$ и $B\ne0$, берём $\varphi=\pi/4$. Иначе при $A\ne C$ годится любой угол с $\tan 2\varphi=2B/(A-C)$. Квадратичная часть остаётся ненулевой, поскольку преобразование обратимо. <span class="qed" aria-label="Что и требовалось доказать">□</span></p></div></div></div>
+<div class="statement theorem" id="translation"><h3>Теорема B. Перенос устраняет линейный член у переменной с квадратом</h3>
+<p>После поворота для каждого ненулевого диагонального коэффициента можно убрать соответствующий линейный член параллельным переносом.</p>
+<div class="proof" id="proof-translation" data-proof>
+            <div class="proof-controls" role="group" aria-label="Доказательство. Теорема B. Перенос устраняет линейный член у переменной с квадратом"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
+            <div class="proof-idea" id="idea-translation" data-proof-idea><div class="proof-label">Идея</div>
+<p>Дополняем квадрат по каждой переменной, у которой ненулевой квадратичный коэффициент.</p>
+</div><div class="proof-full" id="full-translation" data-proof-full>
+<p>Если $A\ne0$, то $Ax^2+2Dx=A(x+D/A)^2-D^2/A$, то есть выбираем новую координату $u=x+D/A$. Если $C\ne0$, применяем аналогичную формулу для $v=y+E/C$. Замены независимы, поскольку смешанного члена уже нет. При $A=0$ сдвиг $x$ изменяет только свободный член $2Dx+F$, оставляя коэффициент $2D$ прежним. <span class="qed" aria-label="Что и требовалось доказать">□</span></p></div></div></div>
+</section>
+<section class="chapter" aria-labelledby="full-rank"><h2 id="full-rank" data-toc="Классификация при двух квадратах">Классификация при двух квадратах</h2>
+<div class="statement theorem" id="rank-two"><h3>Пять форм при $AC\ne0$</h3>
+<p>После переноса имеем $Ax^2+Cy^2+F_0=0$. В следующих формулах $a,b&gt;0$. При необходимости меняем направление и порядок осей, чтобы положительный член гиперболы стоял первым.</p>
+<div class="table-scroll"><table><caption>Ранг квадратичной части равен двум</caption><thead><tr><th scope="col">Условие</th><th scope="col">Уравнение</th><th scope="col">Геометрия</th></tr></thead><tbody>
+<tr><td>$AC&gt;0,\ AF_0&lt;0$</td><td>$x^2/a^2+y^2/b^2=1$</td><td>Эллипс</td></tr>
+<tr><td>$AC&gt;0,\ AF_0&gt;0$</td><td>$x^2/a^2+y^2/b^2=-1$</td><td>Мнимый эллипс, вещественных точек нет</td></tr>
+<tr><td>$AC&gt;0,\ F_0=0$</td><td>$a^2x^2+b^2y^2=0$</td><td>Одна вещественная точка, пара мнимых пересекающихся прямых над $\mathbb C$</td></tr>
+<tr><td>$AC&lt;0,\ F_0\ne0$</td><td>$x^2/a^2-y^2/b^2=1$</td><td>Гипербола</td></tr>
+<tr><td>$AC&lt;0,\ F_0=0$</td><td>$a^2x^2-b^2y^2=0$</td><td>Две пересекающиеся вещественные прямые</td></tr>
+</tbody></table></div>
+<div class="proof" id="proof-rank-two" data-proof>
+            <div class="proof-controls" role="group" aria-label="Доказательство. Пять форм при"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
+            <div class="proof-idea" id="idea-rank-two" data-proof-idea><div class="proof-label">Идея</div>
+<p>При ненулевом $F_0$ делим на $-F_0$ и смотрим на знаки коэффициентов. При $F_0=0$ раскладываем суммы и разности квадратов.</p>
+</div><div class="proof-full" id="full-rank-two" data-proof-full>
+<p>Если $F_0\ne0$, деление даёт правую часть $1$. При $AC&gt;0$ обе дроби имеют одинаковый знак, определяемый знаком $-AF_0$. Их модули равны $1/a^2$ и $1/b^2$. Если знак отрицателен, умножение на $-1$ выявляет невозможное равенство суммы неотрицательных слагаемых числу $-1$. При $AC&lt;0$ знаки противоположны, и оси можно переориентировать, чтобы первая дробь была положительной.</p>
+<p>Если $F_0=0$, выбираем коэффициенты $a^2,b^2$ как модули $A,C$. При совпадающих знаках сумма квадратов обращается в ноль только в $(0,0)$ и над $\mathbb C$ раскладывается как $(ax+iby)(ax-iby)$. При разных знаках разность раскладывается как $(ax+by)(ax-by)$. Две полученные вещественные прямые различны, так как $ab\ne0$. <span class="qed" aria-label="Что и требовалось доказать">□</span></p></div></div></div>
+<p>Случай одного квадрата, включая параболу, разобран в лекции 9.</p>
+</section>
+      <!-- FAM:CONTENT-END -->
+      <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>
+    </main>
+  </div>
+  <dialog id="pdf-dialog" aria-labelledby="pdf-title" aria-describedby="pdf-description">
+    <div class="dialog-heading"><span class="eyebrow">Экспорт</span><button id="pdf-close" aria-label="Закрыть настройки PDF">Закрыть</button></div>
+    <h2 id="pdf-title">Сохранить конспект</h2>
+    <p id="pdf-description">Выберите содержание. В окне печати укажите «Сохранить как PDF».</p>
+    <fieldset><legend>Доказательства в PDF</legend>
+      <label class="pdf-option"><input type="radio" name="pdf-mode" value="full" checked><span><strong>Полностью</strong><small>Идеи и полные доказательства</small></span></label>
+      <label class="pdf-option"><input type="radio" name="pdf-mode" value="idea"><span><strong>Только идеи</strong><small>Формулировки и краткий ход рассуждений</small></span></label>
+      <label class="pdf-option"><input type="radio" name="pdf-mode" value="hidden"><span><strong>Без доказательств</strong><small>Определения, формулировки и примеры</small></span></label>
+    </fieldset>
+    <p class="pdf-note">A4 · светлый фон · без элементов управления.<br>Раскрытые блоки на экране сохранят своё состояние.</p>
+    <button id="pdf-print" class="print-button">Перейти к печати <span aria-hidden="true">↗</span></button>
+    <p id="pdf-status" role="status" class="pdf-note"></p>
+  </dialog>
+  <!-- FAM:SCRIPTS -->
+</body>
+</html>
