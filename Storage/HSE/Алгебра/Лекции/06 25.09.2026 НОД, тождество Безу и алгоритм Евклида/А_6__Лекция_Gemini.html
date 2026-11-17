@@ -660,6 +660,62 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -679,8 +735,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
       <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
     </aside>
     <main id="content">
-      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-      <header class="lecture-head" id="top">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. --><header class="lecture-head" id="top">
         <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
         <h1>НОД, тождество Безу и алгоритм Евклида</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
@@ -738,7 +793,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <li>
 <strong>Делители нуля в составных кольцах:</strong> В кольце $\mathbb{Z}_6 = \{\bar{0}, \bar{1}, \bar{2}, \bar{3}, \bar{4}, \bar{5}\}$ выполнено равенство:
               \[\bar{4} \cdot \bar{3} = \overline{12} = \bar{0}.\]
-              Поскольку $\bar{4} \neq \bar{0}$ и $\bar{3} \neq \bar{0}$, элементы $\bar{4}$ и $\bar{3}$ являются делителями нуля. Причина заключается в том, что числа $4$ и $6$ имеют нетривиальный общий делитель $\operatorname{gcd}(4, 6) = 2 > 1$.
+              Поскольку $\bar{4} \neq \bar{0}$ и $\bar{3} \neq \bar{0}$, элементы $\bar{4}$ и $\bar{3}$ являются делителями нуля. Причина заключается в том, что числа $4$ и $6$ имеют нетривиальный общий делитель $\operatorname{gcd}(4, 6) = 2 &gt; 1$.
             </li>
 <li>
 <strong>Обратимость в простых кольцах (полях):</strong> В кольце $\mathbb{Z}_3 = \{\bar{0}, \bar{1}, \bar{2}\}$ каждый ненулевой элемент обратим:
@@ -785,7 +840,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="box-header">💬 Замечание о требованиях к знаку и максимуму</div>
 <p>
             В высшей алгебре НОД определяется структурно — через <strong>максимальность по отношению делимости</strong> (условие 2).
-            Требование $d \in \mathbb{N}$ ($d > 0$) устраняет неопределённость знака, так как делители $d$ и $-d$ одновременно удовлетворяли бы условиям делимости.
+            Требование $d \in \mathbb{N}$ ($d &gt; 0$) устраняет неопределённость знака, так как делители $d$ и $-d$ одновременно удовлетворяли бы условиям делимости.
           </p>
 <p style="margin-bottom: 0;">
             Если одно из чисел равно нулю, например $b = 0$, а $a \neq 0$, то $(a, 0) = |a|$, поскольку любое число делит ноль, а наибольшим натуральным делителем $a$ является $|a|$. Случай $a = b = 0$ исключается: любое целое число делит ноль, поэтому максимального делителя не существует.
@@ -844,23 +899,23 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Экстремальный (через принцип наименьшего элемента подмножества $\mathbb{N}$)))</div>
 <div class="proof-content">
 <p>
-<strong>1. Множество положительных линейных комбинаций:</strong><br/>
-            Рассмотрим множество $S = \{ x_1 a_1 + \dots + x_n a_n \mid x_i \in \mathbb{Z}, \; \sum x_i a_i > 0 \}$.
-            Если $a_k \neq 0$, то полагая $x_k = a_k$ и $x_j = 0$ при $j \neq k$, получаем $a_k^2 > 0$, откуда $a_k^2 \in S$. Значит, $S \neq \emptyset$.
+<strong>1. Множество положительных линейных комбинаций:</strong><br>
+            Рассмотрим множество $S = \{ x_1 a_1 + \dots + x_n a_n \mid x_i \in \mathbb{Z}, \; \sum x_i a_i &gt; 0 \}$.
+            Если $a_k \neq 0$, то полагая $x_k = a_k$ и $x_j = 0$ при $j \neq k$, получаем $a_k^2 &gt; 0$, откуда $a_k^2 \in S$. Значит, $S \neq \emptyset$.
           </p>
 <p>
-<strong>2. Выбор минимума:</strong><br/>
-            В силу принципа наименьшего элемента в непустом множестве $S \subseteq \mathbb{N}$ существует минимальный элемент $d = \min S$. По определению найдутся целые $m_i \in \mathbb{Z}$, такие что $d = \sum_{i=1}^n m_i a_i > 0$.
+<strong>2. Выбор минимума:</strong><br>
+            В силу принципа наименьшего элемента в непустом множестве $S \subseteq \mathbb{N}$ существует минимальный элемент $d = \min S$. По определению найдутся целые $m_i \in \mathbb{Z}$, такие что $d = \sum_{i=1}^n m_i a_i &gt; 0$.
           </p>
 <p>
-<strong>3. Делимость $d \mid a_i$:</strong><br/>
-            Для любого $i$ разделим $a_i$ на $d$ с остатком: $a_i = d q + r$, где $0 \le r < d$.
+<strong>3. Делимость $d \mid a_i$:</strong><br>
+            Для любого $i$ разделим $a_i$ на $d$ с остатком: $a_i = d q + r$, где $0 \le r &lt; d$.
             Тогда $r = a_i - q d = a_i - q \sum m_j a_j = (-q m_1) a_1 + \dots + (1 - q m_i) a_i + \dots + (-q m_n) a_n$.
-            Коэффициенты целые, следовательно $r$ — линейная комбинация. Если $r > 0$, то $r \in S$, что противоречит минимальности $d = \min S$ (так как $r < d$).
+            Коэффициенты целые, следовательно $r$ — линейная комбинация. Если $r &gt; 0$, то $r \in S$, что противоречит минимальности $d = \min S$ (так как $r &lt; d$).
             Следовательно, $r = 0$, то есть $d \mid a_i$. Число $d$ является общим делителем.
           </p>
 <p>
-<strong>4. Условие максимальности:</strong><br/>
+<strong>4. Условие максимальности:</strong><br>
             Если $t$ — произвольный общий делитель всех $a_i$, то по линейности делимости $t \mid \sum m_i a_i \implies t \mid d$.
             Таким образом, $d = (a_1, \dots, a_n)$, и $d$ — наименьший элемент в $S$.
           </p>
@@ -891,13 +946,13 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             Для двух чисел $a, b$ выполним алгоритм Евклида до последнего ненулевого остатка $r_k$:
             \[a = b q_0 + r_0, \quad b = r_0 q_1 + r_1, \quad \dots, \quad r_{k-2} = r_{k-1} q_k + r_k, \quad r_{k-1} = r_k q_{k+1}.\]
             Проведём индукцию назад:
-            <ol class="prop-list">
+            </p><ol class="prop-list">
 <li>Из предпоследней строки: $r_k = r_{k-2} - r_{k-1} q_k$, то есть $r_k$ выражается линейно через $r_{k-2}$ и $r_{k-1}$.</li>
 <li>Подставляя $r_{k-1} = r_{k-3} - r_{k-2} q_{k-1}$, получаем линейное выражение $r_k$ через $r_{k-3}$ и $r_{k-2}$.</li>
 <li>Продолжая подъём по цепочке до исходных чисел, на нулевом шаге получаем $r_k = u a + v b$ для некоторых $u, v \in \mathbb{Z}$.</li>
 </ol>
             Поскольку алгоритм Евклида доказывает, что $r_k = (a, b)$, мы конструктивно построили линейное представление НОД. Для $n$ чисел утверждение распространяется по индукции с помощью свойства ассоциативности.
-          </p>
+          
 <span class="qed">$\blacksquare$</span>
 </div>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
@@ -924,7 +979,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             \[d_1 \mid d_2.\]
             Симметрично: $d_2$ — общий делитель, а $d_1$ — НОД, следовательно $d_1$ делится на $d_2$:
             \[d_2 \mid d_1.\]
-            Из взаимной делимости $d_1 \mid d_2$ и $d_2 \mid d_1$ следует, что $d_1 = \pm d_2$. Но поскольку $d_1, d_2 \in \mathbb{N}$ ($d_1 > 0, d_2 > 0$), получаем единственное равенство:
+            Из взаимной делимости $d_1 \mid d_2$ и $d_2 \mid d_1$ следует, что $d_1 = \pm d_2$. Но поскольку $d_1, d_2 \in \mathbb{N}$ ($d_1 &gt; 0, d_2 &gt; 0$), получаем единственное равенство:
             \[d_1 = d_2.\]
           </p>
 <span class="qed">$\blacksquare$</span>
@@ -941,13 +996,13 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 <div class="proof-idea" data-proof-idea="" id="idea-4">
 <div class="proof-label">Идея</div>
-<p>По Методу 1 существования число $d = \min S$ является наименьшим элементом множества $S = \{ \sum x_i a_i > 0 \mid x_i \in \mathbb{Z} \} \subseteq \mathbb{N}$.</p>
+<p>По Методу 1 существования число $d = \min S$ является наименьшим элементом множества $S = \{ \sum x_i a_i &gt; 0 \mid x_i \in \mathbb{Z} \} \subseteq \mathbb{N}$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-4">
 <div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Экстремальный (через единственность минимума линейного порядка)))</div>
 <div class="proof-content">
 <p>
-            По Методу 1 существования число $d = \min S$ является наименьшим элементом множества $S = \{ \sum x_i a_i > 0 \mid x_i \in \mathbb{Z} \} \subseteq \mathbb{N}$.
+            По Методу 1 существования число $d = \min S$ является наименьшим элементом множества $S = \{ \sum x_i a_i &gt; 0 \mid x_i \in \mathbb{Z} \} \subseteq \mathbb{N}$.
             В любом частично упорядоченном множестве наименьший элемент единственен: если $m_1, m_2 \in S$ оба минимальны, то $m_1 \le m_2$ и $m_2 \le m_1 \implies m_1 = m_2$.
             Если $d'$ — какой-либо другой НОД тех же чисел, то $d' \mid a_i$ для всех $i$, следовательно $d' \mid d$ (так как $d \in S$).
             Поскольку $d, d' \in \mathbb{N}$, получаем $d' \le d$. С другой стороны, $d$ — общий делитель, а $d'$ — НОД, значит $d \mid d' \implies d \le d'$.
@@ -1010,7 +1065,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 <!-- SVG 1: Решётка линейных комбинаций и минимальный элемент d -->
 <div class="svg-wrapper">
-<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 820 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="0 &lt; 0 d = min S = gcd d 2d b = q₂ d 3d 4d a = q₁ d 5d Множество S = { xa + yb &gt; 0 } ⊆ ℕ. Единствен" data-fam-figure="diagram" data-fam-index="1">
+<figure class="figure-plate"><div class="diagram-scroll" style="--diagram-min-width: 820px"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 820 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="0 &lt; 0 d = min S = gcd d 2d b = q₂ d 3d 4d a = q₁ d 5d Множество S = { xa + yb &gt; 0 } ⊆ ℕ. Единствен" data-fam-figure="diagram" data-fam-index="1">
 <line stroke="var(--text-muted)" stroke-width="2.5" x1="40" x2="780" y1="120" y2="120"></line>
 <polygon fill="var(--text-muted)" points="785,120 770,114 770,126"></polygon>
 <circle cx="120" cy="120" fill="var(--text-muted)" r="6"></circle>
@@ -1032,8 +1087,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="#818cf8" font-size="15" font-weight="700" text-anchor="middle" x="720" y="85">a = q₁ d</text>
 <text fill="var(--text-heading)" font-size="14" text-anchor="middle" x="720" y="155">5d</text>
 <path d="M 240,175 L 750,175" stroke="#10b8a6" stroke-dasharray="5,5" stroke-width="3"></path>
-<text fill="#10b8a6" font-size="14" font-weight="600" text-anchor="middle" x="495" y="200">Множество S = { xa + yb &gt; 0 } ⊆ ℕ. Единственный минимум порождает идеал dℤ.</text>
-</svg></figure>
+<text fill="#10b8a6" font-size="14" font-weight="600" text-anchor="middle" x="495" y="200">S = {xa + yb &gt; 0}. Наименьший элемент d делит a и b.</text>
+</svg></div></figure>
 <div class="svg-caption">Рисунок 3.1: Геометрическая структура множества целочисленных комбинаций $S$. Минимальный элемент $d$ делит все узлы решётки.</div>
 </div>
 
@@ -1113,34 +1168,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
 </div>
-<div class="proof" data-proof="" id="proof-9">
-<div aria-label="Доказательство Строгое доказательство (Метод 3: Структурный (через равенство порождённых главных идеалов в $\mathbb{Z}$))" class="proof-controls" role="group">
-<span>Доказательство</span>
-<button data-proof-mode="idea">Идея</button>
-<button data-proof-mode="full">Полностью</button>
-<button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
-</div>
-<div class="proof-idea" data-proof-idea="" id="idea-9">
-<div class="proof-label">Идея</div>
-<p>Прямое аналитическое доказательство утверждения (Строгое доказательство (Метод 3: Структурный (через равенство порождённых главных идеалов в mathbb{Z}))).</p>
-</div>
-<div class="proof-full" data-proof-full="" id="full-9">
-<div class="proof-label">Доказательство (Строгое доказательство (Метод 3: Структурный (через равенство порождённых главных идеалов в $\mathbb{Z}$)))</div>
-<div class="proof-content">
-<p>
-            В кольце главных идеалов $\mathbb{Z}$ сумма идеалов удовлетворяет свойству ассоциативности операции сложения подмодулей:
-            \[a_1 \mathbb{Z} + a_2 \mathbb{Z} + \dots + a_n \mathbb{Z} = (a_1 \mathbb{Z} + \dots + a_{n-1} \mathbb{Z}) + a_n \mathbb{Z}.\]
-            По тождеству Безу идеал, порождённый набором чисел, совпадает с главным идеалом, порождённым их НОД:
-            \[\sum_{i=1}^k a_i \mathbb{Z} = (a_1, \dots, a_k) \mathbb{Z}.\]
-            Следовательно:
-            \[(a_1, \dots, a_n) \mathbb{Z} = \delta \mathbb{Z} + a_n \mathbb{Z} = (\delta, a_n) \mathbb{Z}.\]
-            Так как идеалы совпадают и их положительные образующие фиксированы в $\mathbb{N}$, получаем $(a_1, \dots, a_n) = (\delta, a_n)$.
-          </p>
-<span class="qed">$\blacksquare$</span>
-</div>
-<span aria-label="Что и требовалось доказать" class="qed">□</span>
-</div>
-</div>
+
 <h3 class="subsection-heading" data-toc="2. Свойство однородности (выне…" id="sec-prop-homo">4.2. Свойство однородности (вынесение общего множителя)</h3>
 <div class="statement theorem" id="thm-3"><div class="block-label">Утверждение 3</div><h3 data-toc="📜 Предложение 4.2 (Однородност…" id="sub-5-4">📜 Предложение 4.2 (Однородность НОД)</h3><div>
 
@@ -1165,14 +1193,14 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             Обозначим $d = (a_1, \dots, a_n)$ и $D = (m a_1, \dots, m a_n)$. Покажем, что $m d \mid D$ и $D \mid m d$:
           </p>
 <p>
-<strong>1. Докажем, что $m d \mid D$:</strong><br/>
+<strong>1. Докажем, что $m d \mid D$:</strong><br>
             Так как $d \mid a_i$ для каждого $i \in \{1, \dots, n\}$, то домножая на $m$, получаем $m d \mid m a_i$.
             Значит, $m d$ является общим делителем чисел $m a_1, \dots, m a_n$.
             По определению НОД общий делитель обязан делить их НОД $D$:
             \[m d \mid D \implies D = m d \cdot q \quad (q \in \mathbb{N}).\]
           </p>
 <p>
-<strong>2. Докажем, что $D \mid m d$:</strong><br/>
+<strong>2. Докажем, что $D \mid m d$:</strong><br>
             Из $D = m d \cdot q$ следует, что $m \mid D$, то есть дробь $\frac{D}{m}$ является натуральным числом.
             Так как $D \mid m a_i$, имеем $m a_i = D q_i \implies a_i = \left(\frac{D}{m}\right) q_i$, откуда $\frac{D}{m} \mid a_i$ для всех $i$.
             Следовательно, $\frac{D}{m}$ является общим делителем чисел $a_1, \dots, a_n$.
@@ -1198,18 +1226,18 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Идея</div>
 <p>Рассмотрим множество положительных линейных комбинаций для набора $(m a_1, \dots, m a_n)$:
 
-            где $S_a = \{ \sum x_i a_i > 0 \mid x_i \in \mathbb{Z} \}$.</p>
+            где $S_a = \{ \sum x_i a_i &gt; 0 \mid x_i \in \mathbb{Z} \}$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-11">
 <div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Экстремальный (через масштабирование множества Безу $S$)))</div>
 <div class="proof-content">
 <p>
             Рассмотрим множество положительных линейных комбинаций для набора $(m a_1, \dots, m a_n)$:
-            \[S_{ma} = \left\{ \sum_{i=1}^n x_i (m a_i) > 0 \;\middle|\; x_i \in \mathbb{Z} \right\} = \left\{ m \cdot \sum_{i=1}^n x_i a_i > 0 \;\middle|\; x_i \in \mathbb{Z} \right\} = m \cdot S_a,\]
-            где $S_a = \{ \sum x_i a_i > 0 \mid x_i \in \mathbb{Z} \}$.
+            \[S_{ma} = \left\{ \sum_{i=1}^n x_i (m a_i) &gt; 0 \;\middle|\; x_i \in \mathbb{Z} \right\} = \left\{ m \cdot \sum_{i=1}^n x_i a_i &gt; 0 \;\middle|\; x_i \in \mathbb{Z} \right\} = m \cdot S_a,\]
+            где $S_a = \{ \sum x_i a_i &gt; 0 \mid x_i \in \mathbb{Z} \}$.
             По Теореме 3.1 НОД равен наименьшему элементу соответствующего множества:
             \[(m a_1, \dots, m a_n) = \min S_{ma} = \min (m \cdot S_a).\]
-            Поскольку $m > 0$, операция умножения на $m$ сохраняет линейный порядок в $\mathbb{N}$: $\min(m \cdot S_a) = m \cdot \min S_a$.
+            Поскольку $m &gt; 0$, операция умножения на $m$ сохраняет линейный порядок в $\mathbb{N}$: $\min(m \cdot S_a) = m \cdot \min S_a$.
             Следовательно:
             \[(m a_1, \dots, m a_n) = m \cdot (a_1, \dots, a_n).\]
           </p>
@@ -1239,8 +1267,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-content">
 <p>
             Для двух чисел $a, b$ умножим каждое равенство алгоритма Евклида на $m \in \mathbb{N}$:
-            \[a = b q_0 + r_0 \iff m a = (m b) q_0 + (m r_0), \quad \text{где } 0 \le m r_0 < m |b|,\]
-            \[b = r_0 q_1 + r_1 \iff m b = (m r_0) q_1 + (m r_1), \quad \text{где } 0 \le m r_1 < m r_0,\]
+            \[a = b q_0 + r_0 \iff m a = (m b) q_0 + (m r_0), \quad \text{где } 0 \le m r_0 &lt; m |b|,\]
+            \[b = r_0 q_1 + r_1 \iff m b = (m r_0) q_1 + (m r_1), \quad \text{где } 0 \le m r_1 &lt; m r_0,\]
             \[\dots \iff \dots\]
             \[r_{k-1} = r_k q_{k+1} + 0 \iff m r_{k-1} = (m r_k) q_{k+1} + 0.\]
             Неполные частные $q_i$ остаются неизменными, а каждый остаток умножается на $m$.
@@ -1297,17 +1325,17 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Идея</div>
 <p>Связь пар выражается линейным преобразованием:
 
-            Матрица перехода $T = \begin{pmatrix} q & 1 \\ 1 & 0 \end{pmatrix}$ целочисленна, и её определитель равен $\det(T) = 0 \cdot q - 1 \cdot 1 = -1 \neq 0$.</p>
+            Матрица перехода $T = \begin{pmatrix} q &amp; 1 \\ 1 &amp; 0 \end{pmatrix}$ целочисленна, и её определитель равен $\det(T) = 0 \cdot q - 1 \cdot 1 = -1 \neq 0$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-14">
 <div class="proof-label">Доказательство (Строгое доказательство (Метод 2: Через унимодулярное преобразование линейных комбинаций))</div>
 <div class="proof-content">
 <p>
             Связь пар выражается линейным преобразованием:
-            \[\begin{pmatrix} a \\ b \end{pmatrix} = \begin{pmatrix} q & 1 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} b \\ r \end{pmatrix}.\]
-            Матрица перехода $T = \begin{pmatrix} q & 1 \\ 1 & 0 \end{pmatrix}$ целочисленна, и её определитель равен $\det(T) = 0 \cdot q - 1 \cdot 1 = -1 \neq 0$.
+            \[\begin{pmatrix} a \\ b \end{pmatrix} = \begin{pmatrix} q &amp; 1 \\ 1 &amp; 0 \end{pmatrix} \begin{pmatrix} b \\ r \end{pmatrix}.\]
+            Матрица перехода $T = \begin{pmatrix} q &amp; 1 \\ 1 &amp; 0 \end{pmatrix}$ целочисленна, и её определитель равен $\det(T) = 0 \cdot q - 1 \cdot 1 = -1 \neq 0$.
             Так как $\det(T) = \pm 1$, матрица $T$ обратима в кольце целых матриц $GL_2(\mathbb{Z})$, и обратное преобразование также целочисленно:
-            \[\begin{pmatrix} b \\ r \end{pmatrix} = \begin{pmatrix} 0 & 1 \\ 1 & -q \end{pmatrix} \begin{pmatrix} a \\ b \end{pmatrix}.\]
+            \[\begin{pmatrix} b \\ r \end{pmatrix} = \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; -q \end{pmatrix} \begin{pmatrix} a \\ b \end{pmatrix}.\]
             Следовательно, множество всех целочисленных линейных комбинаций $\{ x a + y b \mid x, y \in \mathbb{Z} \}$ тождественно совпадает с множеством $\{ u b + v r \mid u, v \in \mathbb{Z} \}$.
             Совпадение множеств влечёт совпадение их наименьших положительных элементов, то есть $(a, b) = (b, r)$.
           </p>
@@ -1332,12 +1360,12 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement definition" id="def-3"><div class="block-label">Определение 3</div><h3 data-toc="⚙️ Цепочка делений алгоритма Е…" id="sub-6-2">⚙️ Цепочка делений алгоритма Евклида</h3><div>
 
           \[\begin{aligned}
-            a &= b q_0 + r_0, && 0 \le r_0 < |b|, \\
-            b &= r_0 q_1 + r_1, && 0 \le r_1 < r_0, \\
-            r_0 &= r_1 q_2 + r_2, && 0 \le r_2 < r_1, \\
-            &\;\;\vdots && \;\;\vdots \\
-            r_{k-2} &= r_{k-1} q_k + r_k, && 0 \le r_k < r_{k-1}, \\
-            r_{k-1} &= r_k q_{k+1} + 0 && (r_{k+1} = 0).
+            a &amp;= b q_0 + r_0, &amp;&amp; 0 \le r_0 &lt; |b|, \\
+            b &amp;= r_0 q_1 + r_1, &amp;&amp; 0 \le r_1 &lt; r_0, \\
+            r_0 &amp;= r_1 q_2 + r_2, &amp;&amp; 0 \le r_2 &lt; r_1, \\
+            &amp;\;\;\vdots &amp;&amp; \;\;\vdots \\
+            r_{k-2} &amp;= r_{k-1} q_k + r_k, &amp;&amp; 0 \le r_k &lt; r_{k-1}, \\
+            r_{k-1} &amp;= r_k q_{k+1} + 0 &amp;&amp; (r_{k+1} = 0).
           \end{aligned}\]
         </div></div>
 <h3 class="subsection-heading" data-toc="2. Доказательство конечности и…" id="sec-euclid-proof">5.2. Доказательство конечности и корректности</h3>
@@ -1362,7 +1390,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-content">
 <p>
 <strong>1. Конечность:</strong> Остатки образуют строго убывающую последовательность неотрицательных целых чисел:
-            \[|b| > r_0 > r_1 > r_2 > \dots > r_{k-1} > r_k \ge 0.\]
+            \[|b| &gt; r_0 &gt; r_1 &gt; r_2 &gt; \dots &gt; r_{k-1} &gt; r_k \ge 0.\]
             В полуинтервале $[0, |b|)$ содержится ровно $|b|$ целых чисел. Строго убывающая цепочка не может содержать более $|b|$ элементов. Не более чем за $|b|$ шагов остаток станет равным нулю ($r_{k+1} = 0$).
           </p>
 <p>
@@ -1407,7 +1435,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 <!-- SVG 2: Схема каскадных шагов алгоритма Евклида -->
 <div class="svg-wrapper" id="sec-euclid-svg">
-<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 760 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="(a, b) a = bq₀ + r₀ (b, r₀) b = r₀q₁ + r₁ (r₀, r₁) r₀ = r₁q₂ + r₂ (rₖ₋₁, rₖ) rₖ₋₁ = rₖqₖ₊₁ + 0 rₖ " data-fam-figure="diagram" data-fam-index="2"><defs><marker id="fam-fig-2-arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
+<figure class="figure-plate"><div class="diagram-scroll" style="--diagram-min-width: 830px"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 760 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="(a, b) a = bq₀ + r₀ (b, r₀) b = r₀q₁ + r₁ (r₀, r₁) r₀ = r₁q₂ + r₂ (rₖ₋₁, rₖ) rₖ₋₁ = rₖqₖ₊₁ + 0 rₖ " data-fam-figure="diagram" data-fam-index="2"><defs><marker id="fam-fig-2-arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"></path>
 </marker></defs>
 <rect fill="var(--bg-card)" height="60" rx="8" stroke="var(--border-accent)" stroke-width="2" width="120" x="20" y="30"></rect>
@@ -1434,7 +1462,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="#10b8a6" font-size="13" font-weight="700" text-anchor="middle" x="380" y="175">
               Последний ненулевой остаток rₖ в точности равен gcd(a, b)
             </text>
-</svg></figure>
+</svg></div></figure>
 <div class="svg-caption">Рисунок 5.1: Каскадная инвариантность пар делителей и сходимость к последнему ненулевому остатку $r_k$.</div>
 </div>
 
@@ -1502,9 +1530,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="worked-example" id="ex-1"><div class="block-label">Пример 1</div><h3 data-toc="💡 Вычисление для пары (54, 180)" id="sub-7-3">💡 Вычисление для пары $(54, 180)$</h3><div>
 
           \[\begin{aligned}
-            54 &= 180 \cdot 0 + 54 && (\text{Шаг 0: перестановка делимого и делителя, остаток } r_0 = 54) \\
-            180 &= 54 \cdot 3 + 18 && (\text{Шаг 1: остаток } r_1 = 18) \\
-            54 &= 18 \cdot 3 + 0 && (\text{Шаг 2: остаток } r_2 = 0)
+            54 &amp;= 180 \cdot 0 + 54 &amp;&amp; (\text{Шаг 0: перестановка делимого и делителя, остаток } r_0 = 54) \\
+            180 &amp;= 54 \cdot 3 + 18 &amp;&amp; (\text{Шаг 1: остаток } r_1 = 18) \\
+            54 &amp;= 18 \cdot 3 + 0 &amp;&amp; (\text{Шаг 2: остаток } r_2 = 0)
           \end{aligned}\]
           Последний ненулевой остаток равен $18$. Следовательно:
           \[\operatorname{gcd}(54, 180) = 18.\]
@@ -1560,7 +1588,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Строгое доказательство (Метод 1: Через тождество Безу))</div>
 <div class="proof-content">
 <p>
-<strong>Необходимость ($\implies$):</strong><br/>
+<strong>Необходимость ($\implies$):</strong><br>
             Пусть класс $\bar{a}$ обратим в $\mathbb{Z}_m$. Тогда существует вычет $\bar{u} \in \mathbb{Z}_m$, такой что:
             \[\bar{a} \cdot \bar{u} = \bar{1} \iff a u \equiv 1 \pmod m \iff a u - 1 = -m v \quad (v \in \mathbb{Z}).\]
             Отсюда получаем линейное уравнение:
@@ -1570,7 +1598,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             Так как $d \in \mathbb{N}$, получаем $d = 1$, то есть $\operatorname{gcd}(a, m) = 1$.
           </p>
 <p>
-<strong>Достаточность ($\impliedby$):</strong><br/>
+<strong>Достаточность ($\impliedby$):</strong><br>
             Пусть $\operatorname{gcd}(a, m) = 1$. По тождеству Безу существуют такие целые $u, v \in \mathbb{Z}$, что:
             \[a u + m v = 1.\]
             Переходя к классам вычетов по модулю $m$:
@@ -1621,7 +1649,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <ol class="prop-list">
 <li><strong>НОД</strong> определяется как натуральный общий делитель, который делится на любой другой общий делитель набора чисел.</li>
 <li><strong>Тождество Безу</strong> доказывает, что НОД всегда равен наименьшей положительной целочисленной линейной комбинации чисел.</li>
-<li><strong>Единственность НОД</strong> обоснована через взаимную делимость, экстремальное свойство минимума идеала, решёточную структуру порядка делимости и детерминизм алгоритма Евклида.</li>
+<li><strong>Единственность НОД</strong> следует из взаимной делимости двух положительных НОД. Алгоритм Евклида даёт тот же НОД, поскольку каждый шаг сохраняет общие делители.</li>
 <li><strong>Все фундаментальные свойства</strong> (ассоциативность, однородность, инвариантность при делении) доказаны несколькими альтернативными методами.</li>
 <li><strong>Алгоритм Евклида</strong> находит НОД и коэффициенты линейного представления за конечное число шагов, служа практическим аппаратом поиска обратных элементов в кольце $\mathbb{Z}_m$.</li>
 </ol>
@@ -1630,7 +1658,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 
 
 </section>
-<!-- FAM:CONTENT-END -->
+</article></section><!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>
     </main>
   </div>

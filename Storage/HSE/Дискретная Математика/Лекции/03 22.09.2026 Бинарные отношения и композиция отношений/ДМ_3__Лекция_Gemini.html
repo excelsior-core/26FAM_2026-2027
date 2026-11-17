@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="ФПМ НИУ ВШЭ · Полный академический лекционный конспект">
-  <title>Дискретная математика: Теория множеств, Булева алгебра, Доказательства и Практикум — FAM</title>
+  <title>Булеан, формула включений-исключений и характеристические функции — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
 @font-face {
@@ -660,6 +660,62 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -679,10 +735,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
       <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
     </aside>
     <main id="content">
-      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-      <header class="lecture-head" id="top">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. --><header class="lecture-head" id="top">
         <div class="lecture-meta"><span class="subject">Дискретная математика</span><span>Академический конспект ФПМ</span></div>
-        <h1>Дискретная математика: Теория множеств, Булева алгебра, Доказательства и Практикум</h1>
+        <h1>Булеан, формула включений-исключений и характеристические функции</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
 
       </header>
@@ -722,10 +777,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <strong>Базовый источник</strong>
           Лекция 3 НИУ ВШЭ (22.09.2026) + рукописный конспект лекции
         </div>
-<div class="hero-meta-item">
-<strong>Дополнительная литература</strong>
-          В.Е. Алексеев «Дискретная математика» (ННГУ, п. 1.2 и п. 3.12)
-        </div>
+
 <div class="hero-meta-item">
 <strong>Охват материала</strong>
           Пункты 25–32 + Решение теоретико-множественных уравнений вида <span class="math-inline">A  △  X = B</span>
@@ -741,7 +793,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
          ====================================================================== -->
 <div class="part-divider part-lecture" id="part-1">
 <div class="part-label">Часть I · Лекционный курс (22.09.2026) и полные доказательства</div>
-</section>
+
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Пункты 25–32: Множество всех п…</div>
   <h2 id="chapter-2" data-toc="Пункты 25–32: Множество всех п…">Пункты 25–32: Множество всех подмножеств2A, Формула включений-исключений и Характеристические функции</h2>
@@ -761,18 +813,18 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
   <div class="chapter-kicker">03 / . Множество всех подмножеств2A…</div>
   <h2 id="chapter-3" data-toc=". Множество всех подмножеств2A…">Глава 1. Множество всех подмножеств2A, его мощность и пересечение (Пункты 25, 26, 27)</h2>
 
-<a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
+<a class="back-to-toc" href="#top">↑ К оглавлению</a>
 
 <p>
         Занятие от <code>22.09.2026</code> начинается с напоминания двух кардинальных формул из конца предыдущей лекции (Теорема 24):
-        <div class="math-display">|A  ×  B| = |A|  ·  |B|,        |A<sup>k</sup>| = |A|<sup>k</sup>,</div>
+        </p><div class="math-display">|A  ×  B| = |A|  ·  |B|,        |A<sup>k</sup>| = |A|<sup>k</sup>,</div>
         после чего вводится ещё одна фундаментальная кардинальная операция над множеством <span class="math-inline">A</span> — переход к множеству всех его подмножеств <span class="math-inline">2<sup>A</sup></span>.
-      </p>
+      
 <div class="statement definition" id="def-1"><div class="block-label">Определение 1</div><h3 data-toc="Обозначение 25 · Лекция 3, Сла…" id="sub-3-1">Обозначение 25 · Лекция 3, Слайд 5 и КонспектМножество всех подмножеств2A, смена универса и примеры для|A| = 0, 1, 2, 3</h3><div>
 <p>
 <strong>Обозначение 25:</strong> Запись <span class="math-inline">2<sup>A</sup></span> обозначает <strong>множество всех подмножеств</strong> множества <span class="math-inline">A</span>:
-          <div class="math-display">2<sup>A</sup> = {X  |  X  ⊂  A}        (<span style="font-family:Inter,sans-serif;font-style:normal;">иными словами, </span> X  ∈  2<sup>A</sup>  ⟺  X  ⊂  A).</div>
-</p>
+          </p><div class="math-display">2<sup>A</sup> = {X  |  X  ⊂  A}        (<span style="font-family:Inter,sans-serif;font-style:normal;">иными словами, </span> X  ∈  2<sup>A</sup>  ⟺  X  ⊂  A).</div>
+
 <p>
 <strong>Замечание об изменении универса (Слайд 5 и Конспект):</strong> Если множество <span class="math-inline">A</span> взято из универса <span class="math-inline">U</span> (<span class="math-inline">A  ⊂  U</span>), то само семейство <span class="math-inline">2<sup>A</sup></span> состоит уже не из элементов универса <span class="math-inline">U</span>, а из <em>множеств</em> (подмножеств множества <span class="math-inline">A</span>). Поэтому в качестве нового универса для <span class="math-inline">2<sup>A</sup></span> можно взять <span class="math-inline">2<sup>U</sup></span> — множество всех подмножеств универса <span class="math-inline">U</span> (тогда выполняется включение <span class="math-inline">2<sup>A</sup>  ⊂  2<sup>U</sup></span>).
         </p>
@@ -812,8 +864,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement theorem featured" id="thm-1"><div class="block-label">Утверждение 1</div><h3 data-toc="Теорема 26 · Лекция 3, Слайды …" id="sub-3-3">Теорема 26 · Лекция 3, Слайды 5–6Формула числа подмножеств конечного множества</h3><div>
 <p style="margin-bottom:0;">
           Для любого конечного множества <span class="math-inline">A</span> справедливо равенство:
-          <div class="math-display">|2<sup>A</sup>| = 2<sup>|A|</sup>.</div>
-</p>
+          </p><div class="math-display">|2<sup>A</sup>| = 2<sup>|A|</sup>.</div>
+
 </div></div>
 <div class="proof" data-proof="" id="proof-1">
 <div aria-label="Доказательство Доказательство методом математической индукции по параметру n = |A|" class="proof-controls" role="group">
@@ -831,23 +883,23 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p>Проведём доказательство методом математической индукции по числу элементов <span class="math-inline">n = |A|</span> (<span class="math-inline">n  ≥  0</span>):</p>
 <ol>
 <li>
-<strong>Шаг 1 (База индукции при <span class="math-inline">n = 0</span>):</strong><br/>
+<strong>Шаг 1 (База индукции при <span class="math-inline">n = 0</span>):</strong><br>
             Проверку для <span class="math-inline">n = 0</span> мы уже выполнили, заполняя таблицу примеров: если <span class="math-inline">|A| = 0</span>, то <span class="math-inline">A = ∅</span>. Единственным подмножеством пустого множества является <span class="math-inline">∅</span>, поэтому <span class="math-inline">2^∅ = {∅}</span>, откуда:
             <div class="math-display">|2^∅| = 1 = 2<sup>0</sup> = 2<sup>|∅|</sup>.</div>
             При <span class="math-inline">n = 0</span> утверждение теоремы верно (оно также проверено выше для <span class="math-inline">n = 1, 2, 3</span>).
           </li>
 <li>
-<strong>Шаг 2 (Индукционное предположение):</strong><br/>
+<strong>Шаг 2 (Индукционное предположение):</strong><br>
             Пусть для любого множества мощности <span class="math-inline">|A| = k</span> (<span class="math-inline">k  ≥  0</span>) верно, что число всех его подмножеств равно <span class="math-inline">|2<sup>A</sup>| = 2<sup>k</sup></span>.
           </li>
 <li>
-<strong>Шаг 3 (Индукционный переход <span class="math-inline">n = k + 1</span>):</strong><br/>
+<strong>Шаг 3 (Индукционный переход <span class="math-inline">n = k + 1</span>):</strong><br>
             Рассмотрим произвольное множество <span class="math-inline">A</span> из <span class="math-inline">n = k + 1</span> элементов:
             <div class="math-display">A = {a<sub>1</sub>, a<sub>2</sub>, …, a<sub>k</sub>, a<sub>k+1</sub>}.</div>
-            Обозначим через <span class="math-inline">A' = {a<sub>1</sub>, a<sub>2</sub>, …, a<sub>k</sub>}</span> множество из первых <span class="math-inline">k</span> элементов (<span class="math-inline">|A'| = k</span>). По предположению индукции у множества <span class="math-inline">A'</span> имеется ровно <span class="math-inline">|2<sup>A'</sup>| = 2<sup>k</sup></span> различных подмножеств.<br/>
-            Разобьём все подмножества <span class="math-inline">X  ⊂  A</span> на две непересекающиеся группы в зависимости от того, входит ли в подмножество <span class="math-inline">X</span> последний элемент <span class="math-inline">a<sub>k+1</sub></span>:<br/>
-            — <em>Первая группа (подмножества <span class="math-inline">X  ⊂  A</span>, НЕ содержащие элемент <span class="math-inline">a<sub>k+1</sub></span>):</em> Так как <span class="math-inline">a<sub>k+1</sub>  ∉  X</span>, такое подмножество <span class="math-inline">X</span> состоит только из элементов <span class="math-inline">{a<sub>1</sub>, …, a<sub>k</sub>}</span>, то есть является подмножеством множества <span class="math-inline">A'</span>. По предположению индукции таких подмножеств ровно <span class="math-inline">2<sup>k</sup></span> штук.<br/>
-            — <em>Вторая группа (подмножества <span class="math-inline">X  ⊂  A</span>, СОДЕРЖАЩИЕ элемент <span class="math-inline">a<sub>k+1</sub></span>):</em> Каждое такое подмножество однозначно получается, если взять одно из подмножеств множества <span class="math-inline">{a<sub>1</sub>, a<sub>2</sub>, …, a<sub>k</sub>}</span> (которых по предположению индукции <span class="math-inline">2<sup>k</sup></span> штук) и добавить к нему элемент <span class="math-inline">a<sub>k+1</sub></span>. Тем самым мы получаем ещё ровно <span class="math-inline">2<sup>k</sup></span> различных подмножеств.<br/>
+            Обозначим через <span class="math-inline">A' = {a<sub>1</sub>, a<sub>2</sub>, …, a<sub>k</sub>}</span> множество из первых <span class="math-inline">k</span> элементов (<span class="math-inline">|A'| = k</span>). По предположению индукции у множества <span class="math-inline">A'</span> имеется ровно <span class="math-inline">|2<sup>A'</sup>| = 2<sup>k</sup></span> различных подмножеств.<br>
+            Разобьём все подмножества <span class="math-inline">X  ⊂  A</span> на две непересекающиеся группы в зависимости от того, входит ли в подмножество <span class="math-inline">X</span> последний элемент <span class="math-inline">a<sub>k+1</sub></span>:<br>
+            — <em>Первая группа (подмножества <span class="math-inline">X  ⊂  A</span>, НЕ содержащие элемент <span class="math-inline">a<sub>k+1</sub></span>):</em> Так как <span class="math-inline">a<sub>k+1</sub>  ∉  X</span>, такое подмножество <span class="math-inline">X</span> состоит только из элементов <span class="math-inline">{a<sub>1</sub>, …, a<sub>k</sub>}</span>, то есть является подмножеством множества <span class="math-inline">A'</span>. По предположению индукции таких подмножеств ровно <span class="math-inline">2<sup>k</sup></span> штук.<br>
+            — <em>Вторая группа (подмножества <span class="math-inline">X  ⊂  A</span>, СОДЕРЖАЩИЕ элемент <span class="math-inline">a<sub>k+1</sub></span>):</em> Каждое такое подмножество однозначно получается, если взять одно из подмножеств множества <span class="math-inline">{a<sub>1</sub>, a<sub>2</sub>, …, a<sub>k</sub>}</span> (которых по предположению индукции <span class="math-inline">2<sup>k</sup></span> штук) и добавить к нему элемент <span class="math-inline">a<sub>k+1</sub></span>. Тем самым мы получаем ещё ровно <span class="math-inline">2<sup>k</sup></span> различных подмножеств.<br>
             Складывая количество подмножеств первой и второй группы, находим общее число подмножеств множества <span class="math-inline">A</span>:
             <div class="math-display">|2<sup>A</sup>| = 2<sup>k</sup> + 2<sup>k</sup> = 2  ·  2<sup>k</sup> = 2<sup>k+1</sup> = 2<sup>|A|</sup>.</div>
 </li>
@@ -862,9 +914,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="math-display">2<sup>A  ∩  B</sup> = 2<sup>A</sup>  ∩  2<sup>B</sup>.</div>
 <p style="margin-bottom:0;">
 <strong>Замечание (Слайд 6 и Конспект):</strong> Иногда вместо пересечения <span class="math-inline">A  ∩  B</span> коротко пишут <span class="math-inline">AB</span> (как в Теореме 10, где пересечение играет роль «умножения» множеств). Тогда Теорема 27 примет вид:
-          <div class="math-display">2<sup>AB</sup> = 2<sup>A</sup>  ∩  2<sup>B</sup>      (<span style="font-family:Inter,sans-serif;font-style:normal;">или в мультипликативной записи: </span> 2<sup>AB</sup> = 2<sup>A</sup> 2<sup>B</sup>).</div>
+          </p><div class="math-display">2<sup>AB</sup> = 2<sup>A</sup>  ∩  2<sup>B</sup>      (<span style="font-family:Inter,sans-serif;font-style:normal;">или в мультипликативной записи: </span> 2<sup>AB</sup> = 2<sup>A</sup> 2<sup>B</sup>).</div>
           Обратите внимание: в обычной школьной алгебре чисел это равенство <strong>неверно</strong> (для чисел <span class="math-inline">2<sup>a</sup>  ·  2<sup>b</sup> = 2<sup>a+b</sup></span>, а вовсе не <span class="math-inline">2<sup>ab</sup></span>!), а в алгебре множеств <span class="math-inline">2<sup>A  ∩  B</sup> = 2<sup>A</sup>  ∩  2<sup>B</sup></span> — строгое тождество!
-        </p>
+        
 </div></div>
 <div class="proof" data-proof="" id="proof-2">
 <div aria-label="Доказательство Подробное поэлементное доказательство методом двух включений и цепочкой равносильностей" class="proof-controls" role="group">
@@ -885,22 +937,22 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p><strong>Способ 1 (Развёрнутое поэлементное доказательство методом двух включений):</strong></p>
 <ul>
 <li>
-<strong>Шаг 1. Докажем включение слева направо: <span class="math-inline">2<sup>A  ∩  B</sup>  ⊂  2<sup>A</sup>  ∩  2<sup>B</sup></span>.</strong><br/>
+<strong>Шаг 1. Докажем включение слева направо: <span class="math-inline">2<sup>A  ∩  B</sup>  ⊂  2<sup>A</sup>  ∩  2<sup>B</sup></span>.</strong><br>
             Возьмём произвольный элемент <span class="math-inline">X  ∈  2<sup>A  ∩  B</sup></span>. По определению множества всех подмножеств (Обозначение 25) это означает, что <span class="math-inline">X</span> является подмножеством пересечения <span class="math-inline">A  ∩  B</span>:
             <div class="math-display">X  ⊂  A  ∩  B.</div>
-            Но по определению пересечения (Определение 9) любой элемент из <span class="math-inline">A  ∩  B</span> принадлежит как множеству <span class="math-inline">A</span>, так и множеству <span class="math-inline">B</span>, то есть <span class="math-inline">A  ∩  B  ⊂  A</span> и <span class="math-inline">A  ∩  B  ⊂  B</span>.<br/>
-            Применяя свойство транзитивности включения (Теорема 4, п. 2):<br/>
-            — из <span class="math-inline">X  ⊂  A  ∩  B</span> и <span class="math-inline">A  ∩  B  ⊂  A</span> следует <span class="math-inline">X  ⊂  A</span>, что по Обозначению 25 означает <span class="math-inline">X  ∈  2<sup>A</sup></span>;<br/>
-            — из <span class="math-inline">X  ⊂  A  ∩  B</span> и <span class="math-inline">A  ∩  B  ⊂  B</span> следует <span class="math-inline">X  ⊂  B</span>, что по Обозначению 25 означает <span class="math-inline">X  ∈  2<sup>B</sup></span>.<br/>
+            Но по определению пересечения (Определение 9) любой элемент из <span class="math-inline">A  ∩  B</span> принадлежит как множеству <span class="math-inline">A</span>, так и множеству <span class="math-inline">B</span>, то есть <span class="math-inline">A  ∩  B  ⊂  A</span> и <span class="math-inline">A  ∩  B  ⊂  B</span>.<br>
+            Применяя свойство транзитивности включения (Теорема 4, п. 2):<br>
+            — из <span class="math-inline">X  ⊂  A  ∩  B</span> и <span class="math-inline">A  ∩  B  ⊂  A</span> следует <span class="math-inline">X  ⊂  A</span>, что по Обозначению 25 означает <span class="math-inline">X  ∈  2<sup>A</sup></span>;<br>
+            — из <span class="math-inline">X  ⊂  A  ∩  B</span> и <span class="math-inline">A  ∩  B  ⊂  B</span> следует <span class="math-inline">X  ⊂  B</span>, что по Обозначению 25 означает <span class="math-inline">X  ∈  2<sup>B</sup></span>.<br>
             Поскольку <span class="math-inline">X  ∈  2<sup>A</sup></span> и одновременно <span class="math-inline">X  ∈  2<sup>B</sup></span>, по определению пересечения множеств получаем <span class="math-inline">X  ∈  2<sup>A</sup>  ∩  2<sup>B</sup></span>. Следовательно, <span class="math-inline">2<sup>A  ∩  B</sup>  ⊂  2<sup>A</sup>  ∩  2<sup>B</sup></span>.
           </li>
 <li>
-<strong>Шаг 2. Докажем включение справа налево: <span class="math-inline">2<sup>A</sup>  ∩  2<sup>B</sup>  ⊂  2<sup>A  ∩  B</sup></span>.</strong><br/>
+<strong>Шаг 2. Докажем включение справа налево: <span class="math-inline">2<sup>A</sup>  ∩  2<sup>B</sup>  ⊂  2<sup>A  ∩  B</sup></span>.</strong><br>
             Возьмём произвольный элемент <span class="math-inline">X  ∈  2<sup>A</sup>  ∩  2<sup>B</sup></span>. По определению пересечения (Определение 9) это означает, что одновременно
             <div class="math-display">X  ∈  2<sup>A</sup>        <span style="font-family:Inter,sans-serif;font-style:normal;">и</span>        X  ∈  2<sup>B</sup>.</div>
             По Обозначению 25 это равносильно двум включениям:
             <div class="math-display">X  ⊂  A        <span style="font-family:Inter,sans-serif;font-style:normal;">и</span>        X  ⊂  B.</div>
-            Докажем, что тогда <span class="math-inline">X  ⊂  A  ∩  B</span>. Возьмём любой элемент <span class="math-inline">x  ∈  X</span> (если <span class="math-inline">X = ∅</span>, то <span class="math-inline">∅  ⊂  A  ∩  B</span> выполняется всегда по Определению 6). Так как <span class="math-inline">x  ∈  X</span> и <span class="math-inline">X  ⊂  A</span>, то по Определению 3 имеем <span class="math-inline">x  ∈  A</span>. Так как <span class="math-inline">x  ∈  X</span> и <span class="math-inline">X  ⊂  B</span>, то по Определению 3 имеем также <span class="math-inline">x  ∈  B</span>. Поскольку для произвольного <span class="math-inline">x  ∈  X</span> одновременно выполнены оба условия <span class="math-inline">x  ∈  A</span> и <span class="math-inline">x  ∈  B</span>, по определению пересечения <span class="math-inline">x  ∈  A  ∩  B</span>.<br/>
+            Докажем, что тогда <span class="math-inline">X  ⊂  A  ∩  B</span>. Возьмём любой элемент <span class="math-inline">x  ∈  X</span> (если <span class="math-inline">X = ∅</span>, то <span class="math-inline">∅  ⊂  A  ∩  B</span> выполняется всегда по Определению 6). Так как <span class="math-inline">x  ∈  X</span> и <span class="math-inline">X  ⊂  A</span>, то по Определению 3 имеем <span class="math-inline">x  ∈  A</span>. Так как <span class="math-inline">x  ∈  X</span> и <span class="math-inline">X  ⊂  B</span>, то по Определению 3 имеем также <span class="math-inline">x  ∈  B</span>. Поскольку для произвольного <span class="math-inline">x  ∈  X</span> одновременно выполнены оба условия <span class="math-inline">x  ∈  A</span> и <span class="math-inline">x  ∈  B</span>, по определению пересечения <span class="math-inline">x  ∈  A  ∩  B</span>.<br>
             Значит, любой элемент множества <span class="math-inline">X</span> принадлежит <span class="math-inline">A  ∩  B</span>, то есть <span class="math-inline">X  ⊂  A  ∩  B</span>, что по Обозначению 25 даёт <span class="math-inline">X  ∈  2<sup>A  ∩  B</sup></span>. Следовательно, <span class="math-inline">2<sup>A</sup>  ∩  2<sup>B</sup>  ⊂  2<sup>A  ∩  B</sup></span>.
           </li>
 <li>
@@ -908,22 +960,22 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           </li>
 </ul>
 <p style="margin-bottom:0;">
-<strong>Способ 2 (Компактная запись того же доказательства через цепочку равносильностей):</strong><br/>
+<strong>Способ 2 (Компактная запись того же доказательства через цепочку равносильностей):</strong><br>
           Для любого множества <span class="math-inline">X  ⊂  U</span>:
-          <div class="math-display">X  ∈  2<sup>A  ∩  B</sup>   ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Обозн. 25</span></sup>  X  ⊂  A  ∩  B   ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Опр. 3</span></sup>  ∀ x  ∈  X : (x  ∈  A  ∩  B)   ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Опр. 9</span></sup>  ∀ x  ∈  X : (x  ∈  A  ∧  x  ∈  B)</div>
+          </p><div class="math-display">X  ∈  2<sup>A  ∩  B</sup>   ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Обозн. 25</span></sup>  X  ⊂  A  ∩  B   ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Опр. 3</span></sup>  ∀ x  ∈  X : (x  ∈  A  ∩  B)   ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Опр. 9</span></sup>  ∀ x  ∈  X : (x  ∈  A  ∧  x  ∈  B)</div>
 <div class="math-display"> ⟺  (∀ x  ∈  X : x  ∈  A)  ∧  (∀ x  ∈  X : x  ∈  B)   ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Опр. 3</span></sup>  (X  ⊂  A)  ∧  (X  ⊂  B)</div>
 <div class="math-display"> ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Обозн. 25</span></sup>  (X  ∈  2<sup>A</sup>)  ∧  (X  ∈  2<sup>B</sup>)   ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Опр. 9</span></sup>  X  ∈  2<sup>A</sup>  ∩  2<sup>B</sup>.      ∎</div>
-</p>
+
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
 </div>
 <div class="svg-grid-2">
-<div class="svg-card"><svg aria-label="Схема удвоения числа подмножеств при добавлении нового элемента" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 320 220" data-fam-figure="diagram" data-fam-index="1">
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 350px"><svg aria-label="Схема удвоения числа подмножеств при добавлении нового элемента" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 320 220" data-fam-figure="diagram" data-fam-index="1">
 <rect class="venn-u-box" height="162" rx="6" width="296" x="12" y="14"></rect>
 <!-- Left box: Subsets of {a, b} (without c) -->
 <rect class="venn-fill-1" height="134" rx="6" stroke="var(--svg-c-stroke)" stroke-width="1.6" width="122" x="24" y="28"></rect>
-<text class="svg-title" text-anchor="middle" x="85" y="46">Подмножества {a, b}</text>
-<text class="svg-sub" text-anchor="middle" x="85" y="60">(без c: 2² = 4 шт.)</text>
+<text class="svg-title" text-anchor="middle" x="85" y="46">Без элемента c</text>
+<text class="svg-sub" text-anchor="middle" x="85" y="60">2² = 4 подмножества</text>
 <text class="svg-reg-code" text-anchor="middle" x="85" y="84">1) ∅</text>
 <text class="svg-reg-code" text-anchor="middle" x="85" y="104">2) {a}</text>
 <text class="svg-reg-code" text-anchor="middle" x="85" y="124">3) {b}</text>
@@ -933,19 +985,19 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <line class="venn-c-stroke" stroke-width="1.6" x1="148" x2="170" y1="100" y2="100"></line>
 <line class="venn-c-stroke" stroke-width="1.6" x1="148" x2="170" y1="120" y2="120"></line>
 <line class="venn-c-stroke" stroke-width="1.6" x1="148" x2="170" y1="140" y2="140"></line>
-<text class="svg-reg-code" text-anchor="middle" x="159" y="68">+c →</text>
+<text class="svg-reg-code" text-anchor="middle" x="160" y="72">+c</text>
 <!-- Right box: New subsets with c -->
 <rect class="venn-fill-2" height="134" rx="6" stroke="var(--svg-c-stroke)" stroke-width="1.6" width="122" x="174" y="28"></rect>
-<text class="svg-title" text-anchor="middle" x="235" y="46">Плюс элемент c</text>
-<text class="svg-sub" text-anchor="middle" x="235" y="60">(с элементом c: 4 шт.)</text>
+<text class="svg-title" text-anchor="middle" x="235" y="46">С элементом c</text>
+<text class="svg-sub" text-anchor="middle" x="235" y="60">4 подмножества</text>
 <text class="svg-reg-code" text-anchor="middle" x="235" y="84">5) {c}</text>
 <text class="svg-reg-code" text-anchor="middle" x="235" y="104">6) {a, c}</text>
 <text class="svg-reg-code" text-anchor="middle" x="235" y="124">7) {b, c}</text>
 <text class="svg-reg-code" text-anchor="middle" x="235" y="144">8) {a, b, c}</text>
-<text class="svg-title" text-anchor="middle" x="160" y="194">Булеан: |2ᴬ| = 2^|A|</text>
+<text class="svg-title" text-anchor="middle" x="160" y="194">Булеан: |2ᴬ| = 2<tspan dy="-4" font-size="9">|A|</tspan></text>
 <text class="svg-sub" text-anchor="middle" x="160" y="209">2ᵏ + 2ᵏ = 2ᵏ⁺¹</text>
-</svg></div>
-<div class="svg-card"><svg aria-label="Схема Теоремы 27: подмножество X входит и в A, и в B тогда и только тогда, когда X входит в A пересечь с B" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 320 220" data-fam-figure="diagram" data-fam-index="2">
+</svg></div></div>
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 350px"><svg aria-label="Схема Теоремы 27: подмножество X входит и в A, и в B тогда и только тогда, когда X входит в A пересечь с B" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 320 220" data-fam-figure="diagram" data-fam-index="2">
 <rect class="venn-u-box" height="162" rx="6" width="296" x="12" y="14"></rect>
 <circle class="venn-fill-soft" cx="122" cy="95" r="56" stroke="var(--svg-c-stroke)" stroke-width="2"></circle>
 <circle class="venn-fill-2" cx="198" cy="95" r="56" stroke="var(--svg-c-stroke)" stroke-width="2"></circle>
@@ -958,7 +1010,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-u-label" text-anchor="end" x="296" y="32">U</text>
 <text class="svg-title" text-anchor="middle" x="160" y="194">К Теореме 27: 2^(A∩B) = 2ᴬ ∩ 2ᴮ</text>
 <text class="svg-sub" text-anchor="middle" x="160" y="209">X ⊆ A ∩ B ⇔ X ⊆ A и X ⊆ B</text>
-</svg></div>
+</svg></div></div>
 </div>
 
 <!-- ======================================================================
@@ -972,7 +1024,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
   <div class="chapter-kicker">04 / . Задача о числе элементов в о…</div>
   <h2 id="chapter-4" data-toc=". Задача о числе элементов в о…">Глава 2. Задача о числе элементов в объединении и Формула включений-исключений (Теорема 28)</h2>
 
-<a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
+<a class="back-to-toc" href="#top">↑ К оглавлению</a>
 
 <div class="statement definition" id="def-2"><div class="block-label">Определение 2</div><h3 data-toc="Постановка задачи · Лекция 3, …" id="sub-4-1">Постановка задачи · Лекция 3, Слайды 6, 7, 8Как найти число элементов в объединении нескольких конечных множеств?</h3><div>
 <p>
@@ -980,21 +1032,21 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </p>
 <p>
 <strong>1. Случай двух множеств (Слайд 7):</strong>
-<div class="math-display">|A  ∪  B| = |A| + |B| - |A  ∩  B|.</div>
+</p><div class="math-display">|A  ∪  B| = |A| + |B| - |A  ∩  B|.</div>
 <em>Наглядное обоснование (по кругам Эйлера со слайда 7):</em> Когда мы складываем число элементов в круге <span class="math-inline">A</span> и число элементов в круге <span class="math-inline">B</span> (<span class="math-inline">|A| + |B|</span>), каждый элемент, лежащий только в <span class="math-inline">A  ∖  B</span> или только в <span class="math-inline">B  ∖  A</span>, учитывается ровно <span class="math-inline">1</span> раз. Однако каждый элемент из заштрихованной общей части <span class="math-inline">A  ∩  B</span> принадлежит обоим кругам, поэтому в сумме <span class="math-inline">|A| + |B|</span> он посчитан <strong>дважды</strong>! Вычитая один раз <span class="math-inline">|A  ∩  B|</span>, мы добиваемся того, что каждый элемент из <span class="math-inline">A  ∪  B</span> посчитан ровно по одному разу.
-        </p>
+        
 <p style="margin-bottom:0;">
 <strong>2. Случай трёх множеств (Слайд 8):</strong>
-<div class="math-display">|A  ∪  B  ∪  C| = |A| + |B| + |C| - |A  ∩  B| - |A  ∩  C| - |B  ∩  C| + |A  ∩  B  ∩  C|.</div>
-</p>
+</p><div class="math-display">|A  ∪  B  ∪  C| = |A| + |B| + |C| - |A  ∩  B| - |A  ∩  C| - |B  ∩  C| + |A  ∩  B  ∩  C|.</div>
+
 </div></div>
 <div class="svg-grid-2">
-<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="Общая часть посчитана дважды" data-fam-figure="diagram" data-fam-index="3">
-<defs><clipPath id="fam-fig-3-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-3-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-3-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-3-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-3-in1)"><g clip-path="url(#fam-fig-3-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Общая часть посчитана дважды</text>
-</svg></div>
-<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="В попарных пересечениях учтены четыре области" data-fam-figure="diagram" data-fam-index="4">
-<defs><clipPath id="fam-fig-4-in0"><circle cx="132" cy="99" r="62" /></clipPath><mask id="fam-fig-4-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="132" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-4-in1"><circle cx="207" cy="99" r="62" /></clipPath><mask id="fam-fig-4-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="207" cy="99" r="62" fill="black"/></mask><clipPath id="fam-fig-4-in2"><circle cx="169.5" cy="160" r="62" /></clipPath><mask id="fam-fig-4-out2" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="169.5" cy="160" r="62" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-4-in2)"><g clip-path="url(#fam-fig-4-in1)"><g mask="url(#fam-fig-4-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g clip-path="url(#fam-fig-4-in2)"><g mask="url(#fam-fig-4-out1)"><g clip-path="url(#fam-fig-4-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g mask="url(#fam-fig-4-out2)"><g clip-path="url(#fam-fig-4-in1)"><g clip-path="url(#fam-fig-4-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><g clip-path="url(#fam-fig-4-in2)"><g clip-path="url(#fam-fig-4-in1)"><g clip-path="url(#fam-fig-4-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g></g><circle cx="132" cy="99" r="62" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83" y="52" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="207" cy="99" r="62" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="256" y="52" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><circle cx="169.5" cy="160" r="62" fill="none" stroke="var(--fig-gold)" stroke-width="1.8"/><text x="214.5" y="199" text-anchor="middle" fill="var(--fig-gold)" font-size="15">C</text><text x="113" y="88" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₅</text><text x="228" y="88" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₁</text><text x="169" y="188" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₇</text><text x="170" y="73" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₂</text><text x="135" y="137" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₆</text><text x="203" y="137" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₄</text><text x="170" y="118" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₃</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">В попарных пересечениях учтены четыре области</text>
-</svg></div>
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 314px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 340 265" role="img" aria-label="Общая часть посчитана дважды" data-fam-figure="diagram" data-fam-index="3">
+<defs><clippath id="fam-fig-3-in0"><circle cx="134" cy="114" r="65"></circle></clippath><mask id="fam-fig-3-out0" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="134" cy="114" r="65" fill="black"></circle></mask><clippath id="fam-fig-3-in1"><circle cx="209" cy="114" r="65"></circle></clippath><mask id="fam-fig-3-out1" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="209" cy="114" r="65" fill="black"></circle></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"></rect><g clip-path="url(#fam-fig-3-in1)"><g clip-path="url(#fam-fig-3-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"></rect></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"></circle><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"></circle><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Общая часть посчитана дважды</text>
+</svg></div></div>
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 340px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 340 265" role="img" aria-label="В попарных пересечениях учтены четыре области" data-fam-figure="diagram" data-fam-index="4">
+<defs><clippath id="fam-fig-4-in0"><circle cx="132" cy="99" r="62"></circle></clippath><mask id="fam-fig-4-out0" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="132" cy="99" r="62" fill="black"></circle></mask><clippath id="fam-fig-4-in1"><circle cx="207" cy="99" r="62"></circle></clippath><mask id="fam-fig-4-out1" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="207" cy="99" r="62" fill="black"></circle></mask><clippath id="fam-fig-4-in2"><circle cx="169.5" cy="160" r="62"></circle></clippath><mask id="fam-fig-4-out2" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="169.5" cy="160" r="62" fill="black"></circle></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"></rect><g clip-path="url(#fam-fig-4-in2)"><g clip-path="url(#fam-fig-4-in1)"><g mask="url(#fam-fig-4-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"></rect></g></g></g><g clip-path="url(#fam-fig-4-in2)"><g mask="url(#fam-fig-4-out1)"><g clip-path="url(#fam-fig-4-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"></rect></g></g></g><g mask="url(#fam-fig-4-out2)"><g clip-path="url(#fam-fig-4-in1)"><g clip-path="url(#fam-fig-4-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"></rect></g></g></g><g clip-path="url(#fam-fig-4-in2)"><g clip-path="url(#fam-fig-4-in1)"><g clip-path="url(#fam-fig-4-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"></rect></g></g></g><circle cx="132" cy="99" r="62" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"></circle><text x="83" y="52" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="207" cy="99" r="62" fill="none" stroke="var(--fig-green)" stroke-width="1.8"></circle><text x="256" y="52" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><circle cx="169.5" cy="160" r="62" fill="none" stroke="var(--fig-gold)" stroke-width="1.8"></circle><text x="214.5" y="199" text-anchor="middle" fill="var(--fig-gold)" font-size="15">C</text><text x="113" y="88" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₅</text><text x="228" y="88" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₁</text><text x="169" y="188" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₇</text><text x="170" y="73" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₂</text><text x="135" y="137" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₆</text><text x="203" y="137" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₄</text><text x="170" y="118" text-anchor="middle" fill="var(--fig-ink)" font-size="12">N₃</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">В попарных пересечениях учтены четыре области</text>
+</svg></div></div>
 </div>
 <div class="proof" data-proof="" id="proof-3">
 <div aria-label="Доказательство Почему в формуле для трёх множеств знаки чередуются: « + », « - », « + »?" class="proof-controls" role="group">
@@ -1010,27 +1062,27 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-full" data-proof-full="" id="full-3">
 <div class="proof-label">Доказательство (Почему в формуле для трёх множеств знаки чередуются: « + », « - », « + »?)</div>
 <p>
-<strong>Способ 1 (Проверка по 7 непересекающимся областям <span class="math-inline">N<sub>1</sub>, N<sub>2</sub>, …, N<sub>7</sub></span> на рисунке слайда 8):</strong><br/>
+<strong>Способ 1 (Проверка по 7 непересекающимся областям <span class="math-inline">N<sub>1</sub>, N<sub>2</sub>, …, N<sub>7</sub></span> на рисунке слайда 8):</strong><br>
           Три круга <span class="math-inline">A, B, C</span> разбивают своё объединение <span class="math-inline">A  ∪  B  ∪  C</span> на <span class="math-inline">7</span> попарно непересекающихся элементарных областей, обозначенных на слайде 8 через <span class="math-inline">N<sub>1</sub>, N<sub>2</sub>, N<sub>3</sub>, N<sub>4</sub>, N<sub>5</sub>, N<sub>6</sub>, N<sub>7</sub></span> (где <span class="math-inline">N<sub>1</sub>, N<sub>5</sub>, N<sub>7</sub></span> — части, принадлежащие только одному кругу; <span class="math-inline">N<sub>2</sub>, N<sub>4</sub>, N<sub>6</sub></span> — части, принадлежащие ровно двум кругам; <span class="math-inline">N<sub>3</sub> = A  ∩  B  ∩  C</span> — центральная область, принадлежащая всем трём кругам сразу):
-          <div class="math-display">|A  ∪  B  ∪  C| = |N<sub>1</sub>| + |N<sub>2</sub>| + |N<sub>3</sub>| + |N<sub>4</sub>| + |N<sub>5</sub>| + |N<sub>6</sub>| + |N<sub>7</sub>|.</div>
-          Выразим каждое слагаемое правой части через эти 7 областей:<br/>
-          • <span class="math-inline">|A| = |N<sub>5</sub>| + |N<sub>2</sub>| + |N<sub>6</sub>| + |N<sub>3</sub>|</span>, <span class="math-inline">     |B| = |N<sub>1</sub>| + |N<sub>2</sub>| + |N<sub>4</sub>| + |N<sub>3</sub>|</span>, <span class="math-inline">     |C| = |N<sub>7</sub>| + |N<sub>4</sub>| + |N<sub>6</sub>| + |N<sub>3</sub>|</span>;<br/>
+          </p><div class="math-display">|A  ∪  B  ∪  C| = |N<sub>1</sub>| + |N<sub>2</sub>| + |N<sub>3</sub>| + |N<sub>4</sub>| + |N<sub>5</sub>| + |N<sub>6</sub>| + |N<sub>7</sub>|.</div>
+          Выразим каждое слагаемое правой части через эти 7 областей:<br>
+          • <span class="math-inline">|A| = |N<sub>5</sub>| + |N<sub>2</sub>| + |N<sub>6</sub>| + |N<sub>3</sub>|</span>, <span class="math-inline">     |B| = |N<sub>1</sub>| + |N<sub>2</sub>| + |N<sub>4</sub>| + |N<sub>3</sub>|</span>, <span class="math-inline">     |C| = |N<sub>7</sub>| + |N<sub>4</sub>| + |N<sub>6</sub>| + |N<sub>3</sub>|</span>;<br>
           • Сумма одиночных мощностей:
             <div class="math-display">|A| + |B| + |C| = (|N<sub>1</sub>| + |N<sub>5</sub>| + |N<sub>7</sub>|) + 2(|N<sub>2</sub>| + |N<sub>4</sub>| + |N<sub>6</sub>|) + 3|N<sub>3</sub>|</div>
-            (области из двух кругов посчитаны по <span class="math-inline">2</span> раза, а центральная область <span class="math-inline">N<sub>3</sub></span> — целых <span class="math-inline">3</span> раза!).<br/>
+            (области из двух кругов посчитаны по <span class="math-inline">2</span> раза, а центральная область <span class="math-inline">N<sub>3</sub></span> — целых <span class="math-inline">3</span> раза!).<br>
           • Вычтем попарные пересечения <span class="math-inline">|A  ∩  B| = |N<sub>2</sub>| + |N<sub>3</sub>|</span>, <span class="math-inline">|B  ∩  C| = |N<sub>4</sub>| + |N<sub>3</sub>|</span> и <span class="math-inline">|A  ∩  C| = |N<sub>6</sub>| + |N<sub>3</sub>|</span>:
             <div class="math-display">|A| + |B| + |C| - |A  ∩  B| - |A  ∩  C| - |B  ∩  C| = (|N<sub>1</sub>| + |N<sub>5</sub>| + |N<sub>7</sub>|) + (|N<sub>2</sub>| + |N<sub>4</sub>| + |N<sub>6</sub>|) + (3 - 3)|N<sub>3</sub>|.</div>
-            Заметим, что при вычитании трёх попарных пересечений центральная область <span class="math-inline">N<sub>3</sub></span> была вычтена <span class="math-inline">3</span> раза (<span class="math-inline">3 - 3 = 0</span>) и полностью исчезла из суммы!<br/>
+            Заметим, что при вычитании трёх попарных пересечений центральная область <span class="math-inline">N<sub>3</sub></span> была вычтена <span class="math-inline">3</span> раза (<span class="math-inline">3 - 3 = 0</span>) и полностью исчезла из суммы!<br>
           • Поэтому в конце необходимо <strong>прибавить обратно</strong> <span class="math-inline">|A  ∩  B  ∩  C| = |N<sub>3</sub>|</span>, чтобы каждая из семи областей <span class="math-inline">N<sub>1</sub> … N<sub>7</sub></span> вошла в сумму ровно с коэффициентом <span class="math-inline">1</span>!
-        </p>
+        
 <p style="margin-bottom:0;">
-<strong>Способ 2 (Вывод формулы для 3 множеств из формулы для 2 множеств):</strong><br/>
+<strong>Способ 2 (Вывод формулы для 3 множеств из формулы для 2 множеств):</strong><br>
           Сгруппируем <span class="math-inline">A  ∪  B  ∪  C = (A  ∪  B)  ∪  C</span> и применим формулу для двух множеств <span class="math-inline">(A  ∪  B)</span> и <span class="math-inline">C</span>:
-          <div class="math-display">|(A  ∪  B)  ∪  C| = |A  ∪  B| + |C| - |(A  ∪  B)  ∩  C|.</div>
+          </p><div class="math-display">|(A  ∪  B)  ∪  C| = |A  ∪  B| + |C| - |(A  ∪  B)  ∩  C|.</div>
           По закону дистрибутивности (Теорема 10, п. 7) имеем <span class="math-inline">(A  ∪  B)  ∩  C = (A  ∩  C)  ∪  (B  ∩  C)</span>. Применяя формулу для двух множеств к <span class="math-inline">|A  ∪  B|</span> и к <span class="math-inline">|(A  ∩  C)  ∪  (B  ∩  C)|</span>, получаем:
           <div class="math-display">|A  ∪  B  ∪  C| = (|A| + |B| - |A  ∩  B|) + |C| - (|A  ∩  C| + |B  ∩  C| - |(A  ∩  C)  ∩  (B  ∩  C)|)</div>
 <div class="math-display">= |A| + |B| + |C| - |A  ∩  B| - |A  ∩  C| - |B  ∩  C| + |A  ∩  B  ∩  C|.      ∎</div>
-</p>
+
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
 </div>
@@ -1038,8 +1090,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p>Для любых <span class="math-inline">n</span> конечных множеств <span class="math-inline">A<sub>1</sub>, A<sub>2</sub>, …, A<sub>n</sub></span> мощность их объединения выражается формулой:</p>
 <div class="math-display">|A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>n</sub>| = ∑<sub>i=1</sub><sup>n</sup> |A<sub>i</sub>| - ∑<sub>(i, j = 1 ,  i &lt; j)</sub><sup>n</sup> |A<sub>i</sub>  ∩  A<sub>j</sub>| + ∑<sub>1  ≤  i &lt; j &lt; k  ≤  n</sub> |A<sub>i</sub>  ∩  A<sub>j</sub>  ∩  A<sub>k</sub>| - … + (-1)<sup>n-1</sup> |A<sub>1</sub>  ∩  A<sub>2</sub>  ∩  …  ∩  A<sub>n</sub>|.</div>
 <p style="margin-bottom:0;">
-<em>Словесная формулировка:</em> Чтобы найти мощность объединения <span class="math-inline">n</span> конечных множеств, нужно взять сумму мощностей всех одиночных множеств, вычесть сумму мощностей всех попарных пересечений, прибавить сумму мощностей всех тройных пересечений и т. д., чередуя знаки: пересечения нечётного числа множеств берутся со знаком «<span class="math-inline">+</span>», а пересечения чётного числа множеств — со знаком «<span class="math-inline">-</span>».<br/>
-<strong>Полное строгое доказательство Теоремы 28</strong> лектор строит с помощью специального аналитического инструмента — <strong>характеристических функций множеств</strong> (Пункты 29–32 ниже).
+<em>Словесная формулировка:</em> Чтобы найти мощность объединения <span class="math-inline">n</span> конечных множеств, нужно взять сумму мощностей всех одиночных множеств, вычесть сумму мощностей всех попарных пересечений, прибавить сумму мощностей всех тройных пересечений и т. д., чередуя знаки: пересечения нечётного числа множеств берутся со знаком «<span class="math-inline">+</span>», а пересечения чётного числа множеств — со знаком «<span class="math-inline">-</span>».<br>
+<strong>Полное строгое доказательство Теоремы 28</strong> можно построить с помощью аналитического инструмента — <strong>характеристических функций множеств</strong> (Пункты 29–32 ниже).
         </p>
 </div></div>
 
@@ -1054,27 +1106,27 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
   <div class="chapter-kicker">05 / . Характеристическая функция м…</div>
   <h2 id="chapter-5" data-toc=". Характеристическая функция м…">Глава 3. Характеристическая функция множестваχAи её свойства (Пункты 29, 30, 31)</h2>
 
-<a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
+<a class="back-to-toc" href="#top">↑ К оглавлению</a>
 
 <div class="statement definition" id="def-3"><div class="block-label">Определение 3</div><h3 data-toc="Определение 29 · Лекция 3, Сла…" id="sub-5-1">Определение 29 · Лекция 3, Слайд 9 и КонспектХарактеристическая функцияχAмножестваA</h3><div>
 <p>
-          Для удобства записи доказательств введём следующее понятие.<br/>
+          Для удобства записи доказательств введём следующее понятие.<br>
 <strong>Характеристической функцией</strong> <span class="math-inline">χ<sub>A</sub></span> множества <span class="math-inline">A  ⊂  U</span> называется функция
-          <div class="math-display">χ<sub>A</sub> : U  →  {0, 1},        <span style="font-family:Inter,sans-serif;font-style:normal;">где </span> χ<sub>A</sub>(x) = { 1,   x  ∈  A;;  0,   x  ∉  A. }</div>
+          </p><div class="math-display">χ<sub>A</sub> : U  →  {0, 1},        <span style="font-family:Inter,sans-serif;font-style:normal;">где </span> χ<sub>A</sub>(x) = { 1,   x  ∈  A;;  0,   x  ∉  A. }</div>
           Другими словами, на каждом элементе <span class="math-inline">x</span> универса <span class="math-inline">U</span> функция <span class="math-inline">χ<sub>A</sub>(x)</span> принимает числовое значение <span class="math-inline">1</span>, если этот элемент принадлежит множеству <span class="math-inline">A</span>, и числовое значение <span class="math-inline">0</span>, если он не принадлежит <span class="math-inline">A</span>.
-        </p>
+        
 <p style="margin-bottom:0;">
-<strong>Разбор примера из рукописного конспекта:</strong><br/>
-          Пусть универс состоит из четырёх элементов <span class="math-inline">U = {1, 2, 3, 4}</span>, а подмножества заданы кругами (см. рисунок ниже): <span class="math-inline">A = {2, 3}</span> и <span class="math-inline">B = {3, 4}</span> (элемент <span class="math-inline">1</span> лежит вне обоих кругов, элемент <span class="math-inline">2</span> — только в <span class="math-inline">A</span>, элемент <span class="math-inline">3</span> — в пересечении <span class="math-inline">A  ∩  B</span>, элемент <span class="math-inline">4</span> — только в <span class="math-inline">B</span>). Тогда:<br/>
-          • <span class="math-inline">χ<sub>A</sub>(1) = 0,      χ<sub>A</sub>(2) = 1,      χ<sub>A</sub>(3) = 1,      χ<sub>A</sub>(4) = 0</span>;<br/>
+<strong>Разбор примера из рукописного конспекта:</strong><br>
+          Пусть универс состоит из четырёх элементов <span class="math-inline">U = {1, 2, 3, 4}</span>, а подмножества заданы кругами (см. рисунок ниже): <span class="math-inline">A = {2, 3}</span> и <span class="math-inline">B = {3, 4}</span> (элемент <span class="math-inline">1</span> лежит вне обоих кругов, элемент <span class="math-inline">2</span> — только в <span class="math-inline">A</span>, элемент <span class="math-inline">3</span> — в пересечении <span class="math-inline">A  ∩  B</span>, элемент <span class="math-inline">4</span> — только в <span class="math-inline">B</span>). Тогда:<br>
+          • <span class="math-inline">χ<sub>A</sub>(1) = 0,      χ<sub>A</sub>(2) = 1,      χ<sub>A</sub>(3) = 1,      χ<sub>A</sub>(4) = 0</span>;<br>
           • <span class="math-inline">χ<sub>B</sub>(1) = 0,      χ<sub>B</sub>(2) = 0,      χ<sub>B</sub>(3) = 1,      χ<sub>B</sub>(4) = 1</span>.
         </p>
 </div></div>
 <div class="svg-grid-2">
-<div class="svg-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="A = {2, 3}, B = {3, 4}" data-fam-figure="diagram" data-fam-index="5">
-<defs><clipPath id="fam-fig-5-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-5-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-5-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-5-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-5-in1)"><g clip-path="url(#fam-fig-5-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="47" y="176" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1</text><text x="111" y="123" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2</text><text x="171" y="123" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3</text><text x="230" y="123" text-anchor="middle" fill="var(--fig-ink)" font-size="12">4</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A = {2, 3}, B = {3, 4}</text>
-</svg></div>
-<div class="svg-card"><svg aria-label="Значения характеристических функций на элементах 1, 2, 3, 4" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 210" data-fam-figure="diagram" data-fam-index="6">
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 340px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 340 265" role="img" aria-label="A = {2, 3}, B = {3, 4}" data-fam-figure="diagram" data-fam-index="5">
+<defs><clippath id="fam-fig-5-in0"><circle cx="134" cy="114" r="65"></circle></clippath><mask id="fam-fig-5-out0" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="134" cy="114" r="65" fill="black"></circle></mask><clippath id="fam-fig-5-in1"><circle cx="209" cy="114" r="65"></circle></clippath><mask id="fam-fig-5-out1" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="209" cy="114" r="65" fill="black"></circle></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"></rect><g clip-path="url(#fam-fig-5-in1)"><g clip-path="url(#fam-fig-5-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"></rect></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"></circle><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"></circle><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="47" y="176" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1</text><text x="111" y="123" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2</text><text x="171" y="123" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3</text><text x="230" y="123" text-anchor="middle" fill="var(--fig-ink)" font-size="12">4</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A = {2, 3}, B = {3, 4}</text>
+</svg></div></div>
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 306px"><svg aria-label="Значения характеристических функций на элементах 1, 2, 3, 4" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 210" data-fam-figure="diagram" data-fam-index="6">
 <rect class="venn-u-box" height="144" rx="6" stroke="var(--svg-u-stroke)" stroke-width="1.6" width="244" x="18" y="22"></rect>
 <!-- Header -->
 <line class="venn-c-stroke" x1="18" x2="262" y1="52" y2="52"></line>
@@ -1109,7 +1161,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" text-anchor="middle" x="239" y="151">0</text>
 <text class="svg-title" text-anchor="middle" x="140" y="184">Характеристические функции</text>
 <text class="svg-sub" text-anchor="middle" x="140" y="199">Сумма по строке χ(A, x) равна 2</text>
-</svg></div>
+</svg></div></div>
 </div>
 <div class="statement theorem" id="thm-4"><div class="block-label">Утверждение 4</div><h3 data-toc="Теорема 30 · Лекция 3, Слайд 9…" id="sub-5-2">Теорема 30 · Лекция 3, Слайд 9 и КонспектБазовые свойства характеристических функций</h3><div>
 <p>Для любых множеств <span class="math-inline">A, B  ⊂  U</span> и любого элемента <span class="math-inline">x  ∈  U</span> выполняются три равенства:</p>
@@ -1137,25 +1189,25 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </p>
 <p><strong>1. Доказательство равенства <span class="math-inline">χ<sub>A</sub><sup>2</sup> = χ<sub>A</sub></span>:</strong></p>
 <p>
-          Возьмём произвольный элемент <span class="math-inline">x  ∈  U</span>. По Определению 29 возможны только два случая:<br/>
-          • <em>Случай 1 (<span class="math-inline">x  ∈  A</span>):</em> Тогда <span class="math-inline">χ<sub>A</sub>(x) = 1</span>, откуда <span class="math-inline">(χ<sub>A</sub>(x))<sup>2</sup> = 1<sup>2</sup> = 1 = χ<sub>A</sub>(x)</span>.<br/>
-          • <em>Случай 2 (<span class="math-inline">x  ∉  A</span>):</em> Тогда <span class="math-inline">χ<sub>A</sub>(x) = 0</span>, откуда <span class="math-inline">(χ<sub>A</sub>(x))<sup>2</sup> = 0<sup>2</sup> = 0 = χ<sub>A</sub>(x)</span>.<br/>
+          Возьмём произвольный элемент <span class="math-inline">x  ∈  U</span>. По Определению 29 возможны только два случая:<br>
+          • <em>Случай 1 (<span class="math-inline">x  ∈  A</span>):</em> Тогда <span class="math-inline">χ<sub>A</sub>(x) = 1</span>, откуда <span class="math-inline">(χ<sub>A</sub>(x))<sup>2</sup> = 1<sup>2</sup> = 1 = χ<sub>A</sub>(x)</span>.<br>
+          • <em>Случай 2 (<span class="math-inline">x  ∉  A</span>):</em> Тогда <span class="math-inline">χ<sub>A</sub>(x) = 0</span>, откуда <span class="math-inline">(χ<sub>A</sub>(x))<sup>2</sup> = 0<sup>2</sup> = 0 = χ<sub>A</sub>(x)</span>.<br>
           В обоих случаях <span class="math-inline">(χ<sub>A</sub>(x))<sup>2</sup> = χ<sub>A</sub>(x)</span> (а значит, и любая натуральная степень <span class="math-inline">χ<sub>A</sub><sup>k</sup> = χ<sub>A</sub></span>!).
         </p>
 <p><strong>2. Доказательство равенства <span class="math-inline">χ<sub>A  ∩  B</sub> = χ<sub>A</sub>  ·  χ<sub>B</sub></span>:</strong></p>
 <p>
-          Возьмём произвольный элемент <span class="math-inline">x  ∈  U</span>. По определению пересечения (Определение 9) <span class="math-inline">x  ∈  A  ∩  B</span> тогда и только тогда, когда <span class="math-inline">x  ∈  A</span> и <span class="math-inline">x  ∈  B</span> одновременно:<br/>
-          • <em>Случай 1 (<span class="math-inline">x  ∈  A  ∩  B</span>):</em> Тогда <span class="math-inline">x  ∈  A</span> и <span class="math-inline">x  ∈  B</span>. По Определению 29 имеем <span class="math-inline">χ<sub>A  ∩  B</sub>(x) = 1</span>, а также <span class="math-inline">χ<sub>A</sub>(x) = 1</span> и <span class="math-inline">χ<sub>B</sub>(x) = 1</span>. Следовательно, <span class="math-inline">χ<sub>A</sub>(x)  ·  χ<sub>B</sub>(x) = 1  ·  1 = 1 = χ<sub>A  ∩  B</sub>(x)</span>.<br/>
-          • <em>Случай 2 (<span class="math-inline">x  ∉  A  ∩  B</span>):</em> Тогда элемент <span class="math-inline">x</span> не принадлежит хотя бы одному из множеств <span class="math-inline">A</span> или <span class="math-inline">B</span> (либо <span class="math-inline">x  ∉  A</span>, либо <span class="math-inline">x  ∉  B</span>, либо не принадлежит обоим). По Определению 29 левая часть равна <span class="math-inline">χ<sub>A  ∩  B</sub>(x) = 0</span>, а в правой части хотя бы один из двух сомножителей <span class="math-inline">χ<sub>A</sub>(x)</span> или <span class="math-inline">χ<sub>B</sub>(x)</span> равен <span class="math-inline">0</span>. Но произведение чисел, в котором хотя бы один множитель равен нулю, всегда равно нулю: <span class="math-inline">χ<sub>A</sub>(x)  ·  χ<sub>B</sub>(x) = 0 = χ<sub>A  ∩  B</sub>(x)</span>.<br/>
-          Таким образом, при всех <span class="math-inline">x  ∈  U</span> выполняется <span class="math-inline">χ<sub>A  ∩  B</sub>(x) = χ<sub>A</sub>(x)  ·  χ<sub>B</sub>(x)</span>.<br/>
+          Возьмём произвольный элемент <span class="math-inline">x  ∈  U</span>. По определению пересечения (Определение 9) <span class="math-inline">x  ∈  A  ∩  B</span> тогда и только тогда, когда <span class="math-inline">x  ∈  A</span> и <span class="math-inline">x  ∈  B</span> одновременно:<br>
+          • <em>Случай 1 (<span class="math-inline">x  ∈  A  ∩  B</span>):</em> Тогда <span class="math-inline">x  ∈  A</span> и <span class="math-inline">x  ∈  B</span>. По Определению 29 имеем <span class="math-inline">χ<sub>A  ∩  B</sub>(x) = 1</span>, а также <span class="math-inline">χ<sub>A</sub>(x) = 1</span> и <span class="math-inline">χ<sub>B</sub>(x) = 1</span>. Следовательно, <span class="math-inline">χ<sub>A</sub>(x)  ·  χ<sub>B</sub>(x) = 1  ·  1 = 1 = χ<sub>A  ∩  B</sub>(x)</span>.<br>
+          • <em>Случай 2 (<span class="math-inline">x  ∉  A  ∩  B</span>):</em> Тогда элемент <span class="math-inline">x</span> не принадлежит хотя бы одному из множеств <span class="math-inline">A</span> или <span class="math-inline">B</span> (либо <span class="math-inline">x  ∉  A</span>, либо <span class="math-inline">x  ∉  B</span>, либо не принадлежит обоим). По Определению 29 левая часть равна <span class="math-inline">χ<sub>A  ∩  B</sub>(x) = 0</span>, а в правой части хотя бы один из двух сомножителей <span class="math-inline">χ<sub>A</sub>(x)</span> или <span class="math-inline">χ<sub>B</sub>(x)</span> равен <span class="math-inline">0</span>. Но произведение чисел, в котором хотя бы один множитель равен нулю, всегда равно нулю: <span class="math-inline">χ<sub>A</sub>(x)  ·  χ<sub>B</sub>(x) = 0 = χ<sub>A  ∩  B</sub>(x)</span>.<br>
+          Таким образом, при всех <span class="math-inline">x  ∈  U</span> выполняется <span class="math-inline">χ<sub>A  ∩  B</sub>(x) = χ<sub>A</sub>(x)  ·  χ<sub>B</sub>(x)</span>.<br>
 <em>Важное следствие (обобщение по индукции на любое число множеств):</em> Для любых <span class="math-inline">k</span> множеств <span class="math-inline">B<sub>1</sub>, B<sub>2</sub>, …, B<sub>k</sub>  ⊂  U</span>:
-          <div class="math-display">χ<sub>B<sub>1</sub>  ∩  B<sub>2</sub>  ∩  …  ∩  B<sub>k</sub></sub> = χ<sub>B<sub>1</sub></sub>  ·  χ<sub>B<sub>2</sub></sub>  ·  …  ·  χ<sub>B<sub>k</sub></sub>.</div>
-</p>
+          </p><div class="math-display">χ<sub>B<sub>1</sub>  ∩  B<sub>2</sub>  ∩  …  ∩  B<sub>k</sub></sub> = χ<sub>B<sub>1</sub></sub>  ·  χ<sub>B<sub>2</sub></sub>  ·  …  ·  χ<sub>B<sub>k</sub></sub>.</div>
+
 <p style="margin-bottom:0;"><strong>3. Доказательство равенства <span class="math-inline">χ<sub><span class="ovl">A</span></sub> = 1 - χ<sub>A</sub></span>:</strong></p>
 <p style="margin-bottom:0;">
-          Возьмём произвольный элемент <span class="math-inline">x  ∈  U</span>. По Определению 7 (дополнение множества) <span class="math-inline">x  ∈  <span class="ovl">A</span>  ⟺  x  ∉  A</span>:<br/>
-          • <em>Случай 1 (<span class="math-inline">x  ∈  A</span>):</em> Тогда <span class="math-inline">x  ∉  <span class="ovl">A</span></span>. По Определению 29 имеем <span class="math-inline">χ<sub><span class="ovl">A</span></sub>(x) = 0</span> и <span class="math-inline">χ<sub>A</sub>(x) = 1</span>. Подставляя в правую часть, получаем <span class="math-inline">1 - χ<sub>A</sub>(x) = 1 - 1 = 0 = χ<sub><span class="ovl">A</span></sub>(x)</span>.<br/>
-          • <em>Случай 2 (<span class="math-inline">x  ∉  A</span>):</em> Тогда <span class="math-inline">x  ∈  <span class="ovl">A</span></span>. По Определению 29 имеем <span class="math-inline">χ<sub><span class="ovl">A</span></sub>(x) = 1</span> и <span class="math-inline">χ<sub>A</sub>(x) = 0</span>. Подставляя в правую часть, получаем <span class="math-inline">1 - χ<sub>A</sub>(x) = 1 - 0 = 1 = χ<sub><span class="ovl">A</span></sub>(x)</span>.<br/>
+          Возьмём произвольный элемент <span class="math-inline">x  ∈  U</span>. По Определению 7 (дополнение множества) <span class="math-inline">x  ∈  <span class="ovl">A</span>  ⟺  x  ∉  A</span>:<br>
+          • <em>Случай 1 (<span class="math-inline">x  ∈  A</span>):</em> Тогда <span class="math-inline">x  ∉  <span class="ovl">A</span></span>. По Определению 29 имеем <span class="math-inline">χ<sub><span class="ovl">A</span></sub>(x) = 0</span> и <span class="math-inline">χ<sub>A</sub>(x) = 1</span>. Подставляя в правую часть, получаем <span class="math-inline">1 - χ<sub>A</sub>(x) = 1 - 1 = 0 = χ<sub><span class="ovl">A</span></sub>(x)</span>.<br>
+          • <em>Случай 2 (<span class="math-inline">x  ∉  A</span>):</em> Тогда <span class="math-inline">x  ∈  <span class="ovl">A</span></span>. По Определению 29 имеем <span class="math-inline">χ<sub><span class="ovl">A</span></sub>(x) = 1</span> и <span class="math-inline">χ<sub>A</sub>(x) = 0</span>. Подставляя в правую часть, получаем <span class="math-inline">1 - χ<sub>A</sub>(x) = 1 - 0 = 1 = χ<sub><span class="ovl">A</span></sub>(x)</span>.<br>
           Во всех случаях <span class="math-inline">χ<sub><span class="ovl">A</span></sub>(x) = 1 - χ<sub>A</sub>(x)</span>. ∎
         </p>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
@@ -1186,24 +1238,24 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p><strong>1. Вывод формулы для разности: <span class="math-inline">χ<sub>A  ∖  B</sub> = χ<sub>A</sub> - χ<sub>A</sub>  ·  χ<sub>B</sub></span></strong></p>
 <p>
           Воспользуемся Утверждением 13 из первой лекции (<span class="math-inline">A  ∖  B = A  ∩  <span class="ovl">B</span></span>), а затем последовательно применим пункты 2 и 3 Теоремы 30:
-          <div class="math-display">χ<sub>A  ∖  B</sub>  =<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Утв. 13</span></sup>  χ<sub>A  ∩  <span class="ovl">B</span></sub>  =<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Т. 30, п. 2</span></sup>  χ<sub>A</sub>  ·  χ<sub><span class="ovl">B</span></sub>  =<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Т. 30, п. 3</span></sup>  χ<sub>A</sub>  ·  (1 - χ<sub>B</sub>) = χ<sub>A</sub> - χ<sub>A</sub>  ·  χ<sub>B</sub>.</div>
+          </p><div class="math-display">χ<sub>A  ∖  B</sub>  =<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Утв. 13</span></sup>  χ<sub>A  ∩  <span class="ovl">B</span></sub>  =<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Т. 30, п. 2</span></sup>  χ<sub>A</sub>  ·  χ<sub><span class="ovl">B</span></sub>  =<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Т. 30, п. 3</span></sup>  χ<sub>A</sub>  ·  (1 - χ<sub>B</sub>) = χ<sub>A</sub> - χ<sub>A</sub>  ·  χ<sub>B</sub>.</div>
 <em>(Поменяв ролями <span class="math-inline">A</span> и <span class="math-inline">B</span>, аналогично получаем <span class="math-inline">χ<sub>B  ∖  A</sub> = χ<sub>B</sub>(1 - χ<sub>A</sub>) = χ<sub>B</sub> - χ<sub>A</sub>  ·  χ<sub>B</sub></span>.)</em>
-</p>
-<hr style="border:none; border-top:1px dashed var(--border-proof); margin: 14px 0;"/>
+
+<hr style="border:none; border-top:1px dashed var(--border-proof); margin: 14px 0;">
 <p><strong>2. Вывод формулы для объединения: <span class="math-inline">χ<sub>A  ∪  B</sub> = χ<sub>A</sub> + χ<sub>B</sub> - χ<sub>A</sub>  ·  χ<sub>B</sub></span></strong></p>
 <p>
           По закону двойного дополнения (Теорема 10, п. 1) и первому закону де Моргана (Теорема 10, п. 8) имеем:
-          <div class="math-display">A  ∪  B = <span class="ovl2">A  ∪  B</span> = <span class="ovl"><span class="ovl">A</span>  ∩  <span class="ovl">B</span></span>.</div>
+          </p><div class="math-display">A  ∪  B = <span class="ovl2">A  ∪  B</span> = <span class="ovl"><span class="ovl">A</span>  ∩  <span class="ovl">B</span></span>.</div>
           Применяя теперь пункты 3 и 2 Теоремы 30 и раскрывая скобки по обычным правилам алгебры (как подробно расписано в рукописном конспекте!), получаем:
           <div class="math-display">χ<sub>A  ∪  B</sub> = χ<sub><span class="ovl2">A  ∪  B</span></sub> = χ<sub><span class="ovl"><span class="ovl">A</span>  ∩  <span class="ovl">B</span></span></sub>  =<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Т. 30, п. 3</span></sup>  1 - χ<sub><span class="ovl">A</span>  ∩  <span class="ovl">B</span></sub>  =<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Т. 30, п. 2</span></sup>  1 - χ<sub><span class="ovl">A</span></sub>  ·  χ<sub><span class="ovl">B</span></sub></div>
 <div class="math-display">=<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Т. 30, п. 3</span></sup>  1 - (1 - χ<sub>A</sub>)(1 - χ<sub>B</sub>) = 1 - (1 - χ<sub>B</sub> - χ<sub>A</sub> + χ<sub>A</sub>  ·  χ<sub>B</sub>)</div>
 <div class="math-display">= 1 - 1 + χ<sub>B</sub> + χ<sub>A</sub> - χ<sub>A</sub>  ·  χ<sub>B</sub> = χ<sub>A</sub> + χ<sub>B</sub> - χ<sub>A</sub>  ·  χ<sub>B</sub>.</div>
-</p>
-<hr style="border:none; border-top:1px dashed var(--border-proof); margin: 14px 0;"/>
+
+<hr style="border:none; border-top:1px dashed var(--border-proof); margin: 14px 0;">
 <p><strong>3. Вывод формулы для симметрической разности: <span class="math-inline">χ<sub>A  △  B</sub> = χ<sub>A</sub> + χ<sub>B</sub> - 2χ<sub>A</sub>  ·  χ<sub>B</sub></span></strong></p>
 <p>
           По Определению 15 симметрическая разность есть объединение двух разностей: <span class="math-inline">A  △  B = (A  ∖  B)  ∪  (B  ∖  A)</span>. Применим к этому объединению только что доказанную формулу 2) для объединения двух множеств <span class="math-inline">X = A  ∖  B</span> и <span class="math-inline">Y = B  ∖  A</span>:
-          <div class="math-display">χ<sub>A  △  B</sub> = χ<sub>(A  ∖  B)  ∪  (B  ∖  A)</sub>  =<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">п. 2</span></sup>  χ<sub>A  ∖  B</sub> + χ<sub>B  ∖  A</sub> - χ<sub>A  ∖  B</sub>  ·  χ<sub>B  ∖  A</sub>.</div>
+          </p><div class="math-display">χ<sub>A  △  B</sub> = χ<sub>(A  ∖  B)  ∪  (B  ∖  A)</sub>  =<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">п. 2</span></sup>  χ<sub>A  ∖  B</sub> + χ<sub>B  ∖  A</sub> - χ<sub>A  ∖  B</sub>  ·  χ<sub>B  ∖  A</sub>.</div>
           Подставим сюда формулу 1) (<span class="math-inline">χ<sub>A  ∖  B</sub> = χ<sub>A</sub>(1 - χ<sub>B</sub>) = χ<sub>A</sub> - χ<sub>A</sub> χ<sub>B</sub></span> и <span class="math-inline">χ<sub>B  ∖  A</sub> = χ<sub>B</sub>(1 - χ<sub>A</sub>) = χ<sub>B</sub> - χ<sub>A</sub> χ<sub>B</sub></span>), раскроем все скобки (в точности как на слайде 10 и странице 3 конспекта!) и воспользуемся свойством <span class="math-inline">χ<sub>A</sub><sup>2</sup> = χ<sub>A</sub></span> и <span class="math-inline">χ<sub>B</sub><sup>2</sup> = χ<sub>B</sub></span> из Теоремы 30 (п. 1):
           <div class="math-display">χ<sub>A  △  B</sub> = (χ<sub>A</sub> - χ<sub>A</sub> χ<sub>B</sub>) + (χ<sub>B</sub> - χ<sub>A</sub> χ<sub>B</sub>) - (χ<sub>A</sub> - χ<sub>A</sub> χ<sub>B</sub>)(χ<sub>B</sub> - χ<sub>A</sub> χ<sub>B</sub>)</div>
 <div class="math-display">= χ<sub>A</sub> + χ<sub>B</sub> - 2χ<sub>A</sub> χ<sub>B</sub> - (χ<sub>A</sub> χ<sub>B</sub> - χ<sub>A</sub><sup>2</sup> χ<sub>B</sub> - χ<sub>A</sub> χ<sub>B</sub><sup>2</sup> + χ<sub>A</sub><sup>2</sup> χ<sub>B</sub><sup>2</sup>)</div>
@@ -1212,7 +1264,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           <div class="math-display">-χ<sub>A</sub> χ<sub>B</sub> + χ<sub>A</sub> χ<sub>B</sub> + χ<sub>A</sub> χ<sub>B</sub> - χ<sub>A</sub> χ<sub>B</sub> = 0,</div>
           откуда остаётся в точности:
           <div class="math-display">χ<sub>A  △  B</sub> = χ<sub>A</sub> + χ<sub>B</sub> - 2χ<sub>A</sub>  ·  χ<sub>B</sub>.</div>
-</p>
+
 <p style="margin-bottom:0;">
 <em>Замечание (быстрый способ проверки последнего слагаемого <span class="math-inline">χ<sub>A  ∖  B</sub>  ·  χ<sub>B  ∖  A</sub> = 0</span>):</em> Заметим также, что по Теореме 30 (п. 2) произведение <span class="math-inline">χ<sub>A  ∖  B</sub>  ·  χ<sub>B  ∖  A</sub> = χ<sub>(A  ∖  B)  ∩  (B  ∖  A)</sub> = χ_∅ = 0</span>, так как множества <span class="math-inline">A  ∖  B</span> и <span class="math-inline">B  ∖  A</span> не пересекаются! Поэтому сразу <span class="math-inline">χ<sub>A  △  B</sub> = χ<sub>A  ∖  B</sub> + χ<sub>B  ∖  A</sub> = (χ<sub>A</sub> - χ<sub>A</sub> χ<sub>B</sub>) + (χ<sub>B</sub> - χ<sub>A</sub> χ<sub>B</sub>) = χ<sub>A</sub> + χ<sub>B</sub> - 2χ<sub>A</sub> χ<sub>B</sub></span>! ∎
         </p>
@@ -1231,14 +1283,14 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
   <div class="chapter-kicker">06 / . Лемма 32 и Полное аналитичес…</div>
   <h2 id="chapter-6" data-toc=". Лемма 32 и Полное аналитичес…">Глава 4. Лемма 32 и Полное аналитическое доказательство Формулы включений-исключений (Теорема 28)</h2>
 
-<a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
+<a class="back-to-toc" href="#top">↑ К оглавлению</a>
 
 <div class="statement theorem" id="thm-6"><div class="block-label">Утверждение 6</div><h3 data-toc="Лемма 32 · Лекция 3, Слайд 11 …" id="sub-6-1">Лемма 32 · Лекция 3, Слайд 11 и КонспектОбобщённый закон де Моргана для объединенияnмножеств</h3><div>
 <p style="margin-bottom:0;">
           Для любого натурального <span class="math-inline">n  ≥  2</span> и любых множеств <span class="math-inline">A<sub>1</sub>, A<sub>2</sub>, …, A<sub>n</sub>  ⊂  U</span> справедливо равенство:
-          <div class="math-display"><span class="ovl">A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>n</sub></span> = <span class="ovl">A<sub>1</sub></span>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  …  ∩  <span class="ovl">A<sub>n</sub></span>.</div>
+          </p><div class="math-display"><span class="ovl">A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>n</sub></span> = <span class="ovl">A<sub>1</sub></span>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  …  ∩  <span class="ovl">A<sub>n</sub></span>.</div>
 <em>Указание на слайде 11 и в конспекте:</em> «Доказательство — формула Де Моргана + метод математической индукции (ММИ)».
-        </p>
+        
 </div></div>
 <div class="proof" data-proof="" id="proof-6">
 <div aria-label="Доказательство Полное пошаговое доказательство методом математической индукции по n" class="proof-controls" role="group">
@@ -1256,16 +1308,16 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p>Докажем равенство <span class="math-inline"><span class="ovl">A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>n</sub></span> = <span class="ovl">A<sub>1</sub></span>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  …  ∩  <span class="ovl">A<sub>n</sub></span></span> методом математической индукции по числу множеств <span class="math-inline">n  ≥  2</span>:</p>
 <ol>
 <li>
-<strong>База индукции (<span class="math-inline">n = 2</span>):</strong><br/>
+<strong>База индукции (<span class="math-inline">n = 2</span>):</strong><br>
             При <span class="math-inline">n = 2</span> равенство имеет вид <span class="math-inline"><span class="ovl">A<sub>1</sub>  ∪  A<sub>2</sub></span> = <span class="ovl">A<sub>1</sub></span>  ∩  <span class="ovl">A<sub>2</sub></span></span>. Это в точности первый закон де Моргана из Теоремы 10 (п. 8), который уже доказан в первой лекции. База индукции выполнена.
           </li>
 <li>
-<strong>Индукционное предположение (<span class="math-inline">n = k</span>):</strong><br/>
+<strong>Индукционное предположение (<span class="math-inline">n = k</span>):</strong><br>
             Предположим, что равенство верно при <span class="math-inline">n = k</span> (<span class="math-inline">k  ≥  2</span>), то есть для любых <span class="math-inline">k</span> множеств <span class="math-inline">A<sub>1</sub>, A<sub>2</sub>, …, A<sub>k</sub></span> выполняется:
             <div class="math-display"><span class="ovl">A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>k</sub></span> = <span class="ovl">A<sub>1</sub></span>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  …  ∩  <span class="ovl">A<sub>k</sub></span>.</div>
 </li>
 <li>
-<strong>Индукционный шаг (<span class="math-inline">n = k + 1</span>):</strong><br/>
+<strong>Индукционный шаг (<span class="math-inline">n = k + 1</span>):</strong><br>
             Рассмотрим объединение <span class="math-inline">k + 1</span> множеств <span class="math-inline">A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>k</sub>  ∪  A<sub>k+1</sub></span>. Сгруппируем первые <span class="math-inline">k</span> множеств в одно множество <span class="math-inline">B = A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>k</sub></span> (по ассоциативности объединения, Теорема 10, п. 4):
             <div class="math-display"><span class="ovl">A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>k</sub>  ∪  A<sub>k+1</sub></span> = <span class="ovl">(A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>k</sub>)  ∪  A<sub>k+1</sub></span> = <span class="ovl">B  ∪  A<sub>k+1</sub></span>.</div>
             Применим к двум множествам <span class="math-inline">B</span> и <span class="math-inline">A<sub>k+1</sub></span> обычный первый закон де Моргана (базу индукции при <span class="math-inline">n = 2</span>):
@@ -1297,42 +1349,42 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p><strong>Шаг 1. Связь мощности конечного множества <span class="math-inline">A</span> с суммой его характеристической функции:</strong></p>
 <p>
           Пусть универс <span class="math-inline">U</span> конечен (в качестве <span class="math-inline">U</span> для конечных множеств <span class="math-inline">A<sub>1</sub>, …, A<sub>n</sub></span> всегда можно взять их конечное объединение <span class="math-inline">U = A<sub>1</sub>  ∪  …  ∪  A<sub>n</sub></span>). Докажем ключевую формулу со слайда 11:
-          <div class="math-display">|A| = ∑<sub>x  ∈  U</sub> χ<sub>A</sub>(x).</div>
+          </p><div class="math-display">|A| = ∑<sub>x  ∈  U</sub> χ<sub>A</sub>(x).</div>
           Действительно, разобьём сумму по всем элементам <span class="math-inline">x  ∈  U</span> на две суммы — по элементам <span class="math-inline">x  ∈  A</span> и по элементам <span class="math-inline">x  ∉  A</span>:
           <div class="math-display">∑<sub>x  ∈  U</sub> χ<sub>A</sub>(x) = ∑<sub>x  ∈  A</sub> χ<sub>A</sub>(x) + ∑<sub>x  ∈  U  ∖  A</sub> χ<sub>A</sub>(x) = ∑<sub>x  ∈  A</sub> 1 + ∑<sub>x  ∈  U  ∖  A</sub> 0 = 1 + 1 + … + 1<sub>[|A| <span style="font-family:Inter,sans-serif;font-style:normal;"> раз</span>]</sub> + 0 = |A|.</div>
           Точно так же для любого пересечения множеств:
           <div class="math-display">∑<sub>x  ∈  U</sub> χ<sub>A<sub>i</sub>  ∩  A<sub>j</sub></sub>(x) = |A<sub>i</sub>  ∩  A<sub>j</sub>|,        ∑<sub>x  ∈  U</sub> χ<sub>A<sub>i</sub>  ∩  A<sub>j</sub>  ∩  A<sub>k</sub></sub>(x) = |A<sub>i</sub>  ∩  A<sub>j</sub>  ∩  A<sub>k</sub>|,      <span style="font-family:Inter,sans-serif;font-style:normal;">и т. д.</span></div>
-</p>
+
 <p><strong>Шаг 2. Выражение характеристической функции объединения <span class="math-inline">χ<sub>A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>n</sub></sub></span>:</strong></p>
 <p>
           Используя закон двойного дополнения (<span class="math-inline"><span class="ovl2">M</span> = M</span>), Лемму 32 и свойства характеристических функций из Теоремы 30 (п. 3: <span class="math-inline">χ<sub><span class="ovl">M</span></sub> = 1 - χ<sub>M</sub></span> и п. 2: характеристическая функция пересечения равна произведению характеристических функций), получаем цепочку равенств со слайда 11:
-          <div class="math-display">χ<sub>A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>n</sub></sub> = χ<sub><span class="ovl2">A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>n</sub></span></sub>  =<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Лемма 32</span></sup>  χ<sub><span class="ovl"><span class="ovl">A<sub>1</sub></span>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  …  ∩  <span class="ovl">A<sub>n</sub></span></span></sub></div>
+          </p><div class="math-display">χ<sub>A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>n</sub></sub> = χ<sub><span class="ovl2">A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>n</sub></span></sub>  =<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Лемма 32</span></sup>  χ<sub><span class="ovl"><span class="ovl">A<sub>1</sub></span>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  …  ∩  <span class="ovl">A<sub>n</sub></span></span></sub></div>
 <div class="math-display">=<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Т. 30, п. 3</span></sup>  1 - χ<sub><span class="ovl">A<sub>1</sub></span>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  …  ∩  <span class="ovl">A<sub>n</sub></span></sub>  =<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Т. 30, п. 2</span></sup>  1 - χ<sub><span class="ovl">A<sub>1</sub></span></sub>  ·  χ<sub><span class="ovl">A<sub>2</sub></span></sub> ⋯ χ<sub><span class="ovl">A<sub>n</sub></span></sub></div>
 <div class="math-display">=<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Т. 30, п. 3</span></sup>  1 - (1 - χ<sub>A<sub>1</sub></sub>)(1 - χ<sub>A<sub>2</sub></sub>)⋯(1 - χ<sub>A<sub>n</sub></sub>).</div>
-</p>
+
 <p><strong>Шаг 3. Раскрытие скобок в произведении <span class="math-inline">(1 - χ<sub>A<sub>1</sub></sub>)(1 - χ<sub>A<sub>2</sub></sub>)⋯(1 - χ<sub>A<sub>n</sub></sub>)</span>:</strong></p>
 <p>
-          При перемножении <span class="math-inline">n</span> скобок вида <span class="math-inline">(1 - χ<sub>A<sub>i</sub></sub>)</span> каждое слагаемое результата получается выбором из каждой скобки либо единицы (<span class="math-inline">1</span>), либо члена <span class="math-inline">(-χ<sub>A<sub>i</sub></sub>)</span>:<br/>
-          • Если из всех <span class="math-inline">n</span> скобок выбрать <span class="math-inline">1</span>, получится <span class="math-inline">1  ·  1 ⋯ 1 = 1</span>;<br/>
-          • Если из одной <span class="math-inline">i</span>-й скобки выбрать <span class="math-inline">(-χ<sub>A<sub>i</sub></sub>)</span>, а из остальных — единицы, получим <span class="math-inline">-∑<sub>i=1</sub><sup>n</sup> χ<sub>A<sub>i</sub></sub></span>;<br/>
-          • Если из двух скобок с номерами <span class="math-inline">i &lt; j</span> выбрать <span class="math-inline">(-χ<sub>A<sub>i</sub></sub>)(-χ<sub>A<sub>j</sub></sub>) = +χ<sub>A<sub>i</sub></sub>χ<sub>A<sub>j</sub></sub></span>, получим <span class="math-inline">+∑<sub>1  ≤  i &lt; j  ≤  n</sub> χ<sub>A<sub>i</sub></sub>χ<sub>A<sub>j</sub></sub></span>;<br/>
-          • Если из трёх скобок с номерами <span class="math-inline">i &lt; j &lt; k</span> выбрать <span class="math-inline">(-χ<sub>A<sub>i</sub></sub>)(-χ<sub>A<sub>j</sub></sub>)(-χ<sub>A<sub>k</sub></sub>) = -χ<sub>A<sub>i</sub></sub>χ<sub>A<sub>j</sub></sub>χ<sub>A<sub>k</sub></sub></span>, получим <span class="math-inline">-∑<sub>1  ≤  i &lt; j &lt; k  ≤  n</sub> χ<sub>A<sub>i</sub></sub>χ<sub>A<sub>j</sub></sub>χ<sub>A<sub>k</sub></sub></span>, и т. д.<br/>
+          При перемножении <span class="math-inline">n</span> скобок вида <span class="math-inline">(1 - χ<sub>A<sub>i</sub></sub>)</span> каждое слагаемое результата получается выбором из каждой скобки либо единицы (<span class="math-inline">1</span>), либо члена <span class="math-inline">(-χ<sub>A<sub>i</sub></sub>)</span>:<br>
+          • Если из всех <span class="math-inline">n</span> скобок выбрать <span class="math-inline">1</span>, получится <span class="math-inline">1  ·  1 ⋯ 1 = 1</span>;<br>
+          • Если из одной <span class="math-inline">i</span>-й скобки выбрать <span class="math-inline">(-χ<sub>A<sub>i</sub></sub>)</span>, а из остальных — единицы, получим <span class="math-inline">-∑<sub>i=1</sub><sup>n</sup> χ<sub>A<sub>i</sub></sub></span>;<br>
+          • Если из двух скобок с номерами <span class="math-inline">i &lt; j</span> выбрать <span class="math-inline">(-χ<sub>A<sub>i</sub></sub>)(-χ<sub>A<sub>j</sub></sub>) = +χ<sub>A<sub>i</sub></sub>χ<sub>A<sub>j</sub></sub></span>, получим <span class="math-inline">+∑<sub>1  ≤  i &lt; j  ≤  n</sub> χ<sub>A<sub>i</sub></sub>χ<sub>A<sub>j</sub></sub></span>;<br>
+          • Если из трёх скобок с номерами <span class="math-inline">i &lt; j &lt; k</span> выбрать <span class="math-inline">(-χ<sub>A<sub>i</sub></sub>)(-χ<sub>A<sub>j</sub></sub>)(-χ<sub>A<sub>k</sub></sub>) = -χ<sub>A<sub>i</sub></sub>χ<sub>A<sub>j</sub></sub>χ<sub>A<sub>k</sub></sub></span>, получим <span class="math-inline">-∑<sub>1  ≤  i &lt; j &lt; k  ≤  n</sub> χ<sub>A<sub>i</sub></sub>χ<sub>A<sub>j</sub></sub>χ<sub>A<sub>k</sub></sub></span>, и т. д.<br>
           Подставляя это разложение в выражение <span class="math-inline">1 - (1 - χ<sub>A<sub>1</sub></sub>)⋯(1 - χ<sub>A<sub>n</sub></sub>)</span>, видим, что единицы взаимно уничтожаются (<span class="math-inline">1 - 1 = 0</span>), а все остальные знаки меняются на противоположные:
-          <div class="math-display">χ<sub>A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>n</sub></sub> = χ<sub>A<sub>1</sub></sub> + χ<sub>A<sub>2</sub></sub> + … + χ<sub>A<sub>n</sub></sub> - ∑<sub>1  ≤  i &lt; j  ≤  n</sub> χ<sub>A<sub>i</sub></sub>χ<sub>A<sub>j</sub></sub> + ∑<sub>1  ≤  i &lt; j &lt; k  ≤  n</sub> χ<sub>A<sub>i</sub></sub>χ<sub>A<sub>j</sub></sub>χ<sub>A<sub>k</sub></sub> - … + (-1)<sup>n-1</sup> χ<sub>A<sub>1</sub></sub>⋯χ<sub>A<sub>n</sub></sub>.</div>
+          </p><div class="math-display">χ<sub>A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>n</sub></sub> = χ<sub>A<sub>1</sub></sub> + χ<sub>A<sub>2</sub></sub> + … + χ<sub>A<sub>n</sub></sub> - ∑<sub>1  ≤  i &lt; j  ≤  n</sub> χ<sub>A<sub>i</sub></sub>χ<sub>A<sub>j</sub></sub> + ∑<sub>1  ≤  i &lt; j &lt; k  ≤  n</sub> χ<sub>A<sub>i</sub></sub>χ<sub>A<sub>j</sub></sub>χ<sub>A<sub>k</sub></sub> - … + (-1)<sup>n-1</sup> χ<sub>A<sub>1</sub></sub>⋯χ<sub>A<sub>n</sub></sub>.</div>
           Заменяя по Теореме 30 (п. 2) каждое произведение функций на характеристическую функцию пересечения (<span class="math-inline">χ<sub>A<sub>i</sub></sub>χ<sub>A<sub>j</sub></sub> = χ<sub>A<sub>i</sub>  ∩  A<sub>j</sub></sub></span>, <span class="math-inline">χ<sub>A<sub>i</sub></sub>χ<sub>A<sub>j</sub></sub>χ<sub>A<sub>k</sub></sub> = χ<sub>A<sub>i</sub>  ∩  A<sub>j</sub>  ∩  A<sub>k</sub></sub></span> и т. д.), запишем это равенство в любой точке <span class="math-inline">x  ∈  U</span>:
           <div class="math-display">χ<sub>A<sub>1</sub>  ∪  …  ∪  A<sub>n</sub></sub>(x) = ∑<sub>i=1</sub><sup>n</sup> χ<sub>A<sub>i</sub></sub>(x) - ∑<sub>(i,j=1 ,  i &lt; j)</sub><sup>n</sup> χ<sub>A<sub>i</sub>  ∩  A<sub>j</sub></sub>(x) + ∑<sub>1  ≤  i &lt; j &lt; k  ≤  n</sub> χ<sub>A<sub>i</sub>  ∩  A<sub>j</sub>  ∩  A<sub>k</sub></sub>(x) - … + (-1)<sup>n-1</sup> χ<sub>A<sub>1</sub>  ∩  …  ∩  A<sub>n</sub></sub>(x).</div>
-</p>
+
 <p style="margin-bottom:0;"><strong>Шаг 4. Суммирование по всем <span class="math-inline">x  ∈  U</span> и смена порядка суммирования (Слайд 12):</strong></p>
 <p style="margin-bottom:0;">
-          Просуммируем теперь левую и правую части последнего равенства по всем элементам <span class="math-inline">x  ∈  U</span>:<br/>
+          Просуммируем теперь левую и правую части последнего равенства по всем элементам <span class="math-inline">x  ∈  U</span>:<br>
           • <strong>Слева</strong> по Шагу 1 получаем:
-            <div class="math-display">∑<sub>x  ∈  U</sub> χ<sub>A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>n</sub></sub>(x) = |A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>n</sub>|.</div>
+            </p><div class="math-display">∑<sub>x  ∈  U</sub> χ<sub>A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>n</sub></sub>(x) = |A<sub>1</sub>  ∪  A<sub>2</sub>  ∪  …  ∪  A<sub>n</sub>|.</div>
           • <strong>Справа</strong> получаем:
             <div class="math-display">∑<sub>x  ∈  U</sub> ∑<sub>i=1</sub><sup>n</sup> χ<sub>A<sub>i</sub></sub>(x) - ∑<sub>x  ∈  U</sub> ∑<sub>(i,j=1 ,  i &lt; j)</sub><sup>n</sup> χ<sub>A<sub>i</sub>  ∩  A<sub>j</sub></sub>(x) + ∑<sub>x  ∈  U</sub> ∑<sub>1  ≤  i &lt; j &lt; k  ≤  n</sub> χ<sub>A<sub>i</sub>  ∩  A<sub>j</sub>  ∩  A<sub>k</sub></sub>(x) - …</div>
           Поскольку все суммы конечны, по свойству коммутативности и ассоциативности сложения чисел мы можем <strong>поменять в двойных суммах порядки суммирования</strong> (сначала просуммировать по <span class="math-inline">x  ∈  U</span> при фиксированных индексах множеств, а затем — по индексам <span class="math-inline">i, j, k</span>):
           <div class="math-display">∑<sub>i=1</sub><sup>n</sup> (∑<sub>x  ∈  U</sub> χ<sub>A<sub>i</sub></sub>(x)) - ∑<sub>(i,j=1 ,  i &lt; j)</sub><sup>n</sup> (∑<sub>x  ∈  U</sub> χ<sub>A<sub>i</sub>  ∩  A<sub>j</sub></sub>(x)) + ∑<sub>1  ≤  i &lt; j &lt; k  ≤  n</sub> (∑<sub>x  ∈  U</sub> χ<sub>A<sub>i</sub>  ∩  A<sub>j</sub>  ∩  A<sub>k</sub></sub>(x)) - …</div>
 <div class="math-display">= ∑<sub>i=1</sub><sup>n</sup> |A<sub>i</sub>| - ∑<sub>(i,j=1 ,  i &lt; j)</sub><sup>n</sup> |A<sub>i</sub>  ∩  A<sub>j</sub>| + ∑<sub>(i,j,k=1 ,  i &lt; j &lt; k)</sub><sup>n</sup> |A<sub>i</sub>  ∩  A<sub>j</sub>  ∩  A<sub>k</sub>| - … + (-1)<sup>n-1</sup> |A<sub>1</sub>  ∩  A<sub>2</sub>  ∩  …  ∩  A<sub>n</sub>|.</div>
-</p>
+
 <div class="qed">Теорема 28 (Формула включений-исключений) полностью доказана! ∎</div>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
@@ -1364,16 +1416,16 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
   <div class="chapter-kicker">08 / Практикум 1. Разбор Примера 1 …</div>
   <h2 id="chapter-8" data-toc="Практикум 1. Разбор Примера 1 …">Практикум 1. Разбор Примера 1 из конспекта: решение теоретико-множественного уравненияA  △  X = B</h2>
 
-<a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
+<a class="back-to-toc" href="#top">↑ К оглавлению</a>
 
 <div class="worked-example" id="ex-1"><div class="block-label">Пример 1</div><h3 data-toc="Пример 1 · Конспект от 22.09.2…" id="sub-8-1">Пример 1 · Конспект от 22.09.2026Условие задачи и запись на полях конспекта</h3><div>
 <p>
-<strong>Условие задачи из конспекта:</strong><br/>
+<strong>Условие задачи из конспекта:</strong><br>
           Множества <span class="math-inline">A  ⊂  U</span> и <span class="math-inline">B  ⊂  U</span> даны (известны). Требуется найти неизвестное множество <span class="math-inline">X  ⊂  U</span>, удовлетворяющее уравнению:
-          <div class="math-display">A  △  X = B.</div>
+          </p><div class="math-display">A  △  X = B.</div>
 <em>Запись на полях конспекта:</em> Напоминание из Теоремы 18:
           <div class="math-display">C = D  ⟺  C  △  D = ∅.</div>
-</p>
+
 </div></div>
 <div class="proof" data-proof="" id="proof-8">
 <div aria-label="Доказательство Нахождение X , обоснование каждого шага и доказательство существования и единственности решения" class="proof-controls" role="group">
@@ -1391,7 +1443,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p><strong>Шаг 1. Нахождение <span class="math-inline">X</span> (необходимое условие — вывод из конспекта):</strong></p>
 <p>
           Пусть множество <span class="math-inline">X</span> удовлетворяет уравнению <span class="math-inline">A  △  X = B</span>. Так как левая и правая части этого равенства представляют собой одно и то же множество, при симметрической разности обеих частей с одним и тем же множеством <span class="math-inline">A</span> слева мы снова получим равные множества:
-          <div class="math-display">A  △  (A  △  X) = A  △  B.</div>
+          </p><div class="math-display">A  △  (A  △  X) = A  △  B.</div>
           Воспользуемся <strong>ассоциативностью симметрической разности</strong> (доказанной нами ранее: <span class="math-inline">A  △  (A  △  X) = (A  △  A)  △  X</span>):
           <div class="math-display">(A  △  A)  △  X = A  △  B.</div>
           Но по определению симметрической разности и Теореме 14 (п. 5) симметрическая разность любого множества с самим собой пуста:
@@ -1400,21 +1452,21 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           <div class="math-display">∅  △  X = A  △  B.</div>
           А по Теореме 16 (п. 4) и коммутативности (Теорема 16, п. 2) симметрическая разность любого множества с пустым множеством равна самому этому множеству (<span class="math-inline">∅  △  X = X  △  ∅ = X</span>). Следовательно:
           <div class="math-display">X = A  △  B.</div>
-</p>
+
 <p><strong>Шаг 2. Проверка подстановкой (достаточность — почему <span class="math-inline">X = A  △  B</span> действительно является решением):</strong></p>
 <p>
           Подставим найденное выражение <span class="math-inline">X = A  △  B</span> в левую часть исходного уравнения <span class="math-inline">A  △  X</span>:
-          <div class="math-display">A  △  X = A  △  (A  △  B) = (A  △  A)  △  B = ∅  △  B = B.</div>
+          </p><div class="math-display">A  △  X = A  △  (A  △  B) = (A  △  A)  △  B = ∅  △  B = B.</div>
           Мы получили верное тождество <span class="math-inline">B = B</span>! Следовательно, для любых заданных множеств <span class="math-inline">A</span> и <span class="math-inline">B</span> уравнение <span class="math-inline">A  △  X = B</span> <strong>всегда имеет единственное решение</strong>:
           <div class="math-display">X = A  △  B = (A  ∖  B)  ∪  (B  ∖  A).</div>
-</p>
+
 <p style="margin-bottom:0;">
-<strong>Шаг 3. Как связаны запись на полях (<span class="math-inline">C = D  ⟺  C  △  D = ∅</span>) и перенос слагаемых через знак равенства?</strong><br/>
+<strong>Шаг 3. Как связаны запись на полях (<span class="math-inline">C = D  ⟺  C  △  D = ∅</span>) и перенос слагаемых через знак равенства?</strong><br>
           Благодаря ассоциативности операции <span class="math-inline"> △ </span> и свойству <span class="math-inline">M  △  M = ∅</span> в уравнениях, составленных только из операции симметрической разности <span class="math-inline"> △ </span>, любое множество можно «переносить из одной части равенства в другую» (как при переносе слагаемых в обычных уравнениях, только без смены знака, поскольку <span class="math-inline">A  △  A = ∅</span>!):
-          <div class="math-display">A  △  X = B  ⟺  (A  △  X)  △  B = B  △  B  ⟺  A  △  X  △  B = ∅  ⟺  X = A  △  B.</div>
+          </p><div class="math-display">A  △  X = B  ⟺  (A  △  X)  △  B = B  △  B  ⟺  A  △  X  △  B = ∅  ⟺  X = A  △  B.</div>
           Более того, для более сложного уравнения <span class="math-inline">A  △  X  △  C = B  △  D</span> решение выписывается мгновенно в одну строчку:
           <div class="math-display">X = A  △  B  △  C  △  D!      ∎</div>
-</p>
+
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
 </div>
@@ -1430,33 +1482,33 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
   <div class="chapter-kicker">09 / Практикум 2. Применение Формул…</div>
   <h2 id="chapter-9" data-toc="Практикум 2. Применение Формул…">Практикум 2. Применение Формулы включений-исключений (Теорема 28) и Характеристических функций (Теоремы 30–31)</h2>
 
-<a class="back-to-toc" href="#toc-page">↑ К оглавлению</a>
+<a class="back-to-toc" href="#top">↑ К оглавлению</a>
 
 <div class="worked-example" id="ex-2"><div class="block-label">Пример 2</div><h3 data-toc="Задача 2 · К Теореме 28 (Форму…" id="sub-9-1">Задача 2 · К Теореме 28 (Формула включений-исключений для 3 множеств)Подсчёт чисел, взаимно простых с 30 (количественное продолжение Задачи №7 с первого семинара!)</h3><div>
 <p>
-<strong>Задача:</strong> На первом семинаре мы выразили множество натуральных чисел, взаимно простых с числом <span class="math-inline">30 = 2  ·  3  ·  5</span>, через множества чисел, кратных <span class="math-inline">2, 3</span> и <span class="math-inline">5</span>, как <span class="math-inline">K = <span class="ovl">M<sub>2</sub>  ∪  M<sub>3</sub>  ∪  M<sub>5</sub></span></span>. Используя <strong>Формулу включений-исключений (Теорему 28)</strong>, найдите, сколько существует натуральных чисел от <span class="math-inline">1</span> до <span class="math-inline">30</span> включительно (<span class="math-inline">U = {1, 2, …, 30}</span>), которые:<br/>
-          а) делятся хотя бы на одно из чисел <span class="math-inline">2, 3</span> или <span class="math-inline">5</span> (то есть принадлежат <span class="math-inline">M<sub>2</sub>  ∪  M<sub>3</sub>  ∪  M<sub>5</sub></span>);<br/>
+<strong>Задача:</strong> На первом семинаре мы выразили множество натуральных чисел, взаимно простых с числом <span class="math-inline">30 = 2  ·  3  ·  5</span>, через множества чисел, кратных <span class="math-inline">2, 3</span> и <span class="math-inline">5</span>, как <span class="math-inline">K = <span class="ovl">M<sub>2</sub>  ∪  M<sub>3</sub>  ∪  M<sub>5</sub></span></span>. Используя <strong>Формулу включений-исключений (Теорему 28)</strong>, найдите, сколько существует натуральных чисел от <span class="math-inline">1</span> до <span class="math-inline">30</span> включительно (<span class="math-inline">U = {1, 2, …, 30}</span>), которые:<br>
+          а) делятся хотя бы на одно из чисел <span class="math-inline">2, 3</span> или <span class="math-inline">5</span> (то есть принадлежат <span class="math-inline">M<sub>2</sub>  ∪  M<sub>3</sub>  ∪  M<sub>5</sub></span>);<br>
           б) взаимно просты с числом <span class="math-inline">30</span> (не делятся ни на <span class="math-inline">2</span>, ни на <span class="math-inline">3</span>, ни на <span class="math-inline">5</span>).
         </p>
 <p>
-<strong>Пошаговое решение по Теореме 28:</strong><br/>
-          В конечном универсе <span class="math-inline">U = {1, 2, …, 30}</span> мощности <span class="math-inline">|U| = 30</span> рассмотрим три множества:<br/>
-<span class="math-inline">M<sub>2</sub> = {x  ∈  U  |  x  ⋮  2}</span>, <span class="math-inline">     M<sub>3</sub> = {x  ∈  U  |  x  ⋮  3}</span>, <span class="math-inline">     M<sub>5</sub> = {x  ∈  U  |  x  ⋮  5}</span>.<br/>
-          1) <em>Мощности одиночных множеств:</em><br/>
-<div class="math-display">|M<sub>2</sub>| = (30)/(2) = 15,        |M<sub>3</sub>| = (30)/(3) = 10,        |M<sub>5</sub>| = (30)/(5) = 6.</div>
-          2) <em>Мощности попарных пересечений:</em><br/>
-          • <span class="math-inline">M<sub>2</sub>  ∩  M<sub>3</sub> = M<sub>6</sub></span> (числа, кратные <span class="math-inline">6</span>): <span class="math-inline">|M<sub>2</sub>  ∩  M<sub>3</sub>| = (30)/(6) = 5</span>;<br/>
-          • <span class="math-inline">M<sub>2</sub>  ∩  M<sub>5</sub> = M<sub>10</sub></span> (числа, кратные <span class="math-inline">10</span>): <span class="math-inline">|M<sub>2</sub>  ∩  M<sub>5</sub>| = (30)/(10) = 3</span>;<br/>
-          • <span class="math-inline">M<sub>3</sub>  ∩  M<sub>5</sub> = M<sub>15</sub></span> (числа, кратные <span class="math-inline">15</span>): <span class="math-inline">|M<sub>3</sub>  ∩  M<sub>5</sub>| = (30)/(15) = 2</span>.<br/>
-          3) <em>Мощность тройного пересечения:</em><br/>
-          • <span class="math-inline">M<sub>2</sub>  ∩  M<sub>3</sub>  ∩  M<sub>5</sub> = M<sub>30</sub></span> (числа, кратные <span class="math-inline">30</span>): <span class="math-inline">|M<sub>2</sub>  ∩  M<sub>3</sub>  ∩  M<sub>5</sub>| = (30)/(30) = 1</span> (это само число <span class="math-inline">30</span>).<br/>
-          4) <em>Подстановка в Формулу включений-исключений (Теорема 28 для <span class="math-inline">n = 3</span>):</em><br/>
+<strong>Пошаговое решение по Теореме 28:</strong><br>
+          В конечном универсе <span class="math-inline">U = {1, 2, …, 30}</span> мощности <span class="math-inline">|U| = 30</span> рассмотрим три множества:<br>
+<span class="math-inline">M<sub>2</sub> = {x  ∈  U  |  x  ⋮  2}</span>, <span class="math-inline">     M<sub>3</sub> = {x  ∈  U  |  x  ⋮  3}</span>, <span class="math-inline">     M<sub>5</sub> = {x  ∈  U  |  x  ⋮  5}</span>.<br>
+          1) <em>Мощности одиночных множеств:</em><br>
+</p><div class="math-display">|M<sub>2</sub>| = (30)/(2) = 15,        |M<sub>3</sub>| = (30)/(3) = 10,        |M<sub>5</sub>| = (30)/(5) = 6.</div>
+          2) <em>Мощности попарных пересечений:</em><br>
+          • <span class="math-inline">M<sub>2</sub>  ∩  M<sub>3</sub> = M<sub>6</sub></span> (числа, кратные <span class="math-inline">6</span>): <span class="math-inline">|M<sub>2</sub>  ∩  M<sub>3</sub>| = (30)/(6) = 5</span>;<br>
+          • <span class="math-inline">M<sub>2</sub>  ∩  M<sub>5</sub> = M<sub>10</sub></span> (числа, кратные <span class="math-inline">10</span>): <span class="math-inline">|M<sub>2</sub>  ∩  M<sub>5</sub>| = (30)/(10) = 3</span>;<br>
+          • <span class="math-inline">M<sub>3</sub>  ∩  M<sub>5</sub> = M<sub>15</sub></span> (числа, кратные <span class="math-inline">15</span>): <span class="math-inline">|M<sub>3</sub>  ∩  M<sub>5</sub>| = (30)/(15) = 2</span>.<br>
+          3) <em>Мощность тройного пересечения:</em><br>
+          • <span class="math-inline">M<sub>2</sub>  ∩  M<sub>3</sub>  ∩  M<sub>5</sub> = M<sub>30</sub></span> (числа, кратные <span class="math-inline">30</span>): <span class="math-inline">|M<sub>2</sub>  ∩  M<sub>3</sub>  ∩  M<sub>5</sub>| = (30)/(30) = 1</span> (это само число <span class="math-inline">30</span>).<br>
+          4) <em>Подстановка в Формулу включений-исключений (Теорема 28 для <span class="math-inline">n = 3</span>):</em><br>
 <div class="math-display">|M<sub>2</sub>  ∪  M<sub>3</sub>  ∪  M<sub>5</sub>| = (|M<sub>2</sub>| + |M<sub>3</sub>| + |M<sub>5</sub>|) - (|M<sub>2</sub>  ∩  M<sub>3</sub>| + |M<sub>2</sub>  ∩  M<sub>5</sub>| + |M<sub>3</sub>  ∩  M<sub>5</sub>|) + |M<sub>2</sub>  ∩  M<sub>3</sub>  ∩  M<sub>5</sub>|</div>
 <div class="math-display">= (15 + 10 + 6) - (5 + 3 + 2) + 1 = 31 - 10 + 1 = 22.</div>
-          5) <em>Число взаимно простых с <span class="math-inline">30</span> чисел на отрезке <span class="math-inline">[1, 30]</span>:</em><br/>
+          5) <em>Число взаимно простых с <span class="math-inline">30</span> чисел на отрезке <span class="math-inline">[1, 30]</span>:</em><br>
 <div class="math-display">|K| = |<span class="ovl">M<sub>2</sub>  ∪  M<sub>3</sub>  ∪  M<sub>5</sub></span>| = |U| - |M<sub>2</sub>  ∪  M<sub>3</sub>  ∪  M<sub>5</sub>| = 30 - 22 = 8.</div>
 <em>Прямая проверка перебором:</em> Выпишем все такие числа от <span class="math-inline">1</span> до <span class="math-inline">30</span>: <span class="math-inline">{1, 7, 11, 13, 17, 19, 23, 29}</span> — действительно ровно <span class="math-inline">8</span> чисел!
-        </p>
+        
 </div></div>
 <div class="proof" data-proof="" id="proof-9">
 <div aria-label="Доказательство Как доказывать теоретико-множественные тождества и формулы мощностей с помощью χ A ?" class="proof-controls" role="group">
@@ -1472,32 +1524,32 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-full" data-proof-full="" id="full-9">
 <div class="proof-label">Доказательство (Как доказывать теоретико-множественные тождества и формулы мощностей с помощью χ A ?)</div>
 <p>
-<strong>Задача 3.1:</strong> С помощью Теоремы 31 (<span class="math-inline">χ<sub>A  ∪  B</sub> = χ<sub>A</sub> + χ<sub>B</sub> - χ<sub>A</sub> χ<sub>B</sub></span> и <span class="math-inline">χ<sub>A  △  B</sub> = χ<sub>A</sub> + χ<sub>B</sub> - 2χ<sub>A</sub> χ<sub>B</sub></span>) мгновенно вывести формулы для мощностей <span class="math-inline">|A  ∪  B|</span>, <span class="math-inline">|A  ∖  B|</span> и <span class="math-inline">|A  △  B|</span> конечных множеств <span class="math-inline">A</span> и <span class="math-inline">B</span>.<br/>
-<strong>Решение:</strong> Напомним, что <span class="math-inline">∑<sub>x  ∈  U</sub> χ<sub>M</sub>(x) = |M|</span> и по Теореме 30 (п. 2) <span class="math-inline">χ<sub>A</sub>(x)χ<sub>B</sub>(x) = χ<sub>A  ∩  B</sub>(x)</span>. Просуммируем все три тождества Теоремы 31 по всем <span class="math-inline">x  ∈  U</span>:<br/>
+<strong>Задача 3.1:</strong> С помощью Теоремы 31 (<span class="math-inline">χ<sub>A  ∪  B</sub> = χ<sub>A</sub> + χ<sub>B</sub> - χ<sub>A</sub> χ<sub>B</sub></span> и <span class="math-inline">χ<sub>A  △  B</sub> = χ<sub>A</sub> + χ<sub>B</sub> - 2χ<sub>A</sub> χ<sub>B</sub></span>) мгновенно вывести формулы для мощностей <span class="math-inline">|A  ∪  B|</span>, <span class="math-inline">|A  ∖  B|</span> и <span class="math-inline">|A  △  B|</span> конечных множеств <span class="math-inline">A</span> и <span class="math-inline">B</span>.<br>
+<strong>Решение:</strong> Напомним, что <span class="math-inline">∑<sub>x  ∈  U</sub> χ<sub>M</sub>(x) = |M|</span> и по Теореме 30 (п. 2) <span class="math-inline">χ<sub>A</sub>(x)χ<sub>B</sub>(x) = χ<sub>A  ∩  B</sub>(x)</span>. Просуммируем все три тождества Теоремы 31 по всем <span class="math-inline">x  ∈  U</span>:<br>
           1) Из <span class="math-inline">χ<sub>A  ∖  B</sub>(x) = χ<sub>A</sub>(x) - χ<sub>A  ∩  B</sub>(x)</span> суммированием получаем:
-          <div class="math-display">|A  ∖  B| = ∑<sub>x  ∈  U</sub> χ<sub>A  ∖  B</sub>(x) = ∑<sub>x  ∈  U</sub> χ<sub>A</sub>(x) - ∑<sub>x  ∈  U</sub> χ<sub>A  ∩  B</sub>(x) = |A| - |A  ∩  B|.</div>
+          </p><div class="math-display">|A  ∖  B| = ∑<sub>x  ∈  U</sub> χ<sub>A  ∖  B</sub>(x) = ∑<sub>x  ∈  U</sub> χ<sub>A</sub>(x) - ∑<sub>x  ∈  U</sub> χ<sub>A  ∩  B</sub>(x) = |A| - |A  ∩  B|.</div>
           2) Из <span class="math-inline">χ<sub>A  ∪  B</sub>(x) = χ<sub>A</sub>(x) + χ<sub>B</sub>(x) - χ<sub>A  ∩  B</sub>(x)</span> суммированием получаем:
           <div class="math-display">|A  ∪  B| = |A| + |B| - |A  ∩  B|.</div>
           3) Из <span class="math-inline">χ<sub>A  △  B</sub>(x) = χ<sub>A</sub>(x) + χ<sub>B</sub>(x) - 2χ<sub>A  ∩  B</sub>(x)</span> суммированием получаем:
           <div class="math-display">|A  △  B| = |A| + |B| - 2|A  ∩  B|.</div>
-</p>
+
 <p style="margin-bottom:0;">
-<strong>Задача 3.2:</strong> Доказать дистрибутивность пересечения относительно симметрической разности <span class="math-inline">A  ∩  (B  △  C) = (A  ∩  B)  △  (A  ∩  C)</span> с помощью Теорем 30 и 31.<br/>
-<strong>Решение:</strong> Вычислим характеристические функции левой и правой частей:<br/>
+<strong>Задача 3.2:</strong> Доказать дистрибутивность пересечения относительно симметрической разности <span class="math-inline">A  ∩  (B  △  C) = (A  ∩  B)  △  (A  ∩  C)</span> с помощью Теорем 30 и 31.<br>
+<strong>Решение:</strong> Вычислим характеристические функции левой и правой частей:<br>
           • <em>Левая часть:</em> По Теореме 30 (п. 2) и Теореме 31 (п. 3):
-          <div class="math-display">χ<sub>A  ∩  (B  △  C)</sub> = χ<sub>A</sub>  ·  χ<sub>B  △  C</sub> = χ<sub>A</sub>  ·  (χ<sub>B</sub> + χ<sub>C</sub> - 2χ<sub>B</sub> χ<sub>C</sub>) = χ<sub>A</sub> χ<sub>B</sub> + χ<sub>A</sub> χ<sub>C</sub> - 2χ<sub>A</sub> χ<sub>B</sub> χ<sub>C</sub>.</div>
+          </p><div class="math-display">χ<sub>A  ∩  (B  △  C)</sub> = χ<sub>A</sub>  ·  χ<sub>B  △  C</sub> = χ<sub>A</sub>  ·  (χ<sub>B</sub> + χ<sub>C</sub> - 2χ<sub>B</sub> χ<sub>C</sub>) = χ<sub>A</sub> χ<sub>B</sub> + χ<sub>A</sub> χ<sub>C</sub> - 2χ<sub>A</sub> χ<sub>B</sub> χ<sub>C</sub>.</div>
           • <em>Правая часть:</em> По Теореме 31 (п. 3) для множеств <span class="math-inline">(A  ∩  B)</span> и <span class="math-inline">(A  ∩  C)</span> и Теореме 30 (п. 1, 2: <span class="math-inline">χ<sub>A</sub><sup>2</sup> = χ<sub>A</sub></span>):
           <div class="math-display">χ<sub>(A  ∩  B)  △  (A  ∩  C)</sub> = χ<sub>A  ∩  B</sub> + χ<sub>A  ∩  C</sub> - 2χ<sub>A  ∩  B</sub>  ·  χ<sub>A  ∩  C</sub> = χ<sub>A</sub> χ<sub>B</sub> + χ<sub>A</sub> χ<sub>C</sub> - 2(χ<sub>A</sub> χ<sub>B</sub>)(χ<sub>A</sub> χ<sub>C</sub>)</div>
 <div class="math-display">= χ<sub>A</sub> χ<sub>B</sub> + χ<sub>A</sub> χ<sub>C</sub> - 2χ<sub>A</sub><sup>2</sup> χ<sub>B</sub> χ<sub>C</sub>  =<sup style="font-size:0.72em;color:var(--accent-proof);">χ<sub>A</sub><sup>2</sup> = χ<sub>A</sub></sup>  χ<sub>A</sub> χ<sub>B</sub> + χ<sub>A</sub> χ<sub>C</sub> - 2χ<sub>A</sub> χ<sub>B</sub> χ<sub>C</sub>.</div>
           Характеристические функции левой и правой частей тождественно равны на всём универсе <span class="math-inline">U</span>, а значит, равны и сами множества: <span class="math-inline">A  ∩  (B  △  C) = (A  ∩  B)  △  (A  ∩  C)</span>! ∎
-        </p>
+        
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
 </div>
 
 
 </section>
-<!-- FAM:CONTENT-END -->
+</div></section><!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>
     </main>
   </div>

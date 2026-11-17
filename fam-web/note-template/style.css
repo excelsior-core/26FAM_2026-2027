@@ -291,3 +291,58 @@ svg text:not([fill]) {
   html:has(.contents.is-open) { overflow: hidden; }
 }
 /* FAM:READING-NAVIGATION-END */
+
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */

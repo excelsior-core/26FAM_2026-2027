@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="ФПМ НИУ ВШЭ · Полный академический лекционный конспект">
-  <title>Дискретная математика  4: Уравнения в алгебре множеств и Бинарные отношения (Полный курс с доказательствами) — FAM</title>
+  <title>Уравнения над множествами и бинарные отношения — FAM</title>
   <style>
 /* Fontsource @fontsource-variable/manrope 5.3.0; Latin and Cyrillic subsets; OFL-1.1. */
 @font-face {
@@ -660,6 +660,62 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -679,10 +735,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
       <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
     </aside>
     <main id="content">
-      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-      <header class="lecture-head" id="top">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. --><header class="lecture-head" id="top">
         <div class="lecture-meta"><span class="subject">Дискретная математика</span><span>Академический конспект ФПМ</span></div>
-        <h1>Дискретная математика  4: Уравнения в алгебре множеств и Бинарные отношения (Полный курс с доказательствами)</h1>
+        <h1>Уравнения над множествами и бинарные отношения</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
         <div class="lecture-abstract" style="grid-template-columns:1fr"><div class="abstract-formula">\[\mathcal{F}\mathcal{A}\mathcal{M} \subset \mathcal{H}\mathcal{S}\mathcal{E}\]</div></div>
       </header>
@@ -706,7 +761,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="hero-kicker">НИУ ВШЭ — Нижний Новгород · Курс «Дискретная математика» · Лекция 4 (29.09.2026)</div>
 <h1 class="hero-title">Алгоритм решения уравнений в алгебре множеств и Теория бинарных отношений</h1>
 <p class="hero-subtitle">
-        Полный академический конспект-учебник по слайдам <strong>Лекции 4</strong>, рукописным записям лекции от 29.09.2026 и учебному пособию <a href="http://www.unn.ru/books/met_files/Alekseev.pdf" rel="noopener" target="_blank">В. Е. Алексеева «Дискретная математика» (ННГУ)</a>. Каждое утверждение, равносильный переход и свойство снабжены строгим пошаговым доказательством в рамках пройденной базы (Лекции 1–4), наглядной геометрической интерпретацией и проверенными векторными диаграммами.
+        Полный академический конспект-учебник по слайдам <strong>Лекции 4</strong>, рукописным записям лекции от 29.09.2026 и учебному пособию В. Е. Алексеева «Дискретная математика» (ННГУ). Каждое утверждение, равносильный переход и свойство снабжены строгим пошаговым доказательством в рамках пройденной базы (Лекции 1–4), наглядной геометрической интерпретацией и проверенными векторными диаграммами.
       </p>
 <div class="hero-meta-grid">
 <div class="hero-meta-card">
@@ -730,7 +785,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
          ========================================================================= -->
 <div class="part-divider part-1-bg" id="part-1">
 <div class="part-label">Часть I · Слайды 2–5 · Записи лекции 29.09.2026</div>
-</section>
+
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Алгоритм (общая процедура) реш…</div>
   <h2 id="chapter-2" data-toc="Алгоритм (общая процедура) реш…">2. Алгоритм (общая процедура) решения уравнений в алгебре множеств</h2>
@@ -746,7 +801,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
   <div class="chapter-kicker">03 / Универсальный трёхшаговый алго…</div>
   <h2 id="chapter-3" data-toc="Универсальный трёхшаговый алго…">Универсальный трёхшаговый алгоритм решения уравнений вида Φ(X) = Ψ(X)</h2>
 
-<a class="back-top-link" href="#toc-page">↑ К оглавлению</a>
+<a class="back-top-link" href="#top">↑ К оглавлению</a>
 
 <p>
         В предыдущей лекции мы познакомились с частным приёмом решения уравнения с симметрической разностью <span class="math-inline">A △ X = B</span> (прибавление <span class="math-inline">A △ …</span> к обеим частям равенства, использующее ассоциативность <span class="math-inline">△</span> и свойства <span class="math-inline">A △ A = ∅</span>, <span class="math-inline">∅ △ X = X</span>). Однако операции объединения <span class="math-inline">∪</span>, пересечения <span class="math-inline">∩</span> и разности <span class="math-inline">\</span> <strong>не обладают</strong> обратимостью относительно сложения: из равенства <span class="math-inline">A ∪ X = B</span> нельзя просто «вычесть <span class="math-inline">A</span>», потому что <span class="math-inline">(A ∪ X) \ A = X \ A ≠ X</span> (если <span class="math-inline">A ∩ X ≠ ∅</span>).
@@ -822,7 +877,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           </p>
 </div>
 <p>
-          На экзамене преподаватель может задать принципиальный теоретический вопрос: <em>«А почему мы вообще уверены, что абсолютно любую сложную формулу <span class="math-inline">F(X) = Φ(X) △ Ψ(X)</span> со сколь угодно глубокой вложенностью скобок и дополнений всегда можно привести к виду <span class="math-inline">MX ∪ N<span class="ovl">X</span> ∪ P</span>, и как найти коэффициенты <span class="math-inline">M, N, P</span>?»</em> Дадим исчерпывающее доказательство двумя способами: конструктивным (пошаговым раскрытием скобок) и аналитическим (через подстановку <span class="math-inline">X = U</span> и <span class="math-inline">X = ∅</span> по методу В. Е. Алексеева).
+          Рассмотрим теоретический вопрос: <em>«А почему мы вообще уверены, что абсолютно любую сложную формулу <span class="math-inline">F(X) = Φ(X) △ Ψ(X)</span> со сколь угодно глубокой вложенностью скобок и дополнений всегда можно привести к виду <span class="math-inline">MX ∪ N<span class="ovl">X</span> ∪ P</span>, и как найти коэффициенты <span class="math-inline">M, N, P</span>?»</em> Дадим исчерпывающее доказательство двумя способами: конструктивным (пошаговым раскрытием скобок) и аналитическим (через подстановку <span class="math-inline">X = U</span> и <span class="math-inline">X = ∅</span> по методу В. Е. Алексеева).
         </p>
 <div class="proof" data-proof="" id="proof-2">
 <div aria-label="Доказательство Теорема о разложении любой формулы F(X) алгебры множеств по неизвестному множеству X" class="proof-controls" role="group">
@@ -870,7 +925,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             </li>
 </ol>
 <p>
-<strong>Способ 2 (Связь между трёхчленной формой <span class="math-inline">MX ∪ N<span class="ovl">X</span> ∪ P</span> и двухчленной формой разложения):</strong><br/>
+<strong>Способ 2 (Связь между трёхчленной формой <span class="math-inline">MX ∪ N<span class="ovl">X</span> ∪ P</span> и двухчленной формой разложения):</strong><br>
             Заметим, что любой свободный член <span class="math-inline">P</span> можно при желании «внести» внутрь коэффициентов при <span class="math-inline">X</span> и <span class="math-inline"><span class="ovl">X</span></span>, умножив <span class="math-inline">P</span> на универсальное множество <span class="math-inline">U = X ∪ <span class="ovl">X</span></span>:
           </p>
 <div class="math-display">
@@ -943,20 +998,20 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-full" data-proof-full="" id="full-3">
 <div class="proof-label">Доказательство (Полное доказательство равносильностей (1) ⟺ (2) ⟺ (3) ⟺ (4) и критерия MN ∪ P = ∅)</div>
 <p>
-<strong>1. Доказательство леммы об объединении множеств (переход <span class="math-inline">(1) ⟺ (2)</span>):</strong><br/>
+<strong>1. Доказательство леммы об объединении множеств (переход <span class="math-inline">(1) ⟺ (2)</span>):</strong><br>
             Утверждение: для любых множеств <span class="math-inline">S<sub>1</sub>, S<sub>2</sub>, S<sub>3</sub> ⊂ U</span> выполняется
-            <div class="math-display">S<sub>1</sub> ∪ S<sub>2</sub> ∪ S<sub>3</sub> = ∅  ⟺  (S<sub>1</sub> = ∅) ∧ (S<sub>2</sub> = ∅) ∧ (S<sub>3</sub> = ∅).</div>
-<em>Доказательство (<span class="math-inline">⟹</span>):</em> Пусть <span class="math-inline">S<sub>1</sub> ∪ S<sub>2</sub> ∪ S<sub>3</sub> = ∅</span>. Так как каждое слагаемое содержится в их объединении (<span class="math-inline">S<sub>i</sub> ⊂ S<sub>1</sub> ∪ S<sub>2</sub> ∪ S<sub>3</sub> = ∅</span> при <span class="math-inline">i = 1, 2, 3</span>), а единственным подмножеством пустого множества является само <span class="math-inline">∅</span>, получаем <span class="math-inline">S<sub>1</sub> = ∅, S<sub>2</sub> = ∅, S<sub>3</sub> = ∅</span>.<br/>
-<em>Доказательство (<span class="math-inline">⟸</span>):</em> Если <span class="math-inline">S<sub>1</sub> = S<sub>2</sub> = S<sub>3</sub> = ∅</span>, то <span class="math-inline">S<sub>1</sub> ∪ S<sub>2</sub> ∪ S<sub>3</sub> = ∅ ∪ ∅ ∪ ∅ = ∅</span>.<br/>
+            </p><div class="math-display">S<sub>1</sub> ∪ S<sub>2</sub> ∪ S<sub>3</sub> = ∅  ⟺  (S<sub>1</sub> = ∅) ∧ (S<sub>2</sub> = ∅) ∧ (S<sub>3</sub> = ∅).</div>
+<em>Доказательство (<span class="math-inline">⟹</span>):</em> Пусть <span class="math-inline">S<sub>1</sub> ∪ S<sub>2</sub> ∪ S<sub>3</sub> = ∅</span>. Так как каждое слагаемое содержится в их объединении (<span class="math-inline">S<sub>i</sub> ⊂ S<sub>1</sub> ∪ S<sub>2</sub> ∪ S<sub>3</sub> = ∅</span> при <span class="math-inline">i = 1, 2, 3</span>), а единственным подмножеством пустого множества является само <span class="math-inline">∅</span>, получаем <span class="math-inline">S<sub>1</sub> = ∅, S<sub>2</sub> = ∅, S<sub>3</sub> = ∅</span>.<br>
+<em>Доказательство (<span class="math-inline">⟸</span>):</em> Если <span class="math-inline">S<sub>1</sub> = S<sub>2</sub> = S<sub>3</sub> = ∅</span>, то <span class="math-inline">S<sub>1</sub> ∪ S<sub>2</sub> ∪ S<sub>3</sub> = ∅ ∪ ∅ ∪ ∅ = ∅</span>.<br>
             Полагая <span class="math-inline">S<sub>1</sub> = MX</span>, <span class="math-inline">S<sub>2</sub> = N<span class="ovl">X</span></span>, <span class="math-inline">S<sub>3</sub> = P</span>, получаем точную равносильность <span class="math-inline">(1) ⟺ (2)</span>.
-          </p>
+          
 <p>
-<strong>2. Доказательство перехода от пустых пересечений к включениям (<span class="math-inline">(2) ⟺ (3)</span>):</strong><br/>
+<strong>2. Доказательство перехода от пустых пересечений к включениям (<span class="math-inline">(2) ⟺ (3)</span>):</strong><br>
             Используем фундаментальную лемму алгебры множеств (Лекция 2): для любых двух множеств <span class="math-inline">Y, Z ⊂ U</span>
-<div class="math-display">Y ⊂ Z  ⟺  Y \ Z = ∅  ⟺  Y<span class="ovl">Z</span> = ∅.</div>
-<em>Почему эта лемма верна?</em> Если <span class="math-inline">Y ⊂ Z</span>, то любой элемент <span class="math-inline">u ∈ Y</span> принадлежит <span class="math-inline">Z</span>, а значит, не может принадлежать <span class="ovl">Z</span>; следовательно, <span class="math-inline">Y ∩ <span class="ovl">Z</span> = ∅</span>. Обратно, если <span class="math-inline">Y<span class="ovl">Z</span> = ∅</span> и <span class="math-inline">u ∈ Y</span>, то <span class="math-inline">u ∉ <span class="ovl">Z</span></span>, откуда <span class="math-inline">u ∈ Z</span>, то есть <span class="math-inline">Y ⊂ Z</span>.<br/>
+</p><div class="math-display">Y ⊂ Z  ⟺  Y \ Z = ∅  ⟺  Y<span class="ovl">Z</span> = ∅.</div>
+<em>Почему эта лемма верна?</em> Если <span class="math-inline">Y ⊂ Z</span>, то любой элемент <span class="math-inline">u ∈ Y</span> принадлежит <span class="math-inline">Z</span>, а значит, не может принадлежать <span class="ovl">Z</span>; следовательно, <span class="math-inline">Y ∩ <span class="ovl">Z</span> = ∅</span>. Обратно, если <span class="math-inline">Y<span class="ovl">Z</span> = ∅</span> и <span class="math-inline">u ∈ Y</span>, то <span class="math-inline">u ∉ <span class="ovl">Z</span></span>, откуда <span class="math-inline">u ∈ Z</span>, то есть <span class="math-inline">Y ⊂ Z</span>.<br>
             Применим эту лемму к первым двум строкам системы <span class="math-inline">(2)</span>:
-          </p>
+          
 <ul>
 <li>
 <strong>Первая строка <span class="math-inline">MX = ∅</span>:</strong> Запишем <span class="math-inline">M</span> по закону двойного дополнения как <span class="math-inline">M = <span class="ovl">(<span class="ovl">M</span>)</span></span> и воспользуемся коммутативностью пересечения:
@@ -970,7 +1025,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             </li>
 </ul>
 <p>
-<strong>3. Доказательство перехода <span class="math-inline">(3) ⟺ (4)</span>:</strong><br/>
+<strong>3. Доказательство перехода <span class="math-inline">(3) ⟺ (4)</span>:</strong><br>
             Двойное включение <span class="math-inline">N ⊂ X ⊂ <span class="ovl">M</span></span> по определению является сокращённой записью конъюнкции двух включений <span class="math-inline">(N ⊂ X) ∧ (X ⊂ <span class="ovl">M</span>)</span>.
           </p>
 <p>
@@ -1020,14 +1075,14 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="venn-pair-header">Рис. 1.1. Геометрическая логика алгоритма: вложенные контуры <span class="math-inline">N ⊂ X ⊂ <span class="ovl">M</span></span> (слайд 4) и случай неразрешимости <span class="math-inline">MN ≠ ∅</span></div>
 <div class="venn-grid">
 <div class="venn-col">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="N ⊆ X ⊆ M̄: закрашен свободный выбор" data-fam-figure="diagram" data-fam-index="1">
-<defs><clipPath id="fam-fig-1-in0"><circle cx="170" cy="118" r="86" /></clipPath><mask id="fam-fig-1-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="170" cy="118" r="86" fill="black"/></mask><clipPath id="fam-fig-1-in1"><circle cx="192" cy="119" r="37" /></clipPath><mask id="fam-fig-1-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="192" cy="119" r="37" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g mask="url(#fam-fig-1-out1)"><g clip-path="url(#fam-fig-1-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="170" cy="118" r="86" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="102.92" y="76.72" text-anchor="middle" fill="var(--fig-blue)" font-size="15">M̄</text><circle cx="192" cy="119" r="37" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="220.86" y="101.24" text-anchor="middle" fill="var(--fig-green)" font-size="15">N</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">N ⊆ X ⊆ M̄: закрашен свободный выбор</text>
-</svg>
+<div class="diagram-scroll" style="--diagram-min-width: 314px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 340 265" role="img" aria-label="N ⊆ X ⊆ M̄: закрашен свободный выбор" data-fam-figure="diagram" data-fam-index="1">
+<defs><clippath id="fam-fig-1-in0"><circle cx="170" cy="118" r="86"></circle></clippath><mask id="fam-fig-1-out0" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="170" cy="118" r="86" fill="black"></circle></mask><clippath id="fam-fig-1-in1"><circle cx="192" cy="119" r="37"></circle></clippath><mask id="fam-fig-1-out1" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="192" cy="119" r="37" fill="black"></circle></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"></rect><g mask="url(#fam-fig-1-out1)"><g clip-path="url(#fam-fig-1-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"></rect></g></g><circle cx="170" cy="118" r="86" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"></circle><text x="102.92" y="76.72" text-anchor="middle" fill="var(--fig-blue)" font-size="15">M̄</text><circle cx="192" cy="119" r="37" fill="none" stroke="var(--fig-green)" stroke-width="1.8"></circle><text x="220.86" y="101.24" text-anchor="middle" fill="var(--fig-green)" font-size="15">N</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">N ⊆ X ⊆ M̄: закрашен свободный выбор</text>
+</svg></div>
 </div>
 <div class="venn-col">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="M ∩ N ≠ ∅: решения нет" data-fam-figure="diagram" data-fam-index="2">
-<defs><clipPath id="fam-fig-2-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-2-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-2-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-2-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-2-in1)"><g clip-path="url(#fam-fig-2-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">M</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">N</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">M ∩ N ≠ ∅: решения нет</text>
-</svg>
+<div class="diagram-scroll" style="--diagram-min-width: 314px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 340 265" role="img" aria-label="M ∩ N ≠ ∅: решения нет" data-fam-figure="diagram" data-fam-index="2">
+<defs><clippath id="fam-fig-2-in0"><circle cx="134" cy="114" r="65"></circle></clippath><mask id="fam-fig-2-out0" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="134" cy="114" r="65" fill="black"></circle></mask><clippath id="fam-fig-2-in1"><circle cx="209" cy="114" r="65"></circle></clippath><mask id="fam-fig-2-out1" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="209" cy="114" r="65" fill="black"></circle></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"></rect><g clip-path="url(#fam-fig-2-in1)"><g clip-path="url(#fam-fig-2-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"></rect></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"></circle><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">M</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"></circle><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">N</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">M ∩ N ≠ ∅: решения нет</text>
+</svg></div>
 </div>
 </div>
 <div class="venn-caption">
@@ -1059,7 +1114,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </ul>
 </li>
 <li>
-<strong>Включение <span class="math-inline">𝒮<sub>1</sub> ⊂ 𝒮<sub>2</sub></span> (каждое решение <span class="math-inline">X</span>, удовлетворяющее <span class="math-inline">N ⊂ X ⊂ <span class="ovl">M</span></span>, получается из этой формулы):</strong><br/>
+<strong>Включение <span class="math-inline">𝒮<sub>1</sub> ⊂ 𝒮<sub>2</sub></span> (каждое решение <span class="math-inline">X</span>, удовлетворяющее <span class="math-inline">N ⊂ X ⊂ <span class="ovl">M</span></span>, получается из этой формулы):</strong><br>
               Пусть <span class="math-inline">X</span> — произвольное множество, для которого <span class="math-inline">N ⊂ X ⊂ <span class="ovl">M</span></span>. Докажем, что если взять в качестве параметра само это множество (<span class="math-inline">K = X</span>), то формула выдаст в точности <span class="math-inline">X</span>! Вычислим правую часть при <span class="math-inline">K = X</span>:
               <div class="math-display">
                 N ∪ X<span class="ovl">M</span><span class="ovl">N</span> = N ∪ (X ∩ <span class="ovl">M</span>)<span class="ovl">N</span>.
@@ -1071,10 +1126,10 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
               Наконец, так как <span class="math-inline">N ⊂ X</span>, объединение <span class="math-inline">N ∪ X</span> равно <span class="math-inline">X</span>! Следовательно, <span class="math-inline">X = N ∪ K<span class="ovl">M</span><span class="ovl">N</span></span> при <span class="math-inline">K = X</span>.
             </li>
 <li>
-<strong>Полезное упрощение записи (<span class="math-inline">N ∪ K<span class="ovl">M</span><span class="ovl">N</span> = N ∪ K<span class="ovl">M</span></span>) и доказательство формулы числа решений <span class="math-inline">2<sup>|<span class="ovl">M</span> \ N|</sup></span>:</strong><br/>
+<strong>Полезное упрощение записи (<span class="math-inline">N ∪ K<span class="ovl">M</span><span class="ovl">N</span> = N ∪ K<span class="ovl">M</span></span>) и доказательство формулы числа решений <span class="math-inline">2<sup>|<span class="ovl">M</span> \ N|</sup></span>:</strong><br>
               По закону поглощения дополнения в объединении <span class="math-inline">N ∪ Y<span class="ovl">N</span> = (N ∪ Y)(N ∪ <span class="ovl">N</span>) = N ∪ Y</span> (при <span class="math-inline">Y = K<span class="ovl">M</span></span>) имеем тождество:
               <div class="math-display">X = N ∪ K<span class="ovl">M</span><span class="ovl">N</span> = N ∪ K<span class="ovl">M</span>.</div>
-              Однако запись <span class="math-inline">X = N ∪ K<span class="ovl">M</span><span class="ovl">N</span></span> обладает важнейшим преимуществом: слагаемые <span class="math-inline">N</span> и <span class="math-inline">D = K<span class="ovl">M</span><span class="ovl">N</span></span> <strong>не пересекаются</strong> (<span class="math-inline">N ∩ K<span class="ovl">M</span><span class="ovl">N</span> = ∅</span>)! Когда параметр <span class="math-inline">K</span> пробегает все подмножества <span class="math-inline">U</span>, пересечение <span class="math-inline">D = K ∩ (<span class="ovl">M</span><span class="ovl">N</span>)</span> пробегает все подмножества кольца <span class="math-inline"><span class="ovl">M</span><span class="ovl">N</span> = <span class="ovl">M</span> \ N</span>. Причём разным добавкам <span class="math-inline">D<sub>1</sub> ≠ D<sub>2</sub></span> (<span class="math-inline">D<sub>1</sub>, D<sub>2</sub> ⊂ <span class="ovl">M</span><span class="ovl">N</span></span>) отвечают строго разные решения <span class="math-inline">X<sub>1</sub> = N ∪ D<sub>1</sub></span> и <span class="math-inline">X<sub>2</sub> = N ∪ D<sub>2</sub></span>, так как <span class="math-inline">X<sub>i</sub> \ N = (N ∪ D<sub>i</sub>) \ N = D<sub>i</sub> \ N = D<sub>i</sub></span> (поскольку <span class="math-inline">D<sub>i</sub> ∩ N = ∅</span>).<br/>
+              Однако запись <span class="math-inline">X = N ∪ K<span class="ovl">M</span><span class="ovl">N</span></span> обладает важнейшим преимуществом: слагаемые <span class="math-inline">N</span> и <span class="math-inline">D = K<span class="ovl">M</span><span class="ovl">N</span></span> <strong>не пересекаются</strong> (<span class="math-inline">N ∩ K<span class="ovl">M</span><span class="ovl">N</span> = ∅</span>)! Когда параметр <span class="math-inline">K</span> пробегает все подмножества <span class="math-inline">U</span>, пересечение <span class="math-inline">D = K ∩ (<span class="ovl">M</span><span class="ovl">N</span>)</span> пробегает все подмножества кольца <span class="math-inline"><span class="ovl">M</span><span class="ovl">N</span> = <span class="ovl">M</span> \ N</span>. Причём разным добавкам <span class="math-inline">D<sub>1</sub> ≠ D<sub>2</sub></span> (<span class="math-inline">D<sub>1</sub>, D<sub>2</sub> ⊂ <span class="ovl">M</span><span class="ovl">N</span></span>) отвечают строго разные решения <span class="math-inline">X<sub>1</sub> = N ∪ D<sub>1</sub></span> и <span class="math-inline">X<sub>2</sub> = N ∪ D<sub>2</sub></span>, так как <span class="math-inline">X<sub>i</sub> \ N = (N ∪ D<sub>i</sub>) \ N = D<sub>i</sub> \ N = D<sub>i</sub></span> (поскольку <span class="math-inline">D<sub>i</sub> ∩ N = ∅</span>).<br>
               Таким образом, существует взаимно-однозначное соответствие между решениями <span class="math-inline">X</span> и подмножествами <span class="math-inline">D</span> множества <span class="math-inline"><span class="ovl">M</span><span class="ovl">N</span></span>. По теореме о мощности булеана (Лекция 1) число таких подмножеств при конечном <span class="math-inline"><span class="ovl">M</span><span class="ovl">N</span></span> равно:
               <div class="math-display">|2<sup><span class="ovl">M</span><span class="ovl">N</span></sup>| = 2<sup>|<span class="ovl">M</span><span class="ovl">N</span>|</sup> = 2<sup>|<span class="ovl">M</span> \ N|</sup>.</div>
 </li>
@@ -1121,11 +1176,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             Таким образом, <span class="math-inline">M = AB ∪ <span class="ovl">A</span><span class="ovl">B</span> = <span class="ovl">A △ B</span></span>, <span class="math-inline">N = A<span class="ovl">B</span> ∪ <span class="ovl">A</span>B = A △ B</span> и <span class="math-inline">P = ∅</span>.
           </p>
 <p>
-<strong>Проверка условия разрешимости <span class="math-inline">MN ∪ P = ∅</span>:</strong><br/>
+<strong>Проверка условия разрешимости <span class="math-inline">MN ∪ P = ∅</span>:</strong><br>
             Так как <span class="math-inline">M = <span class="ovl">N</span></span>, имеем <span class="math-inline">MN = <span class="ovl">N</span>N = ∅</span> и <span class="math-inline">P = ∅</span>. Значит, <span class="math-inline">MN ∪ P = ∅</span> выполняется <strong>тождественно при любых <span class="math-inline">A, B ⊂ U</span></strong>.
           </p>
 <p>
-<strong>Шаг 3. Запись ответа:</strong><br/>
+<strong>Шаг 3. Запись ответа:</strong><br>
             Находим <span class="math-inline"><span class="ovl">M</span> = <span class="ovl">(<span class="ovl">A △ B</span>)</span> = A △ B = N</span>. Поэтому кольцо свободы пусто: <span class="math-inline"><span class="ovl">M</span><span class="ovl">N</span> = N<span class="ovl">N</span> = ∅</span>. Двойное включение <span class="math-inline">N ⊂ X ⊂ <span class="ovl">M</span></span> принимает вид <span class="math-inline">A △ B ⊂ X ⊂ A △ B</span>, а общая формула <span class="math-inline">X = N ∪ K<span class="ovl">M</span><span class="ovl">N</span></span> даёт единственное решение (<span class="math-inline">2<sup>|∅|</sup> = 2<sup>0</sup> = 1</span>):
           </p>
 <div class="math-display"><div class="equation">X = A △ B.</div></div>
@@ -1161,7 +1216,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             BA<span class="ovl">B</span> ∪ <span class="ovl">A</span>B = ∅  ⟺  A(B<span class="ovl">B</span>) ∪ <span class="ovl">A</span>B = ∅  ⟺  ∅ ∪ <span class="ovl">A</span>B = ∅  ⟺  <span class="ovl">A</span>B = ∅  ⟺  <div class="equation">B ⊂ A</div>.
           </div>
 <p>
-<strong>Шаг 3. Ответ (Слайд 5):</strong><br/>
+<strong>Шаг 3. Ответ (Слайд 5):</strong><br>
             Если условие разрешимости <span class="math-inline"><div class="equation">B ⊂ A</div></span> выполнено, то в форме двойного включения решение имеет вид:
           </p>
 <div class="math-display"><div class="equation">A<span class="ovl">B</span> ⊂ X ⊂ <span class="ovl">B</span></div></div>
@@ -1179,14 +1234,14 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="venn-pair-header">Рис. 1.2. Наглядная проверка обоих примеров лекции на диаграммах Эйлера–Венна</div>
 <div class="venn-grid">
 <div class="venn-col">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="A △ X = B  ⇒  X = A △ B" data-fam-figure="diagram" data-fam-index="3">
-<defs><clipPath id="fam-fig-3-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-3-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-3-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-3-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-3-in1)"><g mask="url(#fam-fig-3-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><g mask="url(#fam-fig-3-out1)"><g clip-path="url(#fam-fig-3-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A △ X = B  ⇒  X = A △ B</text>
-</svg>
+<div class="diagram-scroll" style="--diagram-min-width: 314px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 340 265" role="img" aria-label="A △ X = B  ⇒  X = A △ B" data-fam-figure="diagram" data-fam-index="3">
+<defs><clippath id="fam-fig-3-in0"><circle cx="134" cy="114" r="65"></circle></clippath><mask id="fam-fig-3-out0" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="134" cy="114" r="65" fill="black"></circle></mask><clippath id="fam-fig-3-in1"><circle cx="209" cy="114" r="65"></circle></clippath><mask id="fam-fig-3-out1" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="209" cy="114" r="65" fill="black"></circle></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"></rect><g clip-path="url(#fam-fig-3-in1)"><g mask="url(#fam-fig-3-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"></rect></g></g><g mask="url(#fam-fig-3-out1)"><g clip-path="url(#fam-fig-3-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"></rect></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"></circle><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"></circle><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A △ X = B  ⇒  X = A △ B</text>
+</svg></div>
 </div>
 <div class="venn-col">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="A ∖ X = B  ⇒  X ∩ A = A ∖ B" data-fam-figure="diagram" data-fam-index="4">
-<defs><clipPath id="fam-fig-4-in0"><circle cx="170" cy="118" r="86" /></clipPath><mask id="fam-fig-4-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="170" cy="118" r="86" fill="black"/></mask><clipPath id="fam-fig-4-in1"><circle cx="192" cy="119" r="37" /></clipPath><mask id="fam-fig-4-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="192" cy="119" r="37" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g mask="url(#fam-fig-4-out1)"><g clip-path="url(#fam-fig-4-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="170" cy="118" r="86" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="102.92" y="76.72" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="192" cy="119" r="37" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="220.86" y="101.24" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A ∖ X = B  ⇒  X ∩ A = A ∖ B</text>
-</svg>
+<div class="diagram-scroll" style="--diagram-min-width: 314px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 340 265" role="img" aria-label="A ∖ X = B  ⇒  X ∩ A = A ∖ B" data-fam-figure="diagram" data-fam-index="4">
+<defs><clippath id="fam-fig-4-in0"><circle cx="170" cy="118" r="86"></circle></clippath><mask id="fam-fig-4-out0" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="170" cy="118" r="86" fill="black"></circle></mask><clippath id="fam-fig-4-in1"><circle cx="192" cy="119" r="37"></circle></clippath><mask id="fam-fig-4-out1" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="192" cy="119" r="37" fill="black"></circle></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"></rect><g mask="url(#fam-fig-4-out1)"><g clip-path="url(#fam-fig-4-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"></rect></g></g><circle cx="170" cy="118" r="86" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"></circle><text x="102.92" y="76.72" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="192" cy="119" r="37" fill="none" stroke="var(--fig-green)" stroke-width="1.8"></circle><text x="220.86" y="101.24" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A ∖ X = B  ⇒  X ∩ A = A ∖ B</text>
+</svg></div>
 </div>
 </div>
 <div class="venn-caption">
@@ -1218,12 +1273,12 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
   <div class="chapter-kicker">05 / Понятие бинарного отношения: О…</div>
   <h2 id="chapter-5" data-toc="Понятие бинарного отношения: О…">Понятие бинарного отношения: Определение 34 и 4 способа задания</h2>
 
-<a class="back-top-link" href="#toc-page">↑ К оглавлению</a>
+<a class="back-top-link" href="#top">↑ К оглавлению</a>
 
 <section id="sec-2-1">
 <h3 data-toc="1. Что такое отношение математ…" id="sub-5-1">2.1. Что такое отношение математически? Определение 34, тотальное и пустое отношения, число отношений</h3>
 <p>
-          На <strong>слайде 6</strong> начинается фундаментальный раздел курса — <strong>«Отношения»</strong>, снабжённый важным пояснением лектора: <em>«Здесь термин понимается в смысле "находится в отношении друг к другу"»</em>. В повседневной речи и в школьной математике мы постоянно связываем два объекта каким-либо условием: «число <span class="math-inline">a</span> меньше числа <span class="math-inline">b</span>» (<span class="math-inline">a &lt; b</span>), «число <span class="math-inline">x</span> делит число <span class="math-inline">y</span>» (<span class="math-inline">y ⋮ x</span>), «прямая <span class="math-inline">l<sub>1</sub></span> перпендикулярна прямой <span class="math-inline">l<sub>2</sub></span>» (<span class="math-inline">l<sub>1</sub> ⊥ l<sub>2</sub></span>), «человек <span class="math-inline">a</span> знаком с человеком <span class="math-inline">b</span>».
+          На <strong>слайде 6</strong> начинается фундаментальный раздел курса — <strong>«Отношения»</strong>, снабжённый пояснением: <em>«Здесь термин понимается в смысле "находится в отношении друг к другу"»</em>. В повседневной речи и в школьной математике мы постоянно связываем два объекта каким-либо условием: «число <span class="math-inline">a</span> меньше числа <span class="math-inline">b</span>» (<span class="math-inline">a &lt; b</span>), «число <span class="math-inline">x</span> делит число <span class="math-inline">y</span>» (<span class="math-inline">y ⋮ x</span>), «прямая <span class="math-inline">l<sub>1</sub></span> перпендикулярна прямой <span class="math-inline">l<sub>2</sub></span>» (<span class="math-inline">l<sub>1</sub> ⊥ l<sub>2</sub></span>), «человек <span class="math-inline">a</span> знаком с человеком <span class="math-inline">b</span>».
         </p>
 <aside class="note">
 <div class="block-title"><span class="box-badge">Идея В. Е. Алексеева</span> Как свести любое «правило связи» к строгому понятию множества?</div>
@@ -1300,12 +1355,12 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </p>
 <ol>
 <li>
-<strong>Явное перечисление упорядоченных пар (множественный способ):</strong><br/>
+<strong>Явное перечисление упорядоченных пар (множественный способ):</strong><br>
             Задаётся список всех пар <span class="math-inline">⟨a, b⟩ ∈ ρ</span>. Например, на множестве <span class="math-inline">A = {1, 2, 3}</span>:
             <div class="math-display">ρ = {⟨1, 1⟩, ⟨1, 2⟩, ⟨1, 3⟩, ⟨2, 2⟩, ⟨2, 3⟩}.</div>
 </li>
 <li>
-<strong>Матрица бинарного отношения <span class="math-inline">M<sub>ρ</sub></span> (или <span class="math-inline">‖ρ<sub>ij</sub>‖</span>):</strong><br/>
+<strong>Матрица бинарного отношения <span class="math-inline">M<sub>ρ</sub></span> (или <span class="math-inline">‖ρ<sub>ij</sub>‖</span>):</strong><br>
             Если <span class="math-inline">A = {a<sub>1</sub>, a<sub>2</sub>, …, a<sub>m</sub>}</span> и <span class="math-inline">B = {b<sub>1</sub>, b<sub>2</sub>, …, b<sub>n</sub>}</span>, то отношением <span class="math-inline">ρ ⊂ A × B</span> однозначно определяется прямоугольная таблица (матрица) <span class="math-inline">M<sub>ρ</sub></span> размера <span class="math-inline">m × n</span> из нулей и единиц, в которой строка с номером <span class="math-inline">i</span> соответствует первому элементу пары <span class="math-inline">a<sub>i</sub> ∈ A</span>, а столбец с номером <span class="math-inline">j</span> — второму элементу пары <span class="math-inline">b<sub>j</sub> ∈ B</span>:
             <div class="math-display">
               M<sub>ρ</sub>[i, j] =
@@ -1326,14 +1381,14 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </ul>
 </li>
 <li>
-<strong>Задание характеристическим свойством (двуместным предикатом <span class="math-inline">P(x, y)</span>):</strong><br/>
+<strong>Задание характеристическим свойством (двуместным предикатом <span class="math-inline">P(x, y)</span>):</strong><br>
             Указывается правило отбора пар: <span class="math-inline">ρ = {⟨x, y⟩ ∈ A × B ∣ P(x, y)}</span>. Этот способ незаменим для бесконечных множеств (например, <span class="math-inline">ρ = {⟨x, y⟩ ∈ ℝ × ℝ ∣ x<sup>2</sup> + y<sup>2</sup> ≤ 1}</span>).
           </li>
 </ol>
 <div class="venn-pair-card">
 <div class="venn-pair-header">Рис. 2.1. Полное соответствие между множеством пар, ориентированным графом и матрицей отношения <span class="math-inline">M<sub>ρ</sub></span></div>
 <div style="display:flex; justify-content:center; padding: 6px 0;">
-<svg aria-label="Ориентированный граф и матрица бинарного отношения на множестве 1, 2, 3" class="venn-svg" role="img" style="max-width:560px;; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 560 218" data-fam-figure="diagram" data-fam-index="5">
+<div class="diagram-scroll" style="--diagram-min-width: 611px"><svg aria-label="Ориентированный граф и матрица бинарного отношения на множестве 1, 2, 3" class="venn-svg" role="img" style="max-width:560px;; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 560 218" data-fam-figure="diagram" data-fam-index="5">
 <defs>
 <marker id="fam-fig-5-arr-main" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-lecture)"></path>
@@ -1395,7 +1450,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-sub" text-anchor="middle" x="460" y="143">0</text>
 <text class="svg-title" text-anchor="middle" x="280" y="193">Отношение ρ = {⟨1,1⟩, ⟨1,2⟩, ⟨1,3⟩, ⟨2,2⟩, ⟨2,3⟩} на множестве A = {1, 2, 3}</text>
 <text class="svg-sub" text-anchor="middle" x="280" y="210">Петли на диагонали, строка 3 нулевая</text>
-</svg>
+</svg></div>
 </div>
 <div class="venn-caption">
 <strong>Проверка логики иллюстрации:</strong> В первой строке матрицы стоят три единицы (<span class="math-inline">1, 1, 1</span>), потому что из вершины <span class="math-inline">1</span> выходят три стрелки: в <span class="math-inline">1</span> (петля), в <span class="math-inline">2</span> и в <span class="math-inline">3</span>. В третьей строке стоят три нуля (<span class="math-inline">0, 0, 0</span>), так как из вершины <span class="math-inline">3</span> не выходит ни одной стрелки. В третьем столбце стоят числа <span class="math-inline">(1, 1, 0)<sup>T</sup></span>, так как в вершину <span class="math-inline">3</span> входят стрелки из <span class="math-inline">1</span> и из <span class="math-inline">2</span>.
@@ -1413,7 +1468,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
   <div class="chapter-kicker">06 / Операции над бинарными отношен…</div>
   <h2 id="chapter-6" data-toc="Операции над бинарными отношен…">Операции над бинарными отношениями: дополнениеρ, произведение (композиция)R1∘ R2и обратное отношениеρ−1</h2>
 
-<a class="back-top-link" href="#toc-page">↑ К оглавлению</a>
+<a class="back-top-link" href="#top">↑ К оглавлению</a>
 
 <!-- 3.1 -->
 <section id="sec-3-1">
@@ -1603,7 +1658,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-full" data-proof-full="" id="full-8">
 <div class="proof-label">Доказательство (Решение Упражнения со слайда 7 и доказательство всех законов обращения)</div>
 <p>
-<strong>1. Решение Упражнения со слайда 7 (общее определение <span class="math-inline">ρ<sup>−1</sup></span> для произвольных множеств <span class="math-inline">A</span> и <span class="math-inline">B</span>):</strong><br/>
+<strong>1. Решение Упражнения со слайда 7 (общее определение <span class="math-inline">ρ<sup>−1</sup></span> для произвольных множеств <span class="math-inline">A</span> и <span class="math-inline">B</span>):</strong><br>
             Пусть <span class="math-inline">ρ ⊂ A × B</span> — бинарное отношение из множества <span class="math-inline">A</span> в множество <span class="math-inline">B</span>. Когда мы меняем местами элементы в упорядоченной паре <span class="math-inline">⟨a, b⟩ ∈ ρ</span> (где <span class="math-inline">a ∈ A, b ∈ B</span>), новая упорядоченная пара <span class="math-inline">⟨b, a⟩</span> имеет первую компоненту <span class="math-inline">b ∈ B</span> и вторую компоненту <span class="math-inline">a ∈ A</span>, а значит, принадлежит декартову произведению <strong><span class="math-inline">B × A</span></strong>! Следовательно, обратное отношение <span class="math-inline">ρ<sup>−1</sup></span> действует из <span class="math-inline">B</span> в <span class="math-inline">A</span> (<span class="math-inline">ρ<sup>−1</sup> ⊂ B × A</span>) и задаётся формулой:
           </p>
 <div class="math-display">
@@ -1613,7 +1668,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             Иными словами, для любых <span class="math-inline">a ∈ A</span> и <span class="math-inline">b ∈ B</span> выполняется: <span class="math-inline">b ρ<sup>−1</sup> a ⟺ a ρ b</span>.
           </p>
 <p>
-<strong>2. Доказательство закона двойного обращения <span class="math-inline">(ρ<sup>−1</sup>)<sup>−1</sup> = ρ</span>:</strong><br/>
+<strong>2. Доказательство закона двойного обращения <span class="math-inline">(ρ<sup>−1</sup>)<sup>−1</sup> = ρ</span>:</strong><br>
             Так как <span class="math-inline">ρ ⊂ A × B</span>, то <span class="math-inline">ρ<sup>−1</sup> ⊂ B × A</span>, а повторное обращение снова действует из <span class="math-inline">A</span> в <span class="math-inline">B</span>: <span class="math-inline">(ρ<sup>−1</sup>)<sup>−1</sup> ⊂ A × B</span>. Для любой пары <span class="math-inline">⟨a, b⟩ ∈ A × B</span> дважды применим определение обратного отношения:
           </p>
 <div class="math-display">
@@ -1623,7 +1678,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             По аксиоме объёмности <span class="math-inline">(ρ<sup>−1</sup>)<sup>−1</sup> = ρ</span>.
           </p>
 <p>
-<strong>3. Доказательство перестановочности инверсии и теоретико-множественных операций:</strong><br/>
+<strong>3. Доказательство перестановочности инверсии и теоретико-множественных операций:</strong><br>
             Для любых отношений <span class="math-inline">ρ, σ ⊂ A × B</span> выполняются тождества:
           </p>
 <div class="math-display">
@@ -1636,7 +1691,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             ⟨b, a⟩ ∈ (<span class="ovl">ρ</span>)<sup>−1</sup>  ⟺  ⟨a, b⟩ ∈ <span class="ovl">ρ</span>  ⟺  ⟨a, b⟩ ∉ ρ  ⟺  ⟨b, a⟩ ∉ ρ<sup>−1</sup>  ⟺  ⟨b, a⟩ ∈ (B × A) \ ρ<sup>−1</sup> = <span class="ovl">(ρ<sup>−1</sup>)</span>.
           </div>
 <p>
-<strong>4. Доказательство теоремы об обращении произведения (композиции) отношений:</strong><br/>
+<strong>4. Доказательство теоремы об обращении произведения (композиции) отношений:</strong><br>
             Для любых отношений <span class="math-inline">R<sub>1</sub> ⊆ A × B</span> и <span class="math-inline">R<sub>2</sub> ⊆ B × C</span> выполняется:
           </p>
 <div class="math-display"><div class="equation">(R<sub>1</sub> ∘ R<sub>2</sub>)<sup>−1</sup> = R<sub>2</sub><sup>−1</sup> ∘ R<sub>1</sub><sup>−1</sup>.</div></div>
@@ -1658,21 +1713,21 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="venn-grid-3">
 <!-- Панель 1: Исходное отношение ρ -->
 <div class="venn-col">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 200" role="img" aria-label="Исходное отношение ρ" data-fam-figure="diagram" data-fam-index="6">
-<text x="125" y="23" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Исходное отношение ρ</text><line x1="136.65" y1="100.77" x2="181.69" y2="130.8" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M188.35,135.23 L179.79,133.66 L183.6,127.93 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><path d="M42,132 C23,86 80,86 59,132" fill="none" stroke="var(--fig-blue)" stroke-width="2"/><line x1="64" y1="121" x2="61.9" y2="125.63" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M59,132 L59.16,124.38 L64.64,126.87 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="61.65" y1="135.23" x2="106.69" y2="105.2" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M113.35,100.77 L108.6,108.07 L104.79,102.34 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="50" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="50" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1</text><circle cx="125" cy="93" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="125" y="97" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2</text><circle cx="200" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="200" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3</text><text x="125" y="188" text-anchor="middle" fill="var(--fig-muted)" font-size="12">В отношении 3 упорядоченных пар</text>
-</svg>
+<div class="diagram-scroll" style="--diagram-min-width: 250px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 250 200" role="img" aria-label="Исходное отношение ρ" data-fam-figure="diagram" data-fam-index="6">
+<text x="125" y="23" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Исходное отношение ρ</text><line x1="136.65" y1="100.77" x2="181.69" y2="130.8" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M188.35,135.23 L179.79,133.66 L183.6,127.93 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><path d="M42,132 C23,86 80,86 59,132" fill="none" stroke="var(--fig-blue)" stroke-width="2"></path><line x1="64" y1="121" x2="61.9" y2="125.63" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M59,132 L59.16,124.38 L64.64,126.87 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><line x1="61.65" y1="135.23" x2="106.69" y2="105.2" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M113.35,100.77 L108.6,108.07 L104.79,102.34 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><circle cx="50" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="50" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1</text><circle cx="125" cy="93" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="125" y="97" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2</text><circle cx="200" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="200" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3</text><text x="125" y="188" text-anchor="middle" fill="var(--fig-muted)" font-size="12">В отношении 3 упорядоченных пар</text>
+</svg></div>
 </div>
 <!-- Панель 2: Противоположное отношение ρ̄ -->
 <div class="venn-col">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 200" role="img" aria-label="Дополнение (A × A) ∖ ρ" data-fam-figure="diagram" data-fam-index="7">
-<text x="125" y="23" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Дополнение (A × A) ∖ ρ</text><line x1="113.35" y1="100.77" x2="68.31" y2="130.8" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M61.65,135.23 L66.4,127.93 L70.21,133.66 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="186" y1="137" x2="72" y2="137" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M64,137 L72,133.56 L72,140.44 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><path d="M192,132 C173,86 230,86 209,132" fill="none" stroke="var(--fig-blue)" stroke-width="2"/><line x1="214" y1="121" x2="211.9" y2="125.63" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M209,132 L209.16,124.38 L214.64,126.87 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><path d="M117,82 C98,36 155,36 134,82" fill="none" stroke="var(--fig-blue)" stroke-width="2"/><line x1="139" y1="71" x2="136.9" y2="75.63" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M134,82 L134.16,74.38 L139.64,76.87 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="188.35" y1="135.23" x2="143.31" y2="105.2" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M136.65,100.77 L145.21,102.34 L141.4,108.07 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="64" y1="149" x2="178" y2="149" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M186,149 L178,152.44 L178,145.56 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="50" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="50" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1</text><circle cx="125" cy="93" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="125" y="97" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2</text><circle cx="200" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="200" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3</text><text x="125" y="188" text-anchor="middle" fill="var(--fig-muted)" font-size="12">В отношении 6 упорядоченных пар</text>
-</svg>
+<div class="diagram-scroll" style="--diagram-min-width: 250px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 250 200" role="img" aria-label="Дополнение (A × A) ∖ ρ" data-fam-figure="diagram" data-fam-index="7">
+<text x="125" y="23" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Дополнение (A × A) ∖ ρ</text><line x1="113.35" y1="100.77" x2="68.31" y2="130.8" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M61.65,135.23 L66.4,127.93 L70.21,133.66 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><line x1="186" y1="137" x2="72" y2="137" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M64,137 L72,133.56 L72,140.44 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><path d="M192,132 C173,86 230,86 209,132" fill="none" stroke="var(--fig-blue)" stroke-width="2"></path><line x1="214" y1="121" x2="211.9" y2="125.63" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M209,132 L209.16,124.38 L214.64,126.87 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><path d="M117,82 C98,36 155,36 134,82" fill="none" stroke="var(--fig-blue)" stroke-width="2"></path><line x1="139" y1="71" x2="136.9" y2="75.63" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M134,82 L134.16,74.38 L139.64,76.87 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><line x1="188.35" y1="135.23" x2="143.31" y2="105.2" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M136.65,100.77 L145.21,102.34 L141.4,108.07 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><line x1="64" y1="149" x2="178" y2="149" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M186,149 L178,152.44 L178,145.56 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><circle cx="50" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="50" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1</text><circle cx="125" cy="93" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="125" y="97" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2</text><circle cx="200" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="200" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3</text><text x="125" y="188" text-anchor="middle" fill="var(--fig-muted)" font-size="12">В отношении 6 упорядоченных пар</text>
+</svg></div>
 </div>
 <!-- Панель 3: Обратное отношение ρ⁻¹ -->
 <div class="venn-col">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 200" role="img" aria-label="Обратное отношение ρ⁻¹" data-fam-figure="diagram" data-fam-index="8">
-<text x="125" y="23" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Обратное отношение ρ⁻¹</text><path d="M42,132 C23,86 80,86 59,132" fill="none" stroke="var(--fig-blue)" stroke-width="2"/><line x1="64" y1="121" x2="61.9" y2="125.63" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M59,132 L59.16,124.38 L64.64,126.87 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="188.35" y1="135.23" x2="143.31" y2="105.2" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M136.65,100.77 L145.21,102.34 L141.4,108.07 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="113.35" y1="100.77" x2="68.31" y2="130.8" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M61.65,135.23 L66.4,127.93 L70.21,133.66 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="50" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="50" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1</text><circle cx="125" cy="93" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="125" y="97" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2</text><circle cx="200" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="200" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3</text><text x="125" y="188" text-anchor="middle" fill="var(--fig-muted)" font-size="12">В отношении 3 упорядоченных пар</text>
-</svg>
+<div class="diagram-scroll" style="--diagram-min-width: 250px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 250 200" role="img" aria-label="Обратное отношение ρ⁻¹" data-fam-figure="diagram" data-fam-index="8">
+<text x="125" y="23" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Обратное отношение ρ⁻¹</text><path d="M42,132 C23,86 80,86 59,132" fill="none" stroke="var(--fig-blue)" stroke-width="2"></path><line x1="64" y1="121" x2="61.9" y2="125.63" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M59,132 L59.16,124.38 L64.64,126.87 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><line x1="188.35" y1="135.23" x2="143.31" y2="105.2" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M136.65,100.77 L145.21,102.34 L141.4,108.07 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><line x1="113.35" y1="100.77" x2="68.31" y2="130.8" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M61.65,135.23 L66.4,127.93 L70.21,133.66 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><circle cx="50" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="50" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1</text><circle cx="125" cy="93" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="125" y="97" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2</text><circle cx="200" cy="143" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="200" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3</text><text x="125" y="188" text-anchor="middle" fill="var(--fig-muted)" font-size="12">В отношении 3 упорядоченных пар</text>
+</svg></div>
 </div>
 </div>
 <div class="venn-caption">
@@ -1703,7 +1758,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
   <div class="chapter-kicker">08 / Определение 37: Семь фундамент…</div>
   <h2 id="chapter-8" data-toc="Определение 37: Семь фундамент…">Определение 37: Семь фундаментальных свойств бинарных отношений на множестве A</h2>
 
-<a class="back-top-link" href="#toc-page">↑ К оглавлению</a>
+<a class="back-top-link" href="#top">↑ К оглавлению</a>
 
 <div class="statement definition" id="def-5"><div class="block-label">Определение 5</div><h3 data-toc="Определение 37 · Слайд 7Основн…" id="sub-8-1">Определение 37 · Слайд 7Основные типы бинарных отношений на множестве A</h3><div>
 <p>
@@ -1714,11 +1769,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <li><strong><span class="math-inline">2°</span>.</strong> Отношение <span class="math-inline">ρ</span> называется <strong>симметричным</strong>, если <span class="math-inline">xρy → yρx    ∀x, y ∈ A</span>.</li>
 <li><strong><span class="math-inline">3°</span>.</strong> Отношение <span class="math-inline">ρ</span> называется <strong>транзитивным</strong>, если <span class="math-inline">(xρy и yρz) → xρz    ∀x, y, z ∈ A</span>.</li>
 <li>
-<strong><span class="math-inline">4°</span>.</strong> Отношение <span class="math-inline">ρ</span> называется <strong>антирефлексивным</strong>, если <span class="math-inline">x<span class="not-rel">ρ</span>x    ∀x ∈ A</span>.<br/>
+<strong><span class="math-inline">4°</span>.</strong> Отношение <span class="math-inline">ρ</span> называется <strong>антирефлексивным</strong>, если <span class="math-inline">x<span class="not-rel">ρ</span>x    ∀x ∈ A</span>.<br>
 <span style="color:var(--accent-warning); font-weight:800;">Замечание (Слайд 7): Антирефлексивность ≠ Нерефлексивность!</span>
 </li>
 <li>
-<strong><span class="math-inline">5°</span>.</strong> Отношение <span class="math-inline">ρ</span> называется <strong>антисимметричным</strong>, если <span class="math-inline">(xρy и yρx) → x = y    ∀x, y ∈ A</span>.<br/>
+<strong><span class="math-inline">5°</span>.</strong> Отношение <span class="math-inline">ρ</span> называется <strong>антисимметричным</strong>, если <span class="math-inline">(xρy и yρx) → x = y    ∀x, y ∈ A</span>.<br>
 <span style="color:var(--accent-warning); font-weight:800;">Замечание (Слайд 7): Антисимметричность ≠ Несимметричность!</span>
 </li>
 <li><strong><span class="math-inline">6°</span>.</strong> Отношение <span class="math-inline">ρ</span> называется <strong>связным</strong>, если <span class="math-inline">∀x, y ∈ A : (xρy или yρx)</span>.</li>
@@ -1730,7 +1785,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="venn-grid" style="margin-bottom: 12px;">
 <!-- 1° Рефлексивность -->
 <div class="venn-col">
-<svg aria-label="1 градус Рефлексивность: петли у каждой вершины" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="9">
+<div class="diagram-scroll" style="--diagram-min-width: 306px"><svg aria-label="1 градус Рефлексивность: петли у каждой вершины" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="9">
 <defs>
 <marker id="fam-fig-9-arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-lecture)"></path>
@@ -1749,11 +1804,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" text-anchor="middle" x="140" y="144">Диагональ матрицы M(ρ): (1, 1, 1)</text>
 <text class="svg-title" text-anchor="middle" x="140" y="177">1°. Рефлексивность: ∀x ∈ A (xρx)</text>
 <text class="svg-sub" text-anchor="middle" x="140" y="194">Петля у каждой вершины</text>
-</svg>
+</svg></div>
 </div>
 <!-- 4° Антирефлексивность -->
 <div class="venn-col">
-<svg aria-label="4 градуса Антирефлексивность: ни одной петли" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="10">
+<div class="diagram-scroll" style="--diagram-min-width: 306px"><svg aria-label="4 градуса Антирефлексивность: ни одной петли" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="10">
 <rect class="venn-u-box" height="146" rx="6" stroke="var(--svg-u-stroke)" stroke-width="1.6" width="256" x="12" y="12"></rect>
 <path d="M 60 94 C 40 64, 92 64, 72 94" fill="none" stroke="#dc2626" stroke-dasharray="3,3" stroke-width="1.6"></path>
 <text class="svg-title" fill="#dc2626" text-anchor="middle" x="66" y="70">✗</text>
@@ -1770,13 +1825,13 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" fill="#dc2626" text-anchor="middle" x="140" y="144">Диагональ матрицы M(ρ): (0, 0, 0)</text>
 <text class="svg-title" text-anchor="middle" x="140" y="177">4°. Антирефлексивность</text>
 <text class="svg-sub" text-anchor="middle" x="140" y="194">Петель нет</text>
-</svg>
+</svg></div>
 </div>
 </div>
 <div class="venn-grid" style="margin-bottom: 12px;">
 <!-- 2° Симметричность -->
 <div class="venn-col">
-<svg aria-label="2 градуса Симметричность: встречные стрелки" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="11"><defs><marker id="fam-fig-11-arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<div class="diagram-scroll" style="--diagram-min-width: 306px"><svg aria-label="2 градуса Симметричность: встречные стрелки" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="11"><defs><marker id="fam-fig-11-arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-lecture)"></path>
 </marker></defs>
 <rect class="venn-u-box" height="146" rx="6" stroke="var(--svg-u-stroke)" stroke-width="1.6" width="256" x="12" y="12"></rect>
@@ -1791,11 +1846,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" text-anchor="middle" x="140" y="144">Матрица симметрична: M(ρ) = M(ρ)ᵀ</text>
 <text class="svg-title" text-anchor="middle" x="140" y="177">2°. Симметричность: ∀x,y (xρy → yρx)</text>
 <text class="svg-sub" text-anchor="middle" x="140" y="194">Если xρy, то yρx</text>
-</svg>
+</svg></div>
 </div>
 <!-- 5° Антисимметричность -->
 <div class="venn-col">
-<svg aria-label="5 градусов Антисимметричность: запрет встречных стрелок между разными вершинами" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="12"><defs><marker id="fam-fig-12-arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<div class="diagram-scroll" style="--diagram-min-width: 306px"><svg aria-label="5 градусов Антисимметричность: запрет встречных стрелок между разными вершинами" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="12"><defs><marker id="fam-fig-12-arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-lecture)"></path>
 </marker></defs>
 <rect class="venn-u-box" height="146" rx="6" stroke="var(--svg-u-stroke)" stroke-width="1.6" width="256" x="12" y="12"></rect>
@@ -1810,13 +1865,13 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" text-anchor="middle" x="140" y="144">MᵢⱼMⱼᵢ = 0 при i ≠ j</text>
 <text class="svg-title" text-anchor="middle" x="140" y="177">5°. Антисимметричность</text>
 <text class="svg-sub" text-anchor="middle" x="140" y="194">Петли разрешены</text>
-</svg>
+</svg></div>
 </div>
 </div>
 <div class="venn-grid">
 <!-- 3° Транзитивность -->
 <div class="venn-col">
-<svg aria-label="3 градуса Транзитивность: замыкание двухшагового пути" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="13">
+<div class="diagram-scroll" style="--diagram-min-width: 306px"><svg aria-label="3 градуса Транзитивность: замыкание двухшагового пути" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="13">
 <defs>
 <marker id="fam-fig-13-arr-g2" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#dc2626"></path>
@@ -1836,15 +1891,15 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <line marker-end="url(#fam-fig-13-arr-g1)" stroke="var(--accent-lecture)" stroke-width="2.2" x1="153" x2="205" y1="55" y2="102"></line>
 <text class="svg-reg-code" text-anchor="middle" x="191" y="72">yρz</text>
 <line marker-end="url(#fam-fig-13-arr-g2)" stroke="#dc2626" stroke-dasharray="5,3" stroke-width="2.3" x1="79" x2="199" y1="112" y2="112"></line>
-<text class="svg-title" fill="#dc2626" text-anchor="middle" x="140" y="128">обязана быть прямая xρz!</text>
+<text class="svg-title" fill="#dc2626" text-anchor="middle" x="140" y="128">Требуется дуга xρz</text>
 <text class="svg-reg-code" text-anchor="middle" x="140" y="147">Критерий: (ρ ∘ ρ) ⊂ ρ</text>
 <text class="svg-title" text-anchor="middle" x="140" y="177">3°. Транзитивность: (xρy ∧ yρz) → xρz</text>
 <text class="svg-sub" text-anchor="middle" x="140" y="194">Две дуги требуют третьей</text>
-</svg>
+</svg></div>
 </div>
 <!-- 6° Связность и 7° Слабая связность -->
 <div class="venn-col">
-<svg aria-label="6 и 7 градусов Связность и Слабая связность" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="14"><defs><marker id="fam-fig-14-arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<div class="diagram-scroll" style="--diagram-min-width: 306px"><svg aria-label="6 и 7 градусов Связность и Слабая связность" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="14"><defs><marker id="fam-fig-14-arr-g1" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-lecture)"></path>
 </marker></defs>
 <rect class="venn-u-box" height="146" rx="6" stroke="var(--svg-u-stroke)" stroke-width="1.6" width="256" x="12" y="12"></rect>
@@ -1860,7 +1915,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" text-anchor="middle" x="140" y="145">Для связности нужны и петли</text>
 <text class="svg-title" text-anchor="middle" x="140" y="177">Связность отношений</text>
 <text class="svg-sub" text-anchor="middle" x="140" y="194">Между вершинами есть дуга</text>
-</svg>
+</svg></div>
 </div>
 </div>
 <div class="venn-caption">
@@ -1888,7 +1943,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
               На главной диагонали матрицы <span class="math-inline">M<sub>ρ</sub></span> стоят <strong>сплошь единицы</strong> (у всех вершин есть петли).
             </li>
 <li>
-<strong>Нерефлексивность (логическое отрицание рефлексивности):</strong><br/>
+<strong>Нерефлексивность (логическое отрицание рефлексивности):</strong><br>
               Отношение нерефлексивно, если оно <em>не является</em> рефлексивным:
               <div class="math-display">
                 ¬(∀x ∈ A : xρx)  ⟺  <div class="equation">∃x ∈ A : x<span class="not-rel">ρ</span>x</div>  ⟺  <span style="font-style:normal;">Id</span><sub>A</sub> ⊄ ρ.
@@ -1966,7 +2021,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </p>
 <ul>
 <li>
-<strong>Пример А (Несимметричное отношение, которое НЕ является антисимметричным):</strong><br/>
+<strong>Пример А (Несимметричное отношение, которое НЕ является антисимметричным):</strong><br>
               Пусть на <span class="math-inline">A = {1, 2, 3}</span> задано отношение <span class="math-inline">ρ = {⟨1, 2⟩, ⟨2, 1⟩, ⟨2, 3⟩}</span>.
               <ul>
 <li>Оно <strong>несимметрично</strong>, так как <span class="math-inline">⟨2, 3⟩ ∈ ρ</span>, но <span class="math-inline">⟨3, 2⟩ ∉ ρ</span> (есть односторонняя стрелка <span class="math-inline">2 → 3</span>).</li>
@@ -1974,7 +2029,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </ul>
 </li>
 <li>
-<strong>Пример Б (Отношение, которое ОДНОВРЕМЕННО симметрично и антисимметрично!):</strong><br/>
+<strong>Пример Б (Отношение, которое ОДНОВРЕМЕННО симметрично и антисимметрично!):</strong><br>
               Пусть <span class="math-inline">ρ = <span style="font-style:normal;">Id</span><sub>A</sub> = {⟨1, 1⟩, ⟨2, 2⟩, ⟨3, 3⟩}</span> (отношение равенства «<span class="math-inline">=</span>») или <span class="math-inline">ρ = ∅</span> (или любое подмножество диагонали <span class="math-inline">ρ ⊂ <span style="font-style:normal;">Id</span><sub>A</sub></span>).
               <ul>
 <li>Оно <strong>симметрично</strong>, так как матрица диагональна (<span class="math-inline">M<sub>ρ</sub> = M<sub>ρ</sub><sup>T</sup></span>).</li>
@@ -2008,13 +2063,13 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="block-title"><span class="box-badge">Две главные ловушки на транзитивность (3°)</span> О чём забывают 80% студентов при проверке (xρy ∧ yρz) → xρz?</div>
 <ol>
 <li>
-<strong>Ловушка 1 (Случай совпадающих крайних элементов <span class="math-inline">z = x</span>):</strong><br/>
-              В определении транзитивности <span class="math-inline">∀x, y, z ∈ A : ((xρy ∧ yρz) → xρz)</span> переменные <span class="math-inline">x, y, z</span> могут принимать <strong>одинаковые значения</strong>! В частности, если между двумя различными вершинами <span class="math-inline">x ≠ y</span> есть двусторонняя связь (<span class="math-inline">xρy</span> и <span class="math-inline">yρx</span>), то при подстановке <span class="math-inline">z = x</span> получаем истинную посылку <span class="math-inline">(xρy ∧ yρx)</span>, откуда по транзитивности <strong>обязана следовать петля <span class="math-inline">xρx</span></strong> (и аналогично <span class="math-inline">yρy</span> из <span class="math-inline">yρx ∧ xρy</span>)!<br/>
+<strong>Ловушка 1 (Случай совпадающих крайних элементов <span class="math-inline">z = x</span>):</strong><br>
+              В определении транзитивности <span class="math-inline">∀x, y, z ∈ A : ((xρy ∧ yρz) → xρz)</span> переменные <span class="math-inline">x, y, z</span> могут принимать <strong>одинаковые значения</strong>! В частности, если между двумя различными вершинами <span class="math-inline">x ≠ y</span> есть двусторонняя связь (<span class="math-inline">xρy</span> и <span class="math-inline">yρx</span>), то при подстановке <span class="math-inline">z = x</span> получаем истинную посылку <span class="math-inline">(xρy ∧ yρx)</span>, откуда по транзитивности <strong>обязана следовать петля <span class="math-inline">xρx</span></strong> (и аналогично <span class="math-inline">yρy</span> из <span class="math-inline">yρx ∧ xρy</span>)!<br>
 <em>Классический контрпример:</em> Отношение <span class="math-inline">ρ = {⟨1, 2⟩, ⟨2, 1⟩}</span> на множестве <span class="math-inline">{1, 2}</span> симметрично, но <strong>НЕ транзитивно</strong>, так как есть цепочка <span class="math-inline">1 → 2 → 1</span>, но нет петли <span class="math-inline">⟨1, 1⟩</span>! Чтобы оно стало транзитивным, необходимо добавить обе петли: <span class="math-inline">{⟨1, 1⟩, ⟨1, 2⟩, ⟨2, 1⟩, ⟨2, 2⟩}</span>.
             </li>
 <li>
-<strong>Ловушка 2 (Истинность импликации при ложной посылке — «пустая транзитивность»):</strong><br/>
-              Если в отношении <span class="math-inline">ρ</span> вообще нет ни одной пары стыкующихся стрелок <span class="math-inline">x → y</span> и <span class="math-inline">y → z</span> (то есть композиция <span class="math-inline">ρ ∘ ρ = ∅</span>), то для любых <span class="math-inline">x, y, z ∈ A</span> конъюнкция <span class="math-inline">(xρy ∧ yρz)</span> <strong>ложна (<span class="math-inline">0</span>)</strong>. По таблице истинности импликации высказывание <span class="math-inline">0 → (xρz)</span> <strong>всегда истинно (<span class="math-inline">1</span>)</strong>!<br/>
+<strong>Ловушка 2 (Истинность импликации при ложной посылке — «пустая транзитивность»):</strong><br>
+              Если в отношении <span class="math-inline">ρ</span> вообще нет ни одной пары стыкующихся стрелок <span class="math-inline">x → y</span> и <span class="math-inline">y → z</span> (то есть композиция <span class="math-inline">ρ ∘ ρ = ∅</span>), то для любых <span class="math-inline">x, y, z ∈ A</span> конъюнкция <span class="math-inline">(xρy ∧ yρz)</span> <strong>ложна (<span class="math-inline">0</span>)</strong>. По таблице истинности импликации высказывание <span class="math-inline">0 → (xρz)</span> <strong>всегда истинно (<span class="math-inline">1</span>)</strong>!<br>
 <em>Примеры:</em> Пустое отношение <span class="math-inline">ρ = ∅</span> и отношение из одной недиагональной стрелки <span class="math-inline">ρ = {⟨1, 2⟩}</span> являются <strong>строго транзитивными</strong>!
             </li>
 </ol>
@@ -2039,7 +2094,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="equation">ρ связно (6°)  ⟺  ρ слабо связно (7°)  и  ρ рефлексивно (1°).</div>
 </div>
 <p>
-<strong>Доказательство:</strong><br/>
+<strong>Доказательство:</strong><br>
             По Определению 37 (<span class="math-inline">6°</span>) связность означает, что условие <span class="math-inline">(xρy ∨ yρx)</span> выполнено для всех пар <span class="math-inline">⟨x, y⟩ ∈ A × A</span>. Разобьём всё множество пар <span class="math-inline">A × A</span> на два непересекающихся подмножества: внедиагональные пары <span class="math-inline">{⟨x, y⟩ ∣ x ≠ y}</span> и диагональные пары <span class="math-inline"><span style="font-style:normal;">Id</span><sub>A</sub> = {⟨x, x⟩ ∣ x ∈ A}</span>:
           </p>
 <ul>
@@ -2078,11 +2133,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           </p>
 <ol>
 <li>
-<strong>Рефлексивность (<span class="math-inline">1°</span>): <span class="math-inline">ρ</span> рефлексивно <span class="math-inline">⟺ <span style="font-style:normal;">Id</span><sub>A</sub> ⊂ ρ</span>.</strong><br/>
+<strong>Рефлексивность (<span class="math-inline">1°</span>): <span class="math-inline">ρ</span> рефлексивно <span class="math-inline">⟺ <span style="font-style:normal;">Id</span><sub>A</sub> ⊂ ρ</span>.</strong><br>
 <em>Доказательство:</em> <span class="math-inline"><span style="font-style:normal;">Id</span><sub>A</sub> ⊂ ρ ⟺ (∀x ∈ A : ⟨x, x⟩ ∈ ρ) ⟺ (∀x ∈ A : xρx)</span>.
             </li>
 <li>
-<strong>Симметричность (<span class="math-inline">2°</span>): <span class="math-inline">ρ</span> симметрично <span class="math-inline">⟺ ρ = ρ<sup>−1</sup></span> (или <span class="math-inline">ρ ⊂ ρ<sup>−1</sup></span>).</strong><br/>
+<strong>Симметричность (<span class="math-inline">2°</span>): <span class="math-inline">ρ</span> симметрично <span class="math-inline">⟺ ρ = ρ<sup>−1</sup></span> (или <span class="math-inline">ρ ⊂ ρ<sup>−1</sup></span>).</strong><br>
 <em>Доказательство:</em> По определению включения и обратного отношения:
               <div class="math-display">
                 ρ ⊂ ρ<sup>−1</sup>  ⟺  ∀x, y ∈ A : (⟨x, y⟩ ∈ ρ → ⟨x, y⟩ ∈ ρ<sup>−1</sup>)  ⟺  ∀x, y ∈ A : (xρy → yρx),
@@ -2090,7 +2145,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
               что совпадает с определением симметричности <span class="math-inline">2°</span>. При этом если <span class="math-inline">ρ ⊂ ρ<sup>−1</sup></span>, то, беря обратное отношение от обеих частей включения, получаем <span class="math-inline">ρ<sup>−1</sup> ⊂ (ρ<sup>−1</sup>)<sup>−1</sup> = ρ</span>, откуда <span class="math-inline">ρ = ρ<sup>−1</sup></span>.
             </li>
 <li>
-<strong>Транзитивность (<span class="math-inline">3°</span>): <span class="math-inline">ρ</span> транзитивно <span class="math-inline">⟺ (ρ ∘ ρ) ⊂ ρ</span>.</strong><br/>
+<strong>Транзитивность (<span class="math-inline">3°</span>): <span class="math-inline">ρ</span> транзитивно <span class="math-inline">⟺ (ρ ∘ ρ) ⊂ ρ</span>.</strong><br>
 <em>Доказательство:</em>
 <ul>
 <li>(<span class="math-inline">⟹</span>) Пусть <span class="math-inline">ρ</span> транзитивно и <span class="math-inline">⟨x, z⟩ ∈ ρ ∘ ρ</span>. По определению композиции существует <span class="math-inline">y ∈ A</span>, такой что <span class="math-inline">xρy</span> и <span class="math-inline">yρz</span>. В силу транзитивности отсюда следует <span class="math-inline">xρz</span>, то есть <span class="math-inline">⟨x, z⟩ ∈ ρ</span>. Значит, <span class="math-inline">(ρ ∘ ρ) ⊂ ρ</span>.</li>
@@ -2098,19 +2153,19 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </ul>
 </li>
 <li>
-<strong>Антирефлексивность (<span class="math-inline">4°</span>): <span class="math-inline">ρ</span> антирефлексивно <span class="math-inline">⟺ ρ ∩ <span style="font-style:normal;">Id</span><sub>A</sub> = ∅</span>.</strong><br/>
+<strong>Антирефлексивность (<span class="math-inline">4°</span>): <span class="math-inline">ρ</span> антирефлексивно <span class="math-inline">⟺ ρ ∩ <span style="font-style:normal;">Id</span><sub>A</sub> = ∅</span>.</strong><br>
 <em>Доказательство:</em> <span class="math-inline">ρ ∩ <span style="font-style:normal;">Id</span><sub>A</sub> = ∅ ⟺ ∀x ∈ A : ⟨x, x⟩ ∉ ρ ⟺ ∀x ∈ A : x<span class="not-rel">ρ</span>x</span>.
             </li>
 <li>
-<strong>Антисимметричность (<span class="math-inline">5°</span>): <span class="math-inline">ρ</span> антисимметрично <span class="math-inline">⟺ ρ ∩ ρ<sup>−1</sup> ⊂ <span style="font-style:normal;">Id</span><sub>A</sub></span>.</strong><br/>
+<strong>Антисимметричность (<span class="math-inline">5°</span>): <span class="math-inline">ρ</span> антисимметрично <span class="math-inline">⟺ ρ ∩ ρ<sup>−1</sup> ⊂ <span style="font-style:normal;">Id</span><sub>A</sub></span>.</strong><br>
 <em>Доказательство:</em> Для любой пары <span class="math-inline">⟨x, y⟩ ∈ A × A</span> имеем: <span class="math-inline">⟨x, y⟩ ∈ ρ ∩ ρ<sup>−1</sup> ⟺ (⟨x, y⟩ ∈ ρ ∧ ⟨x, y⟩ ∈ ρ<sup>−1</sup>) ⟺ (xρy ∧ yρx)</span>, а принадлежность <span class="math-inline">⟨x, y⟩ ∈ <span style="font-style:normal;">Id</span><sub>A</sub></span> равносильна равенству <span class="math-inline">x = y</span>. Поэтому включение <span class="math-inline">ρ ∩ ρ<sup>−1</sup> ⊂ <span style="font-style:normal;">Id</span><sub>A</sub></span> в точности означает <span class="math-inline">∀x, y ∈ A : ((xρy ∧ yρx) → x = y)</span>.
             </li>
 <li>
-<strong>Связность (<span class="math-inline">6°</span>): <span class="math-inline">ρ</span> связно <span class="math-inline">⟺ ρ ∪ ρ<sup>−1</sup> = A × A</span>.</strong><br/>
+<strong>Связность (<span class="math-inline">6°</span>): <span class="math-inline">ρ</span> связно <span class="math-inline">⟺ ρ ∪ ρ<sup>−1</sup> = A × A</span>.</strong><br>
 <em>Доказательство:</em> <span class="math-inline">ρ ∪ ρ<sup>−1</sup> = A × A ⟺ ∀⟨x, y⟩ ∈ A × A : (⟨x, y⟩ ∈ ρ ∨ ⟨x, y⟩ ∈ ρ<sup>−1</sup>) ⟺ ∀x, y ∈ A : (xρy ∨ yρx)</span>.
             </li>
 <li>
-<strong>Слабая связность (<span class="math-inline">7°</span>): <span class="math-inline">ρ</span> слабо связно <span class="math-inline">⟺ ρ ∪ ρ<sup>−1</sup> ∪ <span style="font-style:normal;">Id</span><sub>A</sub> = A × A</span> (или <span class="math-inline">(A × A) \ <span style="font-style:normal;">Id</span><sub>A</sub> ⊂ ρ ∪ ρ<sup>−1</sup></span>).</strong><br/>
+<strong>Слабая связность (<span class="math-inline">7°</span>): <span class="math-inline">ρ</span> слабо связно <span class="math-inline">⟺ ρ ∪ ρ<sup>−1</sup> ∪ <span style="font-style:normal;">Id</span><sub>A</sub> = A × A</span> (или <span class="math-inline">(A × A) \ <span style="font-style:normal;">Id</span><sub>A</sub> ⊂ ρ ∪ ρ<sup>−1</sup></span>).</strong><br>
 <em>Доказательство:</em> Любая внедиагональная пара <span class="math-inline">⟨x, y⟩</span> (где <span class="math-inline">x ≠ y</span>, то есть <span class="math-inline">⟨x, y⟩ ∈ (A × A) \ <span style="font-style:normal;">Id</span><sub>A</sub></span>) принадлежит <span class="math-inline">ρ ∪ ρ<sup>−1</sup></span> тогда и только тогда, когда <span class="math-inline">xρy ∨ yρx</span>.
             </li>
 </ol>
@@ -2321,7 +2376,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
   <div class="chapter-kicker">10 / Подробный разбор типовых задач…</div>
   <h2 id="chapter-10" data-toc="Подробный разбор типовых задач…">Подробный разбор типовых задач с полными доказательствами</h2>
 
-<a class="back-top-link" href="#toc-page">↑ К оглавлению</a>
+<a class="back-top-link" href="#top">↑ К оглавлению</a>
 
 <!-- 5.1 -->
 <section id="sec-5-1">
@@ -2354,7 +2409,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             MN ∪ P = <span class="ovl">B</span>(<span class="ovl">A</span>B) ∪ A<span class="ovl">B</span> = <span class="ovl">A</span>(<span class="ovl">B</span>B) ∪ A<span class="ovl">B</span> = ∅ ∪ A<span class="ovl">B</span> = A<span class="ovl">B</span> = ∅  ⟺  <div class="equation">A ⊂ B.</div>
 </div>
 <p>
-<strong>Шаг 3. Запись общего решения и подсчёт числа решений:</strong><br/>
+<strong>Шаг 3. Запись общего решения и подсчёт числа решений:</strong><br>
             Если <span class="math-inline">A ⊄ B</span>, то решений нет (<span class="math-inline">X ∈ ∅</span>). Если же условие разрешимости <span class="math-inline">A ⊂ B</span> выполнено, то <span class="math-inline"><span class="ovl">M</span> = <span class="ovl2">B</span> = B</span>, а <span class="math-inline"><span class="ovl">N</span> = <span class="ovl"><span class="ovl">A</span>B</span> = A ∪ <span class="ovl">B</span></span>. Тогда кольцо свободы равно:
           </p>
 <div class="math-display">
@@ -2395,7 +2450,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             (A<span class="ovl">B</span>)B ∪ <span class="ovl">A</span>B = A(<span class="ovl">B</span>B) ∪ <span class="ovl">A</span>B = ∅ ∪ <span class="ovl">A</span>B = <span class="ovl">A</span>B = ∅  ⟺  <div class="equation">B ⊂ A.</div>
 </div>
 <p>
-<strong>Шаг 3. Запись ответа:</strong><br/>
+<strong>Шаг 3. Запись ответа:</strong><br>
             При выполненном условии <span class="math-inline">B ⊂ A</span> имеем <span class="math-inline"><span class="ovl">M</span> = <span class="ovl">A<span class="ovl">B</span></span> = <span class="ovl">A</span> ∪ B</span>, а кольцо свободы равно <span class="math-inline"><span class="ovl">M</span><span class="ovl">N</span> = (<span class="ovl">A</span> ∪ B)<span class="ovl">B</span> = <span class="ovl">A</span><span class="ovl">B</span> = <span class="ovl">A</span></span> (поскольку из <span class="math-inline">B ⊂ A</span> следует <span class="math-inline"><span class="ovl">A</span> ⊂ <span class="ovl">B</span></span>). Получаем общее решение:
           </p>
 <div class="math-display">
@@ -2436,7 +2491,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             Здесь <span class="math-inline">M = BC ∪ <span class="ovl">B</span><span class="ovl">C</span> = <span class="ovl">B △ C</span></span>, <span class="math-inline">N = A<span class="ovl">C</span> ∪ <span class="ovl">A</span>C = A △ C</span>, <span class="math-inline">P = <span class="ovl">A</span>BC</span>.
           </p>
 <p>
-<strong>Условие разрешимости <span class="math-inline">MN ∪ P = ∅</span>:</strong><br/>
+<strong>Условие разрешимости <span class="math-inline">MN ∪ P = ∅</span>:</strong><br>
             Перемножим <span class="math-inline">M</span> и <span class="math-inline">N</span> (используя <span class="math-inline">C<span class="ovl">C</span> = ∅</span>):
           </p>
 <div class="math-display">
@@ -2449,7 +2504,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="equation">MN ∪ P = <span class="ovl">A</span>BC ∪ A<span class="ovl">B</span><span class="ovl">C</span> = ∅</div>  ⟺  (BC ⊂ A) ∧ (A \ B ⊂ C).
           </div>
 <p>
-<strong>Шаг 3. Запись ответа:</strong><br/>
+<strong>Шаг 3. Запись ответа:</strong><br>
             Так как <span class="math-inline"><span class="ovl">M</span> = B △ C</span> и <span class="math-inline">N = A △ C</span>, при выполнении условия разрешимости общее решение имеет вид:
           </p>
 <div class="math-display">
@@ -2467,7 +2522,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-controls" role="group" aria-label="Режим доказательства"><span>Доказательство</span><button type="button" data-proof-mode="full">Полностью</button><button type="button" data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
 <div id="full-proof-extra-3" data-proof-full>
 <p>
-<strong>1. Строгое доказательство транзитивности пересечения <span class="math-inline">τ = ρ ∩ σ</span>:</strong><br/>
+<strong>1. Строгое доказательство транзитивности пересечения <span class="math-inline">τ = ρ ∩ σ</span>:</strong><br>
             Пусть <span class="math-inline">x, y, z ∈ A</span> таковы, что <span class="math-inline">xτy</span> и <span class="math-inline">yτz</span>, то есть <span class="math-inline">⟨x, y⟩ ∈ ρ ∩ σ</span> и <span class="math-inline">⟨y, z⟩ ∈ ρ ∩ σ</span>. По определению пересечения множеств это означает, что одновременно:
           </p>
 <ul>
@@ -2478,7 +2533,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             Поскольку пара <span class="math-inline">⟨x, z⟩</span> принадлежит и <span class="math-inline">ρ</span>, и <span class="math-inline">σ</span>, она принадлежит их пересечению: <span class="math-inline">⟨x, z⟩ ∈ ρ ∩ σ</span>, то есть <span class="math-inline">xτz</span>. Следовательно, пересечение любых двух транзитивных отношений <strong>всегда транзитивно</strong>!
           </p>
 <p>
-<strong>2. Опровержение (контрпример) для объединения <span class="math-inline">ρ ∪ σ</span>:</strong><br/>
+<strong>2. Опровержение (контрпример) для объединения <span class="math-inline">ρ ∪ σ</span>:</strong><br>
             На множестве <span class="math-inline">A = {1, 2, 3}</span> рассмотрим два одноэлементных отношения:
           </p>
 <div class="math-display">ρ = {⟨1, 2⟩},      σ = {⟨2, 3⟩}.</div>
@@ -2497,7 +2552,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-controls" role="group" aria-label="Режим доказательства"><span>Доказательство</span><button type="button" data-proof-mode="full">Полностью</button><button type="button" data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
 <div id="full-proof-extra-4" data-proof-full>
 <p>
-<strong>Доказательство (способ 1 — по определению через элементы):</strong><br/>
+<strong>Доказательство (способ 1 — по определению через элементы):</strong><br>
             Пусть <span class="math-inline">ρ</span> транзитивно. Проверим транзитивность <span class="math-inline">ρ<sup>−1</sup></span>: пусть для произвольных <span class="math-inline">x, y, z ∈ A</span> выполнено <span class="math-inline">x ρ<sup>−1</sup> y</span> и <span class="math-inline">y ρ<sup>−1</sup> z</span>. По Определению 36 обратного отношения это равносильно тому, что <span class="math-inline">y ρ x</span> и <span class="math-inline">z ρ y</span>. Запишем эти два условия в порядке следования стрелок:
           </p>
 <div class="math-display">z ρ y   и   y ρ x.</div>
@@ -2505,7 +2560,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             В силу транзитивности отношения <span class="math-inline">ρ</span> из <span class="math-inline">z ρ y</span> и <span class="math-inline">y ρ x</span> следует <span class="math-inline">z ρ x</span>. Но по определению обратного отношения запись <span class="math-inline">z ρ x</span> равносильна <span class="math-inline">x ρ<sup>−1</sup> z</span>! Значит, <span class="math-inline">ρ<sup>−1</sup></span> транзитивно. Обратная импликация следует из <span class="math-inline">(ρ<sup>−1</sup>)<sup>−1</sup> = ρ</span>.
           </p>
 <p>
-<strong>Доказательство (способ 2 — алгебраический в одну строчку через композицию):</strong><br/>
+<strong>Доказательство (способ 2 — алгебраический в одну строчку через композицию):</strong><br>
             По критерию транзитивности из п. 4.4 и теореме об инверсии композиции <span class="math-inline">(ρ ∘ ρ)<sup>−1</sup> = ρ<sup>−1</sup> ∘ ρ<sup>−1</sup></span>:
           </p>
 <div class="math-display">
@@ -2522,24 +2577,24 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="block-box block-practice">
 <div class="block-title"><span class="box-badge">Задача 5.6</span> Полное исследование отношения на конечном множестве A = {1, 2, 3}</div>
 <p>
-            На множестве <span class="math-inline">A = {1, 2, 3}</span> задано отношение <span class="math-inline">ρ = {⟨x, y⟩ ∈ A × A ∣ x ≤ y и (y − x) чётно}</span>.<br/>
+            На множестве <span class="math-inline">A = {1, 2, 3}</span> задано отношение <span class="math-inline">ρ = {⟨x, y⟩ ∈ A × A ∣ x ≤ y и (y − x) чётно}</span>.<br>
 <strong>Требуется:</strong> 1) выписать пары <span class="math-inline">ρ</span> и матрицу <span class="math-inline">M<sub>ρ</sub></span>; 2) найти <span class="math-inline">ρ<sup>−1</sup></span>, <span class="math-inline"><span class="ovl">ρ</span></span> и <span class="math-inline">ρ ∘ ρ</span>; 3) проверить все 7 свойств Определения 37 с обоснованием каждого ответа.
           </p>
 <p>
 <strong>Решение:</strong>
 </p>
 <p>
-<strong>1. Множество пар и матрица <span class="math-inline">M<sub>ρ</sub></span>:</strong><br/>
+<strong>1. Множество пар и матрица <span class="math-inline">M<sub>ρ</sub></span>:</strong><br>
             Из 9 пар декартова квадрата <span class="math-inline">A × A</span> условию <span class="math-inline">x ≤ y</span> удовлетворяют 6 пар: три диагональные <span class="math-inline">⟨1,1⟩, ⟨2,2⟩, ⟨3,3⟩</span> (для них <span class="math-inline">y − x = 0</span> — чётно) и три наддиагональные <span class="math-inline">⟨1,2⟩, ⟨2,3⟩, ⟨1,3⟩</span>, из которых разность <span class="math-inline">y − x</span> чётна только для <span class="math-inline">⟨1, 3⟩</span> (<span class="math-inline">3 − 1 = 2</span>). Получаем:
           </p>
 <div class="math-display">
             ρ = {⟨1, 1⟩, ⟨2, 2⟩, ⟨3, 3⟩, ⟨1, 3⟩},     
             M<sub>ρ</sub> =
-            <table class="matrix-inline">
+            <div class="table-scroll"><table class="matrix-inline">
 <tr><td>1</td><td>0</td><td>1</td></tr>
 <tr><td>0</td><td>1</td><td>0</td></tr>
 <tr><td>0</td><td>0</td><td>1</td></tr>
-</table>.
+</table></div>.
           </div>
 <p>
 <strong>2. Операции <span class="math-inline">ρ<sup>−1</sup></span>, <span class="math-inline"><span class="ovl">ρ</span></span> и <span class="math-inline">ρ ∘ ρ</span>:</strong>
@@ -2584,7 +2639,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 
 
 </section>
-<!-- FAM:CONTENT-END -->
+</div></section><!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>
     </main>
   </div>

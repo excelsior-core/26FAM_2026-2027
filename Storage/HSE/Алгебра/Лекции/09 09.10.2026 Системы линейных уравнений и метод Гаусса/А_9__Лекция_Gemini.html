@@ -660,6 +660,62 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -679,8 +735,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
       <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
     </aside>
     <main id="content">
-      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-      <header class="lecture-head" id="top">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. --><header class="lecture-head" id="top">
         <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
         <h1>Системы линейных уравнений и метод Гаусса</h1>
         <p class="subtitle">Матричный аппарат СЛАУ, элементарные преобразования строк расширенной матрицы и доказательство их обратимости, ступенчатый вид матрицы и строгий индуктивный алгоритм прямого хода метода Гаусса.</p>
@@ -731,7 +786,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <section class="topic-section" id="sec-1">
 <div class="section-header">
 <span class="section-num-badge">Раздел 1</span>
-</section>
+
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Алгебраический фундамент: поле…</div>
   <h2 id="chapter-2" data-toc="Алгебраический фундамент: поле…">Алгебраический фундамент: поле K, линейные уравнения и СЛАУ</h2>
@@ -783,7 +838,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
               Конечный набор из <span class="offline-math-inline math-tex" data-display="0" data-latex="m">m</span> линейных уравнений с одними и теми же <span class="offline-math-inline math-tex" data-display="0" data-latex="n">n</span> неизвестными <span class="offline-math-inline math-tex" data-display="0" data-latex="x_1, x_2, \dots, x_n">x<sub>1</sub>, x<sub>2</sub>, …, x<sub>n</sub></span>, рассматриваемых совместно, называется <strong>системой линейных алгебраических уравнений (СЛАУ)</strong> и записывается в общем виде:
             </p>
 <div class="math-block">
-<div class="offline-math-display math-tex" data-display="1" data-latex="\begin{cases} a_{11}x_1 + a_{12}x_2 + \dots + a_{1n}x_n = b_1, \\ a_{21}x_1 + a_{22}x_2 + \dots + a_{2n}x_n = b_2, \\ \dots\dots\dots\dots\dots\dots\dots\dots\dots\dots\dots \\ a_{i1}x_1 + a_{i2}x_2 + \dots + a_{in}x_n = b_i, \\ \dots\dots\dots\dots\dots\dots\dots\dots\dots\dots\dots \\ a_{m1}x_1 + a_{m2}x_2 + \dots + a_{mn}x_n = b_m. \end{cases} \qquad (1)"><table class="m-cases"><tbody><tr><td>a<sub>11</sub>x<sub>1</sub> + a<sub>12</sub>x<sub>2</sub> + … + a<sub>1n</sub>x<sub>n</sub> = b<sub>1</sub>,</td></tr><tr><td>a<sub>21</sub>x<sub>1</sub> + a<sub>22</sub>x<sub>2</sub> + … + a<sub>2n</sub>x<sub>n</sub> = b<sub>2</sub>,</td></tr><tr><td>……………………………</td></tr><tr><td>a<sub>i1</sub>x<sub>1</sub> + a<sub>i2</sub>x<sub>2</sub> + … + a<sub>in</sub>x<sub>n</sub> = b<sub>i</sub>,</td></tr><tr><td>……………………………</td></tr><tr><td>a<sub>m1</sub>x<sub>1</sub> + a<sub>m2</sub>x<sub>2</sub> + … + a<sub>mn</sub>x<sub>n</sub> = b<sub>m</sub>.</td></tr></tbody></table>       (1)</div>
+<div class="offline-math-display math-tex" data-display="1" data-latex="\begin{cases} a_{11}x_1 + a_{12}x_2 + \dots + a_{1n}x_n = b_1, \\ a_{21}x_1 + a_{22}x_2 + \dots + a_{2n}x_n = b_2, \\ \dots\dots\dots\dots\dots\dots\dots\dots\dots\dots\dots \\ a_{i1}x_1 + a_{i2}x_2 + \dots + a_{in}x_n = b_i, \\ \dots\dots\dots\dots\dots\dots\dots\dots\dots\dots\dots \\ a_{m1}x_1 + a_{m2}x_2 + \dots + a_{mn}x_n = b_m. \end{cases} \qquad (1)"><div class="table-scroll"><table class="m-cases"><tbody><tr><td>a<sub>11</sub>x<sub>1</sub> + a<sub>12</sub>x<sub>2</sub> + … + a<sub>1n</sub>x<sub>n</sub> = b<sub>1</sub>,</td></tr><tr><td>a<sub>21</sub>x<sub>1</sub> + a<sub>22</sub>x<sub>2</sub> + … + a<sub>2n</sub>x<sub>n</sub> = b<sub>2</sub>,</td></tr><tr><td>……………………………</td></tr><tr><td>a<sub>i1</sub>x<sub>1</sub> + a<sub>i2</sub>x<sub>2</sub> + … + a<sub>in</sub>x<sub>n</sub> = b<sub>i</sub>,</td></tr><tr><td>……………………………</td></tr><tr><td>a<sub>m1</sub>x<sub>1</sub> + a<sub>m2</sub>x<sub>2</sub> + … + a<sub>mn</sub>x<sub>n</sub> = b<sub>m</sub>.</td></tr></tbody></table></div>       (1)</div>
 </div>
 <p id="note-indices">
               Здесь все коэффициенты <span class="offline-math-inline math-tex" data-display="0" data-latex="a_{ij} \in K">a<sub>ij</sub>  ∈  K</span> и свободные члены <span class="offline-math-inline math-tex" data-display="0" data-latex="b_i \in K">b<sub>i</sub>  ∈  K</span> (<span class="offline-math-inline math-tex" data-display="0" data-latex="i = 1, 2, \dots, m">i = 1, 2, …, m</span>; <span class="offline-math-inline math-tex" data-display="0" data-latex="j = 1, 2, \dots, n">j = 1, 2, …, n</span>). По общепринятому правилу двойной индексации (А. Г. Курош, §1):
@@ -842,7 +897,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div></div>
 <!-- ИЛЛЮСТРАЦИЯ 1: ДЕРЕВО КЛАССИФИКАЦИИ И ГЕОМЕТРИЯ НА ПЛОСКОСТИ R^2 -->
 <div class="figure-card" id="fig-classification">
-<svg aria-label="Классификация СЛАУ и геометрическая интерпретация" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 920 510" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="1">
+<div class="diagram-scroll" style="--diagram-min-width: 1104px"><svg aria-label="Классификация СЛАУ и геометрическая интерпретация" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 920 510" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="1">
 <!-- Фон -->
 <rect fill="var(--svg-bg)" height="510" rx="10" width="920" x="0" y="0"></rect>
 <!-- ЧАСТЬ А: ДЕРЕВО КЛАССИФИКАЦИИ (из фото 2 и стр. 1 PDF) -->
@@ -968,7 +1023,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="var(--text-secondary)" font-size="10.8" text-anchor="middle" x="757" y="484">
               x₁ − 2x₂ = −4,  x₁ − 2x₂ = −0.8
             </text>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 2.1.</strong> Вверху — полная классификация СЛАУ из конспекта лекции (с кванторами <span class="offline-math-inline math-tex" data-display="0" data-latex="\exists, \exists!, \exists \gt 1, \nexists">∃, ∃!, ∃  &gt;  1, ∄</span>). Внизу — геометрическая интерпретация при <span class="offline-math-inline math-tex" data-display="0" data-latex="n = 2">n = 2</span> над полем <span class="offline-math-inline math-tex" data-display="0" data-latex="\mathbb{R}">ℝ</span>: каждое уравнение с ненулевыми коэффициентами задаёт прямую на плоскости <span class="offline-math-inline math-tex" data-display="0" data-latex="\mathbb{R}^2">ℝ<sup>2</sup></span>. Пересечение в одной точке даёт определённую систему, совпадение прямых — неопределённую, строгая параллельность без общих точек — несовместную.
           </div>
@@ -983,7 +1038,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 <div class="callout-body">
 <p>
-              В школьном курсе над полем <span class="offline-math-inline math-tex" data-display="0" data-latex="\mathbb{R}">ℝ</span> неопределённая система всегда имеет бесконечно много решений. Однако на первой странице лекции (фото 1) лектор специально включил в список полей <strong>конечные поля</strong> <span class="offline-math-inline math-tex" data-display="0" data-latex="\mathbb{Z}_3, \mathbb{Z}_5, \dots, \mathbb{Z}_p">ℤ<sub>3</sub>, ℤ<sub>5</sub>, …, ℤ<sub>p</sub></span>.
+              В школьном курсе над полем <span class="offline-math-inline math-tex" data-display="0" data-latex="\mathbb{R}">ℝ</span> неопределённая система всегда имеет бесконечно много решений. Однако на первой странице лекции (фото 1) в список полей включено <strong>конечные поля</strong> <span class="offline-math-inline math-tex" data-display="0" data-latex="\mathbb{Z}_3, \mathbb{Z}_5, \dots, \mathbb{Z}_p">ℤ<sub>3</sub>, ℤ<sub>5</sub>, …, ℤ<sub>p</sub></span>.
             </p>
 <p>
               Если поле <span class="offline-math-inline math-tex" data-display="0" data-latex="K">K</span> конечно и состоит из <span class="offline-math-inline math-tex" data-display="0" data-latex="q">q</span> элементов (например, <span class="offline-math-inline math-tex" data-display="0" data-latex="K = \mathbb{Z}_3 = \{0, 1, 2\}">K = ℤ<sub>3</sub> = {0, 1, 2}</span>, где <span class="offline-math-inline math-tex" data-display="0" data-latex="q = 3">q = 3</span>), то всё пространство наборов <span class="offline-math-inline math-tex" data-display="0" data-latex="K^n">K<sup>n</sup></span> содержит ровно <span class="offline-math-inline math-tex" data-display="0" data-latex="q^n">q<sup>n</sup></span> наборов, поэтому ни у какой системы не может быть бесконечного числа решений! Как мы докажем в разделе 6, если у совместной системы есть <span class="offline-math-inline math-tex" data-display="0" data-latex="n - r \ge 1">n - r  ≥  1</span> свободных неизвестных, то:
@@ -1095,21 +1150,59 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <button data-proof-mode="full">Полностью</button>
 <button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
-<div class="proof-idea" data-proof-idea="" id="idea-1">
-<div class="proof-label">Идея</div>
-<p>Прямое аналитическое доказательство утверждения (Доказательство Теоремы 1).</p>
-</div>
-<div class="proof-full" data-proof-full="" id="full-1">
-<div class="proof-label">Доказательство (Доказательство Теоремы 1)</div>
-<div class="proof-content">
-<span>Полное пошаговое доказательство (совместный и несовместный случаи + все 3 типа)</span>
-</div>
-<span class="callout-source">Лекция 09.10 (стр. 1–2 PDF, фото 2)</span>
-<span aria-label="Что и требовалось доказать" class="qed">□</span>
-</div>
+<div class="proof-idea" data-proof-idea="" id="idea-1"><div class="proof-label">Идея</div>
+<p>Решение старой системы удовлетворяет каждому новому уравнению. Обратная операция восстанавливает старую систему, поэтому получаем включение в другую сторону.</p></div>
+<div class="proof-full" data-proof-full="" id="full-1"><div class="proof-label">Доказательство</div>
+<p>Возьмём произвольное решение исходной системы. Перестановка уравнений сохраняет все равенства. Если уравнение $L_i(x)=b_i$ умножено на $\lambda\ne0$, тот же набор удовлетворяет $\lambda L_i(x)=\lambda b_i$. Если к нему прибавили $\lambda$-кратное уравнение $L_j(x)=b_j$, то из двух исходных равенств следует $L_i(x)+\lambda L_j(x)=b_i+\lambda b_j$. Остальные уравнения сохраняются. Значит, любое старое решение является новым.</p>
+<p>У трёх операций есть обратные: повторная перестановка, умножение на $1/\lambda$ и прибавление $-\lambda$-кратного уравнения соответственно. Применяя то же рассуждение к обратной операции, получаем, что каждое новое решение было старым. Множества решений совпадают, в том числе если они пусты. По транзитивности это верно и для любой конечной последовательности операций. <span class="qed" aria-label="Что и требовалось доказать">□</span></p></div>
 </div>
 </section>
-<!-- FAM:CONTENT-END -->
+</div></section></article></section><section class="chapter" aria-labelledby="al9-echelon"><h2 id="al9-echelon" data-toc="Ступенчатый вид и прямой ход Гаусса">Ступенчатый вид и прямой ход Гаусса</h2>
+<p>Записываем коэффициенты уравнений в матрицу $A$, а столбец правых частей $b$ отделяем чертой в расширенной матрице $(A\mid b)$. Строковые преобразования выполняем над всей строкой, включая правую часть. Нулевые строки матрицы коэффициентов помещаем вниз. В остальных строках номер первого ненулевого коэффициента — ведущего — строго возрастает при переходе сверху вниз. Это ступенчатый вид по коэффициентам. Неизвестные из ведущих столбцов называются <em>главными</em>, остальные — <em>свободными</em>.</p>
+<div class="statement theorem" id="al9-forward"><div class="block-label">Теорема</div><h3>Любую систему можно привести к ступенчатому виду</h3>
+<p>Над полем $K$ ступенчатый вид получается с помощью элементарных преобразований строк.</p>
+<div class="proof" id="proof-al9-forward" data-proof><div class="proof-controls" role="group" aria-label="Доказательство"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div><div class="proof-idea" id="idea-al9-forward" data-proof-idea><div class="proof-label">Идея</div>
+<p>Находим первый ненулевой столбец в ещё не обработанных строках, переносим удобную строку наверх и зануляем коэффициенты под ведущим.</p>
+</div><div class="proof-full" id="full-al9-forward" data-proof-full><div class="proof-label">Доказательство</div>
+<ol>
+<li>Сначала рассматриваем все строки. Если в их коэффициентах нет ненулевых чисел, ступенек больше нет. Правые части этих строк сохраняем для проверки совместности.</li>
+<li>Иначе берём самый левый столбец $j$ с ненулевым коэффициентом в рассматриваемых строках. Переставляем такую строку на первое свободное место и обозначаем её ведущий коэффициент через $a\ne0$.</li>
+<li>Из каждой строки ниже, у которой в столбце $j$ стоит $c$, вычитаем ведущую строку, умноженную на $c/a$. Новый коэффициент равен $c-(c/a)a=0$. В столбцах левее $j$ обе строки имели нули, поэтому эти нули сохраняются.</li>
+<li>Оставляем ведущую строку на месте и повторяем шаги только для строк ниже. Следующая ступенька может быть лишь правее предыдущей. На каждом шаге число ещё не обработанных строк уменьшается, поэтому процесс заканчивается. Все операции элементарны и сохраняют множество решений. <span class="qed" aria-label="Что и требовалось доказать">□</span></li>
+</ol>
+</div></div>
+</div>
+</section>
+<section class="chapter" aria-labelledby="al9-solutions"><h2 id="al9-solutions" data-toc="Критерий совместности и обратный ход">Критерий совместности и обратный ход</h2>
+<div class="statement theorem featured" id="al9-criterion"><div class="block-label">Теорема</div><h3>Критерий по ступенчатой системе</h3>
+<p>Система совместна тогда и только тогда, когда у каждой строки с нулевыми коэффициентами правая часть равна нулю. В совместной системе при каждом выборе свободных неизвестных главные определяются однозначно.</p>
+<div class="proof" id="proof-al9-criterion" data-proof><div class="proof-controls" role="group" aria-label="Доказательство"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div><div class="proof-idea" id="idea-al9-criterion" data-proof-idea><div class="proof-label">Идея</div>
+<p>Строка $0=c\ne0$ исключает решение. Если таких строк нет, задаём свободные неизвестные и вычисляем главные снизу вверх.</p>
+</div><div class="proof-full" id="full-al9-criterion" data-proof-full><div class="proof-label">Доказательство</div>
+<p>Если имеется строка $0=c$ с $c\ne0$, ни один набор неизвестных ей не удовлетворяет. Пусть теперь в каждой строке без коэффициентов справа стоит ноль. Такие строки выполняются при любом наборе неизвестных. Обозначим ведущие столбцы остальных строк через $j_1&lt;\cdots&lt;j_r$.</p>
+<p>Выберем произвольные значения всех свободных неизвестных. В последней ненулевой строке все неизвестные справа от $x_{j_r}$ свободны, а слева от него коэффициенты нулевые. Деление на ненулевой ведущий коэффициент даёт ровно одно значение $x_{j_r}$. Переходим к предыдущей строке. Справа от её ведущей неизвестной встречаются только свободные и уже найденные главные, поэтому снова остаётся одно уравнение с одним ненулевым коэффициентом. Продолжаем до первой строки. Полученный набор удовлетворяет каждой строке и, по равносильности, исходной системе. В любом решении с теми же свободными значениями каждый из шагов вынужден. При $r=0$ все неизвестные свободны и все уравнения тождественны. <span class="qed" aria-label="Что и требовалось доказать">□</span></p>
+</div></div>
+</div>
+<p>При $r=n$ свободных неизвестных нет и решение совместной системы единственно. При $r&lt;n$ свободной неизвестной можно дать два разных значения, так что решений больше одного. Над $\mathbb R$ при наличии свободной неизвестной решений бесконечно много. У однородной системы правая часть остаётся нулевой при всех строковых преобразованиях. Так как $r\le m$, при $m&lt;n$ есть свободная неизвестная. Если дать ей значение $1$, получается ненулевое решение.</p>
+</section>
+<section class="chapter" aria-labelledby="al9-examples"><h2 id="al9-examples" data-toc="Решение систем по строкам">Решение систем по строкам</h2>
+<div class="worked-example" id="al9-small"><div class="block-label">Пример</div><h3>Как возникает противоречивая строка</h3>
+<p>В системе $x+y=2$, $2x+2y=5$ из второй строки вычитаем удвоенную первую. Слева получается $0$, справа $5-4=1$. Система несовместна. Если заменить $5$ на $4$, вторая строка станет тождеством и решениями будут $(2-t,t)$ при произвольном $t\in\mathbb R$.</p>
+</div>
+<div class="worked-example" id="al9-lecturer"><div class="block-label">Пример</div><h3>Обратная подстановка в примере</h3>
+<p>В PDF после прямого хода остаётся система</p>
+\[
+\begin{cases}
+x_1+3x_2+2x_3+x_4=11,\\
+-x_2-x_4=-2,\\
+x_3=2,\\
+0=0.
+\end{cases}
+\]
+<p>Главные неизвестные — $x_1,x_2,x_3$, свободная — $x_4$. Положим $x_4=t$. Из третьей и второй строк получаем $x_3=2$ и $x_2=2-t$. В первой строке $x_1=11-3(2-t)-4-t=1+2t$. Общее решение $(1+2t,2-t,2,t)$. Подстановка даёт в первой строке $1+2t+6-3t+4+t=11$, во второй $-(2-t)-t=-2$, в третьей $2=2$. Например, при $t=0$ получаем $(1,2,2,0)$.</p>
+</div>
+
+</section><!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>
     </main>
   </div>

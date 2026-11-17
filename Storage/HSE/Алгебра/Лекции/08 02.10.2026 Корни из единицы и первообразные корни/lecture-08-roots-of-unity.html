@@ -660,6 +660,62 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -737,9 +793,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           Следовательно:
           \[U_n = \{ \varepsilon_0, \varepsilon_1, \dots, \varepsilon_{n-1} \}.\]
         </div></div>
-<div class="statement theorem featured" id="thm-1"><div class="block-label">Теорема 8.1</div><h3 data-toc="О геометрическом расположении …" id="sub-2-2">О геометрическом расположении корней из единицы</h3><figure class="reviewed-math-figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 315" role="img" aria-label="6 корней единицы на единичной окружности" data-fam-figure="diagram" data-fam-index="1">
+<div class="statement theorem featured" id="thm-1"><div class="block-label">Теорема 8.1</div><h3 data-toc="О геометрическом расположении …" id="sub-2-2">О геометрическом расположении корней из единицы</h3><figure class="reviewed-math-figure"><div class="diagram-scroll" style="--diagram-min-width: 560px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 315" role="img" aria-label="6 корней единицы на единичной окружности" data-fam-figure="diagram" data-fam-index="1">
 <line x1="44" y1="175" x2="523" y2="175" stroke="var(--fig-rule)" stroke-width="1.5" /><line x1="280" y1="25" x2="280" y2="280" stroke="var(--fig-rule)" stroke-width="1.5" /><text x="522" y="166" text-anchor="middle" fill="var(--fig-muted)" font-size="12">Re</text><text x="291" y="24" text-anchor="middle" fill="var(--fig-muted)" font-size="12">Im</text><text x="268" y="193" text-anchor="middle" fill="var(--fig-muted)" font-size="12">O</text><circle cx="280" cy="175" r="120" fill="none" stroke="var(--fig-muted)"/><line x1="400" y1="175" x2="340" y2="71.08" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="340" y1="71.08" x2="220" y2="71.08" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="220" y1="71.08" x2="160" y2="175" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="160" y1="175" x2="220" y2="278.92" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="220" y1="278.92" x2="340" y2="278.92" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><line x1="340" y1="278.92" x2="400" y2="175" stroke="var(--fig-muted)" stroke-width="1.4" stroke-dasharray="4 4"/><circle cx="400" cy="175" r="3.3" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="410" y="167" text-anchor="start" fill="var(--fig-blue)" font-size="14">w₀</text><circle cx="340" cy="71.08" r="3.3" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.6"/><text x="350" y="63.08" text-anchor="start" fill="var(--fig-green)" font-size="14">w₁</text><circle cx="220" cy="71.08" r="3.3" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"/><text x="210" y="63.08" text-anchor="end" fill="var(--fig-rose)" font-size="14">w₂</text><circle cx="160" cy="175" r="3.3" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="1.6"/><text x="150" y="167" text-anchor="end" fill="var(--fig-gold)" font-size="14">w₃</text><circle cx="220" cy="278.92" r="3.3" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="210" y="293.92" text-anchor="end" fill="var(--fig-blue)" font-size="14">w₄</text><circle cx="340" cy="278.92" r="3.3" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.6"/><text x="350" y="293.92" text-anchor="start" fill="var(--fig-green)" font-size="14">w₅</text><text x="280" y="306" text-anchor="middle" fill="var(--fig-ink)" font-size="13">Δφ = 2π/6   ·   w₀ = 1</text>
-</svg><figcaption>Шесть корней единицы образуют правильный шестиугольник. Соседние корни отличаются по аргументу на π/3.</figcaption></figure><div>
+</svg></div><figcaption>Шесть корней единицы образуют правильный шестиугольник. Соседние корни отличаются по аргументу на π/3.</figcaption></figure><div>
           Все $n$ корней степени $n$ из единицы расположены на единичной окружности с центром в начале координат (радиуса $R = 1$) в вершинах <strong>правильного $n$-угольника</strong>, вписанного в эту окружность, причем одна из его вершин лежит на действительной оси в точке с координатами $(1, 0)$ (корень $\varepsilon_0 = 1$).
         </div></div>
 <div class="callout callout-remark">

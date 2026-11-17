@@ -25,12 +25,11 @@
       <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
     </aside>
     <main id="content">
-      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. --><header class="lecture-head" id="top">
 <div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>Лекция 10 · 16 ноября 2026</span></div>
 <h1>Гипербола и парабола</h1>
 <p class="subtitle">Асимптоты, фокальные свойства и касательные гиперболы и параболы.</p>
-<p>По материалам лекции Г. М. Полотовского</p></header>
+</header>
       <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
       <div class="proof-toolbar" aria-label="Все доказательства">
         <span class="toolbar-label">Доказательства</span>

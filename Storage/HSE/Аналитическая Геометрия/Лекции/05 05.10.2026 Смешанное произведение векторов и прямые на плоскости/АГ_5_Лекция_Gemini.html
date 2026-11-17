@@ -660,6 +660,62 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -679,8 +735,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
       <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
     </aside>
     <main id="content">
-      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-      <header class="lecture-head" id="top">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. --><header class="lecture-head" id="top">
         <div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>Академический конспект ФПМ</span></div>
         <h1>Аналитическая геометрия | Лекция 5: Прямые на плоскости и смешанное произведение</h1>
         <p class="subtitle">Фундаментальные формы уравнений прямой, метрические соотношения и угловые характеристики</p>
@@ -707,9 +762,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <h1 class="lecture-title">Лекция 5. Смешанное произведение в ОНСК. Теория прямых на плоскости</h1>
 <div class="lecture-subtitle">Фундаментальные формы уравнений прямой, метрические соотношения и угловые характеристики</div>
 <div class="meta-bar">
-<div class="meta-item">
-<strong>Лектор:</strong> проф. Г. М. Полотовский
-          </div>
+
 <div class="meta-item">
 <strong>Дата:</strong> 5 октября 2026 г.
           </div>
@@ -743,7 +796,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p>
             Геометрически смешанное произведение с точностью до знака равно объему параллелепипеда, построенного на векторах $\mathbf{a}, \mathbf{b}, \mathbf{c}$:
             \[V = |\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle|\]
-            При этом $\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle > 0$, если тройка $(\mathbf{a}, \mathbf{b}, \mathbf{c})$ является правой, $\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle < 0$, если тройка левая, и $\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle = 0$ тогда и только тогда, когда векторы компланарны.
+            При этом $\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle &gt; 0$, если тройка $(\mathbf{a}, \mathbf{b}, \mathbf{c})$ является правой, $\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle &lt; 0$, если тройка левая, и $\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle = 0$ тогда и только тогда, когда векторы компланарны.
           </p>
 </div></div>
 <div class="statement theorem featured" id="thm-1"><div class="block-label">Теорема</div><h3 data-toc="Теорема: Вычисление смешанного…" id="sub-2-2">Теорема: Вычисление смешанного произведения через определитель 3-го порядка</h3><div>
@@ -753,7 +806,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             Тогда их смешанное произведение равно определителю третьего порядка, строками которого являются координаты этих векторов:
           </p>
 <div class="equation">
-            \[\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle = \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix}\]
+            \[\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle = \begin{vmatrix} x_1 &amp; y_1 &amp; z_1 \\ x_2 &amp; y_2 &amp; z_2 \\ x_3 &amp; y_3 &amp; z_3 \end{vmatrix}\]
           </div>
 </div></div>
 <div class="proof" data-proof="" id="proof-1">
@@ -771,7 +824,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Доказательство теоремы)</div>
 <p>
             1. В ортонормированном базисе векторное произведение $[\mathbf{a}, \mathbf{b}]$ выражается через формальный символический определитель с разложением по первой строке:
-            \[[\mathbf{a}, \mathbf{b}] = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \end{vmatrix} = (y_1 z_2 - z_1 y_2)\mathbf{i} - (x_1 z_2 - z_1 x_2)\mathbf{j} + (x_1 y_2 - y_1 x_2)\mathbf{k}\]
+            \[[\mathbf{a}, \mathbf{b}] = \begin{vmatrix} \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\ x_1 &amp; y_1 &amp; z_1 \\ x_2 &amp; y_2 &amp; z_2 \end{vmatrix} = (y_1 z_2 - z_1 y_2)\mathbf{i} - (x_1 z_2 - z_1 x_2)\mathbf{j} + (x_1 y_2 - y_1 x_2)\mathbf{k}\]
           </p>
 <p>
             Таким образом, вектор $[\mathbf{a}, \mathbf{b}]$ имеет следующие координаты в базисе $(\mathbf{i}, \mathbf{j}, \mathbf{k})$:
@@ -783,12 +836,12 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           </p>
 <p>
             3. Заметим, что полученное алгебраическое выражение представляет собой в точности разложение по третьей строке определителя:
-            \[\begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix} = x_3 \begin{vmatrix} y_1 & z_1 \\ y_2 & z_2 \end{vmatrix} - y_3 \begin{vmatrix} x_1 & z_1 \\ x_2 & z_2 \end{vmatrix} + z_3 \begin{vmatrix} x_1 & y_1 \\ x_2 & y_2 \end{vmatrix}\]
+            \[\begin{vmatrix} x_1 &amp; y_1 &amp; z_1 \\ x_2 &amp; y_2 &amp; z_2 \\ x_3 &amp; y_3 &amp; z_3 \end{vmatrix} = x_3 \begin{vmatrix} y_1 &amp; z_1 \\ y_2 &amp; z_2 \end{vmatrix} - y_3 \begin{vmatrix} x_1 &amp; z_1 \\ x_2 &amp; z_2 \end{vmatrix} + z_3 \begin{vmatrix} x_1 &amp; y_1 \\ x_2 &amp; y_2 \end{vmatrix}\]
             \[= x_3(y_1 z_2 - z_1 y_2) - y_3(x_1 z_2 - z_1 x_2) + z_3(x_1 y_2 - y_1 x_2)\]
           </p>
 <p>
-            Равенство полностью доказано. С алгебраической точки зрения это также равносильно разложению по первой строке определителя $\begin{vmatrix} x_3 & y_3 & z_3 \\ x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \end{vmatrix}$. Перестановка строк 1 и 2, а затем 2 и 3 представляет собой четное число транспозиций ($(-1)^2 = +1$), сохраняющее значение и знак определителя:
-            \[\begin{vmatrix} x_3 & y_3 & z_3 \\ x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \end{vmatrix} = - \begin{vmatrix} x_1 & y_1 & z_1 \\ x_3 & y_3 & z_3 \\ x_2 & y_2 & z_2 \end{vmatrix} = + \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix}\]
+            Равенство полностью доказано. С алгебраической точки зрения это также равносильно разложению по первой строке определителя $\begin{vmatrix} x_3 &amp; y_3 &amp; z_3 \\ x_1 &amp; y_1 &amp; z_1 \\ x_2 &amp; y_2 &amp; z_2 \end{vmatrix}$. Перестановка строк 1 и 2, а затем 2 и 3 представляет собой четное число транспозиций ($(-1)^2 = +1$), сохраняющее значение и знак определителя:
+            \[\begin{vmatrix} x_3 &amp; y_3 &amp; z_3 \\ x_1 &amp; y_1 &amp; z_1 \\ x_2 &amp; y_2 &amp; z_2 \end{vmatrix} = - \begin{vmatrix} x_1 &amp; y_1 &amp; z_1 \\ x_3 &amp; y_3 &amp; z_3 \\ x_2 &amp; y_2 &amp; z_2 \end{vmatrix} = + \begin{vmatrix} x_1 &amp; y_1 &amp; z_1 \\ x_2 &amp; y_2 &amp; z_2 \\ x_3 &amp; y_3 &amp; z_3 \end{vmatrix}\]
           </p>
 <div class="proof-end">■</div>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
@@ -796,9 +849,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 <!-- SVG 1: Mixed Product & Parallelepiped -->
 <div class="diagram-container">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340" role="img" aria-label="Косой параллелепипед и его высота" data-fam-figure="diagram" data-fam-index="1">
-<path d="M300,193 L452.88,250.33 L360.06,312.21 L207.18,254.88 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><path d="M300,193 L452.88,250.33 L460.89,167.67 L308.01,110.34 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><path d="M308.01,110.34 L460.89,167.67 L368.07,229.55 L215.19,172.22 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><line x1="300" y1="193" x2="308.01" y2="110.34" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="300" y1="193" x2="207.18" y2="254.88" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="300" y1="193" x2="452.88" y2="250.33" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="308.01" y1="110.34" x2="215.19" y2="172.22" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="308.01" y1="110.34" x2="460.89" y2="167.67" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="207.18" y1="254.88" x2="215.19" y2="172.22" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="207.18" y1="254.88" x2="360.06" y2="312.21" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="215.19" y1="172.22" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="452.88" y1="250.33" x2="460.89" y2="167.67" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="452.88" y1="250.33" x2="360.06" y2="312.21" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="460.89" y1="167.67" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="360.06" y1="312.21" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="300" y1="193" x2="444.45" y2="247.17" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M452.88,250.33 L443.09,250.79 L445.81,243.55 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="460.88" y="267.33" text-anchor="middle" fill="var(--fig-blue)" font-size="14">a</text><line x1="300" y1="193" x2="214.67" y2="249.89" stroke="var(--fig-green)" stroke-width="2.1" /><path d="M207.18,254.88 L212.52,246.67 L216.82,253.11 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="196.18" y="268.88" text-anchor="middle" fill="var(--fig-green)" font-size="14">b</text><line x1="300" y1="193" x2="307.14" y2="119.3" stroke="var(--fig-rose)" stroke-width="2.1" /><path d="M308.01,110.34 L310.99,119.67 L303.29,118.92 Z" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="321.01" y="104.34" text-anchor="middle" fill="var(--fig-rose)" font-size="14">c</text><line x1="308.01" y1="230.13" x2="308.01" y2="110.34" stroke="var(--fig-gold)" stroke-width="2" stroke-dasharray="4 3"/><circle cx="308.01" cy="230.13" r="3" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="1.6"/><text x="295.01" y="170.23" text-anchor="middle" fill="var(--fig-gold)" font-size="14">h</text><text x="320" y="320" text-anchor="middle" fill="var(--fig-ink)" font-size="15">h = |c · n̂|   ·   V = |(a × b) · c| = |a × b|·h</text><text x="285" y="213" text-anchor="middle" fill="var(--fig-ink)" font-size="14">O</text>
-</svg>
+<div class="diagram-scroll" style="--diagram-min-width: 549px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 340" role="img" aria-label="Косой параллелепипед и его высота" data-fam-figure="diagram" data-fam-index="1">
+<path d="M300,193 L452.88,250.33 L360.06,312.21 L207.18,254.88 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"></path><path d="M300,193 L452.88,250.33 L460.89,167.67 L308.01,110.34 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"></path><path d="M308.01,110.34 L460.89,167.67 L368.07,229.55 L215.19,172.22 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"></path><line x1="300" y1="193" x2="308.01" y2="110.34" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="300" y1="193" x2="207.18" y2="254.88" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="300" y1="193" x2="452.88" y2="250.33" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="308.01" y1="110.34" x2="215.19" y2="172.22" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="308.01" y1="110.34" x2="460.89" y2="167.67" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="207.18" y1="254.88" x2="215.19" y2="172.22" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="207.18" y1="254.88" x2="360.06" y2="312.21" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="215.19" y1="172.22" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="452.88" y1="250.33" x2="460.89" y2="167.67" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="452.88" y1="250.33" x2="360.06" y2="312.21" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="460.89" y1="167.67" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="360.06" y1="312.21" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="300" y1="193" x2="444.45" y2="247.17" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M452.88,250.33 L443.09,250.79 L445.81,243.55 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><text x="460.88" y="267.33" text-anchor="middle" fill="var(--fig-blue)" font-size="14">a</text><line x1="300" y1="193" x2="214.67" y2="249.89" stroke="var(--fig-green)" stroke-width="2.1"></line><path d="M207.18,254.88 L212.52,246.67 L216.82,253.11 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><text x="196.18" y="268.88" text-anchor="middle" fill="var(--fig-green)" font-size="14">b</text><line x1="300" y1="193" x2="307.14" y2="119.3" stroke="var(--fig-rose)" stroke-width="2.1"></line><path d="M308.01,110.34 L310.99,119.67 L303.29,118.92 Z" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><text x="321.01" y="104.34" text-anchor="middle" fill="var(--fig-rose)" font-size="14">c</text><line x1="308.01" y1="230.13" x2="308.01" y2="110.34" stroke="var(--fig-gold)" stroke-width="2" stroke-dasharray="4 3"></line><circle cx="308.01" cy="230.13" r="3" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="1.6"></circle><text x="295.01" y="170.23" text-anchor="middle" fill="var(--fig-gold)" font-size="14">h</text><text x="320" y="320" text-anchor="middle" fill="var(--fig-ink)" font-size="15">h = |c · n̂|   ·   V = |(a × b) · c| = |a × b|·h</text><text x="285" y="213" text-anchor="middle" fill="var(--fig-ink)" font-size="14">O</text>
+</svg></div>
 <div class="diagram-caption">Рис. 1. Геометрическая интерпретация смешанного произведения трех векторов как ориентированного объема параллелепипеда</div>
 </div>
 <div class="remark-card callout">
@@ -808,7 +861,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 <p>
             Три вектора $\mathbf{a}, \mathbf{b}, \mathbf{c}$ компланарны (лежат в одной плоскости или параллельны одной плоскости) тогда и только тогда, когда их смешанное произведение равно нулю:
-            \[\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle = 0 \iff \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix} = 0\]
+            \[\langle \mathbf{a}, \mathbf{b}, \mathbf{c} \rangle = 0 \iff \begin{vmatrix} x_1 &amp; y_1 &amp; z_1 \\ x_2 &amp; y_2 &amp; z_2 \\ x_3 &amp; y_3 &amp; z_3 \end{vmatrix} = 0\]
             Это условие фундаментально: оно выражает линейную зависимость трех векторов в пространстве $\mathbb{R}^3$.
           </p>
 </div>
@@ -848,7 +901,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div></div>
 <!-- SVG 2: Vector Parametric Line -->
 <div class="diagram-container">
-<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 2. Геометрическая структура векторно-параметрического уравнения прямой на плоскости" data-fam-figure="diagram" data-fam-index="2">
+<div class="diagram-scroll" style="--diagram-min-width: 558px"><svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 2. Геометрическая структура векторно-параметрического уравнения прямой на плоскости" data-fam-figure="diagram" data-fam-index="2">
 <defs>
 <marker id="fam-fig-2-ag5-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
@@ -892,7 +945,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- Direction vector a banner -->
 <line marker-end="url(#fam-fig-2-ag5-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="3" x1="380" x2="460" y1="45" y2="21"></line>
 <text fill="var(--accent-blue, #38bdf8)" font-size="14" font-weight="700" x="470" y="35">a (направляющий)</text>
-</svg>
+</svg></div>
 <div class="diagram-caption">Рис. 2. Геометрическая структура векторно-параметрического уравнения прямой на плоскости</div>
 </div>
 </article>
@@ -914,11 +967,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             </div>
 <p>
 <strong>Геометрический смысл коэффициентов:</strong>
-<ul>
-<li>$k = \operatorname{tg}\varphi$ — <em>угловой коэффициент</em> прямой, где $\varphi$ — угол, отсчитываемый от положительного направления оси $Ox$ до прямой против часовой стрелки ($0 \le \varphi < \pi, \; \varphi \ne \frac{\pi}{2}$).</li>
+</p><ul>
+<li>$k = \operatorname{tg}\varphi$ — <em>угловой коэффициент</em> прямой, где $\varphi$ — угол, отсчитываемый от положительного направления оси $Ox$ до прямой против часовой стрелки ($0 \le \varphi &lt; \pi, \; \varphi \ne \frac{\pi}{2}$).</li>
 <li>$b$ — ордината точки пересечения прямой с осью ординат $Oy$, так как при $x = 0$ имеем $y = b$, то есть прямая проходит через точку $(0, b)$.</li>
 </ul>
-</p>
+
 </div></div>
 </article>
 <!-- Subsection 2.3 -->
@@ -971,7 +1024,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             </div>
 <p>
               В виде определителя второго порядка это условие формулируется как компланарность (коллинеарность) векторов:
-              \[\begin{vmatrix} x - x_1 & y - y_1 \\ x_2 - x_1 & y_2 - y_1 \end{vmatrix} = 0\]
+              \[\begin{vmatrix} x - x_1 &amp; y - y_1 \\ x_2 - x_1 &amp; y_2 - y_1 \end{vmatrix} = 0\]
             </p>
 </div></div>
 <div class="statement definition" id="def-6"><div class="block-label">Форма 6</div><h3 data-toc=". Уравнение прямой «в отрезках»" id="sub-3-10">6). Уравнение прямой «в отрезках»</h3><div>
@@ -990,7 +1043,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div></div>
 <!-- SVG 3: Intercept form -->
 <div class="diagram-container">
-<svg height="280" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 280" width="650" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 3. Геометрическая иллюстрация уравнения прямой в отрезках на осях координат" data-fam-figure="diagram" data-fam-index="3">
+<div class="diagram-scroll" style="--diagram-min-width: 558px"><svg height="280" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 280" width="650" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 3. Геометрическая иллюстрация уравнения прямой в отрезках на осях координат" data-fam-figure="diagram" data-fam-index="3">
 <defs>
 <marker id="fam-fig-3-ag5-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
@@ -1020,7 +1073,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <rect fill="var(--bg-card-alt, #1e293b)" height="80" rx="10" stroke="var(--border-color, #334155)" stroke-width="1.2" width="280" x="310" y="70"></rect>
 <text fill="var(--accent-blue, #38bdf8)" font-size="18" font-weight="800" x="330" y="102">x/a + y/b = 1</text>
 <text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="600" x="330" y="132">Площадь: S = ½ · |a · b|</text>
-</svg>
+</svg></div>
 <div class="diagram-caption">Рис. 3. Геометрическая иллюстрация уравнения прямой в отрезках на осях координат</div>
 </div>
 </article>
@@ -1049,12 +1102,12 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
               Обозначив свободный коэффициент $C = -A x_0 - B y_0$, получаем <strong>общее линейное уравнение прямой на плоскости</strong>:
             </p>
 <div class="equation">
-              \[Ax + By + C = 0, \quad A^2 + B^2 > 0\]
+              \[Ax + By + C = 0, \quad A^2 + B^2 &gt; 0\]
             </div>
 </div></div>
-<div class="statement theorem" id="thm-3"><div class="block-label">Теорема Полотовского</div><h3 data-toc="Теорема 1: Геометрический смыс…" id="sub-3-14">Теорема 1: Геометрический смысл коэффициентов A и B в ОНСК</h3><div>
+<div class="statement theorem" id="thm-3"><div class="block-label">Теорема</div><h3 data-toc="Теорема 1: Геометрический смыс…" id="sub-3-14">Теорема 1: Геометрический смысл коэффициентов A и B в ОНСК</h3><div>
 <p>
-              Пусть $Ax + By + C = 0$ ($A^2 + B^2 > 0$) — общее уравнение прямой, заданное в <strong>ортонормированной системе координат</strong>. Тогда вектор $\mathbf{n} = (A, B)$ является нормальным вектором этой прямой.
+              Пусть $Ax + By + C = 0$ ($A^2 + B^2 &gt; 0$) — общее уравнение прямой, заданное в <strong>ортонормированной системе координат</strong>. Тогда вектор $\mathbf{n} = (A, B)$ является нормальным вектором этой прямой.
             </p>
 </div></div>
 <div class="proof" data-proof="" id="proof-2">
@@ -1095,7 +1148,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
               Уравнение первой степени $Ax + By + C = 0$ определяет прямую в <strong>любой</strong> аффинной (в том числе косоугольной и с неравными масштабами по осям) системе координат. Однако утверждение о том, что коэффициенты $(A, B)$ образуют <em>нормальный вектор</em>, справедливо <strong>исключительно в ортонормированной системе координат</strong>!
             </p>
 <p>
-              В общей аффинной системе координат с матрицей Грама $G = \begin{pmatrix} g_{11} & g_{12} \\ g_{12} & g_{22} \end{pmatrix} \ne \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$ скалярное произведение векторов вычисляется с учетом метрического тензора: $(\mathbf{u}, \mathbf{v}) = \mathbf{u}^T G \mathbf{v}$. Поэтому вектор с координатами $(A, B)$ в общем косоугольном базисе геометрически <strong>не будет перпендикулярен</strong> прямой.
+              В общей аффинной системе координат с матрицей Грама $G = \begin{pmatrix} g_{11} &amp; g_{12} \\ g_{12} &amp; g_{22} \end{pmatrix} \ne \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}$ скалярное произведение векторов вычисляется с учетом метрического тензора: $(\mathbf{u}, \mathbf{v}) = \mathbf{u}^T G \mathbf{v}$. Поэтому вектор с координатами $(A, B)$ в общем косоугольном базисе геометрически <strong>не будет перпендикулярен</strong> прямой.
             </p>
 </div>
 </article>
@@ -1126,7 +1179,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div></div>
 <!-- SVG 4: Normal Vector Direction Cosines -->
 <div class="diagram-container">
-<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 4. Направляющие косинусы нормального вектора в прямоугольной системе координат" data-fam-figure="diagram" data-fam-index="4">
+<div class="diagram-scroll" style="--diagram-min-width: 558px"><svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 4. Направляющие косинусы нормального вектора в прямоугольной системе координат" data-fam-figure="diagram" data-fam-index="4">
 <defs>
 <marker id="fam-fig-4-ag5-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
@@ -1162,7 +1215,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <rect fill="var(--bg-card-alt, #1e293b)" height="75" rx="8" stroke="var(--border-color, #334155)" stroke-width="1.2" width="200" x="430" y="145"></rect>
 <text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="600" x="445" y="172">p = cos α = A / |n|</text>
 <text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="600" x="445" y="198">q = cos β = B / |n|</text>
-</svg>
+</svg></div>
 <div class="diagram-caption">Рис. 4. Направляющие косинусы нормального вектора в прямоугольной системе координат</div>
 </div>
 </article>
@@ -1175,7 +1228,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
   <div class="chapter-kicker">04 / 3. Метрическая теория: Расстоя…</div>
   <h2 id="chapter-4" data-toc="3. Метрическая теория: Расстоя…">§ 3. Метрическая теория: Расстояние от точки до прямой на плоскости</h2>
 
-<div class="statement theorem" id="thm-4"><div class="block-label">Теорема Полотовского</div><h3 data-toc="Теорема 2: Формула расстояния …" id="sub-4-1">Теорема 2: Формула расстояния от произвольной точки до прямой в ОНСК</h3><div>
+<div class="statement theorem" id="thm-4"><div class="block-label">Теорема</div><h3 data-toc="Теорема 2: Формула расстояния …" id="sub-4-1">Теорема 2: Формула расстояния от произвольной точки до прямой в ОНСК</h3><div>
 <p>
             В ортонормированной декартовой системе координат расстояние $\rho(M_0, L)$ от произвольной фиксированной точки плоскости $M_0(x_0, y_0)$ до прямой $L$, заданной общим уравнением $Ax + By + C = 0$, вычисляется по формуле:
           </p>
@@ -1197,33 +1250,33 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-full" data-proof-full="" id="full-3">
 <div class="proof-label">Доказательство (Строгое аналитико-геометрическое)</div>
 <p>
-<strong>Шаг 1. Геометрическая проекция на нормаль.</strong><br/>
+<strong>Шаг 1. Геометрическая проекция на нормаль.</strong><br>
             Пусть $N(x_1, y_1)$ — <em>произвольная</em> точка, лежащая на прямой $L$. Поскольку прямая ортогональна своему нормальному вектору $\mathbf{n} = (A, B)$, расстояние $\rho(M_0, L)$ от точки $M_0$ до прямой в точности равно модулю ортогональной проекции вектора «наклонной» $\overrightarrow{M_0 N}$ на направление вектора нормали $\mathbf{n}$:
             \[\rho(M_0, L) = |\operatorname{pr}_{\mathbf{n}} \overrightarrow{M_0 N}|\]
           </p>
 <p>
-<strong>Шаг 2. Скалярное выражение проекции.</strong><br/>
+<strong>Шаг 2. Скалярное выражение проекции.</strong><br>
             По определению проекции вектора на ось, задаваемую направлением вектора $\mathbf{n}$:
             \[\operatorname{pr}_{\mathbf{n}} \overrightarrow{M_0 N} = |\overrightarrow{M_0 N}| \cos \angle(\overrightarrow{M_0 N}, \mathbf{n}) = \frac{(\overrightarrow{M_0 N}, \mathbf{n})}{|\mathbf{n}|}\]
             Взяв абсолютную величину:
             \[\rho(M_0, L) = \frac{|(\overrightarrow{M_0 N}, \mathbf{n})|}{|\mathbf{n}|}\]
           </p>
 <p>
-<strong>Шаг 3. Координатное разложение в ОНСК.</strong><br/>
+<strong>Шаг 3. Координатное разложение в ОНСК.</strong><br>
             Вектор $\overrightarrow{M_0 N}$ имеет координаты:
             \[\overrightarrow{M_0 N} = (x_1 - x_0, \; y_1 - y_0)\]
             Вычисляем скалярное произведение в ОНСК:
             \[(\overrightarrow{M_0 N}, \mathbf{n}) = A(x_1 - x_0) + B(y_1 - y_0) = (A x_1 + B y_1) - (A x_0 + B y_0)\]
           </p>
 <p>
-<strong>Шаг 4. Использование принадлежности точки прямой.</strong><br/>
+<strong>Шаг 4. Использование принадлежности точки прямой.</strong><br>
             Так как точка $N(x_1, y_1)$ лежит на прямой $L$, ее координаты обращают уравнение прямой в тождество:
             \[A x_1 + B y_1 + C = 0 \iff A x_1 + B y_1 = -C\]
             Подставим это значение в скалярное произведение:
             \[(\overrightarrow{M_0 N}, \mathbf{n}) = -C - (A x_0 + B y_0) = -(A x_0 + B y_0 + C)\]
           </p>
 <p>
-<strong>Шаг 5. Окончательный вывод.</strong><br/>
+<strong>Шаг 5. Окончательный вывод.</strong><br>
             Подставляем полученное скалярное произведение в формулу расстояния и учитываем, что $| -u | = |u|$:
             \[\rho(M_0, L) = \frac{|-(A x_0 + B y_0 + C)|}{|\mathbf{n}|} = \frac{|A x_0 + B y_0 + C|}{\sqrt{A^2 + B^2}}\]
             Теорема доказана полностью.
@@ -1234,9 +1287,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 <!-- SVG 5: Distance from point to line -->
 <div class="diagram-container">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 249" role="img" aria-label="Ортогональная проекция точки на прямую и формула расстояния" data-fam-figure="diagram" data-fam-index="5">
-<line x1="88" y1="223" x2="588" y2="98" stroke="var(--fig-muted)" stroke-width="2.4" /><line x1="298" y1="77" x2="471.3" y2="122.7" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M480,125 L470.31,126.45 L472.28,118.96 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="298" y1="77" x2="320" y2="165" stroke="var(--fig-gold)" stroke-width="2.5" stroke-dasharray="5 4"/><path d="M332,162 L329,150 L317,153" fill="none" stroke="var(--fig-green)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" /><line x1="164" y1="204" x2="154.18" y2="164.73" stroke="var(--fig-green)" stroke-width="2.1" /><path d="M152,156 L157.94,163.79 L150.43,165.67 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="320" cy="165" r="4" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="1.6"/><text x="312" y="184" text-anchor="middle" fill="var(--fig-gold)" font-size="15">H</text><circle cx="298" cy="77" r="4" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="282" y="64" text-anchor="middle" fill="var(--fig-blue)" font-size="15">M₀</text><circle cx="480" cy="125" r="4" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="489" y="141" text-anchor="middle" fill="var(--fig-blue)" font-size="15">N</text><text x="495" y="87" text-anchor="middle" fill="var(--fig-ink)" font-size="15">L: Ax + By + C = 0</text><text x="152" y="130" text-anchor="middle" fill="var(--fig-green)" font-size="17">n</text><text x="320" y="234" text-anchor="middle" fill="var(--fig-ink)" font-size="14">M₀H ⟂ L   ·   ρ(M₀, L) = |Ax₀ + By₀ + C| / √(A² + B²)</text>
-</svg>
+<div class="diagram-scroll" style="--diagram-min-width: 549px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 249" role="img" aria-label="Ортогональная проекция точки на прямую и формула расстояния" data-fam-figure="diagram" data-fam-index="5">
+<line x1="88" y1="223" x2="588" y2="98" stroke="var(--fig-muted)" stroke-width="2.4"></line><line x1="298" y1="77" x2="471.3" y2="122.7" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M480,125 L470.31,126.45 L472.28,118.96 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><line x1="298" y1="77" x2="320" y2="165" stroke="var(--fig-gold)" stroke-width="2.5" stroke-dasharray="5 4"></line><path d="M332,162 L329,150 L317,153" fill="none" stroke="var(--fig-green)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"></path><line x1="164" y1="204" x2="154.18" y2="164.73" stroke="var(--fig-green)" stroke-width="2.1"></line><path d="M152,156 L157.94,163.79 L150.43,165.67 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><circle cx="320" cy="165" r="4" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="1.6"></circle><text x="312" y="184" text-anchor="middle" fill="var(--fig-gold)" font-size="15">H</text><circle cx="298" cy="77" r="4" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"></circle><text x="282" y="64" text-anchor="middle" fill="var(--fig-blue)" font-size="15">M₀</text><circle cx="480" cy="125" r="4" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"></circle><text x="489" y="141" text-anchor="middle" fill="var(--fig-blue)" font-size="15">N</text><text x="495" y="87" text-anchor="middle" fill="var(--fig-ink)" font-size="15">L: Ax + By + C = 0</text><text x="152" y="130" text-anchor="middle" fill="var(--fig-green)" font-size="17">n</text><text x="320" y="234" text-anchor="middle" fill="var(--fig-ink)" font-size="14">M₀H ⟂ L   ·   ρ(M₀, L) = |Ax₀ + By₀ + C| / √(A² + B²)</text>
+</svg></div>
 <div class="diagram-caption">Рис. 5. Вывод формулы расстояния через ортогональное проецирование наклонной на вектор нормали прямой</div>
 </div>
 <div class="remark-card callout">
@@ -1291,7 +1344,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div></div>
 <!-- SVG 6: Angle between lines -->
 <div class="diagram-container">
-<svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 6. Геометрическая схема вычисления угла между прямыми по теореме о внешнем угле треугольника" data-fam-figure="diagram" data-fam-index="6">
+<div class="diagram-scroll" style="--diagram-min-width: 558px"><svg height="300" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 300" width="650" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 6. Геометрическая схема вычисления угла между прямыми по теореме о внешнем угле треугольника" data-fam-figure="diagram" data-fam-index="6">
 <defs>
 <marker id="fam-fig-6-ag5-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
@@ -1324,23 +1377,23 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <rect fill="var(--bg-card-alt, #1e293b)" height="70" rx="8" stroke="var(--border-color, #334155)" stroke-width="1.2" width="230" x="40" y="60"></rect>
 <text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="600" x="55" y="85">Внешний угол: φ₂ = φ₁ + γ</text>
 <text fill="var(--accent-purple, #a855f7)" font-size="14" font-weight="700" x="55" y="108">γ = φ₂ − φ₁</text>
-</svg>
+</svg></div>
 <div class="diagram-caption">Рис. 6. Геометрическая схема вычисления угла между прямыми по теореме о внешнем угле треугольника</div>
 </div>
 <div class="statement definition" id="def-10"><div class="block-label">Критерии</div><h3 data-toc="Критерии взаимного расположени…" id="sub-5-3">Критерии взаимного расположения прямых через угловые коэффициенты</h3><div>
 <ul>
 <li>
-<strong>Критерий ортогональности (перпендикулярности):</strong><br/>
+<strong>Критерий ортогональности (перпендикулярности):</strong><br>
               Прямые взаимно перпендикулярны ($\gamma = 90^\circ$) тогда и только тогда, когда тангенс угла между ними не существует (знаменатель равен нулю):
               \[1 + k_1 k_2 = 0 \iff k_1 k_2 = -1 \iff k_1 = -\frac{1}{k_2}\]
             </li>
 <li>
-<strong>Критерий параллельности:</strong><br/>
+<strong>Критерий параллельности:</strong><br>
               Прямые параллельны ($\gamma = 0$) тогда и только тогда, когда их угловые коэффициенты совпадают:
               \[k_1 = k_2, \quad b_1 \ne b_2\]
             </li>
 <li>
-<strong>Критерий совпадения:</strong><br/>
+<strong>Критерий совпадения:</strong><br>
               Прямые тождественно совпадают, если:
               \[k_1 = k_2, \quad b_1 = b_2\]
             </li>
@@ -1357,7 +1410,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p>
           Для наименьшего (острого) угла между пересекающимися прямыми:
           \[\cos \gamma_{\text{остр}} = \frac{|a_{1x} a_{2x} + a_{1y} a_{2y}|}{\sqrt{a_{1x}^2 + a_{1y}^2} \sqrt{a_{2x}^2 + a_{2y}^2}}\]
-          <strong>Критерий перпендикулярности:</strong> $(\mathbf{a}_1, \mathbf{a}_2) = 0 \iff a_{1x} a_{2x} + a_{1y} a_{2y} = 0$.<br/>
+          <strong>Критерий перпендикулярности:</strong> $(\mathbf{a}_1, \mathbf{a}_2) = 0 \iff a_{1x} a_{2x} + a_{1y} a_{2y} = 0$.<br>
 <strong>Критерий параллельности:</strong> $\mathbf{a}_1 \parallel \mathbf{a}_2 \iff \frac{a_{1x}}{a_{2x}} = \frac{a_{1y}}{a_{2y}}$.
         </p>
 <!-- Subsection 4.3 -->
@@ -1441,7 +1494,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <td><strong>Через две точки</strong></td>
 <td>$\frac{x - x_1}{x_2 - x_1} = \frac{y - y_1}{y_2 - y_1}$</td>
 <td>Точки $A_1(x_1, y_1) \ne A_2(x_2, y_2)$</td>
-<td>Эквивалентно $\begin{vmatrix} x-x_1 & y-y_1 \\ x_2-x_1 & y_2-y_1 \end{vmatrix} = 0$</td>
+<td>Эквивалентно $\begin{vmatrix} x-x_1 &amp; y-y_1 \\ x_2-x_1 &amp; y_2-y_1 \end{vmatrix} = 0$</td>
 </tr>
 <tr>
 <td>6</td>
@@ -1490,9 +1543,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           </p>
 <p>
 <strong>Решение и вывод:</strong>
-<ol>
+</p><ol>
 <li>
-<strong>Вектор $\overrightarrow{AB}$ и направляющий вектор:</strong><br/>
+<strong>Вектор $\overrightarrow{AB}$ и направляющий вектор:</strong><br>
                 $\mathbf{a} = \overrightarrow{AB} = (5 - 2, \; 7 - 3) = (3, 4)$. Длина направляющего вектора $|\mathbf{a}| = \sqrt{3^2 + 4^2} = 5$.
               </li>
 <li>
@@ -1508,20 +1561,20 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <strong>Через две точки:</strong> $\frac{x - 2}{5 - 2} = \frac{y - 3}{7 - 3}$.
               </li>
 <li>
-<strong>Общее уравнение:</strong><br/>
-                Перемножая крест-накрест каноническое уравнение: $4(x - 2) = 3(y - 3) \implies 4x - 8 = 3y - 9 \implies 4x - 3y + 1 = 0$.<br/>
+<strong>Общее уравнение:</strong><br>
+                Перемножая крест-накрест каноническое уравнение: $4(x - 2) = 3(y - 3) \implies 4x - 8 = 3y - 9 \implies 4x - 3y + 1 = 0$.<br>
                 Здесь $A = 4, B = -3, C = 1$. Нормальный вектор $\mathbf{n} = (4, -3)$, его длина $|\mathbf{n}| = \sqrt{4^2 + (-3)^2} = 5$.
               </li>
 <li>
 <strong>С угловым коэффициентом:</strong> $y = \frac{4}{3}x + \frac{1}{3}$ (где $k = \frac{4}{3}$, $b = \frac{1}{3}$).
               </li>
 <li>
-<strong>В отрезках:</strong><br/>
-                $4x - 3y = -1 \iff -4x + 3y = 1 \iff \frac{x}{-1/4} + \frac{y}{1/3} = 1$.<br/>
+<strong>В отрезках:</strong><br>
+                $4x - 3y = -1 \iff -4x + 3y = 1 \iff \frac{x}{-1/4} + \frac{y}{1/3} = 1$.<br>
                 Следовательно, $a = -\frac{1}{4}, \; b = \frac{1}{3}$.
               </li>
 <li>
-<strong>Нормальное уравнение:</strong><br/>
+<strong>Нормальное уравнение:</strong><br>
                 Делим общее уравнение на $|\mathbf{n}| = 5$:
                 \[\frac{4}{5}x - \frac{3}{5}y + \frac{1}{5} = 0\]
                 Коэффициенты $p = \frac{4}{5}, \; q = -\frac{3}{5}, \; d = \frac{1}{5}$. Проверка нормировки: $p^2 + q^2 = \frac{16}{25} + \frac{9}{25} = 1$.
@@ -1530,7 +1583,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <strong>Расстояние от начала координат:</strong> $\rho(O, L) = |d| = \left|\frac{1}{5}\right| = 0.2$.
               </li>
 </ol>
-</p>
+
 </div></div>
 <!-- Task 2 -->
 <div class="worked-example" id="ex-2"><div class="block-label">Практикум</div><h3 data-toc="Задача 2: Вычисление высоты тр…" id="sub-7-2">Задача 2: Вычисление высоты треугольника через метрику расстояния</h3><div>
@@ -1540,7 +1593,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p>
 <strong>Решение:</strong>
             Высота $h_R$ по определению равна расстоянию $\rho(R, L_{PQ})$ от точки $R(2, 9)$ до прямой $L_{PQ}$, проходящей через $P$ и $Q$.
-            <ol>
+            </p><ol>
 <li>
                 Составим уравнение прямой $L_{PQ}$ через две точки:
                 \[\frac{x - 1}{5 - 1} = \frac{y - 2}{5 - 2} \iff \frac{x - 1}{4} = \frac{y - 2}{3}\]
@@ -1553,7 +1606,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
               </li>
 </ol>
 <strong>Ответ:</strong> $h_R = 5$.
-          </p>
+          
 </div></div>
 <!-- Task 3 -->
 <div class="worked-example" id="ex-3"><div class="block-label">Углубленный вывод</div><h3 data-toc="Задача 3: Уравнения биссектрис…" id="sub-7-3">Задача 3: Уравнения биссектрис координатных углов между прямыми</h3><div>
@@ -1585,7 +1638,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- Footer -->
 
 </section>
-<!-- FAM:CONTENT-END -->
+</section><!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>
     </main>
   </div>

@@ -660,6 +660,62 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -679,8 +735,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
       <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
     </aside>
     <main id="content">
-      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-      <header class="lecture-head" id="top">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. --><header class="lecture-head" id="top">
         <div class="lecture-meta"><span class="subject">Дискретная математика</span><span>Академический конспект ФПМ</span></div>
         <h1>Дискретная математика: Теория множеств, Булева алгебра, Доказательства и Практикум</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
@@ -714,7 +769,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <h1>Лекция 2: Критерий равенства множеств, Типы и Диаграммы Венна, Кардинальные операции и Декартово произведение</h1>
 <p>
         Подробный мультитемный конспект второй лекции курса (от <code>15.09.2026</code>). Содержит все определения и теоремы (№18–24),
-        <strong>полные пошаговые доказательства всех утверждений, оставленных лектором на самостоятельное доказательство («Доказать самому!»)</strong>,
+        <strong>полные пошаговые доказательства всех утверждений, предложенных для самостоятельного доказательства («Доказать самому!»)</strong>,
         строго в рамках пройденного материала (без забегания вперёд), дополнения по учебному пособию В.Е. Алексеева и отдельный практический раздел с разбором геометрических упражнений.
       </p>
 <div class="hero-meta-grid">
@@ -722,10 +777,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <strong>Базовый источник</strong>
           Лекция 2 НИУ ВШЭ (15.09.2026) + рукописный конспект лекции
         </div>
-<div class="hero-meta-item">
-<strong>Дополнительная литература</strong>
-          В.Е. Алексеев «Дискретная математика» (ННГУ, Глава 1, п. 1.4–1.5)
-        </div>
+
 <div class="hero-meta-item">
 <strong>Охват материала</strong>
           Теоремы и определения 18–24 + Геометрический практикум по <span class="math-inline">A  ×  B</span>
@@ -741,7 +793,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
          ====================================================================== -->
 <div class="part-divider part-lecture" id="part-1">
 <div class="part-label">Часть I · Лекционный курс (15.09.2026) и полные доказательства</div>
-</section>
+
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Теоремы и определения 18–24: С…</div>
   <h2 id="chapter-2" data-toc="Теоремы и определения 18–24: С…">Теоремы и определения 18–24: Симметрическая разность, Типы, Диаграммы Венна и Декартово произведение</h2>
@@ -772,9 +824,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="math-display">2)   A  △  B = (A  ∩  <span class="ovl">B</span>)  ∪  (B  ∩  <span class="ovl">A</span>).</div>
 <p style="margin-bottom:0;">
 <strong>Откуда берётся вторая формула?</strong> По Определению 15 симметрическая разность есть <span class="math-inline">A  △  B = (A  ∖  B)  ∪  (B  ∖  A)</span>. Применяя к каждой скобке Утверждение 13 (<span class="math-inline">X  ∖  Y = X  ∩  <span class="ovl">Y</span></span>), сразу получаем:
-          <div class="math-display">A  △  B = (A  ∖  B)  ∪  (B  ∖  A) = (A  ∩  <span class="ovl">B</span>)  ∪  (B  ∩  <span class="ovl">A</span>).</div>
+          </p><div class="math-display">A  △  B = (A  ∖  B)  ∪  (B  ∖  A) = (A  ∩  <span class="ovl">B</span>)  ∪  (B  ∩  <span class="ovl">A</span>).</div>
           А первая формула <span class="math-inline">A  △  B = (A  ∪  B)  ∖  (A  ∩  B)</span> была установлена в Теореме 16 (п. 1).
-        </p>
+        
 </div></div>
 <div class="statement theorem featured" id="thm-1"><div class="block-label">Утверждение 1</div><h3 data-toc="Теорема 18 · Лекция 2, Слайд 2…" id="sub-3-2">Теорема 18 · Лекция 2, Слайд 2 и КонспектКритерий равенства двух множеств через симметрическую разность</h3><div>
 <p>Два множества <span class="math-inline">A</span> и <span class="math-inline">B</span> равны тогда и только тогда, когда их симметрическая разность пуста:</p>
@@ -798,44 +850,44 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Пошаговое доказательство в обе стороны ( ⇒ и ⇐ ) двумя элементарными способами)</div>
 <p><strong>Способ 1 (Через Определение 15, Теорему 17 и Теорему 4):</strong></p>
 <p>
-          По Определению 15 имеем <span class="math-inline">A  △  B = (A  ∖  B)  ∪  (B  ∖  A)</span>.<br/>
-          Заметим простое свойство объединения: объединение двух множеств <span class="math-inline">X  ∪  Y</span> равно пустому множеству <span class="math-inline">∅</span> тогда и только тогда, когда пусто каждое из них (<span class="math-inline">X = ∅</span> и <span class="math-inline">Y = ∅</span>). Действительно:<br/>
-          — если <span class="math-inline">X = ∅</span> и <span class="math-inline">Y = ∅</span>, то по Теореме 10 (п. 10) <span class="math-inline">∅  ∪  ∅ = ∅</span>;<br/>
-          — обратно, если <span class="math-inline">X  ∪  Y = ∅</span>, то ни в <span class="math-inline">X</span>, ни в <span class="math-inline">Y</span> не может быть ни одного элемента (иначе этот элемент по Определению 8 попал бы и в <span class="math-inline">X  ∪  Y</span>, что противоречит пустоте <span class="math-inline">X  ∪  Y</span>).<br/>
+          По Определению 15 имеем <span class="math-inline">A  △  B = (A  ∖  B)  ∪  (B  ∖  A)</span>.<br>
+          Заметим простое свойство объединения: объединение двух множеств <span class="math-inline">X  ∪  Y</span> равно пустому множеству <span class="math-inline">∅</span> тогда и только тогда, когда пусто каждое из них (<span class="math-inline">X = ∅</span> и <span class="math-inline">Y = ∅</span>). Действительно:<br>
+          — если <span class="math-inline">X = ∅</span> и <span class="math-inline">Y = ∅</span>, то по Теореме 10 (п. 10) <span class="math-inline">∅  ∪  ∅ = ∅</span>;<br>
+          — обратно, если <span class="math-inline">X  ∪  Y = ∅</span>, то ни в <span class="math-inline">X</span>, ни в <span class="math-inline">Y</span> не может быть ни одного элемента (иначе этот элемент по Определению 8 попал бы и в <span class="math-inline">X  ∪  Y</span>, что противоречит пустоте <span class="math-inline">X  ∪  Y</span>).<br>
           Используя это свойство, Теорему 17 (<span class="math-inline">A  ⊂  B  ⟺  A  ∖  B = ∅</span>) и Теорему 4 (п. 3: <span class="math-inline">A = B  ⟺  A  ⊂  B <span style="font-family:Inter,sans-serif;font-style:normal;"> и </span> B  ⊂  A</span>), получаем цепочку равносильных утверждений:
-          <div class="math-display">A  △  B = ∅   ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Опр. 15</span></sup>  (A  ∖  B)  ∪  (B  ∖  A) = ∅</div>
+          </p><div class="math-display">A  △  B = ∅   ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Опр. 15</span></sup>  (A  ∖  B)  ∪  (B  ∖  A) = ∅</div>
 <div class="math-display"> ⟺  (A  ∖  B = ∅)  <span style="font-family:Inter,sans-serif;font-style:normal;"> и </span>  (B  ∖  A = ∅)</div>
 <div class="math-display"> ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Теорема 17</span></sup>  (A  ⊂  B)  <span style="font-family:Inter,sans-serif;font-style:normal;"> и </span>  (B  ⊂  A)   ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Теорема 4, п. 3</span></sup>  A = B.</div>
-</p>
+
 <p><strong>Способ 2 (Прямое поэлементное доказательство в обе стороны):</strong></p>
 <ul>
 <li>
-<strong>Слева направо (<span class="math-inline"> ⇒ </span>): Пусть <span class="math-inline">A = B</span>. Докажем, что <span class="math-inline">A  △  B = ∅</span>.</strong><br/>
+<strong>Слева направо (<span class="math-inline"> ⇒ </span>): Пусть <span class="math-inline">A = B</span>. Докажем, что <span class="math-inline">A  △  B = ∅</span>.</strong><br>
             Если <span class="math-inline">A = B</span>, то можно подставить <span class="math-inline">A</span> вместо <span class="math-inline">B</span>:
             <div class="math-display">A  △  B = A  △  A = (A  ∖  A)  ∪  (A  ∖  A).</div>
             По Теореме 14 (п. 5) имеем <span class="math-inline">A  ∖  A = ∅</span>, поэтому <span class="math-inline">A  △  B = ∅  ∪  ∅ = ∅</span>.
           </li>
 <li>
-<strong>Справа налево (<span class="math-inline"> ⇐ </span>): Пусть <span class="math-inline">A  △  B = ∅</span>. Докажем, что <span class="math-inline">A = B</span>.</strong><br/>
-            Докажем методом от противного. Допустим, что <span class="math-inline">A  ≠  B</span>. По Определению 2 (определение равенства множеств) это означает, что множества <span class="math-inline">A</span> и <span class="math-inline">B</span> не состоят из одних и тех же элементов, то есть найдётся хотя бы один элемент <span class="math-inline">x</span>, который принадлежит одному множеству, но не принадлежит другому:<br/>
-            — <em>Случай 1:</em> <span class="math-inline">x  ∈  A</span> и <span class="math-inline">x  ∉  B</span>. Тогда по Определению 12 элемент <span class="math-inline">x  ∈  A  ∖  B</span>, а значит, по Определению 8 он принадлежит и объединению <span class="math-inline">(A  ∖  B)  ∪  (B  ∖  A) = A  △  B</span>.<br/>
-            — <em>Случай 2:</em> <span class="math-inline">x  ∈  B</span> и <span class="math-inline">x  ∉  A</span>. Тогда по Определению 12 элемент <span class="math-inline">x  ∈  B  ∖  A</span>, а значит, он снова принадлежит объединению <span class="math-inline">(A  ∖  B)  ∪  (B  ∖  A) = A  △  B</span>.<br/>
+<strong>Справа налево (<span class="math-inline"> ⇐ </span>): Пусть <span class="math-inline">A  △  B = ∅</span>. Докажем, что <span class="math-inline">A = B</span>.</strong><br>
+            Докажем методом от противного. Допустим, что <span class="math-inline">A  ≠  B</span>. По Определению 2 (определение равенства множеств) это означает, что множества <span class="math-inline">A</span> и <span class="math-inline">B</span> не состоят из одних и тех же элементов, то есть найдётся хотя бы один элемент <span class="math-inline">x</span>, который принадлежит одному множеству, но не принадлежит другому:<br>
+            — <em>Случай 1:</em> <span class="math-inline">x  ∈  A</span> и <span class="math-inline">x  ∉  B</span>. Тогда по Определению 12 элемент <span class="math-inline">x  ∈  A  ∖  B</span>, а значит, по Определению 8 он принадлежит и объединению <span class="math-inline">(A  ∖  B)  ∪  (B  ∖  A) = A  △  B</span>.<br>
+            — <em>Случай 2:</em> <span class="math-inline">x  ∈  B</span> и <span class="math-inline">x  ∉  A</span>. Тогда по Определению 12 элемент <span class="math-inline">x  ∈  B  ∖  A</span>, а значит, он снова принадлежит объединению <span class="math-inline">(A  ∖  B)  ∪  (B  ∖  A) = A  △  B</span>.<br>
             В обоих случаях мы нашли элемент <span class="math-inline">x  ∈  A  △  B</span>, что противоречит условию <span class="math-inline">A  △  B = ∅</span>! Полученное противоречие доказывает, что <span class="math-inline">A = B</span>.
           </li>
 </ul>
-<hr style="border:none; border-top:1px dashed var(--border-proof); margin: 14px 0;"/>
+<hr style="border:none; border-top:1px dashed var(--border-proof); margin: 14px 0;">
 <p style="margin-bottom:0;">
-<strong>Разбор предупреждения со слайда 2: Почему НЕВЕРНО, что <span class="math-inline">A = B  ⟺  A  ∖  B = ∅</span>?</strong><br/>
-          По Теореме 17 условие <span class="math-inline">A  ∖  B = ∅</span> равносильно лишь включению <span class="math-inline">A  ⊂  B</span>, но оно совершенно не запрещает множеству <span class="math-inline">B</span> содержать «лишние» элементы, которых нет в <span class="math-inline">A</span>!<br/>
-<em>Контрпример:</em> Пусть <span class="math-inline">A = {1}</span>, а <span class="math-inline">B = {1, 2}</span>. Тогда:<br/>
-<div class="math-display">A  ∖  B = {1}  ∖  {1, 2} = ∅,        <span style="font-family:Inter,sans-serif;font-style:normal;">однако </span> A  ≠  B <span style="font-family:Inter,sans-serif;font-style:normal;"> (так как </span> 2  ∈  B, <span style="font-family:Inter,sans-serif;font-style:normal;"> но </span> 2  ∉  A<span style="font-family:Inter,sans-serif;font-style:normal;">)</span>.</div>
+<strong>Разбор предупреждения со слайда 2: Почему НЕВЕРНО, что <span class="math-inline">A = B  ⟺  A  ∖  B = ∅</span>?</strong><br>
+          По Теореме 17 условие <span class="math-inline">A  ∖  B = ∅</span> равносильно лишь включению <span class="math-inline">A  ⊂  B</span>, но оно совершенно не запрещает множеству <span class="math-inline">B</span> содержать «лишние» элементы, которых нет в <span class="math-inline">A</span>!<br>
+<em>Контрпример:</em> Пусть <span class="math-inline">A = {1}</span>, а <span class="math-inline">B = {1, 2}</span>. Тогда:<br>
+</p><div class="math-display">A  ∖  B = {1}  ∖  {1, 2} = ∅,        <span style="font-family:Inter,sans-serif;font-style:normal;">однако </span> A  ≠  B <span style="font-family:Inter,sans-serif;font-style:normal;"> (так как </span> 2  ∈  B, <span style="font-family:Inter,sans-serif;font-style:normal;"> но </span> 2  ∉  A<span style="font-family:Inter,sans-serif;font-style:normal;">)</span>.</div>
           В этом примере вторая разность <span class="math-inline">B  ∖  A = {1, 2}  ∖  {1} = {2}  ≠  ∅</span>, поэтому симметрическая разность <span class="math-inline">A  △  B = ∅  ∪  {2} = {2}  ≠  ∅</span> безошибочно фиксирует, что множества не равны! ∎
-        </p>
+        
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
 </div>
 <div class="svg-grid-2">
-<div class="svg-card"><svg aria-label="Теорема 18: A = B тогда и только тогда, когда A △ B = ∅" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="1">
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 306px"><svg aria-label="Теорема 18: A = B тогда и только тогда, когда A △ B = ∅" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="1">
 <rect class="venn-u-box" height="142" rx="6" width="248" x="16" y="22"></rect>
 <circle class="venn-fill-1" cx="140" cy="93" r="55"></circle>
 <rect class="venn-u-stroke" fill="none" height="142" rx="6" width="248" x="16" y="22"></rect>
@@ -846,8 +898,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" text-anchor="middle" x="140" y="108">A∖B = ∅ и B∖A = ∅</text>
 <text class="svg-title" text-anchor="middle" x="140" y="182">Теорема 18: A △ B = ∅ ⟺ A = B</text>
 <text class="svg-sub" text-anchor="middle" x="140" y="197">Обе разности пусты</text>
-</svg></div>
-<div class="svg-card"><svg aria-label="Предупреждение: A ∖ B = ∅ не влечёт A = B" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="2">
+</svg></div></div>
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 306px"><svg aria-label="Предупреждение: A ∖ B = ∅ не влечёт A = B" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 280 205" data-fam-figure="diagram" data-fam-index="2">
 <rect class="venn-u-box" height="142" rx="6" width="248" x="16" y="22"></rect>
 <circle class="venn-fill-2" cx="140" cy="93" r="54"></circle>
 <circle class="venn-fill-1" cx="110" cy="96" r="21"></circle>
@@ -860,7 +912,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" text-anchor="middle" x="162" y="104">B∖A ≠ ∅</text>
 <text class="svg-title" text-anchor="middle" x="140" y="182">A ∖ B = ∅ ⇏ A = B</text>
 <text class="svg-sub" text-anchor="middle" x="140" y="197">Здесь B ∖ A ≠ ∅</text>
-</svg></div>
+</svg></div></div>
 </div>
 
 <!-- ======================================================================
@@ -879,11 +931,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement definition" id="def-2"><div class="block-label">Определение 2</div><h3 data-toc="Определение 19 · Лекция 2, Сла…" id="sub-4-1">Определение 19 · Лекция 2, Слайд 2 и КонспектПонятие типа относительно набора множествSи однотипных элементов</h3><div>
 <p>
           Пусть <span class="math-inline">S = {A<sub>1</sub>, A<sub>2</sub>, …, A<sub>n</sub>}</span> — набор непустых попарно различных множеств из универса <span class="math-inline">U</span>. Каждое множество вида
-          <div class="math-display">B<sub>1</sub>  ∩  B<sub>2</sub>  ∩  …  ∩  B<sub>n</sub>,</div>
+          </p><div class="math-display">B<sub>1</sub>  ∩  B<sub>2</sub>  ∩  …  ∩  B<sub>n</sub>,</div>
           где при каждом <span class="math-inline">i = 1, 2, …, n</span> выбрано либо <span class="math-inline">B<sub>i</sub> = A<sub>i</sub></span>, либо <span class="math-inline">B<sub>i</sub> = <span class="ovl">A<sub>i</sub></span></span>, назовём <strong>типом относительно набора <span class="math-inline">S</span></strong>.
-        </p>
+        
 <p style="margin-bottom:0;">
-<strong>Пояснение на языке элементов (Слайд 2 и Конспект):</strong><br/>
+<strong>Пояснение на языке элементов (Слайд 2 и Конспект):</strong><br>
           Элементы <span class="math-inline">a</span> и <span class="math-inline">b</span> из универса <span class="math-inline">U</span> называются <strong>однотипными относительно набора <span class="math-inline">S</span></strong>, если <span class="math-inline">a</span> и <span class="math-inline">b</span> принадлежат одним и тем же множествам из набора <span class="math-inline">S</span> или оба не принадлежат ни одному множеству из <span class="math-inline">S</span> (то есть оба принадлежат одному и тому же типу <span class="math-inline">B<sub>1</sub>  ∩  B<sub>2</sub>  ∩  …  ∩  B<sub>n</sub></span>).
         </p>
 </div></div>
@@ -897,16 +949,16 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </p>
 <ol>
 <li>
-<strong>Любые два разных типа не пересекаются (их пересечение пусто):</strong><br/>
+<strong>Любые два разных типа не пересекаются (их пересечение пусто):</strong><br>
             Пусть даны два разных типа <span class="math-inline">T' = B<sub>1</sub>'  ∩  B<sub>2</sub>'  ∩  …  ∩  B<sub>n</sub>'</span> и <span class="math-inline">T'' = B<sub>1</sub>''  ∩  B<sub>2</sub>''  ∩  …  ∩  B<sub>n</sub>'</span>. Так как эти записи различаются, найдётся хотя бы один номер <span class="math-inline">i</span>, для которого в одном типе выбрано само множество <span class="math-inline">A<sub>i</sub></span>, а в другом — его дополнение <span class="math-inline"><span class="ovl">A<sub>i</sub></span></span> (например, <span class="math-inline">B<sub>i</sub>' = A<sub>i</sub></span>, а <span class="math-inline">B<sub>i</sub>'' = <span class="ovl">A<sub>i</sub></span></span>). Тогда при пересечении <span class="math-inline">T'  ∩  T''</span> по законам коммутативности и ассоциативности пересечения (Теорема 10, п. 3, 5) встретится пара множителей
             <div class="math-display">B<sub>i</sub>'  ∩  B<sub>i</sub>'' = A<sub>i</sub>  ∩  <span class="ovl">A<sub>i</sub></span>  =<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Т. 10, п. 19</span></sup>  ∅.</div>
             А пересечение любого множества с <span class="math-inline">∅</span> по Теореме 10 (п. 14) равно <span class="math-inline">∅</span>. Значит, <span class="math-inline">T'  ∩  T'' = ∅</span> — ни один элемент <span class="math-inline">x  ∈  U</span> не может принадлежать двум разным типам одновременно!
           </li>
 <li>
-<strong>Каждый элемент универса <span class="math-inline">U</span> принадлежит ровно одному типу (объединение всех типов даёт весь универс <span class="math-inline">U</span>):</strong><br/>
-            Возьмём произвольный элемент <span class="math-inline">x  ∈  U</span>. Для каждого множества <span class="math-inline">A<sub>i</sub></span> (<span class="math-inline">i = 1, …, n</span>) проверим, входит ли в него элемент <span class="math-inline">x</span>:<br/>
-            — если <span class="math-inline">x  ∈  A<sub>i</sub></span>, выберем <span class="math-inline">B<sub>i</sub> = A<sub>i</sub></span>;<br/>
-            — если <span class="math-inline">x  ∉  A<sub>i</sub></span>, то по Определению 7 имеем <span class="math-inline">x  ∈  <span class="ovl">A<sub>i</sub></span></span>, и мы выберем <span class="math-inline">B<sub>i</sub> = <span class="ovl">A<sub>i</sub></span></span>.<br/>
+<strong>Каждый элемент универса <span class="math-inline">U</span> принадлежит ровно одному типу (объединение всех типов даёт весь универс <span class="math-inline">U</span>):</strong><br>
+            Возьмём произвольный элемент <span class="math-inline">x  ∈  U</span>. Для каждого множества <span class="math-inline">A<sub>i</sub></span> (<span class="math-inline">i = 1, …, n</span>) проверим, входит ли в него элемент <span class="math-inline">x</span>:<br>
+            — если <span class="math-inline">x  ∈  A<sub>i</sub></span>, выберем <span class="math-inline">B<sub>i</sub> = A<sub>i</sub></span>;<br>
+            — если <span class="math-inline">x  ∉  A<sub>i</sub></span>, то по Определению 7 имеем <span class="math-inline">x  ∈  <span class="ovl">A<sub>i</sub></span></span>, и мы выберем <span class="math-inline">B<sub>i</sub> = <span class="ovl">A<sub>i</sub></span></span>.<br>
             Тогда <span class="math-inline">x  ∈  B<sub>i</sub></span> для всех <span class="math-inline">i = 1, …, n</span>, а значит, по определению пересечения <span class="math-inline">x  ∈  B<sub>1</sub>  ∩  B<sub>2</sub>  ∩  …  ∩  B<sub>n</sub></span>. Таким образом, каждый элемент универса <span class="math-inline">U</span> попадает в один и только один тип!
           </li>
 </ol>
@@ -916,9 +968,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           Число различных типов относительно набора <span class="math-inline">S = {A<sub>1</sub>, A<sub>2</sub>, …, A<sub>n</sub>}</span> равно <span class="math-inline">2<sup>n</sup></span>.
         </p>
 <p style="margin-bottom:0;">
-<strong>Начало доказательства со слайда 2:</strong><br/>
-          • Если <span class="math-inline">n = 1</span>, то по Определению 19 имеем <strong>два</strong> типа (<span class="math-inline">2<sup>1</sup> = 2</span>): <span class="math-inline">A<sub>1</sub></span> и <span class="math-inline"><span class="ovl">A<sub>1</sub></span></span>.<br/>
-          • Если <span class="math-inline">n = 2</span>, имеем <strong>четыре</strong> типа (<span class="math-inline">2<sup>2</sup> = 4</span>): <span class="math-inline">A<sub>1</sub>  ∩  A<sub>2</sub></span>, <span class="math-inline">A<sub>1</sub>  ∩  <span class="ovl">A<sub>2</sub></span></span>, <span class="math-inline"><span class="ovl">A<sub>1</sub></span>  ∩  A<sub>2</sub></span>, <span class="math-inline"><span class="ovl">A<sub>1</sub></span>  ∩  <span class="ovl">A<sub>2</sub></span></span>.<br/>
+<strong>Начало доказательства со слайда 2:</strong><br>
+          • Если <span class="math-inline">n = 1</span>, то по Определению 19 имеем <strong>два</strong> типа (<span class="math-inline">2<sup>1</sup> = 2</span>): <span class="math-inline">A<sub>1</sub></span> и <span class="math-inline"><span class="ovl">A<sub>1</sub></span></span>.<br>
+          • Если <span class="math-inline">n = 2</span>, имеем <strong>четыре</strong> типа (<span class="math-inline">2<sup>2</sup> = 4</span>): <span class="math-inline">A<sub>1</sub>  ∩  A<sub>2</sub></span>, <span class="math-inline">A<sub>1</sub>  ∩  <span class="ovl">A<sub>2</sub></span></span>, <span class="math-inline"><span class="ovl">A<sub>1</sub></span>  ∩  A<sub>2</sub></span>, <span class="math-inline"><span class="ovl">A<sub>1</sub></span>  ∩  <span class="ovl">A<sub>2</sub></span></span>.<br>
           • Аналогично, для <span class="math-inline">n = 3</span> получаем <strong><span class="math-inline">8</span> типов</strong> (<span class="math-inline">2<sup>3</sup> = 8</span>), и так далее. <em>(В этом «и так далее» спрятался метод математической индукции!)</em>
 </p>
 </div></div>
@@ -940,27 +992,27 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </p>
 <ol>
 <li>
-<strong>База индукции (<span class="math-inline">n = 1</span>):</strong><br/>
+<strong>База индукции (<span class="math-inline">n = 1</span>):</strong><br>
             При <span class="math-inline">n = 1</span> набор состоит из одного множества: <span class="math-inline">S = {A<sub>1</sub>}</span>. По Определению 19 тип имеет вид <span class="math-inline">B<sub>1</sub></span>, где <span class="math-inline">B<sub>1</sub> = A<sub>1</sub></span> либо <span class="math-inline">B<sub>1</sub> = <span class="ovl">A<sub>1</sub></span></span>. Всего получается <span class="math-inline">2</span> типа: <span class="math-inline">A<sub>1</sub></span> и <span class="math-inline"><span class="ovl">A<sub>1</sub></span></span>. Следовательно,
             <div class="math-display">K<sub>1</sub> = 2 = 2<sup>1</sup>.</div>
             При <span class="math-inline">n = 1</span> утверждение теоремы верно.
           </li>
 <li>
-<strong>Индукционное предположение (<span class="math-inline">n = k</span>):</strong><br/>
+<strong>Индукционное предположение (<span class="math-inline">n = k</span>):</strong><br>
             Предположим, что при некотором натуральном <span class="math-inline">n = k</span> (<span class="math-inline">k  ≥  1</span>) утверждение верно, то есть для любого набора из <span class="math-inline">k</span> множеств <span class="math-inline">{A<sub>1</sub>, A<sub>2</sub>, …, A<sub>k</sub>}</span> число различных типов вида <span class="math-inline">B<sub>1</sub>  ∩  B<sub>2</sub>  ∩  …  ∩  B<sub>k</sub></span> (где <span class="math-inline">B<sub>i</sub> = A<sub>i</sub></span> или <span class="math-inline">B<sub>i</sub> = <span class="ovl">A<sub>i</sub></span></span>) равно
             <div class="math-display">K<sub>k</sub> = 2<sup>k</sup>.</div>
 </li>
 <li>
-<strong>Индукционный шаг (<span class="math-inline">n = k + 1</span>):</strong><br/>
-            Докажем, что тогда и для набора из <span class="math-inline">k + 1</span> множеств <span class="math-inline">S = {A<sub>1</sub>, A<sub>2</sub>, …, A<sub>k</sub>, A<sub>k+1</sub>}</span> число различных типов равно <span class="math-inline">K<sub>k+1</sub> = 2<sup>k+1</sup></span>.<br/>
+<strong>Индукционный шаг (<span class="math-inline">n = k + 1</span>):</strong><br>
+            Докажем, что тогда и для набора из <span class="math-inline">k + 1</span> множеств <span class="math-inline">S = {A<sub>1</sub>, A<sub>2</sub>, …, A<sub>k</sub>, A<sub>k+1</sub>}</span> число различных типов равно <span class="math-inline">K<sub>k+1</sub> = 2<sup>k+1</sup></span>.<br>
             Рассмотрим произвольный тип относительно набора из <span class="math-inline">k + 1</span> множеств. По Определению 19 и закону ассоциативности пересечения (Теорема 10, п. 5) его можно сгруппировать так:
             <div class="math-display">B<sub>1</sub>  ∩  B<sub>2</sub>  ∩  …  ∩  B<sub>k</sub>  ∩  B<sub>k+1</sub> = (B<sub>1</sub>  ∩  B<sub>2</sub>  ∩  …  ∩  B<sub>k</sub>)  ∩  B<sub>k+1</sub>.</div>
-            Здесь выражение в скобках <span class="math-inline">T = B<sub>1</sub>  ∩  B<sub>2</sub>  ∩  …  ∩  B<sub>k</sub></span> представляет собой один из типов для первых <span class="math-inline">k</span> множеств <span class="math-inline">{A<sub>1</sub>, …, A<sub>k</sub>}</span>, а последний множитель <span class="math-inline">B<sub>k+1</sub></span> может быть выбран ровно двумя способами: либо <span class="math-inline">B<sub>k+1</sub> = A<sub>k+1</sub></span>, либо <span class="math-inline">B<sub>k+1</sub> = <span class="ovl">A<sub>k+1</sub></span></span>.<br/>
+            Здесь выражение в скобках <span class="math-inline">T = B<sub>1</sub>  ∩  B<sub>2</sub>  ∩  …  ∩  B<sub>k</sub></span> представляет собой один из типов для первых <span class="math-inline">k</span> множеств <span class="math-inline">{A<sub>1</sub>, …, A<sub>k</sub>}</span>, а последний множитель <span class="math-inline">B<sub>k+1</sub></span> может быть выбран ровно двумя способами: либо <span class="math-inline">B<sub>k+1</sub> = A<sub>k+1</sub></span>, либо <span class="math-inline">B<sub>k+1</sub> = <span class="ovl">A<sub>k+1</sub></span></span>.<br>
             Таким образом, из каждого типа <span class="math-inline">T = B<sub>1</sub>  ∩  …  ∩  B<sub>k</sub></span> для <span class="math-inline">k</span> множеств получаются ровно <strong>два</strong> типа для <span class="math-inline">k + 1</span> множеств:
             <div class="math-display">T  ∩  A<sub>k+1</sub> = B<sub>1</sub>  ∩  …  ∩  B<sub>k</sub>  ∩  A<sub>k+1</sub>        <span style="font-family:Inter,sans-serif;font-style:normal;">и</span>        T  ∩  <span class="ovl">A<sub>k+1</sub></span> = B<sub>1</sub>  ∩  …  ∩  B<sub>k</sub>  ∩  <span class="ovl">A<sub>k+1</sub></span>.</div>
-            По предположению индукции всего различных типов <span class="math-inline">T</span> для первых <span class="math-inline">k</span> множеств имеется <span class="math-inline">K<sub>k</sub> = 2<sup>k</sup></span>. Следовательно:<br/>
-            — типов с последним множителем <span class="math-inline">B<sub>k+1</sub> = A<sub>k+1</sub></span> получается ровно <span class="math-inline">2<sup>k</sup></span>;<br/>
-            — типов с последним множителем <span class="math-inline">B<sub>k+1</sub> = <span class="ovl">A<sub>k+1</sub></span></span> также получается ровно <span class="math-inline">2<sup>k</sup></span>.<br/>
+            По предположению индукции всего различных типов <span class="math-inline">T</span> для первых <span class="math-inline">k</span> множеств имеется <span class="math-inline">K<sub>k</sub> = 2<sup>k</sup></span>. Следовательно:<br>
+            — типов с последним множителем <span class="math-inline">B<sub>k+1</sub> = A<sub>k+1</sub></span> получается ровно <span class="math-inline">2<sup>k</sup></span>;<br>
+            — типов с последним множителем <span class="math-inline">B<sub>k+1</sub> = <span class="ovl">A<sub>k+1</sub></span></span> также получается ровно <span class="math-inline">2<sup>k</sup></span>.<br>
             Складывая их количество, находим общее число типов для <span class="math-inline">k + 1</span> множеств:
             <div class="math-display">K<sub>k+1</sub> = K<sub>k</sub> + K<sub>k</sub> = 2<sup>k</sup> + 2<sup>k</sup> = 2  ·  2<sup>k</sup> = 2<sup>k+1</sup>.</div>
 </li>
@@ -1006,14 +1058,14 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           <div class="math-display"><span style="font-family:Inter,sans-serif;font-style:normal;">верхний ряд: </span> [A<sub>1</sub>  ∩  A<sub>2</sub>  |  <span class="ovl">A<sub>1</sub></span>  ∩  A<sub>2</sub>],        <span style="font-family:Inter,sans-serif;font-style:normal;">нижний ряд: </span> [A<sub>1</sub>  ∩  <span class="ovl">A<sub>2</sub></span>  |  <span class="ovl">A<sub>1</sub></span>  ∩  <span class="ovl">A<sub>2</sub></span>].</div>
 </li>
 <li>
-<strong>При <span class="math-inline">n = 3</span> (<span class="math-inline">S = {A<sub>1</sub>, A<sub>2</sub>, A<sub>3</sub>}</span>, <span class="math-inline">2<sup>3</sup> = 8</span> клеток — рисунок со слайда 3):</strong> Прямоугольник разбивается на <span class="math-inline">2</span> строки и <span class="math-inline">4</span> столбца (всего <span class="math-inline">8</span> клеток):<br/>
-          — <em>По вертикали (строки):</em> верхняя строка принадлежит множеству <span class="math-inline">A<sub>2</sub></span>, нижняя строка — дополнению <span class="math-inline"><span class="ovl">A<sub>2</sub></span></span>.<br/>
-          — <em>По горизонтали сверху:</em> жирная засечка посередине делит таблицу на левую половину (столбцы 1 и 2, принадлежащие <span class="math-inline">A<sub>1</sub></span>) и правую половину (столбцы 3 и 4, принадлежащие <span class="math-inline"><span class="ovl">A<sub>1</sub></span></span>).<br/>
+<strong>При <span class="math-inline">n = 3</span> (<span class="math-inline">S = {A<sub>1</sub>, A<sub>2</sub>, A<sub>3</sub>}</span>, <span class="math-inline">2<sup>3</sup> = 8</span> клеток — рисунок со слайда 3):</strong> Прямоугольник разбивается на <span class="math-inline">2</span> строки и <span class="math-inline">4</span> столбца (всего <span class="math-inline">8</span> клеток):<br>
+          — <em>По вертикали (строки):</em> верхняя строка принадлежит множеству <span class="math-inline">A<sub>2</sub></span>, нижняя строка — дополнению <span class="math-inline"><span class="ovl">A<sub>2</sub></span></span>.<br>
+          — <em>По горизонтали сверху:</em> жирная засечка посередине делит таблицу на левую половину (столбцы 1 и 2, принадлежащие <span class="math-inline">A<sub>1</sub></span>) и правую половину (столбцы 3 и 4, принадлежащие <span class="math-inline"><span class="ovl">A<sub>1</sub></span></span>).<br>
           — <em>По горизонтали снизу:</em> каждый из 4 столбцов подписан поочерёдно <span class="math-inline">A<sub>3</sub>,   <span class="ovl">A<sub>3</sub></span>,   A<sub>3</sub>,   <span class="ovl">A<sub>3</sub></span></span>. Тем самым каждая из 8 клеток однозначно задаёт один из 8 типов <span class="math-inline">B<sub>1</sub>  ∩  B<sub>2</sub>  ∩  B<sub>3</sub></span>!
         </li>
 </ul>
 <div class="svg-grid-3">
-<div class="svg-card"><svg aria-label="Диаграмма Венна в виде клеток для n=1" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 215" data-fam-figure="diagram" data-fam-index="3">
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 284px"><svg aria-label="Диаграмма Венна в виде клеток для n=1" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 215" data-fam-figure="diagram" data-fam-index="3">
 <text class="svg-set-label" text-anchor="middle" x="90" y="36">A₁</text>
 <text class="svg-set-label" text-anchor="middle" x="170" y="36">Ā₁</text>
 <line class="venn-c-stroke" stroke-width="2.5" x1="130" x2="130" y1="38" y2="48"></line>
@@ -1027,8 +1079,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" text-anchor="middle" x="170" y="110">x ∉ A₁</text>
 <text class="svg-title" text-anchor="middle" x="130" y="182">1. Набор S = {A₁} (n = 1)</text>
 <text class="svg-sub" text-anchor="middle" x="130" y="198">2¹ = 2 области</text>
-</svg></div>
-<div class="svg-card"><svg aria-label="Диаграмма Венна в виде клеток для n=2" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 215" data-fam-figure="diagram" data-fam-index="4">
+</svg></div></div>
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 284px"><svg aria-label="Диаграмма Венна в виде клеток для n=2" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 215" data-fam-figure="diagram" data-fam-index="4">
 <text class="svg-set-label" text-anchor="middle" x="85" y="32">A₁</text>
 <text class="svg-set-label" text-anchor="middle" x="165" y="32">Ā₁</text>
 <line class="venn-c-stroke" stroke-width="2.5" x1="125" x2="125" y1="34" y2="44"></line>
@@ -1051,8 +1103,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" text-anchor="middle" x="165" y="135">Тип 4</text>
 <text class="svg-title" text-anchor="middle" x="130" y="182">2. Набор S = {A₁, A₂} (n = 2)</text>
 <text class="svg-sub" text-anchor="middle" x="130" y="198">2² = 4 области</text>
-</svg></div>
-<div class="svg-card"><svg aria-label="Диаграмма Венна для n=3 со слайда 3" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 360 215" data-fam-figure="diagram" data-fam-index="5">
+</svg></div></div>
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 393px"><svg aria-label="Диаграмма Венна для n=3 со слайда 3" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 360 215" data-fam-figure="diagram" data-fam-index="5">
 <text class="svg-set-label" text-anchor="middle" x="96" y="28">A₁</text>
 <text class="svg-set-label" text-anchor="middle" x="240" y="28">Ā₁</text>
 <line class="venn-c-stroke" stroke-width="3.2" x1="168" x2="168" y1="26" y2="40"></line>
@@ -1089,7 +1141,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-set-label" text-anchor="middle" x="276" y="156">Ā₃</text>
 <text class="svg-title" text-anchor="middle" x="180" y="182">3. Набор S = {A₁, A₂, A₃} (Слайд 3, n = 3)</text>
 <text class="svg-sub" text-anchor="middle" x="180" y="198">Таблица 2×4 со слайда 3: 2³ = 8 клеток-типов</text>
-</svg></div>
+</svg></div></div>
 </div>
 <aside class="note">
 <div class="callout-title">
@@ -1117,15 +1169,15 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement definition" id="def-4"><div class="block-label">Определение 4</div><h3 data-toc="Определение 22 · Лекция 2, Сла…" id="sub-6-1">Определение 22 · Лекция 2, Слайд 4 и Конспект (+ В.Е. Алексеев, п. 1.5, стр. 11–12)Декартово произведение множествA  ×  B, декартов квадратA2и декартова степеньAk</h3><div>
 <p>
 <strong>Декартовым произведением</strong> <span class="math-inline">A  ×  B</span> множества <span class="math-inline">A</span> на множество <span class="math-inline">B</span> называется множество всех <strong>упорядоченных пар</strong> <span class="math-inline">⟨ a, b ⟩</span>, первый элемент которых — элемент множества <span class="math-inline">A</span>, а второй элемент — элемент множества <span class="math-inline">B</span>:
-          <div class="math-display">A  ×  B = {⟨ a, b ⟩  |  a  ∈  A,   b  ∈  B}.</div>
-</p>
+          </p><div class="math-display">A  ×  B = {⟨ a, b ⟩  |  a  ∈  A,   b  ∈  B}.</div>
+
 <ul>
 <li>
 <strong>Замечание 1 (Об изменении универса — Слайд 4 и Конспект):</strong> Эта операция требует изменения универса! Например, если множества <span class="math-inline">A</span> и <span class="math-inline">B</span> взяты из универса <span class="math-inline">U</span> (<span class="math-inline">A  ⊂  U,   B  ⊂  U</span>), то <span class="math-inline">A  ×  B  ⊄  U</span> (поскольку элементами <span class="math-inline">A  ×  B</span> являются не элементы универса <span class="math-inline">U</span>, а упорядоченные пары <span class="math-inline">⟨ a, b ⟩</span>). В этом случае в качестве нового универса для <span class="math-inline">A  ×  B</span> можно взять <span class="math-inline">U  ×  U</span>, тогда <span class="math-inline">A  ×  B  ⊂  U  ×  U</span>.
           </li>
 <li>
-<strong>Обозначение декартовых степеней (Слайд 4 и Конспект):</strong><br/>
-            — <span class="math-inline">A  ×  A = A<sup>2</sup></span> (<strong>«декартов квадрат»</strong> множества <span class="math-inline">A</span>);<br/>
+<strong>Обозначение декартовых степеней (Слайд 4 и Конспект):</strong><br>
+            — <span class="math-inline">A  ×  A = A<sup>2</sup></span> (<strong>«декартов квадрат»</strong> множества <span class="math-inline">A</span>);<br>
             — <span class="math-inline">A  ×  A  ×  A  ×  …  ×  A<sub>[k <span style="font-family:Inter,sans-serif;font-style:normal;"> раз</span>]</sub> = A<sup>k</sup></span>, если в левой части множество <span class="math-inline">A</span> встречается ровно <span class="math-inline">k</span> раз (<span class="math-inline">k</span>-я декартова степень множества <span class="math-inline">A</span>, состоящая из упорядоченных наборов <span class="math-inline">⟨ a<sub>1</sub>, a<sub>2</sub>, …, a<sub>k</sub> ⟩</span> длины <span class="math-inline">k</span>).
           </li>
 <li>
@@ -1139,7 +1191,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           Почему в декартовом произведении <span class="math-inline">A  ×  C</span> нельзя писать фигурные скобки <span class="math-inline">{{a, 1}, …}</span>, а нужно писать упорядоченные пары <span class="math-inline">⟨ a, 1 ⟩</span>?
         </div>
 <p>
-          В конспекте лекции рассмотрены два множества: <span class="math-inline">A = {a, b}</span> и <span class="math-inline">C = {1, 2, 3}</span>.<br/>
+          В конспекте лекции рассмотрены два множества: <span class="math-inline">A = {a, b}</span> и <span class="math-inline">C = {1, 2, 3}</span>.<br>
           Сначала там выписана и <strong>крупно перечёркнута крест-накрест</strong> ошибочная запись в фигурных скобках, а под ней приведена верная запись в угловых скобках:
         </p>
 <ul>
@@ -1153,14 +1205,14 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </li>
 </ul>
 <p style="margin-bottom:0;">
-<strong>Почему первая запись неверна?</strong><br/>
+<strong>Почему первая запись неверна?</strong><br>
           Фигурные скобки <span class="math-inline">{a, 1}</span> обозначают обычное <em>неупорядоченное</em> множество, в котором порядок элементов безразличен: <span class="math-inline">{a, 1} = {1, a}</span> (а если взять декартов квадрат <span class="math-inline">C  ×  C</span>, то при совпадении элементов множество <span class="math-inline">{1, 1} = {1}</span> вообще перестаёт быть парой!). Напротив, угловые скобки <span class="math-inline">⟨ a, 1 ⟩</span> (в учебнике В.Е. Алексеева на стр. 11 также используются круглые скобки <span class="math-inline">(a, 1)</span>) обозначают <strong>упорядоченную пару</strong>, в которой строго зафиксировано, какой элемент стоит на первом месте, а какой — на втором:
-          <div class="math-display">⟨ a, b ⟩ = ⟨ c, d ⟩  ⟺  (a = c)  <span style="font-family:Inter,sans-serif;font-style:normal;"> и </span>  (b = d).</div>
+          </p><div class="math-display">⟨ a, b ⟩ = ⟨ c, d ⟩  ⟺  (a = c)  <span style="font-family:Inter,sans-serif;font-style:normal;"> и </span>  (b = d).</div>
           В частности, при <span class="math-inline">a  ≠  b</span> пары <span class="math-inline">⟨ a, b ⟩</span> и <span class="math-inline">⟨ b, a ⟩</span> — это <strong>разные</strong> упорядоченные пары (<span class="math-inline">⟨ a, b ⟩  ≠  ⟨ b, a ⟩</span>), а значит, операция декартова произведения <strong>некоммутативна</strong>: <span class="math-inline">A  ×  B  ≠  B  ×  A</span> (если <span class="math-inline">A  ≠  B</span> и оба множества непусты)!
-        </p>
+        
 </aside>
 <div class="svg-grid-2">
-<div class="svg-card"><svg aria-label="График декартова произведения A × C из конспекта" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 300 215" data-fam-figure="diagram" data-fam-index="6">
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 328px"><svg aria-label="График декартова произведения A × C из конспекта" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 300 215" data-fam-figure="diagram" data-fam-index="6">
 <rect class="venn-u-box" height="156" rx="6" width="272" x="14" y="14"></rect>
 <line class="venn-c-stroke" stroke-width="2" x1="54" x2="254" y1="146" y2="146"></line>
 <polygon fill="var(--svg-c-stroke)" points="258,146 248,141 248,151"></polygon>
@@ -1197,8 +1249,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" x="193" y="45">⟨b, 3⟩</text>
 <text class="svg-title" text-anchor="middle" x="150" y="186">Точки A × C</text>
 <text class="svg-sub" text-anchor="middle" x="150" y="201">2 · 3 = 6 пар</text>
-</svg></div>
-<div class="svg-card"><svg aria-label="Модель зрительного зала со слайда 4" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 300 215" data-fam-figure="diagram" data-fam-index="7">
+</svg></div></div>
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 328px"><svg aria-label="Модель зрительного зала со слайда 4" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 300 215" data-fam-figure="diagram" data-fam-index="7">
 <rect class="venn-u-box" height="156" rx="6" width="272" x="14" y="14"></rect>
 <text class="svg-sub" text-anchor="middle" x="150" y="31">Сцена</text>
 <line class="venn-c-stroke" stroke-width="2.5" x1="65" x2="255" y1="36" y2="36"></line>
@@ -1231,15 +1283,15 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" text-anchor="middle" x="238" y="137">⟨3,4⟩</text>
 <text class="svg-title" text-anchor="middle" x="150" y="186">Места в зрительном зале</text>
 <text class="svg-sub" text-anchor="middle" x="150" y="201">3 · 4 = 12 мест</text>
-</svg></div>
+</svg></div></div>
 </div>
 <div class="statement definition" id="def-5"><div class="block-label">Определение 5</div><h3 data-toc="Определение 23 и Теорема 24 · …" id="sub-6-2">Определение 23 и Теорема 24 · Лекция 2, Слайд 5Мощность конечного множества и формулы мощности дляA  ×  BиAk</h3><div>
 <p>
 <strong>Определение 23:</strong> <strong>Мощностью КОНЕЧНОГО множества</strong> называется число его элементов. Мощность множества <span class="math-inline">A</span> обычно обозначается <span class="math-inline">|A|</span>, или <span class="math-inline">\#A</span>, или <span class="math-inline"><span style="font-style:normal;font-weight:600;">card</span> A</span>.
         </p>
 <p style="margin-bottom:0;">
-<strong>Теорема 24:</strong> Для любых конечных множеств <span class="math-inline">A</span> и <span class="math-inline">B</span> и любого натурального <span class="math-inline">k  ∈  ℕ</span>:<br/>
-          1) <span class="math-inline">|A  ×  B| = |A|  ·  |B|</span> <em>(см. замечание про зрительный зал)</em>;<br/>
+<strong>Теорема 24:</strong> Для любых конечных множеств <span class="math-inline">A</span> и <span class="math-inline">B</span> и любого натурального <span class="math-inline">k  ∈  ℕ</span>:<br>
+          1) <span class="math-inline">|A  ×  B| = |A|  ·  |B|</span> <em>(см. замечание про зрительный зал)</em>;<br>
           2) <span class="math-inline">|A<sup>k</sup>| = |A|<sup>k</sup></span> <em>(метод математической индукции)</em>.
         </p>
 </div></div>
@@ -1258,40 +1310,40 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Доказательство формулы |A × B| = |A| · |B| (через подсчёт по рядам и по индукции) и формулы |A k | = |A| k (по индукции))</div>
 <p><strong>1. Доказательство первого утверждения: <span class="math-inline">|A  ×  B| = |A|  ·  |B|</span></strong></p>
 <p>
-<em>Способ 1 (Наглядное доказательство через разбиение на «ряды» — по замечанию о зрительном зале со слайдов 4–5):</em><br/>
-          Пусть конечное множество <span class="math-inline">A</span> содержит <span class="math-inline">m</span> элементов (<span class="math-inline">|A| = m</span>), а конечное множество <span class="math-inline">B</span> содержит <span class="math-inline">n</span> элементов (<span class="math-inline">|B| = n</span>).<br/>
-          • Если <span class="math-inline">m = 0</span> (то есть <span class="math-inline">A = ∅</span>) или <span class="math-inline">n = 0</span> (то есть <span class="math-inline">B = ∅</span>), то нельзя составить ни одной упорядоченной пары <span class="math-inline">⟨ a, b ⟩</span>, так как в пустом множестве нет элементов. Значит, <span class="math-inline">A  ×  B = ∅</span>, и <span class="math-inline">|A  ×  B| = 0 = m  ·  n = |A|  ·  |B|</span>.<br/>
+<em>Способ 1 (Наглядное доказательство через разбиение на «ряды» — по замечанию о зрительном зале со слайдов 4–5):</em><br>
+          Пусть конечное множество <span class="math-inline">A</span> содержит <span class="math-inline">m</span> элементов (<span class="math-inline">|A| = m</span>), а конечное множество <span class="math-inline">B</span> содержит <span class="math-inline">n</span> элементов (<span class="math-inline">|B| = n</span>).<br>
+          • Если <span class="math-inline">m = 0</span> (то есть <span class="math-inline">A = ∅</span>) или <span class="math-inline">n = 0</span> (то есть <span class="math-inline">B = ∅</span>), то нельзя составить ни одной упорядоченной пары <span class="math-inline">⟨ a, b ⟩</span>, так как в пустом множестве нет элементов. Значит, <span class="math-inline">A  ×  B = ∅</span>, и <span class="math-inline">|A  ×  B| = 0 = m  ·  n = |A|  ·  |B|</span>.<br>
           • Пусть <span class="math-inline">m  ≥  1,   n  ≥  1</span> и <span class="math-inline">A = {a<sub>1</sub>, a<sub>2</sub>, …, a<sub>m</sub>}</span>, <span class="math-inline">B = {b<sub>1</sub>, b<sub>2</sub>, …, b<sub>n</sub>}</span>. Выпишем все упорядоченные пары из <span class="math-inline">A  ×  B</span> в виде прямоугольной таблицы («зрительного зала»), где <span class="math-inline">i</span>-я строка содержит все пары с первым элементом <span class="math-inline">a<sub>i</sub></span>:
-          <div class="math-display"><span style="font-family:Inter,sans-serif;font-style:normal;">Ряд 1 (с </span> a<sub>1</sub><span style="font-family:Inter,sans-serif;font-style:normal;">):</span>      ⟨ a<sub>1</sub>, b<sub>1</sub> ⟩,   ⟨ a<sub>1</sub>, b<sub>2</sub> ⟩,   …,   ⟨ a<sub>1</sub>, b<sub>n</sub> ⟩      (<span style="font-family:Inter,sans-serif;font-style:normal;">ровно </span> n <span style="font-family:Inter,sans-serif;font-style:normal;"> пар</span>);</div>
+          </p><div class="math-display"><span style="font-family:Inter,sans-serif;font-style:normal;">Ряд 1 (с </span> a<sub>1</sub><span style="font-family:Inter,sans-serif;font-style:normal;">):</span>      ⟨ a<sub>1</sub>, b<sub>1</sub> ⟩,   ⟨ a<sub>1</sub>, b<sub>2</sub> ⟩,   …,   ⟨ a<sub>1</sub>, b<sub>n</sub> ⟩      (<span style="font-family:Inter,sans-serif;font-style:normal;">ровно </span> n <span style="font-family:Inter,sans-serif;font-style:normal;"> пар</span>);</div>
 <div class="math-display"><span style="font-family:Inter,sans-serif;font-style:normal;">Ряд 2 (с </span> a<sub>2</sub><span style="font-family:Inter,sans-serif;font-style:normal;">):</span>      ⟨ a<sub>2</sub>, b<sub>1</sub> ⟩,   ⟨ a<sub>2</sub>, b<sub>2</sub> ⟩,   …,   ⟨ a<sub>2</sub>, b<sub>n</sub> ⟩      (<span style="font-family:Inter,sans-serif;font-style:normal;">ровно </span> n <span style="font-family:Inter,sans-serif;font-style:normal;"> пар</span>);</div>
 <div class="math-display">…………………………………………</div>
 <div class="math-display"><span style="font-family:Inter,sans-serif;font-style:normal;">Ряд </span> m <span style="font-family:Inter,sans-serif;font-style:normal;"> (с </span> a<sub>m</sub><span style="font-family:Inter,sans-serif;font-style:normal;">):</span>      ⟨ a<sub>m</sub>, b<sub>1</sub> ⟩,   ⟨ a<sub>m</sub>, b<sub>2</sub> ⟩,   …,   ⟨ a<sub>m</sub>, b<sub>n</sub> ⟩      (<span style="font-family:Inter,sans-serif;font-style:normal;">ровно </span> n <span style="font-family:Inter,sans-serif;font-style:normal;"> пар</span>).</div>
           Все выписанные пары попарно различны (пары из разных строк отличаются первой координатой <span class="math-inline">a<sub>i</sub></span>, а пары внутри одной строки отличаются второй координатой <span class="math-inline">b<sub>j</sub></span>), и любая пара <span class="math-inline">⟨ a<sub>i</sub>, b<sub>j</sub> ⟩  ∈  A  ×  B</span> присутствует в этой таблице. Так как в таблице <span class="math-inline">m</span> строк и в каждой строке ровно <span class="math-inline">n</span> пар, общее число пар равно:
           <div class="math-display">|A  ×  B| = n + n + … + n<sub>[m <span style="font-family:Inter,sans-serif;font-style:normal;"> раз</span>]</sub> = m  ·  n = |A|  ·  |B|.</div>
-</p>
+
 <p>
-<em>Способ 2 (Строгое доказательство методом математической индукции по <span class="math-inline">m = |A|</span>):</em><br/>
-          Зафиксируем конечное множество <span class="math-inline">B</span> мощности <span class="math-inline">|B| = n</span> и проведём индукцию по числу элементов <span class="math-inline">m = |A|  ≥  0</span>:<br/>
-          — <em>База (<span class="math-inline">m = 0</span>):</em> <span class="math-inline">A = ∅  ⟹  ∅  ×  B = ∅  ⟹  |∅  ×  B| = 0 = 0  ·  |B|</span>.<br/>
+<em>Способ 2 (Строгое доказательство методом математической индукции по <span class="math-inline">m = |A|</span>):</em><br>
+          Зафиксируем конечное множество <span class="math-inline">B</span> мощности <span class="math-inline">|B| = n</span> и проведём индукцию по числу элементов <span class="math-inline">m = |A|  ≥  0</span>:<br>
+          — <em>База (<span class="math-inline">m = 0</span>):</em> <span class="math-inline">A = ∅  ⟹  ∅  ×  B = ∅  ⟹  |∅  ×  B| = 0 = 0  ·  |B|</span>.<br>
           — <em>Шаг индукции (<span class="math-inline">m - 1  →  m</span>):</em> Пусть для любого множества мощности <span class="math-inline">m - 1</span> формула верна. Возьмём множество <span class="math-inline">A</span> мощности <span class="math-inline">m  ≥  1</span>, выделим в нём один элемент <span class="math-inline">a  ∈  A</span> и положим <span class="math-inline">A' = A  ∖  {a}</span> (<span class="math-inline">|A'| = m - 1</span>). Тогда <span class="math-inline">A = A'  ∪  {a}</span>, и все пары из <span class="math-inline">A  ×  B</span> делятся на две непересекающиеся части: пары с первой координатой из <span class="math-inline">A'</span> (образующие множество <span class="math-inline">A'  ×  B</span>, в котором по предположению индукции <span class="math-inline">(m - 1)  ·  |B|</span> пар) и пары с первой координатой <span class="math-inline">a</span> (образующие множество <span class="math-inline">{a}  ×  B = {⟨ a, b<sub>1</sub> ⟩, …, ⟨ a, b<sub>n</sub> ⟩}</span>, в котором ровно <span class="math-inline">|B|</span> пар). Складывая, получаем:
-          <div class="math-display">|A  ×  B| = |A'  ×  B| + |{a}  ×  B| = (m - 1)  ·  |B| + |B| = m  ·  |B| = |A|  ·  |B|.</div>
-</p>
-<hr style="border:none; border-top:1px dashed var(--border-proof); margin: 14px 0;"/>
+          </p><div class="math-display">|A  ×  B| = |A'  ×  B| + |{a}  ×  B| = (m - 1)  ·  |B| + |B| = m  ·  |B| = |A|  ·  |B|.</div>
+
+<hr style="border:none; border-top:1px dashed var(--border-proof); margin: 14px 0;">
 <p style="margin-bottom:0;"><strong>2. Доказательство второго утверждения: <span class="math-inline">|A<sup>k</sup>| = |A|<sup>k</sup></span> методом математической индукции по <span class="math-inline">k  ∈  ℕ</span> (Слайд 5)</strong></p>
 <ol>
 <li>
-<strong>База индукции (<span class="math-inline">k = 1</span> и <span class="math-inline">k = 2</span>):</strong><br/>
-            При <span class="math-inline">k = 1</span> имеем <span class="math-inline">A<sup>1</sup> = A</span>, поэтому <span class="math-inline">|A<sup>1</sup>| = |A| = |A|<sup>1</sup></span>.<br/>
+<strong>База индукции (<span class="math-inline">k = 1</span> и <span class="math-inline">k = 2</span>):</strong><br>
+            При <span class="math-inline">k = 1</span> имеем <span class="math-inline">A<sup>1</sup> = A</span>, поэтому <span class="math-inline">|A<sup>1</sup>| = |A| = |A|<sup>1</sup></span>.<br>
             При <span class="math-inline">k = 2</span> по определению декартова квадрата <span class="math-inline">A<sup>2</sup> = A  ×  A</span>. Применяя доказанный пункт 1 (при <span class="math-inline">B = A</span>), получаем:
             <div class="math-display">|A<sup>2</sup>| = |A  ×  A| = |A|  ·  |A| = |A|<sup>2</sup>.</div>
 </li>
 <li>
-<strong>Индукционное предположение (<span class="math-inline">k = m</span>):</strong><br/>
+<strong>Индукционное предположение (<span class="math-inline">k = m</span>):</strong><br>
             Предположим, что при <span class="math-inline">k = m</span> (<span class="math-inline">m  ≥  1</span>) формула верна, то есть число упорядоченных наборов <span class="math-inline">⟨ a<sub>1</sub>, a<sub>2</sub>, …, a<sub>m</sub> ⟩</span> длины <span class="math-inline">m</span> в множестве <span class="math-inline">A<sup>m</sup></span> равно
             <div class="math-display">|A<sup>m</sup>| = |A|<sup>m</sup>.</div>
 </li>
 <li>
-<strong>Индукционный шаг (<span class="math-inline">k = m + 1</span>):</strong><br/>
+<strong>Индукционный шаг (<span class="math-inline">k = m + 1</span>):</strong><br>
             Рассмотрим декартову степень <span class="math-inline">A<sup>m+1</sup> = A  ×  A  ×  …  ×  A<sub>[m <span style="font-family:Inter,sans-serif;font-style:normal;"> раз</span>]</sub>  ×  A = A<sup>m</sup>  ×  A</span>. Каждый упорядоченный набор <span class="math-inline">⟨ a<sub>1</sub>, a<sub>2</sub>, …, a<sub>m</sub>, a<sub>m+1</sub> ⟩</span> длины <span class="math-inline">m + 1</span> из <span class="math-inline">A<sup>m+1</sup></span> получается приписыванием к некоторому набору <span class="math-inline">⟨ a<sub>1</sub>, …, a<sub>m</sub> ⟩  ∈  A<sup>m</sup></span> одного элемента <span class="math-inline">a<sub>m+1</sub>  ∈  A</span> (то есть представляет собой упорядоченную пару из элемента множества <span class="math-inline">A<sup>m</sup></span> и элемента множества <span class="math-inline">A</span>). Применяя доказанную формулу пункта 1 к декартову произведению множеств <span class="math-inline">(A<sup>m</sup>)</span> и <span class="math-inline">A</span> и затем подставляя индукционное предположение <span class="math-inline">|A<sup>m</sup>| = |A|<sup>m</sup></span>, находим:
             <div class="math-display">|A<sup>m+1</sup>| = |A<sup>m</sup>  ×  A|  =<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">п. 1</span></sup>  |A<sup>m</sup>|  ·  |A|  =<sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">ИП</span></sup>  |A|<sup>m</sup>  ·  |A| = |A|<sup>m+1</sup>.</div>
 </li>
@@ -1334,18 +1386,18 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 
 <div class="worked-example" id="ex-1"><div class="block-label">Пример 1</div><h3 data-toc="Упражнение · Лекция 2, Слайд 5…" id="sub-8-1">Упражнение · Лекция 2, Слайд 5 (+ В.Е. Алексеев, п. 1.5, стр. 11–12)Условие задачи и правило геометрического построения декартова произведения</h3><div>
 <p>
-<strong>Текст задания со слайда 5:</strong><br/>
-<em>«В следующих примерах множества <span class="math-inline">A</span> и <span class="math-inline">B</span> — точечные множества, описанные в геометрических терминах. Опишите в геометрических терминах множество <span class="math-inline">A  ×  B</span>.<br/>
-          Пример: "отрезок" <span class="math-inline"> × </span> "точка" <span class="math-inline">=</span> "отрезок".<br/>
-          Задания:<br/>
-          1) "точка" <span class="math-inline"> × </span> "точка" <span class="math-inline">=</span> ?<br/>
-          2) "отрезок" <span class="math-inline"> × </span> "отрезок" <span class="math-inline">=</span> ?<br/>
-          3) "окружность" <span class="math-inline"> × </span> "отрезок" <span class="math-inline">=</span> ?<br/>
-          4) "квадрат" <span class="math-inline"> × </span> "отрезок" <span class="math-inline">=</span> ?<br/>
+<strong>Текст задания со слайда 5:</strong><br>
+<em>«В следующих примерах множества <span class="math-inline">A</span> и <span class="math-inline">B</span> — точечные множества, описанные в геометрических терминах. Опишите в геометрических терминах множество <span class="math-inline">A  ×  B</span>.<br>
+          Пример: "отрезок" <span class="math-inline"> × </span> "точка" <span class="math-inline">=</span> "отрезок".<br>
+          Задания:<br>
+          1) "точка" <span class="math-inline"> × </span> "точка" <span class="math-inline">=</span> ?<br>
+          2) "отрезок" <span class="math-inline"> × </span> "отрезок" <span class="math-inline">=</span> ?<br>
+          3) "окружность" <span class="math-inline"> × </span> "отрезок" <span class="math-inline">=</span> ?<br>
+          4) "квадрат" <span class="math-inline"> × </span> "отрезок" <span class="math-inline">=</span> ?<br>
           5) "окружность" <span class="math-inline"> × </span> "окружность" <span class="math-inline">=</span> ?»</em>
 </p>
 <p style="margin-bottom:0;">
-<strong>Как наглядно получить фигуру <span class="math-inline">A  ×  B</span>?</strong><br/>
+<strong>Как наглядно получить фигуру <span class="math-inline">A  ×  B</span>?</strong><br>
           Представьте, что первая фигура <span class="math-inline">A</span> лежит в горизонтальной плоскости, а вторая фигура <span class="math-inline">B</span> задаёт направление движения (например, по вертикали или вдоль контура). Если через <strong>каждую точку первой фигуры <span class="math-inline">A</span></strong> провести копию второй фигуры <span class="math-inline">B</span> в перпендикулярном направлении, то все полученные точки вместе образуют геометрическое тело или поверхность <span class="math-inline">A  ×  B</span>!
         </p>
 </div></div>
@@ -1364,33 +1416,33 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Точные геометрические ответы и координатное обоснование каждого случая)</div>
 <ol>
 <li>
-<strong>Разбор примера со слайда: <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«отрезок»</span>  ×  <span style="font-family:Inter,sans-serif;font-style:normal;">«точка»</span> = <span style="font-family:Inter,sans-serif;font-style:normal;">«отрезок»</span></span>.</strong><br/>
+<strong>Разбор примера со слайда: <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«отрезок»</span>  ×  <span style="font-family:Inter,sans-serif;font-style:normal;">«точка»</span> = <span style="font-family:Inter,sans-serif;font-style:normal;">«отрезок»</span></span>.</strong><br>
             Пусть на оси <span class="math-inline">Ox</span> задан отрезок <span class="math-inline">A = [a, b]</span> (все числа <span class="math-inline">x</span>, где <span class="math-inline">a  ≤  x  ≤  b</span>), а на оси <span class="math-inline">Oy</span> — одна фиксированная точка <span class="math-inline">B = {y<sub>0</sub>}</span>. Тогда декартово произведение
             <div class="math-display">A  ×  B = {⟨ x, y<sub>0</sub> ⟩  |  a  ≤  x  ≤  b}</div>
             состоит из всех точек плоскости с первой координатой <span class="math-inline">x  ∈  [a, b]</span> и постоянной второй координатой <span class="math-inline">y = y<sub>0</sub></span>. На координатной плоскости это горизонтальный <strong>отрезок</strong> той же длины <span class="math-inline">b - a</span>, поднятый на высоту <span class="math-inline">y<sub>0</sub></span>.
           </li>
 <li>
-<strong>Задание 1: <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«точка»</span>  ×  <span style="font-family:Inter,sans-serif;font-style:normal;">«точка»</span> = <span style="font-family:Inter,sans-serif;font-style:normal;">«точка»</span></span>.</strong><br/>
+<strong>Задание 1: <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«точка»</span>  ×  <span style="font-family:Inter,sans-serif;font-style:normal;">«точка»</span> = <span style="font-family:Inter,sans-serif;font-style:normal;">«точка»</span></span>.</strong><br>
             Пусть <span class="math-inline">A = {x<sub>0</sub>}</span> — одна точка на первой оси (<span class="math-inline">|A| = 1</span>), а <span class="math-inline">B = {y<sub>0</sub>}</span> — одна точка на второй оси (<span class="math-inline">|B| = 1</span>). По Теореме 24 в множестве <span class="math-inline">A  ×  B</span> содержится ровно <span class="math-inline">|A|  ·  |B| = 1  ·  1 = 1</span> элемент — упорядоченная пара <span class="math-inline">⟨ x<sub>0</sub>, y<sub>0</sub> ⟩</span>. Геометрически на координатной плоскости одна пара координат <span class="math-inline">⟨ x<sub>0</sub>, y<sub>0</sub> ⟩</span> задаёт ровно одну <strong>точку</strong>.
           </li>
 <li>
-<strong>Задание 2: <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«отрезок»</span>  ×  <span style="font-family:Inter,sans-serif;font-style:normal;">«отрезок»</span> = <span style="font-family:Inter,sans-serif;font-style:normal;">«прямоугольник»</span></span> (а если отрезки равной длины — <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«квадрат»</span></span>).</strong><br/>
+<strong>Задание 2: <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«отрезок»</span>  ×  <span style="font-family:Inter,sans-serif;font-style:normal;">«отрезок»</span> = <span style="font-family:Inter,sans-serif;font-style:normal;">«прямоугольник»</span></span> (а если отрезки равной длины — <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«квадрат»</span></span>).</strong><br>
             Пусть на оси <span class="math-inline">Ox</span> взят отрезок <span class="math-inline">A = [a, b]</span>, а на оси <span class="math-inline">Oy</span> — отрезок <span class="math-inline">B = [c, d]</span>. Тогда множество
             <div class="math-display">A  ×  B = [a, b]  ×  [c, d] = {⟨ x, y ⟩  |  a  ≤  x  ≤  b <span style="font-family:Inter,sans-serif;font-style:normal;"> и </span> c  ≤  y  ≤  d}</div>
             состоит из всех точек плоскости, абсissa которых пробегает отрезок <span class="math-inline">[a, b]</span>, а ордината независимо пробегает отрезок <span class="math-inline">[c, d]</span>. Геометрически это сплошной <strong>прямоугольник</strong> со сторонами <span class="math-inline">b - a</span> и <span class="math-inline">d - c</span>. В частности, как отмечено в учебнике В.Е. Алексеева (стр. 11), декартов квадрат единичного отрезка <span class="math-inline">[0, 1]  ×  [0, 1] = [0, 1]<sup>2</sup></span> геометрически представляет собой <strong>квадрат</strong>.
           </li>
 <li>
-<strong>Задание 3: <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«окружность»</span>  ×  <span style="font-family:Inter,sans-serif;font-style:normal;">«отрезок»</span> = <span style="font-family:Inter,sans-serif;font-style:normal;">«боковая поверхность прямого кругового цилиндра»</span></span> (или просто <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«полый цилиндр / труба»</span></span>).</strong><br/>
+<strong>Задание 3: <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«окружность»</span>  ×  <span style="font-family:Inter,sans-serif;font-style:normal;">«отрезок»</span> = <span style="font-family:Inter,sans-serif;font-style:normal;">«боковая поверхность прямого кругового цилиндра»</span></span> (или просто <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«полый цилиндр / труба»</span></span>).</strong><br>
             Расположим окружность <span class="math-inline">A</span> горизонтально в плоскости <span class="math-inline">Oxy</span>, а отрезок <span class="math-inline">B = [0, h]</span> направим вертикально вдоль оси <span class="math-inline">Oz</span>. Каждая точка из <span class="math-inline">A  ×  B</span> задаётся выбором точки на окружности <span class="math-inline">A</span> и высоты <span class="math-inline">z  ∈  [0, h]</span>. Если из каждой точки горизонтальной окружности <span class="math-inline">A</span> поднять вертикальный отрезок высоты <span class="math-inline">h</span>, мы получим <strong>боковую поверхность прямого кругового цилиндра</strong> высоты <span class="math-inline">h</span> (без верхнего и нижнего донышек, так как умножается именно <em>окружность</em> — линия, а не заполненный <em>круг</em>; если же умножить <em>круг</em> на <em>отрезок</em>, получится сплошной заполненный цилиндр).
           </li>
 <li>
-<strong>Задание 4: <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«квадрат»</span>  ×  <span style="font-family:Inter,sans-serif;font-style:normal;">«отрезок»</span> = <span style="font-family:Inter,sans-serif;font-style:normal;">«прямая четырёхугольная призма (прямоугольный параллелепипед)»</span></span> (а если длина отрезка равна стороне квадрата — <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«куб»</span></span>).</strong><br/>
-            Здесь возможны два понимания слова «квадрат» в геометрии (на устном ответе лучше назвать оба!):<br/>
-            • <em>Случай А (квадрат как заполненная плоская фигура <span class="math-inline">[0, a]  ×  [0, a]</span>):</em> Если расположить заполненный квадрат со стороной <span class="math-inline">a</span> горизонтально в основании и каждую его точку поднять вертикально вдоль отрезка <span class="math-inline">[0, h]</span>, получится сплошной <strong>прямоугольный параллелепипед (правильная четырёхугольная призма)</strong> с квадратным основанием <span class="math-inline">a  ×  a</span> и высотой <span class="math-inline">h</span>. Если же длина отрезка равна стороне квадрата (<span class="math-inline">h = a</span>), то, как указано в пособии В.Е. Алексеева (стр. 12), множество <span class="math-inline">[0, a]<sup>2</sup>  ×  [0, a] = [0, a]<sup>3</sup></span> представляет собой сплошной трёхмерный <strong>куб</strong>!<br/>
+<strong>Задание 4: <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«квадрат»</span>  ×  <span style="font-family:Inter,sans-serif;font-style:normal;">«отрезок»</span> = <span style="font-family:Inter,sans-serif;font-style:normal;">«прямая четырёхугольная призма (прямоугольный параллелепипед)»</span></span> (а если длина отрезка равна стороне квадрата — <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«куб»</span></span>).</strong><br>
+            Здесь возможны два понимания слова «квадрат» в геометрии (на устном ответе лучше назвать оба!):<br>
+            • <em>Случай А (квадрат как заполненная плоская фигура <span class="math-inline">[0, a]  ×  [0, a]</span>):</em> Если расположить заполненный квадрат со стороной <span class="math-inline">a</span> горизонтально в основании и каждую его точку поднять вертикально вдоль отрезка <span class="math-inline">[0, h]</span>, получится сплошной <strong>прямоугольный параллелепипед (правильная четырёхугольная призма)</strong> с квадратным основанием <span class="math-inline">a  ×  a</span> и высотой <span class="math-inline">h</span>. Если же длина отрезка равна стороне квадрата (<span class="math-inline">h = a</span>), то, как указано в пособии В.Е. Алексеева (стр. 12), множество <span class="math-inline">[0, a]<sup>2</sup>  ×  [0, a] = [0, a]<sup>3</sup></span> представляет собой сплошной трёхмерный <strong>куб</strong>!<br>
             • <em>Случай Б (квадрат только как замкнутая рамка-контур из 4 сторон):</em> Тогда при вертикальном движении вдоль отрезка <span class="math-inline">[0, h]</span> эти 4 стороны заметают 4 прямоугольные грани — получается <strong>боковая поверхность прямой четырёхугольной призмы</strong> (коробка без дна и крышки).
           </li>
 <li>
-<strong>Задание 5: <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«окружность»</span>  ×  <span style="font-family:Inter,sans-serif;font-style:normal;">«окружность»</span> = <span style="font-family:Inter,sans-serif;font-style:normal;">«тор (поверхность бублика / спасательного круга)»</span></span>.</strong><br/>
+<strong>Задание 5: <span class="math-inline"><span style="font-family:Inter,sans-serif;font-style:normal;">«окружность»</span>  ×  <span style="font-family:Inter,sans-serif;font-style:normal;">«окружность»</span> = <span style="font-family:Inter,sans-serif;font-style:normal;">«тор (поверхность бублика / спасательного круга)»</span></span>.</strong><br>
             Пусть первая окружность <span class="math-inline">A</span> (большого радиуса <span class="math-inline">R</span>) лежит горизонтально. Возьмём вторую окружность <span class="math-inline">B</span> (меньшего радиуса <span class="math-inline">r &lt; R</span>), поставим её вертикально (перпендикулярно первой окружности) так, чтобы её центр лежал на первой окружности <span class="math-inline">A</span>, и проведём эту малую окружность по всему кругу вдоль большой окружности <span class="math-inline">A</span>. При таком вращении малая окружность вычертит в пространстве замкнутую трубчатую поверхность, которая в геометрии называется <strong>тором</strong> (поверхность бублика или автомобильной камеры). Положение любой точки на поверхности тора однозначно задаётся упорядоченной парой <span class="math-inline">⟨ a, b ⟩</span>, где <span class="math-inline">a  ∈  A</span> указывает место вдоль большого круга, а <span class="math-inline">b  ∈  B</span> — точку на малом поперечном сечении!
           </li>
 </ol>
@@ -1398,7 +1450,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 </div>
 <div class="svg-grid-3">
-<div class="svg-card"><svg aria-label="Отрезок на точку равно отрезок" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="8">
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 284px"><svg aria-label="Отрезок на точку равно отрезок" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="8">
 <rect class="venn-u-box" height="142" rx="6" width="228" x="16" y="18"></rect>
 <line class="venn-u-stroke" x1="44" x2="220" y1="132" y2="132"></line>
 <line class="venn-u-stroke" x1="44" x2="44" y1="132" y2="32"></line>
@@ -1417,8 +1469,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" text-anchor="middle" x="132" y="68">[a, b] × {y₀}</text>
 <text class="svg-title" text-anchor="middle" x="130" y="178">Пример: «отрезок» × «точка»</text>
 <text class="svg-sub" text-anchor="middle" x="130" y="194">Отрезок на высоте y₀</text>
-</svg></div>
-<div class="svg-card"><svg aria-label="Точка на точку равно точка" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="9">
+</svg></div></div>
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 284px"><svg aria-label="Точка на точку равно точка" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="9">
 <rect class="venn-u-box" height="142" rx="6" width="228" x="16" y="18"></rect>
 <line class="venn-u-stroke" x1="44" x2="220" y1="132" y2="132"></line>
 <line class="venn-u-stroke" x1="44" x2="44" y1="132" y2="32"></line>
@@ -1432,8 +1484,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" x="144" y="74">⟨x₀, y₀⟩</text>
 <text class="svg-title" text-anchor="middle" x="130" y="178">1) «точка» × «точка» = «точка»</text>
 <text class="svg-sub" text-anchor="middle" x="130" y="194">Точка ⟨x₀, y₀⟩</text>
-</svg></div>
-<div class="svg-card"><svg aria-label="Отрезок на отрезок равно прямоугольник" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="10">
+</svg></div></div>
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 284px"><svg aria-label="Отрезок на отрезок равно прямоугольник" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="10">
 <rect class="venn-u-box" height="142" rx="6" width="228" x="16" y="18"></rect>
 <line class="venn-u-stroke" x1="44" x2="220" y1="132" y2="132"></line>
 <line class="venn-u-stroke" x1="44" x2="44" y1="132" y2="32"></line>
@@ -1448,8 +1500,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" text-anchor="middle" x="134" y="84">[a, b] × [c, d]</text>
 <text class="svg-title" text-anchor="middle" x="130" y="178">2) «отрезок» × «отрезок»</text>
 <text class="svg-sub" text-anchor="middle" x="130" y="194">Декартово произведение отрезков</text>
-</svg></div>
-<div class="svg-card"><svg aria-label="Окружность на отрезок равно цилиндр" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="11">
+</svg></div></div>
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 284px"><svg aria-label="Окружность на отрезок равно цилиндр" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="11">
 <rect class="venn-u-box" height="142" rx="6" width="228" x="16" y="18"></rect>
 <path class="venn-fill-1" d="M 76 54 L 76 124 A 54 18 0 0 0 184 124 L 184 54 Z"></path>
 <ellipse class="venn-u-stroke" cx="130" cy="124" fill="none" rx="54" ry="18" stroke-dasharray="4,3"></ellipse>
@@ -1461,8 +1513,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" text-anchor="middle" x="130" y="102">Цилиндр</text>
 <text class="svg-title" text-anchor="middle" x="130" y="178">3) «окружность» × «отрезок»</text>
 <text class="svg-sub" text-anchor="middle" x="130" y="194">Боковая поверхность цилиндра</text>
-</svg></div>
-<div class="svg-card"><svg aria-label="Квадрат на отрезок равно призма или куб" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="12">
+</svg></div></div>
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 284px"><svg aria-label="Квадрат на отрезок равно призма или куб" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="12">
 <rect class="venn-u-box" height="142" rx="6" width="228" x="16" y="18"></rect>
 <rect class="venn-fill-1" height="68" stroke="var(--svg-c-stroke)" stroke-width="2" width="84" x="68" y="68"></rect>
 <polygon class="venn-fill-soft" points="68,68 104,40 188,40 152,68" stroke="var(--svg-c-stroke)" stroke-width="2"></polygon>
@@ -1473,8 +1525,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" text-anchor="middle" x="110" y="106">Призма / Куб</text>
 <text class="svg-title" text-anchor="middle" x="130" y="178">4) «квадрат» × «отрезок»</text>
 <text class="svg-sub" text-anchor="middle" x="130" y="194">Прямая призма</text>
-</svg></div>
-<div class="svg-card"><svg aria-label="Окружность на окружность равно поверхность тора" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="13">
+</svg></div></div>
+<div class="svg-card"><div class="diagram-scroll" style="--diagram-min-width: 284px"><svg aria-label="Окружность на окружность равно поверхность тора" class="venn-svg" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 205" data-fam-figure="diagram" data-fam-index="13">
 <rect class="venn-u-box" height="142" rx="6" width="228" x="16" y="18"></rect>
 <path class="venn-fill-1" d="M 54 90 A 76 44 0 1 0 206 90 A 76 44 0 1 0 54 90 Z M 102 90 A 28 14 0 1 0 158 90 A 28 14 0 1 0 102 90 Z" fill-rule="evenodd"></path>
 <ellipse class="venn-c-stroke" cx="130" cy="90" fill="none" rx="76" ry="44" stroke-width="2.2"></ellipse>
@@ -1485,7 +1537,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text class="svg-reg-code" text-anchor="middle" x="130" y="149">Поверхность тора</text>
 <text class="svg-title" text-anchor="middle" x="130" y="178">5) «окружность» × «окружность»</text>
 <text class="svg-sub" text-anchor="middle" x="130" y="194">Тор (поверхность бублика)</text>
-</svg></div>
+</svg></div></div>
 </div>
 
 <!-- ======================================================================
@@ -1504,22 +1556,22 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="worked-example" id="ex-2"><div class="block-label">Пример 2</div><h3 data-toc="Практическая задача 1 · К Слай…" id="sub-9-1">Практическая задача 1 · К Слайду 3 (Определение 21)Как с помощью клеточной диаграммы Венна проверить равносильность систем условий на множества?</h3><div>
 <p>
 <strong>Задача:</strong> Пусть для трёх множеств <span class="math-inline">A<sub>1</sub>, A<sub>2</sub>, A<sub>3</sub>  ⊂  U</span> дана система из двух условий:
-          <div class="math-display">{ A<sub>1</sub>  ⊂  A<sub>2</sub>  ∪  A<sub>3</sub>,;  A<sub>1</sub>  ∩  A<sub>2</sub> = ∅. }</div>
+          </p><div class="math-display">{ A<sub>1</sub>  ⊂  A<sub>2</sub>  ∪  A<sub>3</sub>,;  A<sub>1</sub>  ∩  A<sub>2</sub> = ∅. }</div>
           Выяснить с помощью клеточной диаграммы Венна (Определение 21), какие из <span class="math-inline">8</span> типов относительно набора <span class="math-inline">S = {A<sub>1</sub>, A<sub>2</sub>, A<sub>3</sub>}</span> обязаны быть пустыми, и доказать, что из этой системы условий следует включение <span class="math-inline">A<sub>1</sub>  ⊂  A<sub>3</sub></span>.
-        </p>
+        
 <p>
-<strong>Пошаговое решение по таблице из 8 клеток (Слайд 3):</strong><br/>
+<strong>Пошаговое решение по таблице из 8 клеток (Слайд 3):</strong><br>
           Всего в таблице со слайда 3 имеется <span class="math-inline">2<sup>3</sup> = 8</span> клеток-типов, из которых ровно <span class="math-inline">4</span> клетки составляют множество <span class="math-inline">A<sub>1</sub></span> (левая половина таблицы):
-          <div class="math-display"><span style="font-family:Inter,sans-serif;font-style:normal;">Клетка 1: </span> A<sub>1</sub>  ∩  A<sub>2</sub>  ∩  A<sub>3</sub>,        <span style="font-family:Inter,sans-serif;font-style:normal;">Клетка 2: </span> A<sub>1</sub>  ∩  A<sub>2</sub>  ∩  <span class="ovl">A<sub>3</sub></span>,        <span style="font-family:Inter,sans-serif;font-style:normal;">Клетка 5: </span> A<sub>1</sub>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  A<sub>3</sub>,        <span style="font-family:Inter,sans-serif;font-style:normal;">Клетка 6: </span> A<sub>1</sub>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  <span class="ovl">A<sub>3</sub></span>.</div>
+          </p><div class="math-display"><span style="font-family:Inter,sans-serif;font-style:normal;">Клетка 1: </span> A<sub>1</sub>  ∩  A<sub>2</sub>  ∩  A<sub>3</sub>,        <span style="font-family:Inter,sans-serif;font-style:normal;">Клетка 2: </span> A<sub>1</sub>  ∩  A<sub>2</sub>  ∩  <span class="ovl">A<sub>3</sub></span>,        <span style="font-family:Inter,sans-serif;font-style:normal;">Клетка 5: </span> A<sub>1</sub>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  A<sub>3</sub>,        <span style="font-family:Inter,sans-serif;font-style:normal;">Клетка 6: </span> A<sub>1</sub>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  <span class="ovl">A<sub>3</sub></span>.</div>
           1) Переведём первое условие <span class="math-inline">A<sub>1</sub>  ⊂  A<sub>2</sub>  ∪  A<sub>3</sub></span> на язык пустых клеток по Теореме 17 (<span class="math-inline">X  ⊂  Y  ⟺  X  ∩  <span class="ovl">Y</span> = ∅</span>) и закону де Моргана (Теорема 10, п. 8):
           <div class="math-display">A<sub>1</sub>  ⊂  A<sub>2</sub>  ∪  A<sub>3</sub>  ⟺  A<sub>1</sub>  ∩  <span class="ovl">A<sub>2</sub>  ∪  A<sub>3</sub></span> = ∅  ⟺  A<sub>1</sub>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  <span class="ovl">A<sub>3</sub></span> = ∅.</div>
-          Значит, <strong>Клетка 6 (<span class="math-inline">A<sub>1</sub>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  <span class="ovl">A<sub>3</sub></span></span>) пуста</strong>!<br/>
+          Значит, <strong>Клетка 6 (<span class="math-inline">A<sub>1</sub>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  <span class="ovl">A<sub>3</sub></span></span>) пуста</strong>!<br>
           2) Второе условие <span class="math-inline">A<sub>1</sub>  ∩  A<sub>2</sub> = ∅</span> означает, что пусты обе клетки, входящие в пересечение <span class="math-inline">A<sub>1</sub>  ∩  A<sub>2</sub></span>:
           <div class="math-display">A<sub>1</sub>  ∩  A<sub>2</sub>  ∩  A<sub>3</sub> = ∅      (<span style="font-family:Inter,sans-serif;font-style:normal;">Клетка 1 пуста</span>)        <span style="font-family:Inter,sans-serif;font-style:normal;">и</span>        A<sub>1</sub>  ∩  A<sub>2</sub>  ∩  <span class="ovl">A<sub>3</sub></span> = ∅      (<span style="font-family:Inter,sans-serif;font-style:normal;">Клетка 2 пуста</span>).</div>
           3) <strong>Вывод по таблице:</strong> Из четырёх клеток, образующих множество <span class="math-inline">A<sub>1</sub></span>, три клетки (Клетки 1, 2 и 6) оказались пустыми! Следовательно, все элементы множества <span class="math-inline">A<sub>1</sub></span> могут находиться только в одной оставшейся клетке — <strong>Клетке 5 (<span class="math-inline">A<sub>1</sub>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  A<sub>3</sub></span>)</strong>:
           <div class="math-display">A<sub>1</sub> = A<sub>1</sub>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  A<sub>3</sub>.</div>
           Но любой элемент из клетки <span class="math-inline">A<sub>1</sub>  ∩  <span class="ovl">A<sub>2</sub></span>  ∩  A<sub>3</sub></span> по определению пересечения принадлежит множеству <span class="math-inline">A<sub>3</sub></span>! Следовательно, <span class="math-inline">A<sub>1</sub>  ⊂  A<sub>3</sub></span> (и более того, <span class="math-inline">A<sub>1</sub>  ⊂  A<sub>3</sub>  ∖  A<sub>2</sub></span>).
-        </p>
+        
 </div></div>
 <div class="proof" data-proof="" id="proof-5">
 <div aria-label="Доказательство Как декартово произведение взаимодействует с операциями ∪ , ∩ , ∖ ?" class="proof-controls" role="group">
@@ -1539,26 +1591,26 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </p>
 <ol>
 <li>
-<strong><span class="math-inline">A  ×  (B  ∪  C) = (A  ×  B)  ∪  (A  ×  C)</span> (дистрибутивность <span class="math-inline"> × </span> относительно <span class="math-inline"> ∪ </span>):</strong><br/>
-<em>Доказательство:</em> По Определению 22 произвольная упорядоченная пара <span class="math-inline">⟨ x, y ⟩</span> принадлежит левой части тогда и только тогда, когда <span class="math-inline">x  ∈  A</span> и <span class="math-inline">y  ∈  B  ∪  C</span>:<br/>
+<strong><span class="math-inline">A  ×  (B  ∪  C) = (A  ×  B)  ∪  (A  ×  C)</span> (дистрибутивность <span class="math-inline"> × </span> относительно <span class="math-inline"> ∪ </span>):</strong><br>
+<em>Доказательство:</em> По Определению 22 произвольная упорядоченная пара <span class="math-inline">⟨ x, y ⟩</span> принадлежит левой части тогда и только тогда, когда <span class="math-inline">x  ∈  A</span> и <span class="math-inline">y  ∈  B  ∪  C</span>:<br>
 <div class="math-display">⟨ x, y ⟩  ∈  A  ×  (B  ∪  C)   ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Опр. 22</span></sup>  (x  ∈  A)  ∧  (y  ∈  B  ∪  C)   ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Опр. 8</span></sup>  (x  ∈  A)  ∧  ((y  ∈  B)  ∨  (y  ∈  C))</div>
 <div class="math-display"> ⟺  ((x  ∈  A)  ∧  (y  ∈  B))  ∨  ((x  ∈  A)  ∧  (y  ∈  C))</div>
 <div class="math-display"> ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Опр. 22</span></sup>  (⟨ x, y ⟩  ∈  A  ×  B)  ∨  (⟨ x, y ⟩  ∈  A  ×  C)   ⟺ <sup style="font-size:0.72em;color:var(--accent-proof);"><span style="font-family:Inter,sans-serif;font-style:normal;">Опр. 8</span></sup>  ⟨ x, y ⟩  ∈  (A  ×  B)  ∪  (A  ×  C).</div>
 </li>
 <li>
-<strong><span class="math-inline">A  ×  (B  ∩  C) = (A  ×  B)  ∩  (A  ×  C)</span> (дистрибутивность <span class="math-inline"> × </span> относительно <span class="math-inline"> ∩ </span>):</strong><br/>
+<strong><span class="math-inline">A  ×  (B  ∩  C) = (A  ×  B)  ∩  (A  ×  C)</span> (дистрибутивность <span class="math-inline"> × </span> относительно <span class="math-inline"> ∩ </span>):</strong><br>
 <em>Доказательство:</em> Аналогично, для любой упорядоченной пары <span class="math-inline">⟨ x, y ⟩</span>:
             <div class="math-display">⟨ x, y ⟩  ∈  A  ×  (B  ∩  C)  ⟺  (x  ∈  A)  ∧  ((y  ∈  B)  ∧  (y  ∈  C))  ⟺  ((x  ∈  A)  ∧  (y  ∈  B))  ∧  ((x  ∈  A)  ∧  (y  ∈  C))</div>
 <div class="math-display"> ⟺  (⟨ x, y ⟩  ∈  A  ×  B)  ∧  (⟨ x, y ⟩  ∈  A  ×  C)  ⟺  ⟨ x, y ⟩  ∈  (A  ×  B)  ∩  (A  ×  C).</div>
 </li>
 <li>
-<strong><span class="math-inline">A  ×  (B  ∖  C) = (A  ×  B)  ∖  (A  ×  C)</span> (дистрибутивность <span class="math-inline"> × </span> относительно разности <span class="math-inline"> ∖ </span>):</strong><br/>
-<em>Доказательство методом двух включений:</em><br/>
-            • Пусть <span class="math-inline">⟨ x, y ⟩  ∈  A  ×  (B  ∖  C)</span>. Тогда <span class="math-inline">x  ∈  A</span> и <span class="math-inline">y  ∈  B  ∖  C</span> (то есть <span class="math-inline">y  ∈  B</span> и <span class="math-inline">y  ∉  C</span>). Так как <span class="math-inline">x  ∈  A</span> и <span class="math-inline">y  ∈  B</span>, имеем <span class="math-inline">⟨ x, y ⟩  ∈  A  ×  B</span>. А так как <span class="math-inline">y  ∉  C</span>, пара <span class="math-inline">⟨ x, y ⟩</span> не может принадлежать <span class="math-inline">A  ×  C</span> (<span class="math-inline">⟨ x, y ⟩  ∉  A  ×  C</span>). Значит, <span class="math-inline">⟨ x, y ⟩  ∈  (A  ×  B)  ∖  (A  ×  C)</span>.<br/>
+<strong><span class="math-inline">A  ×  (B  ∖  C) = (A  ×  B)  ∖  (A  ×  C)</span> (дистрибутивность <span class="math-inline"> × </span> относительно разности <span class="math-inline"> ∖ </span>):</strong><br>
+<em>Доказательство методом двух включений:</em><br>
+            • Пусть <span class="math-inline">⟨ x, y ⟩  ∈  A  ×  (B  ∖  C)</span>. Тогда <span class="math-inline">x  ∈  A</span> и <span class="math-inline">y  ∈  B  ∖  C</span> (то есть <span class="math-inline">y  ∈  B</span> и <span class="math-inline">y  ∉  C</span>). Так как <span class="math-inline">x  ∈  A</span> и <span class="math-inline">y  ∈  B</span>, имеем <span class="math-inline">⟨ x, y ⟩  ∈  A  ×  B</span>. А так как <span class="math-inline">y  ∉  C</span>, пара <span class="math-inline">⟨ x, y ⟩</span> не может принадлежать <span class="math-inline">A  ×  C</span> (<span class="math-inline">⟨ x, y ⟩  ∉  A  ×  C</span>). Значит, <span class="math-inline">⟨ x, y ⟩  ∈  (A  ×  B)  ∖  (A  ×  C)</span>.<br>
             • Обратно, пусть <span class="math-inline">⟨ x, y ⟩  ∈  (A  ×  B)  ∖  (A  ×  C)</span>. Тогда <span class="math-inline">⟨ x, y ⟩  ∈  A  ×  B</span> (откуда <span class="math-inline">x  ∈  A</span> и <span class="math-inline">y  ∈  B</span>) и при этом <span class="math-inline">⟨ x, y ⟩  ∉  A  ×  C</span>. Поскольку условие <span class="math-inline">x  ∈  A</span> уже выполнено, невыполнение <span class="math-inline">⟨ x, y ⟩  ∈  A  ×  C</span> означает, что обязательно <span class="math-inline">y  ∉  C</span>. Из <span class="math-inline">y  ∈  B</span> и <span class="math-inline">y  ∉  C</span> следует <span class="math-inline">y  ∈  B  ∖  C</span>, а вместе с <span class="math-inline">x  ∈  A</span> это даёт <span class="math-inline">⟨ x, y ⟩  ∈  A  ×  (B  ∖  C)</span>.
           </li>
 <li>
-<strong><span class="math-inline">(A  ×  B)  ∩  (C  ×  D) = (A  ∩  C)  ×  (B  ∩  D)</span> (пересечение двух декартовых произведений):</strong><br/>
+<strong><span class="math-inline">(A  ×  B)  ∩  (C  ×  D) = (A  ∩  C)  ×  (B  ∩  D)</span> (пересечение двух декартовых произведений):</strong><br>
 <em>Доказательство:</em> Упорядоченная пара <span class="math-inline">⟨ x, y ⟩</span> принадлежит <span class="math-inline">(A  ×  B)  ∩  (C  ×  D)</span> тогда и только тогда, когда одновременно <span class="math-inline">⟨ x, y ⟩  ∈  A  ×  B</span> (то есть <span class="math-inline">x  ∈  A</span> и <span class="math-inline">y  ∈  B</span>) и <span class="math-inline">⟨ x, y ⟩  ∈  C  ×  D</span> (то есть <span class="math-inline">x  ∈  C</span> и <span class="math-inline">y  ∈  D</span>). Перегруппировывая условия для первой координаты <span class="math-inline">x</span> и для второй координаты <span class="math-inline">y</span>, получаем:
             <div class="math-display">(x  ∈  A <span style="font-family:Inter,sans-serif;font-style:normal;"> и </span> x  ∈  C)      <span style="font-family:Inter,sans-serif;font-style:normal;">и</span>      (y  ∈  B <span style="font-family:Inter,sans-serif;font-style:normal;"> и </span> y  ∈  D)  ⟺  (x  ∈  A  ∩  C)  <span style="font-family:Inter,sans-serif;font-style:normal;"> и </span>  (y  ∈  B  ∩  D)  ⟺  ⟨ x, y ⟩  ∈  (A  ∩  C)  ×  (B  ∩  D).      ∎</div>
 </li>
@@ -1569,7 +1621,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 
 
 </section>
-<!-- FAM:CONTENT-END -->
+</div></section><!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>
     </main>
   </div>

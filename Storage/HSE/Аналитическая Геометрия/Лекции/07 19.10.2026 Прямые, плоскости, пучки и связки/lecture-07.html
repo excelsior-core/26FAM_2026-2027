@@ -702,12 +702,11 @@ SOFTWARE.
       <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
     </aside>
     <main id="content">
-      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-<header class="lecture-head" id="top">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. --><header class="lecture-head" id="top">
 <div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>Лекция 7 · 19 октября 2026</span></div>
 <h1>Прямые, плоскости, пучки и связки</h1>
 <p class="subtitle">Как определить взаимное расположение, найти расстояние между скрещивающимися прямыми и задать семейство плоскостей.</p>
-<p>По материалам лекции Г. М. Полотовского</p></header>
+</header>
       <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
       <div class="proof-toolbar" aria-label="Все доказательства">
         <span class="toolbar-label">Доказательства</span>
@@ -807,7 +806,7 @@ SOFTWARE.
 <h3 id="coordinate-distance" data-toc="Расстояние в координатах">Как вычислять расстояние по координатам</h3>
 <p>Пусть $a_1=(a,b,c)$, $a_2=(m,n,p)$ и $w=(w_x,w_y,w_z)=M_2-M_1$. Сначала вычисляем нормаль $N=(bp-cn,cm-ap,an-bm)$, затем берём модуль $N\cdot w$ и делим на длину $N$.</p>
 <div class="equation">\[\begin{aligned}
-d&=\frac{\left|\det\begin{pmatrix}a&b&c\\m&n&p\\w_x&w_y&w_z\end{pmatrix}\right|}{\sqrt{(bp-cn)^2+(cm-ap)^2+(an-bm)^2}}.
+d&amp;=\frac{\left|\det\begin{pmatrix}a&amp;b&amp;c\\m&amp;n&amp;p\\w_x&amp;w_y&amp;w_z\end{pmatrix}\right|}{\sqrt{(bp-cn)^2+(cm-ap)^2+(an-bm)^2}}.
 \end{aligned}\]</div>
 <p>Если поменять точки местами в $w$ или переставить первые две строки определителя, числитель поменяет знак до взятия модуля. Расстояние останется тем же. При параллельных направлениях знаменатель равен нулю. Для таких прямых расстояние находят от любой точки одной прямой до другой, используя задачу 3.</p>
 <div class="worked-example"><h3>Задача 4 с числами</h3><p>Для $L_1=(t,0,0)$ и $L_2=(1+s,2+s,2)$ имеем $N=(0,0,1)$ и $w=(1,2,2)$. Поэтому $d=|2|/1=2$. Те же $2$ получаются из расстояния от начала координат до $z=2$. Чтобы увидеть, где именно достигается минимум, выберем $s=-2$ и $t=-1$. Получаем $N_1=(-1,0,0)$, $N_2=(-1,0,2)$ и вертикальный отрезок длины $2$.</p></div>

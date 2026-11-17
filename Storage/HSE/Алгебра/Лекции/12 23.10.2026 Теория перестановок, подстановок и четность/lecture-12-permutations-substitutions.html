@@ -660,6 +660,62 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -679,8 +735,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
       <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
     </aside>
     <main id="content">
-      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-      <header class="lecture-head" id="top">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. --><header class="lecture-head" id="top">
         <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
         <h1>Теория перестановок и подстановок: чётность, симметрическая группа и циклическая структура</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
@@ -721,7 +776,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         =============================================================================
       -->
 <article class="content-area" id="lectureContent">
-</section>
+</article></section>
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Комбинаторная теория перестано…</div>
   <h2 id="chapter-2" data-toc="Комбинаторная теория перестано…">1. Комбинаторная теория перестановок и закон сохранения чётности</h2>
@@ -731,7 +786,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </p>
 <h3 data-toc="1. Базовые объекты: кортежи, б…" id="sub-2-1">1.1. Базовые объекты: кортежи, беспорядки (инверсии) и функция знака</h3>
 <div class="statement definition" id="def-1"><div class="block-label">Определение 12.1</div><h3 data-toc="Перестановка n символов" id="sub-2-2">Перестановка $n$ символов</h3><div>
-            Пусть задано базовое конечное множество первых $n$ натуральных чисел $M_n = \{1, 2, \dots, n\}$, наделённое естественным линейным порядком $1 < 2 < \dots < n$. <strong>Перестановкой</strong> (или расположением) степени $n$ называется любая упорядоченная последовательность (кортеж) длины $n$:
+            Пусть задано базовое конечное множество первых $n$ натуральных чисел $M_n = \{1, 2, \dots, n\}$, наделённое естественным линейным порядком $1 &lt; 2 &lt; \dots &lt; n$. <strong>Перестановкой</strong> (или расположением) степени $n$ называется любая упорядоченная последовательность (кортеж) длины $n$:
             \[\alpha = (\alpha_1, \alpha_2, \dots, \alpha_n),\]
             содержащая каждый элемент множества $M_n$ ровно один раз. Общее число всевозможных различных перестановок степени $n$ равно факториалу:
             \[N(n) = n! = 1 \cdot 2 \cdot 3 \cdots n.\]
@@ -740,19 +795,19 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           Базовой (или натуральной) перестановкой называется последовательность $(1, 2, \dots, n)$, элементы которой расположены в порядке строгого возрастания. Во всякой иной перестановке неизбежно нарушается естественный порядок следования некоторых пар элементов.
         </p>
 <div class="statement definition" id="def-2"><div class="block-label">Определение 12.2</div><h3 data-toc="Инверсия (беспорядок) и порядо…" id="sub-2-3">Инверсия (беспорядок) и порядок в паре</h3><div>
-            Пусть дана перестановка $\alpha = (\alpha_1, \alpha_2, \dots, \alpha_n)$. Говорят, что пара индексов $(i, j)$, удовлетворяющая условию $1 \leqslant i < j \leqslant n$, образует <strong>инверсию</strong> (или <em>беспорядок</em>), если больший по величине элемент предшествует меньшему:
-            \[\alpha_i > \alpha_j \quad (\text{при } i < j).\]
-            Если же $\alpha_i < \alpha_j$, то пара $(i, j)$ образует <strong>порядок</strong>. Полным числом инверсий перестановки $\alpha$ называется суммарное количество таких пар, обозначаемое $I(\alpha)$ (в литературе также $N(\alpha)$ или $\operatorname{inv}(\alpha)$):
-            \[I(\alpha) = \sum_{1 \leqslant i < j \leqslant n} \chi(\alpha_i > \alpha_j), \quad \text{где } \chi(P) = \begin{cases} 1, & \text{если } P \text{ истинно}, \\ 0, & \text{если } P \text{ ложно}. \end{cases}\]
+            Пусть дана перестановка $\alpha = (\alpha_1, \alpha_2, \dots, \alpha_n)$. Говорят, что пара индексов $(i, j)$, удовлетворяющая условию $1 \leqslant i &lt; j \leqslant n$, образует <strong>инверсию</strong> (или <em>беспорядок</em>), если больший по величине элемент предшествует меньшему:
+            \[\alpha_i &gt; \alpha_j \quad (\text{при } i &lt; j).\]
+            Если же $\alpha_i &lt; \alpha_j$, то пара $(i, j)$ образует <strong>порядок</strong>. Полным числом инверсий перестановки $\alpha$ называется суммарное количество таких пар, обозначаемое $I(\alpha)$ (в литературе также $N(\alpha)$ или $\operatorname{inv}(\alpha)$):
+            \[I(\alpha) = \sum_{1 \leqslant i &lt; j \leqslant n} \chi(\alpha_i &gt; \alpha_j), \quad \text{где } \chi(P) = \begin{cases} 1, &amp; \text{если } P \text{ истинно}, \\ 0, &amp; \text{если } P \text{ ложно}. \end{cases}\]
           </div></div>
 <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin: 20px 0;"><div class="equation">
-          \[I(\alpha) = \operatorname{card}\Big\{(i, j) \;\Big|\; 1 \leqslant i < j \leqslant n, \; \alpha_i > \alpha_j\Big\}, \qquad 0 \leqslant I(\alpha) \leqslant \frac{n(n-1)}{2}.\]
+          \[I(\alpha) = \operatorname{card}\Big\{(i, j) \;\Big|\; 1 \leqslant i &lt; j \leqslant n, \; \alpha_i &gt; \alpha_j\Big\}, \qquad 0 \leqslant I(\alpha) \leqslant \frac{n(n-1)}{2}.\]
 
 </div><span class="formula-num">§ 12.1</span></div>
 <div class="statement definition" id="def-3"><div class="block-label">Определение 12.3</div><h3 data-toc="Чётность и сигнатура (знак) пе…" id="sub-2-4">Чётность и сигнатура (знак) перестановки</h3><div>
-            Перестановка $\alpha$ называется <strong>чётной</strong>, если её общее число инверсий $I(\alpha)$ является чётным числом ($I(\alpha) \equiv 0 \pmod 2$), и <strong>нечётной</strong>, если число инверсий нечётно ($I(\alpha) \equiv 1 \pmod 2$).<br/>
+            Перестановка $\alpha$ называется <strong>чётной</strong>, если её общее число инверсий $I(\alpha)$ является чётным числом ($I(\alpha) \equiv 0 \pmod 2$), и <strong>нечётной</strong>, если число инверсий нечётно ($I(\alpha) \equiv 1 \pmod 2$).<br>
 <strong>Знаком</strong> (или сигнатурой) перестановки $\alpha$ называется величина:
-            \[\operatorname{sgn}(\alpha) = \varepsilon(\alpha) = (-1)^{I(\alpha)} = \begin{cases} +1, & \text{если } \alpha \text{ чётна}, \\ -1, & \text{если } \alpha \text{ нечётна}. \end{cases}\]
+            \[\operatorname{sgn}(\alpha) = \varepsilon(\alpha) = (-1)^{I(\alpha)} = \begin{cases} +1, &amp; \text{если } \alpha \text{ чётна}, \\ -1, &amp; \text{если } \alpha \text{ нечётна}. \end{cases}\]
           </div></div>
 <div class="callout callout-remark">
 <div class="callout-header">
@@ -760,7 +815,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <span class="callout-title">Топология пересекающихся струн</span>
 </div>
 <div class="callout-body">
-            Представьте два горизонтальных ряда гвоздей: верхний с номерами позиций $1, 2, \dots, n$ и нижний со значениями элементов $\alpha_1, \alpha_2, \dots, \alpha_n$. Натянем между каждой позицией $i$ и значением $\alpha_i$ нерастяжимую струну. Если струны натянуты в общем положении (без тройных пересечений), то каждая точка геометрического пересечения двух струн соответствует ровно одной паре $(i, j)$ с $i < j$, для которой нити перекрещиваются, то есть $\alpha_i > \alpha_j$. Следовательно, число инверсий $I(\alpha)$ есть не что иное, как минимальное число топологических перехлёстов струн в плоской косе Артина!
+            Представьте два горизонтальных ряда гвоздей: верхний с номерами позиций $1, 2, \dots, n$ и нижний со значениями элементов $\alpha_1, \alpha_2, \dots, \alpha_n$. Натянем между каждой позицией $i$ и значением $\alpha_i$ нерастяжимую струну. Если струны натянуты в общем положении (без тройных пересечений), то каждая точка геометрического пересечения двух струн соответствует ровно одной паре $(i, j)$ с $i &lt; j$, для которой нити перекрещиваются, то есть $\alpha_i &gt; \alpha_j$. Следовательно, число инверсий $I(\alpha)$ есть не что иное, как минимальное число топологических перехлёстов струн в плоской косе Артина!
           </div>
 </div>
 <h3 data-toc="2. Фундаментальная теорема о п…" id="sub-2-5">1.2. Фундаментальная теорема о перемене чётности при транспозиции</h3>
@@ -789,22 +844,22 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
               Доказательство разобьём на два логических этапа: сначала строго обоснуем теорему для транспозиции соседних символов, а затем сведем общий случай к нечётному числу соседних транспозиций.
             </p>
 <p>
-<strong>Случай 1: Транспозиция соседних элементов.</strong><br/>
+<strong>Случай 1: Транспозиция соседних элементов.</strong><br>
               Пусть в перестановке $\alpha$ меняются местами два элемента, стоящие на соседних позициях $k$ и $k+1$. Обозначим $a = \alpha_k$ и $b = \alpha_{k+1}$. Тогда перестановки имеют вид:
               \[\begin{aligned}
-                \alpha &= (\alpha_1, \dots, \alpha_{k-1}, \; \mathbf{a}, \; \mathbf{b}, \; \alpha_{k+2}, \dots, \alpha_n), \\
-                \beta  &= (\alpha_1, \dots, \alpha_{k-1}, \; \mathbf{b}, \; \mathbf{a}, \; \alpha_{k+2}, \dots, \alpha_n).
+                \alpha &amp;= (\alpha_1, \dots, \alpha_{k-1}, \; \mathbf{a}, \; \mathbf{b}, \; \alpha_{k+2}, \dots, \alpha_n), \\
+                \beta  &amp;= (\alpha_1, \dots, \alpha_{k-1}, \; \mathbf{b}, \; \mathbf{a}, \; \alpha_{k+2}, \dots, \alpha_n).
               \end{aligned}\]
-              Исследуем, как изменился статус каждой пары элементов $(\alpha_p, \alpha_q)$ при $p < q$:
+              Исследуем, как изменился статус каждой пары элементов $(\alpha_p, \alpha_q)$ при $p &lt; q$:
             </p>
 <ul>
 <li><strong>Пары, не содержащие ни $a$, ни $b$:</strong> Оба элемента пары стоят либо левее позиции $k$, либо правее позиции $k+1$, либо один левее, а второй правее. Их взаимный порядок расположения и численные значения абсолютно не изменились. Число инверсий среди таких пар осталось прежним.</li>
-<li><strong>Пары вида $(\alpha_p, a)$ и $(\alpha_p, b)$ при $p < k$:</strong> Элемент $\alpha_p$ как предшествовал обоим элементам $a$ и $b$ в перестановке $\alpha$, так и предшествует им обоим в перестановке $\beta$. Знаки разностей $(\alpha_p - a)$ и $(\alpha_p - b)$ не изменились. Вклад этих пар в число инверсий инвариантен.</li>
-<li><strong>Пары вида $(a, \alpha_q)$ и $(b, \alpha_q)$ при $q > k+1$:</strong> Элементы $a$ и $b$ как стояли оба левее элемента $\alpha_q$ в $\alpha$, так и стоят левее него в $\beta$. Знаки разностей не изменились, число инверсий среди них неизменно.</li>
+<li><strong>Пары вида $(\alpha_p, a)$ и $(\alpha_p, b)$ при $p &lt; k$:</strong> Элемент $\alpha_p$ как предшествовал обоим элементам $a$ и $b$ в перестановке $\alpha$, так и предшествует им обоим в перестановке $\beta$. Знаки разностей $(\alpha_p - a)$ и $(\alpha_p - b)$ не изменились. Вклад этих пар в число инверсий инвариантен.</li>
+<li><strong>Пары вида $(a, \alpha_q)$ и $(b, \alpha_q)$ при $q &gt; k+1$:</strong> Элементы $a$ и $b$ как стояли оба левее элемента $\alpha_q$ в $\alpha$, так и стоят левее него в $\beta$. Знаки разностей не изменились, число инверсий среди них неизменно.</li>
 <li><strong>Пара $(a, b)$:</strong> Это единственная пара, чьё взаимное расположение изменилось! В $\alpha$ элемент $a$ предшествовал $b$, а в $\beta$ элемент $b$ предшествует $a$.
                 <ul>
-<li>Если в $\alpha$ было $a < b$ (был порядок), то в $\beta$ стало $b$ перед $a$, что образует новую инверсию. Следовательно, $I(\beta) = I(\alpha) + 1$.</li>
-<li>Если в $\alpha$ было $a > b$ (была инверсия), то в $\beta$ пара $(b, a)$ образует естественный порядок, то есть инверсия исчезла. Следовательно, $I(\beta) = I(\alpha) - 1$.</li>
+<li>Если в $\alpha$ было $a &lt; b$ (был порядок), то в $\beta$ стало $b$ перед $a$, что образует новую инверсию. Следовательно, $I(\beta) = I(\alpha) + 1$.</li>
+<li>Если в $\alpha$ было $a &gt; b$ (была инверсия), то в $\beta$ пара $(b, a)$ образует естественный порядок, то есть инверсия исчезла. Следовательно, $I(\beta) = I(\alpha) - 1$.</li>
 </ul>
 </li>
 </ul>
@@ -813,7 +868,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
               \[I(\beta) \equiv I(\alpha) + 1 \pmod 2 \implies (-1)^{I(\beta)} = -(-1)^{I(\alpha)}.\]
             </p>
 <p>
-<strong>Случай 2: Транспозиция несоседних элементов.</strong><br/>
+<strong>Случай 2: Транспозиция несоседних элементов.</strong><br>
               Пусть теперь меняются местами элементы $a = \alpha_k$ и $b = \alpha_{k+r+1}$, между которыми расположено ровно $r \geqslant 1$ промежуточных элементов $c_1, c_2, \dots, c_r$:
               \[\alpha = (\alpha_1, \dots, \alpha_{k-1}, \; \mathbf{a}, \; c_1, c_2, \dots, c_r, \; \mathbf{b}, \; \alpha_{k+r+2}, \dots, \alpha_n).\]
               Покажем, что данную транспозицию можно реализовать суперпозицией нечётного числа соседних транспозиций:
@@ -830,10 +885,10 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
                 Для этого требуется совершить ещё ровно $r$ транспозиций соседних элементов.</li>
 </ol>
 <p>
-              Элементы $c_1, \dots, c_r$ после первого этапа сдвинулись на одну позицию влево, а на третьем этапе — на одну позицию вправо, восстановив свой первоначальный взаимный порядок! В итоге элементы $a$ и $b$ поменялись местами, а все остальные элементы остались на исходных позициях.<br/>
+              Элементы $c_1, \dots, c_r$ после первого этапа сдвинулись на одну позицию влево, а на третьем этапе — на одну позицию вправо, восстановив свой первоначальный взаимный порядок! В итоге элементы $a$ и $b$ поменялись местами, а все остальные элементы остались на исходных позициях.<br>
               Суммарное число совершенных элементарных соседних транспозиций равно:
               \[N_{\text{trans}} = r + 1 + r = 2r + 1.\]
-              Число $2r + 1$ нечётно при любом натуральном $r \geqslant 1$ (а при $r=0$ получаем $2(0)+1 = 1$, что согласуется со Случаем 1).<br/>
+              Число $2r + 1$ нечётно при любом натуральном $r \geqslant 1$ (а при $r=0$ получаем $2(0)+1 = 1$, что согласуется со Случаем 1).<br>
               По доказанному в Случае 1, каждая соседняя транспозиция умножает знак перестановки на $-1$. Следовательно:
               \[\operatorname{sgn}(\beta) = (-1)^{2r+1} \operatorname{sgn}(\alpha) = -\operatorname{sgn}(\alpha).\]
               Чётность перестановки сменилась на противоположную.
@@ -846,7 +901,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- Научная гравюра 12.1: Схема волнового сдвига транспозиции -->
 <figure class="figure-card">
 <div class="figure-svg-container">
-<svg aria-label="Схема транспозиции произвольных элементов через 2r+1 элементарных шагов" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 740 280" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="1">
+<div class="diagram-scroll" style="--diagram-min-width: 684px"><svg aria-label="Схема транспозиции произвольных элементов через 2r+1 элементарных шагов" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 740 280" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="1">
 <defs>
 <marker id="fam-fig-1-arr-gold-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--svg-stroke-gold)"></path>
@@ -900,7 +955,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- Траектория 3: сдвиг b влево (r шагов) -->
 <path d="M 535 155 C 480 230, 280 230, 215 155" fill="none" marker-end="url(#fam-fig-1-arr-emerald-1)" stroke="var(--svg-stroke-emerald)" stroke-width="2.2"></path>
 <text fill="var(--thm-accent)" font-family="'Cormorant Garamond', Georgia, serif" font-size="16" font-weight="600" text-anchor="middle" x="360" y="248">Этап 3: r транспозиций влево (← b)</text>
-</svg>
+</svg></div>
 </div>
 <figcaption class="figure-caption">
 <strong>ГРАВЮРА 12.1.</strong> Кинематика трансляции элементов при транспозиции произвольных позиций: каскадная редукция к сумме $r + 1 + r = 2r + 1$ элементарных соседних перестановок.
@@ -908,7 +963,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </figure>
 <div class="callout callout-remark">
 <div class="callout-header">
-<span class="callout-tag">Замечание лектора</span>
+<span class="callout-tag">Замечание</span>
 <span class="callout-title">Принцип инвариантности чётности суммы</span>
 </div>
 <div class="callout-body">
@@ -938,11 +993,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
               Представим два независимых классических доказательства: первое опирается на конструктивное упорядочение всех перестановок в гамильтонову цепочку (метод лекции), а второе — на установление взаимно однозначного соответствия (биекции) по Курошу и Кострикину.
             </p>
 <p>
-<strong>Метод 1 (Лекционный: гамильтонова цепь перестановок).</strong><br/>
+<strong>Метод 1 (Лекционный: гамильтонова цепь перестановок).</strong><br>
               По классической теореме комбинаторики (алгоритм Джонсона — Троттера), все $n!$ перестановок элементов множества $\{1, 2, \dots, n\}$ могут быть выписаны в виде упорядоченного ряда:
               \[P_1, \; P_2, \; P_3, \; \dots, \; P_{n!},\]
-              в котором каждая последующая перестановка $P_{k+1}$ получается из непосредственно предшествующей $P_k$ совершением ровно одной транспозиции соседних элементов.<br/>
-              Выберем в качестве начального элемента натуральную перестановку $P_1 = (1, 2, \dots, n)$. В ней $I(P_1) = 0$, следовательно, $P_1$ чётна.<br/>
+              в котором каждая последующая перестановка $P_{k+1}$ получается из непосредственно предшествующей $P_k$ совершением ровно одной транспозиции соседних элементов.<br>
+              Выберем в качестве начального элемента натуральную перестановку $P_1 = (1, 2, \dots, n)$. В ней $I(P_1) = 0$, следовательно, $P_1$ чётна.<br>
               По доказанной Теореме 12.1, каждая транспозиция меняет чётность на противоположную. Таким образом, чётности элементов ряда строго альтернируют:
               \[P_1 (\text{чёт}), \quad P_2 (\text{нечёт}), \quad P_3 (\text{чёт}), \quad P_4 (\text{нечёт}), \quad \dots\]
               Поскольку $n \geqslant 2$, общее количество перестановок $n! = 2 \cdot 3 \cdots n$ является чётным числом. Следовательно, весь ряд разбивается на непересекающиеся пары соседних элементов:
@@ -951,12 +1006,12 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
               \[N_{\text{чёт}} = N_{\text{нечёт}} = \frac{n!}{2}.\]
             </p>
 <p>
-<strong>Метод 2 (Алгебраический: биекция умножения на транспозицию по Кострикину).</strong><br/>
+<strong>Метод 2 (Алгебраический: биекция умножения на транспозицию по Кострикину).</strong><br>
               Обозначим через $\mathcal{E}_n$ множество всех чётных перестановок степени $n$, а через $\mathcal{O}_n$ — множество всех нечётных перестановок степени $n$. Поскольку всякая перестановка либо чётна, либо нечётна, имеет место дизъюнктное объединение:
               \[S_n = \mathcal{E}_n \sqcup \mathcal{O}_n \implies |\mathcal{E}_n| + |\mathcal{O}_n| = n!\]
               Зафиксируем произвольную транспозицию, например, обмен первых двух элементов $\tau = (1, 2)$ (она корректно определена в силу $n \geqslant 2$). Рассмотрим отображение:
               \[f: \mathcal{E}_n \to \mathcal{O}_n, \quad f(\alpha) = \tau(\alpha).\]
-              По Теореме 12.1, если перестановка $\alpha \in \mathcal{E}_n$ чётна, то $\tau(\alpha)$ нечётна, то есть $f(\alpha) \in \mathcal{O}_n$, и отображение определено корректно.<br/>
+              По Теореме 12.1, если перестановка $\alpha \in \mathcal{E}_n$ чётна, то $\tau(\alpha)$ нечётна, то есть $f(\alpha) \in \mathcal{O}_n$, и отображение определено корректно.<br>
               Покажем, что $f$ является биекцией:
             </p>
 <ul>
@@ -1043,23 +1098,23 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
               Докажем взаимные импликации:
             </p>
 <p>
-<strong>1. Докажем, что (2) $\implies$ (3) (Инъективность влечёт сюръективность):</strong><br/>
-              Пусть отображение $\alpha$ инъективно. Это означает, что при $i \neq j$ обязательно $\alpha(i) \neq \alpha(j)$.<br/>
-              Следовательно, в кортеже образов $(\alpha(1), \alpha(2), \dots, \alpha(n))$ все $n$ элементов попарно различны.<br/>
+<strong>1. Докажем, что (2) $\implies$ (3) (Инъективность влечёт сюръективность):</strong><br>
+              Пусть отображение $\alpha$ инъективно. Это означает, что при $i \neq j$ обязательно $\alpha(i) \neq \alpha(j)$.<br>
+              Следовательно, в кортеже образов $(\alpha(1), \alpha(2), \dots, \alpha(n))$ все $n$ элементов попарно различны.<br>
               Множество $\operatorname{Im}(\alpha)$, состоящее из этих элементов, содержит в точности $n$ различных элементов:
               \[|\operatorname{Im}(\alpha)| = n.\]
               Так как $\operatorname{Im}(\alpha) \subseteq M_n$ и $|\operatorname{Im}(\alpha)| = |M_n| = n$, отсюда неизбежно следует, что $\operatorname{Im}(\alpha) = M_n$. То есть отображение $\alpha$ сюръективно.
             </p>
 <p>
-<strong>2. Докажем, что (3) $\implies$ (2) (Сюръективность влечёт инъективность):</strong><br/>
-              Пусть отображение $\alpha$ сюръективно, то есть $|\operatorname{Im}(\alpha)| = n$. Докажем инъективность методом от противного.<br/>
-              Предположим, что $\alpha$ не является инъективным. Тогда существуют хотя бы два различных элемента $i \neq j$ такие, что $\alpha(i) = \alpha(j)$.<br/>
+<strong>2. Докажем, что (3) $\implies$ (2) (Сюръективность влечёт инъективность):</strong><br>
+              Пусть отображение $\alpha$ сюръективно, то есть $|\operatorname{Im}(\alpha)| = n$. Докажем инъективность методом от противного.<br>
+              Предположим, что $\alpha$ не является инъективным. Тогда существуют хотя бы два различных элемента $i \neq j$ такие, что $\alpha(i) = \alpha(j)$.<br>
               Но тогда в совокупности $\{\alpha(1), \alpha(2), \dots, \alpha(n)\}$, содержащей $n$ значений, по крайней мере два значения совпадают. Следовательно, число различных элементов в этой совокупности строго меньше $n$:
-              \[|\operatorname{Im}(\alpha)| \leqslant n - 1 < n.\]
-              Полученное строгое неравенство $|\operatorname{Im}(\alpha)| < n$ прямо противоречит предположению о сюръективности ($|\operatorname{Im}(\alpha)| = n$). Полученное противоречие опровергает исходное предположение. Значит, $\alpha$ инъективно.
+              \[|\operatorname{Im}(\alpha)| \leqslant n - 1 &lt; n.\]
+              Полученное строгое неравенство $|\operatorname{Im}(\alpha)| &lt; n$ прямо противоречит предположению о сюръективности ($|\operatorname{Im}(\alpha)| = n$). Полученное противоречие опровергает исходное предположение. Значит, $\alpha$ инъективно.
             </p>
 <p>
-<strong>3. Замыкание эквивалентности:</strong><br/>
+<strong>3. Замыкание эквивалентности:</strong><br>
               По определению биекции, (1) означает одновременное выполнение (2) и (3). Так как мы доказали (2) $\implies$ (3) и (3) $\implies$ (2), каждое из этих свойств влечет другое, а значит, влечет и их конъюнкцию (биекцию). Эквивалентность доказана полностью:
               \[\alpha \text{ биективно} \iff \alpha \text{ инъективно} \iff \alpha \text{ сюръективно}.\]
             </p>
@@ -1074,7 +1129,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <span class="callout-title">Принцип перчаток профессора</span>
 </div>
 <div class="callout-body">
-            Лектор приводит блестящую наглядную аналогию: представьте кисть руки с пятью пальцами и перчатку с пятью отделениями для пальцев. Если мы отображаем пальцы в перчатку так, чтобы разные пальцы попадали в разные отделения (инъективность), то физически невозможно, чтобы какое-то отделение перчатки осталось пустым (сюръективность). И наоборот: если в каждое отделение перчатки помещён хотя бы один палец (сюръективность), то невозможно, чтобы в одно отделение попало два пальца (инъективность), ведь общее число пальцев и отделений строго равно пяти!
+            Рассмотрим наглядную аналогию: представьте кисть руки с пятью пальцами и перчатку с пятью отделениями для пальцев. Если мы отображаем пальцы в перчатку так, чтобы разные пальцы попадали в разные отделения (инъективность), то физически невозможно, чтобы какое-то отделение перчатки осталось пустым (сюръективность). И наоборот: если в каждое отделение перчатки помещён хотя бы один палец (сюръективность), то невозможно, чтобы в одно отделение попало два пальца (инъективность), ведь общее число пальцев и отделений строго равно пяти!
           </div>
 </div>
 <aside class="note">
@@ -1110,9 +1165,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <h3 data-toc="1. Двухстрочная матричная запи…" id="sub-4-1">3.1. Двухстрочная матричная запись Коши и перестановка столбцов</h3>
 <div class="statement definition" id="def-6"><div class="block-label">Определение 12.6</div><h3 data-toc="Двухстрочная форма записи подс…" id="sub-4-2">Двухстрочная форма записи подстановки</h3><div>
             Пусть $\alpha \in S_n$ — подстановка множества $\{1, 2, \dots, n\}$. В <strong>двухстрочной таблице Коши</strong> верхняя строка содержит прообразы, а непосредственно под каждым прообразом во второй строке записывается его образ:
-            \[\alpha = \begin{pmatrix} 1 & 2 & 3 & \dots & n \\ \alpha(1) & \alpha(2) & \alpha(3) & \dots & \alpha(n) \end{pmatrix}.\]
+            \[\alpha = \begin{pmatrix} 1 &amp; 2 &amp; 3 &amp; \dots &amp; n \\ \alpha(1) &amp; \alpha(2) &amp; \alpha(3) &amp; \dots &amp; \alpha(n) \end{pmatrix}.\]
             Поскольку порядок перечисления элементов области определения абсолютно произволен, подстановка может быть эквивалентно записана с любым порядком прообразов в верхней строке:
-            \[\alpha = \begin{pmatrix} i_1 & i_2 & i_3 & \dots & i_n \\ \alpha(i_1) & \alpha(i_2) & \alpha(i_3) & \dots & \alpha(i_n) \end{pmatrix},\]
+            \[\alpha = \begin{pmatrix} i_1 &amp; i_2 &amp; i_3 &amp; \dots &amp; i_n \\ \alpha(i_1) &amp; \alpha(i_2) &amp; \alpha(i_3) &amp; \dots &amp; \alpha(i_n) \end{pmatrix},\]
             где $(i_1, i_2, \dots, i_n)$ — некоторая перестановка базового множества $\{1, 2, \dots, n\}$.
           </div></div>
 <p>
@@ -1132,13 +1187,13 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 <h3 data-toc="2. Общее определение чётности …" id="sub-4-3">3.2. Общее определение чётности подстановки</h3>
 <p>
-          Как определить чётность подстановки, если она записана в нерегулярном виде, где в верхней строке столбцы расположены в произвольном беспорядке? Лектор формулирует всеобъемлющее инвариантное определение.
+          Как определить чётность подстановки, если она записана в нерегулярном виде, где в верхней строке столбцы расположены в произвольном беспорядке? Используем следующее определение.
         </p>
 <div class="statement definition" id="def-7"><div class="block-label">Определение 12.7</div><h3 data-toc="Чётность и знак подстановки в …" id="sub-4-4">Чётность и знак подстановки в общей форме Коши</h3><div>
             Пусть подстановка $\alpha$ задана в произвольной двухстрочной форме:
-            \[\alpha = \begin{pmatrix} i_1 & i_2 & \dots & i_n \\ j_1 & j_2 & \dots & j_n \end{pmatrix}, \quad \text{где } j_k = \alpha(i_k).\]
-            Подстановка $\alpha$ называется <strong>чётной</strong>, если перестановка верхней строки $(i_1, \dots, i_n)$ и перестановка нижней строки $(j_1, \dots, j_n)$ имеют <em>одинаковую чётность</em> (обе чётны или обе нечётны).<br/>
-            Подстановка называется <strong>нечётной</strong>, если чётности верхней и нижней строк <em>противоположны</em> (одна чётна, а другая нечётна).<br/>
+            \[\alpha = \begin{pmatrix} i_1 &amp; i_2 &amp; \dots &amp; i_n \\ j_1 &amp; j_2 &amp; \dots &amp; j_n \end{pmatrix}, \quad \text{где } j_k = \alpha(i_k).\]
+            Подстановка $\alpha$ называется <strong>чётной</strong>, если перестановка верхней строки $(i_1, \dots, i_n)$ и перестановка нижней строки $(j_1, \dots, j_n)$ имеют <em>одинаковую чётность</em> (обе чётны или обе нечётны).<br>
+            Подстановка называется <strong>нечётной</strong>, если чётности верхней и нижней строк <em>противоположны</em> (одна чётна, а другая нечётна).<br>
 <strong>Знак (сигнатура)</strong> подстановки $\alpha$ определяется формулой:
             \[\operatorname{sgn}(\alpha) = \varepsilon_\alpha = (-1)^{I(i_1, \dots, i_n) + I(j_1, \dots, j_n)} = (-1)^{I(\text{верх})} \cdot (-1)^{I(\text{низ})}.\]
           </div></div>
@@ -1168,8 +1223,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-content">
 <p>
               Пусть одна и та же подстановка $\alpha \in S_n$ записана в двух произвольных двухстрочных представлениях:
-              \[\alpha = \begin{pmatrix} i_1 & i_2 & \dots & i_n \\ j_1 & j_2 & \dots & j_n \end{pmatrix} \quad \text{и} \quad \alpha = \begin{pmatrix} i'_1 & i'_2 & \dots & i'_n \\ j'_1 & j'_2 & \dots & j'_n \end{pmatrix}.\]
-              Переход от первого расположения столбцов ко второму можно осуществить за конечное число $k$ последовательных перестановок пар столбцов (транспозиций столбцов).<br/>
+              \[\alpha = \begin{pmatrix} i_1 &amp; i_2 &amp; \dots &amp; i_n \\ j_1 &amp; j_2 &amp; \dots &amp; j_n \end{pmatrix} \quad \text{и} \quad \alpha = \begin{pmatrix} i'_1 &amp; i'_2 &amp; \dots &amp; i'_n \\ j'_1 &amp; j'_2 &amp; \dots &amp; j'_n \end{pmatrix}.\]
+              Переход от первого расположения столбцов ко второму можно осуществить за конечное число $k$ последовательных перестановок пар столбцов (транспозиций столбцов).<br>
               Рассмотрим действие одной элементарной транспозиции двух столбцов (например, столбцов с номерами $p$ и $q$).
             </p>
 <p>
@@ -1186,9 +1241,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p>
               Сложим полученные сравнения по модулю 2:
               \[\begin{aligned}
-                I(\text{верх}') + I(\text{низ}') &\equiv \big(I(\text{верх}) + 1\big) + \big(I(\text{низ}) + 1\big) \\
-                &\equiv I(\text{верх}) + I(\text{низ}) + 2 \\
-                &\equiv I(\text{верх}) + I(\text{низ}) \pmod 2.
+                I(\text{верх}') + I(\text{низ}') &amp;\equiv \big(I(\text{верх}) + 1\big) + \big(I(\text{низ}) + 1\big) \\
+                &amp;\equiv I(\text{верх}) + I(\text{низ}) + 2 \\
+                &amp;\equiv I(\text{верх}) + I(\text{низ}) \pmod 2.
               \end{aligned}\]
             </p>
 <p>
@@ -1203,12 +1258,12 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 <div class="callout callout-remark">
 <div class="callout-header">
-<span class="callout-tag">Замечание лектора</span>
+<span class="callout-tag">Замечание</span>
 <span class="callout-title">Редукция к канонической форме</span>
 </div>
 <div class="callout-body">
             В силу Теоремы 12.4, для вычисления чётности любой подстановки всегда достаточно привести её к каноническому виду, упорядочив верхнюю строку по возрастанию:
-            \[\alpha = \begin{pmatrix} 1 & 2 & \dots & n \\ \alpha_1 & \alpha_2 & \dots & \alpha_n \end{pmatrix}.\]
+            \[\alpha = \begin{pmatrix} 1 &amp; 2 &amp; \dots &amp; n \\ \alpha_1 &amp; \alpha_2 &amp; \dots &amp; \alpha_n \end{pmatrix}.\]
             В этой форме верхняя строка не имеет инверсий: $I(1, 2, \dots, n) = 0$. Тогда:
             \[\operatorname{sgn}(\alpha) = (-1)^{0 + I(\alpha_1, \dots, \alpha_n)} = (-1)^{I(\alpha_1, \dots, \alpha_n)}.\]
             Чётность подстановки в канонической записи в точности равна чётности перестановки её нижней строки!
@@ -1226,25 +1281,25 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </p>
 <h3 data-toc="1. Умножение (композиция) подс…" id="sub-5-1">4.1. Умножение (композиция) подстановок: соглашения о порядке действий</h3>
 <div class="statement definition" id="def-8"><div class="block-label">Определение 12.8</div><h3 data-toc="Произведение (композиция) подс…" id="sub-5-2">Произведение (композиция) подстановок</h3><div>
-            Пусть $\alpha, \beta \in S_n$ — две подстановки множества $\{1, 2, \dots, n\}$. <strong>Произведением подстановок</strong> $\alpha$ и $\beta$ называется их функциональная композиция, обозначаемая $\alpha \beta$ (или $\alpha \circ \beta$).<br/>
+            Пусть $\alpha, \beta \in S_n$ — две подстановки множества $\{1, 2, \dots, n\}$. <strong>Произведением подстановок</strong> $\alpha$ и $\beta$ называется их функциональная композиция, обозначаемая $\alpha \beta$ (или $\alpha \circ \beta$).<br>
             В современной высшей алгебре существуют два соглашения о порядке применения сомножителей:
             <ul>
 <li><strong>Каноническое функциональное соглашение (справа налево):</strong>
                 \[(\alpha \beta)(x) \equiv \alpha\big(\beta(x)\big) \quad \text{для всех } x \in \{1, \dots, n\}.\]
-                Сначала применяется правая подстановка $\beta$, а затем к полученному результату применяется левая подстановка $\alpha$. Этот порядок принят лектором и согласуется с общей теорией функций.
+                Сначала применяется правая подстановка $\beta$, а затем к полученному результату применяется левая подстановка $\alpha$. Этот порядок согласуется с общей теорией функций.
               </li>
 <li><strong>Операторное соглашение Куроша (слева направо):</strong>
                 \[(\alpha \beta)(x) \equiv \beta\big(\alpha(x)\big).\]
                 Сначала аргумент подвергается действию левой подстановки $\alpha$, а затем — правой $\beta$.
               </li>
 </ul>
-<em>В настоящем академическом конспекте строго соблюдается стандартное функциональное соглашение лектора: $(\alpha \beta)(x) = \alpha(\beta(x))$.</em>
+<em>В настоящем академическом конспекте строго соблюдается стандартное функциональное соглашение: $(\alpha \beta)(x) = \alpha(\beta(x))$.</em>
 </div></div>
 <p>
           Удобный практический алгоритм вычисления произведения $\alpha \beta$ в двухстрочной форме: упорядочим столбцы подстановки $\alpha$ так, чтобы её верхняя строка в точности совпала с нижней строкой подстановки $\beta$:
         </p>
 <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin: 20px 0;"><div class="equation">
-          \[\alpha \beta = \begin{pmatrix} \beta_1 & \beta_2 & \dots & \beta_n \\ \alpha(\beta_1) & \alpha(\beta_2) & \dots & \alpha(\beta_n) \end{pmatrix} \begin{pmatrix} 1 & 2 & \dots & n \\ \beta_1 & \beta_2 & \dots & \beta_n \end{pmatrix} = \begin{pmatrix} 1 & 2 & \dots & n \\ \alpha(\beta_1) & \alpha(\beta_2) & \dots & \alpha(\beta_n) \end{pmatrix}.\]
+          \[\alpha \beta = \begin{pmatrix} \beta_1 &amp; \beta_2 &amp; \dots &amp; \beta_n \\ \alpha(\beta_1) &amp; \alpha(\beta_2) &amp; \dots &amp; \alpha(\beta_n) \end{pmatrix} \begin{pmatrix} 1 &amp; 2 &amp; \dots &amp; n \\ \beta_1 &amp; \beta_2 &amp; \dots &amp; \beta_n \end{pmatrix} = \begin{pmatrix} 1 &amp; 2 &amp; \dots &amp; n \\ \alpha(\beta_1) &amp; \alpha(\beta_2) &amp; \dots &amp; \alpha(\beta_n) \end{pmatrix}.\]
 
 </div><span class="formula-num">§ 12.3</span></div>
 <div class="statement theorem" id="thm-5"><div class="block-label">Теорема 12.5</div><h3 data-toc="Групповые аксиомы симметрическ…" id="sub-5-3">Групповые аксиомы симметрической группы $S_n$</h3><div>
@@ -1253,7 +1308,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <li><strong>Замкнутость:</strong> Для любых $\alpha, \beta \in S_n$ произведение $\alpha \beta \in S_n$ (композиция двух биекций биективна).</li>
 <li><strong>Ассоциативность:</strong> Для любых $\alpha, \beta, \gamma \in S_n$ выполнено $(\alpha \beta) \gamma = \alpha (\beta \gamma)$.</li>
 <li><strong>Существование нейтрального элемента:</strong> Существует единичная (тождественная) подстановка $e = \operatorname{id} \in S_n$ такая, что $\alpha e = e \alpha = \alpha$ для любой $\alpha \in S_n$:
-                \[e = \begin{pmatrix} 1 & 2 & \dots & n \\ 1 & 2 & \dots & n \end{pmatrix}.\]
+                \[e = \begin{pmatrix} 1 &amp; 2 &amp; \dots &amp; n \\ 1 &amp; 2 &amp; \dots &amp; n \end{pmatrix}.\]
               </li>
 <li><strong>Существование обратного элемента:</strong> Для всякой подстановки $\alpha \in S_n$ существует единственная обратная подстановка $\alpha^{-1} \in S_n$ такая, что $\alpha \alpha^{-1} = \alpha^{-1} \alpha = e$.</li>
 </ol>
@@ -1261,7 +1316,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <h3 data-toc="2. Обратная подстановка и сохр…" id="sub-5-4">4.2. Обратная подстановка и сохранение чётности</h3>
 <p>
           В двухстрочной таблице Коши обратная подстановка находится тривиальным <em>переворотом таблицы</em>: строчки меняются местами, после чего столбцы упорядочиваются по возрастанию верхней строки:
-          \[\alpha = \begin{pmatrix} 1 & 2 & \dots & n \\ \alpha_1 & \alpha_2 & \dots & \alpha_n \end{pmatrix} \implies \alpha^{-1} = \begin{pmatrix} \alpha_1 & \alpha_2 & \dots & \alpha_n \\ 1 & 2 & \dots & n \end{pmatrix}.\]
+          \[\alpha = \begin{pmatrix} 1 &amp; 2 &amp; \dots &amp; n \\ \alpha_1 &amp; \alpha_2 &amp; \dots &amp; \alpha_n \end{pmatrix} \implies \alpha^{-1} = \begin{pmatrix} \alpha_1 &amp; \alpha_2 &amp; \dots &amp; \alpha_n \\ 1 &amp; 2 &amp; \dots &amp; n \end{pmatrix}.\]
         </p>
 <div class="statement theorem" id="thm-6"><div class="block-label">Свойство 12.1</div><h3 data-toc="Знак обратной подстановки" id="sub-5-5">Знак обратной подстановки</h3><div>
             Для любой подстановки $\alpha \in S_n$ чётность обратной подстановки $\alpha^{-1}$ в точности равна чётности исходной подстановки:
@@ -1284,9 +1339,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p>
               Воспользуемся инвариантным Определением 12.7 для знака подстановки в произвольной двухстрочной форме:
               \[\operatorname{sgn}(\alpha) = (-1)^{I(\text{верх}) + I(\text{низ})}.\]
-              Для подстановки $\alpha = \begin{pmatrix} 1 & \dots & n \\ \alpha_1 & \dots & \alpha_n \end{pmatrix}$ имеем:
+              Для подстановки $\alpha = \begin{pmatrix} 1 &amp; \dots &amp; n \\ \alpha_1 &amp; \dots &amp; \alpha_n \end{pmatrix}$ имеем:
               \[\operatorname{sgn}(\alpha) = (-1)^{I(1, \dots, n) + I(\alpha_1, \dots, \alpha_n)} = (-1)^{0 + I(\alpha_1, \dots, \alpha_n)} = (-1)^{I(\alpha_1, \dots, \alpha_n)}.\]
-              Для обратной подстановки, записанной в виде $\alpha^{-1} = \begin{pmatrix} \alpha_1 & \dots & \alpha_n \\ 1 & \dots & n \end{pmatrix}$, по той же формуле:
+              Для обратной подстановки, записанной в виде $\alpha^{-1} = \begin{pmatrix} \alpha_1 &amp; \dots &amp; \alpha_n \\ 1 &amp; \dots &amp; n \end{pmatrix}$, по той же формуле:
               \[\operatorname{sgn}(\alpha^{-1}) = (-1)^{I(\alpha_1, \dots, \alpha_n) + I(1, \dots, n)} = (-1)^{I(\alpha_1, \dots, \alpha_n) + 0} = (-1)^{I(\alpha_1, \dots, \alpha_n)}.\]
               Следовательно, $\operatorname{sgn}(\alpha^{-1}) = \operatorname{sgn}(\alpha)$.
             </p>
@@ -1305,19 +1360,19 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             При $n \geqslant 3$ группа $S_n$ <strong>неабелева</strong> (некоммутативна): порядок сомножителей имеет принципиальное значение! В общем случае:
             \[\alpha \beta \neq \beta \alpha.\]
             Рассмотрим классический контрпример в $S_3$:
-            \[\alpha = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 1 & 3 \end{pmatrix} = (1, 2), \qquad \beta = \begin{pmatrix} 1 & 2 & 3 \\ 1 & 3 & 2 \end{pmatrix} = (2, 3).\]
+            \[\alpha = \begin{pmatrix} 1 &amp; 2 &amp; 3 \\ 2 &amp; 1 &amp; 3 \end{pmatrix} = (1, 2), \qquad \beta = \begin{pmatrix} 1 &amp; 2 &amp; 3 \\ 1 &amp; 3 &amp; 2 \end{pmatrix} = (2, 3).\]
             Вычислим оба произведения по правилу действия справа налево:
             \[\begin{aligned}
-              (\alpha \beta)(1) &= \alpha(\beta(1)) = \alpha(1) = 2, \\
-              (\alpha \beta)(2) &= \alpha(\beta(2)) = \alpha(3) = 3, \\
-              (\alpha \beta)(3) &= \alpha(\beta(3)) = \alpha(2) = 1.
-            \end{aligned} \implies \alpha \beta = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 3 & 1 \end{pmatrix}.\]
+              (\alpha \beta)(1) &amp;= \alpha(\beta(1)) = \alpha(1) = 2, \\
+              (\alpha \beta)(2) &amp;= \alpha(\beta(2)) = \alpha(3) = 3, \\
+              (\alpha \beta)(3) &amp;= \alpha(\beta(3)) = \alpha(2) = 1.
+            \end{aligned} \implies \alpha \beta = \begin{pmatrix} 1 &amp; 2 &amp; 3 \\ 2 &amp; 3 &amp; 1 \end{pmatrix}.\]
             Теперь вычислим $\beta \alpha$:
             \[\begin{aligned}
-              (\beta \alpha)(1) &= \beta(\alpha(1)) = \beta(2) = 3, \\
-              (\beta \alpha)(2) &= \beta(\alpha(2)) = \beta(1) = 1, \\
-              (\beta \alpha)(3) &= \beta(\alpha(3)) = \beta(3) = 2.
-            \end{aligned} \implies \beta \alpha = \begin{pmatrix} 1 & 2 & 3 \\ 3 & 1 & 2 \end{pmatrix}.\]
+              (\beta \alpha)(1) &amp;= \beta(\alpha(1)) = \beta(2) = 3, \\
+              (\beta \alpha)(2) &amp;= \beta(\alpha(2)) = \beta(1) = 1, \\
+              (\beta \alpha)(3) &amp;= \beta(\alpha(3)) = \beta(3) = 2.
+            \end{aligned} \implies \beta \alpha = \begin{pmatrix} 1 &amp; 2 &amp; 3 \\ 3 &amp; 1 &amp; 2 \end{pmatrix}.\]
             Очевидно, что $\alpha \beta \neq \beta \alpha$!
           </div>
 </aside>
@@ -1411,8 +1466,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             \[\sigma = (i_1, i_2, i_3, \dots, i_k),\]
             если она циклически переставляет элементы упорядоченного подмножества $\{i_1, \dots, i_k\} \subseteq \{1, \dots, n\}$ по правилу:
             \[\sigma(i_1) = i_2, \quad \sigma(i_2) = i_3, \quad \dots, \quad \sigma(i_{k-1}) = i_k, \quad \sigma(i_k) = i_1,\]
-            а все остальные элементы множества оставляет неподвижными: $\sigma(x) = x$ для любого $x \notin \{i_1, \dots, i_k\}$.<br/>
-            Множество перемещаемых элементов $\{i_1, \dots, i_k\}$ называется <strong>носителем цикла</strong> и обозначается $\operatorname{supp}(\sigma)$.<br/>
+            а все остальные элементы множества оставляет неподвижными: $\sigma(x) = x$ для любого $x \notin \{i_1, \dots, i_k\}$.<br>
+            Множество перемещаемых элементов $\{i_1, \dots, i_k\}$ называется <strong>носителем цикла</strong> и обозначается $\operatorname{supp}(\sigma)$.<br>
             Цикл длины 2 называется <strong>транспозицией</strong>: $(i, j)$. Цикл длины 1 оставляет элемент на месте: $(i)$ означает $\sigma(i) = i$.
           </div></div>
 <div class="statement definition" id="def-10"><div class="block-label">Определение 12.10</div><h3 data-toc="Независимые (дизъюнктные) циклы" id="sub-6-3">Независимые (дизъюнктные) циклы</h3><div>
@@ -1441,17 +1496,17 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
               Проверим совпадение отображений $(\sigma \tau)(x)$ и $(\tau \sigma)(x)$ для любого элемента $x \in \{1, 2, \dots, n\}$, рассмотрев три взаимоисключающих случая:
             </p>
 <ul>
-<li><strong>Случай 1: $x \in \operatorname{supp}(\sigma)$.</strong><br/>
+<li><strong>Случай 1: $x \in \operatorname{supp}(\sigma)$.</strong><br>
                 Так как носители не пересекаются, $x \notin \operatorname{supp}(\tau)$, откуда $\tau(x) = x$. Тогда:
                 \[(\sigma \tau)(x) = \sigma(\tau(x)) = \sigma(x).\]
                 С другой стороны, элемент $\sigma(x)$ также принадлежит носителю $\operatorname{supp}(\sigma)$, а значит, не принадлежит $\operatorname{supp}(\tau)$, откуда $\tau(\sigma(x)) = \sigma(x)$. Тогда:
                 \[(\tau \sigma)(x) = \tau(\sigma(x)) = \sigma(x).\]
                 Следовательно, $(\sigma \tau)(x) = (\tau \sigma)(x) = \sigma(x)$.
               </li>
-<li><strong>Случай 2: $x \in \operatorname{supp}(\tau)$.</strong><br/>
+<li><strong>Случай 2: $x \in \operatorname{supp}(\tau)$.</strong><br>
                 Аналогично первому случаю, получаем $(\sigma \tau)(x) = (\tau \sigma)(x) = \tau(x)$.
               </li>
-<li><strong>Случай 3: $x \notin \operatorname{supp}(\sigma)$ и $x \notin \operatorname{supp}(\tau)$.</strong><br/>
+<li><strong>Случай 3: $x \notin \operatorname{supp}(\sigma)$ и $x \notin \operatorname{supp}(\tau)$.</strong><br>
                 Тогда $\sigma(x) = x$ и $\tau(x) = x$. Имеем:
                 \[(\sigma \tau)(x) = \sigma(\tau(x)) = \sigma(x) = x, \qquad (\tau \sigma)(x) = \tau(\sigma(x)) = \tau(x) = x.\]
               </li>
@@ -1485,27 +1540,27 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Строгое конструктивное доказательство теоремы 12.6 (Метод дискретных орбит))</div>
 <div class="proof-content">
 <p>
-<strong>1. Существование разложения (конструктивный алгоритм):</strong><br/>
+<strong>1. Существование разложения (конструктивный алгоритм):</strong><br>
               Пусть $\alpha \in S_n$. Выберем произвольный элемент $x_1 \in \{1, 2, \dots, n\}$. Рассмотрим бесконечную последовательность его последовательных образов:
               \[x_1, \quad \alpha(x_1), \quad \alpha^2(x_1), \quad \alpha^3(x_1), \quad \dots\]
-              Поскольку базовое множество $\{1, \dots, n\}$ конечно, по принципу Дирихле среди первых $n+1$ членов последовательности найдутся повторяющиеся: существуют целые числа $p < q$ такие, что:
+              Поскольку базовое множество $\{1, \dots, n\}$ конечно, по принципу Дирихле среди первых $n+1$ членов последовательности найдутся повторяющиеся: существуют целые числа $p &lt; q$ такие, что:
               \[\alpha^p(x_1) = \alpha^q(x_1).\]
               Применим к обеим частям равенства обратное отображение $\alpha^{-1}$ ровно $p$ раз. В силу биективности $\alpha$, получаем:
               \[\alpha^{q-p}(x_1) = x_1.\]
-              Пусть $k_1 \geqslant 1$ — наименьшее натуральное число такое, что $\alpha^{k_1}(x_1) = x_1$.<br/>
+              Пусть $k_1 \geqslant 1$ — наименьшее натуральное число такое, что $\alpha^{k_1}(x_1) = x_1$.<br>
               Тогда все элементы:
               \[x_1, \; \alpha(x_1), \; \alpha^2(x_1), \; \dots, \; \alpha^{k_1-1}(x_1)\]
-              попарно различны (если бы $\alpha^a(x_1) = \alpha^b(x_1)$ при $0 \leqslant a < b < k_1$, то $\alpha^{b-a}(x_1) = x_1$ при $b-a < k_1$, что противоречит минимальности $k_1$).<br/>
+              попарно различны (если бы $\alpha^a(x_1) = \alpha^b(x_1)$ при $0 \leqslant a &lt; b &lt; k_1$, то $\alpha^{b-a}(x_1) = x_1$ при $b-a &lt; k_1$, что противоречит минимальности $k_1$).<br>
               Данное подмножество образует замкнутый цикл длины $k_1$:
               \[\sigma_1 = \big(x_1, \alpha(x_1), \dots, \alpha^{k_1-1}(x_1)\big).\]
-              Если носитель $\operatorname{supp}(\sigma_1)$ исчерпывает всё множество $\{1, \dots, n\}$, процесс завершён.<br/>
-              Если нет, выберем наименьший элемент $x_2 \notin \operatorname{supp}(\sigma_1)$ и аналогично построим цикл $\sigma_2 = (x_2, \alpha(x_2), \dots, \alpha^{k_2-1}(x_2))$.<br/>
-              Покажем, что циклы $\sigma_1$ и $\sigma_2$ не пересекаются: если бы существовали индексы $a, b$ такие, что $\alpha^a(x_1) = \alpha^b(x_2)$, то, применяя $(\alpha^{-1})^b$, мы получили бы $x_2 = \alpha^{a-b}(x_1) \in \operatorname{supp}(\sigma_1)$, что прямо противоречит выбору $x_2 \notin \operatorname{supp}(\sigma_1)$.<br/>
+              Если носитель $\operatorname{supp}(\sigma_1)$ исчерпывает всё множество $\{1, \dots, n\}$, процесс завершён.<br>
+              Если нет, выберем наименьший элемент $x_2 \notin \operatorname{supp}(\sigma_1)$ и аналогично построим цикл $\sigma_2 = (x_2, \alpha(x_2), \dots, \alpha^{k_2-1}(x_2))$.<br>
+              Покажем, что циклы $\sigma_1$ и $\sigma_2$ не пересекаются: если бы существовали индексы $a, b$ такие, что $\alpha^a(x_1) = \alpha^b(x_2)$, то, применяя $(\alpha^{-1})^b$, мы получили бы $x_2 = \alpha^{a-b}(x_1) \in \operatorname{supp}(\sigma_1)$, что прямо противоречит выбору $x_2 \notin \operatorname{supp}(\sigma_1)$.<br>
               Продолжая этот процесс, в силу конечности множества мы за конечное число шагов $s$ разобьём всё множество $\{1, \dots, n\}$ на непересекающиеся орбиты (циклы). Опустив циклы длины 1 (тождественные действия), получаем искомое разложение в непересекающиеся циклы длины $\geqslant 2$.
             </p>
 <p>
-<strong>2. Единственность разложения:</strong><br/>
-              Определим на множестве $\{1, \dots, n\}$ отношение эквивалентности: $x \sim y \iff \exists m \in \mathbb{Z} : y = \alpha^m(x)$.<br/>
+<strong>2. Единственность разложения:</strong><br>
+              Определим на множестве $\{1, \dots, n\}$ отношение эквивалентности: $x \sim y \iff \exists m \in \mathbb{Z} : y = \alpha^m(x)$.<br>
               Носители циклов являются в точности классами эквивалентности этого отношения, а значит, разбиение множества на носители определено абсолютно однозначно. Действие же $\alpha$ внутри каждого класса полностью фиксировано самой подстановкой $\alpha$. В силу независимости циклы коммутируют (Лемма 12.1), поэтому порядок записи циклов несущественен.
             </p>
 <span class="qed">$\blacksquare$</span>
@@ -1516,9 +1571,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- Научная гравюра 12.2: Орбитальный ориентированный граф -->
 <figure class="figure-card">
 <div class="figure-svg-container">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 270" role="img" aria-label="Три непересекающихся цикла (1 4 7 3), (2 8 5) и (6 9)" data-fam-figure="diagram" data-fam-index="2">
-<line x1="72.9" y1="133.1" x2="114.44" y2="91.56" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M120.1,85.9 L116.88,93.99 L112.01,89.12 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="187.1" y1="152.9" x2="145.56" y2="194.44" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M139.9,200.1 L143.12,192.01 L147.99,196.88 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="139.9" y1="85.9" x2="181.44" y2="127.44" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M187.1,133.1 L179.01,129.88 L183.88,125.01 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="120.1" y1="200.1" x2="78.56" y2="158.56" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M72.9,152.9 L80.99,156.12 L76.12,160.99 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="130.0" cy="76.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="130" y="80" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1</text><circle cx="197.0" cy="143.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="197" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">4</text><circle cx="130.0" cy="210.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="130" y="214" text-anchor="middle" fill="var(--fig-ink)" font-size="12">7</text><circle cx="63.0" cy="143.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="63" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3</text><text x="130" y="247" text-anchor="middle" fill="var(--fig-ink)" font-size="16">(1, 4, 7, 3)</text><line x1="338.98" y1="164.38" x2="379" y2="95.05" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M383,88.12 L381.98,96.77 L376.02,93.33 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="434.02" y1="176.5" x2="353.98" y2="176.5" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M345.98,176.5 L353.98,173.06 L353.98,179.94 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="397" y1="88.12" x2="437.02" y2="157.45" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M441.02,164.38 L434.04,159.17 L440,155.73 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="390.0" cy="76.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="390" y="80" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2</text><circle cx="448.0237020535574" cy="176.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="448.02" y="180.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">8</text><circle cx="331.9762979464426" cy="176.50000000000003" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="331.98" y="180.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">5</text><text x="390" y="247" text-anchor="middle" fill="var(--fig-ink)" font-size="16">(2, 8, 5)</text><line x1="656" y1="196" x2="656" y2="98" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M656,90 L659.44,98 L652.56,98 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="644" y1="90" x2="644" y2="188" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M644,196 L640.56,188 L647.44,188 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="650.0" cy="76.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="650" y="80" text-anchor="middle" fill="var(--fig-ink)" font-size="12">6</text><circle cx="650.0" cy="210.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"/><text x="650" y="214" text-anchor="middle" fill="var(--fig-ink)" font-size="12">9</text><text x="650" y="247" text-anchor="middle" fill="var(--fig-ink)" font-size="16">(6, 9)</text>
-</svg>
+<div class="diagram-scroll" style="--diagram-min-width: 780px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 780 270" role="img" aria-label="Три непересекающихся цикла (1 4 7 3), (2 8 5) и (6 9)" data-fam-figure="diagram" data-fam-index="2">
+<line x1="72.9" y1="133.1" x2="114.44" y2="91.56" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M120.1,85.9 L116.88,93.99 L112.01,89.12 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><line x1="187.1" y1="152.9" x2="145.56" y2="194.44" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M139.9,200.1 L143.12,192.01 L147.99,196.88 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><line x1="139.9" y1="85.9" x2="181.44" y2="127.44" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M187.1,133.1 L179.01,129.88 L183.88,125.01 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><line x1="120.1" y1="200.1" x2="78.56" y2="158.56" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M72.9,152.9 L80.99,156.12 L76.12,160.99 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><circle cx="130.0" cy="76.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="130" y="80" text-anchor="middle" fill="var(--fig-ink)" font-size="12">1</text><circle cx="197.0" cy="143.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="197" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">4</text><circle cx="130.0" cy="210.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="130" y="214" text-anchor="middle" fill="var(--fig-ink)" font-size="12">7</text><circle cx="63.0" cy="143.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="63" y="147" text-anchor="middle" fill="var(--fig-ink)" font-size="12">3</text><text x="130" y="247" text-anchor="middle" fill="var(--fig-ink)" font-size="16">(1, 4, 7, 3)</text><line x1="338.98" y1="164.38" x2="379" y2="95.05" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M383,88.12 L381.98,96.77 L376.02,93.33 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><line x1="434.02" y1="176.5" x2="353.98" y2="176.5" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M345.98,176.5 L353.98,173.06 L353.98,179.94 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><line x1="397" y1="88.12" x2="437.02" y2="157.45" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M441.02,164.38 L434.04,159.17 L440,155.73 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><circle cx="390.0" cy="76.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="390" y="80" text-anchor="middle" fill="var(--fig-ink)" font-size="12">2</text><circle cx="448.0237020535574" cy="176.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="448.02" y="180.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">8</text><circle cx="331.9762979464426" cy="176.50000000000003" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="331.98" y="180.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">5</text><text x="390" y="247" text-anchor="middle" fill="var(--fig-ink)" font-size="16">(2, 8, 5)</text><line x1="656" y1="196" x2="656" y2="98" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M656,90 L659.44,98 L652.56,98 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><line x1="644" y1="90" x2="644" y2="188" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M644,196 L640.56,188 L647.44,188 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><circle cx="650.0" cy="76.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="650" y="80" text-anchor="middle" fill="var(--fig-ink)" font-size="12">6</text><circle cx="650.0" cy="210.0" r="13" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.5"></circle><text x="650" y="214" text-anchor="middle" fill="var(--fig-ink)" font-size="12">9</text><text x="650" y="247" text-anchor="middle" fill="var(--fig-ink)" font-size="16">(6, 9)</text>
+</svg></div>
 </div>
 <figcaption class="figure-caption">
 <strong>ГРАВЮРА 12.2.</strong> Орбитальная анатомия подстановки $\alpha = (1, 4, 7, 3)(2, 8, 5)(6, 9) \in S_9$: фазовое пространство распадается на систему изолированных вихрей с непересекающимися носителями.
@@ -1576,7 +1631,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
   <h2 id="chapter-7" data-toc="Разложение в транспозиции, дек…">6. Разложение в транспозиции, декремент и скоростная чётность по Курошу</h2>
 
 <p>
-          Мы подошли к кульминационному ответу на вопрос лектора: <em>как мгновенно и безошибочно определить чётность сложнейшей подстановки без утомительного подсчёта инверсий?</em> Классическая теория Александра Геннадиевича Куроша связывает чётность подстановки с её алгебраическим декрементом и разложением в транспозиции.
+          Мы подошли к кульминационному ответу на вопрос: <em>как мгновенно и безошибочно определить чётность сложнейшей подстановки без утомительного подсчёта инверсий?</em> Классическая теория Александра Геннадиевича Куроша связывает чётность подстановки с её алгебраическим декрементом и разложением в транспозиции.
         </p>
 <h3 data-toc="1. Разложение цикла в произвед…" id="sub-7-1">6.1. Разложение цикла в произведение транспозиций</h3>
 <div class="statement theorem" id="thm-10"><div class="block-label">Теорема 12.8</div><h3 data-toc="Тождество Куроша: разложение ц…" id="sub-7-2">Тождество Куроша: разложение цикла в транспозиции</h3><div>
@@ -1602,7 +1657,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             </p>
 <ul>
 <li><strong>Действие на $i_1$:</strong> Крайняя правая транспозиция $(i_1, i_2)$ переводит $i_1$ в $i_2$. Все последующие транспозиции левее содержат элемент $i_1$, но не содержат $i_2$, поэтому они оставляют $i_2$ неподвижным. Итог: $i_1 \mapsto i_2$.</li>
-<li><strong>Действие на $i_m$ при $2 \leqslant m < k$:</strong> Транспозиции правее сомножителя $(i_1, i_m)$ не содержат $i_m$ и оставляют его на месте. Сомножитель $(i_1, i_m)$ переводит $i_m$ в $i_1$. Следующий непосредственно за ним сомножитель $(i_1, i_{m+1})$ переводит $i_1$ в $i_{m+1}$. Все оставшиеся левее сомножители не содержат $i_{m+1}$ и не меняют его. Итог: $i_m \mapsto i_{m+1}$.</li>
+<li><strong>Действие на $i_m$ при $2 \leqslant m &lt; k$:</strong> Транспозиции правее сомножителя $(i_1, i_m)$ не содержат $i_m$ и оставляют его на месте. Сомножитель $(i_1, i_m)$ переводит $i_m$ в $i_1$. Следующий непосредственно за ним сомножитель $(i_1, i_{m+1})$ переводит $i_1$ в $i_{m+1}$. Все оставшиеся левее сомножители не содержат $i_{m+1}$ и не меняют его. Итог: $i_m \mapsto i_{m+1}$.</li>
 <li><strong>Действие на $i_k$:</strong> Элемент $i_k$ впервые встречается только в самом левом сомножителе $(i_1, i_k)$, который переводит его в $i_1$. Итог: $i_k \mapsto i_1$.</li>
 </ul>
 <p>
@@ -1622,7 +1677,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div><span class="formula-num">§ 12.4</span></div>
 <h3 data-toc="2. Декремент подстановки и фун…" id="sub-7-3">6.2. Декремент подстановки и фундаментальная теория Куроша</h3>
 <div class="statement definition" id="def-12"><div class="block-label">Определение 12.12</div><h3 data-toc="Декремент подстановки (по А. Г…" id="sub-7-4">Декремент подстановки (по А. Г. Курошу)</h3><div>
-            Пусть подстановка $\alpha \in S_n$ имеет полное разложение на $s$ независимых циклов, <strong>включая одноэлементные циклы</strong> (неподвижные точки вида $(x)$, где $\alpha(x) = x$).<br/>
+            Пусть подстановка $\alpha \in S_n$ имеет полное разложение на $s$ независимых циклов, <strong>включая одноэлементные циклы</strong> (неподвижные точки вида $(x)$, где $\alpha(x) = x$).<br>
 <strong>Декрементом</strong> подстановки $\alpha$ называется целое неотрицательное число:
             \[d(\alpha) = n - s,\]
             равное разности между степенью подстановки $n$ и полным числом её независимых циклов $s$.
@@ -1649,34 +1704,34 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
               Пусть $\alpha \in S_n$ имеет полное разложение на независимые циклы $C_1, C_2, \dots, C_s$. Рассмотрим элементы $a$ и $b$ транспозиции $\tau = (a, b)$. Возможны ровно два взаимоисключающих случая:
             </p>
 <p>
-<strong>Случай 1: Элементы $a$ и $b$ принадлежат РАЗНЫМ циклам подстановки $\alpha$.</strong><br/>
+<strong>Случай 1: Элементы $a$ и $b$ принадлежат РАЗНЫМ циклам подстановки $\alpha$.</strong><br>
               Без ограничения общности положим, что $a \in C_1$ и $b \in C_2$. Запишем эти циклы, начав с элементов $a$ и $b$:
               \[C_1 = (a, a_2, \dots, a_p), \qquad C_2 = (b, b_2, \dots, b_q).\]
               Подействуем транспозицией $(a, b)$ справа на произведение $C_1 C_2$:
               \[(a, a_2, \dots, a_p)(b, b_2, \dots, b_q)(a, b).\]
               Проследим цепочку переходов:
-              <ul>
+              </p><ul>
 <li>$a \xrightarrow{\tau} b \xrightarrow{C_2} b_2 \implies a \mapsto b_2$.</li>
 <li>$b_q \xrightarrow{\tau} b_q \xrightarrow{C_2} b \xrightarrow{\tau} a \xrightarrow{C_1} a_2 \implies b_q \mapsto a_2$.</li>
 <li>$a_p \xrightarrow{\tau} a_p \xrightarrow{C_1} a \xrightarrow{\tau} b \implies a_p \mapsto b$.</li>
 </ul>
-              Все остальные элементы $a_k$ переходят в $a_{k+1}$, а $b_k$ — в $b_{k+1}$.<br/>
+              Все остальные элементы $a_k$ переходят в $a_{k+1}$, а $b_k$ — в $b_{k+1}$.<br>
               Следовательно, произведение представляет собой <em>единый объединённый цикл длины $p + q$</em>:
               \[(a, b_2, \dots, b_q, a_2, \dots, a_p).\]
-              Два независимых цикла $C_1$ и $C_2$ слились в один! Все остальные циклы $C_3, \dots, C_s$ не содержат элементов $a$ и $b$ и остались нетронутыми.<br/>
-              Новое число циклов равно $s' = s - 1$.<br/>
+              Два независимых цикла $C_1$ и $C_2$ слились в один! Все остальные циклы $C_3, \dots, C_s$ не содержат элементов $a$ и $b$ и остались нетронутыми.<br>
+              Новое число циклов равно $s' = s - 1$.<br>
               Вычислим новый декремент:
               \[d(\alpha \tau) = n - s' = n - (s - 1) = (n - s) + 1 = d(\alpha) + 1.\]
-            </p>
+            
 <p>
-<strong>Случай 2: Элементы $a$ и $b$ принадлежат ОДНОМУ циклу подстановки $\alpha$.</strong><br/>
+<strong>Случай 2: Элементы $a$ и $b$ принадлежат ОДНОМУ циклу подстановки $\alpha$.</strong><br>
               Пусть $a, b \in C_1$. Запишем цикл $C_1$, начав с элемента $a$:
               \[C_1 = (a, c_1, \dots, c_u, \; b, \; d_1, \dots, d_v).\]
               Умножим этот цикл справа на транспозицию $(a, b)$:
               \[(a, c_1, \dots, c_u, b, d_1, \dots, d_v)(a, b).\]
               Аналогичной проверкой цепочек убеждаемся, что исходный цикл распадается на <em>два независимых цикла меньшей длины</em>:
               \[(a, c_1, \dots, c_u)(b, d_1, \dots, d_v).\]
-              Число циклов увеличилось на единицу: $s' = s + 1$.<br/>
+              Число циклов увеличилось на единицу: $s' = s + 1$.<br>
               Вычислим новый декремент:
               \[d(\alpha \tau) = n - s' = n - (s + 1) = (n - s) - 1 = d(\alpha) - 1.\]
             </p>
@@ -1709,11 +1764,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Строгое доказательство теоремы 12.10)</div>
 <div class="proof-content">
 <p>
-              Для тождественной подстановки $e \in S_n$ каждый элемент является циклом длины 1. Полное число циклов $s = n$.<br/>
+              Для тождественной подстановки $e \in S_n$ каждый элемент является циклом длины 1. Полное число циклов $s = n$.<br>
               Декремент тождественной подстановки равен:
               \[d(e) = n - n = 0.\]
-              Знак тождественной подстановки $\operatorname{sgn}(e) = +1 = (-1)^0 = (-1)^{d(e)}$.<br/>
-              Любая подстановка $\alpha$ может быть получена из тождественной умножением на $N$ транспозиций: $\alpha = e \cdot \tau_1 \tau_2 \cdots \tau_N$.<br/>
+              Знак тождественной подстановки $\operatorname{sgn}(e) = +1 = (-1)^0 = (-1)^{d(e)}$.<br>
+              Любая подстановка $\alpha$ может быть получена из тождественной умножением на $N$ транспозиций: $\alpha = e \cdot \tau_1 \tau_2 \cdots \tau_N$.<br>
               По Теореме 12.1, каждая транспозиция меняет чётность перестановки на противоположную:
               \[\operatorname{sgn}(\alpha) = (-1)^N.\]
               С другой стороны, по Теореме 12.9 Куроша, каждое умножение на транспозицию изменяет декремент на $\pm 1$. Следовательно:
@@ -1738,7 +1793,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
                 Например: 3-цикл $\sigma = (1, 2, 3)$. Длина $k = 3$ (нечётна). Знак: $(-1)^{3-1} = (-1)^2 = \mathbf{+1}$ (чётная подстановка!). Он раскладывается в 2 транспозиции: $(1, 3)(1, 2)$.
               </li>
 <li>Цикл <strong>ЧЁТНОЙ длины</strong> является <strong>НЕЧЁТНОЙ подстановкой</strong>!
-                Например: 2-цикл (транспозиция) $\tau = (1, 2)$. Длина $k = 2$ (чётна). Знак: $(-1)^{2-1} = (-1)^1 = \mathbf{-1}$ (нечётная подстановка!).<br/>
+                Например: 2-цикл (транспозиция) $\tau = (1, 2)$. Длина $k = 2$ (чётна). Знак: $(-1)^{2-1} = (-1)^1 = \mathbf{-1}$ (нечётная подстановка!).<br>
                 4-цикл $\sigma = (1, 2, 3, 4)$. Длина $k = 4$ (чётна). Знак: $(-1)^{4-1} = (-1)^3 = \mathbf{-1}$ (нечётная подстановка!).
               </li>
 </ul>
@@ -1777,11 +1832,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-content">
 <p>
               Рассмотрим многочлен от $n$ независимых алгебраических переменных $x_1, x_2, \dots, x_n$, называемый <strong>дискриминантным полиномом (полиномом Вандермонда)</strong>:
-              \[\Delta(x_1, x_2, \dots, x_n) = \prod_{1 \leqslant i < j \leqslant n} (x_j - x_i).\]
+              \[\Delta(x_1, x_2, \dots, x_n) = \prod_{1 \leqslant i &lt; j \leqslant n} (x_j - x_i).\]
               Для любой подстановки $\sigma \in S_n$ определим её естественное действие на многочлены перестановкой переменных:
-              \[\sigma\big(\Delta(x_1, \dots, x_n)\big) = \prod_{1 \leqslant i < j \leqslant n} \big(x_{\sigma(j)} - x_{\sigma(i)}\big).\]
-              Заметим, что множество сомножителей $|x_{\sigma(j)} - x_{\sigma(i)}|$ в точности совпадает с исходным набором разностей $|x_j - x_i|$, поскольку $\sigma$ — биекция пар индексов.<br/>
-              Однако знак конкретной разности меняется на противоположный тогда и только тогда, когда при $i < j$ оказывается $\sigma(i) > \sigma(j)$, то есть ровно тогда, когда пара $(i, j)$ образует <em>инверсию</em> в подстановке $\sigma$!<br/>
+              \[\sigma\big(\Delta(x_1, \dots, x_n)\big) = \prod_{1 \leqslant i &lt; j \leqslant n} \big(x_{\sigma(j)} - x_{\sigma(i)}\big).\]
+              Заметим, что множество сомножителей $|x_{\sigma(j)} - x_{\sigma(i)}|$ в точности совпадает с исходным набором разностей $|x_j - x_i|$, поскольку $\sigma$ — биекция пар индексов.<br>
+              Однако знак конкретной разности меняется на противоположный тогда и только тогда, когда при $i &lt; j$ оказывается $\sigma(i) &gt; \sigma(j)$, то есть ровно тогда, когда пара $(i, j)$ образует <em>инверсию</em> в подстановке $\sigma$!<br>
               Следовательно, знак произведения $\Delta$ изменится ровно столько раз, каково число инверсий $I(\sigma)$:
               \[\sigma(\Delta) = (-1)^{I(\sigma)} \Delta = \operatorname{sgn}(\sigma) \cdot \Delta.\]
             </p>
@@ -1822,7 +1877,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- Научная гравюра 12.3: Архитектура гомоморфизма знака -->
 <figure class="figure-card">
 <div class="figure-svg-container">
-<svg aria-label="Архитектура симметрической группы: ядро гомоморфизма знака и знакопеременная подгруппа" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 740 280" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="3">
+<div class="diagram-scroll" style="--diagram-min-width: 684px"><svg aria-label="Архитектура симметрической группы: ядро гомоморфизма знака и знакопеременная подгруппа" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 740 280" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="3">
 <defs>
 <marker id="fam-fig-3-arr-gold-3" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--svg-stroke-gold)"></path>
@@ -1865,7 +1920,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="var(--thm-accent)" font-family="'Cinzel', Georgia, serif" font-size="13" font-weight="700" text-anchor="middle" x="450" y="98">sgn(α) = +1</text>
 <path d="M 385 175 L 515 182" fill="none" marker-end="url(#fam-fig-3-arr-cyan-3)" stroke="var(--warn-border)" stroke-width="2.5"></path>
 <text fill="var(--warn-accent)" font-family="'Cinzel', Georgia, serif" font-size="13" font-weight="700" text-anchor="middle" x="450" y="200">sgn(α) = -1</text>
-</svg>
+</svg></div>
 </div>
 <figcaption class="figure-caption">
 <strong>ГРАВЮРА 12.3.</strong> Алгебраическая топология симметрической группы: гомоморфизм сигнатуры $\operatorname{sgn}$ факторизует $S_n$ по нормальной знакопеременной подгруппе $A_n$ индекса 2.
@@ -1876,7 +1931,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             Симметрическая группа $S_n$ может быть порождена каждой из следующих систем подстановок:
             <ol>
 <li><strong>Система всех $\binom{n}{2}$ транспозиций:</strong>
-                \[S_n = \big\langle \{(i, j) \mid 1 \leqslant i < j \leqslant n\} \big\rangle.\]
+                \[S_n = \big\langle \{(i, j) \mid 1 \leqslant i &lt; j \leqslant n\} \big\rangle.\]
               </li>
 <li><strong>Система $n - 1$ соседних транспозиций:</strong>
                 \[S_n = \big\langle \{(1, 2), (2, 3), (3, 4), \dots, (n-1, n)\} \big\rangle.\]
@@ -1904,20 +1959,20 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <strong>1. Порождаемость всеми транспозициями:</strong> Доказана в § 6.1: любая подстановка раскладывается в независимые циклы, а каждый цикл раскладывается в произведение транспозиций по тождеству Куроша.
             </p>
 <p>
-<strong>2. Редукция к соседним транспозициям:</strong> Достаточно выразить произвольную транспозицию $(i, j)$ через соседние. При $i < j$ положим $j = i + r$. Воспользуемся явным алгебраическим тождеством:
+<strong>2. Редукция к соседним транспозициям:</strong> Достаточно выразить произвольную транспозицию $(i, j)$ через соседние. При $i &lt; j$ положим $j = i + r$. Воспользуемся явным алгебраическим тождеством:
               \[(i, j) = (j-1, j)(j-2, j-1)\cdots(i+1, i+2)(i, i+1)(i+1, i+2)\cdots(j-2, j-1)(j-1, j).\]
               Каждый сомножитель в этом произведении является соседней транспозицией вида $(k, k+1)$. Следовательно, любая транспозиция порождается соседними.
             </p>
 <p>
-<strong>3. Порождаемость парой $\tau = (1, 2)$ и $\omega = (1, 2, \dots, n)$:</strong><br/>
+<strong>3. Порождаемость парой $\tau = (1, 2)$ и $\omega = (1, 2, \dots, n)$:</strong><br>
               Рассмотрим сопряжение транспозиции степенями длинного цикла $\omega$. Для любого цикла справедливо общее правило сопряжения в $S_n$:
               \[\omega (a, b) \omega^{-1} = \big(\omega(a), \omega(b)\big).\]
               Применяя это правило последовательно:
               \[\begin{aligned}
-                \omega (1, 2) \omega^{-1} &= \big(\omega(1), \omega(2)\big) = (2, 3), \\
-                \omega^2 (1, 2) \omega^{-2} &= \big(\omega^2(1), \omega^2(2)\big) = (3, 4), \\
-                &\dots \\
-                \omega^{k-1} (1, 2) \omega^{-(k-1)} &= (k, k+1).
+                \omega (1, 2) \omega^{-1} &amp;= \big(\omega(1), \omega(2)\big) = (2, 3), \\
+                \omega^2 (1, 2) \omega^{-2} &amp;= \big(\omega^2(1), \omega^2(2)\big) = (3, 4), \\
+                &amp;\dots \\
+                \omega^{k-1} (1, 2) \omega^{-(k-1)} &amp;= (k, k+1).
               \end{aligned}\]
               Таким образом, все $n-1$ соседних транспозиций порождаются всего двумя элементами: $(1, 2)$ и $\omega = (1, 2, \dots, n)$! А так как соседние транспозиции порождают всю группу $S_n$, то и пара $\{(1, 2), (1, 2, \dots, n)\}$ порождает $S_n$.
             </p>
@@ -1940,7 +1995,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="worked-example" id="ex-1"><div class="block-label">Пример 12.1</div><h3 data-toc="Сравнение методов: классически…" id="sub-9-1">Сравнение методов: классический подсчёт инверсий против теории циклов</h3><div>
 <div class="callout-body">
 <p><strong>Постановка задачи:</strong> Исследовать на чётность подстановку $\alpha \in S_9$ двумя способами: непосредственно через число инверсий и через теорию циклов Куроша:</p>
-            \[\alpha = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ 4 & 7 & 1 & 9 & 2 & 8 & 3 & 6 & 5 \end{pmatrix}.\]
+            \[\alpha = \begin{pmatrix} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7 &amp; 8 &amp; 9 \\ 4 &amp; 7 &amp; 1 &amp; 9 &amp; 2 &amp; 8 &amp; 3 &amp; 6 &amp; 5 \end{pmatrix}.\]
             <p><strong>Способ 1 (Прямой подсчёт инверсий нижней строки):</strong></p>
 <p>
               Выпишем нижнюю строку: $(4, 7, 1, 9, 2, 8, 3, 6, 5)$. Подсчитаем количество меньших чисел, стоящих правее каждого элемента:
@@ -1965,11 +2020,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p>
               Разложим $\alpha$ на независимые циклы, отслеживая орбиты элементов:
               \[\begin{aligned}
-                1 &\mapsto 4 \mapsto 9 \mapsto 5 \mapsto 2 \mapsto 7 \mapsto 3 \mapsto 1 \implies \sigma_1 = (1, 4, 9, 5, 2, 7, 3) \quad (\text{длина } k_1 = 7), \\
-                6 &\mapsto 8 \mapsto 6 \implies \sigma_2 = (6, 8) \quad (\text{длина } k_2 = 2).
+                1 &amp;\mapsto 4 \mapsto 9 \mapsto 5 \mapsto 2 \mapsto 7 \mapsto 3 \mapsto 1 \implies \sigma_1 = (1, 4, 9, 5, 2, 7, 3) \quad (\text{длина } k_1 = 7), \\
+                6 &amp;\mapsto 8 \mapsto 6 \implies \sigma_2 = (6, 8) \quad (\text{длина } k_2 = 2).
               \end{aligned}\]
-              Все 9 элементов исчерпаны: $\alpha = (1, 4, 9, 5, 2, 7, 3)(6, 8)$. Полное число независимых циклов $s = 2$.<br/>
-              Декремент подстановки: $d(\alpha) = n - s = 9 - 2 = 7$.<br/>
+              Все 9 элементов исчерпаны: $\alpha = (1, 4, 9, 5, 2, 7, 3)(6, 8)$. Полное число независимых циклов $s = 2$.<br>
+              Декремент подстановки: $d(\alpha) = n - s = 9 - 2 = 7$.<br>
               Знак подстановки:
               \[\operatorname{sgn}(\alpha) = (-1)^{d(\alpha)} = (-1)^7 = \mathbf{-1}.\]
               <em>Вывод: Циклический метод занял 10 секунд и исключил всякий риск арифметической ошибки в длинных суммах!</em>
@@ -1998,19 +2053,19 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <li>Вычисляем третью степень 7-цикла $\sigma_1 = (1, 4, 9, 5, 2, 7, 3)$:
                 Возведение в куб означает перемещение по циклу с шагом $3$:
                 \[\begin{aligned}
-                  1 &\xrightarrow{+3} 5, \\
-                  5 &\xrightarrow{+3} 3, \\
-                  3 &\xrightarrow{+3} 9, \\
-                  9 &\xrightarrow{+3} 7, \\
-                  7 &\xrightarrow{+3} 4, \\
-                  4 &\xrightarrow{+3} 2, \\
-                  2 &\xrightarrow{+3} 1.
+                  1 &amp;\xrightarrow{+3} 5, \\
+                  5 &amp;\xrightarrow{+3} 3, \\
+                  3 &amp;\xrightarrow{+3} 9, \\
+                  9 &amp;\xrightarrow{+3} 7, \\
+                  7 &amp;\xrightarrow{+3} 4, \\
+                  4 &amp;\xrightarrow{+3} 2, \\
+                  2 &amp;\xrightarrow{+3} 1.
                 \end{aligned}\]
                 Получаем цикл: $\sigma_1^3 = (1, 5, 3, 9, 7, 4, 2)$.
               </li>
 </ol>
 <p><strong>Итоговый ответ:</strong></p>
-            \[\alpha^{2026} = (1, 5, 3, 9, 7, 4, 2) = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ 5 & 1 & 9 & 2 & 3 & 6 & 4 & 8 & 7 \end{pmatrix}.\]
+            \[\alpha^{2026} = (1, 5, 3, 9, 7, 4, 2) = \begin{pmatrix} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7 &amp; 8 &amp; 9 \\ 5 &amp; 1 &amp; 9 &amp; 2 &amp; 3 &amp; 6 &amp; 4 &amp; 8 &amp; 7 \end{pmatrix}.\]
           </div>
 </div></div>
 <!-- Пример 12.3 -->
@@ -2019,37 +2074,37 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p><strong>Постановка задачи:</strong> Найти неизвестную подстановку $x \in S_5$, удовлетворяющую уравнению:</p>
             \[\alpha \cdot x \cdot \beta = \gamma,\]
             где заданы:
-            \[\alpha = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\ 2 & 3 & 1 & 5 & 4 \end{pmatrix}, \quad \beta = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\ 3 & 2 & 1 & 5 & 4 \end{pmatrix}, \quad \gamma = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\ 5 & 4 & 3 & 2 & 1 \end{pmatrix}.\]
+            \[\alpha = \begin{pmatrix} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\ 2 &amp; 3 &amp; 1 &amp; 5 &amp; 4 \end{pmatrix}, \quad \beta = \begin{pmatrix} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\ 3 &amp; 2 &amp; 1 &amp; 5 &amp; 4 \end{pmatrix}, \quad \gamma = \begin{pmatrix} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\ 5 &amp; 4 &amp; 3 &amp; 2 &amp; 1 \end{pmatrix}.\]
             <p><strong>Аналитическое решение:</strong></p>
 <ol>
 <li>Умножая уравнение слева на $\alpha^{-1}$ и справа на $\beta^{-1}$, получаем явное выражение для неизвестного:
                 \[x = \alpha^{-1} \cdot \gamma \cdot \beta^{-1}.\]
               </li>
 <li>Найдём обратные подстановки:
-                \[\alpha^{-1} = \begin{pmatrix} 2 & 3 & 1 & 5 & 4 \\ 1 & 2 & 3 & 4 & 5 \end{pmatrix} = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\ 3 & 1 & 2 & 5 & 4 \end{pmatrix}.\]
+                \[\alpha^{-1} = \begin{pmatrix} 2 &amp; 3 &amp; 1 &amp; 5 &amp; 4 \\ 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \end{pmatrix} = \begin{pmatrix} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\ 3 &amp; 1 &amp; 2 &amp; 5 &amp; 4 \end{pmatrix}.\]
                 Для $\beta$: заметим, что $\beta = (1, 3)(4, 5)$ состоит из независимых транспозиций, поэтому $\beta^2 = e \implies \beta^{-1} = \beta$.
               </li>
 <li>Вычисляем промежуточное произведение $y = \gamma \cdot \beta^{-1} = \gamma \cdot \beta$:
                 \[\begin{aligned}
-                  y(1) &= \gamma(\beta(1)) = \gamma(3) = 3, \\
-                  y(2) &= \gamma(\beta(2)) = \gamma(2) = 4, \\
-                  y(3) &= \gamma(\beta(3)) = \gamma(1) = 5, \\
-                  y(4) &= \gamma(\beta(4)) = \gamma(5) = 1, \\
-                  y(5) &= \gamma(\beta(5)) = \gamma(4) = 2.
-                \end{aligned} \implies y = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\ 3 & 4 & 5 & 1 & 2 \end{pmatrix}.\]
+                  y(1) &amp;= \gamma(\beta(1)) = \gamma(3) = 3, \\
+                  y(2) &amp;= \gamma(\beta(2)) = \gamma(2) = 4, \\
+                  y(3) &amp;= \gamma(\beta(3)) = \gamma(1) = 5, \\
+                  y(4) &amp;= \gamma(\beta(4)) = \gamma(5) = 1, \\
+                  y(5) &amp;= \gamma(\beta(5)) = \gamma(4) = 2.
+                \end{aligned} \implies y = \begin{pmatrix} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\ 3 &amp; 4 &amp; 5 &amp; 1 &amp; 2 \end{pmatrix}.\]
               </li>
 <li>Вычисляем окончательное произведение $x = \alpha^{-1} \cdot y$:
                 \[\begin{aligned}
-                  x(1) &= \alpha^{-1}(y(1)) = \alpha^{-1}(3) = 2, \\
-                  x(2) &= \alpha^{-1}(y(2)) = \alpha^{-1}(4) = 5, \\
-                  x(3) &= \alpha^{-1}(y(3)) = \alpha^{-1}(5) = 4, \\
-                  x(4) &= \alpha^{-1}(y(4)) = \alpha^{-1}(1) = 3, \\
-                  x(5) &= \alpha^{-1}(y(5)) = \alpha^{-1}(2) = 1.
+                  x(1) &amp;= \alpha^{-1}(y(1)) = \alpha^{-1}(3) = 2, \\
+                  x(2) &amp;= \alpha^{-1}(y(2)) = \alpha^{-1}(4) = 5, \\
+                  x(3) &amp;= \alpha^{-1}(y(3)) = \alpha^{-1}(5) = 4, \\
+                  x(4) &amp;= \alpha^{-1}(y(4)) = \alpha^{-1}(1) = 3, \\
+                  x(5) &amp;= \alpha^{-1}(y(5)) = \alpha^{-1}(2) = 1.
                 \end{aligned}\]
               </li>
 </ol>
 <p><strong>Итоговый ответ:</strong></p>
-            \[x = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\ 2 & 5 & 4 & 3 & 1 \end{pmatrix} = (1, 2, 5)(3, 4).\]
+            \[x = \begin{pmatrix} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\ 2 &amp; 5 &amp; 4 &amp; 3 &amp; 1 \end{pmatrix} = (1, 2, 5)(3, 4).\]
           </div>
 </div></div>
 <!-- Пример 12.4 -->
@@ -2061,19 +2116,19 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <ol>
 <li>Выпишем циклические типы с учётом неподвижных точек:
                 \[\begin{aligned}
-                  \sigma &= (1, 3, 5)(2, 6)(4) \implies \text{длины циклов: } (3, 2, 1), \\
-                  \pi    &= (2, 4, 1)(3, 5)(6) \implies \text{длины циклов: } (3, 2, 1).
+                  \sigma &amp;= (1, 3, 5)(2, 6)(4) \implies \text{длины циклов: } (3, 2, 1), \\
+                  \pi    &amp;= (2, 4, 1)(3, 5)(6) \implies \text{длины циклов: } (3, 2, 1).
                 \end{aligned}\]
                 Циклические типы полностью совпадают $\implies$ подстановки <strong>сопряжены</strong>!
               </li>
 <li>Для построения элемента $g$ запишем циклы одинаковой длины строго друг под другом:
                 \[\begin{aligned}
-                  \sigma: &\quad (1, \; 3, \; 5) \; (2, \; 6) \; (4) \\
-                  \pi:    &\quad (2, \; 4, \; 1) \; (3, \; 5) \; (6)
+                  \sigma: &amp;\quad (1, \; 3, \; 5) \; (2, \; 6) \; (4) \\
+                  \pi:    &amp;\quad (2, \; 4, \; 1) \; (3, \; 5) \; (6)
                 \end{aligned}\]
               </li>
 <li>Искомый сопрягающий элемент $g$ ставит в соответствие каждому элементу верхней строки элемент нижней строки:
-                \[g = \begin{pmatrix} 1 & 3 & 5 & 2 & 6 & 4 \\ 2 & 4 & 1 & 3 & 5 & 6 \end{pmatrix} = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 \\ 2 & 3 & 4 & 6 & 1 & 5 \end{pmatrix}.\]
+                \[g = \begin{pmatrix} 1 &amp; 3 &amp; 5 &amp; 2 &amp; 6 &amp; 4 \\ 2 &amp; 4 &amp; 1 &amp; 3 &amp; 5 &amp; 6 \end{pmatrix} = \begin{pmatrix} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 \\ 2 &amp; 3 &amp; 4 &amp; 6 &amp; 1 &amp; 5 \end{pmatrix}.\]
               </li>
 </ol>
 <p>Непосредственная проверка подтверждает тождество: $g \sigma g^{-1} = \pi$.</p>
@@ -2111,8 +2166,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </tr>
 <tr>
 <td><strong>Инверсия (беспорядок)</strong></td>
-<td>$(\alpha_i, \alpha_j), \; i < j$</td>
-<td>Пара элементов, для которой $\alpha_i > \alpha_j$</td>
+<td>$(\alpha_i, \alpha_j), \; i &lt; j$</td>
+<td>Пара элементов, для которой $\alpha_i &gt; \alpha_j$</td>
 <td>$0 \leqslant I(\alpha) \leqslant \binom{n}{2}$</td>
 <td>Инвертируется при соседней транспозиции</td>
 </tr>
@@ -2147,7 +2202,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <tr>
 <td><strong>Гомоморфизм знака</strong></td>
 <td>$\operatorname{sgn}: S_n \to \{-1, +1\}$</td>
-<td>$\operatorname{sgn}(\alpha) = \prod_{i < j} \frac{\alpha(j) - \alpha(i)}{j - i}$</td>
+<td>$\operatorname{sgn}(\alpha) = \prod_{i &lt; j} \frac{\alpha(j) - \alpha(i)}{j - i}$</td>
 <td>Мультипликативность: $\operatorname{sgn}(\alpha\beta) = \operatorname{sgn}(\alpha)\operatorname{sgn}(\beta)$</td>
 <td>Гомоморфизм групп в $\mathbb{Z}_2$</td>
 </tr>

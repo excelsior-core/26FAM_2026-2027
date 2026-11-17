@@ -660,6 +660,62 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -679,8 +735,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
       <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
     </aside>
     <main id="content">
-      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-      <header class="lecture-head" id="top">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. --><header class="lecture-head" id="top">
         <div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>Академический конспект ФПМ</span></div>
         <h1>Аналитическая геометрия: Лекции 3 и 4 — Произведения векторов, АСК и уравнения прямых</h1>
         <p class="subtitle">Полное академическое руководство по материалам лекций 3 и 4: строгие доказательства, точная векторная графика, парадоксы векторного произведения и разбор задач</p>
@@ -703,7 +758,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <!-- Навигационная панель -->
 <div class="top-bar no-print">
-<div class="top-bar-title">Аналитическая геометрия — Лекции 3 и 4 (Г. М. Полотовский)</div>
+<div class="top-bar-title">Аналитическая геометрия — Лекции 3 и 4</div>
 <div class="top-bar-buttons">
 <button class="btn" onclick="document.body.classList.toggle('light-theme')">🌓 Сменить тему</button>
 <button class="btn" onclick="window.print()">🖨️ Печать / PDF (Ctrl+P)</button>
@@ -715,7 +770,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <h1>Произведения векторов, аффинные системы координат и геометрия прямой</h1>
 <p class="doc-subtitle">Полное академическое руководство по материалам лекций 3 и 4: строгие доказательства, точная векторная графика, парадоксы векторного произведения и разбор задач</p>
 <div class="author-badge">
-<span><strong>Лектор:</strong> доцент Г. М. Полотовский</span>
+
 <span>•</span>
 <span><strong>Семестр:</strong> 2026/2027 уч. год</span>
 </div>
@@ -745,7 +800,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- РИСУНОК 1: Аффинные системы координат 1D, 2D, 3D -->
 <figure>
 <div class="svg-container">
-<svg height="200" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 200" width="680" role="img" aria-label="Рис. 1. Аффинные системы координат на прямой, на плоскости и в трёхмерном пространстве." data-fam-figure="diagram" data-fam-index="1">
+<div class="diagram-scroll" style="--diagram-min-width: 816px"><svg height="200" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 200" width="680" role="img" aria-label="Рис. 1. Аффинные системы координат на прямой, на плоскости и в трёхмерном пространстве." data-fam-figure="diagram" data-fam-index="1">
 <defs>
 <marker id="fam-fig-1-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"></path>
@@ -801,7 +856,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="var(--svg-slate)" font-size="10" x="135" y="55">Ось ординат</text>
 <text fill="var(--svg-slate)" font-size="10" x="65" y="40">Ось аппликат</text>
 </g>
-</svg>
+</svg></div>
 </div>
 <figcaption>Рис. 1. Аффинные системы координат на прямой, на плоскости и в трёхмерном пространстве.</figcaption>
 </figure>
@@ -809,7 +864,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement definition" id="def-2"><div class="block-label">Определение 30 (Радиус-вектор и координаты точки)</div><h3 data-toc="Определение 2" id="sub-2-4">Определение 2</h3><div>
 
         Пусть задана АСК с началом в точке $O$. Для любой точки пространства $M$ направленный отрезок $\vec{OM}$ называется её <strong>радиус-вектором</strong> и обозначается $\vec{r}_M$.
-        <br/>
+        <br>
 <strong>Координатами точки $M$</strong> называются коэффициенты разложения её радиус-вектора по базису данной системы координат:
         \[\vec{r}_M = \vec{OM} = x\vec{e}_1 + y\vec{e}_2 + z\vec{e}_3 \iff M(x, y, z)\]
       </div></div>
@@ -845,7 +900,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <h3 data-toc="3. Деление отрезка в заданном …" id="sec-1-3">1.3. Деление отрезка в заданном отношении (внутреннее и внешнее деление)</h3>
 <div class="statement theorem" id="thm-2"><div class="block-label">Задача 32 (Деление отрезка в заданном отношении)</div><h3 data-toc="Теорема 2" id="sub-2-7">Теорема 2</h3><div>
 
-        Пусть на отрезке $AB$, соединяющем точки $A(x_1, y_1, z_1)$ и $B(x_2, y_2, z_2)$, требуется найти такую точку $M(x, y, z)$, которая делит данный отрезок в отношении положительных чисел $\lambda : \mu$, то есть $|AM| : |MB| = \lambda : \mu$ (где $\lambda > 0, \mu > 0$).
+        Пусть на отрезке $AB$, соединяющем точки $A(x_1, y_1, z_1)$ и $B(x_2, y_2, z_2)$, требуется найти такую точку $M(x, y, z)$, которая делит данный отрезок в отношении положительных чисел $\lambda : \mu$, то есть $|AM| : |MB| = \lambda : \mu$ (где $\lambda &gt; 0, \mu &gt; 0$).
       </div></div>
 <div class="proof" data-proof="" id="proof-2">
 <div aria-label="Доказательство Решение и строгий вывод формул" class="proof-controls" role="group">
@@ -886,7 +941,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- РИСУНОК 2: Внутреннее и внешнее деление отрезка -->
 <figure>
 <div class="svg-container">
-<svg height="220" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 220" width="680" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 2. Деление отрезка $AB$: внутреннее положение точки $M_1$ ($\lambda/\mu &gt; 0$) и внешнее положение $M_2$ ($\lambda/\mu &lt; 0$)." data-fam-figure="diagram" data-fam-index="2">
+<div class="diagram-scroll" style="--diagram-min-width: 710px"><svg height="220" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 220" width="680" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 2. Деление отрезка $AB$: внутреннее положение точки $M_1$ ($\lambda/\mu &gt; 0$) и внешнее положение $M_2$ ($\lambda/\mu &lt; 0$)." data-fam-figure="diagram" data-fam-index="2">
 <defs>
 <marker id="fam-fig-2-arr-green" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-emerald, #10b981)"></path>
@@ -929,19 +984,19 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- M2B: стрелка влево от 560 к 420 -->
 <line marker-start="url(#fam-fig-2-arr-amber-rev)" stroke="var(--accent-amber, #f59e0b)" stroke-width="2" x1="428" x2="560" y1="140" y2="140"></line>
 <text fill="var(--accent-amber, #f59e0b)" font-size="12" font-weight="600" text-anchor="middle" x="490" y="158">M₂B (влево)</text>
-</svg>
+</svg></div>
 </div>
-<figcaption>Рис. 2. Деление отрезка $AB$: внутреннее положение точки $M_1$ ($\lambda/\mu > 0$) и внешнее положение $M_2$ ($\lambda/\mu < 0$).</figcaption>
+<figcaption>Рис. 2. Деление отрезка $AB$: внутреннее положение точки $M_1$ ($\lambda/\mu &gt; 0$) и внешнее положение $M_2$ ($\lambda/\mu &lt; 0$).</figcaption>
 </figure>
 <aside class="note">
 <span class="block-label">Анализ вопроса 34: Разные знаки коэффициентов $\lambda$ и $\mu$ (Внешнее деление отрезка)</span>
-        Пусть отношение $k = \frac{\lambda}{\mu} < 0$. Векторное равенство $\vec{AM} = k \vec{MB}$ означает, что векторы $\vec{AM}$ и $\vec{MB}$ направлены <strong>противоположно</strong>. Это невозможно, если точка $M$ лежит строго между $A$ и $B$.
-        <br/><br/>
+        Пусть отношение $k = \frac{\lambda}{\mu} &lt; 0$. Векторное равенство $\vec{AM} = k \vec{MB}$ означает, что векторы $\vec{AM}$ и $\vec{MB}$ направлены <strong>противоположно</strong>. Это невозможно, если точка $M$ лежит строго между $A$ и $B$.
+        <br><br>
         Следовательно, точка $M$ лежит <em>вне отрезка $AB$ на его прямой</em>:
         <ol>
 <li>Если $k = -1$ ($\lambda + \mu = 0$), знаменатель обращается в ноль. Равенство $\vec{AM} = -\vec{MB} \iff \vec{AM} + \vec{MB} = \vec{0} \iff \vec{AB} = \vec{0}$, что невозможно для различных точек $A \neq B$. Точка $M$ «уходит на бесконечность».</li>
-<li>Если $-1 < k < 0$ ($|AM| < |MB|$), точка $M$ лежит на луче, исходящем из точки $A$ в сторону, противоположную точке $B$ (ближе к точке $A$).</li>
-<li>Если $k < -1$ ($|AM| > |MB|$), точка $M$ лежит на продолжении отрезка за точку $B$ (ближе к точке $B$).</li>
+<li>Если $-1 &lt; k &lt; 0$ ($|AM| &lt; |MB|$), точка $M$ лежит на луче, исходящем из точки $A$ в сторону, противоположную точке $B$ (ближе к точке $A$).</li>
+<li>Если $k &lt; -1$ ($|AM| &gt; |MB|$), точка $M$ лежит на продолжении отрезка за точку $B$ (ближе к точке $B$).</li>
 </ol>
 </aside>
 
@@ -957,11 +1012,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement definition" id="def-3"><div class="block-label">Определение 35 (Угол между векторами и ортогональность)</div><h3 data-toc="Определение 3" id="sub-3-2">Определение 3</h3><div>
 
         Пусть даны ненулевые векторы $\vec{a}$ и $\vec{b}$. Отложим их от одной общей точки $O$: $\vec{OA} = \vec{a}$, $\vec{OB} = \vec{b}$.
-        <br/>
+        <br>
 <strong>Углом $\varphi = \widehat{\vec{a}\vec{b}}$ между векторами</strong> называется наименьший угол между лучами $OA$ и $OB$. Диапазон значений:
         \[0 \le \varphi \le \pi \quad (0^\circ \le \varphi \le 180^\circ)\]
         Если угол равен $\frac{\pi}{2}$ ($90^\circ$), векторы называются <strong>ортогональными</strong> (перпендикулярными), обозначается $\vec{a} \perp \vec{b}$.
-        <br/>
+        <br>
 <em>Соглашение:</em> <strong>нулевой вектор $\vec{0}$ ортогонален абсолютно любому вектору</strong>.
       </div></div>
 <div class="statement definition" id="def-4"><div class="block-label">Определение 36 (Ортогональный и ортонормированный базисы)</div><h3 data-toc="Определение 4" id="sub-3-3">Определение 4</h3><div>
@@ -1008,11 +1063,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 
         Рассмотрим проекцию вектора $\vec{a}$ на прямую первого базисного вектора $\vec{e}_1$ параллельно координатной плоскости, натянутой на $\vec{e}_2$ и $\vec{e}_3$.
         Так как базис ортогонален, координатная плоскость $\vec{e}_2\vec{e}_3$ перпендикулярна вектору $\vec{e}_1$. Следовательно, проектирование является ортогональным, а треугольник $OAP$ — <strong>прямоугольным</strong> с прямым углом при вершине $P$.
-        <br/><br/>
+        <br><br>
         Длина отрезка проекции $OP$ равна катету прямоугольного треугольника: $|OP| = |\vec{a}|\cos\varphi$.
         Чтобы получить координату $x$, необходимо выразить величину направленного отрезка $OP$ в единицах масштаба оси $Ox$, то есть разделить на длину базисного вектора $|\vec{e}_1|$:
         \[x = \frac{|\vec{a}|\cos\varphi}{|\vec{e}_1|}\]
-        Домножим числитель и знаменатель дроби на величину $|\vec{e}_1| > 0$:
+        Домножим числитель и знаменатель дроби на величину $|\vec{e}_1| &gt; 0$:
         \[x = \frac{|\vec{a}| |\vec{e}_1| \cos\varphi}{|\vec{e}_1| \cdot |\vec{e}_1|} = \frac{(\vec{a}, \vec{e}_1)}{|\vec{e}_1|^2}\]
         Формулы для ординаты $y$ и аппликаты $z$ доказываются полностью аналогично проектированием на $\vec{e}_2$ и $\vec{e}_3$.
         <span class="proof-qed">■</span>
@@ -1022,7 +1077,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- РИСУНОК 3: Ортогональная проекция вектора a на ось e1 -->
 <figure>
 <div class="svg-container">
-<svg height="230" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 540 230" width="540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 3. Проекция вектора $\vec{a}$ на ось базисного вектора $\vec{e}_1$: прямоугольный треугольник $OAP$ и катет $OP$." data-fam-figure="diagram" data-fam-index="3">
+<div class="diagram-scroll" style="--diagram-min-width: 499px"><svg height="230" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 540 230" width="540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 3. Проекция вектора $\vec{a}$ на ось базисного вектора $\vec{e}_1$: прямоугольный треугольник $OAP$ и катет $OP$." data-fam-figure="diagram" data-fam-index="3">
 <defs>
 <marker id="fam-fig-3-arr-axis-3" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
@@ -1054,7 +1109,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <rect fill="var(--bg-card-alt, #1e293b)" height="70" rx="8" stroke="var(--border-color, #334155)" stroke-width="1.2" width="200" x="310" y="60"></rect>
 <text fill="var(--text-main, #f3f4f6)" font-size="13.5" font-weight="700" x="325" y="88">pr_L a = |a| · cos φ</text>
 <text fill="var(--accent-blue, #38bdf8)" font-size="13" font-weight="600" x="325" y="112">(a, e) = |a| cos φ</text>
-</svg>
+</svg></div>
 </div>
 <figcaption>Рис. 3. Проекция вектора $\vec{a}$ на ось базисного вектора $\vec{e}_1$: прямоугольный треугольник $OAP$ и катет $OP$.</figcaption>
 </figure>
@@ -1084,14 +1139,14 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Доказательство через выбор ортогонального базиса)</div>
 
 
-        1) Если $\vec{c} = \vec{0}$, равенство принимает тривиальный вид $0 = 0 + 0$.<br/>
+        1) Если $\vec{c} = \vec{0}$, равенство принимает тривиальный вид $0 = 0 + 0$.<br>
         2) Пусть $\vec{c} \neq \vec{0}$. Выберем вектор $\vec{c}$ в качестве первого вектора базиса: $\vec{e}_1 = \vec{c}$. Дополним его векторами $\vec{e}_2$ и $\vec{e}_3$ так, чтобы получить ортогональный базис пространства (выбрав $\vec{e}_2 \perp \vec{c}$ и $\vec{e}_3 \perp \vec{c}$, $\vec{e}_3 \perp \vec{e}_2$).
-        <br/>
+        <br>
         По формуле теоремы 39, первые координаты векторов $\vec{a}, \vec{b}$ и их суммы $\vec{a} + \vec{b}$ в этом базисе равны соответственно:
         \[x_a = \frac{(\vec{a}, \vec{c})}{|\vec{c}|^2}, \quad x_b = \frac{(\vec{b}, \vec{c})}{|\vec{c}|^2}, \quad x_{a+b} = \frac{(\vec{a} + \vec{b}, \vec{c})}{|\vec{c}|^2}\]
         Но по свойству сложения векторов (теорема 28) при сложении векторов их одноимённые координаты складываются: $x_{a+b} = x_a + x_b$. Следовательно:
         \[\frac{(\vec{a} + \vec{b}, \vec{c})}{|\vec{c}|^2} = \frac{(\vec{a}, \vec{c})}{|\vec{c}|^2} + \frac{(\vec{b}, \vec{c})}{|\vec{c}|^2}\]
-        Умножая обе части этого числового равенства на ненулевой скаляр $|\vec{c}|^2 > 0$, получаем искомое соотношение.
+        Умножая обе части этого числового равенства на ненулевой скаляр $|\vec{c}|^2 &gt; 0$, получаем искомое соотношение.
         <span class="proof-qed">■</span>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
@@ -1099,9 +1154,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <aside class="note">
 <span class="block-label">Символ Кронекера и билинейность</span>
         Дистрибутивность вместе со свойством однородности означает, что скалярное произведение <strong>линейно по первому аргументу</strong>. В силу коммутативности $(\vec{a}, \vec{b}) = (\vec{b}, \vec{a})$ оно одновременно линейно и по второму аргументу. Функция, линейная по каждому из двух своих аргументов, называется <strong>билинейной формой</strong>.
-        <br/><br/>
+        <br><br>
         В ортонормированном базисе попарные скалярные произведения ортов записываются через <strong>символ Кронекера</strong> $\delta_{ij}$:
-        \[(\vec{e}_i, \vec{e}_j) = \delta_{ij} = \begin{cases} 1, & \text{если } i = j \\ 0, & \text{если } i \neq j \end{cases}\]
+        \[(\vec{e}_i, \vec{e}_j) = \delta_{ij} = \begin{cases} 1, &amp; \text{если } i = j \\ 0, &amp; \text{если } i \neq j \end{cases}\]
       </aside>
 <h3 data-toc="5. Скалярное произведение, дли…" id="sec-2-5">2.5. Скалярное произведение, длина вектора и угол в координатах ОНБ</h3>
 <div class="statement theorem" id="thm-8"><div class="block-label">Теорема 41' (Скалярное произведение в координатах ОНБ)</div><h3 data-toc="Теорема 8" id="sub-3-13">Теорема 8</h3><div>
@@ -1152,15 +1207,15 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement definition" id="def-6"><div class="block-label">Определение 44 (Ориентация тройки векторов)</div><h3 data-toc="Определение 6" id="sub-4-2">Определение 6</h3><div>
 
         Упорядоченная тройка некомпланарных векторов $(\vec{a}, \vec{b}, \vec{c})$ называется <strong>правой</strong>, если при наблюдении с конца вектора $\vec{c}$ кратчайший поворот от первого вектора $\vec{a}$ ко второму вектору $\vec{b}$ виден происходящим <strong>против часовой стрелки</strong>.
-        <br/>
+        <br>
         Если данный поворот виден происходящим по часовой стрелке, тройка называется <strong>левой</strong>.
       </div></div>
 <!-- РИСУНОК 4: Правая тройка векторов -->
 <figure>
 <div class="svg-container">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 260" role="img" aria-label="Правая тройка: пространственный вид и проекция вдоль нормали" data-fam-figure="diagram" data-fam-index="4">
-<path d="M140,158 L229.28,191.48 L211.92,239.22 L122.64,205.74 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><line x1="140" y1="158" x2="220.85" y2="188.32" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M229.28,191.48 L219.49,191.94 L222.21,184.7 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="243.28" y="201.48" text-anchor="middle" fill="var(--fig-blue)" font-size="14">a</text><line x1="140" y1="158" x2="125.72" y2="197.28" stroke="var(--fig-green)" stroke-width="2.1" /><path d="M122.64,205.74 L122.08,195.96 L129.35,198.6 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="112.64" y="215.74" text-anchor="middle" fill="var(--fig-green)" font-size="14">b</text><line x1="140" y1="158" x2="140" y2="69.58" stroke="var(--fig-rose)" stroke-width="2.1" /><path d="M140,60.58 L143.87,69.58 L136.13,69.58 Z" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="172" y="50.58" text-anchor="middle" fill="var(--fig-rose)" font-size="14">c = a × b</text><text x="133" y="178" text-anchor="middle" fill="var(--fig-ink)" font-size="14">O</text><line x1="450" y1="170" x2="556.2" y2="170" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M565.2,170 L556.2,173.87 L556.2,166.13 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="450" y1="170" x2="490.78" y2="88.45" stroke="var(--fig-green)" stroke-width="2.1" /><path d="M494.8,80.4 L494.24,90.18 L487.31,86.72 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="450" cy="170" r="5" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"/><text x="434" y="194" text-anchor="middle" fill="var(--fig-rose)" font-size="14">⊙ c</text><path d="M489.68,170 L489.67,169.02 L489.63,168.05 L489.57,167.07 L489.49,166.1 L489.38,165.13 L489.25,164.16 L489.09,163.2 L488.91,162.24 L488.71,161.29 L488.49,160.34 L488.24,159.39 L487.96,158.45 L487.67,157.52 L487.35,156.6 L487.01,155.69 L486.65,154.78 L486.26,153.88 L485.85,153 L485.42,152.12 L484.97,151.25 L484.5,150.4 L484.01,149.56 L483.49,148.73 L482.96,147.91 L482.41,147.1 L481.83,146.31 L481.24,145.54 L480.63,144.78 L480,144.03 L479.35,143.3 L478.69,142.59 L478,141.89 L477.3,141.21 L476.59,140.55 L475.86,139.9 L475.11,139.27 L474.34,138.66 L473.57,138.08 L472.77,137.51" fill="none" stroke="var(--fig-gold)" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" /><line x1="471.97" y1="136.95" x2="472.94" y2="137.52" stroke="var(--fig-gold)" stroke-width="1.8" /><path d="M467.75,134.51 L474.23,135.28 L471.64,139.75 Z" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="495" y="139" text-anchor="middle" fill="var(--fig-gold)" font-size="14">φ</text><text x="576" y="181" text-anchor="middle" fill="var(--fig-blue)" font-size="14">a</text><text x="498" y="72" text-anchor="middle" fill="var(--fig-green)" font-size="14">b</text><text x="165" y="26" text-anchor="middle" fill="var(--fig-ink)" font-size="15">Пространственная проекция</text><text x="466" y="26" text-anchor="middle" fill="var(--fig-ink)" font-size="15">Вид с конца c</text><text x="329" y="242" text-anchor="middle" fill="var(--fig-ink)" font-size="15">От a к b — против часовой стрелки</text>
-</svg>
+<div class="diagram-scroll" style="--diagram-min-width: 558px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 650 260" role="img" aria-label="Правая тройка: пространственный вид и проекция вдоль нормали" data-fam-figure="diagram" data-fam-index="4">
+<path d="M140,158 L229.28,191.48 L211.92,239.22 L122.64,205.74 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"></path><line x1="140" y1="158" x2="220.85" y2="188.32" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M229.28,191.48 L219.49,191.94 L222.21,184.7 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><text x="243.28" y="201.48" text-anchor="middle" fill="var(--fig-blue)" font-size="14">a</text><line x1="140" y1="158" x2="125.72" y2="197.28" stroke="var(--fig-green)" stroke-width="2.1"></line><path d="M122.64,205.74 L122.08,195.96 L129.35,198.6 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><text x="112.64" y="215.74" text-anchor="middle" fill="var(--fig-green)" font-size="14">b</text><line x1="140" y1="158" x2="140" y2="69.58" stroke="var(--fig-rose)" stroke-width="2.1"></line><path d="M140,60.58 L143.87,69.58 L136.13,69.58 Z" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><text x="172" y="50.58" text-anchor="middle" fill="var(--fig-rose)" font-size="14">c = a × b</text><text x="133" y="178" text-anchor="middle" fill="var(--fig-ink)" font-size="14">O</text><line x1="450" y1="170" x2="556.2" y2="170" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M565.2,170 L556.2,173.87 L556.2,166.13 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><line x1="450" y1="170" x2="490.78" y2="88.45" stroke="var(--fig-green)" stroke-width="2.1"></line><path d="M494.8,80.4 L494.24,90.18 L487.31,86.72 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><circle cx="450" cy="170" r="5" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"></circle><text x="434" y="194" text-anchor="middle" fill="var(--fig-rose)" font-size="14">⊙ c</text><path d="M489.68,170 L489.67,169.02 L489.63,168.05 L489.57,167.07 L489.49,166.1 L489.38,165.13 L489.25,164.16 L489.09,163.2 L488.91,162.24 L488.71,161.29 L488.49,160.34 L488.24,159.39 L487.96,158.45 L487.67,157.52 L487.35,156.6 L487.01,155.69 L486.65,154.78 L486.26,153.88 L485.85,153 L485.42,152.12 L484.97,151.25 L484.5,150.4 L484.01,149.56 L483.49,148.73 L482.96,147.91 L482.41,147.1 L481.83,146.31 L481.24,145.54 L480.63,144.78 L480,144.03 L479.35,143.3 L478.69,142.59 L478,141.89 L477.3,141.21 L476.59,140.55 L475.86,139.9 L475.11,139.27 L474.34,138.66 L473.57,138.08 L472.77,137.51" fill="none" stroke="var(--fig-gold)" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"></path><line x1="471.97" y1="136.95" x2="472.94" y2="137.52" stroke="var(--fig-gold)" stroke-width="1.8"></line><path d="M467.75,134.51 L474.23,135.28 L471.64,139.75 Z" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><text x="495" y="139" text-anchor="middle" fill="var(--fig-gold)" font-size="14">φ</text><text x="576" y="181" text-anchor="middle" fill="var(--fig-blue)" font-size="14">a</text><text x="498" y="72" text-anchor="middle" fill="var(--fig-green)" font-size="14">b</text><text x="165" y="26" text-anchor="middle" fill="var(--fig-ink)" font-size="15">Пространственная проекция</text><text x="466" y="26" text-anchor="middle" fill="var(--fig-ink)" font-size="15">Вид с конца c</text><text x="329" y="242" text-anchor="middle" fill="var(--fig-ink)" font-size="15">От a к b — против часовой стрелки</text>
+</svg></div>
 </div>
 <figcaption>Рис. 4. Правая упорядоченная тройка $(\vec{a}, \vec{b}, \vec{c})$: с конца вектора $\vec{c}$ поворот $\vec{a} \to \vec{b}$ виден против часовой стрелки.</figcaption>
 </figure>
@@ -1185,7 +1240,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p>
         Пусть базис $\{\vec{i}, \vec{j}, \vec{k}\}$ — правый ортонормированный базис (орты осей $Ox, Oy, Oz$). На основе определения 45 составляется таблица попарных векторных произведений ортов:
       </p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>$[\text{Строка}, \, \text{Столбец}]$</th>
@@ -1214,7 +1269,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <td>$\vec{0}$</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <aside class="note">
 <span class="block-label">Мнемоническое правило знаков (Круговая схема)</span>
         Расположим символы по кругу: $\vec{i} \to \vec{j} \to \vec{k} \to \vec{i}$.
@@ -1224,7 +1279,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement theorem" id="thm-11"><div class="block-label">Теорема 47 (Векторное произведение в координатах ОНБ)</div><h3 data-toc="Теорема 11" id="sub-4-7">Теорема 11</h3><div>
 
         В правом ортонормированном базисе векторное произведение векторов $\vec{a}(x_1, y_1, z_1)$ и $\vec{b}(x_2, y_2, z_2)$ вычисляется через символический определитель 3-го порядка:
-        \[[\vec{a}, \vec{b}] = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \end{vmatrix} = \begin{vmatrix} y_1 & z_1 \\ y_2 & z_2 \end{vmatrix}\vec{i} - \begin{vmatrix} x_1 & z_1 \\ x_2 & z_2 \end{vmatrix}\vec{j} + \begin{vmatrix} x_1 & y_1 \\ x_2 & y_2 \end{vmatrix}\vec{k}\]
+        \[[\vec{a}, \vec{b}] = \begin{vmatrix} \vec{i} &amp; \vec{j} &amp; \vec{k} \\ x_1 &amp; y_1 &amp; z_1 \\ x_2 &amp; y_2 &amp; z_2 \end{vmatrix} = \begin{vmatrix} y_1 &amp; z_1 \\ y_2 &amp; z_2 \end{vmatrix}\vec{i} - \begin{vmatrix} x_1 &amp; z_1 \\ x_2 &amp; z_2 \end{vmatrix}\vec{j} + \begin{vmatrix} x_1 &amp; y_1 \\ x_2 &amp; y_2 \end{vmatrix}\vec{k}\]
         В координатной записи:
         \[[\vec{a}, \vec{b}] = \Big(y_1 z_2 - z_1 y_2, \quad -(x_1 z_2 - z_1 x_2), \quad x_1 y_2 - y_1 x_2\Big)\]
       </div></div>
@@ -1261,9 +1316,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- РИСУНОК 5: Геометрический смысл смешанного произведения -->
 <figure>
 <div class="svg-container">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340" role="img" aria-label="Косой параллелепипед и его высота" data-fam-figure="diagram" data-fam-index="5">
-<path d="M300,193 L452.88,250.33 L360.06,312.21 L207.18,254.88 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><path d="M300,193 L452.88,250.33 L460.89,167.67 L308.01,110.34 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><path d="M308.01,110.34 L460.89,167.67 L368.07,229.55 L215.19,172.22 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><line x1="300" y1="193" x2="308.01" y2="110.34" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="300" y1="193" x2="207.18" y2="254.88" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="300" y1="193" x2="452.88" y2="250.33" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="308.01" y1="110.34" x2="215.19" y2="172.22" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="308.01" y1="110.34" x2="460.89" y2="167.67" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="207.18" y1="254.88" x2="215.19" y2="172.22" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="207.18" y1="254.88" x2="360.06" y2="312.21" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="215.19" y1="172.22" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="452.88" y1="250.33" x2="460.89" y2="167.67" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="452.88" y1="250.33" x2="360.06" y2="312.21" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="460.89" y1="167.67" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="360.06" y1="312.21" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="300" y1="193" x2="444.45" y2="247.17" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M452.88,250.33 L443.09,250.79 L445.81,243.55 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="460.88" y="267.33" text-anchor="middle" fill="var(--fig-blue)" font-size="14">a</text><line x1="300" y1="193" x2="214.67" y2="249.89" stroke="var(--fig-green)" stroke-width="2.1" /><path d="M207.18,254.88 L212.52,246.67 L216.82,253.11 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="196.18" y="268.88" text-anchor="middle" fill="var(--fig-green)" font-size="14">b</text><line x1="300" y1="193" x2="307.14" y2="119.3" stroke="var(--fig-rose)" stroke-width="2.1" /><path d="M308.01,110.34 L310.99,119.67 L303.29,118.92 Z" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="321.01" y="104.34" text-anchor="middle" fill="var(--fig-rose)" font-size="14">c</text><line x1="308.01" y1="230.13" x2="308.01" y2="110.34" stroke="var(--fig-gold)" stroke-width="2" stroke-dasharray="4 3"/><circle cx="308.01" cy="230.13" r="3" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="1.6"/><text x="295.01" y="170.23" text-anchor="middle" fill="var(--fig-gold)" font-size="14">h</text><text x="320" y="320" text-anchor="middle" fill="var(--fig-ink)" font-size="15">h = |c · n̂|   ·   V = |(a × b) · c| = |a × b|·h</text><text x="285" y="213" text-anchor="middle" fill="var(--fig-ink)" font-size="14">O</text>
-</svg>
+<div class="diagram-scroll" style="--diagram-min-width: 549px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 340" role="img" aria-label="Косой параллелепипед и его высота" data-fam-figure="diagram" data-fam-index="5">
+<path d="M300,193 L452.88,250.33 L360.06,312.21 L207.18,254.88 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"></path><path d="M300,193 L452.88,250.33 L460.89,167.67 L308.01,110.34 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"></path><path d="M308.01,110.34 L460.89,167.67 L368.07,229.55 L215.19,172.22 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"></path><line x1="300" y1="193" x2="308.01" y2="110.34" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="300" y1="193" x2="207.18" y2="254.88" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="300" y1="193" x2="452.88" y2="250.33" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="308.01" y1="110.34" x2="215.19" y2="172.22" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="308.01" y1="110.34" x2="460.89" y2="167.67" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="207.18" y1="254.88" x2="215.19" y2="172.22" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="207.18" y1="254.88" x2="360.06" y2="312.21" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="215.19" y1="172.22" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="452.88" y1="250.33" x2="460.89" y2="167.67" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="452.88" y1="250.33" x2="360.06" y2="312.21" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="460.89" y1="167.67" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="360.06" y1="312.21" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="300" y1="193" x2="444.45" y2="247.17" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M452.88,250.33 L443.09,250.79 L445.81,243.55 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><text x="460.88" y="267.33" text-anchor="middle" fill="var(--fig-blue)" font-size="14">a</text><line x1="300" y1="193" x2="214.67" y2="249.89" stroke="var(--fig-green)" stroke-width="2.1"></line><path d="M207.18,254.88 L212.52,246.67 L216.82,253.11 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><text x="196.18" y="268.88" text-anchor="middle" fill="var(--fig-green)" font-size="14">b</text><line x1="300" y1="193" x2="307.14" y2="119.3" stroke="var(--fig-rose)" stroke-width="2.1"></line><path d="M308.01,110.34 L310.99,119.67 L303.29,118.92 Z" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><text x="321.01" y="104.34" text-anchor="middle" fill="var(--fig-rose)" font-size="14">c</text><line x1="308.01" y1="230.13" x2="308.01" y2="110.34" stroke="var(--fig-gold)" stroke-width="2" stroke-dasharray="4 3"></line><circle cx="308.01" cy="230.13" r="3" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="1.6"></circle><text x="295.01" y="170.23" text-anchor="middle" fill="var(--fig-gold)" font-size="14">h</text><text x="320" y="320" text-anchor="middle" fill="var(--fig-ink)" font-size="15">h = |c · n̂|   ·   V = |(a × b) · c| = |a × b|·h</text><text x="285" y="213" text-anchor="middle" fill="var(--fig-ink)" font-size="14">O</text>
+</svg></div>
 </div>
 <figcaption>Рис. 5. Геометрический смысл смешанного произведения: объём косого параллелепипеда $V = S_{\text{осн}} \cdot h = |[\vec{a}, \vec{b}]| \cdot |\vec{c}|\cos\psi$.</figcaption>
 </figure>
@@ -1278,7 +1333,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           </li>
 <li><strong>Перестановка знаков:</strong> $([\vec{a}, \vec{b}], \vec{c}) = (\vec{a}, [\vec{b}, \vec{c}])$;</li>
 <li><strong>Вычисление через определитель в ОНБ:</strong>
-            \[\langle\vec{a}, \vec{b}, \vec{c}\rangle = \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix}\]
+            \[\langle\vec{a}, \vec{b}, \vec{c}\rangle = \begin{vmatrix} x_1 &amp; y_1 &amp; z_1 \\ x_2 &amp; y_2 &amp; z_2 \\ x_3 &amp; y_3 &amp; z_3 \end{vmatrix}\]
           </li>
 </ol>
 </div></div>
@@ -1310,7 +1365,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div></div>
 <h3 data-toc="6. Геометрические приложения п…" id="sec-3-6">3.6. Геометрические приложения произведений</h3>
 <p>Сведём основные прикладные формулы векторной алгебры в единую систему:</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>Геометрическая задача</th>
@@ -1332,7 +1387,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <tr>
 <td><strong>Критерий компланарности</strong></td>
 <td>$\langle\vec{a}, \vec{b}, \vec{c}\rangle = 0$</td>
-<td>$\begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix} = 0$</td>
+<td>$\begin{vmatrix} x_1 &amp; y_1 &amp; z_1 \\ x_2 &amp; y_2 &amp; z_2 \\ x_3 &amp; y_3 &amp; z_3 \end{vmatrix} = 0$</td>
 </tr>
 <tr>
 <td><strong>Угол между векторами</strong></td>
@@ -1357,10 +1412,10 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <tr>
 <td><strong>Объём тетраэдра</strong></td>
 <td>$V_{\text{тетр}} = \frac{1}{6}|\langle\vec{a}, \vec{b}, \vec{c}\rangle|$</td>
-<td>$\frac{1}{6} \left| \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix} \right|$</td>
+<td>$\frac{1}{6} \left| \begin{vmatrix} x_1 &amp; y_1 &amp; z_1 \\ x_2 &amp; y_2 &amp; z_2 \\ x_3 &amp; y_3 &amp; z_3 \end{vmatrix} \right|$</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 data-toc="7. Двойное векторное произведе…" id="sec-3-7">3.7. Двойное векторное произведение и парадоксы векторного произведения (по И. Х. Сабитову)</h3>
 <div class="statement theorem" id="thm-14"><div class="block-label">Теорема 50 (Формулы двойного векторного произведения)</div><h3 data-toc="Теорема 14" id="sub-4-15">Теорема 14</h3><div>
 
@@ -1371,7 +1426,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
       </div></div>
 <aside class="note">
 <span class="block-label">Критический анализ: парадоксы векторного произведения (по статье И. Х. Сабитова)</span>
-        Г. М. Полотовский обращает внимание на два принципиальных концептуальных изъяна классического школьного определения векторного произведения:
+        Рассмотрим два изъяна классического школьного определения векторного произведения:
         <ol>
 <li><strong>Масштабная неинвариантность:</strong> Пусть $\vec{c} = [\vec{a}, \vec{b}]$. Уменьшим масштабную единицу по осям координат в 10 раз (числовые значения длин векторов увеличатся в 10 раз). Длины $\vec{a}$ и $\vec{b}$ станут равны $10|\vec{a}|$ и $10|\vec{b}|$, а значит, по определению, модуль их векторного произведения должен увеличиться в $10 \times 10 = 100$ раз! Но $\vec{c}$ как геометрический вектор при смене масштаба должен удлиниться лишь в 10 раз. Геометрический вектор не может менять длину в 10 и 100 раз одновременно!</li>
 <li><strong>Парадокс физической размерности:</strong> Если векторы $\vec{a}, \vec{b}, \vec{c}$ измеряются в метрах ($\text{м}$), то по формуле $V = |([\vec{a}, \vec{b}], \vec{c})|$ вектор $[\vec{a}, \vec{b}]$ обязан иметь размерность площади ($\text{м}^2$), чтобы скалярное произведение дало объём в $\text{м}^3$. Но вектор по определению — это направленный отрезок с размерностью длины ($\text{м}$).</li>
@@ -1404,7 +1459,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- РИСУНОК 6: Векторно-параметрическое уравнение прямой -->
 <figure>
 <div class="svg-container">
-<svg height="230" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 580 230" width="580" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 6. Векторно-параметрическое уравнение прямой: радиус-вектор $\vec{r} = \vec{r}_0 + t\vec{a}$." data-fam-figure="diagram" data-fam-index="6">
+<div class="diagram-scroll" style="--diagram-min-width: 498px"><svg height="230" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 580 230" width="580" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 6. Векторно-параметрическое уравнение прямой: радиус-вектор $\vec{r} = \vec{r}_0 + t\vec{a}$." data-fam-figure="diagram" data-fam-index="6">
 <defs>
 <marker id="fam-fig-6-arr-axis-6" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
@@ -1443,7 +1498,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- Результирующий радиус-вектор r: O(80, 190) -> M(380, 75) -->
 <line marker-end="url(#fam-fig-6-arr-r-6)" stroke="var(--accent-emerald, #10b981)" stroke-width="2.5" x1="80" x2="374" y1="190" y2="78"></line>
 <text fill="var(--accent-emerald, #10b981)" font-size="16" font-weight="700" x="235" y="155">r = r₀ + t·a</text>
-</svg>
+</svg></div>
 </div>
 <figcaption>Рис. 6. Векторно-параметрическое уравнение прямой: радиус-вектор $\vec{r} = \vec{r}_0 + t\vec{a}$.</figcaption>
 </figure>
@@ -1480,7 +1535,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <aside class="note">
 <span class="block-label">Исследование особых случаев (Вертикальные прямые)</span>
         Если $a_1 = 0$, то направляющий вектор параллелен оси ординат: $\vec{a} \parallel \vec{e}_2$. В этом случае разделить на $a_1$ нельзя, и уравнение в форме (3) <strong>не существует</strong> (угловой коэффициент обращается в бесконечность).
-        <br/><br/>
+        <br><br>
         Из первого параметрического уравнения сразу следует:
         \[x = x_0 = \mathrm{const}\]
         Таким образом, уравнение $y = kx + b$ способно описать <em>любую прямую на плоскости, кроме вертикальных прямых</em>, параллельных оси ординат.
@@ -1498,13 +1553,13 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="worked-example" id="ex-1"><div class="block-label">Задача 1. Вычисление площади, объёма и высоты пирамиды</div><h3 data-toc="Пример 1" id="sub-6-1">Пример 1</h3><div>
 <strong>Условие:</strong> В правом ОНБ заданы четыре вершины пирамиды: $S(2, 3, 5)$, $A(1, 1, 2)$, $B(3, 2, 1)$, $C(2, 4, 3)$.
         Найти: 1) площадь основания $\triangle ABC$; 2) объём пирамиды $SABC$; 3) высоту пирамиды, опущенную из вершины $S$ на грань $ABC$.
-        <br/><br/>
-<strong>Решение:</strong><br/>
+        <br><br>
+<strong>Решение:</strong><br>
         1) Составим векторы рёбер основания:
         \[\vec{AB} = (3 - 1, \, 2 - 1, \, 1 - 2) = (2, 1, -1)\]
         \[\vec{AC} = (2 - 1, \, 4 - 1, \, 3 - 2) = (1, 3, 1)\]
         Вычислим векторное произведение $[\vec{AB}, \vec{AC}]$:
-        \[[\vec{AB}, \vec{AC}] = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ 2 & 1 & -1 \\ 1 & 3 & 1 \end{vmatrix} = \vec{i}(1 - (-3)) - \vec{j}(2 - (-1)) + \vec{k}(6 - 1) = 4\vec{i} - 3\vec{j} + 5\vec{k}\]
+        \[[\vec{AB}, \vec{AC}] = \begin{vmatrix} \vec{i} &amp; \vec{j} &amp; \vec{k} \\ 2 &amp; 1 &amp; -1 \\ 1 &amp; 3 &amp; 1 \end{vmatrix} = \vec{i}(1 - (-3)) - \vec{j}(2 - (-1)) + \vec{k}(6 - 1) = 4\vec{i} - 3\vec{j} + 5\vec{k}\]
         Площадь основания $\triangle ABC$:
         \[S_{\triangle} = \frac{1}{2}|[\vec{AB}, \vec{AC}]| = \frac{1}{2}\sqrt{4^2 + (-3)^2 + 5^2} = \frac{1}{2}\sqrt{16 + 9 + 25} = \frac{\sqrt{50}}{2} = \frac{5\sqrt{2}}{2}\]
         2) Найдём вектор бокового ребра $\vec{AS}$:
@@ -1519,20 +1574,20 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
       </div></div>
 <div class="worked-example" id="ex-2"><div class="block-label">Задача 2. Внешнее деление отрезка</div><h3 data-toc="Пример 2" id="sub-6-2">Пример 2</h3><div>
 <strong>Условие:</strong> Отрезок задан концами $A(1, -2)$ и $B(4, 4)$. Найти координаты точки $M$, делящей отрезок $AB$ внешним образом в отношении $k = -2$.
-        <br/><br/>
-<strong>Решение:</strong><br/>
+        <br><br>
+<strong>Решение:</strong><br>
         Отношение $k = \frac{\lambda}{\mu} = -2 \implies \lambda = -2, \mu = 1$. Применяем формулы деления отрезка:
         \[x = \frac{\mu x_1 + \lambda x_2}{\mu + \lambda} = \frac{1 \cdot 1 + (-2) \cdot 4}{1 + (-2)} = \frac{1 - 8}{-1} = \frac{-7}{-1} = 7\]
         \[y = \frac{\mu y_1 + \lambda y_2}{\mu + \lambda} = \frac{1 \cdot (-2) + (-2) \cdot 4}{1 + (-2)} = \frac{-2 - 8}{-1} = \frac{-10}{-1} = 10\]
         <em>Геометрическая проверка:</em> $\vec{AM} = (7 - 1, 10 - (-2)) = (6, 12)$, а $\vec{MB} = (4 - 7, 4 - 10) = (-3, -6)$. Очевидно, что $\vec{AM} = -2\vec{MB}$. Тождество выполняется.
-        <br/>
+        <br>
 <strong>Ответ:</strong> $M(7, 10)$.
       </div></div>
 
 
 
 </section>
-<!-- FAM:CONTENT-END -->
+</div></section><!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>
     </main>
   </div>

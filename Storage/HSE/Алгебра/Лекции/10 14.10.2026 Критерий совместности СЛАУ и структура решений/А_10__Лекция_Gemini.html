@@ -629,6 +629,62 @@ SOFTWARE.
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -648,17 +704,16 @@ SOFTWARE.
       <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
     </aside>
     <main id="content">
-      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-      <header class="lecture-head" id="top">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. --><header class="lecture-head" id="top">
         <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
         <h1>Критерий совместности СЛАУ и структура решений</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
         <div class="lecture-abstract" style="grid-template-columns:1fr"><div class="abstract-formula">\[\left\{
             \begin{aligned}
-              a_{11}x_1 + a_{12}x_2 + \dots + a_{1n}x_n &= b_1, \\
-              a_{21}x_1 + a_{22}x_2 + \dots + a_{2n}x_n &= b_2, \\
-              \dots\dots\dots\dots\dots\dots\dots\dots\dots\dots &\dots \\
-              a_{m1}x_1 + a_{m2}x_2 + \dots + a_{mn}x_n &= b_m.
+              a_{11}x_1 + a_{12}x_2 + \dots + a_{1n}x_n &amp;= b_1, \\
+              a_{21}x_1 + a_{22}x_2 + \dots + a_{2n}x_n &amp;= b_2, \\
+              \dots\dots\dots\dots\dots\dots\dots\dots\dots\dots &amp;\dots \\
+              a_{m1}x_1 + a_{m2}x_2 + \dots + a_{mn}x_n &amp;= b_m.
             \end{aligned}
             \right.
             \qquad (1)\]</div></div>
@@ -704,7 +759,7 @@ SOFTWARE.
 <section class="chapter-section" id="sec-1">
 <div class="section-header-bar">
 <span class="section-num-badge">§ 1</span>
-</section>
+
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Постановка задачи, матричная з…</div>
   <h2 id="chapter-2" data-toc="Постановка задачи, матричная з…">Постановка задачи, матричная запись и классификация СЛАУ</h2>
@@ -720,10 +775,10 @@ SOFTWARE.
 <div class="formula-card">
             \[\left\{
             \begin{aligned}
-              a_{11}x_1 + a_{12}x_2 + \dots + a_{1n}x_n &= b_1, \\
-              a_{21}x_1 + a_{22}x_2 + \dots + a_{2n}x_n &= b_2, \\
-              \dots\dots\dots\dots\dots\dots\dots\dots\dots\dots &\dots \\
-              a_{m1}x_1 + a_{m2}x_2 + \dots + a_{mn}x_n &= b_m.
+              a_{11}x_1 + a_{12}x_2 + \dots + a_{1n}x_n &amp;= b_1, \\
+              a_{21}x_1 + a_{22}x_2 + \dots + a_{2n}x_n &amp;= b_2, \\
+              \dots\dots\dots\dots\dots\dots\dots\dots\dots\dots &amp;\dots \\
+              a_{m1}x_1 + a_{m2}x_2 + \dots + a_{mn}x_n &amp;= b_m.
             \end{aligned}
             \right.
             \qquad (1)\]
@@ -740,19 +795,19 @@ SOFTWARE.
 <li>
 <strong>Основная матрица системы</strong> $A$ размера $m \times n$ ($m$ строк, $n$ столбцов) составлена только из коэффициентов при неизвестных $x_1, \dots, x_n$:
               \[A = \begin{pmatrix}
-                a_{11} & a_{12} & \dots & a_{1n} \\
-                a_{21} & a_{22} & \dots & a_{2n} \\
-                \dots & \dots & \dots & \dots \\
-                a_{m1} & a_{m2} & \dots & a_{mn}
+                a_{11} &amp; a_{12} &amp; \dots &amp; a_{1n} \\
+                a_{21} &amp; a_{22} &amp; \dots &amp; a_{2n} \\
+                \dots &amp; \dots &amp; \dots &amp; \dots \\
+                a_{m1} &amp; a_{m2} &amp; \dots &amp; a_{mn}
               \end{pmatrix}.\]
             </li>
 <li>
 <strong>Расширенная матрица системы</strong> $\tilde{A} = (A \mid B)$ размера $m \times (n+1)$ получается из основной матрицы $A$ приписыванием справа столбца свободных членов $B$, отделяемого вертикальной чертой:
               \[\tilde{A} = (A \mid B) = \left(\begin{array}{cccc|c}
-                a_{11} & a_{12} & \dots & a_{1n} & b_1 \\
-                a_{21} & a_{22} & \dots & a_{2n} & b_2 \\
-                \dots & \dots & \dots & \dots & \dots \\
-                a_{m1} & a_{m2} & \dots & a_{mn} & b_m
+                a_{11} &amp; a_{12} &amp; \dots &amp; a_{1n} &amp; b_1 \\
+                a_{21} &amp; a_{22} &amp; \dots &amp; a_{2n} &amp; b_2 \\
+                \dots &amp; \dots &amp; \dots &amp; \dots &amp; \dots \\
+                a_{m1} &amp; a_{m2} &amp; \dots &amp; a_{mn} &amp; b_m
               \end{array}\right).\]
             </li>
 <li>
@@ -778,7 +833,7 @@ SOFTWARE.
 <li><strong>Совместная система</strong> — система, имеющая <em>хотя бы одно</em> решение ($\mathcal{S}_{(1)} \neq \varnothing$).</li>
 <li><strong>Несовместная (противоречивая) система</strong> — система, <em>не имеющая ни одного</em> решения ($\mathcal{S}_{(1)} = \varnothing$).</li>
 <li><strong>Определённая система</strong> — совместная система, имеющая <em>ровно одно (единственное)</em> решение ($|\mathcal{S}_{(1)}| = 1$).</li>
-<li><strong>Неопределённая система</strong> — совместная система, имеющая <em>более одного</em> решения ($|\mathcal{S}_{(1)}| > 1$; как мы строго докажем в § 5, над полем $\mathbb{R}$ или $\mathbb{C}$ такая система всегда имеет бесконечно много решений).</li>
+<li><strong>Неопределённая система</strong> — совместная система, имеющая <em>более одного</em> решения ($|\mathcal{S}_{(1)}| &gt; 1$; как мы строго докажем в § 5, над полем $\mathbb{R}$ или $\mathbb{C}$ такая система всегда имеет бесконечно много решений).</li>
 </ol>
 </div></div>
 
@@ -853,7 +908,60 @@ SOFTWARE.
 </div>
 </div>
 </section>
-<!-- FAM:CONTENT-END -->
+</div></section></article></section><section class="chapter" aria-labelledby="al10-gauss"><h2 id="al10-gauss" data-toc="От элементарных преобразований к ступенчатому виду">От элементарных преобразований к ступенчатому виду</h2>
+<p>Перестановка двух строк меняет порядок уравнений. Умножение строки на $k\ne0$ обратимо умножением на $1/k$. Если к строке $i$ прибавить строку $j$ с множителем $k$, то на любом решении обеих исходных строк новое уравнение верно. Обратное преобразование вычитает ту же строку $j$ с тем же множителем, поэтому множество решений сохраняется. Это относится и к правой части.</p>
+<p>В очередной группе необработанных строк ищем самый левый столбец с ненулевым коэффициентом. Перемещаем строку с таким коэффициентом $a$ в начало группы. В каждой строке ниже зануляем коэффициент $c$, вычитая ведущую строку с множителем $c/a$. Столбцы левее остаются нулевыми, поскольку используемые строки имели там нули. Убираем ведущую строку из группы. Когда в группе остаются только нулевые коэффициенты, прямой ход закончен. Номера ведущих столбцов строго возрастают, поэтому в каждом таком столбце ровно одна ведущая неизвестная.</p>
+</section>
+<section class="chapter" aria-labelledby="al10-test"><h2 id="al10-test" data-toc="Критерий совместности">Критерий совместности</h2>
+<div class="statement theorem featured" id="al10-criterion"><div class="block-label">Теорема</div><h3>Что проверять после прямого хода</h3>
+<p>Система над полем $K$ совместна тогда и только тогда, когда в ступенчатом виде у каждой строки с нулевыми коэффициентами свободный член равен нулю. Если совместная система содержит $n$ неизвестных и $r$ ведущих строк, свободных неизвестных ровно $n-r$.</p>
+<div class="proof" id="proof-al10-criterion" data-proof><div class="proof-controls" role="group" aria-label="Доказательство"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div><div class="proof-idea" id="idea-al10-criterion" data-proof-idea><div class="proof-label">Идея</div>
+<p>Противоречие может появиться в строке без неизвестных. Если её нет, ведущие неизвестные вычисляются снизу вверх после выбора свободных.</p>
+</div><div class="proof-full" id="full-al10-criterion" data-proof-full><div class="proof-label">Доказательство</div>
+<p><strong>Необходимость.</strong> Любое решение исходной системы решает ступенчатую, поскольку преобразования обратимы. Если коэффициенты строки все нулевые, подстановка решения превращает её в равенство $0=b_i$. Значит, $b_i=0$.</p>
+<p><strong>Достаточность.</strong> Если справа во всех строках без коэффициентов стоят нули, эти строки выполнены независимо от значений неизвестных. Зададим свободным неизвестным любые значения. В строке с последней ведущей неизвестной все остальные слагаемые уже известны. Деление на ненулевой ведущий коэффициент определяет её единственным образом. В предыдущей строке все слагаемые правее ведущей неизвестной уже известны, слева стоят нулевые коэффициенты. Тот же шаг однозначно определяет следующую неизвестную. После обратной подстановки выполнены все строки, а значит и исходная система. При отсутствии ведущих строк любой набор является решением. <span class="qed" aria-label="Что и требовалось доказать">□</span></p>
+</div></div>
+</div>
+<p>При $r=n$ обратная подстановка даёт единственный ответ. При $r&lt;n$ два различных набора свободных значений дают два различных решения. Для однородной системы $b=0$ любая последовательность строковых преобразований сохраняет нулевую правую часть. Поэтому однородная система совместна, при $m&lt;n$ можно задать хотя бы одной свободной неизвестной ненулевое значение и получить ненулевое решение.</p>
+</section>
+<section class="chapter" aria-labelledby="al10-board"><h2 id="al10-board" data-toc="Система 5 × 5 из записи занятия">Система 5 × 5 из записи занятия</h2>
+<div class="worked-example" id="al10-matrix"><div class="block-label">Пример</div><h3>Прямой ход по строкам</h3>
+<p>Запишем систему из записи занятия 14.10 в виде расширенной матрицы.</p>
+\[
+\left(\begin{array}{rrrrr|r}
+1&amp;3&amp;5&amp;-4&amp;0&amp;1\\
+1&amp;3&amp;3&amp;-2&amp;1&amp;-1\\
+1&amp;-2&amp;1&amp;-1&amp;-1&amp;3\\
+1&amp;-4&amp;1&amp;1&amp;-1&amp;3\\
+1&amp;2&amp;1&amp;-1&amp;1&amp;-1
+\end{array}\right).
+\]
+<ol>
+<li>Вычитаем $R_1$ из остальных строк. Для $R_2,\ldots,R_5$ получаем соответственно $(0,0,-2,2,1\mid-2)$, $(0,-5,-4,3,-1\mid2)$, $(0,-7,-4,5,-1\mid2)$ и $(0,-1,-4,3,1\mid-2)$.</li>
+<li>Вычитаем $5R_5$ из $R_3$ и $7R_5$ из $R_4$. Получаем $(0,0,16,-12,-6\mid12)$ и $(0,0,24,-16,-8\mid16)$. Делим их на $2$ и $8$ соответственно. Умножаем $R_5$ на $-1$ и ставим её второй, перемещая предшествующие строки вниз. После перестановки имеем
+\[
+\left(\begin{array}{rrrrr|r}
+1&amp;3&amp;5&amp;-4&amp;0&amp;1\\
+0&amp;1&amp;4&amp;-3&amp;-1&amp;2\\
+0&amp;0&amp;-2&amp;2&amp;1&amp;-2\\
+0&amp;0&amp;8&amp;-6&amp;-3&amp;6\\
+0&amp;0&amp;3&amp;-2&amp;-1&amp;2
+\end{array}\right).
+\]</li>
+<li>В $R_4$ выполняем $R_4+4R_3$, а в $R_5$ — $2R_5+3R_3$. Несмотря на разные ведущие коэффициенты $8$ и $3$, в обоих случаях получается $(0,0,0,2,1\mid-2)$. Вычитаем $R_4$ из $R_5$ и получаем нулевую строку.</li>
+</ol>
+<p>Система совместна. Ведущие столбцы — первый, второй, третий и четвёртый. Свободная неизвестная — $x_5$.</p>
+</div>
+<div class="worked-example" id="al10-back"><div class="block-label">Пример</div><h3>Обратный ход и проверка</h3>
+<p>Пусть $x_5=t$. Из $2x_4+t=-2$ находим $x_4=-1-t/2$. Третья строка отличается от четвёртой слагаемым $-2x_3$, значит $x_3=0$. Из второй строки $x_2=2+3x_4+t=-1-t/2$. Из первой строки $x_1=1-3x_2+4x_4=-t/2$.</p>
+\[
+(x_1,x_2,x_3,x_4,x_5)=
+\left(-\frac t2,-1-\frac t2,0,-1-\frac t2,t\right),\qquad t\in\mathbb R.
+\]
+<p>Для независимой проверки положим $s=-1-t/2$. Тогда $x_2=x_4=s$, $x_1=s+1$ и $t=-2s-2$. Левые части пяти исходных уравнений при подстановке $(s+1,s,0,s,-2s-2)$ равны соответственно $1$, $2s+1+t=-1$, $1-2s-t=3$, $1-2s-t=3$, $2s+1+t=-1$. Параметр $s$ также может быть любым вещественным числом.</p>
+</div>
+<p>Исходная матрица и ход решения восстановлены по резервной версии конспекта занятия 14.10 и сверены подстановкой в исходную систему.</p>
+</section><!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>
     </main>
   </div>

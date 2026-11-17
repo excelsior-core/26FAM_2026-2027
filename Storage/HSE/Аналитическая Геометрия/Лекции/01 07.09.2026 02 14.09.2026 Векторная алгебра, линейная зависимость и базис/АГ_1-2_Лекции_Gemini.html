@@ -660,6 +660,62 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -679,8 +735,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
       <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
     </aside>
     <main id="content">
-      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-      <header class="lecture-head" id="top">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. --><header class="lecture-head" id="top">
         <div class="lecture-meta"><span class="subject">Аналитическая геометрия</span><span>Академический конспект ФПМ</span></div>
         <h1>Аналитическая геометрия: Векторная алгебра, базисы и системы координат</h1>
         <p class="subtitle">Полный курс теории, геометрических доказательств и разбора типовых задач на основе лекций 1 и 2</p>
@@ -703,7 +758,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
   <h2 id="chapter-1" data-toc="Введение">Введение и основные положения</h2>
   <!-- Панель управления -->
 <div class="top-bar no-print">
-<div class="top-bar-title">Аналитическая геометрия — Лекции 1 и 2 (Г. М. Полотовский)</div>
+<div class="top-bar-title">Аналитическая геометрия — Лекции 1 и 2</div>
 <div class="top-bar-buttons">
 <button class="btn" onclick="document.body.classList.toggle('light-theme')">🌓 Сменить тему</button>
 <button class="btn" onclick="window.print()">🖨️ Печать / PDF (Ctrl+P)</button>
@@ -715,7 +770,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <h1>Векторная алгебра, базисы и аффинные системы координат</h1>
 <p class="doc-subtitle">Полный курс теории, геометрических доказательств и разбора типовых задач на основе лекций 1 и 2</p>
 <div class="author-badge">
-<span><strong>Лектор:</strong> канд. физ.-мат. наук Г. М. Полотовский</span>
+
 <span>•</span>
 <span><strong>Семестр:</strong> 2026/2027 уч. год</span>
 </div>
@@ -738,11 +793,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <strong>Вектор</strong> — это «палочка со стрелочкой».
       </aside>
 <p>
-        Данный наглядный образ, введённый лектором Г. М. Полотовским, отражает две фундаментальные составляющие: длину («палочка») и ориентацию в пространстве («стрелочка»). Перейдём к строгому математическому аппарату.
+        Данный наглядный образ отражает две фундаментальные составляющие: длину («палочка») и ориентацию в пространстве («стрелочка»). Перейдём к строгому математическому аппарату.
       </p>
 <div class="statement definition" id="def-1"><div class="block-label">Определение 2 (Вектор как направленный отрезок)</div><h3 data-toc="Определение 1" id="sub-2-2">Определение 1</h3><div>
 <strong>Вектором</strong> называется <em>направленный отрезок</em>, то есть отрезок, для которого строго указано, какая из его граничных точек является началом, а какая — концом.
-        <br/><br/>
+        <br><br>
 <strong>Обозначения:</strong> вектор с началом в точке $A$ и концом в точке $B$ обозначается $\vec{AB}$, $\overline{AB}$ или одной строчной буквой со стрелкой (или чертой) сверху: $\vec{a}$, $\overline{a}$.
       </div></div>
 <p>Из данного определения непосредственно следуют две основные числовые и геометрические характеристики вектора:</p>
@@ -753,15 +808,15 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement definition" id="def-2"><div class="block-label">Определение 2.1 (Нулевой вектор)</div><h3 data-toc="Определение 2" id="sub-2-3">Определение 2</h3><div>
 
         Вектор, у которого начало и конец совпадают ($\vec{AA}$), называется <strong>нулевым вектором</strong> и обозначается $\vec{0}$ или $\overline{0}$.
-        <br/>
+        <br>
         Длина нулевого вектора равна нулю: $|\vec{0}| = 0$.
-        <br/>
+        <br>
 <strong>Ключевое соглашение:</strong> <em>нулевой вектор не имеет определённого направления</em> (его направление считается неопределённым).
       </div></div>
 <!-- РИСУНОК 1: Направленный отрезок -->
 <figure>
 <div class="svg-container">
-<svg height="130" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 480 130" width="480" role="img" aria-label="Рис. 1. Направленный отрезок: точка начала $A$, точка конца $B$, длина и ориентация стрелки." data-fam-figure="diagram" data-fam-index="1">
+<div class="diagram-scroll" style="--diagram-min-width: 480px"><svg height="130" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 480 130" width="480" role="img" aria-label="Рис. 1. Направленный отрезок: точка начала $A$, точка конца $B$, длина и ориентация стрелки." data-fam-figure="diagram" data-fam-index="1">
 <defs>
 <marker id="fam-fig-1-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"></path>
@@ -780,7 +835,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- Обозначение модуля -->
 <path d="M 70,100 L 70,110 M 70,105 L 390,55 M 390,50 L 390,60" stroke="var(--svg-slate)" stroke-dasharray="3,3" stroke-width="1.2"></path>
 <text fill="var(--svg-slate)" font-size="12" x="180" y="98">Длина (модуль) |a| = |AB|</text>
-</svg>
+</svg></div>
 </div>
 <figcaption>Рис. 1. Направленный отрезок: точка начала $A$, точка конца $B$, длина и ориентация стрелки.</figcaption>
 </figure>
@@ -800,9 +855,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <li>Стрелочки на них направлены в одну сторону (сонаправлены).</li>
 </ol>
         Иными словами, отрезок $\vec{CD}$ получается из отрезка $\vec{AB}$ с помощью <strong>параллельного переноса</strong>.
-        <br/><br/>
+        <br><br>
         Отношение $\sim$ является отношением эквивалентности (рефлексивно, симметрично, транзитивно). Оно разбивает всё множество закреплённых векторов на непересекающиеся классы эквивалентности.
-        <br/><br/>
+        <br><br>
 <strong>Свободным вектором</strong> называется класс всех закреплённых векторов, одинаковых с данным вектором $\vec{AB}$.
       </div></div>
 <div class="statement definition" id="def-5"><div class="block-label">Определение 4' (Свободный вектор как сдвиг)</div><h3 data-toc="Определение 5" id="sub-2-7">Определение 5</h3><div>
@@ -815,9 +870,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- РИСУНОК 2: Свободные векторы -->
 <figure>
 <div class="svg-container">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 590 218" role="img" aria-label="Одинаковые векторы в трёх разных положениях" data-fam-figure="diagram" data-fam-index="2">
-<line x1="72" y1="155" x2="160.44" y2="97.88" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M168,93 L162.54,101.13 L158.34,94.63 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="72" cy="155" r="4" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"/><text x="64" y="173" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A</text><text x="176" y="85" text-anchor="middle" fill="var(--fig-ink)" font-size="14">B</text><line x1="242" y1="180" x2="330.44" y2="122.88" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M338,118 L332.54,126.13 L328.34,119.63 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="242" cy="180" r="4" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"/><text x="234" y="198" text-anchor="middle" fill="var(--fig-ink)" font-size="14">C</text><text x="346" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="14">D</text><line x1="412" y1="115" x2="500.44" y2="57.88" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M508,53 L502.54,61.13 L498.34,54.63 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="412" cy="115" r="4" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"/><text x="404" y="133" text-anchor="middle" fill="var(--fig-ink)" font-size="14">E</text><text x="516" y="45" text-anchor="middle" fill="var(--fig-ink)" font-size="14">F</text><text x="295" y="207" text-anchor="middle" fill="var(--fig-ink)" font-size="15">AB, CD и EF — один свободный вектор</text>
-</svg>
+<div class="diagram-scroll" style="--diagram-min-width: 506px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 590 240" role="img" aria-label="Одинаковые векторы в трёх разных положениях" data-fam-figure="diagram" data-fam-index="2">
+<line x1="72" y1="155" x2="160.44" y2="97.88" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M168,93 L162.54,101.13 L158.34,94.63 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><circle cx="72" cy="155" r="4" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"></circle><text x="64" y="173" text-anchor="middle" fill="var(--fig-ink)" font-size="14">A</text><text x="176" y="85" text-anchor="middle" fill="var(--fig-ink)" font-size="14">B</text><line x1="242" y1="180" x2="330.44" y2="122.88" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M338,118 L332.54,126.13 L328.34,119.63 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><circle cx="242" cy="180" r="4" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"></circle><text x="234" y="198" text-anchor="middle" fill="var(--fig-ink)" font-size="14">C</text><text x="346" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="14">D</text><line x1="412" y1="115" x2="500.44" y2="57.88" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M508,53 L502.54,61.13 L498.34,54.63 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><circle cx="412" cy="115" r="4" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="1.6"></circle><text x="404" y="133" text-anchor="middle" fill="var(--fig-ink)" font-size="14">E</text><text x="516" y="45" text-anchor="middle" fill="var(--fig-ink)" font-size="14">F</text><text x="295" y="225" text-anchor="middle" fill="var(--fig-ink)" font-size="15">AB, CD и EF — один свободный вектор</text>
+</svg></div>
 </div>
 <figcaption>Рис. 2. Свободный вектор как класс эквивалентных направленных отрезков, получаемых параллельным переносом.</figcaption>
 </figure>
@@ -825,7 +880,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement definition" id="def-6"><div class="block-label">Определение 5 (Коллинеарность)</div><h3 data-toc="Определение 6" id="sub-2-9">Определение 6</h3><div>
 
         Векторы $\vec{a}$ и $\vec{b}$ называются <strong>коллинеарными</strong> (обозначается $\vec{a} \parallel \vec{b}$), если они лежат на параллельных прямых или на одной прямой.
-        <br/><br/>
+        <br><br>
 <strong>Специальное соглашение:</strong> <em>нулевой вектор считается коллинеарным любому вектору</em> ($\vec{0} \parallel \vec{a}$).
       </div></div>
 <div class="statement definition" id="def-7"><div class="block-label">Определение 5' (Компланарность)</div><h3 data-toc="Определение 7" id="sub-2-10">Определение 7</h3><div>
@@ -926,7 +981,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- РИСУНОК 3: Два правила сложения -->
 <figure>
 <div class="svg-container">
-<svg height="220" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 620 220" width="620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 3. Геометрическое сложение векторов: правило параллелограмма (диагонали суммы и разности) и правило треугольника." data-fam-figure="diagram" data-fam-index="3">
+<div class="diagram-scroll" style="--diagram-min-width: 573px"><svg height="220" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 620 220" width="620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 3. Геометрическое сложение векторов: правило параллелограмма (диагонали суммы и разности) и правило треугольника." data-fam-figure="diagram" data-fam-index="3">
 <defs>
 <marker id="fam-fig-3-ag12-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
@@ -980,7 +1035,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <line marker-end="url(#fam-fig-3-ag12-arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3" x1="40" x2="234" y1="150" y2="73"></line>
 <text fill="var(--accent-rose, #f43f5e)" font-size="14" font-weight="800" x="110" y="95">u + v</text>
 </g>
-</svg>
+</svg></div>
 </div>
 <figcaption>Рис. 3. Геометрическое сложение векторов: правило параллелограмма (диагональ суммы) и правило треугольника.</figcaption>
 </figure>
@@ -989,15 +1044,15 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 
         Пусть $\lambda \in \mathbb{R}$, $\vec{a}$ — вектор. <strong>Произведением $\lambda\vec{a}$</strong> называется вектор, для которого:
         <ol>
-<li>Если $\lambda > 0$, то $\lambda\vec{a} \parallel \vec{a}$, сонаправлен с ним ($\uparrow\uparrow$) и $|\lambda\vec{a}| = \lambda |\vec{a}|$;</li>
+<li>Если $\lambda &gt; 0$, то $\lambda\vec{a} \parallel \vec{a}$, сонаправлен с ним ($\uparrow\uparrow$) и $|\lambda\vec{a}| = \lambda |\vec{a}|$;</li>
 <li>Если $\lambda = 0$ или $\vec{a} = \vec{0}$, то $\lambda\vec{a} = \vec{0}$;</li>
-<li>Если $\lambda < 0$, то $\lambda\vec{a} \parallel \vec{a}$, противоположно направлен ($\uparrow\downarrow$) и $|\lambda\vec{a}| = |\lambda| |\vec{a}|$.</li>
+<li>Если $\lambda &lt; 0$, то $\lambda\vec{a} \parallel \vec{a}$, противоположно направлен ($\uparrow\downarrow$) и $|\lambda\vec{a}| = |\lambda| |\vec{a}|$.</li>
 </ol>
 </div></div>
 <div class="statement definition" id="def-11"><div class="block-label">Определения 13.4 и 14 (Противоположный вектор и вычитание)</div><h3 data-toc="Определение 11" id="sub-2-19">Определение 11</h3><div>
 
         Вектор $(-1)\vec{a}$ называется <strong>противоположным</strong> к $\vec{a}$ и обозначается $-\vec{a}$.
-        <br/>
+        <br>
 <strong>Разностью векторов</strong> называется сумма: $\vec{a} - \vec{b} \stackrel{\text{def}}{=} \vec{a} + (-\vec{b})$.
       </div></div>
 <h3 data-toc="6. Аксиоматические свойства ли…" id="sec-1-6">1.6. Аксиоматические свойства линейных операций над векторами</h3>
@@ -1033,7 +1088,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 
         Линейная комбинация векторов называется <strong>тривиальной</strong>, если все её коэффициенты равны нулю:
         \[0 \cdot \vec{a}_1 + 0 \cdot \vec{a}_2 + \dots + 0 \cdot \vec{a}_k = \vec{0}\]
-        Если хотя бы один коэффициент отличен от нуля ($\sum \alpha_i^2 > 0$), комбинация называется <strong>нетривиальной</strong>.
+        Если хотя бы один коэффициент отличен от нуля ($\sum \alpha_i^2 &gt; 0$), комбинация называется <strong>нетривиальной</strong>.
       </div></div>
 <div class="statement definition" id="def-14"><div class="block-label">Определения 16, 16' (Линейная зависимость)</div><h3 data-toc="Определение 14" id="sub-3-4">Определение 14</h3><div>
 
@@ -1177,7 +1232,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- РИСУНОК 4: Четкое разложение на плоскости -->
 <figure>
 <div class="svg-container">
-<svg height="220" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 620 220" width="620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 4. Разложение вектора $\vec{w}$ по базису неколлинеарных векторов $\{\vec{e}_1, \vec{e}_2\}$ по правилу параллелограмма." data-fam-figure="diagram" data-fam-index="4">
+<div class="diagram-scroll" style="--diagram-min-width: 573px"><svg height="220" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 620 220" width="620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 4. Разложение вектора $\vec{w}$ по базису неколлинеарных векторов $\{\vec{e}_1, \vec{e}_2\}$ по правилу параллелограмма." data-fam-figure="diagram" data-fam-index="4">
 <defs>
 <marker id="fam-fig-4-ag12-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
@@ -1221,7 +1276,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <line marker-end="url(#fam-fig-4-ag12-arr-rose)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3.2" x1="40" x2="279" y1="150" y2="48"></line>
 <text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="800" x="170" y="80">w = k₁e₁ + k₂e₂</text>
 </g>
-</svg>
+</svg></div>
 </div>
 <figcaption>Рис. 4. Разложение вектора $\vec{w}$ по базису неколлинеарных векторов $\{\vec{e}_1, \vec{e}_2\}$ по правилу параллелограмма.</figcaption>
 </figure>
@@ -1275,9 +1330,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- РИСУНОК 5: Разложение в пространстве (Параллелепипед) -->
 <figure>
 <div class="svg-container">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340" role="img" aria-label="Диагональ параллелепипеда как сумма трёх компонент" data-fam-figure="diagram" data-fam-index="5">
-<path d="M300,193 L452.88,250.33 L360.06,312.21 L207.18,254.88 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><path d="M300,193 L452.88,250.33 L460.89,167.67 L308.01,110.34 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><path d="M308.01,110.34 L460.89,167.67 L368.07,229.55 L215.19,172.22 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"/><line x1="300" y1="193" x2="308.01" y2="110.34" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="300" y1="193" x2="207.18" y2="254.88" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="300" y1="193" x2="452.88" y2="250.33" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="308.01" y1="110.34" x2="215.19" y2="172.22" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="308.01" y1="110.34" x2="460.89" y2="167.67" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="207.18" y1="254.88" x2="215.19" y2="172.22" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="207.18" y1="254.88" x2="360.06" y2="312.21" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="215.19" y1="172.22" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="452.88" y1="250.33" x2="460.89" y2="167.67" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="452.88" y1="250.33" x2="360.06" y2="312.21" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="460.89" y1="167.67" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="360.06" y1="312.21" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"/><line x1="300" y1="193" x2="444.45" y2="247.17" stroke="var(--fig-blue)" stroke-width="2.1" /><path d="M452.88,250.33 L443.09,250.79 L445.81,243.55 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="460.88" y="267.33" text-anchor="middle" fill="var(--fig-blue)" font-size="14">a₁e₁</text><line x1="300" y1="193" x2="214.67" y2="249.89" stroke="var(--fig-green)" stroke-width="2.1" /><path d="M207.18,254.88 L212.52,246.67 L216.82,253.11 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="196.18" y="268.88" text-anchor="middle" fill="var(--fig-green)" font-size="14">a₂e₂</text><line x1="300" y1="193" x2="307.14" y2="119.3" stroke="var(--fig-rose)" stroke-width="2.1" /><path d="M308.01,110.34 L310.99,119.67 L303.29,118.92 Z" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="321.01" y="104.34" text-anchor="middle" fill="var(--fig-rose)" font-size="14">a₃e₃</text><line x1="300" y1="193" x2="360.14" y2="225.29" stroke="var(--fig-gold)" stroke-width="2.1" /><path d="M368.07,229.55 L358.31,228.7 L361.97,221.88 Z" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><text x="392.07" y="220.55" text-anchor="middle" fill="var(--fig-gold)" font-size="14">a₁e₁ + a₂e₂ + a₃e₃</text><text x="285" y="213" text-anchor="middle" fill="var(--fig-ink)" font-size="14">O</text>
-</svg>
+<div class="diagram-scroll" style="--diagram-min-width: 549px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 340" role="img" aria-label="Диагональ параллелепипеда как сумма трёх компонент" data-fam-figure="diagram" data-fam-index="5">
+<path d="M300,193 L452.88,250.33 L360.06,312.21 L207.18,254.88 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"></path><path d="M300,193 L452.88,250.33 L460.89,167.67 L308.01,110.34 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"></path><path d="M308.01,110.34 L460.89,167.67 L368.07,229.55 L215.19,172.22 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" fill-opacity=".13"></path><line x1="300" y1="193" x2="308.01" y2="110.34" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="300" y1="193" x2="207.18" y2="254.88" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="300" y1="193" x2="452.88" y2="250.33" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="308.01" y1="110.34" x2="215.19" y2="172.22" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="308.01" y1="110.34" x2="460.89" y2="167.67" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="207.18" y1="254.88" x2="215.19" y2="172.22" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="207.18" y1="254.88" x2="360.06" y2="312.21" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="215.19" y1="172.22" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="452.88" y1="250.33" x2="460.89" y2="167.67" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="452.88" y1="250.33" x2="360.06" y2="312.21" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="460.89" y1="167.67" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="360.06" y1="312.21" x2="368.07" y2="229.55" stroke="var(--fig-muted)" stroke-width="1.3" stroke-dasharray="4 4"></line><line x1="300" y1="193" x2="444.45" y2="247.17" stroke="var(--fig-blue)" stroke-width="2.1"></line><path d="M452.88,250.33 L443.09,250.79 L445.81,243.55 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><text x="460.88" y="267.33" text-anchor="middle" fill="var(--fig-blue)" font-size="14">a₁e₁</text><line x1="300" y1="193" x2="214.67" y2="249.89" stroke="var(--fig-green)" stroke-width="2.1"></line><path d="M207.18,254.88 L212.52,246.67 L216.82,253.11 Z" fill="var(--fig-green)" stroke="var(--fig-green)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><text x="196.18" y="268.88" text-anchor="middle" fill="var(--fig-green)" font-size="14">a₂e₂</text><line x1="300" y1="193" x2="307.14" y2="119.3" stroke="var(--fig-rose)" stroke-width="2.1"></line><path d="M308.01,110.34 L310.99,119.67 L303.29,118.92 Z" fill="var(--fig-rose)" stroke="var(--fig-rose)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><text x="321.01" y="104.34" text-anchor="middle" fill="var(--fig-rose)" font-size="14">a₃e₃</text><line x1="300" y1="193" x2="360.14" y2="225.29" stroke="var(--fig-gold)" stroke-width="2.1"></line><path d="M368.07,229.55 L358.31,228.7 L361.97,221.88 Z" fill="var(--fig-gold)" stroke="var(--fig-gold)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"></path><text x="392.07" y="220.55" text-anchor="middle" fill="var(--fig-gold)" font-size="14">a₁e₁ + a₂e₂ + a₃e₃</text><text x="285" y="213" text-anchor="middle" fill="var(--fig-ink)" font-size="14">O</text>
+</svg></div>
 </div>
 <figcaption>Рис. 5. Разложение пространственного вектора $\vec{a}$ по трём некомпланарным базисным векторам в диагональ параллелепипеда.</figcaption>
 </figure>
@@ -1308,14 +1363,14 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement definition" id="def-19"><div class="block-label">Определение 30 (Радиус-вектор и координаты точки)</div><h3 data-toc="Определение 19" id="sub-3-24">Определение 19</h3><div>
 
         Вектор $\vec{OM}$, соединяющий начало координат с точкой $M$, называется <strong>радиус-вектором</strong> точки $M$ и обозначается $\vec{r}_M$.
-        <br/>
+        <br>
 <strong>Координатами точки $M$</strong> называются координаты её радиус-вектора $\vec{OM}$ в базисе системы координат:
         \[\vec{OM} = x\vec{e}_1 + y\vec{e}_2 + z\vec{e}_3 \iff M(x, y, z)\]
       </div></div>
 <!-- РИСУНОК 6: АСК и радиус-векторы -->
 <figure>
 <div class="svg-container">
-<svg height="240" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 520 240" width="520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 6. Аффинная система координат $\{O; \vec{e}_1, \vec{e}_2\}$, радиус-векторы точек и вектор $\vec{AB} = \vec{r}_B - \vec{r}_A$." data-fam-figure="diagram" data-fam-index="6">
+<div class="diagram-scroll" style="--diagram-min-width: 480px"><svg height="240" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 520 240" width="520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 6. Аффинная система координат $\{O; \vec{e}_1, \vec{e}_2\}$, радиус-векторы точек и вектор $\vec{AB} = \vec{r}_B - \vec{r}_A$." data-fam-figure="diagram" data-fam-index="6">
 <defs>
 <marker id="fam-fig-6-ag12-arr-axis" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--border-color, #94a3b8)"></path>
@@ -1358,7 +1413,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- Vector AB = r_B - r_A: A(160, 75) -> B(400, 130) -->
 <line marker-end="url(#fam-fig-6-ag12-arr-ab)" stroke="var(--accent-rose, #f43f5e)" stroke-width="3" x1="160" x2="392" y1="75" y2="128"></line>
 <text fill="var(--accent-rose, #f43f5e)" font-size="15" font-weight="800" x="250" y="90">AB = r_B − r_A</text>
-</svg>
+</svg></div>
 </div>
 <figcaption>Рис. 6. Аффинная система координат $\{O; \vec{e}_1, \vec{e}_2\}$, радиус-векторы точек и вектор $\vec{AB} = \vec{r}_B - \vec{r}_A$.</figcaption>
 </figure>
@@ -1369,7 +1424,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
       </div></div>
 <div class="statement theorem" id="thm-14"><div class="block-label">Теорема 32 (Деление отрезка в заданном отношении)</div><h3 data-toc="Теорема 14" id="sub-3-26">Теорема 14</h3><div>
 
-        Если точка $M$ делит отрезок $AB$ в отношении $\lambda > 0$ ($\vec{AM} = \lambda \vec{MB}$), то её радиус-вектор и координаты выражаются формулами:
+        Если точка $M$ делит отрезок $AB$ в отношении $\lambda &gt; 0$ ($\vec{AM} = \lambda \vec{MB}$), то её радиус-вектор и координаты выражаются формулами:
         \[\vec{r}_M = \frac{\vec{r}_A + \lambda \vec{r}_B}{1 + \lambda}, \quad x_M = \frac{x_A + \lambda x_B}{1 + \lambda}, \quad y_M = \frac{y_A + \lambda y_B}{1 + \lambda}, \quad z_M = \frac{z_A + \lambda z_B}{1 + \lambda}\]
         Координаты середины отрезка ($\lambda = 1$):
         \[M_{\text{mid}} = \left(\frac{x_A + x_B}{2}, \, \frac{y_A + y_B}{2}, \, \frac{z_A + z_B}{2}\right)\]
@@ -1379,33 +1434,33 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <strong>Условие:</strong> В базисе $\{\vec{e}_1, \vec{e}_2, \vec{e}_3\}$ даны три вектора:
         \[\vec{a}_1 = (1, 2, 3), \quad \vec{a}_2 = (2, -1, 1), \quad \vec{a}_3 = (4, 3, 7)\]
         Выяснить, линейно зависима ли данная система векторов.
-        <br/><br/>
-<strong>Решение:</strong><br/>
+        <br><br>
+<strong>Решение:</strong><br>
         Составим линейную комбинацию $\alpha_1 \vec{a}_1 + \alpha_2 \vec{a}_2 + \alpha_3 \vec{a}_3 = \vec{0}$ и вычислим определитель матрицы коэффициентов:
-        \[\Delta = \begin{vmatrix} 1 & 2 & 4 \\ 2 & -1 & 3 \\ 3 & 1 & 7 \end{vmatrix}\]
+        \[\Delta = \begin{vmatrix} 1 &amp; 2 &amp; 4 \\ 2 &amp; -1 &amp; 3 \\ 3 &amp; 1 &amp; 7 \end{vmatrix}\]
         Разлагаем по первой строке:
         \[\Delta = 1 \cdot (-7 - 3) - 2 \cdot (14 - 9) + 4 \cdot (2 - (-3)) = -10 - 2 \cdot 5 + 4 \cdot 5 = -10 - 10 + 20 = 0\]
         Определитель равен нулю, следовательно, однородная система имеет нетривиальные решения. Легко найти коэффициенты: при $\alpha_3 = 1$ получаем $\alpha_1 = -2, \alpha_2 = -1$.
         То есть $-2\vec{a}_1 - \vec{a}_2 + \vec{a}_3 = \vec{0}$, откуда $\vec{a}_3 = 2\vec{a}_1 + \vec{a}_2$.
-        <br/>
+        <br>
 <strong>Ответ:</strong> Система векторов линейно зависима.
       </div></div>
 <div class="worked-example" id="ex-2"><div class="block-label">Пример 2. Разложение вектора по новому базису на плоскости</div><h3 data-toc="Пример 2" id="sub-3-29">Пример 2</h3><div>
 <strong>Условие:</strong> На плоскости задан базис $B = \{\vec{p}, \vec{q}\}$, где $\vec{p} = (2, 1)$ и $\vec{q} = (3, 2)$. Найти координаты вектора $\vec{x} = (7, 4)$ в этом базисе.
-        <br/><br/>
-<strong>Решение:</strong><br/>
+        <br><br>
+<strong>Решение:</strong><br>
         Ищем разложение $\vec{x} = c_1 \vec{p} + c_2 \vec{q}$:
         \[\begin{cases} 2c_1 + 3c_2 = 7 \\ 1c_1 + 2c_2 = 4 \end{cases}\]
         Из второго уравнения: $c_1 = 4 - 2c_2$. Подставляем в первое:
         \[2(4 - 2c_2) + 3c_2 = 7 \implies 8 - c_2 = 7 \implies c_2 = 1, \quad c_1 = 4 - 2 = 2\]
         Проверка: $2(2, 1) + 1(3, 2) = (4+3, 2+2) = (7, 4)$ — верно.
-        <br/>
+        <br>
 <strong>Ответ:</strong> Координаты вектора $\vec{x}$ в новом базисе равны $(2, 1)_B$.
       </div></div>
 <div class="worked-example" id="ex-3"><div class="block-label">Пример 3. Точка пересечения медиан (центроид) треугольника</div><h3 data-toc="Пример 3" id="sub-3-30">Пример 3</h3><div>
 <strong>Условие:</strong> Вершины треугольника имеют координаты $A(1, 2)$, $B(5, 4)$, $C(3, 8)$. Найти координаты точки пересечения медиан $G$.
-        <br/><br/>
-<strong>Решение:</strong><br/>
+        <br><br>
+<strong>Решение:</strong><br>
         Медианы треугольника делятся точкой пересечения в отношении $2:1$, считая от вершины. Применяя формулу деления отрезка:
         \[\vec{r}_G = \frac{\vec{r}_A + \vec{r}_B + \vec{r}_C}{3}\]
         Вычисляем координаты:
@@ -1421,7 +1476,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
   <div class="chapter-kicker">04 / Сводная таблица ключевых понятий</div>
   <h2 id="chapter-4" data-toc="Сводная таблица ключевых понятий">Сводная таблица ключевых понятий</h2>
 
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>Понятие</th>
@@ -1471,12 +1526,12 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <td>Разность радиус-векторов $\vec{r}_B - \vec{r}_A$</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 
 
 
 </section>
-<!-- FAM:CONTENT-END -->
+</div></section><!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>
     </main>
   </div>

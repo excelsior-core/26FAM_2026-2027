@@ -660,6 +660,62 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -835,9 +891,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 <!-- SVG 1: Геометрическая иллюстрация деления с остатком -->
 <div class="svg-wrapper">
-<figure class="figure-plate"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 178" role="img" aria-label="Остаток измеряется вправо от кратного bq независимо от знака b" data-fam-figure="diagram" data-fam-index="1">
+<figure class="figure-plate"><div class="diagram-scroll" style="--diagram-min-width: 532px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 178" role="img" aria-label="Остаток измеряется вправо от кратного bq независимо от знака b" data-fam-figure="diagram" data-fam-index="1">
 <line x1="44" y1="94" x2="570" y2="94" stroke="var(--fig-muted)" stroke-width="1.7" /><line x1="535" y1="94" x2="572" y2="94" stroke="var(--fig-muted)" stroke-width="2.1" /><path d="M581,94 L572,97.87 L572,90.13 Z" fill="var(--fig-muted)" stroke="var(--fig-muted)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="120" cy="94" r="4" fill="var(--fig-ink)" stroke="var(--fig-ink)" stroke-width="1.6"/><text x="120" y="122" text-anchor="middle" fill="var(--fig-ink)" font-size="15">bq</text><circle cx="280" cy="94" r="4" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="280" y="122" text-anchor="middle" fill="var(--fig-ink)" font-size="15">a = bq + r</text><circle cx="500" cy="94" r="4" fill="var(--fig-ink)" stroke="var(--fig-ink)" stroke-width="1.6"/><text x="500" y="122" text-anchor="middle" fill="var(--fig-ink)" font-size="15">bq + |b|</text><line x1="120" y1="58" x2="280" y2="58" stroke="var(--fig-blue)" stroke-width="2.4" /><text x="200" y="46" text-anchor="middle" fill="var(--fig-blue)" font-size="15">r</text><text x="310" y="163" text-anchor="middle" fill="var(--fig-ink)" font-size="14">0 ≤ r &lt; |b|  ·  пример 0 &lt; r</text>
-</svg></figure>
+</svg></div></figure>
 <div class="svg-caption">Рисунок 2.1: Геометрическая модель деления с остатком на числовой прямой $\mathbb{Z}$. Число $a$ лежит строго внутри полуинтервала $[bq, b(q+1))$.</div>
 </div>
 <h3 class="subsection-heading" data-toc="2. Отношение делимости" id="sec-div-def">2.2. Отношение делимости</h3>
@@ -1206,9 +1262,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </div></div>
 <!-- SVG 2: Циклическая диаграмма классов вычетов -->
 <div class="svg-wrapper" id="sec-clock-model">
-<figure class="figure-plate"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 278" role="img" aria-label="Четыре класса вычетов по модулю 4" data-fam-figure="diagram" data-fam-index="2">
+<figure class="figure-plate"><div class="diagram-scroll" style="--diagram-min-width: 591px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 278" role="img" aria-label="Четыре класса вычетов по модулю 4" data-fam-figure="diagram" data-fam-index="2">
 <text x="57" y="60" text-anchor="middle" fill="var(--fig-blue)" font-size="16">[0]₄</text><line x1="96" y1="55" x2="570" y2="55" stroke="var(--fig-rule)" stroke-width="1.5" /><text x="125" y="60" text-anchor="middle" fill="var(--fig-ink)" font-size="15">-8</text><text x="227" y="60" text-anchor="middle" fill="var(--fig-ink)" font-size="15">-4</text><text x="329" y="60" text-anchor="middle" fill="var(--fig-ink)" font-size="15">0</text><text x="431" y="60" text-anchor="middle" fill="var(--fig-ink)" font-size="15">4</text><text x="533" y="60" text-anchor="middle" fill="var(--fig-ink)" font-size="15">8</text><text x="57" y="114" text-anchor="middle" fill="var(--fig-blue)" font-size="16">[1]₄</text><line x1="96" y1="109" x2="570" y2="109" stroke="var(--fig-rule)" stroke-width="1.5" /><text x="125" y="114" text-anchor="middle" fill="var(--fig-ink)" font-size="15">-7</text><text x="227" y="114" text-anchor="middle" fill="var(--fig-ink)" font-size="15">-3</text><text x="329" y="114" text-anchor="middle" fill="var(--fig-ink)" font-size="15">1</text><text x="431" y="114" text-anchor="middle" fill="var(--fig-ink)" font-size="15">5</text><text x="533" y="114" text-anchor="middle" fill="var(--fig-ink)" font-size="15">9</text><text x="57" y="168" text-anchor="middle" fill="var(--fig-blue)" font-size="16">[2]₄</text><line x1="96" y1="163" x2="570" y2="163" stroke="var(--fig-rule)" stroke-width="1.5" /><text x="125" y="168" text-anchor="middle" fill="var(--fig-ink)" font-size="15">-6</text><text x="227" y="168" text-anchor="middle" fill="var(--fig-ink)" font-size="15">-2</text><text x="329" y="168" text-anchor="middle" fill="var(--fig-ink)" font-size="15">2</text><text x="431" y="168" text-anchor="middle" fill="var(--fig-ink)" font-size="15">6</text><text x="533" y="168" text-anchor="middle" fill="var(--fig-ink)" font-size="15">10</text><text x="57" y="222" text-anchor="middle" fill="var(--fig-blue)" font-size="16">[3]₄</text><line x1="96" y1="217" x2="570" y2="217" stroke="var(--fig-rule)" stroke-width="1.5" /><text x="125" y="222" text-anchor="middle" fill="var(--fig-ink)" font-size="15">-5</text><text x="227" y="222" text-anchor="middle" fill="var(--fig-ink)" font-size="15">-1</text><text x="329" y="222" text-anchor="middle" fill="var(--fig-ink)" font-size="15">3</text><text x="431" y="222" text-anchor="middle" fill="var(--fig-ink)" font-size="15">7</text><text x="533" y="222" text-anchor="middle" fill="var(--fig-ink)" font-size="15">11</text><text x="320" y="259" text-anchor="middle" fill="var(--fig-muted)" font-size="13">В каждой строке соседние числа отличаются на 4</text>
-</svg></figure>
+</svg></div></figure>
 <div class="svg-caption">Рисунок 4.1: Геометрическая модель кольца вычетов $\mathbb{Z}_6$ в виде циклического циферблата периода $m = 6$.</div>
 </div>
 
@@ -1336,7 +1392,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p>
           Проиллюстрируем операции сложения и умножения в кольце классов вычетов по модулю $m = 4$.
         </p>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1.5rem;">
 <!-- Таблица сложения Z4 -->
 <div class="table-container">
 <table class="cayley-table">
@@ -1592,7 +1648,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </p>
 <!-- SVG 3: Структурная диаграмма классов систем -->
 <div class="svg-wrapper">
-<figure class="figure-plate"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 840 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Кольцо (K, +, ·) • Абелева группа (K, +) • Дистрибутивность Пример: 2ℤ, Матрицы Mₙ Комм. кольцо с " data-fam-figure="diagram" data-fam-index="3"><defs><marker id="fam-fig-3-arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
+<figure class="figure-plate"><div class="diagram-scroll" style="--diagram-min-width: 917px"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 840 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Кольцо (K, +, ·) • Абелева группа (K, +) • Дистрибутивность Пример: 2ℤ, Матрицы Mₙ Комм. кольцо с " data-fam-figure="diagram" data-fam-index="3"><defs><marker id="fam-fig-3-arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"></path>
 </marker></defs>
 <!-- Блок 1: Кольцо -->
@@ -1625,7 +1681,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="750" y="85">• Все x ≠ 0 обратимы</text>
 <text fill="var(--text-muted)" font-size="11" text-anchor="middle" x="750" y="105">• (K ∖ {0}, ·) — группа</text>
 <text fill="#10b8a6" font-size="12" font-weight="700" text-anchor="middle" x="750" y="145">ℚ, ℝ, ℂ, ℤₚ (p ∈ ℙ)</text>
-</svg></figure>
+</svg></div></figure>
 <div class="svg-caption">Рисунок 7.1: Вложение и специализация классов алгебраических структур.</div>
 </div>
 <h3 class="subsection-heading" data-toc="1. Сравнительная аналитическая…" id="sec-summary-table">7.1. Сравнительная аналитическая таблица структур</h3>

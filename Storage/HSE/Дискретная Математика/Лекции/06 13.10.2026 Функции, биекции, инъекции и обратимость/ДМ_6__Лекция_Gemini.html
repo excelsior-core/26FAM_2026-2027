@@ -660,6 +660,62 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -784,9 +840,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div></div>
 <!-- Figure 1.1: Relation vs Partial Function vs Total Mapping -->
 <div class="figure-card" id="fig-1-1">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 254" role="img" aria-label="Отношение, частичная функция и всюду определённое отображение" data-fam-figure="diagram" data-fam-index="1">
+<div class="diagram-scroll" style="--diagram-min-width: 750px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 254" role="img" aria-label="Отношение, частичная функция и всюду определённое отображение" data-fam-figure="diagram" data-fam-index="1">
 <g transform="translate(0 0)"><text x="125" y="26" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Отношение</text><text x="45" y="62" text-anchor="middle" fill="var(--fig-blue)" font-size="14">A</text><text x="205" y="62" text-anchor="middle" fill="var(--fig-green)" font-size="14">B</text><line x1="60" y1="103.5" x2="182" y2="103.5" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,103.5 L182,106.94 L182,100.06 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="60" y1="103.5" x2="182.33" y2="139.73" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,142 L181.35,143.03 L183.31,136.43 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="60" y1="180.5" x2="182" y2="180.5" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,180.5 L182,183.94 L182,177.06 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="45" cy="103.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="107.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₁</text><circle cx="45" cy="142" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₂</text><circle cx="45" cy="180.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="184.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₃</text><circle cx="205" cy="103.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="107.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₁</text><circle cx="205" cy="142" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₂</text><circle cx="205" cy="180.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="184.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₃</text><text x="125" y="237" text-anchor="middle" fill="var(--fig-muted)" font-size="12">У a₁ два образа</text></g><g transform="translate(250 0)"><text x="125" y="26" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Частичная функция</text><text x="45" y="62" text-anchor="middle" fill="var(--fig-blue)" font-size="14">A</text><text x="205" y="62" text-anchor="middle" fill="var(--fig-green)" font-size="14">B</text><line x1="60" y1="103.5" x2="182" y2="103.5" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,103.5 L182,106.94 L182,100.06 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="60" y1="142" x2="182" y2="142" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,142 L182,145.44 L182,138.56 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="45" cy="103.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="107.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₁</text><circle cx="45" cy="142" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₂</text><circle cx="45" cy="180.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="184.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₃</text><circle cx="205" cy="103.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="107.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₁</text><circle cx="205" cy="142" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₂</text><circle cx="205" cy="180.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="184.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₃</text><text x="125" y="237" text-anchor="middle" fill="var(--fig-muted)" font-size="12">У a₃ образ не задан</text></g><g transform="translate(500 0)"><text x="125" y="26" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Отображение A → B</text><text x="45" y="62" text-anchor="middle" fill="var(--fig-blue)" font-size="14">A</text><text x="205" y="62" text-anchor="middle" fill="var(--fig-green)" font-size="14">B</text><line x1="60" y1="103.5" x2="182" y2="103.5" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,103.5 L182,106.94 L182,100.06 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="60" y1="142" x2="182" y2="142" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,142 L182,145.44 L182,138.56 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="60" y1="180.5" x2="182.33" y2="144.27" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,142 L183.31,147.57 L181.35,140.97 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="45" cy="103.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="107.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₁</text><circle cx="45" cy="142" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₂</text><circle cx="45" cy="180.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="184.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₃</text><circle cx="205" cy="103.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="107.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₁</text><circle cx="205" cy="142" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₂</text><circle cx="205" cy="180.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="184.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₃</text><text x="125" y="237" text-anchor="middle" fill="var(--fig-muted)" font-size="12">У каждого aᵢ ровно один образ</text></g>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 1.1.</strong> Логическое различие между видами бинарных отношений $\rho \subseteq A \times B$: <strong>(1)</strong> из $a_1$ выходят две стрелки ($b_1 \neq b_2$) — условие однозначности нарушено; <strong>(2)</strong> из каждого элемента $A$ выходит не более одной стрелки, но для $a_3$ образ не определен — <em>частичная функция</em>; <strong>(3)</strong> из каждого элемента $A$ выходит ровно одна стрелка — <em>тотальная функция (отображение)</em>. При этом склеивание $f(a_2) = f(a_3) = b_2$ и свободный элемент $b_3 \notin f(A)$ определению отображения <strong>не противоречат</strong>.
             </div>
@@ -885,13 +941,13 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </tbody>
 </table>
 </div>
-<p style="margin-bottom:0; font-size:0.86rem;"><em>Тонкость перевода:</em> в англоязычной литературе термин <strong>one-to-one</strong> иногда означает инъекцию, а <strong>one-to-one correspondence</strong> — биекцию (взаимно однозначное соответствие), тогда как сюръекцию называют <strong>onto</strong>. В отечественной традиции (и в вашем лекционном курсе) «взаимно однозначное соответствие» и запись <em>one-to-one</em> в тетради относятся именно к <strong>биекции</strong>.</p>
+<p style="margin-bottom:0;"><em>Тонкость перевода:</em> в англоязычной литературе термин <strong>one-to-one</strong> иногда означает инъекцию, а <strong>one-to-one correspondence</strong> — биекцию (взаимно однозначное соответствие), тогда как сюръекцию называют <strong>onto</strong>. В отечественной традиции (и в вашем лекционном курсе) «взаимно однозначное соответствие» и запись <em>one-to-one</em> в тетради относятся именно к <strong>биекции</strong>.</p>
 </aside>
 <!-- Figure 2.1: 4 Types of Mappings on Finite Sets -->
 <div class="figure-card" id="fig-2-1">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 254" role="img" aria-label="Четыре типа отображений" data-fam-figure="diagram" data-fam-index="2">
+<div class="diagram-scroll" style="--diagram-min-width: 1000px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 254" role="img" aria-label="Четыре типа отображений" data-fam-figure="diagram" data-fam-index="2">
 <g transform="translate(0 0)"><text x="125" y="26" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Инъекция</text><text x="45" y="62" text-anchor="middle" fill="var(--fig-blue)" font-size="14">A</text><text x="205" y="62" text-anchor="middle" fill="var(--fig-green)" font-size="14">B</text><line x1="60" y1="103.5" x2="182.01" y2="96.27" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,95.8 L182.22,99.71 L181.81,92.84 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="60" y1="142" x2="182.06" y2="127.54" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,126.6 L182.46,130.96 L181.65,124.12 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="60" y1="180.5" x2="182.01" y2="187.73" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,188.2 L181.81,191.16 L182.22,184.29 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="45" cy="103.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="107.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₁</text><circle cx="45" cy="142" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₂</text><circle cx="45" cy="180.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="184.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₃</text><circle cx="205" cy="95.8" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="99.8" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₁</text><circle cx="205" cy="126.6" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="130.6" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₂</text><circle cx="205" cy="157.4" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="161.4" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₃</text><circle cx="205" cy="188.2" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="192.2" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₄</text><text x="125" y="237" text-anchor="middle" fill="var(--fig-muted)" font-size="12">b₃ не имеет прообраза</text></g><g transform="translate(250 0)"><text x="125" y="26" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Сюръекция</text><text x="45" y="62" text-anchor="middle" fill="var(--fig-blue)" font-size="14">A</text><text x="205" y="62" text-anchor="middle" fill="var(--fig-green)" font-size="14">B</text><line x1="60" y1="95.8" x2="182.01" y2="103.03" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,103.5 L181.81,106.46 L182.22,99.59 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="60" y1="126.6" x2="182.06" y2="141.06" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,142 L181.65,144.48 L182.46,137.64 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="60" y1="157.4" x2="182.12" y2="179.1" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,180.5 L181.52,182.49 L182.73,175.71 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="60" y1="188.2" x2="182.01" y2="180.97" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,180.5 L182.22,184.41 L181.81,177.54 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="45" cy="95.8" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="99.8" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₁</text><circle cx="45" cy="126.6" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="130.6" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₂</text><circle cx="45" cy="157.4" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="161.4" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₃</text><circle cx="45" cy="188.2" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="192.2" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₄</text><circle cx="205" cy="103.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="107.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₁</text><circle cx="205" cy="142" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₂</text><circle cx="205" cy="180.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="184.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₃</text><text x="125" y="237" text-anchor="middle" fill="var(--fig-muted)" font-size="12">У b₃ два прообраза</text></g><g transform="translate(500 0)"><text x="125" y="26" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Биекция</text><text x="45" y="62" text-anchor="middle" fill="var(--fig-blue)" font-size="14">A</text><text x="205" y="62" text-anchor="middle" fill="var(--fig-green)" font-size="14">B</text><line x1="60" y1="103.5" x2="182.33" y2="139.73" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,142 L181.35,143.03 L183.31,136.43 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="60" y1="142" x2="182.33" y2="105.77" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,103.5 L183.31,109.07 L181.35,102.47 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="60" y1="180.5" x2="182" y2="180.5" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,180.5 L182,183.94 L182,177.06 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="45" cy="103.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="107.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₁</text><circle cx="45" cy="142" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₂</text><circle cx="45" cy="180.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="184.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₃</text><circle cx="205" cy="103.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="107.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₁</text><circle cx="205" cy="142" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₂</text><circle cx="205" cy="180.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="184.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₃</text><text x="125" y="237" text-anchor="middle" fill="var(--fig-muted)" font-size="12">У каждого bᵢ один прообраз</text></g><g transform="translate(750 0)"><text x="125" y="26" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Общий случай</text><text x="45" y="62" text-anchor="middle" fill="var(--fig-blue)" font-size="14">A</text><text x="205" y="62" text-anchor="middle" fill="var(--fig-green)" font-size="14">B</text><line x1="60" y1="103.5" x2="182" y2="103.5" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,103.5 L182,106.94 L182,100.06 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="60" y1="142" x2="182.33" y2="105.77" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,103.5 L183.31,109.07 L181.35,102.47 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><line x1="60" y1="180.5" x2="182.33" y2="144.27" stroke="var(--fig-blue)" stroke-width="1.7" /><path d="M190,142 L183.31,147.57 L181.35,140.97 Z" fill="var(--fig-blue)" stroke="var(--fig-blue)" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><circle cx="45" cy="103.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="107.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₁</text><circle cx="45" cy="142" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₂</text><circle cx="45" cy="180.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.4"/><text x="45" y="184.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">a₃</text><circle cx="205" cy="103.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="107.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₁</text><circle cx="205" cy="142" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₂</text><circle cx="205" cy="180.5" r="13" fill="var(--fig-paper)" stroke="var(--fig-green)" stroke-width="1.4"/><text x="205" y="184.5" text-anchor="middle" fill="var(--fig-ink)" font-size="12">b₃</text><text x="125" y="237" text-anchor="middle" fill="var(--fig-muted)" font-size="12">Два прообраза у b₁, ни одного у b₃</text></g>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 2.1.</strong> Четыре возможных типа отображений $f : A \to B$ (по мотивам рис. 2.6 из учебного пособия В. Е. Алексеева, ННГУ): <strong>(1)</strong> инъекция без сюръекции (в каждый элемент $B$ входит не более одной стрелки, но в $b_3$ не входит ни одной); <strong>(2)</strong> сюръекция без инъекции (в каждый элемент $B$ входит хотя бы одна стрелка, но в $b_3$ входят сразу две стрелки из $a_3, a_4$); <strong>(3)</strong> биекция (в каждый элемент $B$ входит ровно одна стрелка); <strong>(4)</strong> отображение общего вида ($a_1, a_2$ склеиваются в $b_1$, а $b_3$ остается непокрытым).
             </div>
@@ -970,7 +1026,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </aside>
 <!-- Figure 3.1: Composition Diagram -->
 <div class="figure-card" id="fig-3-1">
-<svg aria-label="Схема композиции отображений f кружок g" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 840 245" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="3"><defs><marker id="fam-fig-3-arr-green" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
+<div class="diagram-scroll" style="--diagram-min-width: 877px"><svg aria-label="Схема композиции отображений f кружок g" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 840 245" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="3"><defs><marker id="fam-fig-3-arr-green" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-green)"></path>
 </marker><marker id="fam-fig-3-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"></path>
@@ -1005,7 +1061,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <path d="M 145 136 Q 420 228 695 147" fill="none" marker-end="url(#fam-fig-3-arr-green)" stroke="#059669" stroke-dasharray="6,4" stroke-width="2.6"></path>
 <rect fill="var(--prf-bg)" height="26" rx="6" stroke="#059669" stroke-width="1.3" width="210" x="315" y="192"></rect>
 <text fill="#059669" font-size="12" font-weight="700" text-anchor="middle" x="420" y="209">Композиция (f ∘ g)(x) = f(g(x))</text>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 3.1.</strong> Механизм действия композиции $f \circ g : A \to C$ (Определение 46): сначала отображение $g : A \to B$ переводит $x \in A$ в $g(x) \in B$, а затем отображение $f : B \to C$ переводит $g(x)$ в $f(g(x)) \in C$.
             </div>
@@ -1075,7 +1131,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="worked-example" id="ex-1"><div class="block-label">Пример 1</div><h3 data-toc="Примеры из презентации (Лекция…" id="sub-5-2">Примеры из презентации (Лекция 6, Слайд 7)Наглядный разбор существования и отсутствия односторонних обратных на конечных множествах</h3><div>
 <p>На слайде 7 лекции приведены две ключевые стрелочные диаграммы (элементы множества $A$ изображены кружками, элементы множества $B$ — квадратиками, прямые синие стрелки задают отображение $f : A \to B$, а обратные красные стрелки — одностороннее обратное отображение $g : B \to A$):</p>
 <div class="figure-card" id="fig-slide-7" style="margin: 0.9rem 0;">
-<svg aria-label="Диаграммы со слайда 7 лекции: правое обратное для сюръекции и левое обратное для инъекции" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 860 320" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="4"><defs><marker id="fam-fig-4-arr-red" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
+<div class="diagram-scroll" style="--diagram-min-width: 983px"><svg aria-label="Диаграммы со слайда 7 лекции: правое обратное для сюръекции и левое обратное для инъекции" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 860 320" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="4"><defs><marker id="fam-fig-4-arr-red" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-red)"></path>
 </marker><marker id="fam-fig-4-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"></path>
@@ -1172,7 +1228,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="var(--text-secondary)" font-size="10.5" text-anchor="middle" x="202" y="265">можно отправить в любой кружок 1..4);</text>
 <text fill="#e11d48" font-size="10.5" font-weight="700" text-anchor="middle" x="202" y="281">правого обратного нет — некуда отправить квадратик 4!</text>
 </g>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 4.0 (Слайд 7 презентации лекции).</strong> Слева: сюръекция $f : \{1,2,3,4,5\} \to \{1,2,3,4\}$ склеивает кружки $1$ и $2$ в квадратик $1$, поэтому у $f$ есть <strong>2 правых обратных</strong> ($g(1)=1$ или $g(1)=2$), но <strong>нет левого обратного</strong> (выйдя из кружка $1$ или $2$, мы попадаем в один и тот же квадратик $1$, откуда одна стрелка $g$ не может вернуть нас сразу в оба кружка!). Справа: инъекция $f : \{1,2,3,4\} \to \{1,2,3,4,5\}$ не попадает в квадратик $4$, поэтому у $f$ есть <strong>4 левых обратных</strong> (квадратик $4$ можно отправить в любой из 4 кружков), но <strong>нет правого обратного</strong> (куда бы мы ни отправили квадратик $4$ под действием $g$, синяя стрелка $f$ не вернет его обратно в квадратик $4$).
               </div>
@@ -1265,7 +1321,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </aside>
 <!-- Figure 4.1: Left Inverse Construction -->
 <div class="figure-card" id="fig-4-1">
-<svg aria-label="Схема построения левого обратного отображения для инъекции" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 840 280" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="5"><defs><marker id="fam-fig-5-arr-green" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
+<div class="diagram-scroll" style="--diagram-min-width: 960px"><svg aria-label="Схема построения левого обратного отображения для инъекции" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 840 280" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="5"><defs><marker id="fam-fig-5-arr-green" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-green)"></path>
 </marker><marker id="fam-fig-5-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"></path>
@@ -1315,7 +1371,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="#2563eb" font-size="11" font-weight="700" text-anchor="middle" x="400" y="69">Прямые стрелки: инъекция f</text>
 <rect fill="var(--ex-bg)" height="24" rx="5" stroke="#d97706" width="340" x="235" y="236"></rect>
 <text fill="#b45309" font-size="11" font-weight="700" text-anchor="middle" x="405" y="252">Для b₄ ∉ f(A) образ g(b₄) = a₀ выбирается свободно!</text>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 4.1.</strong> Геометрическая суть Части 1 Теоремы 48: так как $f$ не склеивает элементы, каждый элемент внутри образа $f(A) = \{b_1, b_2, b_3\}$ однозначно возвращается отображением $g$ в свой единственный прообраз (зеленые стрелки). А «лишний» элемент $b_4 \in B \setminus f(A)$ не участвует в композиции $g(f(a))$, поэтому его можно направить в любой фиксированный элемент $a_0 \in A$ (пунктирная стрелка). Отсюда сразу видно, что если $f(A) \neq B$ и $|A| \ge 2$, то <strong>левое обратное отображение не единственно</strong>!
             </div>
@@ -1365,7 +1421,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 <!-- Figure 4.2: Right Inverse Construction -->
 <div class="figure-card" id="fig-4-2">
-<svg aria-label="Схема построения правого обратного отображения для сюръекции" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 840 280" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="6"><defs><marker id="fam-fig-6-arr-green" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
+<div class="diagram-scroll" style="--diagram-min-width: 1008px"><svg aria-label="Схема построения правого обратного отображения для сюръекции" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 840 280" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="6"><defs><marker id="fam-fig-6-arr-green" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-green)"></path>
 </marker><marker id="fam-fig-6-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"></path>
@@ -1411,7 +1467,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <path d="M 604 208 Q 430 242 226 211" fill="none" marker-end="url(#fam-fig-6-arr-amber)" stroke="#d97706" stroke-dasharray="6,4" stroke-width="2.1"></path>
 <rect fill="var(--ex-bg)" height="24" rx="5" stroke="#d97706" width="350" x="245" y="236"></rect>
 <text fill="#b45309" font-size="11" font-weight="700" text-anchor="middle" x="420" y="252">Выбор представителя из f⁻¹(b₃): g₁(b₃) = a₃ или g₂(b₃) = a₄</text>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 4.2.</strong> Геометрическая суть Части 2 Теоремы 48: так как $f$ сюръективно, у каждого элемента $b \in B$ слой прообразов $f^{-1}(b)$ непуст. Правое обратное отображение $g : B \to A$ выбирает в каждом слое $f^{-1}(b)$ ровно одного представителя. Поскольку слой $f^{-1}(b_3) = \{a_3, a_4\}$ содержит два элемента, мы можем положить либо $g_1(b_3) = a_3$ (зеленая стрелка), либо $g_2(b_3) = a_4$ (пунктирная стрелка). Оба отображения $g_1$ и $g_2$ удовлетворяют $f \circ g_i = \mathrm{id}_B$, поэтому при отсутствии инъективности <strong>правое обратное не единственно</strong>!
             </div>
@@ -1552,7 +1608,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div></div>
 <!-- Figure 5.1: Logical Map of Definitions 42-50 and Theorems 48, 49, 51 -->
 <div class="figure-card" id="fig-5-1">
-<svg aria-label="Логическая схема связей между определениями 42-50 и теоремами 48, 49, 51" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 860 295" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="7"><defs><marker id="fam-fig-7-arr-red" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
+<div class="diagram-scroll" style="--diagram-min-width: 1032px"><svg aria-label="Логическая схема связей между определениями 42-50 и теоремами 48, 49, 51" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 860 295" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="7"><defs><marker id="fam-fig-7-arr-red" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-red)"></path>
 </marker><marker id="fam-fig-7-arr-green" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-green)"></path>
@@ -1607,7 +1663,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <line marker-end="url(#fam-fig-7-arr-amber)" stroke="#d97706" stroke-width="2" x1="588" x2="550" y1="79" y2="79"></line>
 <line marker-end="url(#fam-fig-7-arr-red)" stroke="#e11d48" stroke-width="2" x1="272" x2="295" y1="227" y2="227"></line>
 <line marker-end="url(#fam-fig-7-arr-red)" stroke="#e11d48" stroke-width="2" x1="588" x2="565" y1="227" y2="227"></line>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 5.1.</strong> Полная логическая карта темы: Теорема 48 связывает инъекцию с левым обратным, а сюръекцию — с правым обратным; Теорема 49 стягивает левое и правое обратные в единое двустороннее обратное $f^{-1}$, замыкая доказательство Теоремы 51.
             </div>
@@ -1749,7 +1805,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 </div>
 <div class="figure-card" style="margin: 0.8rem 0 0.2rem 0;">
-<svg aria-label="Схема биекции между натуральными и четными числами со слайда 12" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 780 125" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="8"><defs><marker id="fam-fig-8-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
+<div class="diagram-scroll" style="--diagram-min-width: 851px"><svg aria-label="Схема биекции между натуральными и четными числами со слайда 12" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 780 125" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="8"><defs><marker id="fam-fig-8-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"></path>
 </marker></defs>
 <rect fill="var(--bg-paper)" height="108" rx="8" stroke="var(--border-color)" width="760" x="10" y="8"></rect>
@@ -1771,7 +1827,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <line marker-end="url(#fam-fig-8-arr-blue)" marker-start="url(#fam-fig-8-arr-blue)" stroke="#2563eb" stroke-width="2.4" x1="410" x2="410" y1="50" y2="76"></line>
 <line marker-end="url(#fam-fig-8-arr-blue)" marker-start="url(#fam-fig-8-arr-blue)" stroke="#2563eb" stroke-width="2.4" x1="500" x2="500" y1="50" y2="76"></line>
 <line marker-end="url(#fam-fig-8-arr-blue)" marker-start="url(#fam-fig-8-arr-blue)" stroke="#2563eb" stroke-width="2.4" x1="590" x2="590" y1="50" y2="76"></line>
-</svg>
+</svg></div>
 </div>
 </div></div>
 <!-- Slide 13 Example 2 -->
@@ -1822,7 +1878,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 </div>
 <div class="figure-card" style="margin: 0.8rem 0 0.2rem 0;">
-<svg aria-label="Диаграмма биекции между целыми и натуральными числами со слайда 13" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 820 155" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="9"><defs><marker id="fam-fig-9-arr-red" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
+<div class="diagram-scroll" style="--diagram-min-width: 895px"><svg aria-label="Диаграмма биекции между целыми и натуральными числами со слайда 13" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 820 155" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="9"><defs><marker id="fam-fig-9-arr-red" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-red)"></path>
 </marker><marker id="fam-fig-9-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-blue)"></path>
@@ -1871,7 +1927,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <line marker-end="url(#fam-fig-9-arr-red)" marker-start="url(#fam-fig-9-arr-red)" stroke="#e11d48" stroke-width="2" x1="162" x2="628" y1="52" y2="104"></line>
 <!-- 3 <-> 6 -->
 <line marker-end="url(#fam-fig-9-arr-blue)" marker-start="url(#fam-fig-9-arr-blue)" stroke="#2563eb" stroke-width="2" x1="518" x2="692" y1="52" y2="104"></line>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 5А.1 (Слайд 13 лекции).</strong> Визуализация биекции $f : \mathbb{Z} \to \mathbb{N}$: неотрицательные числа $0, 1, 2, 3, \dots$ переходят в чётные $0, 2, 4, 6, \dots$ (синие стрелки), а отрицательные $-1, -2, -3, \dots$ переходят в нечётные $1, 3, 5, \dots$ (красные стрелки).
               </div>
@@ -1886,7 +1942,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div></div>
 <!-- Figure from Slide 14 -->
 <div class="figure-card" id="fig-slide-14">
-<svg aria-label="Геометрическое доказательство равномощности отрезков со слайда 14 лекции" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 860 285" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="10"><defs><marker id="fam-fig-10-arr-red" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
+<div class="diagram-scroll" style="--diagram-min-width: 860px"><svg aria-label="Геометрическое доказательство равномощности отрезков со слайда 14 лекции" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 860 285" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="10"><defs><marker id="fam-fig-10-arr-red" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-red)"></path>
 </marker></defs>
 <rect fill="var(--bg-paper)" height="265" rx="10" stroke="var(--border-color)" stroke-width="1.5" width="840" x="10" y="10"></rect>
@@ -1894,7 +1950,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- Left Diagram: Construction of Center M -->
 <g transform="translate(35, 45)">
 <rect fill="var(--svg-bg)" height="215" rx="8" stroke="var(--border-subtle)" width="375" x="0" y="0"></rect>
-<text fill="#2563eb" font-size="12" font-weight="700" text-anchor="middle" x="187" y="20">Этап 1. Построение центра проектирования M</text>
+<text fill="#2563eb" font-size="12" font-weight="700" text-anchor="middle" x="187" y="20">Этап 1. Выбор центра M</text>
 <!-- Point M: (255, 42), c: (65, 185), d: (295, 180) -->
 <!-- Point a on Mc (t=0.48): x = 255 + 0.48*(65-255) = 163.8, y = 42 + 0.48*(185-42) = 110.6 -->
 <!-- Point b on Md (t=0.45): x = 255 + 0.45*(295-255) = 273.0, y = 42 + 0.45*(180-42) = 104.1 -->
@@ -1908,7 +1964,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <line stroke="#059669" stroke-width="3.2" x1="65" x2="295" y1="185" y2="180"></line>
 <!-- Vertices & Labels -->
 <circle cx="255" cy="42" fill="#7c3aed" r="4.5"></circle>
-<text fill="#7c3aed" font-size="14" font-weight="800" text-anchor="middle" x="255" y="33">M</text>
+<text fill="#7c3aed" font-size="14" font-weight="800" text-anchor="middle" x="270" y="45">M</text>
 <circle cx="164" cy="111" fill="#2563eb" r="4"></circle>
 <text fill="#2563eb" font-size="13.5" font-weight="800" text-anchor="end" x="150" y="108">a</text>
 <circle cx="273" cy="104" fill="#2563eb" r="4"></circle>
@@ -1921,7 +1977,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- Right Diagram: Projection Ray M -> x -> f(x) -->
 <g transform="translate(450, 45)">
 <rect fill="var(--svg-bg)" height="215" rx="8" stroke="var(--border-subtle)" width="375" x="0" y="0"></rect>
-<text fill="#e11d48" font-size="12" font-weight="700" text-anchor="middle" x="187" y="20">Этап 2. Проектирование точки x ∈ [a, b] в f(x) ∈ [c, d]</text>
+<text fill="#e11d48" font-size="12" font-weight="700" text-anchor="middle" x="187" y="20">Этап 2. Проекция x ↦ f(x)</text>
 <line stroke="var(--text-main)" stroke-width="2" x1="255" x2="65" y1="42" y2="185"></line>
 <line stroke="var(--text-main)" stroke-width="2" x1="255" x2="295" y1="42" y2="180"></line>
 <!-- Segment [a, b] -->
@@ -1934,7 +1990,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <line marker-end="url(#fam-fig-10-arr-red)" stroke="#e11d48" stroke-width="3.4" x1="188" x2="131" y1="109.5" y2="180"></line>
 <!-- Points M, a, b, c, d, x, f(x) -->
 <circle cx="255" cy="42" fill="#7c3aed" r="4.5"></circle>
-<text fill="#7c3aed" font-size="14" font-weight="800" text-anchor="middle" x="255" y="33">M</text>
+<text fill="#7c3aed" font-size="14" font-weight="800" text-anchor="middle" x="270" y="45">M</text>
 <circle cx="164" cy="111" fill="#2563eb" r="4"></circle>
 <text fill="#2563eb" font-size="13.5" font-weight="800" text-anchor="end" x="150" y="108">a</text>
 <circle cx="273" cy="104" fill="#2563eb" r="4"></circle>
@@ -1948,7 +2004,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <circle cx="128" cy="183.6" fill="#e11d48" r="4.5"></circle>
 <text fill="#e11d48" font-size="13" font-style="italic" font-weight="800" text-anchor="middle" x="128" y="203">f(x)</text>
 </g>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 5А.2 (Точная реконструкция чертежа со слайда 14 лекции).</strong> Прямые $ac$ и $bd$ пересекаются в центре проектирования $M$. Луч, выпущенный из вершины $M$ через произвольную точку $x \in [a, b]$, пересекает нижний отрезок $[c, d]$ в единственной точке $f(x) \in [c, d]$, устанавливая взаимно однозначное соответствие (биекцию) между точками отрезков $[a, b]$ и $[c, d]$.
             </div>
@@ -2133,7 +2189,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div></div>
 <!-- Figure 6.1: Horizontal Line Test SVG -->
 <div class="figure-card" id="fig-6-1">
-<svg aria-label="Геометрический тест горизонтальных прямых для инъекции, сюръекции и биекции" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 860 265" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="11">
+<div class="diagram-scroll" style="--diagram-min-width: 1087px"><svg aria-label="Геометрический тест горизонтальных прямых для инъекции, сюръекции и биекции" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 860 265" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="11">
 <!-- Plot 1: f(x) = e^x on R -> R (Injection, not surjection) -->
 <g transform="translate(15, 10)">
 <rect fill="var(--bg-paper)" height="245" rx="10" stroke="#2563eb" stroke-width="1.6" width="265" x="0" y="0"></rect>
@@ -2190,7 +2246,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <circle cx="179" cy="88" fill="#059669" r="4.5"></circle>
 <text fill="#059669" font-size="10.5" font-weight="700" text-anchor="middle" x="132" y="233">Ровно 1 пересечение: ∃! f⁻¹(y) = ∛y</text>
 </g>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 6.1.</strong> Геометрическая интерпретация свойств отображений $f : \mathbb{R} \to \mathbb{R}$ с помощью горизонтальных прямых $y = b$: <strong>(1)</strong> $f(x)=e^x$ строго возрастает, но не принимает значений $b \le 0$ (инъекция без сюръекции); <strong>(2)</strong> $f(x)=x^3-3x$ принимает все вещественные значения от $-\infty$ до $+\infty$, но на интервале $(-2, 2)$ горизонтальная прямая пересекает график трижды (сюръекция без инъекции); <strong>(3)</strong> $f(x)=x^3$ пересекается каждой горизонтальной прямой ровно в одной точке (биекция).
             </div>

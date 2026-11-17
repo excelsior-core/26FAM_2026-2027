@@ -660,6 +660,62 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -784,7 +840,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </ul>
 <!-- ИЛЛЮСТРАЦИЯ 1: ТРИ ПРЕДСТАВЛЕНИЯ ОТНОШЕНИЯ -->
 <div class="figure-box">
-<svg aria-label="Три способа задания бинарного отношения: декартов график, матрица и граф" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 860 270" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="1">
+<div class="diagram-scroll" style="--diagram-min-width: 860px"><svg aria-label="Три способа задания бинарного отношения: декартов график, матрица и граф" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 860 270" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="1">
 <defs>
 <marker id="fam-fig-1-arrowBlue" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue)"></path>
@@ -800,7 +856,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <line marker-end="url(#fam-fig-1-arrowBlue)" stroke="var(--text-secondary)" stroke-width="2" x1="50" x2="210" y1="190" y2="190"></line>
 <line marker-end="url(#fam-fig-1-arrowBlue)" stroke="var(--text-secondary)" stroke-width="2" x1="50" x2="50" y1="190" y2="35"></line>
 <text fill="var(--text-secondary)" font-size="13" font-weight="700" x="218" y="194">x</text>
-<text fill="var(--text-secondary)" font-size="13" font-weight="700" x="46" y="28">y</text>
+<text fill="var(--text-secondary)" font-size="13" font-weight="700" x="25" y="40">y</text>
 <!-- Пунктирные линии сетки -->
 <line stroke="var(--svg-grid)" stroke-dasharray="4,4" x1="90" x2="90" y1="190" y2="55"></line>
 <line stroke="var(--svg-grid)" stroke-dasharray="4,4" x1="135" x2="135" y1="190" y2="55"></line>
@@ -884,7 +940,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="var(--svg-text)" font-size="15" font-weight="800" text-anchor="middle" x="130" y="79">3</text>
 <text fill="var(--text-secondary)" font-size="12" text-anchor="middle" x="130" y="236">Петли: (1,1), (2,2), (3,3); стрелка: 1→2</text>
 </g>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 1.1.</strong> Одно и то же отношение $\rho = \{ \langle 1,1 \rangle, \langle 1,2 \rangle, \langle 2,2 \rangle, \langle 3,3 \rangle \}$ на множестве $A = \{1, 2, 3\}$, представленное на координатной сетке $A \times A$, в виде булевой матрицы и в виде ориентированного графа.
           </div>
@@ -945,7 +1001,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </ul>
 <!-- ИЛЛЮСТРАЦИЯ 2: ПРЯМОЕ И ОБРАТНОЕ ОТНОШЕНИЕ -->
 <div class="figure-box">
-<svg height="220" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 780 220" width="780" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 2.1. Геометрический смысл Определения 36: переход от $\rho$ к $\rho^{-1}$ — это разворот ориентации всех дуг графа." data-fam-figure="diagram" data-fam-index="2">
+<div class="diagram-scroll" style="--diagram-min-width: 780px"><svg height="220" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 780 220" width="780" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Рис. 2.1. Геометрический смысл Определения 36: переход от $\rho$ к $\rho^{-1}$ — это разворот ориентации всех дуг графа." data-fam-figure="diagram" data-fam-index="2">
 <defs>
 <marker id="fam-fig-2-dm5-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
@@ -987,7 +1043,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="var(--text-main, #f3f4f6)" font-size="15" font-weight="800" text-anchor="middle" x="234" y="113">3</text>
 <text fill="var(--border-color, #94a3b8)" font-size="12" text-anchor="middle" x="145" y="162">Каждая стрелка развернулась: 1 ← 2 ← 3</text>
 </g>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 2.1.</strong> Геометрический смысл Определения 36: переход от $\rho$ к $\rho^{-1}$ — это разворот ориентации всех дуг графа.
           </div>
@@ -1035,13 +1091,13 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p style="font-size:0.88rem; margin-top:0.55rem;">
 <strong>Смысл:</strong> <em>Каждый</em> элемент множества $A$ обязан находиться в отношении сам с собой.
               </p>
-<p style="font-size:0.85rem; color:var(--text-secondary);">
+<p style="color:var(--text-secondary);">
 <strong>На графе:</strong> У <strong>каждой</strong> вершины есть петля.<br/>
 <strong>В матрице:</strong> На главной диагонали стоят <strong>только единицы</strong> ($a_{ii}=1$).<br/>
 <strong>Примеры:</strong> Равенство ($x=x$), нестрогое неравенство ($x \leqslant x$), делимость ($x \vdots x$).
               </p>
 </div>
-<svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 90" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="1°. Рефлексивность ∀x ∈ A : xρx Смысл: Каждый элемент множества $A$ обязан находиться в отношении сам с собой. На графе: У каждой вершины есть петля. В матрице: На главной диагонали стоят только единицы ($a_{ii}=1$). Примеры: Равенство ($x=x$), нестрогое неравенство ($x \leqslant x$), делимость ($x \vdots x$)." data-fam-figure="diagram" data-fam-index="3">
+<div class="diagram-scroll" style="--diagram-min-width: 260px"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 90" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="1°. Рефлексивность ∀x ∈ A : xρx Смысл: Каждый элемент множества $A$ обязан находиться в отношении сам с собой. На графе: У каждой вершины есть петля. В матрице: На главной диагонали стоят только единицы ($a_{ii}=1$). Примеры: Равенство ($x=x$), нестрогое неравенство ($x \leqslant x$), делимость ($x \vdots x$)." data-fam-figure="diagram" data-fam-index="3">
 <path d="M 45 48 C 20 18, 70 18, 55 48" fill="none" stroke="var(--accent-emerald)" stroke-width="2"></path>
 <path d="M 125 48 C 100 18, 150 18, 135 48" fill="none" stroke="var(--accent-emerald)" stroke-width="2"></path>
 <path d="M 205 48 C 180 18, 230 18, 215 48" fill="none" stroke="var(--accent-emerald)" stroke-width="2"></path>
@@ -1051,7 +1107,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="var(--svg-text)" font-size="12" font-weight="700" text-anchor="middle" x="130" y="63">2</text>
 <circle cx="210" cy="58" fill="var(--svg-node-fill)" r="14" stroke="var(--accent-emerald)" stroke-width="2"></circle>
 <text fill="var(--svg-text)" font-size="12" font-weight="700" text-anchor="middle" x="210" y="63">3</text>
-</svg>
+</svg></div>
 </div>
 <!-- 4. Антирефлексивность -->
 <div class="prop-card">
@@ -1063,13 +1119,13 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p style="font-size:0.88rem; margin-top:0.55rem;">
 <strong>Смысл:</strong> <em>Ни один</em> элемент множества $A$ не может находиться в отношении сам с собой (полный запрет на самосвязь).
               </p>
-<p style="font-size:0.85rem; color:var(--text-secondary);">
+<p style="color:var(--text-secondary);">
 <strong>На графе:</strong> <strong>Ни у одной</strong> вершины нет петли.<br/>
 <strong>В матрице:</strong> На главной диагонали стоят <strong>только нули</strong> ($a_{ii}=0$).<br/>
 <strong>Примеры:</strong> Строгое неравенство ($x < y$), «$x$ — биологический родитель $y$».
               </p>
 </div>
-<svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 90" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="4°. Антирефлексивность ∀x ∈ A : x¬ρx Смысл: Ни один элемент множества $A$ не может находиться в отношении сам с собой (полный запрет на самосвязь). На графе: Ни у одной вершины нет петли. В матрице: На главной диагонали стоят только нули ($a_{ii}=0$). Примеры: Строгое неравенство ($x &lt; y$), «$x$ — биологический родитель $y$»." data-fam-figure="diagram" data-fam-index="4">
+<div class="diagram-scroll" style="--diagram-min-width: 284px"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 90" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="4°. Антирефлексивность ∀x ∈ A : x¬ρx Смысл: Ни один элемент множества $A$ не может находиться в отношении сам с собой (полный запрет на самосвязь). На графе: Ни у одной вершины нет петли. В матрице: На главной диагонали стоят только нули ($a_{ii}=0$). Примеры: Строгое неравенство ($x &lt; y$), «$x$ — биологический родитель $y$»." data-fam-figure="diagram" data-fam-index="4">
 <circle cx="50" cy="52" fill="var(--svg-node-fill)" r="14" stroke="var(--accent-rose)" stroke-width="2"></circle>
 <text fill="var(--svg-text)" font-size="12" font-weight="700" text-anchor="middle" x="50" y="57">1</text>
 <circle cx="130" cy="52" fill="var(--svg-node-fill)" r="14" stroke="var(--accent-rose)" stroke-width="2"></circle>
@@ -1077,7 +1133,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <circle cx="210" cy="52" fill="var(--svg-node-fill)" r="14" stroke="var(--accent-rose)" stroke-width="2"></circle>
 <text fill="var(--svg-text)" font-size="12" font-weight="700" text-anchor="middle" x="210" y="57">3</text>
 <text fill="var(--accent-rose)" font-size="11" font-weight="700" text-anchor="middle" x="130" y="22">0 петель на всём графе!</text>
-</svg>
+</svg></div>
 </div>
 <!-- 2. Симметричность -->
 <div class="prop-card">
@@ -1089,13 +1145,13 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p style="font-size:0.88rem; margin-top:0.55rem;">
 <strong>Смысл:</strong> Связь всегда взаимна («улица с двусторонним движением»). Если есть стрелка из $x$ в $y$, обязана быть и обратная стрелка из $y$ в $x$.
               </p>
-<p style="font-size:0.85rem; color:var(--text-secondary);">
+<p style="color:var(--text-secondary);">
 <strong>На графе:</strong> Любая стрелка между вершинами парная ($x \leftrightarrow y$).<br/>
 <strong>В матрице:</strong> Таблица симметрична относительно диагонали ($a_{ij} = a_{ji}$).<br/>
 <strong>Примеры:</strong> «Быть супругами», «жить в одной комнате», параллельность прямых.
               </p>
 </div>
-<svg height="90" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 90" width="260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="2°. Симметричность xρy → yρx Смысл: Связь всегда взаимна («улица с двусторонним движением»). Если есть стрелка из $x$ в $y$, обязана быть и обратная стрелка из $y$ в $x$. На графе: Любая стрелка между вершинами парная ($x \leftrightarrow y$). В матрице: Таблица симметрична относительно диагонали ($a_{ij} = a_{ji}$). Примеры: «Быть супругами», «жить" data-fam-figure="diagram" data-fam-index="5">
+<div class="diagram-scroll" style="--diagram-min-width: 223px"><svg height="90" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 90" width="260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="2°. Симметричность xρy → yρx Смысл: Связь всегда взаимна («улица с двусторонним движением»). Если есть стрелка из $x$ в $y$, обязана быть и обратная стрелка из $y$ в $x$. На графе: Любая стрелка между вершинами парная ($x \leftrightarrow y$). В матрице: Таблица симметрична относительно диагонали ($a_{ij} = a_{ji}$). Примеры: «Быть супругами», «жить" data-fam-figure="diagram" data-fam-index="5">
 <defs>
 <marker id="fam-fig-5-dm5-arr-blue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-blue, #38bdf8)"></path>
@@ -1107,7 +1163,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <circle cx="195" cy="45" fill="var(--bg-card, #0f172a)" r="18" stroke="var(--accent-blue, #38bdf8)" stroke-width="2.2"></circle>
 <text fill="var(--text-main, #f3f4f6)" font-size="14" font-weight="800" text-anchor="middle" x="195" y="50">y</text>
 <line marker-end="url(#fam-fig-5-dm5-arr-blue)" stroke="var(--accent-blue, #38bdf8)" stroke-width="2.5" x1="85" x2="172" y1="45" y2="45"></line>
-</svg>
+</svg></div>
 </div>
 <!-- 5. Антисимметричность -->
 <div class="prop-card">
@@ -1119,12 +1175,12 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p style="font-size:0.88rem; margin-top:0.55rem;">
 <strong>Смысл:</strong> Между <em>разными</em> элементами ($x \neq y$) запрещено двустороннее движение! Взаимная связь $x \rho y$ и $y \rho x$ возможна только тогда, когда $x$ и $y$ — это один и тот же элемент ($x=y$, т.е. петля).
               </p>
-<p style="font-size:0.85rem; color:var(--text-secondary);">
+<p style="color:var(--text-secondary);">
 <strong>На графе:</strong> Между разными вершинами бывают только одиночные стрелки $x \to y$ (или вообще нет стрелок). Петли разрешены!<br/>
 <strong>Примеры:</strong> $x \leqslant y$ на $\mathbb{R}$, делимость $a \vdots b$ на $\mathbb{N}$, включение $A \subseteq B$.
               </p>
 </div>
-<svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 90" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="5°. Антисимметричность (xρy ∧ yρx) → x=y Смысл: Между разными элементами ($x \neq y$) запрещено двустороннее движение! Взаимная связь $x \rho y$ и $y \rho x$ возможна только тогда, когда $x$ и $y$ — это один и тот же элемент ($x=y$, т.е. петля). На графе: Между разными вершинами бывают только одиночные стрелки $x \to y$ (или вообще нет стрелок). Пе" data-fam-figure="diagram" data-fam-index="6"><defs><marker id="fam-fig-6-arrP2" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<div class="diagram-scroll" style="--diagram-min-width: 260px"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 90" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="5°. Антисимметричность (xρy ∧ yρx) → x=y Смысл: Между разными элементами ($x \neq y$) запрещено двустороннее движение! Взаимная связь $x \rho y$ и $y \rho x$ возможна только тогда, когда $x$ и $y$ — это один и тот же элемент ($x=y$, т.е. петля). На графе: Между разными вершинами бывают только одиночные стрелки $x \to y$ (или вообще нет стрелок). Пе" data-fam-figure="diagram" data-fam-index="6"><defs><marker id="fam-fig-6-arrP2" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-purple)"></path>
 </marker></defs>
 <path d="M 60 40 C 35 12, 85 12, 70 40" fill="none" stroke="var(--accent-purple)" stroke-width="2"></path>
@@ -1133,7 +1189,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="var(--svg-text)" font-size="12" font-weight="700" text-anchor="middle" x="65" y="59">x</text>
 <circle cx="195" cy="54" fill="var(--svg-node-fill)" r="15" stroke="var(--accent-purple)" stroke-width="2"></circle>
 <text fill="var(--svg-text)" font-size="12" font-weight="700" text-anchor="middle" x="195" y="59">y</text>
-</svg>
+</svg></div>
 </div>
 <!-- 3. Транзитивность -->
 <div class="prop-card">
@@ -1145,12 +1201,12 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p style="font-size:0.88rem; margin-top:0.55rem;">
 <strong>Смысл:</strong> «Правило прямого рейса». Если можно добраться из $x$ в $y$, а из $y$ в $z$, то обязательно должен существовать прямой переход из $x$ сразу в $z$.
               </p>
-<p style="font-size:0.85rem; color:var(--text-secondary);">
+<p style="color:var(--text-secondary);">
 <strong>На графе:</strong> Любая цепочка из двух стрелок $x \to y \to z$ замыкается прямой стрелкой-хордой $x \to z$.<br/>
 <strong>Примеры:</strong> $x < y$, $x \leqslant y$, делимость, равенство, параллельность.
               </p>
 </div>
-<svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 95" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="3°. Транзитивность (xρy ∧ yρz) → xρz Смысл: «Правило прямого рейса». Если можно добраться из $x$ в $y$, а из $y$ в $z$, то обязательно должен существовать прямой переход из $x$ сразу в $z$. На графе: Любая цепочка из двух стрелок $x \to y \to z$ замыкается прямой стрелкой-хордой $x \to z$. Примеры: $x &lt; y$, $x \leqslant y$, делимость, равенство, па" data-fam-figure="diagram" data-fam-index="7"><defs><marker id="fam-fig-7-arrowBlue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<div class="diagram-scroll" style="--diagram-min-width: 260px"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 95" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="3°. Транзитивность (xρy ∧ yρz) → xρz Смысл: «Правило прямого рейса». Если можно добраться из $x$ в $y$, а из $y$ в $z$, то обязательно должен существовать прямой переход из $x$ сразу в $z$. На графе: Любая цепочка из двух стрелок $x \to y \to z$ замыкается прямой стрелкой-хордой $x \to z$. Примеры: $x &lt; y$, $x \leqslant y$, делимость, равенство, па" data-fam-figure="diagram" data-fam-index="7"><defs><marker id="fam-fig-7-arrowBlue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1 L 9 5 L 0 9 z" fill="#2563eb"></path>
 </marker><marker id="fam-fig-7-arrowEmerald" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-emerald)"></path>
@@ -1164,7 +1220,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="var(--svg-text)" font-size="12" font-weight="700" text-anchor="middle" x="130" y="25">y</text>
 <circle cx="212" cy="70" fill="var(--svg-node-fill)" r="14" stroke="var(--accent-emerald)" stroke-width="2"></circle>
 <text fill="var(--svg-text)" font-size="12" font-weight="700" text-anchor="middle" x="212" y="75">z</text>
-</svg>
+</svg></div>
 </div>
 <!-- 6 и 7. Связность и Слабая связность -->
 <div class="prop-card">
@@ -1178,7 +1234,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <strong>Связность ($6^\circ$):</strong> Требование $x \rho y \lor y \rho x$ выполняется вообще для <em>всех</em> $x, y \in A$, включая случай $x = y$ (то есть $x \rho x$ — петли у всех вершин!).
               </p>
 </div>
-<svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 95" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="6° и 7°. Связность и Слабая связность ∀x,y: xρy ∨ yρx Слабая связность ($7^\circ$): Между любыми двумя различными ($x \neq y$) элементами есть хотя бы одна стрелка ($x \to y$ или $y \to x$). Нет «изолированных» пар! Связность ($6^\circ$): Требование $x \rho y \lor y \rho x$ выполняется вообще для всех $x, y \in A$, включая случай $x = y$ (то есть $" data-fam-figure="diagram" data-fam-index="8"><defs><marker id="fam-fig-8-arrowEmerald" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
+<div class="diagram-scroll" style="--diagram-min-width: 260px"><svg style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 260 95" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="6° и 7°. Связность и Слабая связность ∀x,y: xρy ∨ yρx Слабая связность ($7^\circ$): Между любыми двумя различными ($x \neq y$) элементами есть хотя бы одна стрелка ($x \to y$ или $y \to x$). Нет «изолированных» пар! Связность ($6^\circ$): Требование $x \rho y \lor y \rho x$ выполняется вообще для всех $x, y \in A$, включая случай $x = y$ (то есть $" data-fam-figure="diagram" data-fam-index="8"><defs><marker id="fam-fig-8-arrowEmerald" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-emerald)"></path>
 </marker></defs>
 <line marker-end="url(#fam-fig-8-arrowEmerald)" stroke="var(--accent-emerald)" stroke-width="2.2" x1="62" x2="116" y1="62" y2="28"></line>
@@ -1190,7 +1246,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="var(--svg-text)" font-size="12" font-weight="700" text-anchor="middle" x="130" y="25">2</text>
 <circle cx="212" cy="70" fill="var(--svg-node-fill)" r="14" stroke="var(--accent-emerald)" stroke-width="2"></circle>
 <text fill="var(--svg-text)" font-size="12" font-weight="700" text-anchor="middle" x="212" y="75">3</text>
-</svg>
+</svg></div>
 </div>
 </div>
 
@@ -1226,7 +1282,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </aside>
 <!-- ИЛЛЮСТРАЦИЯ 3: ШКАЛА ПЕТЕЛЬ (РЕФЛЕКСИВНОСТЬ VS НЕРЕФЛЕКСИВНОСТЬ VS АНТИРЕФЛЕКСИВНОСТЬ) -->
 <div class="figure-box">
-<svg aria-label="Сравнение рефлексивности, нерефлексивности и антирефлексивности" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 820 190" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="9">
+<div class="diagram-scroll" style="--diagram-min-width: 895px"><svg aria-label="Сравнение рефлексивности, нерефлексивности и антирефлексивности" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 820 190" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="9">
 <!-- Блок 1: Все 3 петли -->
 <g transform="translate(20, 15)">
 <rect fill="var(--bg-surface)" height="155" rx="12" stroke="var(--accent-emerald)" stroke-width="2" width="240" x="0" y="0"></rect>
@@ -1270,7 +1326,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="var(--accent-rose)" font-size="12" font-weight="700" text-anchor="middle" x="120" y="128">✓ Антирефлексивно</text>
 <text fill="var(--text-secondary)" font-size="11" text-anchor="middle" x="120" y="144">(и, конечно, нерефлексивно)</text>
 </g>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 4.1.</strong> Почему «нерефлексивность» шире «антирефлексивности»: центральный граф с одной петлёй является нерефлексивным, но не антирефлексивным.
           </div>
@@ -1402,7 +1458,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <span class="proof-step-num">Пример 1. Отношение делимости нацело на $\mathbb{N}$: $a \rho b \iff a \vdots b$ ($a = k \cdot b$, где $k \in \mathbb{N}$)</span>
 <ul class="styled-list" style="margin-bottom:0;">
 <li><strong>$1^\circ$ Рефлексивность ($+$):</strong> Любое натуральное число делится само на себя ($a = 1 \cdot a \implies a \vdots a$).</li>
-<li><strong>$2^\circ$ Симметричность ($-$):</strong> Контрпример: $6 \vdots 2$ (истинно), но $2 \not\vdots 6$ ($2$ не делится нацело на $6$).</li>
+<li><strong>$2^\circ$ Симметричность ($-$):</strong> Контрпример: $6 \vdots 2$ (истинно), но $\mathord{2 \not\vdots 6}$ ($2$ не делится нацело на $6$).</li>
 <li><strong>$3^\circ$ Транзитивность ($+$):</strong> Пусть $a \vdots b$ и $b \vdots c$. Тогда $a = k \cdot b$ и $b = m \cdot c$ для некоторых $k, m \in \mathbb{N}$. Подставляя второе в первое, получаем $a = (k \cdot m) \cdot c$, значит, $a \vdots c$.</li>
 <li><strong>$4^\circ$ Антирефлексивность ($-$):</strong> Так как $a \vdots a$, петли есть у всех чисел (а для АР петель не должно быть ни у одного).</li>
 <li><strong>$5^\circ$ Антисимметричность ($+$):</strong> Пусть для натуральных чисел $a, b \in \mathbb{N}$ одновременно $a \vdots b$ и $b \vdots a$. Тогда $a = k \cdot b$ и $b = m \cdot a \implies a = (k \cdot m) \cdot a \implies k \cdot m = 1$. Так как $k, m \in \mathbb{N}$ (натуральные числа!), единственное решение — $k = 1, m = 1$, откуда $a = b$. <em>(Замечание: на множестве целых чисел $\mathbb{Z}$ антисимметричности бы не было, так как $(-2) \vdots 2$ и $2 \vdots (-2)$, но $2 \neq -2$).</em></li>
@@ -1524,7 +1580,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </p>
 <!-- ИЛЛЮСТРАЦИЯ 4: ДЕКАРТОВЫ ГРАФИКИ RHO_1 И RHO_2 ИЗ ТЕТРАДИ -->
 <div class="figure-box">
-<svg aria-label="Декартовы графики отношений эквивалентности rho_1 и rho_2 из конспекта" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 840 310" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="10"><defs><marker id="fam-fig-10-arrowBlue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<div class="diagram-scroll" style="--diagram-min-width: 776px"><svg aria-label="Декартовы графики отношений эквивалентности rho_1 и rho_2 из конспекта" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 840 310" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="10"><defs><marker id="fam-fig-10-arrowBlue" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1 L 9 5 L 0 9 z" fill="#2563eb"></path>
 </marker><marker id="fam-fig-10-arrowEmerald" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-emerald)"></path>
@@ -1606,7 +1662,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="var(--text-main)" font-size="13" font-weight="700" text-anchor="middle" x="192" y="236">Разбиение: A = {1, 2} ∪ {3}</text>
 <text fill="var(--accent-cyan)" font-size="13" font-weight="700" text-anchor="middle" x="192" y="258">Фактор-множество A/ρ₂ = { {1, 2}, {3} }</text>
 </g>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 6.1.</strong> Геометрическая визуализация примеров из конспекта: каждый класс эквивалентности образует на декартовом графике заполненный «квадратный блок» вдоль главной диагонали! В Примере 1 три блока $1 \times 1$, в Примере 2 — один блок $2 \times 2$ (для класса $\{1,2\}$) и один блок $1 \times 1$ (для класса $\{3\}$).
           </div>
@@ -1672,8 +1728,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           </p>
 <p style="margin-bottom:0;">
             Порядок называется <strong>частичным</strong>, потому что в нём <em>разрешены несравнимые элементы</em> (упорядочена лишь «часть» пар):
-            <br/>• В отношении включения $\subseteq$ множества $\{1\}$ и $\{2\}$ <strong>несравнимы</strong>: $\{1\} \not\subseteq \{2\}$ и $\{2\} \not\subseteq \{1\}$.
-            <br/>• В отношении делимости $a \mid b$ на $\mathbb{N}$ числа $2$ и $3$ (или $4$ и $6$) <strong>несравнимы</strong>: ни одно из них не делит другое!
+            <br/>• В отношении включения $\subseteq$ множества $\{1\}$ и $\{2\}$ <strong>несравнимы</strong>: $\{1\} \nsubseteq \{2\}$ и $\{2\} \nsubseteq \{1\}$.
+            <br/>• В отношении делимости $\mathord{a \mid b}$ на $\mathbb{N}$ числа $2$ и $3$ (или $4$ и $6$) <strong>несравнимы</strong>: ни одно из них не делит другое!
             <br/>В учебнике В. Е. Алексеева (ННГУ) такие частичные порядки изображают с помощью <strong>диаграммы Хассе</strong>: меньшие элементы рисуют ниже больших и соединяют линией только <em>непосредственных</em> соседей (без петель и транзитивных стрелок).
           </p>
 </div>
@@ -1702,9 +1758,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 <!-- ИЛЛЮСТРАЦИЯ 5: ЧАСТИЧНЫЙ ПОРЯДОК (ДИАГРАММА ХАССЕ) VS ЛИНЕЙНЫЙ ПОРЯДОК -->
 <div class="figure-box">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 275" role="img" aria-label="Диаграммы Хассе: делимость, включение и линейный порядок" data-fam-figure="diagram" data-fam-index="11">
+<div class="diagram-scroll" style="--diagram-min-width: 840px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 275" role="img" aria-label="Диаграммы Хассе: делимость, включение и линейный порядок" data-fam-figure="diagram" data-fam-index="11">
 <text x="140" y="22" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Делимость на {1, …, 6}</text><line x1="140" y1="223" x2="65" y2="141" stroke="var(--fig-muted)" stroke-width="1.6" /><line x1="140" y1="223" x2="140" y2="141" stroke="var(--fig-muted)" stroke-width="1.6" /><line x1="140" y1="223" x2="220" y2="141" stroke="var(--fig-muted)" stroke-width="1.6" /><line x1="65" y1="141" x2="58" y2="62" stroke="var(--fig-muted)" stroke-width="1.6" /><line x1="65" y1="141" x2="115" y2="62" stroke="var(--fig-muted)" stroke-width="1.6" /><line x1="140" y1="141" x2="115" y2="62" stroke="var(--fig-muted)" stroke-width="1.6" /><circle cx="140" cy="223" r="17" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="140" y="228" text-anchor="middle" fill="var(--fig-ink)" font-size="13">1</text><circle cx="65" cy="141" r="17" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="65" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="13">2</text><circle cx="140" cy="141" r="17" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="140" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="13">3</text><circle cx="220" cy="141" r="17" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="220" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="13">5</text><circle cx="58" cy="62" r="17" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="58" y="67" text-anchor="middle" fill="var(--fig-ink)" font-size="13">4</text><circle cx="115" cy="62" r="17" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="115" y="67" text-anchor="middle" fill="var(--fig-ink)" font-size="13">6</text><text x="140" y="263" text-anchor="middle" fill="var(--fig-muted)" font-size="12">4 и 6 несравнимы</text><g transform="translate(280 0)"><text x="140" y="22" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Подмножества {1,2}</text><line x1="70" y1="141" x2="140" y2="62" stroke="var(--fig-muted)" stroke-width="1.6" /><line x1="210" y1="141" x2="140" y2="62" stroke="var(--fig-muted)" stroke-width="1.6" /><line x1="140" y1="223" x2="70" y2="141" stroke="var(--fig-muted)" stroke-width="1.6" /><line x1="140" y1="223" x2="210" y2="141" stroke="var(--fig-muted)" stroke-width="1.6" /><circle cx="140" cy="223" r="17" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="140" y="228" text-anchor="middle" fill="var(--fig-ink)" font-size="13">∅</text><circle cx="70" cy="141" r="17" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="70" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="13">{1}</text><circle cx="210" cy="141" r="17" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="210" y="146" text-anchor="middle" fill="var(--fig-ink)" font-size="13">{2}</text><circle cx="140" cy="62" r="17" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="140" y="67" text-anchor="middle" fill="var(--fig-ink)" font-size="13">{1,2}</text><text x="140" y="263" text-anchor="middle" fill="var(--fig-muted)" font-size="12">{1} и {2} несравнимы</text></g><g transform="translate(560 0)"><text x="140" y="22" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Порядок на {1, 2, 3, 4}</text><line x1="140" y1="204" x2="140" y2="156" stroke="var(--fig-muted)" stroke-width="1.6" /><line x1="140" y1="156" x2="140" y2="108" stroke="var(--fig-muted)" stroke-width="1.6" /><line x1="140" y1="108" x2="140" y2="60" stroke="var(--fig-muted)" stroke-width="1.6" /><circle cx="140" cy="204" r="17" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="140" y="209" text-anchor="middle" fill="var(--fig-ink)" font-size="13">1</text><circle cx="140" cy="156" r="17" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="140" y="161" text-anchor="middle" fill="var(--fig-ink)" font-size="13">2</text><circle cx="140" cy="108" r="17" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="140" y="113" text-anchor="middle" fill="var(--fig-ink)" font-size="13">3</text><circle cx="140" cy="60" r="17" fill="var(--fig-paper)" stroke="var(--fig-blue)" stroke-width="1.6"/><text x="140" y="65" text-anchor="middle" fill="var(--fig-ink)" font-size="13">4</text><text x="140" y="263" text-anchor="middle" fill="var(--fig-muted)" font-size="12">Любая пара сравнима</text></g>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 7.1.</strong> Диаграммы Хассе из курса В. Е. Алексеева (ННГУ): в частичном порядке граф ветвится (есть несравнимые элементы на одном этаже), а в линейном порядке вытягивается в одну вертикальную нить.
           </div>
@@ -1765,7 +1821,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 <!-- ИЛЛЮСТРАЦИЯ 6: ВПОЛНЕ УПОРЯДОЧЕННОЕ И ПЛОТНОЕ МНОЖЕСТВА -->
 <div class="figure-box">
-<svg aria-label="Сравнение вполне упорядоченного множества N, интервала (0,1) без минимума и плотного порядка в Q и R" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 820 210" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="12"><defs><marker id="fam-fig-12-arrowEmerald" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
+<div class="diagram-scroll" style="--diagram-min-width: 895px"><svg aria-label="Сравнение вполне упорядоченного множества N, интервала (0,1) без минимума и плотного порядка в Q и R" role="img" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 820 210" xmlns="http://www.w3.org/2000/svg" data-fam-figure="diagram" data-fam-index="12"><defs><marker id="fam-fig-12-arrowEmerald" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="var(--accent-emerald)"></path>
 </marker></defs>
 <!-- Левая панель: Вполне упорядоченное N vs интервал (0,1) -->
@@ -1820,7 +1876,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="var(--svg-text)" font-size="12" font-weight="800" text-anchor="middle" x="310" y="145">2</text>
 <text fill="var(--text-secondary)" font-size="11" text-anchor="middle" x="190" y="170">Между 1 и 2 нет ни одного целого числа c ∈ Z</text>
 </g>
-</svg>
+</svg></div>
 <div class="figure-caption">
 <strong>Рис. 7.2.</strong> Слева: почему $(\mathbb{N}, <)$ вполне упорядочено, а интервал $(0,1) \subset \mathbb{R}$ не имеет наименьшего элемента. Справа: плотность порядков $(\mathbb{Q}, <)$ и $(\mathbb{R}, <)$ против дискретности $(\mathbb{Z}, <)$.
           </div>

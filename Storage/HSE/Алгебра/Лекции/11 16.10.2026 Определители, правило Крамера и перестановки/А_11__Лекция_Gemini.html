@@ -660,6 +660,62 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -679,20 +735,19 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
       <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
     </aside>
     <main id="content">
-      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-      <header class="lecture-head" id="top">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. --><header class="lecture-head" id="top">
         <div class="lecture-meta"><span class="subject">Алгебра</span><span>Академический конспект ФПМ</span></div>
         <h1>Определители, правило Крамера и перестановки</h1>
         <p class="subtitle">ФПМ НИУ ВШЭ · Полный академический лекционный конспект</p>
         <div class="lecture-abstract" style="grid-template-columns:1fr"><div class="abstract-formula">\[\left\{
           \begin{alignedat}{5}
-          c_{11}\underline{\underline{x_1}} &+ \dots + c_{1,j_2}\!x_{j_2} &+ \dots + c_{1,j_r}\!x_{j_r} &+ \dots + c_{1n}x_n &&= \bar{b}_1, \\
-          &\phantom{+\dots+{}} c_{2,j_2}\underline{\underline{x_{j_2}}} &+ \dots + c_{2,j_r}\!x_{j_r} &+ \dots + c_{2n}x_n &&= \bar{b}_2, \\
-          && \quad\;\; \dots\dots\dots\dots\dots\dots &&&\quad\;\vdots \\
-          && c_{r,j_r}\underline{\underline{x_{j_r}}} &+ \dots + c_{rn}x_n &&= \bar{b}_r, \\
-          &&&\phantom{+\dots+{}} 0 &&= \bar{b}_{r+1}, \\
-          &&&\phantom{+\dots+{}} \vdots && \quad\;\vdots \\
-          &&&\phantom{+\dots+{}} 0 &&= \bar{b}_m.
+          c_{11}\underline{\underline{x_1}} &amp;+ \dots + c_{1,j_2}\!x_{j_2} &amp;+ \dots + c_{1,j_r}\!x_{j_r} &amp;+ \dots + c_{1n}x_n &amp;&amp;= \bar{b}_1, \\
+          &amp;\phantom{+\dots+{}} c_{2,j_2}\underline{\underline{x_{j_2}}} &amp;+ \dots + c_{2,j_r}\!x_{j_r} &amp;+ \dots + c_{2n}x_n &amp;&amp;= \bar{b}_2, \\
+          &amp;&amp; \quad\;\; \dots\dots\dots\dots\dots\dots &amp;&amp;&amp;\quad\;\vdots \\
+          &amp;&amp; c_{r,j_r}\underline{\underline{x_{j_r}}} &amp;+ \dots + c_{rn}x_n &amp;&amp;= \bar{b}_r, \\
+          &amp;&amp;&amp;\phantom{+\dots+{}} 0 &amp;&amp;= \bar{b}_{r+1}, \\
+          &amp;&amp;&amp;\phantom{+\dots+{}} \vdots &amp;&amp; \quad\;\vdots \\
+          &amp;&amp;&amp;\phantom{+\dots+{}} 0 &amp;&amp;= \bar{b}_m.
           \end{alignedat}
           \right. \qquad (3)\]</div></div>
       </header>
@@ -735,7 +790,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <section class="lecture-hero">
 <div class="hero-meta-row">
 <span class="meta-pill">📚 Курс: Высшая алгебра (1 семестр)</span>
-<span class="meta-pill">📖 Доп. источники: А. Г. Курош, А. И. Кострикин</span>
+
 <span class="meta-pill">✅ Все утверждения с полными доказательствами</span>
 </div>
 <h1>Следствия из метода Гаусса, Правило Крамера, Определители 2–3 порядков и Теория Перестановок</h1>
@@ -750,7 +805,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <section class="chapter-section" id="chapter-1-2">
 <div class="chapter-banner ch1">
 <span class="chapter-kicker">Тема I • Системы линейных алгебраических уравнений</span>
-</section>
+
 <section class="chapter" aria-labelledby="chapter-2">
   <div class="chapter-kicker">02 / Следствия из метода Гаусса и к…</div>
   <h2 id="chapter-2" data-toc="Следствия из метода Гаусса и к…">Следствия из метода Гаусса и критерия совместности СЛАУ</h2>
@@ -765,33 +820,33 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="math-block">
           \[\left\{
           \begin{alignedat}{5}
-          c_{11}\underline{\underline{x_1}} &+ \dots + c_{1,j_2}\!x_{j_2} &+ \dots + c_{1,j_r}\!x_{j_r} &+ \dots + c_{1n}x_n &&= \bar{b}_1, \\
-          &\phantom{+\dots+{}} c_{2,j_2}\underline{\underline{x_{j_2}}} &+ \dots + c_{2,j_r}\!x_{j_r} &+ \dots + c_{2n}x_n &&= \bar{b}_2, \\
-          && \quad\;\; \dots\dots\dots\dots\dots\dots &&&\quad\;\vdots \\
-          && c_{r,j_r}\underline{\underline{x_{j_r}}} &+ \dots + c_{rn}x_n &&= \bar{b}_r, \\
-          &&&\phantom{+\dots+{}} 0 &&= \bar{b}_{r+1}, \\
-          &&&\phantom{+\dots+{}} \vdots && \quad\;\vdots \\
-          &&&\phantom{+\dots+{}} 0 &&= \bar{b}_m.
+          c_{11}\underline{\underline{x_1}} &amp;+ \dots + c_{1,j_2}\!x_{j_2} &amp;+ \dots + c_{1,j_r}\!x_{j_r} &amp;+ \dots + c_{1n}x_n &amp;&amp;= \bar{b}_1, \\
+          &amp;\phantom{+\dots+{}} c_{2,j_2}\underline{\underline{x_{j_2}}} &amp;+ \dots + c_{2,j_r}\!x_{j_r} &amp;+ \dots + c_{2n}x_n &amp;&amp;= \bar{b}_2, \\
+          &amp;&amp; \quad\;\; \dots\dots\dots\dots\dots\dots &amp;&amp;&amp;\quad\;\vdots \\
+          &amp;&amp; c_{r,j_r}\underline{\underline{x_{j_r}}} &amp;+ \dots + c_{rn}x_n &amp;&amp;= \bar{b}_r, \\
+          &amp;&amp;&amp;\phantom{+\dots+{}} 0 &amp;&amp;= \bar{b}_{r+1}, \\
+          &amp;&amp;&amp;\phantom{+\dots+{}} \vdots &amp;&amp; \quad\;\vdots \\
+          &amp;&amp;&amp;\phantom{+\dots+{}} 0 &amp;&amp;= \bar{b}_m.
           \end{alignedat}
           \right. \qquad (3)\]
         </div>
 <p>
-          Здесь индексы ступенек удовлетворяют неравенствам $1 = j_1 < j_2 < \dots < j_r \le n$ (при необходимости перенумерации или если $c_{11} \neq 0$, в противном случае первая ступенька начинается с $x_{j_1}$), а все диагонально-ступенчатые (ведущие) коэффициенты отличны от нуля:
+          Здесь индексы ступенек удовлетворяют неравенствам $1 = j_1 &lt; j_2 &lt; \dots &lt; j_r \le n$ (при необходимости перенумерации или если $c_{11} \neq 0$, в противном случае первая ступенька начинается с $x_{j_1}$), а все диагонально-ступенчатые (ведущие) коэффициенты отличны от нуля:
           \[c_{11} \neq 0, \quad c_{2,j_2} \neq 0, \quad \dots, \quad c_{r,j_r} \neq 0.\]
         </p>
 <div class="statement definition" id="def-1"><div class="block-label">Определение 1</div><h3 data-toc="Определение 1.1 (Главные и сво…" id="sub-2-2">Определение 1.1 (Главные и свободные неизвестные, совместность и определенность)Базовые понятия</h3><div>
 <ul>
 <li><strong>Главные неизвестные</strong> — это неизвестные $\underline{\underline{x_{j_1}}}, \underline{\underline{x_{j_2}}}, \dots, \underline{\underline{x_{j_r}}}$, стоящие первыми (на «ступеньках») в каждом из $r$ ненулевых уравнений ступенчатой системы $(3)$. Число главных неизвестных в точности равно числу ступенек $r$.</li>
 <li><strong>Свободные неизвестные</strong> — это все остальные неизвестные системы, не попавшие на ступеньки (они могут стоять как в «промежутках» между соседними ступеньками $x_{j_k}$ и $x_{j_{k+1}}$, так и правее последней главной неизвестной $x_{j_r}$). Так как общее число неизвестных равно $n$, а главных среди них $r$, то <strong>количество свободных неизвестных равно $n - r$</strong>.</li>
-<li>Система называется <strong>совместной</strong>, если она имеет хотя бы одно решение, и <strong>несовместной</strong>, если решений нет. В ступенчатом виде $(3)$ система совместна тогда и только тогда, когда в ней отсутствуют противоречивые уравнения вида $0 = \bar{b}_k$ при $\bar{b}_k \neq 0$ (то есть при $r < m$ выполнено $\bar{b}_{r+1} = \dots = \bar{b}_m = 0$).</li>
+<li>Система называется <strong>совместной</strong>, если она имеет хотя бы одно решение, и <strong>несовместной</strong>, если решений нет. В ступенчатом виде $(3)$ система совместна тогда и только тогда, когда в ней отсутствуют противоречивые уравнения вида $0 = \bar{b}_k$ при $\bar{b}_k \neq 0$ (то есть при $r &lt; m$ выполнено $\bar{b}_{r+1} = \dots = \bar{b}_m = 0$).</li>
 <li>Совместная система называется <strong>определенной</strong>, если она имеет <em>единственное</em> решение, и <strong>неопределенной</strong>, если она имеет более одного решения.</li>
 </ul>
 </div></div>
 <!-- SVG ILLUSTRATION 1: ECHELON MATRIX & FREE VARIABLES -->
 <figure class="figure-card">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 258" role="img" aria-label="Ступенчатая расширенная матрица: три ведущих элемента" data-fam-figure="diagram" data-fam-index="1">
-<text x="340" y="30" text-anchor="middle" fill="var(--fig-ink)" font-size="16">x₁          x₂          x₃          x₄          x₅        правая часть</text><rect x="110" y="52" width="32" height="30" rx="5" fill="var(--fig-green)" fill-opacity=".15" stroke="var(--fig-green)"/><text x="126" y="72" text-anchor="middle" fill="var(--fig-green)" font-size="17">1</text><text x="206" y="72" text-anchor="middle" fill="var(--fig-ink)" font-size="17">2</text><text x="286" y="72" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="366" y="72" text-anchor="middle" fill="var(--fig-ink)" font-size="17">3</text><text x="446" y="72" text-anchor="middle" fill="var(--fig-ink)" font-size="17">1</text><text x="526" y="72" text-anchor="middle" fill="var(--fig-ink)" font-size="17">5</text><text x="126" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="206" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><rect x="270" y="90" width="32" height="30" rx="5" fill="var(--fig-green)" fill-opacity=".15" stroke="var(--fig-green)"/><text x="286" y="110" text-anchor="middle" fill="var(--fig-green)" font-size="17">2</text><text x="366" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="17">−1</text><text x="446" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="17">4</text><text x="526" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="126" y="148" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="206" y="148" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="286" y="148" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="366" y="148" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><rect x="430" y="128" width="32" height="30" rx="5" fill="var(--fig-green)" fill-opacity=".15" stroke="var(--fig-green)"/><text x="446" y="148" text-anchor="middle" fill="var(--fig-green)" font-size="17">3</text><text x="526" y="148" text-anchor="middle" fill="var(--fig-ink)" font-size="17">6</text><text x="126" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="206" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="286" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="366" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="446" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="526" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><line x1="487" y1="46" x2="487" y2="195" stroke="var(--fig-muted)" stroke-width="1.5" /><text x="340" y="242" text-anchor="middle" fill="var(--fig-ink)" font-size="15">Главные неизвестные: x₁, x₃, x₅   ·   свободные: x₂, x₄</text>
-</svg>
+<div class="diagram-scroll" style="--diagram-min-width: 544px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 680 258" role="img" aria-label="Ступенчатая расширенная матрица: три ведущих элемента" data-fam-figure="diagram" data-fam-index="1">
+<text x="340" y="30" text-anchor="middle" fill="var(--fig-ink)" font-size="16">x₁          x₂          x₃          x₄          x₅        правая часть</text><rect x="110" y="52" width="32" height="30" rx="5" fill="var(--fig-green)" fill-opacity=".15" stroke="var(--fig-green)"></rect><text x="126" y="72" text-anchor="middle" fill="var(--fig-green)" font-size="17">1</text><text x="206" y="72" text-anchor="middle" fill="var(--fig-ink)" font-size="17">2</text><text x="286" y="72" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="366" y="72" text-anchor="middle" fill="var(--fig-ink)" font-size="17">3</text><text x="446" y="72" text-anchor="middle" fill="var(--fig-ink)" font-size="17">1</text><text x="526" y="72" text-anchor="middle" fill="var(--fig-ink)" font-size="17">5</text><text x="126" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="206" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><rect x="270" y="90" width="32" height="30" rx="5" fill="var(--fig-green)" fill-opacity=".15" stroke="var(--fig-green)"></rect><text x="286" y="110" text-anchor="middle" fill="var(--fig-green)" font-size="17">2</text><text x="366" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="17">−1</text><text x="446" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="17">4</text><text x="526" y="110" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="126" y="148" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="206" y="148" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="286" y="148" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="366" y="148" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><rect x="430" y="128" width="32" height="30" rx="5" fill="var(--fig-green)" fill-opacity=".15" stroke="var(--fig-green)"></rect><text x="446" y="148" text-anchor="middle" fill="var(--fig-green)" font-size="17">3</text><text x="526" y="148" text-anchor="middle" fill="var(--fig-ink)" font-size="17">6</text><text x="126" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="206" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="286" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="366" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="446" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><text x="526" y="186" text-anchor="middle" fill="var(--fig-ink)" font-size="17">0</text><line x1="487" y1="46" x2="487" y2="195" stroke="var(--fig-muted)" stroke-width="1.5"></line><text x="340" y="242" text-anchor="middle" fill="var(--fig-ink)" font-size="15">Главные неизвестные: x₁, x₃, x₅   ·   свободные: x₂, x₄</text>
+</svg></div>
 <figcaption class="figure-caption">
 <strong>Рис. 1.1.</strong> Геометрия ступенчатой системы $(3)$ (по кадру лекции): на каждой из $r$ ступенек стоит ровно одна главная неизвестная $\underline{\underline{x_{j_k}}}$ с ненулевым коэффициентом $c_{k,j_k} \neq 0$. Все остальные $n - r$ неизвестных являются свободными и переносятся в правую часть при обратном ходе метода Гаусса.
           </figcaption>
@@ -836,7 +891,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <li>Продолжая этот процесс снизу вверх до первого уравнения, мы однозначно выразим все главные неизвестные $x_n, x_{n-1}, \dots, x_1$. Следовательно, система имеет единственное решение, то есть является определенной.</li>
 </ul>
 <p>
-<strong>2. Необходимость ($\Rightarrow$).</strong> Докажем от противного (или через контрапозицию: $r < n \implies$ решение не единственно). Пусть система совместна, но $r \neq n$. Так как число главных неизвестных $r$ не может превышать общего числа неизвестных $n$, неравенство $r \neq n$ означает, что $r < n$, а значит, количество свободных неизвестных $n - r \ge 1$.
+<strong>2. Необходимость ($\Rightarrow$).</strong> Докажем от противного (или через контрапозицию: $r &lt; n \implies$ решение не единственно). Пусть система совместна, но $r \neq n$. Так как число главных неизвестных $r$ не может превышать общего числа неизвестных $n$, неравенство $r \neq n$ означает, что $r &lt; n$, а значит, количество свободных неизвестных $n - r \ge 1$.
           </p>
 <ul>
 <li>Пусть $x_s$ — одна из свободных неизвестных. По алгоритму метода Гаусса свободные неизвестные могут принимать произвольные значения из поля $P$, после чего главные неизвестные однозначно выражаются через них.</li>
@@ -853,7 +908,74 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 </div>
 </section>
-<!-- FAM:CONTENT-END -->
+</div></section></article></section><section class="chapter" aria-labelledby="al11-consequences"><h2 id="al11-consequences" data-toc="Совместные и однородные системы">Совместные и однородные системы</h2>
+<p>При $m&lt;n$ число ведущих строк $r$ не больше $m$, значит в совместной системе есть хотя бы одна свободная неизвестная. Два разных значения этой неизвестной дают решения, отличающиеся в соответствующей координате. У однородной системы решение с нулевыми координатами существует всегда, поэтому при $m&lt;n$ наряду с ним существует ненулевое решение.</p>
+</section>
+<section class="chapter" aria-labelledby="al11-det"><h2 id="al11-det" data-toc="Определители второго и третьего порядков">Определители второго и третьего порядков</h2>
+<p>Для матрицы второго порядка определитель задаётся разностью произведений диагоналей.</p>
+\[
+\begin{vmatrix}a&amp;b\\c&amp;d\end{vmatrix}=ad-bc.
+\]
+<p>Например, для строк $(2,-1)$ и $(1,3)$ он равен $2\cdot3-(-1)\cdot1=7$.</p>
+<div class="statement theorem featured" id="al11-cramer"><div class="block-label">Теорема</div><h3>Правило Крамера для системы 2 × 2</h3>
+<p>Для системы $ax+by=u$, $cx+dy=v$ положим $D=ad-bc$, $D_x=ud-bv$, $D_y=av-cu$. При $D\ne0$ система имеет единственное решение $x=D_x/D$, $y=D_y/D$. Чтобы получить $D_x$ или $D_y$, в определителе системы заменяем соответствующий столбец столбцом правых частей.</p>
+<div class="proof" id="proof-al11-cramer" data-proof><div class="proof-controls" role="group" aria-label="Доказательство"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div><div class="proof-idea" id="idea-al11-cramer" data-proof-idea><div class="proof-label">Идея</div>
+<p>Исключим по одной неизвестной и получим единственного кандидата. Проверим, что этот кандидат удовлетворяет обоим исходным уравнениям.</p>
+</div><div class="proof-full" id="full-al11-cramer" data-proof-full><div class="proof-label">Доказательство</div>
+<p>Если $(x,y)$ — решение, умножим первое уравнение на $d$ и вычтем второе с множителем $b$. Получаем $Dx=du-bv=D_x$. Аналогично, умножая второе уравнение на $a$ и вычитая первое с множителем $c$, получаем $Dy=av-cu=D_y$. При $D\ne0$ значения $x$ и $y$ вынуждены.</p>
+<p>Проверим существование. Для найденной пары</p>
+\[
+\begin{aligned}
+aD_x+bD_y&amp;=a(du-bv)+b(av-cu)=Du,\\
+cD_x+dD_y&amp;=c(du-bv)+d(av-cu)=Dv.
+\end{aligned}
+\]
+<p>После деления на $D$ получаем оба исходных уравнения. Значит, найденная пара действительно является единственным решением. <span class="qed" aria-label="Что и требовалось доказать">□</span></p>
+</div></div>
+</div>
+<div class="worked-example" id="al11-cramer-example"><div class="block-label">Пример</div><h3>Вычисление и проверка</h3>
+<p>В системе $2x-y=1$, $x+3y=4$ имеем $D=7$, $D_x=1\cdot3-(-1)\cdot4=7$, $D_y=2\cdot4-1\cdot1=7$. Получаем $(x,y)=(1,1)$. Проверка даёт $2-1=1$ и $1+3=4$. При $D=0$ делить нельзя. Например, у систем $x+y=1$, $2x+2y=2$ и $x+y=1$, $2x+2y=3$ один и тот же нулевой определитель, но первая совместна, а вторая несовместна.</p>
+</div>
+<p>Определитель третьего порядка состоит из шести произведений, каждое берёт по одному элементу из каждой строки и каждого столбца. Для обозначений</p>
+\[
+D=\begin{vmatrix}a&amp;b&amp;c\\d&amp;e&amp;f\\g&amp;h&amp;i\end{vmatrix}
+\]
+<p>правило треугольников (Саррюса) даёт</p>
+\[
+D=aei+bfg+cdh-ceg-bdi-afh.
+\]
+<p>После выбора элемента в первой строке оставшиеся два столбца можно распределить между остальными строками двумя способами. Поэтому для каждого из $a,b,c$ записаны ровно два произведения. Сгруппировав по первой строке, получаем $a(ei-fh)-b(di-fg)+c(dh-eg)$ и можем перепроверить знаки. Правило Саррюса относится к порядку три.</p>
+<div class="worked-example" id="al11-det-example"><div class="block-label">Пример</div><h3>Определитель с нулём</h3>
+<p>Для строк $(1,2,0)$, $(3,1,4)$, $(2,0,1)$ группировка по первой строке даёт $1(1\cdot1-4\cdot0)-2(3\cdot1-4\cdot2)+0=11$.</p>
+</div>
+</section>
+<section class="chapter" aria-labelledby="al11-permutations"><h2 id="al11-permutations" data-toc="Перестановки и соседние обмены">Перестановки и соседние обмены</h2>
+<p>Перестановка чисел $1,\ldots,n$ — их упорядоченная запись без повторений. При последовательном заполнении позиций имеем $n$ возможностей для первой позиции, $n-1$ для второй и так далее до одной возможности для последней. Значит, всего $n!$ перестановок. Транспозиция меняет местами два элемента, соседняя транспозиция — два элемента на соседних местах.</p>
+<div class="statement theorem" id="al11-snake"><div class="block-label">Теорема</div><h3>Перестановки можно выписать в ряд соседних обменов</h3>
+<p>Для каждого $n\ge1$ все перестановки $1,\ldots,n$ можно выписать по одному разу так, что соседние отличаются обменом соседних элементов.</p>
+<div class="proof" id="proof-al11-snake" data-proof><div class="proof-controls" role="group" aria-label="Доказательство"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div><div class="proof-idea" id="idea-al11-snake" data-proof-idea><div class="proof-label">Идея</div>
+<p>Берём уже построенный ряд для $n-1$ чисел. Вставляем $n$ во все позиции каждой записи, чередуя направление движения $n$.</p>
+</div><div class="proof-full" id="full-al11-snake" data-proof-full><div class="proof-label">Доказательство</div>
+<p>При $n=1$ ряд состоит из одной записи. Пусть для $n-1$ имеется ряд $P_1,\ldots,P_{(n-1)!}$. Для нечётных $k$ вставляем $n$ в $P_k$ сначала справа, затем двигаем его по одной позиции влево. Для чётных $k$ начинаем слева и двигаем его вправо. Внутри каждой группы соседние записи отличаются обменом $n$ с соседом.</p>
+<p>На стыке двух групп элемент $n$ стоит у одного и того же края. Остальные элементы выписаны как $P_k$ и $P_{k+1}$. По предположению они отличаются соседним обменом, который остаётся соседним и после вставки у края. Каждая перестановка попадает ровно в одну группу, потому что удаление из неё $n$ определяет $P_k$, а место удалённого элемента определяет её позицию в этой группе. <span class="qed" aria-label="Что и требовалось доказать">□</span></p>
+</div></div>
+</div>
+<p>При $n=3$ получаем $123,\ 132,\ 312,\ 321,\ 231,\ 213$. Двигаясь по этому ряду или по построенному ряду для общего $n$ вперёд либо назад, можно перейти от любой перестановки к любой другой конечным числом соседних обменов.</p>
+</section>
+<section class="chapter" aria-labelledby="al11-inversions"><h2 id="al11-inversions" data-toc="Инверсии и чётность">Инверсии и чётность</h2>
+<p>Инверсия — пара позиций $i&lt;j$, в которой слева стоит число больше правого. Для записи $312$ есть две инверсии: $(3,1)$ и $(3,2)$. Считаем для каждого элемента число меньших элементов справа и складываем результаты. Перестановка называется чётной или нечётной в зависимости от чётности суммы.</p>
+<div class="statement theorem" id="al11-sign"><div class="block-label">Теорема</div><h3>Транспозиция меняет чётность</h3>
+<p>Обмен двух элементов любой перестановки меняет чётность числа инверсий.</p>
+<div class="proof" id="proof-al11-sign" data-proof><div class="proof-controls" role="group" aria-label="Доказательство"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div><div class="proof-idea" id="idea-al11-sign" data-proof-idea><div class="proof-label">Идея</div>
+<p>При соседнем обмене меняется только относительный порядок двух обмениваемых элементов. Общий обмен раскладывается в нечётное число соседних.</p>
+</div><div class="proof-full" id="full-al11-sign" data-proof-full><div class="proof-label">Доказательство</div>
+<p>При обмене соседних элементов любая третья позиция находится либо левее обеих, либо правее обеих. Поэтому её относительный порядок с каждым из этих элементов сохраняется. Пара из самих двух элементов была либо инверсией, либо обычной парой и после обмена меняет статус. Значит, число инверсий меняется на $1$ или на $-1$.</p>
+<p>Пусть между обмениваемыми элементами $a$ и $b$ стоят $r$ других. Проведём $a$ вправо через эти $r$ элементов, за один обмен переставим рядом стоящие $a$ и $b$, затем проведём $b$ влево через те же $r$ элементов. Середина сохранит свой порядок, а $a,b$ поменяются местами. Всего $2r+1$ соседних обменов, каждый меняет чётность. Поэтому итоговая чётность противоположна исходной. <span class="qed" aria-label="Что и требовалось доказать">□</span></p>
+</div></div>
+</div>
+<p>Если $n\ge2$, обмен первых двух элементов задаёт взаимно обратное соответствие между чётными и нечётными перестановками: повторный обмен возвращает исходную запись. Поэтому каждого вида по $n!/2$. При $n=1$ единственная перестановка чётна. В шести произведениях определителя третьего порядка знак согласуется с чётностью перестановки столбцов: $123,231,312$ имеют соответственно $0,2,2$ инверсии, а $132,213,321$ — $1,1,3$.</p>
+<p>Темы и порядок изложения восстановлены по резервному конспекту от 16.10. Формулы и доказательства проверены непосредственно. Результаты о чётности подробно используются в лекции №12.</p>
+</section><!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>
     </main>
   </div>

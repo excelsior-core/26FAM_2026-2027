@@ -4,6 +4,7 @@ fam-web/.local/
 fam-web/export/
 .gh-dist/
 Storage_original_html_backup/
+tmp_gen/
 *.log
 *.pid
 node_modules/

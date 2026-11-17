@@ -660,6 +660,62 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -679,8 +735,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
       <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
     </aside>
     <main id="content">
-      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-      <header class="lecture-head" id="top">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. --><header class="lecture-head" id="top">
         <div class="lecture-meta"><span class="subject">Математический анализ</span><span>Академический конспект ФПМ</span></div>
         <h1>Математический анализ — Лекции 5–7 | ФПМ НИУ ВШЭ</h1>
         <p class="subtitle">НИУ ВШЭ • ФПМ • Лекции 5–7</p>
@@ -723,11 +778,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="info-val">ФПМ (МА26ФПМ), 1 курс</div>
 <div style="font-size: 0.78rem; color: var(--accent-primary);">Фундаментальная и прикладная математика</div>
 </div>
-<div class="info-box-item">
-<div class="info-label">Лектор потока</div>
-<div class="info-val">Светлана Юрьевна Галкина</div>
-<div style="font-size: 0.78rem; color: var(--accent-primary);">sgalkina@hse.ru</div>
-</div>
+
 <div class="info-box-item">
 <div class="info-label">Теоретический базис</div>
 <div class="info-val">В. А. Зорич, Л. Д. Кудрявцев</div>
@@ -751,8 +802,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           \[\overline{\mathbb{R}} = \mathbb{R} \cup \{+\infty, -\infty, \infty\}\]
         </p>
 <p>
-          В $\overline{\mathbb{R}}$ линейный порядок продолжается естественным образом: $\forall x \in \mathbb{R} \implies -\infty < x < +\infty$.
-          <br/>Символ $\infty$ (без знака) используется в тех случаях, когда знак не определен или модуль величины неограниченно возрастает: $|x| \to +\infty$.
+          В $\overline{\mathbb{R}}$ линейный порядок продолжается естественным образом: $\forall x \in \mathbb{R} \implies -\infty &lt; x &lt; +\infty$.
+          <br>Символ $\infty$ (без знака) используется в тех случаях, когда знак не определен или модуль величины неограниченно возрастает: $|x| \to +\infty$.
         </p>
 <p>Действия с символами бесконечности определяются следующими соглашениями ($C \in \mathbb{R}$ — произвольная конечная константа):</p>
 <ul style="margin-bottom: 0;">
@@ -819,23 +870,23 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement definition" id="def-2"><div class="block-label">Определение 2</div><h3 data-toc="Определение 1.2 (Окрестности в )" id="sub-2-4">Определение 1.2 (Окрестности в $\overline{\mathbb{R}}$)</h3><div>
 <ol>
 <li><strong>Конечная точка $a \in \mathbb{R}$:</strong>
-<br/>— <em>$\varepsilon$-окрестность:</em> $U_\varepsilon(a) = (a - \varepsilon, \; a + \varepsilon) = \{x \in \mathbb{R} \mid |x - a| < \varepsilon\}$ ($\varepsilon > 0$ — малое число);
-            <br/>— <em>Проколотая $\varepsilon$-окрестность:</em> $\mathring{U}_\varepsilon(a) = U_\varepsilon(a) \setminus \{a\} = \{x \in \mathbb{R} \mid 0 < |x - a| < \varepsilon\}$.
+<br>— <em>$\varepsilon$-окрестность:</em> $U_\varepsilon(a) = (a - \varepsilon, \; a + \varepsilon) = \{x \in \mathbb{R} \mid |x - a| &lt; \varepsilon\}$ ($\varepsilon &gt; 0$ — малое число);
+            <br>— <em>Проколотая $\varepsilon$-окрестность:</em> $\mathring{U}_\varepsilon(a) = U_\varepsilon(a) \setminus \{a\} = \{x \in \mathbb{R} \mid 0 &lt; |x - a| &lt; \varepsilon\}$.
           </li>
 <li><strong>Положительная бесконечность ($a = +\infty$):</strong>
-            \[U_\varepsilon(+\infty) = (\varepsilon, \; +\infty) = \{x \in \mathbb{R} \mid x > \varepsilon\} \quad (\varepsilon > 0 \text{ --- сколь угодно большое число}).\]
+            \[U_\varepsilon(+\infty) = (\varepsilon, \; +\infty) = \{x \in \mathbb{R} \mid x &gt; \varepsilon\} \quad (\varepsilon &gt; 0 \text{ --- сколь угодно большое число}).\]
           </li>
 <li><strong>Отрицательная бесконечность ($a = -\infty$):</strong>
-            \[U_\varepsilon(-\infty) = (-\infty, \; -\varepsilon) = \{x \in \mathbb{R} \mid x < -\varepsilon\} \quad (\varepsilon > 0 \text{ --- сколь угодно большое число}).\]
+            \[U_\varepsilon(-\infty) = (-\infty, \; -\varepsilon) = \{x \in \mathbb{R} \mid x &lt; -\varepsilon\} \quad (\varepsilon &gt; 0 \text{ --- сколь угодно большое число}).\]
           </li>
 <li><strong>Проективная бесконечность ($a = \infty$):</strong>
-            \[U_\varepsilon(\infty) = (-\infty, \; -\varepsilon) \cup (\varepsilon, \; +\infty) = \{x \in \mathbb{R} \mid |x| > \varepsilon\}.\]
+            \[U_\varepsilon(\infty) = (-\infty, \; -\varepsilon) \cup (\varepsilon, \; +\infty) = \{x \in \mathbb{R} \mid |x| &gt; \varepsilon\}.\]
           </li>
 </ol>
 </div></div>
 <!-- Векторная схема окрестностей -->
 <div class="illustration-wrapper">
-<figure class="figure-plate"><svg height="190" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 760 190" role="img" aria-label="a a-ε a+ε U_ε(a): |x - a| &lt; ε ε +∞ U_ε(+∞): x &gt; ε -ε -∞ U_ε(-∞): x &lt; -ε -ε ε U_ε(∞): |x| &gt; ε" data-fam-figure="diagram" data-fam-index="1">
+<figure class="figure-plate"><div class="diagram-scroll" style="--diagram-min-width: 830px"><svg height="190" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 760 190" role="img" aria-label="a a-ε a+ε U_ε(a): |x - a| &lt; ε ε +∞ U_ε(+∞): x &gt; ε -ε -∞ U_ε(-∞): x &lt; -ε -ε ε U_ε(∞): |x| &gt; ε" data-fam-figure="diagram" data-fam-index="1">
 <!-- 1. Конечная окрестность -->
 <line stroke="var(--border-color)" stroke-width="1.5" x1="40" x2="340" y1="40" y2="40"></line>
 <line stroke="#38bdf8" stroke-width="4.5" x1="140" x2="240" y1="40" y2="40"></line>
@@ -869,7 +920,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="#ec4899" font-size="11" x="490" y="155">-ε</text>
 <text fill="#ec4899" font-size="11" x="635" y="155">ε</text>
 <text fill="var(--text-muted)" font-size="11" x="425" y="172">U_ε(∞): |x| &gt; ε</text>
-</svg></figure>
+</svg></div></figure>
 <div class="illustration-caption">Рис. 1. Четыре фундаментальных типа окрестностей на расширенной числовой прямой $\overline{\mathbb{R}}$.</div>
 </div>
 
@@ -884,13 +935,13 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement definition" id="def-3"><div class="block-label">Определение 3</div><h3 data-toc="Определение 2.1 (Числовая посл…" id="sub-3-1">Определение 2.1 (Числовая последовательность)</h3><div>
 <p style="margin-bottom: 0;">
 <strong>Числовой последовательностью</strong> называется отображение $f: \mathbb{N} \to \mathbb{R}$ (или в $\mathbb{C}$), ставящее каждому натуральному числу $n \in \mathbb{N}$ в соответствие определенное число $x_n = f(n)$.
-          <br/>Обозначение: $\{x_n\}_{n=1}^\infty$, $\{x_n\}_{n \in \mathbb{N}}$ или $(x_n)$. Число $x_n$ называется <em>общим ($n$-м) членом</em> последовательности.
+          <br>Обозначение: $\{x_n\}_{n=1}^\infty$, $\{x_n\}_{n \in \mathbb{N}}$ или $(x_n)$. Число $x_n$ называется <em>общим ($n$-м) членом</em> последовательности.
         </p>
 </div></div>
 <div class="statement definition" id="def-4"><div class="block-label">Определение 4</div><h3 data-toc="Определение 2.2 (Общее тополог…" id="sub-3-2">Определение 2.2 (Общее топологическое определение предела)</h3><div>
 <p style="margin-bottom: 0;">
           Точка $a \in \overline{\mathbb{R}}$ называется <strong>пределом последовательности</strong> $\{x_n\}$, если для любой сколь угодно малой (или сколь угодно широкой) ее окрестности $U_\varepsilon(a)$ все члены последовательности, начиная с некоторого номера $n_0$, попадают в эту окрестность:
-          \[\lim_{n \to \infty} x_n = a \iff \forall \varepsilon > 0 \quad \exists n_0 = n_0(\varepsilon) \in \mathbb{N} : \forall n > n_0 \implies x_n \in U_\varepsilon(a)\]
+          \[\lim_{n \to \infty} x_n = a \iff \forall \varepsilon &gt; 0 \quad \exists n_0 = n_0(\varepsilon) \in \mathbb{N} : \forall n &gt; n_0 \implies x_n \in U_\varepsilon(a)\]
         </p>
 </div></div>
 <h3 class="sub-header" data-toc="2. Конкретизация определения п…" id="sec-2-2">2.2. Конкретизация определения предела по типам точек $a \in \overline{\mathbb{R}}$</h3>
@@ -906,22 +957,22 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <tbody>
 <tr>
 <td><strong>1. $a \in \mathbb{R}$ (конечный)</strong></td>
-<td>\[\forall \varepsilon > 0 \quad \exists n_0 \in \mathbb{N} : \forall n > n_0 \implies |x_n - a| < \varepsilon\]</td>
+<td>\[\forall \varepsilon &gt; 0 \quad \exists n_0 \in \mathbb{N} : \forall n &gt; n_0 \implies |x_n - a| &lt; \varepsilon\]</td>
 <td>Последовательность <strong>сходится</strong> к числу $a$. Вне окрестности $(a-\varepsilon, a+\varepsilon)$ лежит не более $n_0$ членов.</td>
 </tr>
 <tr>
 <td><strong>2. $a = +\infty$</strong></td>
-<td>\[\forall \varepsilon > 0 \quad \exists n_0 \in \mathbb{N} : \forall n > n_0 \implies x_n > \varepsilon\]</td>
+<td>\[\forall \varepsilon &gt; 0 \quad \exists n_0 \in \mathbb{N} : \forall n &gt; n_0 \implies x_n &gt; \varepsilon\]</td>
 <td>Бесконечно большая последовательность со знаком плюс ($x_n \to +\infty$).</td>
 </tr>
 <tr>
 <td><strong>3. $a = -\infty$</strong></td>
-<td>\[\forall \varepsilon > 0 \quad \exists n_0 \in \mathbb{N} : \forall n > n_0 \implies x_n < -\varepsilon\]</td>
+<td>\[\forall \varepsilon &gt; 0 \quad \exists n_0 \in \mathbb{N} : \forall n &gt; n_0 \implies x_n &lt; -\varepsilon\]</td>
 <td>Бесконечно большая последовательность со знаком минус ($x_n \to -\infty$).</td>
 </tr>
 <tr>
 <td><strong>4. $a = \infty$ (без знака)</strong></td>
-<td>\[\forall \varepsilon > 0 \quad \exists n_0 \in \mathbb{N} : \forall n > n_0 \implies |x_n| > \varepsilon\]</td>
+<td>\[\forall \varepsilon &gt; 0 \quad \exists n_0 \in \mathbb{N} : \forall n &gt; n_0 \implies |x_n| &gt; \varepsilon\]</td>
 <td>Бесконечно большая последовательность по абсолютной величине ($x_n \to \infty$).</td>
 </tr>
 </tbody>
@@ -947,21 +998,21 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <button class="collapse-proof" data-proof-mode="hidden">Свернуть</button>
 </div>
 <div class="proof-idea" data-proof-idea="" id="idea-1">
-<p>Зафиксируем произвольное вещественное число $\varepsilon > 0$.</p>
+<p>Зафиксируем произвольное вещественное число $\varepsilon &gt; 0$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-1">
 <div class="proof-label">Доказательство (Решение:)</div>
 <p>
-            Зафиксируем произвольное вещественное число $\varepsilon > 0$. Составим разность:
+            Зафиксируем произвольное вещественное число $\varepsilon &gt; 0$. Составим разность:
             \[\left| x_n - a \right| = \left| \frac{n}{n+1} - 1 \right| = \left| \frac{n - (n+1)}{n+1} \right| = \left| -\frac{1}{n+1} \right| = \frac{1}{n+1}\]
-            Требуется найти номер $n_0 = n_0(\varepsilon)$, начиная с которого $\frac{1}{n+1} < \varepsilon$. Решим это неравенство относительно $n$:
-            \[\frac{1}{n+1} < \varepsilon \iff n+1 > \frac{1}{\varepsilon} \iff n > \frac{1}{\varepsilon} - 1\]
+            Требуется найти номер $n_0 = n_0(\varepsilon)$, начиная с которого $\frac{1}{n+1} &lt; \varepsilon$. Решим это неравенство относительно $n$:
+            \[\frac{1}{n+1} &lt; \varepsilon \iff n+1 &gt; \frac{1}{\varepsilon} \iff n &gt; \frac{1}{\varepsilon} - 1\]
             В качестве порогового индекса $n_0$ выберем целую часть величины:
             \[n_0 = \max\left(1, \; \left\lfloor \frac{1}{\varepsilon} - 1 \right\rfloor\right)\]
             <strong>Численная верификация:</strong>
-<br/>— При $\varepsilon = 0.1$: $n_0 = \lfloor \frac{1}{0.1} - 1 \rfloor = \lfloor 10 - 1 \rfloor = 9$. Начиная с 10-го члена ($n \ge 10$), все члены гарантированно попадают в интервал $(0.9, 1.1)$.
-            <br/>— При $\varepsilon = 0.01$: $n_0 = \lfloor \frac{1}{0.01} - 1 \rfloor = 99$. Начиная со 100-го члена, все члены лежат в интервале $(0.99, 1.01)$.
-            <br/>Предел доказан строго. <span class="qed">$\blacksquare$</span>
+<br>— При $\varepsilon = 0.1$: $n_0 = \lfloor \frac{1}{0.1} - 1 \rfloor = \lfloor 10 - 1 \rfloor = 9$. Начиная с 10-го члена ($n \ge 10$), все члены гарантированно попадают в интервал $(0.9, 1.1)$.
+            <br>— При $\varepsilon = 0.01$: $n_0 = \lfloor \frac{1}{0.01} - 1 \rfloor = 99$. Начиная со 100-го члена, все члены лежат в интервале $(0.99, 1.01)$.
+            <br>Предел доказан строго. <span class="qed">$\blacksquare$</span>
 </p>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
@@ -983,18 +1034,18 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Решение:)</div>
 <p>
             По определению предела, стремящегося к $-\infty$, требуется показать:
-            \[\forall \varepsilon > 0 \quad \exists n_0 \in \mathbb{N} : \forall n > n_0 \implies \log_3 \frac{1}{\sqrt{n}} < -\varepsilon\]
+            \[\forall \varepsilon &gt; 0 \quad \exists n_0 \in \mathbb{N} : \forall n &gt; n_0 \implies \log_3 \frac{1}{\sqrt{n}} &lt; -\varepsilon\]
             Преобразуем выражение с помощью алгебраических свойств логарифма:
             \[\log_3 \frac{1}{\sqrt{n}} = \log_3 \left(n^{-1/2}\right) = -\frac{1}{2} \log_3 n\]
             Подставим полученное равенство в неравенство:
-            \[-\frac{1}{2} \log_3 n < -\varepsilon\]
+            \[-\frac{1}{2} \log_3 n &lt; -\varepsilon\]
             Умножим обе части неравенства на $-2$ (со сменой знака неравенства на противоположный):
-            \[\log_3 n > 2\varepsilon\]
-            Потенцируя по основанию $3$ (так как основание $3 > 1$, функция строго возрастает и знак сохраняется):
-            \[n > 3^{2\varepsilon}\]
-            Следовательно, для любого $\varepsilon > 0$ искомый индекс определяется как:
+            \[\log_3 n &gt; 2\varepsilon\]
+            Потенцируя по основанию $3$ (так как основание $3 &gt; 1$, функция строго возрастает и знак сохраняется):
+            \[n &gt; 3^{2\varepsilon}\]
+            Следовательно, для любого $\varepsilon &gt; 0$ искомый индекс определяется как:
             \[n_0 = \lfloor 3^{2\varepsilon} \rfloor + 1\]
-            При всех $n > n_0$ исходное неравенство выполняется тождественно. Значит, $\lim_{n \to \infty} \log_3 \frac{1}{\sqrt{n}} = -\infty$. <span class="qed">$\blacksquare$</span>
+            При всех $n &gt; n_0$ исходное неравенство выполняется тождественно. Значит, $\lim_{n \to \infty} \log_3 \frac{1}{\sqrt{n}} = -\infty$. <span class="qed">$\blacksquare$</span>
 </p>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
@@ -1029,21 +1080,21 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-full" data-proof-full="" id="full-3">
 <div class="proof-label">Доказательство (Доказательство методом от противного:)</div>
 <p>
-          Предположим противное: пусть существуют два различных конечных предела $a \neq b$. Тогда расстояние между ними строго положительно: $|b - a| > 0$.
-          <br/>Положим радиус окрестностей равным половине этого расстояния:
-          \[\varepsilon = \frac{|b - a|}{2} > 0\]
+          Предположим противное: пусть существуют два различных конечных предела $a \neq b$. Тогда расстояние между ними строго положительно: $|b - a| &gt; 0$.
+          <br>Положим радиус окрестностей равным половине этого расстояния:
+          \[\varepsilon = \frac{|b - a|}{2} &gt; 0\]
         </p>
 <p>
           1) Поскольку $\lim x_n = a$, для выбранного $\varepsilon$ найдется номер $n_1 \in \mathbb{N}$ такой, что:
-          \[\forall n > n_1 \implies |x_n - a| < \frac{|b - a|}{2} \qquad (*)\]
+          \[\forall n &gt; n_1 \implies |x_n - a| &lt; \frac{|b - a|}{2} \qquad (*)\]
           2) Поскольку $\lim x_n = b$, для того же $\varepsilon$ найдется номер $n_2 \in \mathbb{N}$ такой, что:
-          \[\forall n > n_2 \implies |x_n - b| < \frac{|b - a|}{2} \qquad (**)\]
+          \[\forall n &gt; n_2 \implies |x_n - b| &lt; \frac{|b - a|}{2} \qquad (**)\]
         </p>
 <p>
-          Выберем индекс $n > n_0 = \max\{n_1, n_2\}$. При таких $n$ одновременно выполняются неравенства $(*)$ и $(**)$.
-          <br/>Применим неравенство треугольника к фиксированной разности $|b - a|$:
-          \[|b - a| = |(b - x_n) + (x_n - a)| \le |b - x_n| + |x_n - a| < \frac{|b - a|}{2} + \frac{|b - a|}{2} = |b - a|\]
-          Мы получили строгое противоречие: $|b - a| < |b - a|$. Следовательно, предположение $a \neq b$ неверно, и предел единственен. <span class="qed">$\blacksquare$</span>
+          Выберем индекс $n &gt; n_0 = \max\{n_1, n_2\}$. При таких $n$ одновременно выполняются неравенства $(*)$ и $(**)$.
+          <br>Применим неравенство треугольника к фиксированной разности $|b - a|$:
+          \[|b - a| = |(b - x_n) + (x_n - a)| \le |b - x_n| + |x_n - a| &lt; \frac{|b - a|}{2} + \frac{|b - a|}{2} = |b - a|\]
+          Мы получили строгое противоречие: $|b - a| &lt; |b - a|$. Следовательно, предположение $a \neq b$ неверно, и предел единственен. <span class="qed">$\blacksquare$</span>
 </p>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
@@ -1068,8 +1119,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-full" data-proof-full="" id="full-4">
 <div class="proof-label">Доказательство (Доказательство:)</div>
 <p>
-          Положим в определении предела $\varepsilon = 1$. Тогда найдется номер $n_0 \in \mathbb{N}$ такой, что для всех $n > n_0$:
-          \[|x_n - a| < 1 \iff a - 1 < x_n < a + 1\]
+          Положим в определении предела $\varepsilon = 1$. Тогда найдется номер $n_0 \in \mathbb{N}$ такой, что для всех $n &gt; n_0$:
+          \[|x_n - a| &lt; 1 \iff a - 1 &lt; x_n &lt; a + 1\]
           Таким образом, все члены последовательности с номерами $n \ge n_0 + 1$ лежат в интервале $(a - 1, a + 1)$. Вне этого интервала может остаться лишь конечное число первых элементов: $\{x_1, x_2, \dots, x_{n_0}\}$.
         </p>
 <p>
@@ -1115,15 +1166,15 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </p>
 <ol>
 <li>По первому свойству супремума: для любого $n \in \mathbb{N}$ выполняется $x_n \le \xi$.</li>
-<li>По второму свойству супремума: для любого $\varepsilon > 0$ число $\xi - \varepsilon$ не является верхней гранью, а значит, найдется такой элемент $x_{n_0}$, что:
-            \[x_{n_0} > \xi - \varepsilon\]
+<li>По второму свойству супремума: для любого $\varepsilon &gt; 0$ число $\xi - \varepsilon$ не является верхней гранью, а значит, найдется такой элемент $x_{n_0}$, что:
+            \[x_{n_0} &gt; \xi - \varepsilon\]
           </li>
 </ol>
 <p>
-          Так как последовательность $\{x_n\}$ является неубывающей, для всех номеров $n > n_0$ справедливо:
-          \[x_n \ge x_{n_0} > \xi - \varepsilon\]
-          Объединяя это с неравенством $x_n \le \xi < \xi + \varepsilon$, получаем:
-          \[\forall n > n_0 \implies \xi - \varepsilon < x_n < \xi + \varepsilon \iff |x_n - \xi| < \varepsilon\]
+          Так как последовательность $\{x_n\}$ является неубывающей, для всех номеров $n &gt; n_0$ справедливо:
+          \[x_n \ge x_{n_0} &gt; \xi - \varepsilon\]
+          Объединяя это с неравенством $x_n \le \xi &lt; \xi + \varepsilon$, получаем:
+          \[\forall n &gt; n_0 \implies \xi - \varepsilon &lt; x_n &lt; \xi + \varepsilon \iff |x_n - \xi| &lt; \varepsilon\]
         </p>
 <p style="margin-bottom: 0;">
           По определению предела Коши это означает, что $\lim_{n \to \infty} x_n = \xi = \sup_{n \in \mathbb{N}} x_n$. Для невозрастающей ограниченной снизу последовательности доказательство аналогично ($\lim x_n = \inf x_n$). <span class="qed">$\blacksquare$</span>
@@ -1133,7 +1184,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 <!-- Задача о вложенных радикалах -->
 <h3 class="sub-header" data-toc="3. Разбор лекционной задачи о …" id="sec-3-3">3.3. Разбор лекционной задачи о вложенных радикалах двумя методами</h3>
-<div class="worked-example" id="ex-3"><div class="block-label">Идея</div><h3 data-toc="Задача: Найти предел последова…" id="sub-4-6">Задача: Найти предел последовательности $\sqrt{2}, \; \sqrt{2 + \sqrt{2}}, \; \sqrt{2 + \sqrt{2 + \sqrt{2}}}, \dots$</h3><div>
+<div class="worked-example" id="ex-3"><div class="block-label">Идея</div><h3 data-toc="Задача: Найти предел последова…" id="sub-4-6">Задача: Найти предел последовательности \[\sqrt{2}, \; \sqrt{2 + \sqrt{2}}, \; \sqrt{2 + \sqrt{2 + \sqrt{2}}}, \dots\]</h3><div>
 <p>Последовательность задается рекуррентным соотношением: $x_1 = \sqrt{2}$, \quad $x_{n+1} = \sqrt{2 + x_n}$ при $n \ge 1$.</p>
 <div class="proof" data-proof="" id="proof-6">
 <div aria-label="Доказательство Способ 1: Аналитический метод (Теорема Вейерштрасса + ММИ)" class="proof-controls" role="group">
@@ -1149,25 +1200,25 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Способ 1: Аналитический метод (Теорема Вейерштрасса + ММИ))</div>
 <p>
 <strong>1. Докажем монотонность (возрастание) по индукции:</strong>
-<br/>— <em>База:</em> $x_1 = \sqrt{2} \approx 1.414$, $x_2 = \sqrt{2 + \sqrt{2}} \approx 1.847 \implies x_2 > x_1$.
-            <br/>— <em>Предположение:</em> пусть $x_n > x_{n-1}$.
-            <br/>— <em>Переход:</em> рассмотрим разность квадратов:
-            \[(x_{n+1})^2 - (x_n)^2 = (2 + x_n) - (2 + x_{n-1}) = x_n - x_{n-1} > 0\]
-            Так как все члены последовательности строго положительны, из $x_{n+1}^2 > x_n^2$ следует, что $x_{n+1} > x_n$. Последовательность строго возрастает.
+<br>— <em>База:</em> $x_1 = \sqrt{2} \approx 1.414$, $x_2 = \sqrt{2 + \sqrt{2}} \approx 1.847 \implies x_2 &gt; x_1$.
+            <br>— <em>Предположение:</em> пусть $x_n &gt; x_{n-1}$.
+            <br>— <em>Переход:</em> рассмотрим разность квадратов:
+            \[(x_{n+1})^2 - (x_n)^2 = (2 + x_n) - (2 + x_{n-1}) = x_n - x_{n-1} &gt; 0\]
+            Так как все члены последовательности строго положительны, из $x_{n+1}^2 &gt; x_n^2$ следует, что $x_{n+1} &gt; x_n$. Последовательность строго возрастает.
           </p>
 <p>
 <strong>2. Докажем ограниченность сверху по индукции:</strong>
-<br/>Покажем, что $x_n < 2$ для любого $n \in \mathbb{N}$.
-            <br/>— <em>База:</em> $x_1 = \sqrt{2} < 2$ — верно.
-            <br/>— <em>Переход:</em> пусть $x_n < 2$. Тогда:
-            \[x_{n+1} = \sqrt{2 + x_n} < \sqrt{2 + 2} = \sqrt{4} = 2\]
+<br>Покажем, что $x_n &lt; 2$ для любого $n \in \mathbb{N}$.
+            <br>— <em>База:</em> $x_1 = \sqrt{2} &lt; 2$ — верно.
+            <br>— <em>Переход:</em> пусть $x_n &lt; 2$. Тогда:
+            \[x_{n+1} = \sqrt{2 + x_n} &lt; \sqrt{2 + 2} = \sqrt{4} = 2\]
             Индукция завершена: последовательность ограничена сверху числом $2$.
           </p>
 <p>
 <strong>3. Вычисление предела:</strong>
-<br/>По теореме Вейерштрасса существует конечный предел $\lim_{n \to \infty} x_n = a \in \mathbb{R}$. Перейдем к пределу в обеих частях уравнения $x_{n+1}^2 = 2 + x_n$:
+<br>По теореме Вейерштрасса существует конечный предел $\lim_{n \to \infty} x_n = a \in \mathbb{R}$. Перейдем к пределу в обеих частях уравнения $x_{n+1}^2 = 2 + x_n$:
             \[a^2 = 2 + a \iff a^2 - a - 2 = 0 \iff (a - 2)(a + 1) = 0\]
-            Корни уравнения: $a_1 = 2$, $a_2 = -1$. Так как все члены $x_n > 0$, предел не может быть отрицательным ($a \ge \sqrt{2} > 0$). Следовательно, $a = 2$.
+            Корни уравнения: $a_1 = 2$, $a_2 = -1$. Так как все члены $x_n &gt; 0$, предел не может быть отрицательным ($a \ge \sqrt{2} &gt; 0$). Следовательно, $a = 2$.
           </p>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
@@ -1187,7 +1238,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Способ 2: Тригонометрический метод (Из конспекта лекции, стр. 51))</div>
 <p>
             Заметим, что $x_1 = \sqrt{2} = 2 \cos \frac{\pi}{4}$.
-            <br/>Вычислим $x_2$, используя тригонометрическую формулу половинного угла $1 + \cos \alpha = 2 \cos^2 \frac{\alpha}{2}$:
+            <br>Вычислим $x_2$, используя тригонометрическую формулу половинного угла $1 + \cos \alpha = 2 \cos^2 \frac{\alpha}{2}$:
             \[x_2 = \sqrt{2 + x_1} = \sqrt{2 + 2\cos \frac{\pi}{4}} = \sqrt{2\left(1 + \cos \frac{\pi}{4}\right)} = \sqrt{4 \cos^2 \frac{\pi}{8}} = 2 \cos \frac{\pi}{8}\]
             По методу математической индукции легко устанавливается формула общего члена:
             \[x_n = 2 \cos \frac{\pi}{2^{n+1}}\]
@@ -1219,19 +1270,19 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 <div class="proof-idea" data-proof-idea="" id="idea-8">
 <div class="proof-label">Идея</div>
-<p>Предположим от противного, что $a > b$.</p>
+<p>Предположим от противного, что $a &gt; b$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-8">
 <div class="proof-label">Доказательство (Доказательство:)</div>
 <p>
-          Предположим от противного, что $a > b$. Возьмем $\varepsilon = \frac{a - b}{2} > 0$.
-          <br/>По определению предела:
-          <br/>— $\exists n_1 : \forall n > n_1 \implies |x_n - a| < \varepsilon \implies x_n > a - \varepsilon = a - \frac{a-b}{2} = \frac{a+b}{2}$;
-          <br/>— $\exists n_2 : \forall n > n_2 \implies |y_n - b| < \varepsilon \implies y_n < b + \varepsilon = b + \frac{a-b}{2} = \frac{a+b}{2}$.
+          Предположим от противного, что $a &gt; b$. Возьмем $\varepsilon = \frac{a - b}{2} &gt; 0$.
+          <br>По определению предела:
+          <br>— $\exists n_1 : \forall n &gt; n_1 \implies |x_n - a| &lt; \varepsilon \implies x_n &gt; a - \varepsilon = a - \frac{a-b}{2} = \frac{a+b}{2}$;
+          <br>— $\exists n_2 : \forall n &gt; n_2 \implies |y_n - b| &lt; \varepsilon \implies y_n &lt; b + \varepsilon = b + \frac{a-b}{2} = \frac{a+b}{2}$.
         </p>
 <p style="margin-bottom: 0;">
-          Тогда при $n > \max\{n_1, n_2\}$ имеем:
-          \[y_n < \frac{a+b}{2} < x_n \implies y_n < x_n\]
+          Тогда при $n &gt; \max\{n_1, n_2\}$ имеем:
+          \[y_n &lt; \frac{a+b}{2} &lt; x_n \implies y_n &lt; x_n\]
           что прямо противоречит исходному условию $x_n \le y_n$. Следовательно, $a \le b$. <span class="qed">$\blacksquare$</span>
 </p>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
@@ -1241,7 +1292,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="block-card-title">Важнейшее предупреждение: Строгость неравенств при предельном переходе</div>
 <p style="margin-bottom: 0;">
           При переходе к пределу <strong>строгие неравенства могут превратиться в равенства</strong>!
-          <br/><em>Пример:</em> При всех $n \in \mathbb{N}$ выполняется строгое неравенство $\frac{1}{n} < \frac{2}{n}$, однако их пределы равны: $\lim_{n \to \infty} \frac{1}{n} = \lim_{n \to \infty} \frac{2}{n} = 0$.
+          <br><em>Пример:</em> При всех $n \in \mathbb{N}$ выполняется строгое неравенство $\frac{1}{n} &lt; \frac{2}{n}$, однако их пределы равны: $\lim_{n \to \infty} \frac{1}{n} = \lim_{n \to \infty} \frac{2}{n} = 0$.
         </p>
 </aside>
 <div class="statement theorem" id="thm-5"><div class="block-label">Утверждение 5</div><h3 data-toc="Теорема 3.5 (Теорема о трех по…" id="sub-4-9">Теорема 3.5 (Теорема о трех последовательностях / Лемма о двух милиционерах)</h3><div>
@@ -1288,32 +1339,32 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Полное доказательство (Бином Ньютона + Теорема Вейерштрасса):)</div>
 <p>
 <strong>Шаг 1: Разложение общего члена по биному Ньютона.</strong>
-<br/>Применим бином Ньютона к выражению $x_n = \left(1 + \frac{1}{n}\right)^n$:
+<br>Применим бином Ньютона к выражению $x_n = \left(1 + \frac{1}{n}\right)^n$:
           \[x_n = \sum_{k=0}^n C_n^k \cdot 1^{n-k} \cdot \left(\frac{1}{n}\right)^k = 1 + n \cdot \frac{1}{n} + \frac{n(n-1)}{2!} \frac{1}{n^2} + \frac{n(n-1)(n-2)}{3!} \frac{1}{n^3} + \dots + \frac{n(n-1)\dots 1}{n!} \frac{1}{n^n}\]
           Преобразуем каждое слагаемое, сокращая степени $n$:
           \[x_n = 2 + \frac{1}{2!} \left(1 - \frac{1}{n}\right) + \frac{1}{3!} \left(1 - \frac{1}{n}\right)\left(1 - \frac{2}{n}\right) + \dots + \frac{1}{n!} \left(1 - \frac{1}{n}\right)\left(1 - \frac{2}{n}\right)\dots\left(1 - \frac{n-1}{n}\right) \qquad (*)\]
         </p>
 <p>
-<strong>Шаг 2: Доказательство ограниченности сверху ($x_n < 3$).</strong>
-<br/>Каждая скобка вида $\left(1 - \frac{j}{n}\right) < 1$ для $1 \le j < n$. Следовательно:
-          \[x_n < 2 + \frac{1}{2!} + \frac{1}{3!} + \dots + \frac{1}{n!}\]
+<strong>Шаг 2: Доказательство ограниченности сверху ($x_n &lt; 3$).</strong>
+<br>Каждая скобка вида $\left(1 - \frac{j}{n}\right) &lt; 1$ для $1 \le j &lt; n$. Следовательно:
+          \[x_n &lt; 2 + \frac{1}{2!} + \frac{1}{3!} + \dots + \frac{1}{n!}\]
           Оценим факториалы степенями двойки: $k! = 1 \cdot 2 \cdot 3 \cdot \dots \cdot k \ge 2 \cdot 2 \cdot \dots \cdot 2 = 2^{k-1}$ (для $k \ge 2$). Тогда:
-          \[x_n < 2 + \frac{1}{2} + \frac{1}{2^2} + \dots + \frac{1}{2^{n-1}}\]
+          \[x_n &lt; 2 + \frac{1}{2} + \frac{1}{2^2} + \dots + \frac{1}{2^{n-1}}\]
           Суммируя геометрическую прогрессию со знаменателем $q = \frac{1}{2}$:
-          \[x_n < 2 + \frac{\frac{1}{2} \left(1 - (1/2)^{n-1}\right)}{1 - \frac{1}{2}} = 2 + \left(1 - \frac{1}{2^{n-1}}\right) < 2 + 1 = 3\]
-          Последовательность ограничена сверху: $\forall n \in \mathbb{N} \implies x_n < 3$.
+          \[x_n &lt; 2 + \frac{\frac{1}{2} \left(1 - (1/2)^{n-1}\right)}{1 - \frac{1}{2}} = 2 + \left(1 - \frac{1}{2^{n-1}}\right) &lt; 2 + 1 = 3\]
+          Последовательность ограничена сверху: $\forall n \in \mathbb{N} \implies x_n &lt; 3$.
         </p>
 <p>
-<strong>Шаг 3: Доказательство строгого монотонного возрастания ($x_{n+1} > x_n$).</strong>
-<br/>Запишем выражение $(*)$ для $x_{n+1}$:
+<strong>Шаг 3: Доказательство строгого монотонного возрастания ($x_{n+1} &gt; x_n$).</strong>
+<br>Запишем выражение $(*)$ для $x_{n+1}$:
           \[x_{n+1} = 2 + \sum_{k=2}^n \frac{1}{k!} \left(1 - \frac{1}{n+1}\right)\dots\left(1 - \frac{k-1}{n+1}\right) + \frac{1}{(n+1)!} \left(1 - \frac{1}{n+1}\right)\dots\left(1 - \frac{n}{n+1}\right)\]
           Сравним $x_{n+1}$ и $x_n$:
-          <br/>1) При увеличении $n$ до $n+1$ каждая дробь $\frac{j}{n+1} < \frac{j}{n}$, следовательно, $1 - \frac{j}{n+1} > 1 - \frac{j}{n}$. Каждое слагаемое в сумме строго увеличилось!
-          <br/>2) В выражении для $x_{n+1}$ появилось дополнительное $(n+2)$-е строго положительное слагаемое.
-          <br/>Таким образом, $x_{n+1} > x_n$. Последовательность строго возрастает.
+          <br>1) При увеличении $n$ до $n+1$ каждая дробь $\frac{j}{n+1} &lt; \frac{j}{n}$, следовательно, $1 - \frac{j}{n+1} &gt; 1 - \frac{j}{n}$. Каждое слагаемое в сумме строго увеличилось!
+          <br>2) В выражении для $x_{n+1}$ появилось дополнительное $(n+2)$-е строго положительное слагаемое.
+          <br>Таким образом, $x_{n+1} &gt; x_n$. Последовательность строго возрастает.
         </p>
 <p style="margin-bottom: 0;">
-          По теореме Вейерштрасса возрастающая и ограниченная сверху последовательность имеет конечный предел $\lim_{n \to \infty} x_n = e$. Поскольку $x_1 = 2$ и $x_n < 3$, по теореме о предельном переходе в неравенствах получаем $2 \le e \le 3$. <span class="qed">$\blacksquare$</span>
+          По теореме Вейерштрасса возрастающая и ограниченная сверху последовательность имеет конечный предел $\lim_{n \to \infty} x_n = e$. Поскольку $x_1 = 2$ и $x_n &lt; 3$, по теореме о предельном переходе в неравенствах получаем $2 \le e \le 3$. <span class="qed">$\blacksquare$</span>
 </p>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
@@ -1330,14 +1381,14 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement definition" id="def-6"><div class="block-label">Определение 6</div><h3 data-toc="Определение 5.1 (Подпоследоват…" id="sub-6-1">Определение 5.1 (Подпоследовательность)</h3><div>
 <p style="margin-bottom: 0;">
           Пусть $\{x_n\}_{n=1}^\infty$ — числовая последовательность. Выберем строго возрастающую последовательность натуральных индексов:
-          \[n_1 < n_2 < n_3 < \dots < n_k < \dots \quad (n_k \in \mathbb{N})\]
+          \[n_1 &lt; n_2 &lt; n_3 &lt; \dots &lt; n_k &lt; \dots \quad (n_k \in \mathbb{N})\]
           Последовательность $\{x_{n_k}\}_{k=1}^\infty = (x_{n_1}, x_{n_2}, x_{n_3}, \dots)$ называется <strong>подпоследовательностью</strong> последовательности $\{x_n\}$.
         </p>
 </div></div>
 <div class="statement theorem" id="thm-7"><div class="block-label">Утверждение 7</div><h3 data-toc="Теорема 5.1 (О пределе подпосл…" id="sub-6-2">Теорема 5.1 (О пределе подпоследовательности)</h3><div>
 <p style="margin-bottom: 0;">
           1. Если последовательность $\{x_n\}$ сходится к $a$, то любая ее подпоследовательность $\{x_{n_k}\}$ также сходится к $a$.
-          <br/>2. Если удается выделить две подпоследовательности, сходящиеся к разным пределам, то исходная последовательность <strong>не имеет предела</strong>.
+          <br>2. Если удается выделить две подпоследовательности, сходящиеся к разным пределам, то исходная последовательность <strong>не имеет предела</strong>.
         </p>
 </div></div>
 <div class="statement theorem" id="thm-8"><div class="block-label">Утверждение 8</div><h3 data-toc="Теорема 5.2 (Теорема Больцано–…" id="sub-6-3">Теорема 5.2 (Теорема Больцано–Вейерштрасса)</h3><div>
@@ -1347,7 +1398,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div></div>
 <!-- Схема метода бисекции Больцано-Вейерштрасса -->
 <div class="illustration-wrapper">
-<figure class="figure-plate"><svg height="160" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 760 160" role="img" aria-label="m (I₀) M I₁ (∞ точек) I₂ (∞ точек) c" data-fam-figure="diagram" data-fam-index="2">
+<figure class="figure-plate"><div class="diagram-scroll" style="--diagram-min-width: 830px"><svg height="160" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 760 160" role="img" aria-label="m (I₀) M I₁ (∞ точек) I₂ (∞ точек) c" data-fam-figure="diagram" data-fam-index="2">
 <line stroke="var(--border-color)" stroke-width="2" x1="30" x2="730" y1="120" y2="120"></line>
 <polygon fill="var(--border-color)" points="730,116 740,120 730,124"></polygon>
 <!-- Исходный отрезок I_0 -->
@@ -1367,7 +1418,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <line stroke="#f43f5e" stroke-dasharray="3,3" stroke-width="2" x1="310" x2="310" y1="20" y2="135"></line>
 <circle cx="310" cy="120" fill="#f43f5e" r="5"></circle>
 <text fill="#f43f5e" font-size="14" font-weight="bold" x="305" y="148">c</text>
-</svg></figure>
+</svg></div></figure>
 <div class="illustration-caption">Рис. 2. Метод половинного деления (бисекции) Больцано–Вейерштрасса: локализация бесконечного числа членов последовательности в стягивающихся отрезках.</div>
 </div>
 <div class="proof" data-proof="" id="proof-10">
@@ -1385,21 +1436,21 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Доказательство теоремы Больцано–Вейерштрасса (метод бисекции):)</div>
 <p>
           Пусть последовательность $\{x_n\}$ ограничена: $\exists m, M \in \mathbb{R} : \forall n \in \mathbb{N} \implies m \le x_n \le M$.
-          <br/>Обозначим исходный отрезок $I_0 = [m, M]$. Длина $|I_0| = M - m$. На нем лежит бесконечно много членов $\{x_n\}$.
+          <br>Обозначим исходный отрезок $I_0 = [m, M]$. Длина $|I_0| = M - m$. На нем лежит бесконечно много членов $\{x_n\}$.
         </p>
 <p>
 <strong>Шаг 1:</strong> Разделим $I_0$ пополам точкой $\frac{m + M}{2}$. Хотя бы на одной из двух половин содержится бесконечно много членов $\{x_n\}$ (иначе их сумма была бы конечной). Выберем эту половину и обозначим $I_1 = [m_1, M_1]$. Длина $|I_1| = \frac{M - m}{2}$. Выберем произвольный элемент $x_{n_1} \in I_1$.
         </p>
 <p>
-<strong>Шаг 2:</strong> Разделим $I_1$ пополам. Снова выберем ту половину, где содержится бесконечно много элементов, и обозначим $I_2 = [m_2, M_2]$. Длина $|I_2| = \frac{M - m}{2^2}$. Так как на $I_2$ лежит бесконечно много членов $\{x_n\}$, найдется индекс $n_2 > n_1$ такой, что $x_{n_2} \in I_2$.
+<strong>Шаг 2:</strong> Разделим $I_1$ пополам. Снова выберем ту половину, где содержится бесконечно много элементов, и обозначим $I_2 = [m_2, M_2]$. Длина $|I_2| = \frac{M - m}{2^2}$. Так как на $I_2$ лежит бесконечно много членов $\{x_n\}$, найдется индекс $n_2 &gt; n_1$ такой, что $x_{n_2} \in I_2$.
         </p>
 <p>
-<strong>Шаг $k$:</strong> На $k$-м шаге получаем отрезок $I_k = [m_k, M_k]$ длины $|I_k| = \frac{M - m}{2^k}$, содержащий бесконечно много элементов $\{x_n\}$, и выбираем элемент $x_{n_k} \in I_k$ с номером $n_k > n_{k-1}$.
+<strong>Шаг $k$:</strong> На $k$-м шаге получаем отрезок $I_k = [m_k, M_k]$ длины $|I_k| = \frac{M - m}{2^k}$, содержащий бесконечно много элементов $\{x_n\}$, и выбираем элемент $x_{n_k} \in I_k$ с номером $n_k &gt; n_{k-1}$.
         </p>
 <p style="margin-bottom: 0;">
           Система отрезков $I_0 \supset I_1 \supset I_2 \supset \dots \supset I_k \supset \dots$ является системой вложенных отрезков, причем их длина стремится к нулю: $|I_k| = \frac{M - m}{2^k} \to 0$ при $k \to \infty$.
-          <br/>По теореме Кантора (Лекции 3–4) существует единственная общая точка $c \in \mathbb{R}$, к которой сходятся концы: $\lim_{k \to \infty} m_k = \lim_{k \to \infty} M_k = c$.
-          <br/>По построению $m_k \le x_{n_k} \le M_k$. По теореме о зажатой последовательности выделенная подпоследовательность сходится: $\lim_{k \to \infty} x_{n_k} = c$. Теорема полностью доказана. <span class="qed">$\blacksquare$</span>
+          <br>По теореме Кантора (Лекции 3–4) существует единственная общая точка $c \in \mathbb{R}$, к которой сходятся концы: $\lim_{k \to \infty} m_k = \lim_{k \to \infty} M_k = c$.
+          <br>По построению $m_k \le x_{n_k} \le M_k$. По теореме о зажатой последовательности выделенная подпоследовательность сходится: $\lim_{k \to \infty} x_{n_k} = c$. Теорема полностью доказана. <span class="qed">$\blacksquare$</span>
 </p>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
@@ -1419,7 +1470,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           \[\varliminf_{n \to \infty} x_n = \inf E\]
         </p>
 </div></div>
-<div class="worked-example" id="ex-4"><div class="block-label">Идея</div><h3 data-toc="Практикум из тетради: Найти x_…" id="sub-6-6">Практикум из тетради: Найти $\varlimsup x_n$ и $\varliminf x_n$ для $x_n = \left(2 + \cos \frac{\pi n}{3}\right)\left(1 + \frac{1}{n} \cos \frac{\pi n}{6}\right)$</h3><div>
+<div class="worked-example" id="ex-4"><div class="block-label">Идея</div><h3 data-toc="Практикум из тетради: Найти x_…" id="sub-6-6">Практикум из тетради: Найти $\varlimsup x_n$ и $\varliminf x_n$ для \[x_n = \left(2 + \cos \frac{\pi n}{3}\right)\left(1 + \frac{1}{n} \cos \frac{\pi n}{6}\right)\]</h3><div>
 <div class="proof" data-proof="" id="proof-11">
 <div aria-label="Доказательство Решение:" class="proof-controls" role="group">
 <span>Доказательство</span>
@@ -1438,14 +1489,14 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
             Оценим общий член сверху, учитывая $|\cos \alpha| \le 1$:
             \[x_n \le (2 + 1)\left(1 + \frac{1}{n} \cdot 1\right) = 3 + \frac{3}{n} \implies \varlimsup_{n \to \infty} x_n \le 3\]
             Проверим, достигается ли значение 3 на некоторой подпоследовательности. Для максимального значения множителя $\left(2 + \cos \frac{\pi n}{3}\right)$ необходимо, чтобы $\cos \frac{\pi n}{3} = 1 \iff \frac{\pi n}{3} = 2\pi k \iff n = 6k$.
-            <br/>Подставим подпоследовательность номеров $n = 6k$:
+            <br>Подставим подпоследовательность номеров $n = 6k$:
             \[x_{6k} = \left(2 + \cos(2\pi k)\right)\left(1 + \frac{1}{6k} \cos(\pi k)\right) = (2 + 1)\left(1 + \frac{(-1)^k}{6k}\right) = 3\left(1 + \frac{(-1)^k}{6k}\right)\]
             При $k \to \infty$ величина $\frac{(-1)^k}{6k} \to 0$, откуда $\lim_{k \to \infty} x_{6k} = 3 \cdot 1 = 3$. Следовательно:
             \[\varlimsup_{n \to \infty} x_n = 3\]
           </p>
 <p>
             Для нижнего предела минимизируем множитель: $\cos \frac{\pi n}{3} = -1 \iff \frac{\pi n}{3} = \pi + 2\pi k \iff n = 3(2k+1) = 6k + 3$.
-            <br/>Подставим подпоследовательность номеров $n = 6k + 3$:
+            <br>Подставим подпоследовательность номеров $n = 6k + 3$:
             \[x_{6k+3} = (2 - 1)\left(1 + \frac{1}{6k+3} \cos\left(\pi k + \frac{\pi}{2}\right)\right) = 1 \cdot (1 + 0) = 1\]
             Следовательно:
             \[\varliminf_{n \to \infty} x_n = 1\]
@@ -1465,12 +1516,12 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 
 <div class="statement definition" id="def-8"><div class="block-label">Определение 8</div><h3 data-toc="Определение 6.1 (Фундаментальн…" id="sub-7-1">Определение 6.1 (Фундаментальная последовательность / Условие Коши)</h3><div>
 <p>
-          Последовательность $\{x_n\}$ называется <strong>фундаментальной</strong>, если для любого сколь угодно малого $\varepsilon > 0$ найдется номер $n_0 = n_0(\varepsilon)$, начиная с которого любые два члена с номерами $n, m > n_0$ отстоят друг от друга менее чем на $\varepsilon$:
-          \[\forall \varepsilon > 0 \quad \exists n_0 \in \mathbb{N} : \forall n > n_0, \forall m > n_0 \implies |x_n - x_m| < \varepsilon\]
+          Последовательность $\{x_n\}$ называется <strong>фундаментальной</strong>, если для любого сколь угодно малого $\varepsilon &gt; 0$ найдется номер $n_0 = n_0(\varepsilon)$, начиная с которого любые два члена с номерами $n, m &gt; n_0$ отстоят друг от друга менее чем на $\varepsilon$:
+          \[\forall \varepsilon &gt; 0 \quad \exists n_0 \in \mathbb{N} : \forall n &gt; n_0, \forall m &gt; n_0 \implies |x_n - x_m| &lt; \varepsilon\]
         </p>
 <p style="margin-bottom: 0;">
 <em>Эквивалентная форма (через смещение $p \in \mathbb{N}$):</em>
-          \[\forall \varepsilon > 0 \quad \exists n_0 \in \mathbb{N} : \forall n > n_0, \forall p \in \mathbb{N} \implies |x_n - x_{n+p}| < \varepsilon\]
+          \[\forall \varepsilon &gt; 0 \quad \exists n_0 \in \mathbb{N} : \forall n &gt; n_0, \forall p \in \mathbb{N} \implies |x_n - x_{n+p}| &lt; \varepsilon\]
           Смысл фундаментальности: далекие элементы последовательности сгущаются и сколь угодно близки между собой.
         </p>
 </div></div>
@@ -1493,11 +1544,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-full" data-proof-full="" id="full-12">
 <div class="proof-label">Доказательство (Доказательство леммы:)</div>
 <p>
-          Положим в условии Коши $\varepsilon = 1$. Тогда найдется номер $n_0$ такой, что для всех $n, m > n_0$ выполняется $|x_n - x_m| < 1$.
-          <br/>Зафиксируем $m = n_0 + 1$. Тогда для всех $n > n_0$:
-          \[|x_n - x_{n_0+1}| < 1 \iff x_{n_0+1} - 1 < x_n < x_{n_0+1} + 1\]
+          Положим в условии Коши $\varepsilon = 1$. Тогда найдется номер $n_0$ такой, что для всех $n, m &gt; n_0$ выполняется $|x_n - x_m| &lt; 1$.
+          <br>Зафиксируем $m = n_0 + 1$. Тогда для всех $n &gt; n_0$:
+          \[|x_n - x_{n_0+1}| &lt; 1 \iff x_{n_0+1} - 1 &lt; x_n &lt; x_{n_0+1} + 1\]
           Положим $M = \max\{x_{n_0+1} + 1, \; x_1, x_2, \dots, x_{n_0}\}$ и $m = \min\{x_{n_0+1} - 1, \; x_1, x_2, \dots, x_{n_0}\}$.
-          <br/>Тогда $\forall n \in \mathbb{N} \implies m \le x_n \le M$. Ограниченность доказана. <span class="qed">$\blacksquare$</span>
+          <br>Тогда $\forall n \in \mathbb{N} \implies m \le x_n \le M$. Ограниченность доказана. <span class="qed">$\blacksquare$</span>
 </p>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
@@ -1505,7 +1556,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement theorem" id="thm-10"><div class="block-label">Утверждение 10</div><h3 data-toc="Теорема 6.1 (Критерий Коши схо…" id="sub-7-3">Теорема 6.1 (Критерий Коши сходимости последовательности)</h3><div>
 <p style="margin-bottom: 0;">
           Числовая последовательность $\{x_n\}$ имеет конечный предел (сходится) тогда и только тогда, когда она является фундаментальной:
-          \[\exists \lim_{n \to \infty} x_n = a \in \mathbb{R} \iff \forall \varepsilon > 0 \quad \exists n_0 \in \mathbb{N} : \forall n > n_0, \forall m > n_0 \implies |x_n - x_m| < \varepsilon\]
+          \[\exists \lim_{n \to \infty} x_n = a \in \mathbb{R} \iff \forall \varepsilon &gt; 0 \quad \exists n_0 \in \mathbb{N} : \forall n &gt; n_0, \forall m &gt; n_0 \implies |x_n - x_m| &lt; \varepsilon\]
         </p>
 </div></div>
 <div class="proof" data-proof="" id="proof-13">
@@ -1523,30 +1574,30 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Полное доказательство критерия Коши (Необходимость и Достаточность):)</div>
 <p>
 <strong>1. Необходимость ($\implies$):</strong>
-<br/>Пусть последовательность сходится к числу $a$: $\lim_{n \to \infty} x_n = a$.
-          <br/>Зафиксируем произвольное $\varepsilon > 0$. По определению предела для положительного числа $\frac{\varepsilon}{2}$ найдется номер $n_0 \in \mathbb{N}$ такой, что:
-          \[\forall n > n_0 \implies |x_n - a| < \frac{\varepsilon}{2}, \qquad \forall m > n_0 \implies |x_m - a| < \frac{\varepsilon}{2}\]
+<br>Пусть последовательность сходится к числу $a$: $\lim_{n \to \infty} x_n = a$.
+          <br>Зафиксируем произвольное $\varepsilon &gt; 0$. По определению предела для положительного числа $\frac{\varepsilon}{2}$ найдется номер $n_0 \in \mathbb{N}$ такой, что:
+          \[\forall n &gt; n_0 \implies |x_n - a| &lt; \frac{\varepsilon}{2}, \qquad \forall m &gt; n_0 \implies |x_m - a| &lt; \frac{\varepsilon}{2}\]
           Применяя свойство модуля суммы (неравенство треугольника):
-          \[|x_n - x_m| = |(x_n - a) + (a - x_m)| \le |x_n - a| + |a - x_m| = |x_n - a| + |x_m - a| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon\]
+          \[|x_n - x_m| = |(x_n - a) + (a - x_m)| \le |x_n - a| + |a - x_m| = |x_n - a| + |x_m - a| &lt; \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon\]
           Необходимость доказана.
         </p>
 <p>
 <strong>2. Достаточность ($\Longleftarrow$):</strong>
-<br/>Пусть последовательность $\{x_n\}$ фундаментальна.
-          <br/>а) По Лемме 6.1 фундаментальная последовательность ограничена.
-          <br/>б) По теореме Больцано–Вейерштрасса (Теорема 5.2) из ограниченной последовательности можно выделить подпоследовательность $\{x_{n_k}\}$, сходящуюся к некоторому конечному числу $a$:
+<br>Пусть последовательность $\{x_n\}$ фундаментальна.
+          <br>а) По Лемме 6.1 фундаментальная последовательность ограничена.
+          <br>б) По теореме Больцано–Вейерштрасса (Теорема 5.2) из ограниченной последовательности можно выделить подпоследовательность $\{x_{n_k}\}$, сходящуюся к некоторому конечному числу $a$:
           \[\lim_{k \to \infty} x_{n_k} = a\]
           в) Докажем, что <em>вся</em> последовательность $\{x_n\}$ сходится к этому числу $a$.
-          <br/>Зафиксируем $\varepsilon > 0$.
-          <br/>— Из сходимости подпоследовательности: для $\frac{\varepsilon}{2}$ найдется индекс $k_0$ такой, что:
-          \[\forall k > k_0 \implies |x_{n_k} - a| < \frac{\varepsilon}{2}\]
+          <br>Зафиксируем $\varepsilon &gt; 0$.
+          <br>— Из сходимости подпоследовательности: для $\frac{\varepsilon}{2}$ найдется индекс $k_0$ такой, что:
+          \[\forall k &gt; k_0 \implies |x_{n_k} - a| &lt; \frac{\varepsilon}{2}\]
           — Из фундаментальности: для $\frac{\varepsilon}{2}$ найдется номер $n_0$ такой, что:
-          \[\forall n, m > n_0 \implies |x_n - x_m| < \frac{\varepsilon}{2}\]
-          Зафиксируем номер $k > k_0$ настолько большим, чтобы выполнялось условие $n_k > n_0$ (это возможно, так как $n_k \to \infty$). Положим $m = n_k$. Тогда для любого $n > n_0$:
-          \[|x_n - a| = |(x_n - x_{n_k}) + (x_{n_k} - a)| \le |x_n - x_{n_k}| + |x_{n_k} - a| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon\]
+          \[\forall n, m &gt; n_0 \implies |x_n - x_m| &lt; \frac{\varepsilon}{2}\]
+          Зафиксируем номер $k &gt; k_0$ настолько большим, чтобы выполнялось условие $n_k &gt; n_0$ (это возможно, так как $n_k \to \infty$). Положим $m = n_k$. Тогда для любого $n &gt; n_0$:
+          \[|x_n - a| = |(x_n - x_{n_k}) + (x_{n_k} - a)| \le |x_n - x_{n_k}| + |x_{n_k} - a| &lt; \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon\]
         </p>
 <p style="margin-bottom: 0;">
-          Итак, $\forall \varepsilon > 0 \; \exists n_0 : \forall n > n_0 \implies |x_n - a| < \varepsilon$. Значит, $\lim_{n \to \infty} x_n = a$. Критерий Коши полностью доказан! <span class="qed">$\blacksquare$</span>
+          Итак, $\forall \varepsilon &gt; 0 \; \exists n_0 : \forall n &gt; n_0 \implies |x_n - a| &lt; \varepsilon$. Значит, $\lim_{n \to \infty} x_n = a$. Критерий Коши полностью доказан! <span class="qed">$\blacksquare$</span>
 </p>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
 </div>
@@ -1555,7 +1606,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="block-card-title">Критерий расходимости Коши (Отрицание)</div>
 <p style="margin-bottom: 0;">
           Последовательность $\{x_n\}$ расходится (не имеет конечного предела) тогда и только тогда, когда:
-          \[\exists \varepsilon_0 > 0 \quad \forall n_0 \in \mathbb{N} \quad \exists n > n_0, \; \exists m > n_0 : |x_n - x_m| \ge \varepsilon_0\]
+          \[\exists \varepsilon_0 &gt; 0 \quad \forall n_0 \in \mathbb{N} \quad \exists n &gt; n_0, \; \exists m &gt; n_0 : |x_n - x_m| \ge \varepsilon_0\]
         </p>
 </aside>
 
@@ -1590,16 +1641,16 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div>
 <div class="proof-idea" data-proof-idea="" id="idea-14">
 <div class="proof-label">Идея</div>
-<p>Пусть $\{\alpha_n\}$ — БМП, а $\{y_n\}$ — ограниченная последовательность, то есть $\exists M > 0 : \forall n \in \mathbb{N} \implies |y_n| \le M$.</p>
+<p>Пусть $\{\alpha_n\}$ — БМП, а $\{y_n\}$ — ограниченная последовательность, то есть $\exists M &gt; 0 : \forall n \in \mathbb{N} \implies |y_n| \le M$.</p>
 </div>
 <div class="proof-full" data-proof-full="" id="full-14">
 <div class="proof-label">Доказательство (Доказательство свойства 2 (Произведение БМП на ограниченную):)</div>
 <p>
-          Пусть $\{\alpha_n\}$ — БМП, а $\{y_n\}$ — ограниченная последовательность, то есть $\exists M > 0 : \forall n \in \mathbb{N} \implies |y_n| \le M$.
-          <br/>Зафиксируем $\varepsilon > 0$. Так как $\alpha_n \to 0$, для числа $\frac{\varepsilon}{M} > 0$ найдется номер $n_0$ такой, что для всех $n > n_0$:
-          \[|\alpha_n| < \frac{\varepsilon}{M}\]
+          Пусть $\{\alpha_n\}$ — БМП, а $\{y_n\}$ — ограниченная последовательность, то есть $\exists M &gt; 0 : \forall n \in \mathbb{N} \implies |y_n| \le M$.
+          <br>Зафиксируем $\varepsilon &gt; 0$. Так как $\alpha_n \to 0$, для числа $\frac{\varepsilon}{M} &gt; 0$ найдется номер $n_0$ такой, что для всех $n &gt; n_0$:
+          \[|\alpha_n| &lt; \frac{\varepsilon}{M}\]
           Тогда для произведения:
-          \[|\alpha_n \cdot y_n| = |\alpha_n| \cdot |y_n| < \frac{\varepsilon}{M} \cdot M = \varepsilon\]
+          \[|\alpha_n \cdot y_n| = |\alpha_n| \cdot |y_n| &lt; \frac{\varepsilon}{M} \cdot M = \varepsilon\]
           Следовательно, $\lim_{n \to \infty} (\alpha_n y_n) = 0$. <span class="qed">$\blacksquare$</span>
 </p>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
@@ -1608,7 +1659,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="worked-example" id="ex-5"><div class="block-label">Пример 5</div><h3 data-toc="Примеры применения теоремы 7.1:" id="sub-8-3">Примеры применения теоремы 7.1:</h3><div>
 <p>1. $\lim_{n \to \infty} \frac{\sin(n!)}{n} = \lim_{n \to \infty} \left(\frac{1}{n} \cdot \sin(n!)\right) = 0$, так как $\frac{1}{n}$ — БМП, а $|\sin(n!)| \le 1$ — ограничена.</p>
 <p style="margin-bottom: 0;">
-          2. $\lim_{n \to \infty} \left(\frac{1 + 2 + \dots + n}{n^3} \cdot \mathrm{arctg}\, n\right) = \lim_{n \to \infty} \left(\frac{n(n+1)}{2n^3} \cdot \mathrm{arctg}\, n\right) = \lim_{n \to \infty} \left(\left(\frac{1}{2n} + \frac{1}{2n^2}\right) \cdot \mathrm{arctg}\, n\right) = 0$, так как скобка стремится к 0, а $|\mathrm{arctg}\, n| < \frac{\pi}{2}$.
+          2. $\lim_{n \to \infty} \left(\frac{1 + 2 + \dots + n}{n^3} \cdot \mathrm{arctg}\, n\right) = \lim_{n \to \infty} \left(\frac{n(n+1)}{2n^3} \cdot \mathrm{arctg}\, n\right) = \lim_{n \to \infty} \left(\left(\frac{1}{2n} + \frac{1}{2n^2}\right) \cdot \mathrm{arctg}\, n\right) = 0$, так как скобка стремится к 0, а $|\mathrm{arctg}\, n| &lt; \frac{\pi}{2}$.
         </p>
 </div></div>
 <h3 class="sub-header" data-toc="2. Арифметические действия над…" id="sec-7-2">7.2. Арифметические действия над пределами</h3>
@@ -1638,9 +1689,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           Представим $x_n = a + \alpha_n$ и $y_n = b + \beta_n$, где $\alpha_n, \beta_n$ — БМП. Преобразуем разность:
           \[\frac{x_n}{y_n} - \frac{a}{b} = \frac{a + \alpha_n}{b + \beta_n} - \frac{a}{b} = \frac{b(a + \alpha_n) - a(b + \beta_n)}{b(b + \beta_n)} = \frac{b \alpha_n - a \beta_n}{b y_n} = \frac{1}{y_n} \cdot \left(\alpha_n - \frac{a}{b}\beta_n\right)\]
           Выражение $\left(\alpha_n - \frac{a}{b}\beta_n\right)$ есть сумма БМП, то есть БМП.
-          <br/>Покажем, что последовательность $\left\{\frac{1}{y_n}\right\}$ ограничена. Так как $y_n \to b \neq 0$, возьмем $\varepsilon = \frac{|b|}{2} > 0$. Найдется $n_0$, начиная с которого $|y_n - b| < \frac{|b|}{2}$.
-          <br/>По обратному неравенству треугольника:
-          \[|y_n| = |b - (b - y_n)| \ge |b| - |y_n - b| > |b| - \frac{|b|}{2} = \frac{|b|}{2} \implies \left|\frac{1}{y_n}\right| < \frac{2}{|b|}\]
+          <br>Покажем, что последовательность $\left\{\frac{1}{y_n}\right\}$ ограничена. Так как $y_n \to b \neq 0$, возьмем $\varepsilon = \frac{|b|}{2} &gt; 0$. Найдется $n_0$, начиная с которого $|y_n - b| &lt; \frac{|b|}{2}$.
+          <br>По обратному неравенству треугольника:
+          \[|y_n| = |b - (b - y_n)| \ge |b| - |y_n - b| &gt; |b| - \frac{|b|}{2} = \frac{|b|}{2} \implies \left|\frac{1}{y_n}\right| &lt; \frac{2}{|b|}\]
           Следовательно, дробь $\frac{x_n}{y_n} - \frac{a}{b}$ есть произведение ограниченной последовательности $\frac{1}{y_n}$ на БМП, а значит, является БМП. Отсюда $\lim \frac{x_n}{y_n} = \frac{a}{b}$. <span class="qed">$\blacksquare$</span>
 </p>
 <span aria-label="Что и требовалось доказать" class="qed">□</span>
@@ -1658,9 +1709,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p><strong>Пример 2:</strong>
           \[\lim_{n \to \infty} \frac{(\sqrt{n}+3)^2 \sqrt{9n^3+5}}{\sqrt[3]{16n^4+n^2} - n^2 \sqrt{2n}} = \left[\frac{\infty}{\infty}\right]\]
           Определим старшие показатели:
-          <br/>— В числителе: $(\sqrt{n})^2 \cdot \sqrt{n^3} = n \cdot n^{3/2} = n^{5/2}$.
-          <br/>— В знаменателе: $\sqrt[3]{n^4} = n^{4/3}$, второе слагаемое: $n^2 \cdot \sqrt{n} = n^{5/2}$.
-          <br/>Разделим числитель и знаменатель на $n^{5/2}$:
+          <br>— В числителе: $(\sqrt{n})^2 \cdot \sqrt{n^3} = n \cdot n^{3/2} = n^{5/2}$.
+          <br>— В знаменателе: $\sqrt[3]{n^4} = n^{4/3}$, второе слагаемое: $n^2 \cdot \sqrt{n} = n^{5/2}$.
+          <br>Разделим числитель и знаменатель на $n^{5/2}$:
           \[= \lim_{n \to \infty} \frac{\frac{(\sqrt{n}+3)^2}{n} \cdot \frac{\sqrt{9n^3+5}}{n^{3/2}}}{\frac{\sqrt[3]{16n^4+n^2}}{n^{5/2}} - \sqrt{2}} = \lim_{n \to \infty} \frac{\left(1 + \frac{3}{\sqrt{n}}\right)^2 \sqrt{9 + \frac{5}{n^3}}}{\sqrt[3]{\frac{16}{n^{7/2}} + \frac{1}{n^{11/2}}} - \sqrt{2}} = \frac{1^2 \cdot \sqrt{9}}{0 - \sqrt{2}} = -\frac{3}{\sqrt{2}} = -\frac{3\sqrt{2}}{2}\]
         </p>
 <p style="margin-bottom: 0;"><strong>Пример 3:</strong>
@@ -1696,7 +1747,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 
 
 </section>
-<!-- FAM:CONTENT-END -->
+</section><!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>
     </main>
   </div>

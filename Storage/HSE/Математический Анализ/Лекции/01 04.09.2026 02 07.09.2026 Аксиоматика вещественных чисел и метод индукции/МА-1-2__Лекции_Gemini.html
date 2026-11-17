@@ -660,6 +660,62 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 }
 /* FAM:READING-NAVIGATION-END */
 </style>
+<style>
+/* FAM:LECTURE-LAYOUT-START */
+main { overflow-wrap: anywhere; }
+.katex { position: relative; }
+.lecture-meta, .callout-title, .prop-card-header { flex-wrap: wrap; }
+.props-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); }
+.svg-grid-2, .svg-grid-3, .venn-grid { min-width: 0; }
+
+svg .svg-title, svg .svg-set-label { font-size: 12px; font-weight: 700; }
+svg .svg-sub, svg .svg-reg-code, svg .svg-u-label, svg .svg-label { font-size: 11px; }
+
+@media screen {
+  :is(.chapter p, .chapter li, .proof p, .proof li) { font-size: max(1em, 1rem); }
+  :is(.lecture-abstract p, .abstract-formula, figcaption, .figure-caption, .venn-caption, th, td) {
+    font-size: max(0.875rem, 1em);
+  }
+  :is(.toolbar-label, .segmented button, .proof-controls button, .contents nav .toc-sub a) {
+    font-size: 0.8125rem;
+  }
+  .segmented { max-width: 100%; flex-wrap: wrap; }
+  .proof-controls { flex-wrap: wrap; }
+  .lecture-head h1, .chapter h2, .chapter h3 { hyphens: auto; }
+
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper,
+      .diagram-scroll, .katex-display, .math-display, main pre) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .math-display { padding-block: .25em; }
+  .katex-display > .katex { width: max-content; min-width: 100%; }
+  :is(.table-scroll, .table-wrap, .table-container, .table-box, .table-wrapper) {
+    contain: inline-size;
+  }
+  .diagram-scroll { width: 100%; }
+  #content .diagram-scroll > svg, #content .diagram-scroll img[data-figure-theme] {
+    min-width: var(--diagram-min-width, 0px);
+  }
+  .diagram-scroll:focus-visible, .table-scroll:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout { padding-inline: 16px; }
+  .lecture-head h1 { font-size: clamp(2.25rem, 10vw, 3.0625rem); }
+  .chapter h2 { font-size: 1.875rem; }
+  .chapter h3 { font-size: 1.5rem; }
+  :is(.statement, .statement.featured, .figure-plate, .figure-card, .figure-box, .topic-card, .block-card) {
+    padding-inline: 12px;
+  }
+  .svg-card { padding-inline: 6px; }
+}
+/* FAM:LECTURE-LAYOUT-END */
+</style>
 </head>
 <body>
   <a class="skip-link" href="#content">К тексту конспекта</a>
@@ -679,8 +735,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
       <div class="contents-footer"><span id="section-count"></span><a href="#top">В начало ↑</a></div>
     </aside>
     <main id="content">
-      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. -->
-      <header class="lecture-head" id="top">
+      <!-- FAM:CONTENT-START. Replace the lecture content, keep the shell and scripts. --><header class="lecture-head" id="top">
         <div class="lecture-meta"><span class="subject">Математический анализ</span><span>Академический конспект ФПМ</span></div>
         <h1>Математический анализ — Лекции 1 и 2 | ФПМ НИУ ВШЭ</h1>
         <p class="subtitle">НИУ ВШЭ • ФПМ • Лекции 1–2</p>
@@ -718,11 +773,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         Полный конспект-учебник по материалам лекций №1 и №2 для образовательной программы «Фундаментальная и прикладная математика» (ФПМ, поток МА26ФПМ). Составлен с привлечением академических курсов В. А. Зорича и Л. Д. Кудрявцева.
       </p>
 <div class="header-info-grid">
-<div class="info-box-item">
-<div class="info-label">Лектор потока</div>
-<div class="info-val">Светлана Юрьевна Галкина</div>
-<div style="font-size: 0.78rem; color: var(--accent-primary);">sgalkina@hse.ru</div>
-</div>
+
 <div class="info-box-item">
 <div class="info-label">Академический год</div>
 <div class="info-val">2026 / 2027 уч. год (1 семестр)</div>
@@ -774,31 +825,31 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- Пересечение -->
 <div class="euler-item">
 <div class="euler-item-title">Пересечение: $A \cap B$</div>
-<figure class="figure-plate"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="Пересечение A ∩ B" data-fam-figure="diagram" data-fam-index="1">
-<defs><clipPath id="fam-fig-1-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-1-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-1-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-1-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-1-in1)"><g clip-path="url(#fam-fig-1-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Пересечение A ∩ B</text>
-</svg></figure>
+<figure class="figure-plate"><div class="diagram-scroll" style="--diagram-min-width: 314px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 340 265" role="img" aria-label="Пересечение A ∩ B" data-fam-figure="diagram" data-fam-index="1">
+<defs><clippath id="fam-fig-1-in0"><circle cx="134" cy="114" r="65"></circle></clippath><mask id="fam-fig-1-out0" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="134" cy="114" r="65" fill="black"></circle></mask><clippath id="fam-fig-1-in1"><circle cx="209" cy="114" r="65"></circle></clippath><mask id="fam-fig-1-out1" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="209" cy="114" r="65" fill="black"></circle></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"></rect><g clip-path="url(#fam-fig-1-in1)"><g clip-path="url(#fam-fig-1-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"></rect></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"></circle><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"></circle><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Пересечение A ∩ B</text>
+</svg></div></figure>
 <div style="font-size: 0.8rem; margin-top: 6px;">\[A \cap B = \{x \mid x \in A \land x \in B\}\]</div>
 </div>
 <!-- Объединение -->
 <div class="euler-item">
 <div class="euler-item-title">Объединение: $A \cup B$</div>
-<figure class="figure-plate"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="Объединение A ∪ B" data-fam-figure="diagram" data-fam-index="2">
-<defs><clipPath id="fam-fig-2-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-2-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-2-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-2-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g clip-path="url(#fam-fig-2-in1)"><g mask="url(#fam-fig-2-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><g mask="url(#fam-fig-2-out1)"><g clip-path="url(#fam-fig-2-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><g clip-path="url(#fam-fig-2-in1)"><g clip-path="url(#fam-fig-2-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Объединение A ∪ B</text>
-</svg></figure>
+<figure class="figure-plate"><div class="diagram-scroll" style="--diagram-min-width: 314px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 340 265" role="img" aria-label="Объединение A ∪ B" data-fam-figure="diagram" data-fam-index="2">
+<defs><clippath id="fam-fig-2-in0"><circle cx="134" cy="114" r="65"></circle></clippath><mask id="fam-fig-2-out0" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="134" cy="114" r="65" fill="black"></circle></mask><clippath id="fam-fig-2-in1"><circle cx="209" cy="114" r="65"></circle></clippath><mask id="fam-fig-2-out1" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="209" cy="114" r="65" fill="black"></circle></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"></rect><g clip-path="url(#fam-fig-2-in1)"><g mask="url(#fam-fig-2-out0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"></rect></g></g><g mask="url(#fam-fig-2-out1)"><g clip-path="url(#fam-fig-2-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"></rect></g></g><g clip-path="url(#fam-fig-2-in1)"><g clip-path="url(#fam-fig-2-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"></rect></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"></circle><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"></circle><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Объединение A ∪ B</text>
+</svg></div></figure>
 <div style="font-size: 0.8rem; margin-top: 6px;">\[A \cup B = \{x \mid x \in A \lor x \in B\}\]</div>
 </div>
 <!-- Разность -->
 <div class="euler-item">
 <div class="euler-item-title">Разность: $A \setminus B$</div>
-<figure class="figure-plate"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 265" role="img" aria-label="Разность A ∖ B" data-fam-figure="diagram" data-fam-index="3">
-<defs><clipPath id="fam-fig-3-in0"><circle cx="134" cy="114" r="65" /></clipPath><mask id="fam-fig-3-out0" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="134" cy="114" r="65" fill="black"/></mask><clipPath id="fam-fig-3-in1"><circle cx="209" cy="114" r="65" /></clipPath><mask id="fam-fig-3-out1" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"/><circle cx="209" cy="114" r="65" fill="black"/></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"/><g mask="url(#fam-fig-3-out1)"><g clip-path="url(#fam-fig-3-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"/></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"/><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"/><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Разность A ∖ B</text>
-</svg></figure>
+<figure class="figure-plate"><div class="diagram-scroll" style="--diagram-min-width: 314px"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 340 265" role="img" aria-label="Разность A ∖ B" data-fam-figure="diagram" data-fam-index="3">
+<defs><clippath id="fam-fig-3-in0"><circle cx="134" cy="114" r="65"></circle></clippath><mask id="fam-fig-3-out0" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="134" cy="114" r="65" fill="black"></circle></mask><clippath id="fam-fig-3-in1"><circle cx="209" cy="114" r="65"></circle></clippath><mask id="fam-fig-3-out1" maskunits="userSpaceOnUse" x="0" y="0" width="340" height="244"><rect width="340" height="244" fill="white"></rect><circle cx="209" cy="114" r="65" fill="black"></circle></mask></defs><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-paper)" stroke="var(--fig-muted)" stroke-width="1.3"></rect><g mask="url(#fam-fig-3-out1)"><g clip-path="url(#fam-fig-3-in0)"><rect x="11" y="22" width="318" height="204" rx="7" fill="var(--fig-blue)" opacity=".23"></rect></g></g><circle cx="134" cy="114" r="65" fill="none" stroke="var(--fig-blue)" stroke-width="1.8"></circle><text x="83.3" y="82.8" text-anchor="middle" fill="var(--fig-blue)" font-size="15">A</text><circle cx="209" cy="114" r="65" fill="none" stroke="var(--fig-green)" stroke-width="1.8"></circle><text x="259.7" y="82.8" text-anchor="middle" fill="var(--fig-green)" font-size="15">B</text><text x="312" y="42" text-anchor="middle" fill="var(--fig-muted)" font-size="13">U</text><text x="170" y="248" text-anchor="middle" fill="var(--fig-ink)" font-size="14">Разность A ∖ B</text>
+</svg></div></figure>
 <div style="font-size: 0.8rem; margin-top: 6px;">\[A \setminus B = \{x \mid x \in A \land x \notin B\}\]</div>
 </div>
 <!-- Декартово произведение -->
 <div class="euler-item">
 <div class="euler-item-title">Произведение: $A \times B$</div>
-<figure class="figure-plate"><svg height="110" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 200 120" role="img" aria-label="A B (a, b)" data-fam-figure="diagram" data-fam-index="4">
+<figure class="figure-plate"><div class="diagram-scroll" style="--diagram-min-width: 219px"><svg height="110" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 200 120" role="img" aria-label="A B (a, b)" data-fam-figure="diagram" data-fam-index="4">
 <rect fill="transparent" height="120" width="200"></rect>
 <line stroke="var(--text-muted)" stroke-width="1.5" x1="30" x2="180" y1="95" y2="95"></line>
 <line stroke="var(--text-muted)" stroke-width="1.5" x1="45" x2="45" y1="105" y2="15"></line>
@@ -808,7 +859,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="var(--accent-primary)" font-size="11" font-weight="bold" x="105" y="110">A</text>
 <text fill="var(--thm-border)" font-size="11" font-weight="bold" x="25" y="60">B</text>
 <text fill="var(--text-main)" font-size="12" font-weight="bold" x="88" y="62">(a, b)</text>
-</svg></figure>
+</svg></div></figure>
 <div style="font-size: 0.8rem; margin-top: 6px;">\[A \times B = \{(a, b) \mid a \in A, b \in B\}\]</div>
 </div>
 </div>
@@ -913,9 +964,9 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <li><strong>Единственность начального элемента:</strong> Единица не следует ни за каким натуральным числом ($\forall n \in \mathbb{N}: n^+ \neq 1$).</li>
 <li><strong>Инъективность следования:</strong> Различные числа имеют различные последующие: если $n^+ = m^+$, то $n = m$ (то есть число имеет не более одного предшествующего).</li>
 <li><strong>Аксиома математической индукции:</strong> Если подмножество $M \subseteq \mathbb{N}$ обладает свойствами:
-            <br/>а) $1 \in M$;
-            <br/>б) Для любого $m \in \mathbb{N}$ из $m \in M$ следует, что $m^+ \in M$,
-            <br/>тогда множество $M$ совпадает со всем множеством натуральных чисел: $M = \mathbb{N}$.
+            <br>а) $1 \in M$;
+            <br>б) Для любого $m \in \mathbb{N}$ из $m \in M$ следует, что $m^+ \in M$,
+            <br>тогда множество $M$ совпадает со всем множеством натуральных чисел: $M = \mathbb{N}$.
           </li>
 </ol>
 </div></div>
@@ -930,8 +981,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <ol style="margin-bottom: 0;">
 <li><strong>База индукции:</strong> Проверяется истинность утверждения для начального значения параметра: доказывается $A(n_0)$ (при $n_0=1$ проверяется $A(1)$).</li>
 <li><strong>Индукционный переход:</strong>
-<br/>— <em>Предположение индукции:</em> предполагается, что утверждение справедливо для некоторого произвольного фиксированного шага $n = k$ ($k \ge n_0$), то есть истинно $A(k)$.
-            <br/>— <em>Шаг индукции:</em> строго логически доказывается истинность утверждения для следующего значения $n = k + 1$, опираясь на предположение индукции $A(k)$.
+<br>— <em>Предположение индукции:</em> предполагается, что утверждение справедливо для некоторого произвольного фиксированного шага $n = k$ ($k \ge n_0$), то есть истинно $A(k)$.
+            <br>— <em>Шаг индукции:</em> строго логически доказывается истинность утверждения для следующего значения $n = k + 1$, опираясь на предположение индукции $A(k)$.
           </li>
 </ol>
 </div></div>
@@ -968,7 +1019,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           </p>
 <p>
 <strong>3. Индукционный переход ($n=k+1$):</strong> Докажем, что $b_{k+1} = b_1 \cdot q^{(k+1)-1} = b_1 \cdot q^k$.
-            <br/>По рекуррентному определению геометрической прогрессии:
+            <br>По рекуррентному определению геометрической прогрессии:
             \[b_{k+1} = b_k \cdot q\]
             Подставляя сюда выражение $b_k$ из предположения индукции, получаем:
             \[b_{k+1} = (b_1 \cdot q^{k-1}) \cdot q = b_1 \cdot (q^{k-1} \cdot q^1) = b_1 \cdot q^k\]
@@ -1045,7 +1096,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           </p>
 <p>
 <strong>3. Переход ($n=k+1$):</strong> Докажем, что $a_{k+1} = a_1 + d \cdot k$.
-            <br/>Действительно, используя рекуррентное определение и гипотезу индукции:
+            <br>Действительно, используя рекуррентное определение и гипотезу индукции:
             \[a_{k+1} = a_k + d = [a_1 + d(k - 1)] + d = a_1 + dk - d + d = a_1 + dk\]
             Шаг индукции выполнен. Формула справедлива $\forall n \in \mathbb{N}$. <span class="qed">$\blacksquare$</span>
 </p>
@@ -1077,13 +1128,13 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           </p>
 <p>
 <strong>3. Переход ($n=k+1$):</strong> Докажем, что $S_{k+1} = \frac{a_1 + a_{k+1}}{2} \cdot (k+1)$.
-            <br/>Имеем:
+            <br>Имеем:
             \[S_{k+1} = S_k + a_{k+1} = \frac{a_1 + a_k}{2} \cdot k + a_{k+1}\]
             Подставим $a_k = a_1 + d(k-1)$ и $a_{k+1} = a_1 + dk$:
             \[\begin{aligned}
-              S_{k+1} &= \frac{a_1 + [a_1 + d(k-1)]}{2} \cdot k + (a_1 + dk) = \frac{2a_1 + dk - d}{2} \cdot k + a_1 + dk \\
-              &= \frac{2a_1 k + dk^2 - dk + 2a_1 + 2dk}{2} = \frac{2a_1(k+1) + dk(k+1)}{2} \\
-              &= \frac{k+1}{2} \cdot [2a_1 + dk] = \frac{k+1}{2} \cdot [a_1 + (a_1 + dk)] = \frac{a_1 + a_{k+1}}{2} \cdot (k+1)
+              S_{k+1} &amp;= \frac{a_1 + [a_1 + d(k-1)]}{2} \cdot k + (a_1 + dk) = \frac{2a_1 + dk - d}{2} \cdot k + a_1 + dk \\
+              &amp;= \frac{2a_1 k + dk^2 - dk + 2a_1 + 2dk}{2} = \frac{2a_1(k+1) + dk(k+1)}{2} \\
+              &amp;= \frac{k+1}{2} \cdot [2a_1 + dk] = \frac{k+1}{2} \cdot [a_1 + (a_1 + dk)] = \frac{a_1 + a_{k+1}}{2} \cdot (k+1)
             \end{aligned}\]
             Формула доказана для любого $n \in \mathbb{N}$. <span class="qed">$\blacksquare$</span>
 </p>
@@ -1125,8 +1176,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           \[C_n^k + C_n^{k-1} = \frac{n!}{k!(n-k)!} + \frac{n!}{(k-1)!(n - (k-1))!} = \frac{n!}{k!(n-k)!} + \frac{n!}{(k-1)!(n-k+1)!}\]
           Заметим, что $k! = k \cdot (k-1)!$ и $(n-k+1)! = (n-k+1) \cdot (n-k)!$. Приведем обе дроби к общему знаменателю $k!(n-k+1)!$:
           \[\begin{aligned}
-            C_n^k + C_n^{k-1} &= \frac{n! \cdot (n-k+1)}{k!(n-k+1)!} + \frac{n! \cdot k}{k!(n-k+1)!} = \frac{n! \cdot \big((n-k+1) + k\big)}{k!(n-k+1)!} \\
-            &= \frac{n! \cdot (n+1)}{k!(n+1-k)!} = \frac{(n+1)!}{k!(n+1-k)!} = C_{n+1}^k
+            C_n^k + C_n^{k-1} &amp;= \frac{n! \cdot (n-k+1)}{k!(n-k+1)!} + \frac{n! \cdot k}{k!(n-k+1)!} = \frac{n! \cdot \big((n-k+1) + k\big)}{k!(n-k+1)!} \\
+            &amp;= \frac{n! \cdot (n+1)}{k!(n+1-k)!} = \frac{(n+1)!}{k!(n+1-k)!} = C_{n+1}^k
           \end{aligned}\]
           Тождество доказано. <span class="qed">$\blacksquare$</span>
 </p>
@@ -1236,7 +1287,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </p>
 <p>
 <em>Лемма о четности:</em> Если квадрат целого числа четен, то и само число четно (действительно, квадрат любого нечетного числа $(2k+1)^2 = 4k^2 + 4k + 1 = 2(2k^2+2k) + 1$ нечетен).
-          <br/>Следовательно, $m$ четно, то есть $m = 2k$ для некоторого $k \in \mathbb{Z}$.
+          <br>Следовательно, $m$ четно, то есть $m = 2k$ для некоторого $k \in \mathbb{Z}$.
         </p>
 <p>
           Подставим выражение $m = 2k$ обратно в равенство:
@@ -1307,17 +1358,17 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement theorem" id="thm-9"><div class="block-label">Утверждение 9</div><h3 data-toc="IV. Аксиомы линейного порядка …" id="sub-5-5">IV. Аксиомы линейного порядка (Упорядоченное поле)</h3><div>
 <ol>
 <li><strong>Трихотомия:</strong> Для любых двух элементов $a, b \in \mathbb{R}$ выполняется строго одно из трех взаимоисключающих соотношений:
-            \[a < b, \quad a = b, \quad \text{или } a > b\]
-            (В частности, для любого $a \in \mathbb{R}$ либо $a > 0$, либо $a < 0$, либо $a = 0$).
+            \[a &lt; b, \quad a = b, \quad \text{или } a &gt; b\]
+            (В частности, для любого $a \in \mathbb{R}$ либо $a &gt; 0$, либо $a &lt; 0$, либо $a = 0$).
           </li>
-<li><strong>Сохранение порядка при сложении:</strong> $\forall a, b \in \mathbb{R}: a > 0 \land b > 0 \implies a + b > 0$.</li>
-<li><strong>Сохранение порядка при умножении:</strong> $\forall a, b \in \mathbb{R}: a > 0 \land b > 0 \implies a \cdot b > 0$.</li>
+<li><strong>Сохранение порядка при сложении:</strong> $\forall a, b \in \mathbb{R}: a &gt; 0 \land b &gt; 0 \implies a + b &gt; 0$.</li>
+<li><strong>Сохранение порядка при умножении:</strong> $\forall a, b \in \mathbb{R}: a &gt; 0 \land b &gt; 0 \implies a \cdot b &gt; 0$.</li>
 </ol>
 </div></div>
 <aside class="note">
 <div class="block-card-title">Важное замечание: Сравнение с полем комплексных чисел $\mathbb{C}$</div>
 <p style="margin-bottom: 0;">
-          Поле комплексных чисел $\mathbb{C}$ также удовлетворяет аксиомам I, II и III (является полем), но <strong>не является упорядоченным полем</strong>! На поле $\mathbb{C}$ невозможно ввести отношение порядка, согласованное с алгебраическими операциями, так как в любом упорядоченном поле квадрат любого ненулевого элемента положителен ($x^2 > 0$), тогда как в $\mathbb{C}$ мнимая единица дает $i^2 = -1 < 0$. Знаки неравенства («$>$», «$<$») для комплексных чисел бессмысленны.
+          Поле комплексных чисел $\mathbb{C}$ также удовлетворяет аксиомам I, II и III (является полем), но <strong>не является упорядоченным полем</strong>! На поле $\mathbb{C}$ невозможно ввести отношение порядка, согласованное с алгебраическими операциями, так как в любом упорядоченном поле квадрат любого ненулевого элемента положителен ($x^2 &gt; 0$), тогда как в $\mathbb{C}$ мнимая единица дает $i^2 = -1 &lt; 0$. Знаки неравенства («$&gt;$», «$&lt;$») для комплексных чисел бессмысленны.
         </p>
 </aside>
 <h3 class="sub-header" data-toc="2. Алгебраические следствия из…" id="sec-4-2">4.2. Алгебраические следствия из аксиом поля (Теоремы единственности)</h3>
@@ -1344,7 +1395,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Доказательство:)</div>
 <p>
           Предположим, что в $\mathbb{R}$ существуют два нейтральных элемента: $0$ и $0'$.
-          <br/>1) Поскольку $0$ — нейтральный элемент, для любого числа $a$ верно $a + 0 = a$. Положив $a = 0'$, имеем:
+          <br>1) Поскольку $0$ — нейтральный элемент, для любого числа $a$ верно $a + 0 = a$. Положив $a = 0'$, имеем:
           \[0' + 0 = 0'\]
           2) Поскольку $0'$ — также нейтральный элемент, для любого $b$ верно $b + 0' = b$. Положив $b = 0$, имеем:
           \[0 + 0' = 0\]
@@ -1409,7 +1460,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div></div>
 <!-- Векторная иллюстрация Аксиомы непрерывности -->
 <div class="illustration-wrapper">
-<figure class="figure-plate"><svg height="130" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 130" role="img" aria-label="R Множество A a c Разделяющая точка Множество B b" data-fam-figure="diagram" data-fam-index="5">
+<figure class="figure-plate"><div class="diagram-scroll" style="--diagram-min-width: 650px"><svg height="130" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 650 130" role="img" aria-label="R Множество A a c Разделяющая точка Множество B b" data-fam-figure="diagram" data-fam-index="5">
 <!-- Числовая ось -->
 <line stroke="var(--text-muted)" stroke-width="2.5" x1="30" x2="620" y1="70" y2="70"></line>
 <polygon fill="var(--text-muted)" points="620,65 632,70 620,75"></polygon>
@@ -1429,19 +1480,19 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <text fill="var(--thm-border)" font-size="14" font-weight="bold" x="470" y="50">Множество B</text>
 <circle cx="440" cy="70" fill="var(--thm-border)" r="4.5"></circle>
 <text fill="var(--text-main)" font-size="12" x="437" y="94">b</text>
-</svg></figure>
+</svg></div></figure>
 <div class="illustration-caption">Рис. 1. Геометрическая интерпретация непрерывности Дедекинда на числовой прямой: точка $c$ разделяет $A$ и $B$ ($a \le c \le b$).</div>
 </div>
 <!-- Контрпример в Q -->
 <div class="worked-example" id="ex-3"><div class="block-label">Пример 3</div><h3 data-toc="Контрпример: Невыполнение акси…" id="sub-5-11">Контрпример: Невыполнение аксиомы непрерывности в поле $\mathbb{Q}$</h3><div>
 <p>
           Рассмотрим в упорядоченном поле рациональных чисел $\mathbb{Q}$ два подмножества положительных чисел:
-          \[A = \{r \in \mathbb{Q} \mid r > 0 \land r^2 < 2\}\]
-          \[B = \{r \in \mathbb{Q} \mid r > 0 \land r^2 > 2\}\]
+          \[A = \{r \in \mathbb{Q} \mid r &gt; 0 \land r^2 &lt; 2\}\]
+          \[B = \{r \in \mathbb{Q} \mid r &gt; 0 \land r^2 &gt; 2\}\]
         </p>
 <p>
-          Очевидно, что оба множества непусты ($1 \in A$, так как $1^2 = 1 < 2$; $2 \in B$, так как $2^2 = 4 > 2$).
-          <br/>Более того, для любых $a \in A$ и $b \in B$ выполняется: $a^2 < 2 < b^2 \implies a < b$, то есть множество $A$ лежит строго левее $B$.
+          Очевидно, что оба множества непусты ($1 \in A$, так как $1^2 = 1 &lt; 2$; $2 \in B$, так как $2^2 = 4 &gt; 2$).
+          <br>Более того, для любых $a \in A$ и $b \in B$ выполняется: $a^2 &lt; 2 &lt; b^2 \implies a &lt; b$, то есть множество $A$ лежит строго левее $B$.
         </p>
 <p style="margin-bottom: 0;">
           Однако в множестве $\mathbb{Q}$ <strong>не существует разделяющего числа $c \in \mathbb{Q}$</strong>! Единственным числом на числовой прямой, способным разделить эти множества, является точка $c = \sqrt{2}$. Но, как доказано в Теореме 3.1, $\sqrt{2} \notin \mathbb{Q}$. На месте числа $\sqrt{2}$ в поле рациональных чисел зияет разрыв («пустота»). Именно аксиома V гарантирует отсутствие «дыр» в пространстве действительных чисел $\mathbb{R}$.
@@ -1452,19 +1503,19 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         Непосредственно из аксиом порядка IV и аксиом поля следуют свойства числовых неравенств, используемые при всех аналитических выкладках:
       </p>
 <ol>
-<li>$\forall a, b \in \mathbb{R}$: верно строго одно из: $a < b$, $a = b$, $a > b$.</li>
-<li>$\forall a, b \in \mathbb{R}: a < b \iff b > a$.</li>
-<li><strong>Транзитивность:</strong> $\forall a, b, c \in \mathbb{R}: (a < b) \land (b < c) \implies a < c$.</li>
-<li><strong>Прибавление числа к неравенству:</strong> $a < b \implies a + c < b + c \quad (\forall c \in \mathbb{R})$.</li>
+<li>$\forall a, b \in \mathbb{R}$: верно строго одно из: $a &lt; b$, $a = b$, $a &gt; b$.</li>
+<li>$\forall a, b \in \mathbb{R}: a &lt; b \iff b &gt; a$.</li>
+<li><strong>Транзитивность:</strong> $\forall a, b, c \in \mathbb{R}: (a &lt; b) \land (b &lt; c) \implies a &lt; c$.</li>
+<li><strong>Прибавление числа к неравенству:</strong> $a &lt; b \implies a + c &lt; b + c \quad (\forall c \in \mathbb{R})$.</li>
 <li><strong>Умножение неравенства на число:</strong>
-<br/>— Если $a < b$ и $c > 0$, то $a \cdot c < b \cdot c$ (знак неравенства сохраняется);
-          <br/>— Если $a < b$ и $c < 0$, то $a \cdot c > b \cdot c$ (знак неравенства меняется на противоположный).
+<br>— Если $a &lt; b$ и $c &gt; 0$, то $a \cdot c &lt; b \cdot c$ (знак неравенства сохраняется);
+          <br>— Если $a &lt; b$ и $c &lt; 0$, то $a \cdot c &gt; b \cdot c$ (знак неравенства меняется на противоположный).
         </li>
 <li><strong>Почленное сложение неравенств одного знака:</strong>
-          \[a < b \land c < d \implies a + c < b + d\]
+          \[a &lt; b \land c &lt; d \implies a + c &lt; b + d\]
         </li>
 <li><strong>Почленное умножение положительных неравенств:</strong>
-          \[0 < a < b \land 0 < c < d \implies a \cdot c < b \cdot d\]
+          \[0 &lt; a &lt; b \land 0 &lt; c &lt; d \implies a \cdot c &lt; b \cdot d\]
         </li>
 </ol>
 
@@ -1482,7 +1533,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement definition" id="def-6"><div class="block-label">Определение 6</div><h3 data-toc="Определение 5.1 (Аналитическое…" id="sub-6-1">Определение 5.1 (Аналитическое и геометрическое определения модуля)</h3><div>
 <p>
 <strong>1. Аналитическое определение:</strong> Модулем (абсолютной величиной) действительного числа $a \in \mathbb{R}$ (обозначается $|a|$) называется само число $a$, если оно неотрицательно, и противоположное число $-a$, если $a$ отрицательно:
-          \[|a| = \begin{cases} a, & \text{если } a \ge 0; \\ -a, & \text{если } a < 0. \end{cases}\]
+          \[|a| = \begin{cases} a, &amp; \text{если } a \ge 0; \\ -a, &amp; \text{если } a &lt; 0. \end{cases}\]
         </p>
 <p style="margin-bottom: 0;">
 <strong>2. Геометрическое определение:</strong> Модуль $|a|$ есть евклидово расстояние на вещественной оси от начала отсчета (точки $0$) до точки $a$:
@@ -1492,7 +1543,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 </div></div>
 <!-- Векторная иллюстрация Модуля -->
 <div class="illustration-wrapper">
-<figure class="figure-plate"><svg height="110" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 600 110" role="img" aria-label="0 -k k |a| ≤ k ⟺ -k ≤ a ≤ k" data-fam-figure="diagram" data-fam-index="6"><defs><marker id="fam-fig-6-arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
+<figure class="figure-plate"><div class="diagram-scroll" style="--diagram-min-width: 600px"><svg height="110" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 600 110" role="img" aria-label="0 -k k |a| ≤ k ⟺ -k ≤ a ≤ k" data-fam-figure="diagram" data-fam-index="6"><defs><marker id="fam-fig-6-arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
 <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--svg-axis)"></path>
 </marker></defs>
 <line stroke="var(--text-muted)" stroke-width="2" x1="30" x2="570" y1="65" y2="65"></line>
@@ -1509,7 +1560,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <line stroke="var(--accent-primary)" stroke-opacity="0.5" stroke-width="4.5" x1="160" x2="440" y1="65" y2="65"></line>
 <line marker-end="url(#fam-fig-6-arrow)" stroke="var(--accent-primary)" stroke-width="1.5" x1="300" x2="440" y1="40" y2="40"></line>
 <text fill="var(--accent-primary)" font-size="12" x="345" y="32">|a| ≤ k ⟺ -k ≤ a ≤ k</text>
-</svg></figure>
+</svg></div></figure>
 <div class="illustration-caption">Рис. 2. Геометрический смысл основного модульного неравенства: множество точек, удаленных от нуля не далее чем на $k$.</div>
 </div>
 <div class="statement theorem" id="thm-13"><div class="block-label">Утверждение 13</div><h3 data-toc="Теорема 5.1 (Фундаментальные с…" id="sub-6-2">Теорема 5.1 (Фундаментальные свойства модуля)</h3><div>
@@ -1518,7 +1569,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <li>$|a| \ge 0$, причем $|a| = 0 \iff a = 0$.</li>
 <li>$|a| = |-a|$.</li>
 <li>$|a \cdot b| = |a| \cdot |b|$ и $\left| \frac{a}{b} \right| = \frac{|a|}{|b|}$ (при $b \neq 0$).</li>
-<li><strong>Критерий попадания в симметричный отрезок:</strong> Для любого $k > 0$:
+<li><strong>Критерий попадания в симметричный отрезок:</strong> Для любого $k &gt; 0$:
             \[|a| \le k \iff -k \le a \le k\]
           </li>
 </ol>
@@ -1649,17 +1700,17 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="statement definition" id="def-7"><div class="block-label">Определение 7</div><h3 data-toc="Определение 6.1 (Числовой пром…" id="sub-7-1">Определение 6.1 (Числовой промежуток)</h3><div>
 <p>
           Множество $P \subset \mathbb{R}$ называется <strong>числовым промежутком</strong>, если вместе с любыми двумя своими точками оно содержит и все точки, лежащие между ними:
-          \[\forall x, y \in P \quad \forall z \in \mathbb{R} : (x < z < y) \implies z \in P\]
+          \[\forall x, y \in P \quad \forall z \in \mathbb{R} : (x &lt; z &lt; y) \implies z \in P\]
         </p>
 <p>Промежутки на числовой прямой классифицируются следующим образом:</p>
 <ul style="margin-bottom: 0;">
 <li>$[a, b] = \{x \in \mathbb{R} \mid a \le x \le b\}$ — <strong>отрезок</strong> (сегмент, замкнутый промежуток);</li>
-<li>$(a, b) = \{x \in \mathbb{R} \mid a < x < b\}$ — <strong>интервал</strong> (открытый промежуток);</li>
-<li>$[a, b) = \{x \in \mathbb{R} \mid a \le x < b\}$ и $(a, b] = \{x \in \mathbb{R} \mid a < x \le b\}$ — <strong>полуинтервалы</strong>;</li>
+<li>$(a, b) = \{x \in \mathbb{R} \mid a &lt; x &lt; b\}$ — <strong>интервал</strong> (открытый промежуток);</li>
+<li>$[a, b) = \{x \in \mathbb{R} \mid a \le x &lt; b\}$ и $(a, b] = \{x \in \mathbb{R} \mid a &lt; x \le b\}$ — <strong>полуинтервалы</strong>;</li>
 <li>$[a, +\infty) = \{x \in \mathbb{R} \mid x \ge a\}$ — правый замкнутый луч;</li>
-<li>$(a, +\infty) = \{x \in \mathbb{R} \mid x > a\}$ — правый открытый луч;</li>
+<li>$(a, +\infty) = \{x \in \mathbb{R} \mid x &gt; a\}$ — правый открытый луч;</li>
 <li>$(-\infty, b] = \{x \in \mathbb{R} \mid x \le b\}$ — левый замкнутый луч;</li>
-<li>$(-\infty, b) = \{x \in \mathbb{R} \mid x < b\}$ — левый открытый луч;</li>
+<li>$(-\infty, b) = \{x \in \mathbb{R} \mid x &lt; b\}$ — левый открытый луч;</li>
 <li>$(-\infty, +\infty) = \mathbb{R}$ — вся числовая прямая.</li>
 </ul>
 </div></div>
@@ -1668,11 +1719,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <p>
           1. Множество $A \subset \mathbb{R}$ называется <strong>ограниченным сверху</strong>, если существует такое вещественное число $M \in \mathbb{R}$, что всякий элемент множества $A$ не превосходит $M$:
           \[\exists M \in \mathbb{R} : \forall a \in A \implies a \le M\]
-          Число $M$ при этом называется <strong>верхней границей</strong> (мажорантой) множества $A$. Если у множества есть хотя бы одна верхняя граница, то их существует бесконечно много (любое число $M' > M$ также будет верхней границей).
+          Число $M$ при этом называется <strong>верхней границей</strong> (мажорантой) множества $A$. Если у множества есть хотя бы одна верхняя граница, то их существует бесконечно много (любое число $M' &gt; M$ также будет верхней границей).
         </p>
 <p>
 <em>Отрицание:</em> Множество $A$ <strong>не ограничено сверху</strong>, если для любого числа $M$ найдется хотя бы один элемент из $A$, строго превосходящий $M$:
-          \[\forall M \in \mathbb{R} \quad \exists a \in A : a > M\]
+          \[\forall M \in \mathbb{R} \quad \exists a \in A : a &gt; M\]
         </p>
 <p>
           2. Множество $A \subset \mathbb{R}$ называется <strong>ограниченным снизу</strong>, если:
@@ -1681,11 +1732,11 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </p>
 <p>
 <em>Отрицание:</em> Множество $A$ <strong>не ограничено снизу</strong>, если:
-          \[\forall m \in \mathbb{R} \quad \exists a \in A : a < m\]
+          \[\forall m \in \mathbb{R} \quad \exists a \in A : a &lt; m\]
         </p>
 <p style="margin-bottom: 0;">
           3. Множество $A$ называется <strong>ограниченным</strong>, если оно ограничено <em>и сверху, и снизу</em>:
-          \[\exists m, M \in \mathbb{R} : \forall a \in A \implies m \le a \le M \iff \exists C > 0 : \forall a \in A \implies |a| \le C\]
+          \[\exists m, M \in \mathbb{R} : \forall a \in A \implies m \le a \le M \iff \exists C &gt; 0 : \forall a \in A \implies |a| \le C\]
           Множество называется <strong>неограниченным</strong>, если оно не ограничено сверху или не ограничено снизу.
         </p>
 </div></div>
@@ -1702,12 +1753,12 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </p>
 <ol>
 <li>$\forall a \in A: a \le \xi$ ($\xi$ действительно является верхней границей);</li>
-<li>$\forall \xi_1 < \xi \ \exists a_0 \in A: a_0 > \xi_1$ (ни одно число, меньшее $\xi$, верхней границей быть не может).</li>
+<li>$\forall \xi_1 &lt; \xi \ \exists a_0 \in A: a_0 &gt; \xi_1$ (ни одно число, меньшее $\xi$, верхней границей быть не может).</li>
 </ol>
 <p style="margin-bottom: 0;">
 <strong>Эквивалентная $\varepsilon$-формулировка (язык математического анализа):</strong>
-<br/>Полагая $\xi_1 = \xi - \varepsilon$, где $\varepsilon > 0$ — сколь угодно малое положительное число, условие (2) принимает стандартный вид:
-          \[\forall \varepsilon > 0 \quad \exists a_0 \in A : a_0 > \xi - \varepsilon\]
+<br>Полагая $\xi_1 = \xi - \varepsilon$, где $\varepsilon &gt; 0$ — сколь угодно малое положительное число, условие (2) принимает стандартный вид:
+          \[\forall \varepsilon &gt; 0 \quad \exists a_0 \in A : a_0 &gt; \xi - \varepsilon\]
         </p>
 </div></div>
 <div class="statement definition" id="def-10"><div class="block-label">Определение 10</div><h3 data-toc="Определение 6.4 (Точная нижняя…" id="sub-7-6">Определение 6.4 (Точная нижняя грань — Инфимум)</h3><div>
@@ -1716,16 +1767,16 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </p>
 <ol>
 <li>$\forall a \in A: a \ge \eta$ ($\eta$ является нижней границей);</li>
-<li>$\forall \eta_1 > \eta \ \exists a_0 \in A: a_0 < \eta_1$ (ни одно число, большее $\eta$, не может служить нижней границей).</li>
+<li>$\forall \eta_1 &gt; \eta \ \exists a_0 \in A: a_0 &lt; \eta_1$ (ни одно число, большее $\eta$, не может служить нижней границей).</li>
 </ol>
 <p style="margin-bottom: 0;">
 <strong>Эквивалентная $\varepsilon$-формулировка:</strong>
-          \[\forall \varepsilon > 0 \quad \exists a_0 \in A : a_0 < \eta + \varepsilon\]
+          \[\forall \varepsilon &gt; 0 \quad \exists a_0 \in A : a_0 &lt; \eta + \varepsilon\]
         </p>
 </div></div>
 <!-- Векторная иллюстрация Супремума и Инфимума -->
 <div class="illustration-wrapper">
-<figure class="figure-plate"><svg height="140" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 140" role="img" aria-label="η = inf A η + ε a₀ Множество A ξ = sup A ξ - ε a₀&#x27;" data-fam-figure="diagram" data-fam-index="7">
+<figure class="figure-plate"><div class="diagram-scroll" style="--diagram-min-width: 742px"><svg height="140" style="; display: block; max-width: 100%; height: auto; margin: 0 auto;" viewbox="0 0 680 140" role="img" aria-label="η = inf A η + ε a₀ Множество A ξ = sup A ξ - ε a₀'" data-fam-figure="diagram" data-fam-index="7">
 <line stroke="var(--text-muted)" stroke-width="2.5" x1="20" x2="650" y1="75" y2="75"></line>
 <polygon fill="var(--text-muted)" points="650,70 662,75 650,80"></polygon>
 <!-- Инфимум eta -->
@@ -1750,14 +1801,14 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <!-- Дужки окрестности -->
 <path d="M 505,75 Q 532,88 560,75" fill="none" stroke="var(--thm-border)" stroke-dasharray="3,3" stroke-width="1.5"></path>
 <path d="M 80,75 Q 105,88 130,75" fill="none" stroke="var(--ex-border)" stroke-dasharray="3,3" stroke-width="1.5"></path>
-</svg></figure>
+</svg></div></figure>
 <div class="illustration-caption">Рис. 3. Геометрическая структура точных граней: в любую сколь угодно малую левую полуокрестность $(\xi - \varepsilon, \xi]$ гарантированно попадает хотя бы одна точка $a_0 \in A$.</div>
 </div>
 <aside class="note">
 <div class="block-card-title">Принципиальное отличие: Супремум vs Максимум ($\sup$ vs $\max$)</div>
 <p>
           Если точная верхняя грань $\xi = \sup A$ <strong>принадлежит</strong> самому множеству $A$ ($\xi \in A$), то она называется <strong>максимумом</strong> множества: $\xi = \max A$.
-          <br/>Однако супремум вовсе не обязан принадлежать множеству!
+          <br>Однако супремум вовсе не обязан принадлежать множеству!
         </p>
 <ul style="margin-bottom: 0;">
 <li>Для отрезка $A = [0, 1]$: $\sup A = 1 \in A \implies \max A = 1$.</li>
@@ -1785,14 +1836,14 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 <div class="proof-label">Доказательство (Строгое доказательство (опора на аксиому непрерывности Дедекинда):)</div>
 <p>
           Пусть $A \subset \mathbb{R}$ — непустое множество, ограниченное сверху.
-          <br/>Определим множество $B$ как совокупность <strong>всех верхних границ</strong> множества $A$:
+          <br>Определим множество $B$ как совокупность <strong>всех верхних границ</strong> множества $A$:
           \[B = \{b \in \mathbb{R} \mid \forall a \in A: a \le b\}\]
         </p>
 <p>
           Проверим условия аксиомы непрерывности Дедекинда (аксиома V):
-          <br/>1) $A \neq \emptyset$ по исходному условию теоремы;
-          <br/>2) $B \neq \emptyset$, поскольку множество $A$ ограничено сверху (существует хотя бы одна мажоранта);
-          <br/>3) По самому определению множества $B$, каков бы ни был элемент $a \in A$ и каков бы ни был элемент $b \in B$, справедливо неравенство:
+          <br>1) $A \neq \emptyset$ по исходному условию теоремы;
+          <br>2) $B \neq \emptyset$, поскольку множество $A$ ограничено сверху (существует хотя бы одна мажоранта);
+          <br>3) По самому определению множества $B$, каков бы ни был элемент $a \in A$ и каков бы ни был элемент $b \in B$, справедливо неравенство:
           \[a \le b\]
         </p>
 <p>
@@ -1801,8 +1852,8 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
         </p>
 <p>
           Докажем, что это число $c$ и есть искомый $\sup A$:
-          <br/>а) Из неравенства $a \le c$ (выполненного для всех $a \in A$) следует, что число $c$ является верхней границей множества $A$, а значит, по определению принадлежит множеству мажорант: $c \in B$.
-          <br/>б) С другой стороны, из неравенства $c \le b$ (выполненного для всех мажорант $b \in B$) следует, что $c$ есть <em>наименьший</em> элемент множества всех верхних границ.
+          <br>а) Из неравенства $a \le c$ (выполненного для всех $a \in A$) следует, что число $c$ является верхней границей множества $A$, а значит, по определению принадлежит множеству мажорант: $c \in B$.
+          <br>б) С другой стороны, из неравенства $c \le b$ (выполненного для всех мажорант $b \in B$) следует, что $c$ есть <em>наименьший</em> элемент множества всех верхних границ.
         </p>
 <p style="margin-bottom: 0;">
           Таким образом, число $c$ удовлетворяет всем критериям точной верхней грани: $c = \sup A$. Единственность следует из того, что наименьший элемент числового множества всегда единственен. <span class="qed">$\blacksquare$</span>
@@ -1836,21 +1887,21 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           </p>
 <p>
 <strong>Пункт 1: Проверка условия верхней границы ($\forall a \in A: a \le 2$).</strong>
-<br/>Для любого натурального числа $n \in \mathbb{N} = \{1, 2, 3, \dots\}$ знаменатель $n+1 \ge 2 > 0$.
-            <br/>Следовательно, дробь $\frac{2}{n+1} > 0$. Отсюда:
-            \[a_n = 2 - \frac{2}{n+1} < 2 \quad (\forall n \in \mathbb{N})\]
+<br>Для любого натурального числа $n \in \mathbb{N} = \{1, 2, 3, \dots\}$ знаменатель $n+1 \ge 2 &gt; 0$.
+            <br>Следовательно, дробь $\frac{2}{n+1} &gt; 0$. Отсюда:
+            \[a_n = 2 - \frac{2}{n+1} &lt; 2 \quad (\forall n \in \mathbb{N})\]
             Число $2$ строго превосходит любой элемент множества $A$. Таким образом, число $2$ является верхней границей множества $A$. Первое условие супремума выполнено.
           </p>
 <p>
 <strong>Пункт 2: Проверка условия наименьшей верхней границы ($\varepsilon$-язык).</strong>
-<br/>Требуется доказать, что:
-            \[\forall \varepsilon > 0 \quad \exists n_0 \in \mathbb{N} : a_{n_0} > 2 - \varepsilon\]
+<br>Требуется доказать, что:
+            \[\forall \varepsilon &gt; 0 \quad \exists n_0 \in \mathbb{N} : a_{n_0} &gt; 2 - \varepsilon\]
             Подставим аналитическое выражение для $a_{n_0}$:
-            \[2 - \frac{2}{n_0 + 1} > 2 - \varepsilon\]
+            \[2 - \frac{2}{n_0 + 1} &gt; 2 - \varepsilon\]
             Решим это строгое неравенство относительно переменной $n_0$:
-            \[-\frac{2}{n_0 + 1} > -\varepsilon \iff \frac{2}{n_0 + 1} < \varepsilon\]
-            Так как $\varepsilon > 0$ и $n_0 + 1 > 0$, домножим обе части на $(n_0 + 1)$ и разделим на $\varepsilon$:
-            \[n_0 + 1 > \frac{2}{\varepsilon} \iff n_0 > \frac{2}{\varepsilon} - 1\]
+            \[-\frac{2}{n_0 + 1} &gt; -\varepsilon \iff \frac{2}{n_0 + 1} &lt; \varepsilon\]
+            Так как $\varepsilon &gt; 0$ и $n_0 + 1 &gt; 0$, домножим обе части на $(n_0 + 1)$ и разделим на $\varepsilon$:
+            \[n_0 + 1 &gt; \frac{2}{\varepsilon} \iff n_0 &gt; \frac{2}{\varepsilon} - 1\]
             По <em>аксиоме Архимеда</em> для любого действительного числа $\frac{2}{\varepsilon} - 1$ всегда существует строго большее натуральное число $n_0$.
             В качестве искомого натурального индекса $n_0$ достаточно положить:
             \[n_0 = \max\left(1, \; \left\lfloor \frac{2}{\varepsilon} - 1 \right\rfloor + 1\right)\]
@@ -1858,16 +1909,16 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
           </p>
 <p>
 <strong>Численная иллюстрация (для закрепления понимания):</strong>
-<br/>Пусть задан уровень точности $\varepsilon = 0.1$.
-            <br/>Тогда пороговое значение:
+<br>Пусть задан уровень точности $\varepsilon = 0.1$.
+            <br>Тогда пороговое значение:
             \[\frac{2}{\varepsilon} - 1 = \frac{2}{0.1} - 1 = 20 - 1 = 19\]
-            Неравенство требует $n_0 > 19$. Возьмем, например, $n_0 = 20 \in \mathbb{N}$.
-            <br/>Вычислим соответствующий элемент множества:
+            Неравенство требует $n_0 &gt; 19$. Возьмем, например, $n_0 = 20 \in \mathbb{N}$.
+            <br>Вычислим соответствующий элемент множества:
             \[a_{20} = \frac{2 \cdot 20}{20 + 1} = \frac{40}{21} \approx 1.90476\]
             Сравним с порогом $\xi - \varepsilon$:
             \[2 - \varepsilon = 2 - 0.1 = 1.9 = \frac{39.9}{21}\]
             Действительно:
-            \[a_{20} = \frac{40}{21} > 1.9\]
+            \[a_{20} = \frac{40}{21} &gt; 1.9\]
             Элемент $a_{20} \in A$ гарантированно попал в $\varepsilon$-окрестность супремума!
           </p>
 <p style="margin-bottom: 0;">
@@ -1880,7 +1931,7 @@ html[data-theme="dark"] #content svg[data-fam-figure] {
 
 
 </section>
-<!-- FAM:CONTENT-END -->
+</section><!-- FAM:CONTENT-END -->
       <footer class="lecture-footer"><span>FAM</span><a href="#top">В начало ↑</a></footer>
     </main>
   </div>
