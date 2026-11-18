@@ -9,18 +9,33 @@ const mime=p=>({'.html':'text/html','.pdf':'application/pdf','.jpg':'image/jpeg'
 export async function scan(v) {
   const files=await walk(v.source);if(!files.length)throw Error('Источник пуст. Существующий каталог сохранён.');
   const supported=files.filter(p=>/\.(html|pdf)$/i.test(p));if(!supported.length)throw Error('HTML и PDF не найдены. Существующий каталог сохранён.');let added=0;
-  for(const file of supported){const rel=path.relative(v.source,file),parts=rel.split(path.sep);let group=parts.slice(0,4).join('/');
-    if(parts.length<5)group=parts.slice(0,-1).join('/');
+  const sharedOriginals=new Map();
+  for(const manifest of files.filter(file=>path.basename(file)==='original-pdf.json')){
+    const folder=path.dirname(manifest);
+    const reference=JSON.parse(await fs.readFile(manifest,'utf8'));
+    if(typeof reference!=='string'||path.isAbsolute(reference)||!reference.toLowerCase().endsWith('.pdf')||
+      !supported.includes(path.resolve(folder,reference))){
+      throw Error(`Некорректная ссылка на общий оригинал: ${path.relative(v.source,manifest)}`);
+    }
+    sharedOriginals.set(folder,path.resolve(folder,reference));
+  }
+  const entries=supported.map(file=>({file,folder:path.dirname(file),shared:false}));
+  for(const [folder,file] of sharedOriginals)entries.push({file,folder,shared:true});
+  for(const {file,folder,shared} of entries){const rel=path.relative(v.source,file),parts=path.relative(v.source,folder).split(path.sep);const group=parts.slice(0,4).join('/');
     let rec=Object.values(v.records).find(r=>r.group===group);
     if(!rec){const folder=group.split('/').at(-1),dates=[...folder.matchAll(/(\d{2})\.(\d{2})\.(\d{4})/g)].map(m=>`${m[3]}-${m[2]}-${m[1]}`);const nums=[...folder.matchAll(/(?:^|\s)(\d{1,2})\s+\d{2}\.\d{2}\.\d{4}/g)].map(m=>Number(m[1]));
       rec={id:id(),group,title:folder.replace(/^(?:(?:\d+\s+)?\d{2}\.\d{2}\.\d{4}\s*)+/,'').replace(/^\d+\s+/,''),subject:parts[1]||'Материалы',type:parts.includes('Коллоквиумы')?'Коллоквиум':'Лекция',course:1,year:'2026/27',module:'',dates,number:nums.join('–'),tags:[],added:new Date().toISOString(),attachments:[],confirmed:false};v.records[rec.id]=rec;added++;}
     if(!rec.attachments.some(a=>a.path===rel)){
       const name=path.basename(file),type=mime(file);
       const role=type==='application/pdf'&&/^Конспект(?:[ ._-]|$)/iu.test(name)?'note':undefined;
-      rec.attachments.push({id:id(),path:rel,name,mime:type,role});
+      rec.attachments.push({id:id(),path:rel,name,mime:type,role,...(shared?{shared:true}:{})});
     }
   }
-  for(const r of Object.values(v.records))for(const a of r.attachments)a.missing=!files.includes(path.join(v.source,a.path));
+  for(const r of Object.values(v.records)){
+    const sharedOriginal=sharedOriginals.get(path.join(v.source,r.group));
+    r.attachments=r.attachments.filter(a=>!a.shared||path.join(v.source,a.path)===sharedOriginal);
+    for(const a of r.attachments)a.missing=!files.includes(path.join(v.source,a.path));
+  }
   await saveVault(v);return {added,records:Object.values(v.records).length,files:files.length,html:supported.filter(p=>p.endsWith('.html')).length,pdf:supported.filter(p=>p.endsWith('.pdf')).length};
 }
 function extract(paths) {return new Promise((resolve,reject)=>{const p=spawn('python',['-X','utf8',path.join(ROOT,'scripts/extract.py')],{windowsHide:true});let out='';p.stdout.on('data',b=>out+=b);p.stderr.resume();p.on('error',reject);p.on('close',c=>{try{if(c)throw Error();resolve(JSON.parse(out));}catch{reject(Error('Не удалось извлечь текст. Требуются Python и pypdf.'));}});p.stdin.end(JSON.stringify(paths));});}
@@ -31,9 +46,11 @@ export async function build(v,progress=()=>{}) {
     if(entry){try{await fs.access(path.join(out,'objects',entry.id+'.bin'));reused++;}catch{entry=null;}}
     if(!entry){entry={id:id(),epoch:v.current,kind};await fs.writeFile(path.join(out,'objects',entry.id+'.bin'),seal(data,key,kind,entry.id));v.cache[cacheKey]=entry;encrypted++;}keep.add(entry.id+'.bin');return entry;}
   const records=Object.values(v.records).filter(r=>!r.hidden);const paths=records.flatMap(r=>r.attachments.filter(a=>!a.missing).map(a=>path.join(v.source,a.path)));
-  progress('Извлечение текста HTML и PDF');const extracts=await extract(paths);const catalog=[],bySubject={};
+  progress('Извлечение текста HTML и PDF');const extracts=await extract([...new Set(paths)]);const catalog=[],bySubject={},originals=new Map();
   for(const r of records){const pub={...r};delete pub.group;delete pub.confirmed;pub.module=r.module||v.modules.find(m=>r.dates.some(d=>d>=m.start&&d<=m.end))?.name||'';pub.attachments=[];
-    for(const a of r.attachments){if(a.missing)continue;const p=path.join(v.source,a.path),data=await fs.readFile(p),entry=await object(data,'original',a.id),ex=extracts[p];let resources=[];
+    for(const a of r.attachments){if(a.missing)continue;const p=path.join(v.source,a.path),data=await fs.readFile(p),ex=extracts[p];let resources=[];
+      if(!originals.has(p))originals.set(p,await object(data,'original',a.id));
+      const entry=originals.get(p);
       if(a.mime==='text/html'){const html=data.toString();for(const match of html.matchAll(/(?:src|href)\s*=\s*["']([^"'#]+\.(?:png|jpg|jpeg|svg|webp))["']/gi)){const url=match[1];if(/^(data:|https?:|\/\/)/.test(url))continue;const img=path.resolve(path.dirname(p),url);if(!img.startsWith(v.source+path.sep))continue;try{resources.push({url,mime:mime(img),...await object(await fs.readFile(img),'resource',img)});}catch{resources.push({url,missing:true});}}}
       pub.attachments.push({id:a.id,name:downloadName(r,a),mime:a.mime,role:a.role,bytes:data.length,object:entry,resources,indexStatus:ex?.status||'error',scannedPages:ex?.scannedPages||0});
       (bySubject[r.subject]??=[]).push({record:r.id,attachment:a.id,title:r.title,tags:r.tags,source:attachmentLabel(r,a),pages:ex?.pages||[]});
