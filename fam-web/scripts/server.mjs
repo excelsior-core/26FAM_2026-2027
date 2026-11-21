@@ -10,7 +10,7 @@ let vault=await loadVault();await saveVault(vault);let busy=false,status='Гот
 async function job(fn){if(busy)throw Error('Дождитесь окончания текущей операции');busy=true;try{return await fn();}finally{busy=false;}}
 if(!Object.keys(vault.records).length){console.log('Сканирование локальных материалов…');await scan(vault);}
 try{await fs.access(path.join(ROOT,'export/manifest.json'));}catch{console.log('Создание зашифрованной локальной сборки…');await build(vault,s=>status=s);}
-const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.json':'application/json','.woff2':'font/woff2','.woff':'font/woff','.svg':'image/svg+xml','.png':'image/png','.wasm':'application/wasm','.pdf':'application/pdf','.bcmap':'application/octet-stream'};
+const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.json':'application/json','.woff2':'font/woff2','.woff':'font/woff','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.webm':'video/webm','.wasm':'application/wasm','.pdf':'application/pdf','.bcmap':'application/octet-stream'};
 const csp="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; connect-src 'self'; worker-src 'self' blob:; frame-src 'self' blob: about:; object-src 'none'; base-uri 'self'; form-action 'self'";
 async function body(req){let s='';for await(const b of req){s+=b;if(s.length>8*1024*1024)throw Error('Слишком большой запрос');}return s?JSON.parse(s):{};}
 const server=http.createServer(async(req,res)=>{
