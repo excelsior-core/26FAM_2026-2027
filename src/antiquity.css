@@ -166,3 +166,7 @@ body{background:var(--bg);font-family:var(--sans)}body:after{content:'';position
 @media(max-width:760px){.view-switch button span{font-size:10px}.calendar-main{padding:18px 12px}.calendar-toolbar{gap:5px;margin-bottom:15px}.calendar-toolbar h3{font-size:27px}.calendar-toolbar p{font-size:10px}.calendar-navigation{gap:0}.calendar-navigation .icon-btn{width:32px;min-width:32px}.calendar-today{font-size:10px;padding:7px}.calendar-day{min-height:76px;padding:9px 6px;gap:7px}.calendar-date{font-size:16px}.calendar-day small{font-size:9px}.calendar-marks{gap:3px}.calendar-marks i{width:5px;height:5px}.calendar-legend{gap:10px 15px}.calendar-legend span{font-size:9px}.calendar-agenda{padding:23px 18px}.agenda-heading h3{font-size:32px}.agenda-record strong{font-size:17px}.reader-mode button{font-size:11px;padding:9px 10px;gap:6px}.reader-controls{gap:8px;padding:9px 10px}.attachment-tabs{padding:10px}.attachment-tabs button{font-size:11px}.pane-header strong{font-size:11px}.pane-header{min-height:48px}.pane-actions .icon-btn{width:36px;height:36px}.reader-title h2{font-size:15px}.pdf-toolbar{font-size:10px;gap:8px}.reader-header{padding:13px;gap:8px}}
 
 .calendar-toolbar h3::first-letter{text-transform:uppercase}
+@media (max-width:760px) {
+  .entry-visual { top:200px; height:295px }
+  .hero-art { inset:52px -16px 6px 47% }
+}
