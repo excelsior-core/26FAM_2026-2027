@@ -1,6 +1,6 @@
 import {icon,escape as e} from './icons.js';
 import {fetchObject} from './crypto.js';
-import {attachmentLabel,downloadName} from './document-names.js';
+import {DOCX_MIME,attachmentLabel,downloadName} from './document-names.js';
 let generation=0,cleanups=[],popups=[];
 const $=s=>document.querySelector(s),root=new URL('../',import.meta.url);
 const url=p=>new URL(p,root).href;
@@ -31,27 +31,127 @@ function openTab(record,attachment,bytes,preview,toast){
 }
 function download(record,attachment,bytes){const u=URL.createObjectURL(new Blob([bytes],{type:attachment.mime})),a=document.createElement('a');a.href=u;a.download=downloadName(record,attachment);a.click();setTimeout(()=>URL.revokeObjectURL(u),30000);}
 export async function showReader(record,keys,{attachment,saved=false,onSave,toast=()=>{}}={}){
-  resetStage();const dialog=$('#reader');let selected=record.attachments.find(a=>a.id===attachment)||record.attachments.find(a=>a.mime==='text/html')||record.attachments[0];if(!selected)throw Error('Нет доступных вложений');
-  const pdfs=record.attachments.filter(a=>a.mime==='application/pdf'),notes=record.attachments.filter(a=>a.mime==='text/html');let split=false,pdfSelected=pdfs.find(a=>a.role!=='note')||pdfs[0],noteSelected=notes[0];
-  if(selected.mime==='application/pdf')pdfSelected=selected;else noteSelected=selected;
-  $('#reader-content').innerHTML=`<header class="reader-header"><div class="reader-title"><div class="eyebrow">${e(record.subject)} / ${e(record.type)}</div><h2>${e(record.title)}</h2></div><div class="reader-actions">${onSave?`<button class="icon-btn bookmark-action ${saved?'saved':''}" id="save-record" aria-label="Избранное">${icon('bookmark')}</button>`:''}<button class="icon-btn" id="close-reader" aria-label="Закрыть просмотр">${icon('close')}</button></div></header><div class="reader-controls"><div class="reader-mode" aria-label="Режим просмотра"><button data-reader-mode="single" aria-pressed="true">Один документ</button><button data-reader-mode="split" aria-pressed="false" ${!pdfs.length||!notes.length?'disabled title="Нужны PDF и HTML-конспект"':''}>${icon('split')} PDF + конспект</button></div><label class="split-size" hidden>Ширина PDF<input type="range" min="30" max="70" value="50" aria-label="Ширина PDF в split-view"><span>50%</span></label></div><div class="attachment-tabs" aria-label="Вложения">${record.attachments.map(a=>`<button data-attachment="${e(a.id)}" aria-pressed="${a.id===selected.id}">${e(attachmentLabel(record,a))}<small>${(a.bytes/1024/1024).toFixed(1)} МБ</small></button>`).join('')}</div><div class="document-workspace" id="document-workspace"></div>`;
-  if(!dialog.open)dialog.showModal();$('#close-reader').onclick=()=>clearReader();dialog.oncancel=()=>clearReader();if(onSave)$('#save-record').onclick=()=>$('#save-record').classList.toggle('saved',onSave());
-  const slider=$('.split-size input');slider.oninput=()=>{$('#document-workspace').style.setProperty('--pdf-width',slider.value+'%');$('.split-size span').textContent=slider.value+'%';};
-  async function render(){resetStage();const mine=generation;dialog.classList.toggle('split-reader',split);$('.attachment-tabs').hidden=split;$('.split-size').hidden=!split;document.querySelectorAll('[data-reader-mode]').forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.readerMode==='split')===split)));document.querySelectorAll('[data-attachment]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.attachment===selected.id)));
-    const workspace=$('#document-workspace');workspace.className=`document-workspace ${split?'is-split':''}`;workspace.replaceChildren();
-    async function addPane(a,kind){const pane=document.createElement('section');pane.className='document-pane';pane.setAttribute('aria-label',attachmentLabel(record,a));const choices=kind==='pdf'?pdfs:kind==='note'?notes:[a];pane.innerHTML=`<header class="pane-header"><div>${choices.length>1?`<select aria-label="${kind==='pdf'?'Выбрать PDF':'Выбрать конспект'}">${choices.map(item=>`<option value="${e(item.id)}" ${item.id===a.id?'selected':''}>${e(attachmentLabel(record,item))}</option>`).join('')}</select>`:`<strong>${e(attachmentLabel(record,a))}</strong>`}${a.indexStatus==='scan'?'<small>Скан</small>':''}</div><div class="pane-actions"><button class="icon-btn" data-popout aria-label="Открыть ${e(attachmentLabel(record,a))} в новой вкладке" title="Новая вкладка" disabled>${icon('diagonal')}</button><button class="icon-btn" data-download aria-label="Скачать ${e(attachmentLabel(record,a))}" title="Скачать файл" disabled>${icon('download')}</button></div></header><div class="document-stage"><div class="reader-loading">Загрузка…</div></div>`;workspace.append(pane);const stage=pane.querySelector('.document-stage');
-      if(pane.querySelector('select'))pane.querySelector('select').onchange=ev=>{const next=choices.find(x=>x.id===ev.target.value);if(kind==='pdf')pdfSelected=next;else noteSelected=next;render();};
-      try{const bytes=await fetchObject(a.object,keys);if(mine!==generation)return;let preview;
-        if(a.mime==='text/html'){preview=await previewHTML(bytes,a,keys);if(mine!==generation)return;const frame=document.createElement('iframe');frame.title=record.title+' — '+attachmentLabel(record,a);frame.sandbox='allow-scripts allow-modals';frame.referrerPolicy='no-referrer';frame.srcdoc=preview;stage.replaceChildren(frame);}
-        else await showPDF(bytes,mine,stage);
-        if(mine!==generation)return;pane.querySelector('[data-popout]').disabled=false;pane.querySelector('[data-download]').disabled=false;pane.querySelector('[data-popout]').onclick=()=>openTab(record,a,bytes,preview,toast);pane.querySelector('[data-download]').onclick=()=>download(record,a,bytes);
-      }catch(err){if(mine!==generation)return;stage.innerHTML=`<div class="reader-loading"><p>Не удалось открыть материал: ${e(err.message)}</p><button class="primary-btn" data-retry>Повторить</button></div>`;stage.querySelector('[data-retry]').onclick=render;}
-    }
-    await Promise.all(split?[addPane(pdfSelected,'pdf'),addPane(noteSelected,'note')]:[addPane(selected,'single')]);
+  resetStage();
+  const dialog=$('#reader');
+  const notes=record.attachments.filter(a=>a.mime==='text/html');
+  const materials=record.attachments.filter(a=>a.mime==='application/pdf'||a.mime===DOCX_MIME);
+  let selected=record.attachments.find(a=>a.id===attachment)||notes[0]||record.attachments[0];
+  if(!selected)throw Error('Нет доступных вложений');
+  let split=false;
+  let materialSelected=materials.includes(selected)?selected:materials.find(a=>a.role!=='note')||materials[0];
+  let noteSelected=notes.includes(selected)?selected:notes[0];
+  const canSplit=materials.length>0&&notes.length>0;
+
+  $('#reader-content').innerHTML=
+    '<header class="reader-header"><div class="reader-title"><div class="eyebrow">'+e(record.subject)+' / '+e(record.type)+'</div><h2 title="'+e(record.title)+'">'+e(record.title)+'</h2></div>'+
+    (canSplit?'<div class="reader-controls"><div class="reader-mode" role="group" aria-label="Режим просмотра"><button data-reader-mode="single" aria-pressed="true">Один документ</button><button data-reader-mode="split" aria-pressed="false">'+icon('split')+' Рядом</button></div><label class="split-size" hidden>Ширина материала<input type="range" min="30" max="70" value="50" aria-label="Ширина панели материала преподавателя"><span>50%</span></label></div>':'')+
+    '<div class="reader-actions">'+(onSave?'<button class="icon-btn bookmark-action '+(saved?'saved':'')+'" id="save-record" aria-label="Избранное">'+icon('bookmark')+'</button>':'')+'<button class="icon-btn" id="close-reader" aria-label="Закрыть просмотр">'+icon('close')+'</button></div></header>'+
+    '<div class="attachment-tabs" aria-label="Вложения"'+(record.attachments.length<2?' hidden':'')+'>'+record.attachments.map(a=>'<button data-attachment="'+e(a.id)+'" aria-pressed="'+(a.id===selected.id)+'">'+e(attachmentLabel(record,a))+'</button>').join('')+'</div><div class="document-workspace" id="document-workspace"></div>';
+
+  if(!dialog.open)dialog.showModal();
+  $('#close-reader').onclick=()=>clearReader();
+  dialog.oncancel=()=>clearReader();
+  if(onSave)$('#save-record').onclick=()=>$('#save-record').classList.toggle('saved',onSave());
+  const workspace=$('#document-workspace');
+  const slider=$('.split-size input');
+  if(slider)slider.oninput=()=>{
+    workspace.style.setProperty('--material-width',slider.value+'%');
+    $('.split-size span').textContent=slider.value+'%';
+  };
+
+  function selectSingle(next){
+    selected=next;
+    if(materials.includes(next))materialSelected=next;
+    if(notes.includes(next))noteSelected=next;
+    render();
   }
-  document.querySelectorAll('[data-attachment]').forEach(b=>b.onclick=()=>{selected=record.attachments.find(a=>a.id===b.dataset.attachment);if(selected.mime==='application/pdf')pdfSelected=selected;else noteSelected=selected;render();});
-  document.querySelectorAll('[data-reader-mode]').forEach(b=>b.onclick=()=>{split=b.dataset.readerMode==='split';render();});
+
+  async function render(){
+    resetStage();
+    const mine=generation;
+    dialog.classList.toggle('split-reader',split);
+    $('.attachment-tabs').hidden=split||record.attachments.length<2;
+    if(slider)$('.split-size').hidden=!split;
+    dialog.querySelectorAll('[data-reader-mode]').forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.readerMode==='split')===split)));
+    dialog.querySelectorAll('[data-attachment]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.attachment===selected.id)));
+    workspace.classList.toggle('is-split',split);
+    workspace.replaceChildren();
+    if(split){
+      await Promise.all([
+        addPane(materialSelected,materials,'Выбрать материал преподавателя',next=>{materialSelected=next;render();}),
+        addPane(noteSelected,notes,'Выбрать конспект',next=>{noteSelected=next;render();})
+      ]);
+    }else await addPane(selected,record.attachments,'Выбрать документ',selectSingle);
+
+    async function addPane(a,choices,selectLabel,onChange){
+      const pane=document.createElement('section');
+      const label=e(attachmentLabel(record,a));
+      pane.className='document-pane';
+      pane.setAttribute('aria-label',attachmentLabel(record,a));
+      const selector=choices.length>1?'<select aria-label="'+selectLabel+'">'+choices.map(item=>
+        '<option value="'+e(item.id)+'" '+(item.id===a.id?'selected':'')+'>'+e(attachmentLabel(record,item))+'</option>'
+      ).join('')+'</select>':'';
+      pane.innerHTML='<header class="pane-header"><div class="pane-label'+(selector&&!split?' has-selector':'')+'">'+selector+
+        (selector&&split?'':'<strong>'+label+'</strong>')+(a.indexStatus==='scan'?'<small>Скан</small>':'')+
+        '</div><div class="pane-actions"><button class="icon-btn" data-popout aria-label="Открыть '+label+' в новой вкладке" title="Новая вкладка" disabled>'+icon('diagonal')+'</button><button class="icon-btn" data-download aria-label="Скачать '+label+'" title="Скачать файл" disabled>'+icon('download')+'</button></div></header>'+
+        '<div class="document-stage"><div class="reader-loading">Загрузка…</div></div>';
+      workspace.append(pane);
+
+      const select=pane.querySelector('select');
+      if(select)select.onchange=()=>onChange(choices.find(item=>item.id===select.value));
+      const stage=pane.querySelector('.document-stage');
+      try{
+        const bytes=await fetchObject(a.object,keys);
+        if(mine!==generation)return;
+        const downloadButton=pane.querySelector('[data-download]');
+        downloadButton.disabled=false;
+        downloadButton.onclick=()=>download(record,a,bytes);
+        let preview;
+        if(a.mime==='application/pdf')await showPDF(bytes,mine,stage);
+        else{
+          const note=a.mime==='text/html';
+          if(!note&&!a.preview){
+            stage.innerHTML='<div class="reader-loading">Предпросмотр недоступен. Оригинал можно скачать.</div>';
+            return;
+          }
+          preview=note?await previewHTML(bytes,a,keys):wordPreview(await fetchObject(a.preview,keys));
+          if(mine!==generation)return;
+          const frame=document.createElement('iframe');
+          frame.title=record.title+' — '+attachmentLabel(record,a);
+          frame.sandbox=note?'allow-scripts allow-modals':'';
+          frame.referrerPolicy='no-referrer';
+          frame.srcdoc=note?compactNotePreview(preview):preview;
+          stage.replaceChildren(frame);
+        }
+        if(mine!==generation)return;
+        const popout=pane.querySelector('[data-popout]');
+        popout.disabled=false;
+        popout.onclick=()=>openTab(record,a,bytes,preview,toast);
+      }catch(err){
+        if(mine!==generation)return;
+        stage.innerHTML='<div class="reader-loading"><p>Не удалось открыть материал: '+e(err.message)+'</p><button class="primary-btn" data-retry>Повторить</button></div>';
+        stage.querySelector('[data-retry]').onclick=render;
+      }
+    }
+  }
+  dialog.querySelectorAll('[data-attachment]').forEach(b=>b.onclick=()=>selectSingle(record.attachments.find(a=>a.id===b.dataset.attachment)));
+  dialog.querySelectorAll('[data-reader-mode]').forEach(b=>b.onclick=()=>{split=b.dataset.readerMode==='split';render();});
   await render();
+}
+function wordPreview(bytes){
+  const content=new TextDecoder().decode(bytes);
+  return '<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
+    '<meta http-equiv="Content-Security-Policy" content="default-src &apos;none&apos;; style-src &apos;unsafe-inline&apos;">'+
+    '<style>:root{color-scheme:light dark}body{margin:0;background:Canvas;color:CanvasText;font:1rem/1.6 system-ui,sans-serif;overflow-wrap:anywhere}main{max-width:44rem;margin:auto;padding:clamp(1rem,4vw,2rem)}h1{font-size:1.45rem;line-height:1.2;margin:0 0 1.25rem}ol,ul{padding-inline-start:1.6rem}li{margin-block:.85rem}p{margin-block:.8rem}</style>'+
+    '</head><body><main>'+content+'</main></body></html>';
+}
+function compactNotePreview(preview){
+  if(!preview.includes('id="note-theme"'))return preview;
+  return preview.replace('</head>','<style>@media screen and (min-width:500px){'+
+    '.topbar{height:48px;min-height:48px;padding:0 3vw;flex-wrap:nowrap;gap:12px}'+
+    '.topbar .wordmark{font-size:24px}.topbar .wordmark span,.topbar .pdf-button span{display:none}'+
+    '.topbar .top-actions{flex-wrap:nowrap;gap:10px}.topbar .pdf-button{padding:5px 9px}'+
+    '}</style></head>');
 }
 async function showPDF(bytes,mine,stage){
   const pdf=await import('../vendor/pdfjs/legacy/build/pdf.mjs');if(mine!==generation)return;pdf.GlobalWorkerOptions.workerSrc=url('vendor/pdfjs/legacy/build/pdf.worker.mjs');

@@ -1,4 +1,4 @@
-import {attachmentLabel} from './document-names.js';
+import {DOCX_MIME,attachmentLabel} from './document-names.js';
 // Document-only window. No catalog, branding, key material or site controls.
 const query=new URLSearchParams(location.search),channel=query.get('bridge'),parent=window.opener;
 let objectURL,received=false;
@@ -11,9 +11,9 @@ window.addEventListener('message',event=>{
   const attachment=data.record?.attachments?.find(a=>a.id===data.attachment);if(!attachment)return;
   received=true;history.replaceState(null,'',location.pathname);document.title=data.record.title+' — '+attachmentLabel(data.record,attachment);
   const frame=document.createElement('iframe');frame.title=document.title;frame.referrerPolicy='no-referrer';
-  if(attachment.mime==='text/html'){
-    if(typeof data.preview!=='string'){status('Не удалось загрузить конспект. Откройте его повторно.');return;}
-    frame.sandbox='allow-scripts allow-modals';frame.srcdoc=data.preview;
+  if(attachment.mime==='text/html'||attachment.mime===DOCX_MIME){
+    if(typeof data.preview!=='string'){status('Не удалось загрузить материал. Откройте его повторно.');return;}
+    frame.sandbox=attachment.mime==='text/html'?'allow-scripts allow-modals':'';frame.srcdoc=data.preview;
   }else if(attachment.mime==='application/pdf'){
     objectURL=URL.createObjectURL(new Blob([data.bytes],{type:'application/pdf'}));frame.src=objectURL;
   }else{status('Формат не поддерживается. Скачайте оригинал из библиотеки.');return;}
