@@ -683,8 +683,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 -->
+
+<style>
+  body.colloquium .chapter > :is(.statement,.worked-example) {
+    background: transparent;
+    border: 0;
+    border-top: 1px solid var(--rule);
+    margin-block: 1.65rem;
+    padding: .9rem 0 0;
+  }
+  body.colloquium .chapter > .featured { border-top-color: var(--gold); }
+  body.colloquium .chapter :is(.block-label,.proof-label) {
+    color: var(--ink);
+    font-size: .825rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  body.colloquium .chapter .proof-label { font-style: italic; }
+  body.colloquium .chapter .proof { border-color: var(--rule); margin-top: .8rem; }
+  body.colloquium .chapter .proof-full { padding-top: .8rem; }
+  @media print {
+    body.colloquium .chapter > :is(.statement,.worked-example) {
+      margin-block: 3mm;
+      padding-top: 2.5mm;
+    }
+    body.colloquium .chapter :is(.chapter-kicker,.block-label,.proof-label) {
+      break-after: avoid;
+      font-size: 9pt;
+    }
+  }
+</style>
 </head>
-<body data-default-proof="full">
+<body class="colloquium" data-default-proof="full">
   <a class="skip-link" href="#content">К тексту конспекта</a>
   <header class="topbar">
     <a class="wordmark" href="#top" aria-label="К началу конспекта">FAM<span>FUNDAMENTAL &amp; APPLIED MATH</span></a>
@@ -707,7 +738,7 @@ SOFTWARE.
 <div class="lecture-meta"><span class="subject">Алгебра</span><span>Коллоквиум 2 · 5 декабря 2026</span></div>
 <h1>Билеты к коллоквиуму<br>по алгебре</h1>
 <p class="subtitle">Билеты 1–7 с полными доказательствами</p>
-<div class="lecture-abstract"><p>По лекциям 12–17. Каждый разобранный билет следует списку вопросов преподавателя. Определения и утверждения оформлены отдельно, за каждым утверждением дано доказательство. Полные доказательства раскрыты при открытии. Для повторения можно переключиться на «Идеи» или скрыть доказательства.</p></div>
+<div class="lecture-abstract"><p>Вопросы 1–7 из программы второго коллоквиума. Обозначения, порядок доказательств и основные примеры следуют лекционным PDF преподавателя. Полные доказательства открыты по умолчанию.</p></div>
 </header>
 <!-- FAM:CONTROLS. This toolbar belongs immediately after the lecture header. -->
       <div class="proof-toolbar" aria-label="Все доказательства">
@@ -795,20 +826,33 @@ SOFTWARE.
 <div class="statement definition" id="def-word-exchange"><div class="block-label">Определение</div><h3>Транспозиция перестановки</h3>
 <p><strong>Транспозицией перестановки</strong> называется обмен двух её символов. Они могут стоять на несоседних местах.</p>
 </div>
+<div class="statement theorem" id="permutation-chain"><div class="block-label">Вспомогательная теорема</div><h3>Расположение перестановок в ряд</h3>
+<p>Все перестановки $n$ символов можно выписать в ряд, начав с любой заданной. Каждая следующая строка получается из предыдущей одной транспозицией.</p>
+<div class="proof" id="proof-permutation-chain" data-proof>
+<div class="proof-controls" role="group" aria-label="Доказательство теоремы о расположении перестановок"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
+<div class="proof-idea" id="idea-permutation-chain" data-proof-idea><div class="proof-label">Идея</div><p>Строим блоки перестановок с одинаковым последним символом. Внутри блока применяем индукцию, а при переходе в следующий блок меняем последний символ.</p></div>
+<div class="proof-full" id="full-permutation-chain" data-proof-full><div class="proof-label">Доказательство</div>
+<p>При $n=1$ перестановка одна. Предположим, что утверждение доказано для $n-1$ символов. Пусть задана первая строка $(u_1,\ldots,u_n)$. Фиксируем $u_n$ справа и по предположению индукции выписываем все перестановки первых $n-1$ символов, начав с $(u_1,\ldots,u_{n-1})$. Получаем блок из $(n-1)!$ строк с последним символом $u_n$.</p>
+<p>Выберем символ, который ещё не стоял на последнем месте ни в одном готовом блоке. В последней строке текущего блока обменяем его с последним символом. Полученная строка начинает новый блок. Фиксируем новый последний символ и снова применяем индукцию к первым $n-1$ позициям, начиная с только что полученной строки.</p>
+<p>После $n$ блоков испробованы все последние символы. Между блоками строки различаются последним символом, внутри блока повторов нет по индукции. Каждый переход сделан одним обменом. Таким образом, выписано $n(n-1)!=n!$ различных строк. В частности, от любой перестановки до любой другой можно дойти конечной цепочкой транспозиций: начинаем ряд с первой и останавливаемся на второй.</p>
+<span class="qed" aria-label="Что и требовалось доказать">□</span>
+</div></div></div>
 <div class="statement theorem" id="swaps-inversions"><div class="block-label">Лемма</div><h3>Один обмен меняет чётность перестановки</h3>
 <p>Обмен элементов в любых двух различных позициях перестановки меняет чётность числа её инверсий.</p>
 <div class="proof" id="proof-swaps-inversions" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Лемма"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
-<div class="proof-idea" id="idea-swaps-inversions" data-proof-idea><div class="proof-label">Идея</div><p>У пары обмениваемых элементов вклад меняется на единицу. У остальных пар суммарное изменение чётно.</p></div>
+<div class="proof-idea" id="idea-swaps-inversions" data-proof-idea><div class="proof-label">Идея</div>
+<p>Обмен соседей меняет число инверсий на единицу. Обмен двух символов через промежуток выполняется нечётным числом соседних обменов.</p>
+</div>
 <div class="proof-full" id="full-swaps-inversions" data-proof-full><div class="proof-label">Доказательство</div>
-<p>Обозначим старую строку через $u$, новую через $u'$. Пусть меняются позиции $r&lt;s$, и сначала $x=u_r&lt;u_s=y$. Для любого утверждения $P$ через $[P]$ обозначим $1$, если оно верно, и $0$, если ложно. Тогда вклад пары позиций $(p,q)$ с $p&lt;q$ равен $[u_p&gt;u_q]$. Разобьём все пары позиций на непересекающиеся части.</p>
-<ol class="proof-steps">
-<li>Пары, в которых нет ни $r$, ни $s$, содержат те же значения в том же порядке, поэтому их вклад сохраняется. У пары $(r,s)$ вклад был $[x&gt;y]=0$, а стал $[y&gt;x]=1$.</li>
-<li>Для $j&lt;r$ пары $(j,r),(j,s)$ до обмена дают $[u_j&gt;x]+[u_j&gt;y]$, после — $[u_j&gt;y]+[u_j&gt;x]$. Для $j&gt;s$ пары $(r,j),(s,j)$ дают соответственно $[x&gt;u_j]+[y&gt;u_j]$ и $[y&gt;u_j]+[x&gt;u_j]$. Обе суммы сохраняются.</li>
-<li>Для $r&lt;j&lt;s$ кладём $z=u_j$. Пары $(r,j),(j,s)$ дают до обмена $[x&gt;z]+[z&gt;y]$, после — $[y&gt;z]+[z&gt;x]$. Переберём все порядки взаимного расположения $x,y,z$.</li>
-</ol>
-<div class="table-scroll"><table><caption>Вклад промежуточной позиции</caption><thead><tr><th scope="col">Положение значения</th><th scope="col">До</th><th scope="col">После</th><th scope="col">Разность</th></tr></thead><tbody><tr><th scope="row">$z&lt;x&lt;y$</th><td>$1+0$</td><td>$1+0$</td><td>$0$</td></tr><tr><th scope="row">$x&lt;z&lt;y$</th><td>$0+0$</td><td>$1+1$</td><td>$2$</td></tr><tr><th scope="row">$x&lt;y&lt;z$</th><td>$0+1$</td><td>$0+1$</td><td>$0$</td></tr></tbody></table></div>
-<p>Равенство значений невозможно в перестановке. Каждая пара позиций учтена ровно один раз: либо не содержит обменных мест, либо является $(r,s)$, либо содержит одно обменное место и некоторую позицию $j$. Суммируя, получаем $I(u')-I(u)=1+2t$. Для $x&gt;y$ применим результат к обратному обмену $u'\to u$: меньший элемент теперь стоит в позиции $r$, а множество промежуточных позиций не изменилось. Значит, $I(u)-I(u')=1+2t$ и в прямом направлении разность отрицательна. По модулю $2$ обе разности равны $1$.</p>
+<p><strong>1-й случай. Символы стоят рядом.</strong> Пусть меняем местами $x$ и $y$. Каждый третий символ $z$ находится либо левее обоих, либо правее обоих. После обмена $z$ по-прежнему предшествует обоим или следует за обоими, поэтому его пары с $x$ и $y$ сохраняют свои вклады. Пары без $x$ и $y$ также сохраняются. Меняется только пара из $x$ и $y$: порядок превращается в инверсию или наоборот. Число инверсий меняется на $1$ по модулю $2$.</p>
+<p><strong>2-й случай. Между символами стоят $r$ других символов.</strong> Выполняем соседние обмены в три этапа.</p>
+<div class="equation">\[\begin{gathered}
+(x,s_1,\ldots,s_r,y)\xrightarrow{\ r\ }(s_1,\ldots,s_r,x,y),\\
+(s_1,\ldots,s_r,x,y)\xrightarrow{\ 1\ }(s_1,\ldots,s_r,y,x),\\
+(s_1,\ldots,s_r,y,x)\xrightarrow{\ r\ }(y,s_1,\ldots,s_r,x).
+\end{gathered}\]</div>
+<p>Сначала проводим $x$ вправо через $r$ символов, затем меняем $x$ и $y$, после чего проводим $y$ влево через те же $r$ символов. Промежуточные символы сохраняют свой порядок. Всего сделано $2r+1$ соседних обменов. Каждый меняет чётность по первому случаю, а число этих изменений нечётно.</p>
 <span class="qed" aria-label="Что и требовалось доказать">□</span>
 </div></div>
 </div>
@@ -816,26 +860,21 @@ SOFTWARE.
 <p>Подстановка называется <strong>чётной</strong>, если строки её двухстрочной таблицы имеют одинаковую чётность, и <strong>нечётной</strong>, если чётности строк различны.</p>
 </div>
 <div class="statement definition" id="def-substitution-sign"><div class="block-label">Определение</div><h3>Знак подстановки</h3>
-<p>Знаком $\varepsilon(\alpha)$ называется число $+1$ для чётной подстановки и $-1$ для нечётной. Если строки таблицы обозначены $u,v$, то $\varepsilon(\alpha)=(-1)^{I(u)+I(v)}$, поскольку сумма двух целых чётна ровно тогда, когда их чётности совпадают.</p>
+<p>Знаком $\varepsilon_{\alpha}$ называется число $+1$ для чётной подстановки и $-1$ для нечётной. Если строки таблицы обозначены $u,v$, то $\varepsilon_{\alpha}=(-1)^{I(u)+I(v)}$, поскольку сумма двух целых чётна ровно тогда, когда их чётности совпадают.</p>
 </div>
 <div class="statement theorem featured" id="sign-well-defined"><div class="block-label">Теорема</div><h3>Корректность определения чётности</h3>
-<p>Чётность и знак подстановки не зависят от порядка столбцов её таблицы. В стандартной записи $\varepsilon(\alpha)=(-1)^{I(\alpha_1,\ldots,\alpha_n)}$.</p>
+<p>Чётность и знак подстановки не зависят от порядка столбцов её таблицы. В стандартной записи $\varepsilon_{\alpha}=(-1)^{I(\alpha_1,\ldots,\alpha_n)}$.</p>
 <div class="proof" id="proof-sign-well-defined" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Теорема"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
-<div class="proof-idea" id="idea-sign-well-defined" data-proof-idea><div class="proof-label">Идея</div><p>Чтобы сравнить две записи, выставим столбцы по очереди. При каждом обмене чётности двух строк меняются одновременно.</p></div>
+<div class="proof-idea" id="idea-sign-well-defined" data-proof-idea><div class="proof-label">Идея</div>
+<p>Приведём верхнюю строку к естественному порядку обменами целых столбцов. Чётности строк при этом меняются одновременно.</p>
+</div>
 <div class="proof-full" id="full-sign-well-defined" data-proof-full><div class="proof-label">Доказательство</div>
-<p>Пусть одна таблица имеет верхнюю строку $u=(u_1,\ldots,u_n)$ и нижнюю $v=(v_1,\ldots,v_n)$, а другая — верхнюю $w=(w_1,\ldots,w_n)$ и нижнюю $z=(z_1,\ldots,z_n)$. Каждая задаёт одну и ту же $\alpha$. Значит, $v_i=\alpha(u_i)$ и $z_i=\alpha(w_i)$ для всех индексов. Если в таблице передвинуть столбец с аргументом $x$, его нижнее значение $\alpha(x)$ передвигается вместе с ним. Достаточно поэтому привести верхнюю строку к $w$: в столбце $r$ нижним автоматически станет $\alpha(w_r)=z_r$.</p>
-<ol class="proof-steps">
-<li><strong>Первое место.</strong> Символ $w_1$ встречается в текущей верхней строке ровно один раз. Пусть он стоит на месте $s$. При $s=1$ действий не нужно. При $s\ne1$ меняем целиком столбцы $1$ и $s$. Теперь столбец $1$ равен $\binom{w_1}{z_1}$.</li>
-<li><strong>Шаг $r$.</strong> Пусть первые $r-1$ столбцов уже совпадают с целевой таблицей. Текущий столбец с верхним значением $w_r$ находится на некотором месте $s\ge r$: среди первых $r-1$ стоят попарно различные $w_1,\ldots,w_{r-1}$, отличные от $w_r$. Если $s=r$, оставляем таблицу. Если $s&gt;r$, обмениваем целиком столбцы $r,s$. Номера затронутых мест не меньше $r$, поэтому ранее выставленные столбцы остаются на своих местах. После шага совпадают уже первые $r$ столбцов. Индукция по $r$ заканчивает переход между таблицами.</li>
-<li><strong>Чётность одного шага.</strong> При реальном обмене на местах $r,s$ в верхней строке меняются две разные величины, потому что $u$ — перестановка. В нижней также меняются разные величины: они являются образами разных аргументов и $\alpha$ инъективна. Поэтому <a href="#full-swaps-inversions">лемма о смене чётности</a> применима дважды. Если $I_u,I_v$ и $I'_u,I'_v$ — числа инверсий до и после обмена, то</li>
-</ol>
-<div class="equation">\[\begin{aligned}
-I'_u-I_u &amp;\equiv 1\pmod2,\qquad I'_v-I_v\equiv 1\pmod2,\\
-(I'_u+I'_v)-(I_u+I_v)&amp;\equiv 1+1\equiv 0\pmod2.
-\end{aligned}\]</div>
-<p>На пропущенном шаге числа инверсий вообще не меняются. Применяя сравнение к каждому реальному обмену, получаем $I(u)+I(v)\equiv I(w)+I(z)\pmod2$. Само целое число $I(u)+I(v)$ при обмене может измениться: для $\mathrm{id}$ в $S_2$ таблица с двумя строками $(1,2)$ даёт сумму $0$, а после одного обмена обе строки $(2,1)$ дают сумму $2$. Знак в обоих случаях $+1$, поскольку степень $(-1)$ зависит от чётности показателя.</p>
-<p><strong>Стандартная запись.</strong> Когда верхняя строка $(1,\ldots,n)$, при $p&lt;q$ верхние элементы удовлетворяют $p&lt;q$, поэтому инверсий в ней нет вовсе. Нижний элемент столбца $r$ равен $\alpha(r)=\alpha_r$. Тогда $\varepsilon(\alpha)=(-1)^{I(\alpha_1,\ldots,\alpha_n)}$.</p>
+<p>Возьмём запись подстановки с верхней строкой $(i_1,\ldots,i_n)$. По <a href="#full-permutation-chain">теореме о расположении перестановок в ряд</a> её можно привести к $(1,\ldots,n)$ последовательностью транспозиций. На практике достаточно поставить $1$ на первое место, затем $2$ на второе и продолжить до $n$: на шаге $r$ символ $r$ ещё среди невыставленных позиций, поэтому предыдущие места сохраняются.</p>
+<p>Вместе с верхними символами переносим их образы, то есть обмениваем целые столбцы. Каждый обмен меняет чётность обеих строк по <a href="#full-swaps-inversions">теореме о транспозиции</a>. Поэтому совпадение или различие двух чётностей сохраняется. Любая запись сводится к одной и той же таблице</p>
+<div class="equation">\[\alpha=
+\begin{pmatrix}1&amp;2&amp;\ldots&amp;n\\\alpha_1&amp;\alpha_2&amp;\ldots&amp;\alpha_n\end{pmatrix}.\]</div>
+<p>Верхняя строка имеет ноль инверсий. Следовательно, подстановка чётна тогда и только тогда, когда чётна перестановка $(\alpha_1,\ldots,\alpha_n)$. Это доказывает независимость определения от записи.</p>
 <span class="qed" aria-label="Что и требовалось доказать">□</span>
 </div></div>
 </div>
@@ -844,6 +883,18 @@ I'_u-I_u &amp;\equiv 1\pmod2,\qquad I'_v-I_v\equiv 1\pmod2,\\
 </div>
 <div class="statement definition" id="def-product"><div class="block-label">Определение</div><h3>Произведение подстановок</h3>
 <p>Для $\alpha,\beta\in S_n$ произведением $\alpha\beta$ называется отображение $X\to X$, заданное равенством $(\alpha\beta)(i)=\alpha(\beta(i))$ для каждого $i\in X$. Первой действует правая подстановка $\beta$, второй — левая $\alpha$.</p>
+</div>
+<div class="worked-example" id="substitution-product-example"><div class="block-label">Пример из оригинала</div><h3>Умножение двух подстановок</h3>
+<div class="equation">\[\alpha=\begin{pmatrix}1&amp;2&amp;3&amp;4\\2&amp;4&amp;1&amp;3\end{pmatrix},
+\qquad\beta=\begin{pmatrix}1&amp;2&amp;3&amp;4\\4&amp;1&amp;2&amp;3\end{pmatrix}.\]</div>
+<p>Для каждого аргумента сначала читаем нижнюю строку $\beta$, затем находим образ полученного значения при $\alpha$.</p>
+<div class="equation">\[\begin{aligned}
+(\alpha\beta)(1)&amp;=\alpha(4)=3,&amp;
+(\alpha\beta)(2)&amp;=\alpha(1)=2,\\
+(\alpha\beta)(3)&amp;=\alpha(2)=4,&amp;
+(\alpha\beta)(4)&amp;=\alpha(3)=1.
+\end{aligned}\]</div>
+<p>Следовательно, $\alpha\beta=\begin{pmatrix}1&amp;2&amp;3&amp;4\\3&amp;2&amp;4&amp;1\end{pmatrix}$.</p>
 </div>
 <div class="statement theorem" id="product-closure"><div class="block-label">Свойство произведения</div><h3>Замкнутость</h3>
 <p>Для любых $\alpha,\beta\in S_n$ выполняется $\alpha\beta\in S_n$.</p>
@@ -948,13 +999,13 @@ I'_u-I_u &amp;\equiv 1\pmod2,\qquad I'_v-I_v\equiv 1\pmod2,\\
 </div></div>
 </div>
 <div class="statement theorem" id="transposition-properties"><div class="block-label">Свойство транспозиции 3</div><h3>Любая транспозиция нечётна</h3>
-<p>Для любой транспозиции $\tau=(i,j)$ её знак $\varepsilon(\tau)=-1$.</p>
+<p>Для любой транспозиции $\tau=(i,j)$ её знак $\varepsilon_{\tau}=-1$.</p>
 <div class="proof" id="proof-transposition-properties" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Свойство транспозиции 3"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
 <div class="proof-idea" id="idea-transposition-properties" data-proof-idea><div class="proof-label">Идея</div><p>Стандартная нижняя строка тождественной подстановки чётна, и один обмен меняет её чётность.</p></div>
 <div class="proof-full" id="full-transposition-properties" data-proof-full><div class="proof-label">Доказательство</div>
-<p>Верхняя строка стандартной записи $\tau$ равна $(1,\ldots,n)$ и имеет ноль инверсий. Нижняя строка получена из такой же возрастающей строки обменом двух элементов. По <a href="#full-swaps-inversions">лемме о смене чётности</a> число инверсий в нижней строке стало нечётным. Поэтому строки имеют разную чётность и $\varepsilon(\tau)=-1$.</p>
-<p>Для несоседних $i&lt;j$ число инверсий в этой нижней строке равно $1+2(j-i-1)$. Одна инверсия образована самой парой $i,j$, а каждый из $j-i-1$ промежуточных символов добавляет две по подсчёту из леммы. Например, у $(1,4)$ нижняя строка $(4,2,3,1)$ имеет пять инверсий. Для вывода о нечётности достаточно того, что их число нечётно.</p>
+<p>Верхняя строка стандартной записи $\tau$ равна $(1,\ldots,n)$ и имеет ноль инверсий. Нижняя строка получена из такой же возрастающей строки обменом двух элементов. По <a href="#full-swaps-inversions">лемме о смене чётности</a> число инверсий в нижней строке стало нечётным. Поэтому строки имеют разную чётность и $\varepsilon_{\tau}=-1$.</p>
+<p>Для несоседних $i&lt;j$ число инверсий в этой нижней строке равно $1+2(j-i-1)$. Одна инверсия образована самой парой $i,j$, а каждый из $j-i-1$ промежуточных символов $s$ даёт две инверсии: больший $j$ стоит перед $s$, а сам $s$ стоит перед меньшим $i$. Все прочие пары остаются в порядке. Например, у $(1,4)$ нижняя строка $(4,2,3,1)$ имеет пять инверсий. Для вывода о нечётности достаточно того, что их число нечётно.</p>
 <span class="qed" aria-label="Что и требовалось доказать">□</span>
 </div></div>
 </div>
@@ -962,26 +1013,36 @@ I'_u-I_u &amp;\equiv 1\pmod2,\qquad I'_v-I_v\equiv 1\pmod2,\\
 <p>Всякая подстановка $\alpha\in S_n$ представима в виде произведения транспозиций. Для $\mathrm{id}$ допускается пустое произведение.</p>
 <div class="proof" id="proof-transposition-factorization" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Теорема"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
-<div class="proof-idea" id="idea-transposition-factorization" data-proof-idea><div class="proof-label">Идея</div><p>Из возрастающей нижней строки строим целевую, на каждом шаге исправляя один столбец умножением слева на транспозицию.</p></div>
+<div class="proof-idea" id="idea-transposition-factorization" data-proof-idea><div class="proof-label">Идея</div>
+<p>Переходим от нижней строки тождественной подстановки к нижней строке данной. Каждая транспозиция строки становится левым множителем.</p>
+</div>
 <div class="proof-full" id="full-transposition-factorization" data-proof-full><div class="proof-label">Доказательство</div>
-<p>Запишем цель $\alpha$ нижней строкой $a=(\alpha(1),\ldots,\alpha(n))$ под верхней строкой $1,\ldots,n$. Положим $b_0=\mathrm{id}$ и построим подстановки $b_r$ так, чтобы $b_r(t)=\alpha(t)$ при всех $t\le r$. Для $r=0$ требований нет.</p>
-<ol class="proof-steps">
-<li>Пусть $1\le r\le n-1$ и $b_{r-1}(t)=\alpha(t)$ для $t&lt;r$. Обозначим $u=b_{r-1}(r)$ и $v=\alpha(r)$. Если $u=v$, положим $b_r=b_{r-1}$, сохранив предыдущие совпадения и добавив совпадение на $r$.</li>
-<li>Если $u\ne v$, возьмём $\tau=(u\,v)$ и положим $b_r=\tau b_{r-1}$. Действие на $r$ даёт $b_r(r)=\tau(u)=v=\alpha(r)$. Для $t&lt;r$ значение $b_{r-1}(t)$ отлично от $u$, так как $b_{r-1}$ инъективна, и отлично от $v$, так как $b_{r-1}(t)=\alpha(t)$, а $\alpha(t)\ne\alpha(r)$. Поэтому $\tau$ фиксирует каждое такое значение и $b_r(t)=\alpha(t)$ для всех $t&lt;r$.</li>
-<li>В каждом случае $b_r$ биективна: она либо прежняя биекция, либо композиция биекций. После $n-1$ шагов первые $n-1$ образов совпали. Оставшийся аргумент $n$ обязан перейти в тот единственный символ, который не использован среди этих первых $n-1$ значений. У обеих функций этот символ один и тот же. Поэтому $b_{n-1}=\alpha$.</li>
-</ol>
-<p>Перечислим только реально выполненные обмены в порядке выполнения как $\tau_1,\ldots,\tau_m$, где $0\le m\le n-1$. После первого обмена имеем $\tau_1\mathrm{id}$, после второго — $\tau_2(\tau_1\mathrm{id})$, после последнего — $\tau_m\cdots\tau_1\mathrm{id}$. Каждый новый множитель добавляется слева, потому что он должен действовать на уже полученные значения. Значит, $\alpha=\tau_m\cdots\tau_1$. Если $n=1$, построение содержит ноль шагов, и последняя позиция совпадает автоматически. Если $\alpha=\mathrm{id}$, совпадает каждая позиция, поэтому все шаги пропускаются.</p>
+<p>Пусть $\alpha$ записана с верхней строкой $(1,\ldots,n)$. По <a href="#full-permutation-chain">следствию из теоремы о расположении перестановок в ряд</a> от $(1,\ldots,n)$ можно перейти к $(\alpha_1,\ldots,\alpha_n)$ конечным числом транспозиций.</p>
+<p>Верхнюю строку оставляем неподвижной. Пусть $\tau_1,\ldots,\tau_m$ — транспозиции символов нижней строки в порядке их выполнения. По <a href="#full-left-transposition">свойству 1</a> после первого обмена имеем $\tau_1\mathrm{id}$, после второго — $\tau_2\tau_1\mathrm{id}$ и так далее. Каждый новый множитель действует на результат предыдущего шага, поэтому ставится слева. В конце получаем</p>
+<div class="equation">\[\alpha=\tau_m\cdots\tau_2\tau_1\mathrm{id}
+=\tau_m\cdots\tau_2\tau_1.\]</div>
+<p>Для $\mathrm{id}$ можно взять ноль обменов. При $n\ge2$ длина разложения может меняться: к произведению можно добавить пару одинаковых транспозиций, поскольку их квадрат равен $\mathrm{id}$.</p>
 <span class="qed" aria-label="Что и требовалось доказать">□</span>
 </div></div>
 </div>
+<div class="worked-example" id="transposition-chain-example"><div class="block-label">Пример из оригинала</div><h3>Разложение по нижней строке</h3>
+<div class="equation">\[\begin{gathered}
+(1,2,3,4,5)\xrightarrow{(1,3)}(3,2,1,4,5)
+\xrightarrow{(2,1)}(3,1,2,4,5),\\
+(3,1,2,4,5)\xrightarrow{(4,5)}(3,1,2,5,4).
+\end{gathered}\]</div>
+<p>Последняя из выполненных транспозиций стоит слева.</p>
+<div class="equation">\[\begin{pmatrix}1&amp;2&amp;3&amp;4&amp;5\\3&amp;1&amp;2&amp;5&amp;4\end{pmatrix}
+=(4,5)(2,1)(1,3).\]</div>
+</div>
 <div class="statement theorem" id="transposition-parity"><div class="block-label">Теорема</div><h3>Чётность числа транспозиций в любом разложении</h3>
-<p>Если $\alpha=\tau_m\cdots\tau_1$ и каждый $\tau_i$ — транспозиция, то $\varepsilon(\alpha)=(-1)^m$. Следовательно, чётность числа транспозиций одинакова во всех разложениях этой подстановки.</p>
+<p>Если $\alpha=\tau_m\cdots\tau_1$ и каждый $\tau_i$ — транспозиция, то $\varepsilon_{\alpha}=(-1)^m$. Следовательно, чётность числа транспозиций одинакова во всех разложениях этой подстановки.</p>
 <div class="proof" id="proof-transposition-parity" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Теорема"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
 <div class="proof-idea" id="idea-transposition-parity" data-proof-idea><div class="proof-label">Идея</div><p>При каждом новом умножении слева один обмен в нижней строке меняет её чётность.</p></div>
 <div class="proof-full" id="full-transposition-parity" data-proof-full><div class="proof-label">Доказательство</div>
-<p>Положим $g_0=\mathrm{id}$ и $g_r=\tau_r g_{r-1}$ для $1\le r\le m$. По <a href="#full-left-transposition">свойству 1</a> каждый шаг выполняет ровно один обмен в нижней строке. По лемме о смене чётности $\varepsilon(g_r)=-\varepsilon(g_{r-1})$.</p>
-<p>Для $r=0$ имеем $\varepsilon(g_0)=1=(-1)^0$. Если $\varepsilon(g_{r-1})=(-1)^{r-1}$, то $\varepsilon(g_r)=-(-1)^{r-1}=(-1)^r$. Индукция даёт $\varepsilon(\alpha)=(-1)^m$. Для любого второго разложения длины $q$ получаем $(-1)^m=\varepsilon(\alpha)=(-1)^q$, откуда $m\equiv q\pmod 2$.</p>
+<p>Положим $g_0=\mathrm{id}$ и $g_r=\tau_r g_{r-1}$ для $1\le r\le m$. По <a href="#full-left-transposition">свойству 1</a> каждый шаг выполняет ровно один обмен в нижней строке. По лемме о смене чётности $\varepsilon_{g_r}=-\varepsilon_{g_{r-1}}$.</p>
+<p>Для $r=0$ имеем $\varepsilon_{g_0}=1=(-1)^0$. Если $\varepsilon_{g_{r-1}}=(-1)^{r-1}$, то $\varepsilon_{g_r}=-(-1)^{r-1}=(-1)^r$. Индукция даёт $\varepsilon_{\alpha}=(-1)^m$. Для любого второго разложения длины $q$ получаем $(-1)^m=\varepsilon_{\alpha}=(-1)^q$, откуда $m\equiv q\pmod 2$.</p>
 <p>Сами разложения при $n\ge2$ могут иметь разную длину. Возьмём любую транспозицию $\tau$ и вставим в произведение соседние множители $\tau\tau$. Их произведение равно $\mathrm{id}$, поэтому подстановка сохраняется, а длина увеличивается на два.</p>
 <span class="qed" aria-label="Что и требовалось доказать">□</span>
 </div></div>
@@ -997,24 +1058,24 @@ I'_u-I_u &amp;\equiv 1\pmod2,\qquad I'_v-I_v\equiv 1\pmod2,\\
 </div></div>
 </div>
 <div class="statement theorem" id="multiplicativity"><div class="block-label">Следствие 2</div><h3>Знак произведения</h3>
-<p>Для любых $\alpha,\beta\in S_n$ выполняется $\varepsilon(\alpha\beta)=\varepsilon(\alpha)\varepsilon(\beta)$.</p>
+<p>Для любых $\alpha,\beta\in S_n$ выполняется $\varepsilon_{\alpha\beta}=\varepsilon_{\alpha}\varepsilon_{\beta}$.</p>
 <div class="proof" id="proof-multiplicativity" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Следствие 2"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
 <div class="proof-idea" id="idea-multiplicativity" data-proof-idea><div class="proof-label">Идея</div><p>Объединим два разложения в транспозиции и сложим числа множителей.</p></div>
 <div class="proof-full" id="full-multiplicativity" data-proof-full><div class="proof-label">Доказательство</div>
 <p>Возьмём разложения $\alpha=\tau_p\cdots\tau_1$ и $\beta=\sigma_q\cdots\sigma_1$. Подставив их в $\alpha\beta$, получаем одно разложение длины $p+q$ по ассоциативности. Теорема о чётности длины даёт</p>
-<div class="equation">\[\varepsilon(\alpha\beta)=(-1)^{p+q}=(-1)^p(-1)^q=\varepsilon(\alpha)\varepsilon(\beta).\]</div>
+<div class="equation">\[\varepsilon_{\alpha\beta}=(-1)^{p+q}=(-1)^p(-1)^q=\varepsilon_{\alpha}\varepsilon_{\beta}.\]</div>
 <p>Сокращать одинаковые соседние множители при этом не требуется: теорема применима к полученной записи.</p>
 <span class="qed" aria-label="Что и требовалось доказать">□</span>
 </div></div>
 </div>
 <div class="statement theorem" id="inverse-sign"><div class="block-label">Следствие 3</div><h3>Знак обратной подстановки</h3>
-<p>Для любой $\alpha\in S_n$ выполняется $\varepsilon(\alpha^{-1})=\varepsilon(\alpha)$.</p>
+<p>Для любой $\alpha\in S_n$ выполняется $\varepsilon_{\alpha^{-1}}=\varepsilon_{\alpha}$.</p>
 <div class="proof" id="proof-inverse-sign" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Следствие 3"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
 <div class="proof-idea" id="idea-inverse-sign" data-proof-idea><div class="proof-label">Идея</div><p>Применим формулу знака произведения к $\alpha\alpha^{-1}=\mathrm{id}$.</p></div>
 <div class="proof-full" id="full-inverse-sign" data-proof-full><div class="proof-label">Доказательство</div>
-<p>Из следствия 2 получаем $1=\varepsilon(\mathrm{id})=\varepsilon(\alpha\alpha^{-1})=\varepsilon(\alpha)\varepsilon(\alpha^{-1})$. У числа $\varepsilon(\alpha)\in\{1,-1\}$ квадрат равен $1$. Умножение обеих частей на $\varepsilon(\alpha)$ даёт $\varepsilon(\alpha)=\varepsilon(\alpha^{-1})$.</p>
+<p>Из следствия 2 получаем $1=\varepsilon_{\mathrm{id}}=\varepsilon_{\alpha\alpha^{-1}}=\varepsilon_{\alpha}\varepsilon_{\alpha^{-1}}$. У числа $\varepsilon_{\alpha}\in\{1,-1\}$ квадрат равен $1$. Умножение обеих частей на $\varepsilon_{\alpha}$ даёт $\varepsilon_{\alpha}=\varepsilon_{\alpha^{-1}}$.</p>
 <span class="qed" aria-label="Что и требовалось доказать">□</span>
 </div></div>
 </div>
@@ -1024,6 +1085,12 @@ I'_u-I_u &amp;\equiv 1\pmod2,\qquad I'_v-I_v\equiv 1\pmod2,\\
 <p class="endnote">Оригинал преподавателя: «Разложение в независимые циклы», с. 1–6.</p>
 <div class="statement definition" id="def-moved"><div class="block-label">Определение</div><h3>Действительно перемещаемый символ</h3>
 <p>Символ $x$ называется <strong>действительно перемещаемым</strong> подстановкой $\alpha$, если $\alpha(x)\ne x$. Множество таких символов обозначим $\operatorname{supp}\alpha$. Если $\alpha(x)=x$, символ называется неподвижным.</p>
+</div>
+<div class="worked-example" id="independent-cycles-source-example"><div class="block-label">Пример из оригинала</div><h3>Разложение по цепочкам образов</h3>
+<div class="equation">\[\alpha=\begin{pmatrix}
+1&amp;2&amp;3&amp;4&amp;5&amp;6&amp;7&amp;8&amp;9&amp;10\\7&amp;6&amp;1&amp;3&amp;5&amp;2&amp;4&amp;8&amp;10&amp;9
+\end{pmatrix}.\]</div>
+<p>Из $1$ получаем $1\to7\to4\to3\to1$. Для ещё не использованных символов получаем $2\to6\to2$ и $9\to10\to9$. Символы $5$ и $8$ неподвижны. Поэтому $\alpha=(1,7,4,3)(2,6)(9,10)$.</p>
 </div>
 <div class="statement definition" id="def-cycle"><div class="block-label">Определение</div><h3>Цикл длины $k$</h3>
 <p>Для попарно различных $i_1,\ldots,i_k\in X$, где $k\ge2$, циклом $(i_1,\ldots,i_k)$ называется подстановка, для которой</p>
@@ -1083,13 +1150,24 @@ I'_u-I_u &amp;\equiv 1\pmod2,\qquad I'_v-I_v\equiv 1\pmod2,\\
 <p>Пусть $\alpha\in S_n$ и попарно различные $i_1,\ldots,i_k$, где $k\ge2$, образуют цепочку $\alpha(i_1)=i_2,\ldots,\alpha(i_{k-1})=i_k,\alpha(i_k)=i_1$. Тогда $\alpha=c\beta$, где $c=(i_1,\ldots,i_k)$, а подстановка $\beta$ фиксирует $i_1,\ldots,i_k$ и совпадает с $\alpha$ на остальных символах. В $\beta$ действительно перемещается ровно на $k$ символов меньше, чем в $\alpha$.</p>
 <div class="proof" id="proof-extract-cycle" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Вспомогательная лемма"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
-<div class="proof-idea" id="idea-extract-cycle" data-proof-idea><div class="proof-label">Идея</div><p>В двухстрочной таблице заменяем движение внутри цепочки фиксацией, а остальную часть оставляем как у $\alpha$.</p></div>
+<div class="proof-idea" id="idea-extract-cycle" data-proof-idea><div class="proof-label">Идея</div>
+<p>Ставим столбцы цепочки в начало таблицы. Цикл действует на первых столбцах, оставшийся множитель отвечает за остальные.</p>
+</div>
 <div class="proof-full" id="full-extract-cycle" data-proof-full><div class="proof-label">Доказательство</div>
-<p>Пусть $I=\{i_1,\ldots,i_k\}$ — символы указанной цепочки и $R=X\setminus I$. Равенство $\alpha(I)=I$ означает сразу две вещи: каждый элемент $I$ уходит в $I$, и любой $y\in I$ получается хотя бы из одного элемента $I$. В частности, прообразом $i_j$ служит $i_{j-1}$, а прообразом $i_1$ служит $i_k$.</p>
-<p><strong>Почему дополнение замкнуто.</strong> Возьмём $x\in R$. Если бы $\alpha(x)=i_j$, то значение $i_j$ уже имело бы прообраз внутри $I$. Этот прообраз отличен от $x$, что нарушает инъективность. Следовательно, $\alpha(x)\in R$. Обратно, для $y\in R$ существует прообраз $x$ в $X$ по сюръективности $\alpha$. Он не лежит в $I$, поскольку все образы точек $I$ остаются в $I$. Значит, $\alpha|_R\colon R\to R$ сюръективна. Она инъективна как ограничение инъективной функции и поэтому биективна.</p>
-<div class="equation">\[\beta(x)=\begin{cases}x,&amp;x\in I,\\\alpha(x),&amp;x\in R.\end{cases}\]</div>
-<p><strong>Почему $\beta$ — подстановка.</strong> Для каждого $y\in I$ ровно один прообраз внутри $I$, сам $y$, и нет прообраза из $R$, поскольку образы $R$ лежат в $R$. Для $y\in R$ единственный прообраз находится в $R$ по биективности $\alpha|_R$, а из $I$ прообраза нет. Значит, у каждого $y\in X$ ровно один прообраз в $\beta$.</p>
-<p><strong>Проверка равенства.</strong> При $x\in I$ имеем $(c\beta)(x)=c(x)=\alpha(x)$ по заданной цепочке. При $x\in R$ имеем $(c\beta)(x)=c(\alpha(x))=\alpha(x)$, так как $\alpha(x)\in R$ и цикл $c$ фиксирует $R$. Значит, $c\beta=\alpha$. Отсюда также $\beta=c^{-1}\alpha$: домножение слева отменяет цикл. При $k\ge2$ все точки $I$ перемещались в $\alpha$, а в $\beta$ ни одна из них не перемещается. На $R$ функции совпадают. Поэтому $\operatorname{supp}\beta=\operatorname{supp}\alpha\setminus I$ и число перемещаемых уменьшилось ровно на $k$.</p>
+<p>Поставим столбцы $\alpha$ в следующем порядке: сначала $i_1,\ldots,i_k$, затем остальные символы $i_{k+1},\ldots,i_n$. Пусть $b_s=\alpha(i_s)$ для $s&gt;k$. Первые $k$ нижних мест уже содержат $i_1,\ldots,i_k$, поэтому по биективности нижние символы $b_{k+1},\ldots,b_n$ дают без повторений все символы вне цикла.</p>
+<div class="equation">\[\alpha=\begin{pmatrix}
+i_1&amp;\cdots&amp;i_k&amp;i_{k+1}&amp;\cdots&amp;i_n\\i_2&amp;\cdots&amp;i_1&amp;b_{k+1}&amp;\cdots&amp;b_n
+\end{pmatrix}.\]</div>
+<p>Введём две подстановки с той же верхней строкой.</p>
+<div class="equation">\[\begin{aligned}
+c&amp;=\begin{pmatrix}
+i_1&amp;\cdots&amp;i_k&amp;i_{k+1}&amp;\cdots&amp;i_n\\i_2&amp;\cdots&amp;i_1&amp;i_{k+1}&amp;\cdots&amp;i_n
+\end{pmatrix},\\[4pt]
+\beta&amp;=\begin{pmatrix}
+i_1&amp;\cdots&amp;i_k&amp;i_{k+1}&amp;\cdots&amp;i_n\\i_1&amp;\cdots&amp;i_k&amp;b_{k+1}&amp;\cdots&amp;b_n
+\end{pmatrix}.
+\end{aligned}\]</div>
+<p>В каждой строке обеих таблиц все символы встречаются ровно по одному разу. Поэтому $c,\beta\in S_n$ и $c=(i_1,\ldots,i_k)$. Если $s\le k$, то $\beta$ оставляет $i_s$ на месте, а затем $c$ переводит его в $\alpha(i_s)$. Если $s&gt;k$, то $\beta$ переводит $i_s$ в $b_s$, а $c$ фиксирует $b_s$, поскольку этот символ вне цикла. Значит, $c\beta=\alpha$. В $\beta$ закрепились ровно $k$ ранее перемещаемых символов, а действие вне цикла осталось прежним.</p>
 <span class="qed" aria-label="Что и требовалось доказать">□</span>
 </div></div>
 </div>
@@ -1137,7 +1215,7 @@ I'_u-I_u &amp;\equiv 1\pmod2,\qquad I'_v-I_v\equiv 1\pmod2,\\
 </div></div>
 </div>
 <div class="statement theorem" id="decrement"><div class="block-label">Теорема</div><h3>Чётность подстановки по декременту</h3>
-<p>Подстановка $\alpha\in S_n$ чётна тогда и только тогда, когда её декремент $d(\alpha)$ чётен. Точнее, $\varepsilon(\alpha)=(-1)^{d(\alpha)}$.</p>
+<p>Подстановка $\alpha\in S_n$ чётна тогда и только тогда, когда её декремент $d(\alpha)$ чётен. Точнее, $\varepsilon_{\alpha}=(-1)^{d(\alpha)}$.</p>
 <div class="proof" id="proof-decrement" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Теорема"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
 <div class="proof-idea" id="idea-decrement" data-proof-idea><div class="proof-label">Идея</div><p>Каждый цикл длины $k_j$ заменяем произведением из $k_j-1$ транспозиций.</p></div>
@@ -1147,6 +1225,9 @@ I'_u-I_u &amp;\equiv 1\pmod2,\qquad I'_v-I_v\equiv 1\pmod2,\\
 <p>транспозиций. По теореме из билета 2 знак такого произведения равен $(-1)^{d(\alpha)}$. Это число равно $+1$ при чётном декременте и $-1$ при нечётном.</p>
 <span class="qed" aria-label="Что и требовалось доказать">□</span>
 </div></div>
+</div>
+<div class="worked-example" id="decrement-source-example"><div class="block-label">Пример из оригинала</div><h3>Вычисление декремента</h3>
+<p>Пусть $\alpha=(1,7,4,3)(2,5)(6,10,8,9,12)$. Длины независимых циклов равны $4,2,5$. Символ $11$ неподвижен. Получаем $d=4+2+5-3=8$ и $\varepsilon_\alpha=(-1)^8=1$. Подстановка чётна.</p>
 </div>
 <div class="statement theorem" id="cycles-parity"><div class="block-label">Следствие</div><h3>Чётность цикла определяется его длиной</h3>
 <p>Цикл чётной длины — нечётная подстановка. Цикл нечётной длины — чётная подстановка.</p>
@@ -1169,15 +1250,15 @@ I'_u-I_u &amp;\equiv 1\pmod2,\qquad I'_v-I_v\equiv 1\pmod2,\\
 <p>Определитель квадратной матрицы $A$ порядка $n$ — алгебраическая сумма $n!$ слагаемых. В каждом берут произведение $n$ элементов, по одному из каждой строки и каждого столбца. Если из строки $i$ взят столбец $\sigma(i)$, то знак произведения равен знаку подстановки $\sigma$. Обозначения определителя — $|A|$ и $\det A$.</p>
 </div>
 <div class="statement theorem" id="full-expansion"><div class="block-label">Формула</div><h3>Полное развёртывание определителя</h3>
-<div class="equation">\[\det A=\sum_{\sigma\in S_n}\varepsilon(\sigma)
+<div class="equation">\[\det A=\sum_{\sigma\in S_n}\varepsilon_{\sigma}
    a_{1,\sigma(1)}a_{2,\sigma(2)}\cdots a_{n,\sigma(n)}.\]</div>
 <p>Каждая подстановка индексов включается в сумму ровно один раз. Если численные значения разных слагаемых совпадут, они по-прежнему считаются отдельно.</p>
 <div class="proof" id="proof-full-expansion" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Формула"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
 <div class="proof-idea" id="idea-full-expansion" data-proof-idea><div class="proof-label">Идея</div><p>Сопоставим допустимому выбору элементов подстановку номеров столбцов и проверим обратное соответствие.</p></div>
 <div class="proof-full" id="full-full-expansion" data-proof-full><div class="proof-label">Доказательство</div>
-<p>В допустимом выборе для каждой строки $i$ указан один номер столбца $\sigma(i)$. Столбцы не повторяются, поэтому $\sigma$ инъективна и является биекцией $X\to X$. Обратно, любая $\sigma\in S_n$ выбирает ровно один элемент из каждой строки, а из каждого столбца выбирает ровно один, потому что у каждого номера столбца один прообраз. Это взаимно однозначное соответствие даёт ровно $|S_n|=n!$ слагаемых, а коэффициент $\varepsilon(\sigma)$ берётся из определения.</p>
-<p>Сомножители записаны по возрастанию номера строки. Если записать ту же подстановку с верхним рядом $u_1,\ldots,u_n$, её вклад можно записать как $\varepsilon(\sigma)\prod_{t=1}^n a_{u_t,\sigma(u_t)}$. Здесь взяты те же элементы матрицы, поскольку значения $u_t$ пробегают все номера строк. Произведение не меняется по коммутативности умножения, а знак не меняется по теореме о корректности определения чётности.</p>
+<p>В допустимом выборе для каждой строки $i$ указан один номер столбца $\sigma(i)$. Столбцы не повторяются, поэтому $\sigma$ инъективна и является биекцией $X\to X$. Обратно, любая $\sigma\in S_n$ выбирает ровно один элемент из каждой строки, а из каждого столбца выбирает ровно один, потому что у каждого номера столбца один прообраз. Это взаимно однозначное соответствие даёт ровно $|S_n|=n!$ слагаемых, а коэффициент $\varepsilon_{\sigma}$ берётся из определения.</p>
+<p>Сомножители записаны по возрастанию номера строки. Если записать ту же подстановку с верхним рядом $u_1,\ldots,u_n$, её вклад можно записать как $\varepsilon_{\sigma}\prod_{t=1}^n a_{u_t,\sigma(u_t)}$. Здесь взяты те же элементы матрицы, поскольку значения $u_t$ пробегают все номера строк. Произведение не меняется по коммутативности умножения, а знак не меняется по теореме о корректности определения чётности.</p>
 <span class="qed" aria-label="Что и требовалось доказать">□</span>
 </div></div>
 </div>
@@ -1201,12 +1282,12 @@ I'_u-I_u &amp;\equiv 1\pmod2,\qquad I'_v-I_v\equiv 1\pmod2,\\
 <div class="proof-controls" role="group" aria-label="Доказательство: Свойство 1"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
 <div class="proof-idea" id="idea-transpose" data-proof-idea><div class="proof-label">Идея</div><p>Заменим каждую подстановку её обратной и запишем те же множители по номерам строк исходной матрицы.</p></div>
 <div class="proof-full" id="full-transpose" data-proof-full><div class="proof-label">Доказательство</div>
-<p>Элемент транспонированной матрицы в строке $i$, столбце $j$ равен $a_{ji}$. В полном развёртывании определителя транспонированной матрицы подстановка $\sigma$ выбирает из строки $i$ столбец $\sigma(i)$, то есть в исходной матрице берёт элемент $a_{\sigma(i),i}$. Поэтому $\det A^{\mathsf T}=\sum_{\sigma\in S_n}\varepsilon(\sigma)\prod_{i=1}^n a_{\sigma(i),i}$.</p>
+<p>Элемент транспонированной матрицы в строке $i$, столбце $j$ равен $a_{ji}$. В полном развёртывании определителя транспонированной матрицы подстановка $\sigma$ выбирает из строки $i$ столбец $\sigma(i)$, то есть в исходной матрице берёт элемент $a_{\sigma(i),i}$. Поэтому $\det A^{\mathsf T}=\sum_{\sigma\in S_n}\varepsilon_{\sigma}\prod_{i=1}^n a_{\sigma(i),i}$.</p>
 <p>Зафиксируем $\sigma$. Число $j=\sigma(i)$ принимает каждое значение $1,\ldots,n$ ровно один раз, поскольку $\sigma$ — биекция. Для данного $j$ единственный соответствующий индекс $i$ равен $\sigma^{-1}(j)$. Перенумеруем те же множители по $j$ и переставим их в возрастающем порядке $j$, пользуясь коммутативностью умножения в поле. Получаем $\prod_i a_{\sigma(i),i}=\prod_j a_{j,\sigma^{-1}(j)}$. Например, если $\sigma$ имеет нижнюю строку $(2,3,1)$, то в $A$ взяты $a_{21}a_{32}a_{13}$. По порядку строк это $a_{13}a_{21}a_{32}$, и нижняя строка обратной подстановки равна $(3,1,2)$.</p>
-<p>Теперь заменим индекс всей суммы на $\pi=\sigma^{-1}$. Эта замена взаимно однозначна, потому что $(\sigma^{-1})^{-1}=\sigma$. Знак при ней сохраняется, $\varepsilon(\pi)=\varepsilon(\sigma)$, по <a href="#full-inverse-sign">следствию о знаке обратной подстановки</a>. Следовательно,</p>
+<p>Теперь заменим индекс всей суммы на $\pi=\sigma^{-1}$. Эта замена взаимно однозначна, потому что $(\sigma^{-1})^{-1}=\sigma$. Знак при ней сохраняется, $\varepsilon_{\pi}=\varepsilon_{\sigma}$, по <a href="#full-inverse-sign">следствию о знаке обратной подстановки</a>. Следовательно,</p>
 <div class="equation">\[\begin{aligned}
-\det A^{\mathsf T}&amp;=\sum_{\sigma\in S_n}\varepsilon(\sigma)\prod_j a_{j,\sigma^{-1}(j)}\\
-&amp;=\sum_{\pi\in S_n}\varepsilon(\pi)\prod_j a_{j,\pi(j)}=\det A.
+\det A^{\mathsf T}&amp;=\sum_{\sigma\in S_n}\varepsilon_{\sigma}\prod_j a_{j,\sigma^{-1}(j)}\\
+&amp;=\sum_{\pi\in S_n}\varepsilon_{\pi}\prod_j a_{j,\pi(j)}=\det A.
 \end{aligned}\]</div>
 <p>Чтобы перенести строковое свойство на столбцы, транспонируем каждую матрицу из утверждения. Изменение столбца превращается в то же изменение соответствующей строки. После применения доказанного свойства заменяем каждый $\det B^{\mathsf T}$ на $\det B$.</p>
 <span class="qed" aria-label="Что и требовалось доказать">□</span>
@@ -1219,8 +1300,8 @@ I'_u-I_u &amp;\equiv 1\pmod2,\qquad I'_v-I_v\equiv 1\pmod2,\\
 <div class="proof-idea" id="idea-zero-row" data-proof-idea><div class="proof-label">Идея</div><p>Каждое произведение в полном развёртывании содержит элемент нулевой строки.</p></div>
 <div class="proof-full" id="full-zero-row" data-proof-full><div class="proof-label">Доказательство</div>
 <p>Пусть нулевой является строка $r$, то есть $a_{rj}=0$ для всех $j=1,\ldots,n$. Для произвольной $\sigma\in S_n$ в её слагаемом выделим именно множитель из строки $r$:</p>
-<div class="equation">\[\varepsilon(\sigma)\prod_{i=1}^n a_{i,\sigma(i)}
-=\varepsilon(\sigma)\,a_{r,\sigma(r)}\prod_{i\ne r} a_{i,\sigma(i)}.\]</div>
+<div class="equation">\[\varepsilon_{\sigma}\prod_{i=1}^n a_{i,\sigma(i)}
+=\varepsilon_{\sigma}\,a_{r,\sigma(r)}\prod_{i\ne r} a_{i,\sigma(i)}.\]</div>
 <p>Какой бы столбец ни выбрала $\sigma(r)$, этот множитель равен $0$. Поэтому произведение равно $0$ для каждой $\sigma$ отдельно. Сложив все $n!$ нулей, получаем $\det A=0$. При $n=1$ произведение по $i\ne r$ пусто и равно $1$, так что тот же вывод остаётся верным.</p>
 <span class="qed" aria-label="Что и требовалось доказать">□</span>
 </div></div>
@@ -1233,10 +1314,10 @@ I'_u-I_u &amp;\equiv 1\pmod2,\qquad I'_v-I_v\equiv 1\pmod2,\\
 <div class="proof-full" id="full-add-row" data-proof-full><div class="proof-label">Доказательство</div>
 <p>Зафиксируем номер $r$ и все строки, кроме $r$. В определителях $D(u+v)$, $D(u)$ и $D(v)$ для одной и той же $\sigma$ совпадают знак и все множители из строк $i\ne r$. Обозначим их произведение без знака через $P_\sigma=\prod_{i\ne r}a_{i,\sigma(i)}$. Множитель строки $r$ для $D(u+v)$ равен $(u+v)_{\sigma(r)}=u_{\sigma(r)}+v_{\sigma(r)}$, потому что векторы складываются по координатам. Следовательно,</p>
 <div class="equation">\[\begin{aligned}
-D(u+v)&amp;=\sum_{\sigma\in S_n}\varepsilon(\sigma)P_\sigma
+D(u+v)&amp;=\sum_{\sigma\in S_n}\varepsilon_{\sigma}P_\sigma
                   (u_{\sigma(r)}+v_{\sigma(r)})\\
-&amp;=\sum_{\sigma\in S_n}\varepsilon(\sigma)P_\sigma u_{\sigma(r)}
- +\sum_{\sigma\in S_n}\varepsilon(\sigma)P_\sigma v_{\sigma(r)}
+&amp;=\sum_{\sigma\in S_n}\varepsilon_{\sigma}P_\sigma u_{\sigma(r)}
+ +\sum_{\sigma\in S_n}\varepsilon_{\sigma}P_\sigma v_{\sigma(r)}
  =D(u)+D(v).
 \end{aligned}\]</div>
 <p>Первое равенство — формула полного развёртывания с выделенным множителем, второе — распределительность умножения и сложение конечных сумм, последнее — формула развёртывания для двух полученных матриц. Если меняем столбец, транспонирование превращает его в строку, сохраняя значения определителей.</p>
@@ -1251,9 +1332,9 @@ D(u+v)&amp;=\sum_{\sigma\in S_n}\varepsilon(\sigma)P_\sigma
 <div class="proof-full" id="full-scale-row" data-proof-full><div class="proof-label">Доказательство</div>
 <p>Пусть $D(u)$ — определитель с вектором $u$ в строке $r$, прочие строки зафиксированы. При замене строки $u$ на $\lambda u$ для любой $\sigma$ выбранная координата меняется на $(\lambda u)_{\sigma(r)}=\lambda u_{\sigma(r)}$. В остальных строках выбранные числа прежние. Именно поэтому в каждом произведении появляется ровно один общий множитель $\lambda$, независимо от $\sigma$.</p>
 <div class="equation">\[\begin{aligned}
-D(\lambda u)&amp;=\sum_\sigma\varepsilon(\sigma)
+D(\lambda u)&amp;=\sum_\sigma\varepsilon_{\sigma}
    \left(\prod_{i\ne r} a_{i,\sigma(i)}\right)\lambda u_{\sigma(r)}\\
-&amp;=\lambda\sum_\sigma\varepsilon(\sigma)
+&amp;=\lambda\sum_\sigma\varepsilon_{\sigma}
    \left(\prod_{i\ne r} a_{i,\sigma(i)}\right) u_{\sigma(r)}
  =\lambda D(u).
 \end{aligned}\]</div>
@@ -1265,18 +1346,21 @@ D(\lambda u)&amp;=\sum_\sigma\varepsilon(\sigma)
 <p>Если строки с двумя различными номерами совпадают, определитель равен нулю.</p>
 <div class="proof" id="proof-equal-rows" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Свойство 5"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
-<div class="proof-idea" id="idea-equal-rows" data-proof-idea><div class="proof-label">Идея</div><p>Образуем пары слагаемых: в двух одинаковых строках выберем те же столбцы в обратном порядке.</p></div>
+<div class="proof-idea" id="idea-equal-rows" data-proof-idea><div class="proof-label">Идея</div>
+<p>Разделим определитель на сумму по чётным и сумму по нечётным подстановкам. Две суммы совпадут по членам без знаков.</p>
+</div>
 <div class="proof-full" id="full-equal-rows" data-proof-full><div class="proof-label">Доказательство</div>
-<p>Пусть строки $r,s$ равны и $r\ne s$, а $\tau=(r\,s)$. Для каждой $\sigma\in S_n$ сопоставим ей $\rho=\sigma\tau$. В строках $r,s$ она выбирает $\rho(r)=\sigma(\tau(r))=\sigma(s)$ и $\rho(s)=\sigma(r)$. В остальных строках $\tau(i)=i$, поэтому $\rho(i)=\sigma(i)$. Так обмениваются выбранные столбцы только в двух строках.</p>
-<p><strong>Разбиение без пропусков.</strong> Повторная операция возвращает исходный индекс: $\rho\tau=(\sigma\tau)\tau=\sigma(\tau^2)=\sigma$. При этом $\rho\ne\sigma$, поскольку $\rho(r)=\sigma(s)\ne\sigma(r)$ по инъективности $\sigma$. Значит, каждый индекс входит в пару из двух разных индексов, и две такие пары либо совпадают, либо не пересекаются. Таким образом, можно складывать слагаемые попарно.</p>
-<p><strong>Сокращение каждой пары.</strong> Вне строк $r,s$ множители одинаковы. В строках $r,s$ сравниваем</p>
-<div class="equation">\[\begin{aligned}
-a_{r,\sigma(r)}a_{s,\sigma(s)}
- &amp;=a_{r,\sigma(r)}a_{r,\sigma(s)}\\
- &amp;=a_{r,\sigma(s)}a_{r,\sigma(r)}
- =a_{r,\sigma(s)}a_{s,\sigma(r)}.
-\end{aligned}\]</div>
-<p>Первое и третье равенства используют совпадение строк, среднее — коммутативность умножения. Знаки $\sigma$ и $\rho=\sigma\tau$ противоположны, потому что одно умножение на транспозицию меняет знак. Поэтому пара даёт $P+(-P)=0$ с учётом общего знака. В результате определитель равен нулю. Совпадение столбцов сводится к совпадению строк транспонированием. Доказательство основано на сложении противоположных членов, поэтому остаётся верным даже в поле характеристики $2$.</p>
+<p>Пусть строки $r$ и $s$ равны, $r\ne s$. Обозначим через $E$ множество чётных подстановок, через $O$ — множество нечётных. Для $\alpha\in S_n$ положим $\alpha_i=\alpha(i)$. По полному развёртыванию</p>
+<div class="equation">\[|A|=\sum_{\alpha\in E}\prod_{i=1}^n a_{i,\alpha_i}
+-\sum_{\beta\in O}\prod_{i=1}^n a_{i,\beta_i}.\]</div>
+<p>Для каждой $\alpha\in E$ поменяем местами $\alpha_r$ и $\alpha_s$ в нижней строке. Получим нечётную $\beta$ по теореме о смене чётности. Повторный обмен возвращает $\alpha$. Поэтому соответствие взаимно однозначно: у каждого члена первой суммы есть ровно один парный член второй.</p>
+<p>Сравним парные произведения. В остальных строках выбраны те же элементы. В строках $r,s$ меняются только выбранные столбцы. Так как строки равны и скаляры коммутируют,</p>
+<div class="equation">\[
+a_{r,\alpha_r}a_{s,\alpha_s}
+=a_{r,\alpha_r}a_{r,\alpha_s}
+=a_{r,\alpha_s}a_{s,\alpha_r}.
+\]</div>
+<p>Следовательно, две суммы равны по членам. В развёртывании они входят с противоположными знаками, откуда $|A|=0$. Для столбцов применяем этот результат к транспонированной матрице.</p>
 <span class="qed" aria-label="Что и требовалось доказать">□</span>
 </div></div>
 </div>
@@ -1286,7 +1370,7 @@ a_{r,\sigma(r)}a_{s,\sigma(s)}
 <div class="proof-controls" role="group" aria-label="Доказательство: Свойство 6"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
 <div class="proof-idea" id="idea-swap-rows" data-proof-idea><div class="proof-label">Идея</div><p>Сначала раскроем определитель с двумя одинаковыми суммами строк. Затем проследим знак отдельного слагаемого.</p></div>
 <div class="proof-full" id="full-swap-rows" data-proof-full><div class="proof-label">Доказательство</div>
-<p><strong>Доказательство через линейность.</strong> Зафиксируем все строки, кроме строк с номерами $r,s$. Обозначим через $D(u,v)$ определитель, где в строке $r$ стоит $u$, а в строке $s$ — $v$. Тогда $\det A=D(u,v)$ и определитель после обмена строк равен $D(v,u)$. Возьмём $D(u+v,u+v)$. Здесь на обоих местах одна и та же строка, поэтому определитель нулевой.</p>
+<p><strong>1-е доказательство. Две одинаковые суммы строк.</strong> Зафиксируем все строки, кроме строк с номерами $r,s$. Обозначим через $D(u,v)$ определитель, где в строке $r$ стоит $u$, а в строке $s$ — $v$. Тогда $\det A=D(u,v)$ и определитель после обмена строк равен $D(v,u)$. Возьмём $D(u+v,u+v)$. Здесь на обоих местах одна и та же строка, поэтому определитель нулевой.</p>
 <div class="equation">\[\begin{aligned}
 0=D(u+v,u+v)
  &amp;=D(u,u+v)+D(v,u+v)\\
@@ -1294,10 +1378,10 @@ a_{r,\sigma(r)}a_{s,\sigma(s)}
  &amp;=D(u,v)+D(v,u).
 \end{aligned}\]</div>
 <p>В первой строке раскрыли сумму в строке $r$ при неизменной строке $s$. В каждом из двух полученных слагаемых затем раскрыли сумму в строке $s$. Определители $D(u,u)$ и $D(v,v)$ равны нулю из-за совпадающих строк. Вычитая $D(u,v)$, получаем $D(v,u)=-D(u,v)$. Столбцы сводятся к строкам транспонированием.</p>
-<p><strong>Доказательство для отдельных слагаемых.</strong> Для дальнейшей леммы о минорах проследим не только сумму, но и каждое произведение. Пусть $\tau=(r\,s)$ и $B$ получена обменом строк. Тогда $b_{ij}=a_{\tau(i),j}$: номер строки $i$ в новой матрице соответствует старому номеру $\tau(i)$. В слагаемом $B$ с индексом $\sigma$ получаем</p>
+<p><strong>2-е доказательство. Сопоставление слагаемых.</strong> Для дальнейшей леммы о минорах проследим не только сумму, но и каждое произведение. Пусть $\tau=(r\,s)$ и $B$ получена обменом строк. Тогда $b_{ij}=a_{\tau(i),j}$: номер строки $i$ в новой матрице соответствует старому номеру $\tau(i)$. В слагаемом $B$ с индексом $\sigma$ получаем</p>
 <div class="equation">\[\prod_i b_{i,\sigma(i)}=\prod_i a_{\tau(i),\sigma(i)}
 =\prod_{j}a_{j,\sigma(\tau(j))}.\]</div>
-<p>Последний переход использует $j=\tau(i)$ и $i=\tau(j)$, поскольку $\tau^2=\mathrm{id}$. Значит, этому произведению соответствует подстановка $\sigma\tau$ в $A$. Слагаемое $B$ сопровождается знаком $\varepsilon(\sigma)$, а соответствующее слагаемое $A$ — знаком $\varepsilon(\sigma\tau)=-\varepsilon(\sigma)$. Соответствие взаимно однозначно, потому что повторное умножение справа на $\tau$ возвращает $\sigma$.</p>
+<p>Последний переход использует $j=\tau(i)$ и $i=\tau(j)$, поскольку $\tau^2=\mathrm{id}$. Значит, этому произведению соответствует подстановка $\sigma\tau$ в $A$. Слагаемое $B$ сопровождается знаком $\varepsilon_{\sigma}$, а соответствующее слагаемое $A$ — знаком $\varepsilon_{\sigma\tau}=-\varepsilon_{\sigma}$. Соответствие взаимно однозначно, потому что повторное умножение справа на $\tau$ возвращает $\sigma$.</p>
 <p>При обмене столбцов $b_{ij}=a_{i,\tau(j)}$, поэтому $\prod_i b_{i,\sigma(i)}=\prod_i a_{i,\tau(\sigma(i))}$. Здесь соответствующий индекс — $\tau\sigma$, знак также меняется, а повторное умножение слева обращает соответствие. В обоих случаях коэффициенты при сопоставленных произведениях отличаются ровно знаком. Это свойство понадобится, когда будем переносить выбранные строки и столбцы в начало матрицы.</p>
 <span class="qed" aria-label="Что и требовалось доказать">□</span>
 </div></div>
@@ -1320,12 +1404,12 @@ a_{r,\sigma(r)}a_{s,\sigma(s)}
 <p>Если одна из строк квадратной матрицы является линейной комбинацией остальных, её определитель равен нулю.</p>
 <div class="proof" id="proof-dependent-rows" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Свойство 8"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
-<div class="proof-idea" id="idea-dependent-rows" data-proof-idea><div class="proof-label">Идея</div><p>Раскрывая строку по линейности, получаем слагаемые с двумя одинаковыми строками.</p></div>
+<div class="proof-idea" id="idea-dependent-rows" data-proof-idea><div class="proof-label">Идея</div><p>Раскрываем сумму в выбранной строке по свойству 3. Каждый полученный определитель имеет две пропорциональные строки.</p></div>
 <div class="proof-full" id="full-dependent-rows" data-proof-full><div class="proof-label">Доказательство</div>
-<p>Пусть для строки $i$ есть выражение $r_i=\sum_{j\ne i}\lambda_jr_j$. Снова обозначим через $D(u)$ определитель с $u$ в строке $i$ и всеми остальными исходными строками. Подставим линейную комбинацию непосредственно в эту строку, применим аддитивность к её конечному числу слагаемых, а затем вынесем каждый коэффициент:</p>
-<div class="equation">\[\det A=D(r_i)=D\!\left(\sum_{j\ne i}\lambda_jr_j\right)
-=\sum_{j\ne i}\lambda_jD(r_j).\]</div>
-<p>При каждом $j\ne i$ в $D(r_j)$ строка $i$ сделалась равной $r_j$, а строка $j$ всё ещё равна $r_j$. Следовательно, у каждой матрицы в этой сумме есть две одинаковые строки, и каждое $D(r_j)=0$. Поэтому $\det A=0$. Если комбинация пуста или все её коэффициенты нулевые, то $r_i=0$ и применимо также свойство 2.</p>
+<p>Пусть для строки $i$ есть выражение $r_i=\sum_{j\ne i}\lambda_jr_j$. Снова обозначим через $D(u)$ определитель с $u$ в строке $i$ и всеми остальными исходными строками. Подставим линейную комбинацию непосредственно в эту строку, раскроем её по аддитивности определителя (свойство 3).</p>
+<div class="equation">\[|A|=D(r_i)=D\!\left(\sum_{j\ne i}\lambda_jr_j\right)
+=\sum_{j\ne i}D(\lambda_j r_j).\]</div>
+<p>При каждом $j\ne i$ у определителя $D(\lambda_jr_j)$ строки с номерами $i,j$ равны $\lambda_jr_j$ и $r_j$. По <a href="#full-proportional-rows">свойству 7</a> этот определитель равен нулю, поэтому $|A|=0$. При пустой комбинации исходная строка нулевая и сразу применимо свойство 2.</p>
 <span class="qed" aria-label="Что и требовалось доказать">□</span>
 </div></div>
 </div>
@@ -1347,37 +1431,41 @@ a_{r,\sigma(r)}a_{s,\sigma(s)}
 <p class="endnote">Оригинал преподавателя: «Миноры и алгебраические дополнения», с. 1–4, до начала теоремы Лапласа. Для доказательства использован порядок из PDF и записи занятия 20 ноября.</p>
 <div class="statement definition" id="def-minors"><div class="block-label">Определение</div><h3>Минор порядка $k$</h3>
 <p>В матрице $A$ размера $m\times n$ выберем $k$ строк с номерами $1\le i_1&lt;\cdots&lt;i_k\le m$ и $k$ столбцов с номерами $1\le j_1&lt;\cdots&lt;j_k\le n$. Определитель квадратной подматрицы, стоящей на их пересечении, называется <strong>минором порядка $k$</strong>. Строки и столбцы в подматрице сохраняют исходный порядок.</p>
-<div class="equation">\[M_{I,J}=\det A[I,J],\qquad I=\{i_1,\ldots,i_k\},\quad J=\{j_1,\ldots,j_k\}.\]</div>
-<p>В оригинале для этого же числа используется запись $M\!\begin{pmatrix}i_1&amp;\ldots&amp;i_k\\j_1&amp;\ldots&amp;j_k\end{pmatrix}$.</p>
+<div class="equation">\[M\!\begin{pmatrix}i_1&amp;\ldots&amp;i_k\\j_1&amp;\ldots&amp;j_k\end{pmatrix}
+=M_{I,J}=\det A[I,J].\]</div>
+<p>Для короткой записи положим $I=\{i_1,\ldots,i_k\}$ и $J=\{j_1,\ldots,j_k\}$. Верхняя строка обозначения задаёт номера строк матрицы, нижняя — номера столбцов.</p>
 </div>
 <div class="statement definition" id="def-complementary-minor"><div class="block-label">Определение</div><h3>Дополнительный минор</h3>
 <p>Пусть $A$ квадратная порядка $n$, а минор $M_{I,J}$ выбран по $k$ строкам и $k$ столбцам. <strong>Дополнительным минором</strong> к нему называется определитель порядка $n-k$, который получается вычёркиванием строк $I$ и столбцов $J$. Если $I^c,J^c$ — дополнения до $\{1,\ldots,n\}$, то $\overline M_{I,J}=\det A[I^c,J^c]$. При $k=n$ используем соглашение $\det(\varnothing)=1$.</p>
 </div>
 <div class="statement definition" id="def-algebraic-complement"><div class="block-label">Определение</div><h3>Алгебраическое дополнение минора</h3>
 <p>Пусть $M_{I,J}$ — минор квадратной матрицы и $S_M$ — сумма всех выбранных номеров строк и столбцов. <strong>Алгебраическим дополнением</strong> к минору называется число</p>
-<div class="equation">\[C_{I,J}=(-1)^{S_M}\overline M_{I,J},\qquad
- S_M=i_1+\cdots+i_k+j_1+\cdots+j_k.\]</div><p>Обозначим также $s(I)=\sum_{\ell=1}^k i_\ell$ и $s(J)=\sum_{\ell=1}^k j_\ell$. Тогда $S_M=s(I)+s(J)$.</p>
-<p>В оригинале дополнение обозначено через $A\!\begin{pmatrix}i_1&amp;\ldots&amp;i_k\\j_1&amp;\ldots&amp;j_k\end{pmatrix}$. При $k=1$ минор равен $a_{ij}$, поэтому алгебраическим дополнением элемента $a_{ij}$ называется $(-1)^{i+j}$, умноженное на определитель после вычёркивания строки $i$ и столбца $j$.</p>
+<div class="equation">\[\begin{aligned}
+A\!\begin{pmatrix}i_1&amp;\ldots&amp;i_k\\j_1&amp;\ldots&amp;j_k\end{pmatrix}
+&amp;=(-1)^{S_M}\overline M\!\begin{pmatrix}i_1&amp;\ldots&amp;i_k\\j_1&amp;\ldots&amp;j_k\end{pmatrix},\\
+S_M&amp;=(i_1+\cdots+i_k)+(j_1+\cdots+j_k).
+\end{aligned}\]</div>
+<p>Для краткости обозначаем дополнение через $A_{I,J}$, а сумму элементов набора $I$ через $s(I)$. Тогда $S_M=s(I)+s(J)$. При $k=1$ минор равен $a_{ij}$, а дополнение обозначаем $A\binom{i}{j}$ или $A_{ij}$. Его получаем вычёркиванием строки $i$ и столбца $j$ и умножением оставшегося определителя на $(-1)^{i+j}$.</p>
 </div>
 <div class="statement theorem featured" id="minor-product"><div class="block-label">Лемма</div><h3>Произведение минора на его алгебраическое дополнение</h3>
-<p>Пусть $A$ — квадратная матрица порядка $n$, $1\le k\le n$ и $I,J$ — наборы из $k$ номеров строк и столбцов. Произведение $M_{I,J}C_{I,J}$ состоит из различных слагаемых полного развёртывания $\det A$, взятых с их исходными знаками. Оно содержит ровно те слагаемые, в которых выбранным строкам $I$ отвечают столбцы $J$.</p>
-<div class="equation">\[M_{I,J}C_{I,J}=
- \sum_{\substack{\sigma\in S_n\\\sigma(I)=J}}\varepsilon(\sigma)\prod_{i=1}^{n}a_{i,\sigma(i)}.\]</div>
+<p>Пусть $A$ — квадратная матрица порядка $n$, $1\le k\le n$ и $I,J$ — наборы из $k$ номеров строк и столбцов. Произведение $M_{I,J}A_{I,J}$ состоит из различных слагаемых полного развёртывания $\det A$, взятых с их исходными знаками. Оно содержит ровно те слагаемые, в которых выбранным строкам $I$ отвечают столбцы $J$.</p>
+<div class="equation">\[M_{I,J}A_{I,J}=
+ \sum_{\substack{\sigma\in S_n\\\sigma(I)=J}}\varepsilon_{\sigma}\prod_{i=1}^{n}a_{i,\sigma(i)}.\]</div>
 <div class="proof" id="proof-minor-product" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Лемма"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
 <div class="proof-idea" id="idea-minor-product" data-proof-idea><div class="proof-label">Идея</div><p>Сначала доказываем лемму для верхнего левого угла. Затем переносим туда выбранные строки и столбцы, восстанавливая знак каждого слагаемого.</p></div>
 <div class="proof-full" id="full-minor-product" data-proof-full><div class="proof-label">Доказательство</div>
 <p>Пусть $K=\{1,\ldots,k\}$, $I=\{i_1&lt;\cdots&lt;i_k\}$ и $J=\{j_1&lt;\cdots&lt;j_k\}$. Будем различать слагаемые по их индексам $\sigma\in S_n$. Два разных индекса могут дать одинаковые числа после подстановки элементов матрицы, но в полном развёртывании они учитываются отдельно. Нужно доказать три вещи: какие индексы получаются при раскрытии произведения двух миноров, сколько раз появляется каждый из них и с каким знаком он входит.</p>
 <ol class="proof-steps">
-<li><strong>Начальное положение $I=J=K$.</strong> Запишем разложения $\det A[K,K]$ и $\det A[K^c,K^c]$. Подстановка $\pi$ первого минорного определителя выбирает из строки $t$ элемент $a_{t,\pi(t)}$ для $1\le t\le k$. Подстановка $\rho$ второго выбирает из строки с внутренним номером $u$ элемент $a_{k+u,k+\rho(u)}$, $1\le u\le n-k$. При умножении конечных сумм выбирается одна подстановка $\pi$ и одна $\rho$. Произведение выбранных членов равно</li>
+<li><strong>1-й случай. Минор в левом верхнем углу.</strong> Запишем разложения $\det A[K,K]$ и $\det A[K^c,K^c]$. Подстановка $\pi$ первого минорного определителя выбирает из строки $t$ элемент $a_{t,\pi(t)}$ для $1\le t\le k$. Подстановка $\rho$ второго выбирает из строки с внутренним номером $u$ элемент $a_{k+u,k+\rho(u)}$, $1\le u\le n-k$. При умножении конечных сумм выбирается одна подстановка $\pi$ и одна $\rho$. Произведение выбранных членов равно</li>
 </ol>
-<div class="equation">\[\varepsilon(\pi)\varepsilon(\rho)
+<div class="equation">\[\varepsilon_{\pi}\varepsilon_{\rho}
 \left(\prod_{t=1}^{k}a_{t,\pi(t)}\right)
 \left(\prod_{u=1}^{n-k}a_{k+u,k+\rho(u)}\right).\]</div>
 <p>Объединим эти правила в $\theta$: положим $\theta(t)=\pi(t)$ на $K$ и $\theta(k+u)=k+\rho(u)$ на $K^c$. На обеих частях правила по отдельности биективны, и образы частей не пересекаются, значит, $\theta$ биективна на всём множестве. По построению $\theta(K)=K$. Обратно, если $\theta(K)=K$, то $\theta|_K$ — биекция на $K$, а каждый элемент $K^c$ переходит в $K^c$: иначе его образ из $K$ имел бы второй прообраз. Образы $K^c$ исчерпывают эту часть по биективности. Тогда $\pi(t)=\theta(t)$ и $\rho(u)=\theta(k+u)-k$ единственно восстанавливаются. Значит, соответствие между парами $(\pi,\rho)$ и такими $\theta$ взаимно однозначно.</p>
-<p>Инверсии $\theta$ с обеими позициями в $K$ — ровно инверсии $\pi$. С обеими позициями в $K^c$ — инверсии $\rho$: добавление $k$ к обоим значениям не меняет их сравнения. Между частями их нет: если $t\le k&lt;k+u$, то $\theta(t)\le k&lt;\theta(k+u)$. Следовательно, $I(\theta)=I(\pi)+I(\rho)$ и $\varepsilon(\theta)=\varepsilon(\pi)\varepsilon(\rho)$. Дополнительный знак в этом случае равен $(-1)^{2(1+\cdots+k)}=+1$. При $k=n$ вторая часть пуста, её формула даёт единственный пустой выбор, произведение по нему равно $1$, а его знак $+1$.</p>
+<p>Инверсии $\theta$ с обеими позициями в $K$ — ровно инверсии $\pi$. С обеими позициями в $K^c$ — инверсии $\rho$: добавление $k$ к обоим значениям не меняет их сравнения. Между частями их нет: если $t\le k&lt;k+u$, то $\theta(t)\le k&lt;\theta(k+u)$. Следовательно, $I(\theta)=I(\pi)+I(\rho)$ и $\varepsilon_{\theta}=\varepsilon_{\pi}\varepsilon_{\rho}$. Дополнительный знак в этом случае равен $(-1)^{2(1+\cdots+k)}=+1$. При $k=n$ вторая часть пуста, её формула даёт единственный пустой выбор, произведение по нему равно $1$, а его знак $+1$.</p>
 <ol class="proof-steps" start="2">
-<li><strong>Перенос строк.</strong> Возьмём общий $I$. Строку с исходным номером $i_1$ передвигаем на первое место, меняя её с непосредственной соседкой сверху, пока она туда не попадёт. Нужно $i_1-1$ обменов. Затем строку $i_2$ передвигаем на место $2$, не заходя выше него. Все прежние обмены затрагивали позиции не дальше $i_1&lt;i_2$, поэтому перед новым шагом $i_2$ всё ещё находится на исходной позиции. В общем случае перед шагом $\ell$ предыдущие обмены имели номера позиций не больше $i_{\ell-1}&lt;i_\ell$. Поэтому строка $i_\ell$ пока стоит на позиции $i_\ell$, и требуется $i_\ell-\ell$ обменов. Позиции $1,\ldots,\ell-1$ не затрагиваются. Ранее выбранные строки остаются в нужном порядке.</li>
+<li><strong>2-й случай. Минор расположен произвольно. Перенос строк.</strong> Возьмём общий $I$. Строку с исходным номером $i_1$ передвигаем на первое место, меняя её с непосредственной соседкой сверху, пока она туда не попадёт. Нужно $i_1-1$ обменов. Затем строку $i_2$ передвигаем на место $2$, не заходя выше него. Все прежние обмены затрагивали позиции не дальше $i_1&lt;i_2$, поэтому перед новым шагом $i_2$ всё ещё находится на исходной позиции. В общем случае перед шагом $\ell$ предыдущие обмены имели номера позиций не больше $i_{\ell-1}&lt;i_\ell$. Поэтому строка $i_\ell$ пока стоит на позиции $i_\ell$, и требуется $i_\ell-\ell$ обменов. Позиции $1,\ldots,\ell-1$ не затрагиваются. Ранее выбранные строки остаются в нужном порядке.</li>
 <li><strong>Перенос столбцов.</strong> Аналогично, столбец $j_\ell$ передвигаем на место $\ell$ за $j_\ell-\ell$ соседних обменов. Ни один из переносов строк не меняет порядок столбцов. Среди невыбранных строк взаимный порядок сохраняется, потому что обмены производятся только с переносимой выбранной строкой и никогда не меняют местами две невыбранные строки. По той же причине сохраняется порядок невыбранных столбцов. Поэтому в итоговой матрице $B$ верхний левый блок в точности равен $A[I,J]$, а нижний правый — $A[I^c,J^c]$, оба в исходном порядке индексов. Суммарное число обменов равно</li>
 </ol>
 <div class="equation">\[\begin{aligned}
@@ -1393,7 +1481,7 @@ q&amp;=\sum_{\ell=1}^k(i_\ell-\ell)+\sum_{\ell=1}^k(j_\ell-\ell)\\
 <div class="equation">\[\begin{aligned}
 (-1)^q\det A[I,J]\det A[I^c,J^c]
 &amp;=M_{I,J}\bigl((-1)^{s(I)+s(J)}\overline M_{I,J}\bigr)\\
-&amp;=M_{I,J}C_{I,J}.
+&amp;=M_{I,J}A_{I,J}.
 \end{aligned}\]</div>
 <p>Взаимно однозначное соответствие из шагов 1 и 4 показывает, что каждый индекс учтён ровно один раз. Их число $k!(n-k)!$: образ каждого элемента $I$ выбираем как биекцию $I\to J$ ($k!$ вариантов), а для $I^c$ независимо выбираем биекцию $I^c\to J^c$ ($(n-k)!$ вариантов). При $k=n$ формула использует $0!=1$, поскольку между пустыми множествами есть одна, пустая биекция.</p>
 <span class="qed" aria-label="Что и требовалось доказать">□</span>
@@ -1402,56 +1490,68 @@ q&amp;=\sum_{\ell=1}^k(i_\ell-\ell)+\sum_{\ell=1}^k(j_\ell-\ell)\\
 <div class="worked-example" id="minor-example"><div class="block-label">Проверка формулы</div><h3>Один минор и два слагаемых</h3>
 <div class="equation">\[A=\begin{pmatrix}1&amp;2&amp;3\\4&amp;5&amp;6\\7&amp;8&amp;10\end{pmatrix},
   \qquad I=\{1,3\},\quad J=\{1,2\}.\]</div>
-<p>Выбранный минор равен $1\cdot8-2\cdot7=-6$. После вычёркивания этих строк и столбцов остаётся элемент $a_{23}=6$. Сумма выбранных номеров $S_M=1+3+1+2=7$, поэтому $C_{I,J}=(-1)^7\cdot6=-6$ и $M_{I,J}C_{I,J}=36$.</p>
+<p>Выбранный минор равен $1\cdot8-2\cdot7=-6$. После вычёркивания этих строк и столбцов остаётся элемент $a_{23}=6$. Сумма выбранных номеров $S_M=1+3+1+2=7$, поэтому $A_{I,J}=(-1)^7\cdot6=-6$ и $M_{I,J}A_{I,J}=36$.</p>
 <p>Условие $\sigma(I)=J$ оставляет ровно две нижние строки $(1,3,2)$ и $(2,3,1)$. У первой одна инверсия и вклад $-1\cdot6\cdot8=-48$. У второй две инверсии и вклад $+2\cdot6\cdot7=84$. Сумма $-48+84=36$ совпадает с произведением.</p>
 </div>
 </section>
 <section class="chapter" aria-labelledby="ticket-6"><div class="chapter-kicker">Билет 6</div><h2 id="ticket-6" data-toc="Билет 6">Теорема Лапласа и её следствия</h2>
-<p class="lead">По программе требуется доказать общую теорему Лапласа и вывести с доказательством формулы разложения.</p><p>Используем обозначения и <a href="#full-minor-product">лемму из билета 5</a> о членах с $\sigma(I)=J$.</p><div class="statement theorem featured" id="laplace-rows"><div class="block-label">Теорема</div><h3>Теорема Лапласа для фиксированных строк</h3>
+<p class="lead">Теорема Лапласа и следствия с доказательствами.</p>
+<p class="endnote">Оригинал преподавателя «Миноры», с. 4–6.</p><p>Используем обозначения и <a href="#full-minor-product">лемму из билета 5</a> о членах с $\sigma(I)=J$.</p>
+<div class="statement theorem featured" id="laplace-rows"><div class="block-label">Теорема</div><h3>Теорема Лапласа для фиксированных строк</h3>
 
-<p>Пусть $A\in M_n(F)$, $1\le k\le n$ и фиксирован набор $I\subseteq\{1,\ldots,n\}$ из $k$ строк. Тогда</p>
-<div class="equation">\[\det A=\sum_{\substack{J\subseteq\{1,\ldots,n\}\\ |J|=k}}M_{I,J}C_{I,J}.\]</div>
+<p>Пусть $A\in M_n(F)$, $1\le k\le n$ и фиксированы строки $I=\{i_1,\ldots,i_k\}$, где $1\le i_1&lt;\cdots&lt;i_k\le n$. Тогда</p>
+<div class="equation">\[|A|=\sum_{1\le j_1&lt;\cdots&lt;j_k\le n}
+ M\!\begin{pmatrix}i_1&amp;\ldots&amp;i_k\\j_1&amp;\ldots&amp;j_k\end{pmatrix}
+ A\!\begin{pmatrix}i_1&amp;\ldots&amp;i_k\\j_1&amp;\ldots&amp;j_k\end{pmatrix}.\]</div>
 <p>В сумме перебираются наборы столбцов. Например, при $n=4$ и $k=2$ набор $\{1,3\}$ встречается один раз, а оба порядка выбора элементов внутри него уже учтены в миноре.</p><div class="proof" id="proof-laplace-rows" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Теорема Лапласа для фиксированных строк"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
-<div class="proof-idea" id="idea-laplace-rows" data-proof-idea><div class="proof-label">Идея</div><p>У каждого слагаемого Лейбница есть единственный набор столбцов $J$, который оно использует в строках $I$. Сгруппируем слагаемые по этому набору и применим к каждой группе лемму о произведении минора на дополнение.</p></div>
-<div class="proof-full" id="full-laplace-rows" data-proof-full><div class="proof-label">Доказательство</div>
-<ol class="proof-steps">
-<li>Возьмём $\sigma\in S_n$. В строке $i$ соответствующее слагаемое берёт элемент из столбца $\sigma(i)$. Так как $\sigma$ — биекция, $J=\{\sigma(i):i\in I\}$ состоит из $k$ различных номеров. Оставшиеся строки используют ровно $J^c$.</li>
-<li>Для данного $J$ по лемме о произведении минора на дополнение сумма членов с $\sigma(I)=J$ равна $M_{I,J}C_{I,J}$, причём каждый член входит один раз и со своим знаком.</li>
-<li>Если $J_1\ne J_2$, член с индексом $\sigma$ не может принадлежать обеим группам: образ одного и того же $I$ определён однозначно. Численно равные или нулевые члены по-прежнему различаются своими индексами. Таким образом, группы дают полное разбиение $S_n$. Сумма по всем группам равна $\det A$.</li>
-</ol>
-<p>Подсчёт с доски даёт ту же проверку. Внутри $I\to J$ имеется $k!$ биекций, внутри $I^c\to J^c$ — $(n-k)!$, и эти выборы независимы. Наборов $J$ всего $\binom nk$, так что $\binom nk k!(n-k)!=n!$. Само число членов дополняет довод об отсутствии повторов. При $k=n$ есть один набор $J$, знак положителен и $C_{I,J}=1$.</p><span class="qed" aria-label="Что и требовалось доказать">□</span></div>
+<div class="proof-idea" id="idea-laplace-rows" data-proof-idea><div class="proof-label">Идея</div>
+<p>Обозначим правую часть через $S$. По лемме все её члены входят в $|A|$ с теми же знаками. Проверим, что членов ровно $n!$ и каждый встречается один раз.</p>
 </div>
-</div><div class="statement theorem" id="laplace-columns"><div class="block-label">Следствие</div><h3>Разложение по фиксированным столбцам</h3>
+<div class="proof-full" id="full-laplace-rows" data-proof-full><div class="proof-label">Доказательство</div>
+<p>Обозначим через $S$ сумму в правой части и зафиксируем строки $I=\{i_1,\ldots,i_k\}$. По <a href="#full-minor-product">лемме</a> из билета 5 каждое произведение $M_{I,J}A_{I,J}$ после раскрытия даёт члены определителя $|A|$ с их исходными знаками.</p>
+<p><strong>Число членов.</strong> Первый минор даёт $k!$ членов, дополнительный минор — $(n-k)!$. Знак дополнения на число членов не влияет, поэтому для одного набора $J$ получается $k!(n-k)!$ членов. Наборов столбцов всего $\binom nk$. Следовательно, в $S$ после раскрытия</p>
+<div class="equation">\[\binom nk\,k!(n-k)!=n!\]</div>
+<p>членов, столько же, сколько в полном развёртывании $|A|$.</p>
+<p><strong>Почему повтора нет.</strong> Внутри каждого произведения члены различаются по лемме. Один и тот же индекс $\alpha$ не может попасть в произведения для разных $J$: по строкам $I$ он использует единственный набор столбцов $\{\alpha(i_1),\ldots,\alpha(i_k)\}$. Счёт ведётся по подстановкам, даже если отдельные произведения имеют равные числовые значения или обнуляются.</p>
+<p>Итак, в $S$ содержатся все $n!$ членов $|A|$, каждый ровно один раз с его знаком. Следовательно, $S=|A|$. Для $k=n$ второй определитель пуст, и равенство использует $\det(\varnothing)=0!=1$.</p>
+<span class="qed" aria-label="Что и требовалось доказать">□</span></div>
+</div>
+</div>
+<div class="statement theorem" id="laplace-columns"><div class="block-label">Следствие</div><h3>Разложение по фиксированным столбцам</h3>
 
 <p>Если зафиксирован набор $J$ из $k$ столбцов, $1\le k\le n$, то</p>
-<div class="equation">\[\det A=\sum_{\substack{I\subseteq\{1,\ldots,n\}\\ |I|=k}}M_{I,J}C_{I,J}.\]</div><div class="proof" id="proof-laplace-columns" data-proof>
+<div class="equation">\[\det A=\sum_{\substack{I\subseteq\{1,\ldots,n\}\\ |I|=k}}M_{I,J}A_{I,J}.\]</div><div class="proof" id="proof-laplace-columns" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Разложение по фиксированным столбцам"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
 <div class="proof-idea" id="idea-laplace-columns" data-proof-idea><div class="proof-label">Идея</div><p>Столбцы $A$ становятся строками $A^{\mathsf T}$. Применим формулу для строк к транспонированной матрице.</p></div>
 <div class="proof-full" id="full-laplace-columns" data-proof-full><div class="proof-label">Доказательство</div>
-<p>В $A^{\mathsf T}$ фиксируем строки $J$ и перебираем столбцы $I$. Подматрица $A^{\mathsf T}[J,I]$ равна $(A[I,J])^{\mathsf T}$, а оставшаяся подматрица равна $(A[I^c,J^c])^{\mathsf T}$. Транспонирование сохраняет оба определителя. Показатель знака тоже сохраняется, поскольку $s(J)+s(I)=s(I)+s(J)$. Каждый член разложения $\det A^{\mathsf T}$ поэтому равен $M_{I,J}C_{I,J}$. Слева $\det A^{\mathsf T}=\det A$, что и даёт формулу.</p><span class="qed" aria-label="Что и требовалось доказать">□</span></div>
+<p>В $A^{\mathsf T}$ фиксируем строки $J$ и перебираем столбцы $I$. Подматрица $A^{\mathsf T}[J,I]$ равна $(A[I,J])^{\mathsf T}$, а оставшаяся подматрица равна $(A[I^c,J^c])^{\mathsf T}$. Транспонирование сохраняет оба определителя. Показатель знака тоже сохраняется, поскольку $s(J)+s(I)=s(I)+s(J)$. Каждый член разложения $\det A^{\mathsf T}$ поэтому равен $M_{I,J}A_{I,J}$. Слева $\det A^{\mathsf T}=\det A$, что и даёт формулу.</p><span class="qed" aria-label="Что и требовалось доказать">□</span></div>
 </div>
-</div><div class="statement theorem" id="laplace-single"><div class="block-label">Следствие</div><h3>Разложение по одной строке или одному столбцу</h3>
+</div>
+<div class="statement theorem" id="laplace-single"><div class="block-label">Следствие</div><h3>Разложение по одной строке или одному столбцу</h3>
 
 <p>Для любой фиксированной строки $i$ и любого фиксированного столбца $j$ соответственно</p>
-<div class="equation">\[\det A=\sum_{\ell=1}^n a_{i\ell}C_{i\ell},\qquad
-\det A=\sum_{\ell=1}^n a_{\ell j}C_{\ell j}.\]</div><div class="proof" id="proof-laplace-single" data-proof>
+<div class="equation">\[\begin{aligned}
+\text{а) }\quad|A|&amp;=\sum_{\ell=1}^n a_{i\ell}A\binom{i}{\ell},\\
+\text{б) }\quad|A|&amp;=\sum_{\ell=1}^n a_{\ell j}A\binom{\ell}{j}.
+\end{aligned}\]</div><div class="proof" id="proof-laplace-single" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Разложение по одной строке или одному столбцу"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
 <div class="proof-idea" id="idea-laplace-single" data-proof-idea><div class="proof-label">Идея</div><p>При $k=1$ каждый выбранный минор состоит из одного элемента. Общая формула превращается в сумму произведений элементов на их дополнения.</p></div>
 <div class="proof-full" id="full-laplace-single" data-proof-full><div class="proof-label">Доказательство</div>
-<p>Для строки берём $I=\{i\}$ и $J=\{\ell\}$ в теореме для фиксированных строк. Минор равен $a_{i\ell}$, а дополнение равно $C_{i\ell}$. Перебор наборов $J$ совпадает с перебором $\ell=1,\ldots,n$. Для столбца фиксируем $J=\{j\}$, берём $I=\{\ell\}$ в формуле для столбцов и получаем второй результат. При $n=1$ дополнение единственного элемента равно $1$, поэтому и этот случай включён.</p><span class="qed" aria-label="Что и требовалось доказать">□</span></div>
+<p>Для строки берём $I=\{i\}$ и $J=\{\ell\}$ в теореме для фиксированных строк. Минор равен $a_{i\ell}$, а дополнение равно $A_{i\ell}$. Перебор наборов $J$ совпадает с перебором $\ell=1,\ldots,n$. Для столбца фиксируем $J=\{j\}$, берём $I=\{\ell\}$ в формуле для столбцов и получаем второй результат. При $n=1$ дополнение единственного элемента равно $1$, поэтому и этот случай включён.</p><span class="qed" aria-label="Что и требовалось доказать">□</span></div>
 </div>
-</div><div class="worked-example" id="laplace-example"><div class="block-label">Пример по оригиналу</div><h3>Две строки и единственный ненулевой вклад</h3>
+</div>
+<div class="worked-example" id="laplace-example"><div class="block-label">Пример по оригиналу</div><h3>Две строки и единственный ненулевой вклад</h3>
 
 <p>Вычислим определитель второго примера из PDF «Миноры» по строкам $I=\{2,3\}$.</p>
 <div class="equation">\[A=\begin{pmatrix}
-1&0&2&1\\2&0&3&0\\1&0&-2&0\\1&1&1&1
+1&amp;0&amp;2&amp;1\\2&amp;0&amp;3&amp;0\\1&amp;0&amp;-2&amp;0\\1&amp;1&amp;1&amp;1
 \end{pmatrix}.\]</div>
 <p>Во второй и третьей строках столбцы 2 и 4 состоят из нулей. Если набор $J$ содержит любой из них, выбранный минор имеет нулевой столбец и даёт нулевой вклад. Поэтому остаётся один набор $J=\{1,3\}$.</p>
 <div class="equation">\[\begin{aligned}
-M_{I,J}&=\begin{vmatrix}2&3\\1&-2\end{vmatrix}=-4-3=-7,\\
-\overline M_{I,J}&=\begin{vmatrix}0&1\\1&1\end{vmatrix}=-1,\\
-C_{I,J}&=(-1)^{2+3+1+3}(-1)=1,\qquad
+M_{I,J}&amp;=\begin{vmatrix}2&amp;3\\1&amp;-2\end{vmatrix}=-4-3=-7,\\
+\overline M_{I,J}&amp;=\begin{vmatrix}0&amp;1\\1&amp;1\end{vmatrix}=-1,\\
+A_{I,J}&amp;=(-1)^{2+3+1+3}(-1)=1,\qquad
 \det A=-7.
 \end{aligned}\]</div>
 <p>Для независимой проверки можно разложить по столбцу 2. Тогда остаётся $a_{42}=1$ со знаком $(-1)^{4+2}=+1$. Полученный определитель порядка 3 разлагается по последнему столбцу с единственной единицей в позиции $(1,3)$, тоже со знаком $+1$. В результате снова остаётся минор $-7$.</p>
@@ -1459,48 +1559,57 @@ C_{I,J}&=(-1)^{2+3+1+3}(-1)=1,\qquad
 </div><p class="note"><strong>Порядок ответа.</strong> Фиксируйте $I$, объясните единственность $J=\sigma(I)$, примените лемму в каждой группе. Затем транспонируйте для столбцового варианта и возьмите $k=1$ в обеих формулах.</p>
 </section>
 <section class="chapter" aria-labelledby="ticket-7"><div class="chapter-kicker">Билет 7</div><h2 id="ticket-7" data-toc="Билет 7">Свои и чужие дополнения. Определитель Вандермонда</h2>
-<p class="lead">По программе требуется доказать лемму для строк и столбцов и уметь вывести формулу определителя Вандермонда.</p><div class="statement theorem featured" id="cofactor-identities"><div class="block-label">Лемма</div><h3>Свои и чужие алгебраические дополнения</h3>
+<p class="lead">Лемма для строк и столбцов с доказательством. Вычисление определителя Вандермонда.</p>
+<p class="endnote">Оригинал преподавателя «Лемма об умножении на свои и чужие», с. 1–2.</p>
+<div class="statement theorem featured" id="cofactor-identities"><div class="block-label">Лемма</div><h3>Свои и чужие алгебраические дополнения</h3>
 
-<p>Символ Кронекера $\delta_{uv}$ равен $1$ при $u=v$ и $0$ при $u\ne v$. Для $1\le i,j,k\le n$ верны равенства</p>
+<p>Элементы строки или столбца умножаем на дополнения из той же позиции вдоль выбранной строки или столбца. Для $1\le i,j,k\le n$ справедливы две формулы.</p>
 <div class="equation">\[\begin{aligned}
-\sum_{\ell=1}^n a_{i\ell}C_{k\ell}&=\delta_{ik}\det A
-&&\text{(строки)},\\
-\sum_{\ell=1}^n a_{\ell j}C_{\ell k}&=\delta_{jk}\det A
-&&\text{(столбцы)}.
+\text{1) }\quad\sum_{\ell=1}^n a_{i\ell}A\binom{k}{\ell}
+&amp;=\begin{cases}|A|,&amp;k=i,\\0,&amp;k\ne i,\end{cases}\\[4pt]
+\text{2) }\quad\sum_{\ell=1}^n a_{\ell j}A\binom{\ell}{k}
+&amp;=\begin{cases}|A|,&amp;k=j,\\0,&amp;k\ne j.\end{cases}
 \end{aligned}\]</div>
-<p>В первой формуле фиксированы номера двух строк, а столбец у элемента и дополнения один и тот же. Во второй фиксированы номера двух столбцов, а строка у пары одна и та же. При совпадении фиксированных номеров дополнения свои, при различии — чужие.</p><div class="proof" id="proof-cofactor-identities" data-proof>
+<p>В пункте 1 фиксируем строки $i,k$, а в пункте 2 фиксируем столбцы $j,k$. Если фиксированные номера совпадают, дополнения свои, иначе — чужие. Правая часть каждой формулы кратко записывается как $|A|\delta_{ik}$ или $|A|\delta_{jk}$, где $\delta_{uv}$ равно $1$ при $u=v$ и $0$ при $u\ne v$.</p><div class="proof" id="proof-cofactor-identities" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Свои и чужие алгебраические дополнения"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
 <div class="proof-idea" id="idea-cofactor-identities" data-proof-idea><div class="proof-label">Идея</div><p>Для своих дополнений используем разложение Лапласа. Для чужих копируем строку или столбец на место, к которому относятся дополнения. Вспомогательный определитель равен нулю из-за двух одинаковых строк или столбцов, а дополнения к изменённой линии сохраняются.</p></div>
 <div class="proof-full" id="full-cofactor-identities" data-proof-full><div class="proof-label">Доказательство</div>
 <ol class="proof-steps">
-<li><strong>Строки, $i=k$.</strong> Сумма $\sum_\ell a_{i\ell}C_{i\ell}$ равна $\det A$ по разложению по строке $i$.</li>
-<li><strong>Строки, $i\ne k$.</strong> Пусть $B$ получена заменой строки $k$ матрицы $A$ на копию строки $i$. Строка $i$ осталась на месте, поэтому в $B$ строки $i$ и $k$ равны и $\det B=0$. Разложим $\det B$ по строке $k$. В ней $b_{k\ell}=a_{i\ell}$. При построении $C_{k\ell}(B)$ строка $k$ целиком вычёркивается. Это единственная строка, которая отличалась от исходной, так что остаётся та же подматрица, что в $A$, и знак $(-1)^{k+\ell}$ тот же. Поэтому
-<div class="equation">\[0=\det B=\sum_{\ell=1}^n b_{k\ell}C_{k\ell}(B)
-=\sum_{\ell=1}^n a_{i\ell}C_{k\ell}(A).\]</div></li>
+<li><strong>Строки, $i=k$.</strong> Сумма $\sum_\ell a_{i\ell}A_{i\ell}$ равна $\det A$ по разложению по строке $i$.</li>
+<li><strong>Строки, $i\ne k$.</strong> Пусть $B$ получена заменой строки $k$ матрицы $A$ на копию строки $i$. Строка $i$ осталась на месте, поэтому в $B$ строки $i$ и $k$ равны и $\det B=0$. Разложим $\det B$ по строке $k$. В ней $b_{k\ell}=a_{i\ell}$. При построении $A_{k\ell}(B)$ строка $k$ целиком вычёркивается. Это единственная строка, которая отличалась от исходной, так что остаётся та же подматрица, что в $A$, и знак $(-1)^{k+\ell}$ тот же. Поэтому
+<div class="equation">\[\begin{aligned}
+0=|B|
+&amp;=b_{k1}B\binom{k}{1}+\cdots+b_{kn}B\binom{k}{n}\\
+&amp;=a_{i1}A\binom{k}{1}+\cdots+a_{in}A\binom{k}{n}.
+\end{aligned}\]</div>
+Здесь $B\binom{k}{\ell}$ — дополнение в матрице $B$.</li>
 <li><strong>Столбцы, $j=k$.</strong> Получаем разложение $\det A$ по столбцу $j$.</li>
-<li><strong>Столбцы, $j\ne k$.</strong> Заменим в $A$ столбец $k$ копией столбца $j$, получив $D$. Оба столбца в $D$ равны, значит, $\det D=0$. По разложению по столбцу $k$ имеем $0=\sum_\ell d_{\ell k}C_{\ell k}(D)$. Здесь $d_{\ell k}=a_{\ell j}$, а при вычислении $C_{\ell k}(D)$ изменённый столбец удаляется, откуда $C_{\ell k}(D)=C_{\ell k}(A)$. Это и даёт вторую формулу при $j\ne k$.</li>
+<li><strong>Столбцы, $j\ne k$.</strong> Заменим в $A$ столбец $k$ копией столбца $j$, получив $D$. Оба столбца в $D$ равны, значит, $\det D=0$. По разложению по столбцу $k$ имеем $0=\sum_\ell d_{\ell k}A_{\ell k}(D)$. Здесь $d_{\ell k}=a_{\ell j}$, а при вычислении $A_{\ell k}(D)$ изменённый столбец удаляется, откуда $A_{\ell k}(D)=A_{\ell k}(A)$. Это и даёт вторую формулу при $j\ne k$.</li>
 </ol>
-<p>Столбцовую формулу можно также вывести из строковой для $A^{\mathsf T}$, учитывая равенства $(A^{\mathsf T})_{j\ell}=a_{\ell j}$, $C_{k\ell}(A^{\mathsf T})=C_{\ell k}(A)$ и $\det A^{\mathsf T}=\det A$.</p><span class="qed" aria-label="Что и требовалось доказать">□</span></div>
+<p>Столбцовую формулу можно также вывести из строковой для $A^{\mathsf T}$, учитывая равенства $(A^{\mathsf T})_{j\ell}=a_{\ell j}$, $A_{k\ell}(A^{\mathsf T})=A_{\ell k}(A)$ и $\det A^{\mathsf T}=\det A$.</p><span class="qed" aria-label="Что и требовалось доказать">□</span></div>
 </div>
-</div><div class="worked-example" id="cross-example"><div class="block-label">Пример</div><h3>Одна строка и два набора дополнений</h3>
+</div>
+<div class="worked-example" id="cross-example"><div class="block-label">Пример</div><h3>Одна строка и два набора дополнений</h3>
 
-<div class="equation">\[A=\begin{pmatrix}2&3\\1&4\end{pmatrix},
-\qquad (C_{ij})=\begin{pmatrix}4&-1\\-3&2\end{pmatrix},
+<div class="equation">\[A=\begin{pmatrix}2&amp;3\\1&amp;4\end{pmatrix},
+\qquad (A_{ij})=\begin{pmatrix}4&amp;-1\\-3&amp;2\end{pmatrix},
 \qquad \det A=5.\]</div>
 <p>Первая строка со своими дополнениями даёт $2\cdot4+3\cdot(-1)=5$. Та же строка с дополнениями второй строки даёт $2\cdot(-3)+3\cdot2=0$. Для столбцов аналогично: элементы первого столбца в паре с дополнениями второго дают $2\cdot(-1)+1\cdot2=0$.</p>
 
-</div><div class="statement definition" id="vandermonde-definition"><div class="block-label">Определение</div><h3>Определитель Вандермонда</h3>
+</div>
+<div class="statement definition" id="vandermonde-definition"><div class="block-label">Определение</div><h3>Определитель Вандермонда</h3>
 
 <p>Для $x_1,\ldots,x_n\in F$ определитель Вандермонда $V_n(x_1,\ldots,x_n)$ — это $\det(x_j^{\,r-1})_{r,j=1}^n$. Таким образом, $j$-й столбец содержит последовательные степени одного и того же $x_j$. Первая строка состоит из единиц, в том числе для $x_j=0$.</p>
 <div class="equation">\[V_n(x_1,\ldots,x_n)=
 \begin{vmatrix}
-1&1&\cdots&1\\
-x_1&x_2&\cdots&x_n\\
-x_1^2&x_2^2&\cdots&x_n^2\\
-\vdots&\vdots&\ddots&\vdots\\
-x_1^{n-1}&x_2^{n-1}&\cdots&x_n^{n-1}
+1&amp;1&amp;\cdots&amp;1\\
+x_1&amp;x_2&amp;\cdots&amp;x_n\\
+x_1^2&amp;x_2^2&amp;\cdots&amp;x_n^2\\
+\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+x_1^{n-1}&amp;x_2^{n-1}&amp;\cdots&amp;x_n^{n-1}
 \end{vmatrix}.\]</div>
-</div><div class="statement theorem featured" id="vandermonde-product"><div class="block-label">Теорема</div><h3>Вычисление определителя Вандермонда</h3>
+</div>
+<div class="statement theorem featured" id="vandermonde-product"><div class="block-label">Теорема</div><h3>Вычисление определителя Вандермонда</h3>
 
 <div class="equation">\[V_n(x_1,\ldots,x_n)=\prod_{1\le i&lt;j\le n}(x_j-x_i).\]</div>
 <p>Для каждой пары номеров берём значение с большим номером минус значение с меньшим. При $n=2$ формула даёт $x_2-x_1$, а при $n=1$ пустое произведение равно $1$.</p><div class="proof" id="proof-vandermonde-product" data-proof>
@@ -1509,16 +1618,26 @@ x_1^{n-1}&x_2^{n-1}&\cdots&x_n^{n-1}
 <div class="proof-full" id="full-vandermonde-product" data-proof-full><div class="proof-label">Доказательство</div>
 <ol class="proof-steps">
 <li><strong>База.</strong> $V_1=1$. При $n=2$ непосредственное вычисление даёт $1\cdot x_2-x_1\cdot1=x_2-x_1$.</li>
-<li><strong>Порядок преобразований.</strong> При $n\ge2$ для $r=n,n-1,\ldots,2$ выполняем $R_r\gets R_r-x_1R_{r-1}$. Каждое прибавление кратной другой строки сохраняет определитель. При движении снизу вверх строка $R_{r-1}$ на момент вычитания ещё исходная. Элемент на месте $(r,j)$ становится
+<li><strong>Порядок преобразований.</strong> При $n\ge3$ для $r=n,n-1,\ldots,2$ выполняем $R_r\gets R_r-x_1R_{r-1}$. Каждое прибавление кратной другой строки сохраняет определитель. При движении снизу вверх строка $R_{r-1}$ на момент вычитания ещё исходная. Элемент на месте $(r,j)$ становится
 <div class="equation">\[x_j^{\,r-1}-x_1x_j^{\,r-2}=x_j^{\,r-2}(x_j-x_1).\]</div>
 При $j=1$ это ноль. Верхняя строка не меняется, поэтому в первом столбце остаётся только единица сверху.</li>
 <li><strong>Разложение и вынесение множителей.</strong> Разложение по первому столбцу оставляет определитель на строках $2,\ldots,n$ и столбцах $2,\ldots,n$ со знаком $(-1)^{1+1}=+1$. В бывшем столбце $j$ все элементы кратны $x_j-x_1$. Линейность определителя по этому столбцу даёт вынесение общего множителя, в том числе нулевого. После вынесения в столбце остаются степени $x_j$ от $0$ до $n-2$. Поэтому
-<div class="equation">\[V_n(x_1,\ldots,x_n)
-=\left(\prod_{j=2}^n(x_j-x_1)\right)V_{n-1}(x_2,\ldots,x_n).\]</div></li>
+<div class="equation">\[\begin{aligned}
+V_n(x_1,\ldots,x_n)
+&amp;=\left(\prod_{j=2}^n(x_j-x_1)\right)
+\begin{vmatrix}
+1&amp;\cdots&amp;1\\
+x_2&amp;\cdots&amp;x_n\\
+\vdots&amp;\ddots&amp;\vdots\\
+x_2^{n-2}&amp;\cdots&amp;x_n^{n-2}
+\end{vmatrix}\\
+&amp;=\left(\prod_{j=2}^n(x_j-x_1)\right)V_{n-1}(x_2,\ldots,x_n).
+\end{aligned}\]</div></li>
 <li><strong>Индукция.</strong> Подстановка формулы для $V_{n-1}$ даёт дополнительно $\prod_{2\le i&lt;j\le n}(x_j-x_i)$. Первый множитель учитывает все пары с $i=1$, второй — все пары с $i\ge2$. Вместе это все пары с $1\le i&lt;j\le n$, каждая по одному разу.</li>
 </ol><span class="qed" aria-label="Что и требовалось доказать">□</span></div>
 </div>
-</div><div class="statement theorem" id="vandermonde-nonzero"><div class="block-label">Следствие</div><h3>Критерий равенства нулю</h3>
+</div>
+<div class="statement theorem" id="vandermonde-nonzero"><div class="block-label">Следствие</div><h3>Критерий равенства нулю</h3>
 
 <p>Над полем $F$ выполняется $V_n=0$ тогда и только тогда, когда $x_i=x_j$ хотя бы для одной пары $i\ne j$. Эквивалентно, $V_n\ne0$ при попарно различных $x_j$.</p><div class="proof" id="proof-vandermonde-nonzero" data-proof>
 <div class="proof-controls" role="group" aria-label="Доказательство: Критерий равенства нулю"><span>Доказательство</span><button data-proof-mode="idea">Идея</button><button data-proof-mode="full">Полностью</button><button data-proof-mode="hidden" class="collapse-proof">Свернуть</button></div>
@@ -1526,13 +1645,14 @@ x_1^{n-1}&x_2^{n-1}&\cdots&x_n^{n-1}
 <div class="proof-full" id="full-vandermonde-nonzero" data-proof-full><div class="proof-label">Доказательство</div>
 <p>Если два значения совпадают, один из множителей формулы равен нулю. То же видно непосредственно: соответствующие столбцы одинаковы. Если все значения попарно различны, каждая разность $x_j-x_i$ ненулевая. В поле произведение конечного числа ненулевых элементов ненулевое, поэтому и $V_n\ne0$. Для $n=1$ пар нет и $V_1=1$.</p><span class="qed" aria-label="Что и требовалось доказать">□</span></div>
 </div>
-</div><div class="worked-example" id="vandermonde-example"><div class="block-label">Пример</div><h3>Пример с доски: $V_4(1,2,3,4)$</h3>
+</div>
+<div class="worked-example" id="vandermonde-example"><div class="block-label">Пример</div><h3>Пример с доски: $V_4(1,2,3,4)$</h3>
 
 <div class="equation">\[\begin{aligned}
 V_4(1,2,3,4)
-&=\begin{vmatrix}1&1&1&1\\1&2&3&4\\1&4&9&16\\1&8&27&64\end{vmatrix}\\
-&=(2-1)(3-1)(4-1)(3-2)(4-2)(4-3)\\
-&=1\cdot2\cdot3\cdot1\cdot2\cdot1=12.
+&amp;=\begin{vmatrix}1&amp;1&amp;1&amp;1\\1&amp;2&amp;3&amp;4\\1&amp;4&amp;9&amp;16\\1&amp;8&amp;27&amp;64\end{vmatrix}\\
+&amp;=(2-1)(3-1)(4-1)(3-2)(4-2)(4-3)\\
+&amp;=1\cdot2\cdot3\cdot1\cdot2\cdot1=12.
 \end{aligned}\]</div>
 <p>Шесть множителей соответствуют $\binom42=6$ парам. Если поменять местами $1$ и $2$, в матрице поменяются местами первые два столбца. Поэтому $V_4(2,1,3,4)=-12$.</p>
 </div><p class="note"><strong>Порядок ответа.</strong> В лемме разберите совпадение и различие фиксированных индексов. Объясните, почему вычёркивание изменённой строки или столбца сохраняет дополнение. В вычислении Вандермонда укажите направление преобразований строк, знак разложения по первому столбцу и причину появления ровно всех пар индексов.</p>
